@@ -1,16 +1,8 @@
-﻿// VBConversions Note: VB project level imports
+﻿using System;
 using System.Collections.Generic;
-using System;
-using System.Drawing;
-using System.Diagnostics;
-using System.Data;
-using Microsoft.VisualBasic;
-using System.Collections;
-using System.Windows.Forms;
-// End of VB project level imports
 
 using System.IO;
-//using OSU_player.Core;
+using System.Windows.Forms;
 
 namespace OSU_player
 {

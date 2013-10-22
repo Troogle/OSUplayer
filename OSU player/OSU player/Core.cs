@@ -136,7 +136,7 @@ namespace OSU_player
         public static void Superscanforset()
         {
             if (System.IO.Directory.Exists(System.IO.Path.Combine(osupath, "Songs")))
-                scanforset(System.IO.Path.Combine(osupath, "Songs"));
+                scanforset(System.IO.Path.Combine(osupath, "Songs\\1108"));
         }
         public static void scanforset(string path)
         {
@@ -144,7 +144,7 @@ namespace OSU_player
             if (osufiles.Length != 0)
             {
                 BeatmapSet tmp = new BeatmapSet(path);
-                tmp.GetDetail();
+                //tmp.GetDetail();
                 allsets.Add(tmp);
                 ListViewItem tmpl = new ListViewItem(tmp.name);
                 Form1.Default.ListView1.Items.Add(tmpl);

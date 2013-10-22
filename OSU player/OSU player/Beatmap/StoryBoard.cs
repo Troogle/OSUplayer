@@ -1,18 +1,10 @@
-﻿// VBConversions Note: VB project level imports
+﻿using System;
 using System.Collections.Generic;
-using System;
-using System.Drawing;
-using System.Diagnostics;
-using System.Data;
-using Microsoft.VisualBasic;
-using System.Collections;
-using System.Windows.Forms;
-// End of VB project level imports
 
 
 namespace OSU_player
 {
-    public class StoryBoard
+    public class StoryBoard 
     {
         public List<SBelement> elements = new List<SBelement>();
         //TODO:单独抽取trigger并作索引
@@ -143,18 +135,18 @@ namespace OSU_player
         }
         private string picknext(ref string str)
         {
-            string @ref = "";
+            string ret = "";
             if (!str.Contains(","))
             {
-                @ref = str;
+                ret = str;
                 str = "";
             }
             else
             {
-                @ref = str.Substring(0, str.IndexOf(","));
+                ret = str.Substring(0, str.IndexOf(","));
                 str = str.Substring(str.IndexOf(",") + 1);
             }
-            return @ref;
+            return ret;
         }
         private void dealevent(string str, int element, int delta, ref int currentrow)
         {
@@ -403,22 +395,9 @@ namespace OSU_player
                 while (i < content.Count)
                 {
                     row = content[i];
-                    if (row.Trim() == "")
-                    {
-                        i++;
-                        continue;
-                    }
-                    if (row.StartsWith("//") || row.Length == 0)
-                    {
-                        i++;
-                        continue;
-                    }
-                    if (row.StartsWith("["))
-                    {
-                        Position = row.Substring(1, row.Length - 2);
-                        i++;
-                        continue;
-                    }
+                    if (row.Trim() == "") { i++; continue; }
+                    if (row.StartsWith("//") || row.Length == 0) { i++; continue; }
+                    if (row.StartsWith("[")) { Position = row.Substring(1, row.Length - 2); i++; continue; }
                     switch (Position)
                     {
                         case "Variables":
@@ -433,10 +412,7 @@ namespace OSU_player
                             foreach (SBvar tempLoopVar_tmpvar in Variables)
                             {
                                 tmpvar = tempLoopVar_tmpvar;
-                                if (row.Contains(tmpvar.name))
-                                {
-                                    row.Replace(tmpvar.name, tmpvar.replace);
-                                }
+                                if (row.Contains(tmpvar.name)) { row.Replace(tmpvar.name, tmpvar.replace); }
                             }
                             if (row.StartsWith("Sample") || row.StartsWith("5,"))
                             {
@@ -517,9 +493,9 @@ namespace OSU_player
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw (new FormatException("Failed to read .osb file"));
+                throw (new FormatException("Failed to read .osb file",ex));
             }
         }
     }
