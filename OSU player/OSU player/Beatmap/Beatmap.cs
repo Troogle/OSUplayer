@@ -4,13 +4,15 @@ using System.IO;
 
 namespace OSU_player
 {
-    public class Beatmap
+    public class Beatmap : IComparable<Beatmap>
     {
-
         public string location;
         public string name;
         public string path;
         private string osb;
+        /// <summary>
+        /// Timing Points
+        /// </summary>
         public struct Timing
         {
             public int offset;
@@ -26,6 +28,9 @@ namespace OSU_player
             public int x;
             public int y;
         }
+        /// <summary>
+        /// Hitobjects
+        /// </summary>
         public struct HitObject
         {
             public int x;
@@ -52,20 +57,14 @@ namespace OSU_player
             Mania = 3
         }
         public string[] Rawdata = new string[(int)OSUfile.OSUfilecount];
-        public string FileVersion
-        {
-            get
-            {
-                return Rawdata[(int)OSUfile.FileVersion];
-            }
-        }
-        public string Audio
-        {
-            get
-            {
-                return Rawdata[(int)OSUfile.AudioFilename];
-            }
-        }
+        /// <summary>
+        /// 以下是map属性的获取接口
+        /// </summary>
+        public string FileVersion { get { return Rawdata[(int)OSUfile.FileVersion]; } }
+        public string Audio { get { return Rawdata[(int)OSUfile.AudioFilename]; } }
+        /// <summary>
+        /// 对于不确定有没有值的会有默认值输出
+        /// </summary>
         public int Previewtime
         {
             get
@@ -165,20 +164,8 @@ namespace OSU_player
                 }
             }
         }
-        public string Creator
-        {
-            get
-            {
-                return Rawdata[(int)OSUfile.Creator];
-            }
-        }
-        public string Version
-        {
-            get
-            {
-                return Rawdata[(int)OSUfile.Version];
-            }
-        }
+        public string Creator { get { return Rawdata[(int)OSUfile.Creator]; } }
+        public string Version { get { return Rawdata[(int)OSUfile.Version]; } }
         public string Source
         {
             get
@@ -194,14 +181,8 @@ namespace OSU_player
             }
         }
         private string tags;
-        private List<string> I_tagList = new List<string>();
-        public List<string> Taglist
-        {
-            get
-            {
-                return I_tagList;
-            }
-        }
+        private List<string> tagList = new List<string>();
+        public List<string> Taglist { get { return tagList; } }
         public int beatmapId
         {
             get
@@ -326,7 +307,6 @@ namespace OSU_player
         public List<HitObject> HitObjects = new List<HitObject>();
         public bool haveSB = false;
         public bool haveVideo = false;
-        private List<string> tmpSB = new List<string>();
         private string picknext(ref string str)
         {
             string ret = "";
@@ -361,7 +341,7 @@ namespace OSU_player
         }
         public enum osuFileScanStatus
         {
-            FORMAT_UNKNOWN,
+            VERSION_UNKNOWN,
             GENERAL,
             EDITOR,
             METADATA,
@@ -374,43 +354,28 @@ namespace OSU_player
         }
         public void GetDetail()
         {
+            List<string> tmpSB = new List<string>();
             path = System.IO.Path.Combine(location, name);
             List<string> content = new List<string>();
             content.AddRange(File.ReadAllLines(path));
-            if (osb != "")
-            {
-                content.AddRange(File.ReadAllLines(System.IO.Path.Combine(location, osb)));
-            }
-            osuFileScanStatus position = new osuFileScanStatus();
+            if (osb != null) { content.AddRange(File.ReadAllLines(Path.Combine(location, osb))); }
+            osuFileScanStatus position = osuFileScanStatus.VERSION_UNKNOWN;
             try
             {
-                position = osuFileScanStatus.FORMAT_UNKNOWN;
                 foreach (string row in content)
                 {
-                    if (row.Trim() == "")
-                    {
-                        continue;
-                    }
-                    if (row.StartsWith("//") || row.Length == 0)
-                    {
-                        continue;
-                    }
+                    if (row.Trim() == "") { continue; }
+                    if (row.StartsWith("//") || row.Length == 0) { continue; }
                     if (row.StartsWith("["))
                     {
-                        position = (osuFileScanStatus)Enum.Parse(typeof(osuFileScanStatus),(row.Substring(1, row.Length - 2).ToUpper()));
-                        if (position == osuFileScanStatus.EVENTS)
-                        {
-                            tmpSB.Add("[Events]");
-                        }
-                        if (position == osuFileScanStatus.VARIABLES)
-                        {
-                            tmpSB.Add("[Variables]");
-                        }
+                        position = (osuFileScanStatus)Enum.Parse(typeof(osuFileScanStatus), (row.Substring(1, row.Length - 2).ToUpper()));
+                        if (position == osuFileScanStatus.EVENTS) { tmpSB.Add("[Events]"); }
+                        if (position == osuFileScanStatus.VARIABLES) { tmpSB.Add("[Variables]"); }
                         continue;
                     }
                     switch (position)
                     {
-                        case osuFileScanStatus.FORMAT_UNKNOWN:
+                        case osuFileScanStatus.VERSION_UNKNOWN:
                             Rawdata[(int)OSUfile.FileVersion] = row.Substring(17);
                             break;
                         case osuFileScanStatus.GENERAL:
@@ -438,223 +403,167 @@ namespace OSU_player
                                 VideoOffset = Convert.ToInt32(vdata[1]);
                                 Video = vdata[2].Substring(1, System.Convert.ToInt32(vdata[2].Length - 2));
                             }
-                            else if (row.StartsWith("3,") || row.StartsWith("2,"))
-                            {
-                                break;
-                            }
-                            else
-                            {
-                                tmpSB.Add(row);
-                                haveSB = true;
-                            }
+                            else if (row.StartsWith("3,") || row.StartsWith("2,")) { break; }
+                            else { tmpSB.Add(row); haveSB = true; }
                             break;
                         case osuFileScanStatus.VARIABLES:
                             tmpSB.Add(row);
                             break;
                         case osuFileScanStatus.TIMINGPOINTS:
-                            Timing tmp = new Timing();
-                            string tmpop;
-                            tmpop = "";
-                            string row_t = row;
-                            tmp.offset = (int)(Convert.ToDouble(picknext(ref row_t)));
-                            tmp.bpm = Convert.ToDouble(picknext(ref row_t));
-                            tmpop = picknext(ref row_t);
-                            if (tmpop == "")
                             {
-                                tmp.meter = 4;
+                                Timing Ntiming = new Timing();
+                                string tmpop = "";
+                                string row_t = row;
+                                Ntiming.offset = (int)(Convert.ToDouble(picknext(ref row_t)));
+                                Ntiming.bpm = Convert.ToDouble(picknext(ref row_t));
+                                tmpop = picknext(ref row_t);
+                                if (tmpop == "") { Ntiming.meter = 4; }
+                                else { Ntiming.meter = Convert.ToInt32(tmpop); }
+                                tmpop = picknext(ref row_t);
+                                if (tmpop == "") { Ntiming.sample = new CSample((int)TSample.Normal, 0); }
+                                else { Ntiming.sample = new CSample((int)(TSample)Enum.Parse(typeof(TSample), tmpop), Convert.ToInt32(picknext(ref row_t))); }
+                                tmpop = picknext(ref row_t);
+                                if (tmpop == "") { Ntiming.volume = 100; }
+                                else { Ntiming.volume = Convert.ToInt32(tmpop); }
+                                tmpop = picknext(ref row_t);
+                                if (tmpop == "") { Ntiming.type = 1; }
+                                else { Ntiming.type = Convert.ToInt32(tmpop); }
+                                tmpop = picknext(ref row_t);
+                                if (tmpop == "") { Ntiming.kiai = 0; }
+                                else { Ntiming.kiai = Convert.ToInt32(tmpop); }
+                                if (Ntiming.type == 1)
+                                {
+                                    Ntiming.bpm = 60000 / Ntiming.bpm;
+                                }
+                                else
+                                {
+                                    Ntiming.bpm = -100 / Ntiming.bpm;
+                                }
+                                timingpoints.Add(Ntiming);
+                                break;
                             }
-                            else
-                            {
-                                tmp.meter = Convert.ToInt32(tmpop);
-                            }
-                            tmpop = picknext(ref row_t);
-                            if (tmpop == "")
-                            {
-                                tmp.sample = new CSample((int)TSample.Normal, 0);
-                            }
-                            else
-                            {
-                                tmp.sample = new CSample((int)(TSample)Enum.Parse(typeof(TSample), tmpop), Convert.ToInt32(picknext(ref row_t)));
-                            }
-                            tmpop = picknext(ref row_t);
-                            if (tmpop == "")
-                            {
-                                tmp.volume = 100;
-                            }
-                            else
-                            {
-                                tmp.volume = Convert.ToInt32(tmpop);
-                            }
-                            tmpop = picknext(ref row_t);
-                            if (tmpop == "")
-                            {
-                                tmp.type = 1;
-                            }
-                            else
-                            {
-                                tmp.type = Convert.ToInt32(tmpop);
-                            }
-                            tmpop = picknext(ref row_t);
-                            if (tmpop == "")
-                            {
-                                tmp.kiai = 0;
-                            }
-                            else
-                            {
-                                tmp.kiai = Convert.ToInt32(tmpop);
-                            }
-                            if (tmp.type == 1)
-                            {
-                                tmp.bpm = 60000 / tmp.bpm;
-                            }
-                            else
-                            {
-                                tmp.bpm = -100 / tmp.bpm;
-                            }
-                            timingpoints.Add(tmp);
-                            break;
                         case osuFileScanStatus.HITOBJECTS:
-                            HitObject tmpo = new HitObject();
-                            tmpop = "";
-                            row_t = row;
-                            tmpo.x = Convert.ToInt32(picknext(ref row_t));
-                            tmpo.y = Convert.ToInt32(picknext(ref row_t));
-                            tmpo.starttime = Convert.ToInt32(picknext(ref row_t));
-                            if (check(picknext(ref row_t)) == ObjectFlag.Normal)
                             {
-                                tmpo.allhitsound = Convert.ToInt32(picknext(ref row_t));
-                                tmpop = picknext(ref row_t);
-                                if (tmpop != "")
+                                HitObject NHit = new HitObject();
+                                string tmpop = "";
+                                string row_t = row;
+                                NHit.x = Convert.ToInt32(picknext(ref row_t));
+                                NHit.y = Convert.ToInt32(picknext(ref row_t));
+                                NHit.starttime = Convert.ToInt32(picknext(ref row_t));
+                                switch (check(picknext(ref row_t)))
                                 {
-                                    if (tmpop.Length > 3)
-                                    {
-                                        tmpo.sample = new CSample(Convert.ToInt32(tmpop[0]), Convert.ToInt32(tmpop[4]));
-                                        if (tmpop.Length < 7)
+                                    case ObjectFlag.Normal:
+                                        NHit.allhitsound = Convert.ToInt32(picknext(ref row_t));
+                                        tmpop = picknext(ref row_t);
+                                        if (tmpop != "")
                                         {
-                                            tmpop = tmpop + ":0:";
+                                            if (tmpop.Length > 3)
+                                            {
+                                                NHit.sample = new CSample(Convert.ToInt32(tmpop[0]), Convert.ToInt32(tmpop[4]));
+                                                if (tmpop.Length < 7) { tmpop = tmpop + ":0:"; }
+                                                NHit.A_sample = new CSample(Convert.ToInt32(tmpop[2]), Convert.ToInt32(tmpop[6]));
+                                            }
+                                            else
+                                            {
+                                                NHit.sample = new CSample(Convert.ToInt32(tmpop[0]), Convert.ToInt32(tmpop[2]));
+                                                NHit.A_sample = new CSample((int)TSample.Normal, 0);
+                                            }
                                         }
-                                        tmpo.A_sample = new CSample(Convert.ToInt32(tmpop[2]), Convert.ToInt32(tmpop[6]));
-                                    }
-                                    else
-                                    {
-                                        tmpo.sample = new CSample(Convert.ToInt32(tmpop[0]), Convert.ToInt32(tmpop[2]));
-                                        tmpo.A_sample = new CSample((int)TSample.Normal, 0);
-                                    }
-                                }
-                                else
-                                {
-                                    tmpo.sample = new CSample((int)TSample.Normal, 0);
-                                    tmpo.A_sample = new CSample((int)TSample.Normal, 0);
-                                }
-                            }
-                            else if (check(picknext(ref row_t)) == ObjectFlag.Spinner)
-                            {
-                                tmpo.allhitsound = Convert.ToInt32(picknext(ref row_t));
-                                tmpo.EndTime = Convert.ToInt32(picknext(ref row_t));
-                                tmpop = picknext(ref row_t);
-                                if (tmpop != "")
-                                {
-                                    if (tmpop.Length > 3)
-                                    {
-                                        tmp.sample = new CSample(Convert.ToInt32(tmpop[0]), Convert.ToInt32(tmpop[4]));
-                                        if (tmpop.Length < 7)
+                                        else
                                         {
-                                            tmpop = tmpop + ":0:";
+                                            NHit.sample = new CSample((int)TSample.Normal, 0);
+                                            NHit.A_sample = new CSample((int)TSample.Normal, 0);
                                         }
-                                        tmpo.A_sample = new CSample(Convert.ToInt32(tmpop[2]), Convert.ToInt32(tmpop[6]));
-                                    }
-                                    else
-                                    {
-                                        tmpo.sample = new CSample(Convert.ToInt32(tmpop[0]), Convert.ToInt32(tmpop[2]));
-                                        tmpo.A_sample = new CSample((int)TSample.Normal, 0);
-                                    }
-                                }
-                                else
-                                {
-                                    tmpo.sample = new CSample((int)TSample.Normal, 0);
-                                    tmpo.A_sample = new CSample((int)TSample.Normal, 0);
-                                }
-                            }
-                            else if (check(picknext(ref row_t)) == ObjectFlag.Slider)
-                            {
-                                tmpo.allhitsound = Convert.ToInt32(picknext(ref row_t));
-                                tmpop = picknext(ref row_t);
-                                //ignore all anthor
-                                tmpop = picknext(ref row_t);
-                                if (tmpop != "")
-                                {
-                                    tmpo.repeatcount = Convert.ToInt32(tmpop);
-                                }
-                                else
-                                {
-                                    tmpo.repeatcount = 0;
-                                }
-                                tmpop = picknext(ref row_t);
-                                if (tmpop != "")
-                                {
-                                    tmpo.length = Convert.ToDouble(tmpop);
-                                }
-                                else
-                                {
-                                    tmpo.length = 0;
-                                }
-                                tmpop = picknext(ref row_t);
-                                tmpo.Hitsounds = new List<int>();
-                                tmpo.samples = new List<CSample>();
-                                tmpo.A_samples = new List<CSample>();
-                                if (tmpop != "")
-                                {
-                                    foreach (string str in tmpop.Split(new char[] { '|' }))
-                                    {
-                                        tmpo.Hitsounds.Add(Convert.ToInt32(str));
-                                    }
-                                }
-                                tmpop = picknext(ref row_t);
-                                if (tmpop != "")
-                                {
-                                    foreach (string str in tmpop.Split(new char[] { '|' }))
-                                    {
-                                        tmpo.samples.Add(new CSample(Convert.ToInt32(str[0]), 0));
-                                        tmpo.A_samples.Add(new CSample(Convert.ToInt32(str[2]), 0));
-                                    }
-                                }
-                                tmpop = picknext(ref row_t);
-                                if (tmpop != "")
-                                {
-                                    if (tmpop.Length > 3)
-                                    {
-                                        tmpo.sample = new CSample(Convert.ToInt32(tmpop[0]), Convert.ToInt32(tmpop[4]));
-                                        if (tmpop.Length < 7)
+                                        break;
+                                    case ObjectFlag.Spinner:
+                                        NHit.allhitsound = Convert.ToInt32(picknext(ref row_t));
+                                        NHit.EndTime = Convert.ToInt32(picknext(ref row_t));
+                                        tmpop = picknext(ref row_t);
+                                        if (tmpop != "")
                                         {
-                                            tmpop = tmpop + ":0:";
+                                            if (tmpop.Length > 3)
+                                            {
+                                                NHit.sample = new CSample(Convert.ToInt32(tmpop[0]), Convert.ToInt32(tmpop[4]));
+                                                if (tmpop.Length < 7) { tmpop = tmpop + ":0:"; }
+                                                NHit.A_sample = new CSample(Convert.ToInt32(tmpop[2]), Convert.ToInt32(tmpop[6]));
+                                            }
+                                            else
+                                            {
+                                                NHit.sample = new CSample(Convert.ToInt32(tmpop[0]), Convert.ToInt32(tmpop[2]));
+                                                NHit.A_sample = new CSample((int)TSample.Normal, 0);
+                                            }
                                         }
-                                        tmpo.A_sample = new CSample(Convert.ToInt32(tmpop[2]), Convert.ToInt32(tmpop[6]));
-                                    }
-                                    else
-                                    {
-                                        tmpo.sample = new CSample(Convert.ToInt32(tmpop[0]), Convert.ToInt32(tmpop[2]));
-                                        tmpo.A_sample = new CSample((int)TSample.Normal, 0);
-                                    }
-                                }
-                                else
-                                {
-                                    tmpo.sample = new CSample((int)TSample.Normal, 0);
-                                    tmpo.A_sample = new CSample((int)TSample.Normal, 0);
-                                }
-                                //HitSound,(SampleSet&Addition|SampleSet&Addition),(All SampleSet&Addition)
-                                //SampleSet&Addition 只有sample没有setcount
-                                //All SampleSet&Addition 啥都有
-                                //数值1为不反复
-                                //Length=长度（乘以每小节时间60000/BPM再乘以滑条速度SliderMultiplier为滑条时间长度）
-                                //HitSound S1|S2|S3|S4......Sn 计算公式n=RepeatCount+1
-                            }
-                            else
-                            {
-                                //Throw New FormatException("Failed to read .osu file")
-                                //this is for mania
-                            }
-                            break;
+                                        else
+                                        {
+                                            NHit.sample = new CSample((int)TSample.Normal, 0);
+                                            NHit.A_sample = new CSample((int)TSample.Normal, 0);
+                                        }
+                                        break;
+                                    case ObjectFlag.Slider:
+                                        NHit.allhitsound = Convert.ToInt32(picknext(ref row_t));
+                                        tmpop = picknext(ref row_t);
+                                        //ignore all anthor
+                                        tmpop = picknext(ref row_t);
+                                        if (tmpop != "") { NHit.repeatcount = Convert.ToInt32(tmpop); }
+                                        else { NHit.repeatcount = 0; }
+                                        tmpop = picknext(ref row_t);
+                                        if (tmpop != "") { NHit.length = Convert.ToDouble(tmpop); }
+                                        else { NHit.length = 0; }
+                                        tmpop = picknext(ref row_t);
+                                        NHit.Hitsounds = new List<int>();
+                                        NHit.samples = new List<CSample>();
+                                        NHit.A_samples = new List<CSample>();
+                                        if (tmpop != "")
+                                        {
+                                            foreach (string str in tmpop.Split(new char[] { '|' }))
+                                            {
+                                                NHit.Hitsounds.Add(Convert.ToInt32(str));
+                                            }
+                                        }
+                                        tmpop = picknext(ref row_t);
+                                        if (tmpop != "")
+                                        {
+                                            foreach (string str in tmpop.Split(new char[] { '|' }))
+                                            {
+                                                NHit.samples.Add(new CSample(Convert.ToInt32(str[0]), 0));
+                                                NHit.A_samples.Add(new CSample(Convert.ToInt32(str[2]), 0));
+                                            }
+                                        }
+                                        tmpop = picknext(ref row_t);
+                                        if (tmpop != "")
+                                        {
+                                            if (tmpop.Length > 3)
+                                            {
+                                                NHit.sample = new CSample(Convert.ToInt32(tmpop[0]), Convert.ToInt32(tmpop[4]));
+                                                if (tmpop.Length < 7) { tmpop = tmpop + ":0:"; }
+                                                NHit.A_sample = new CSample(Convert.ToInt32(tmpop[2]), Convert.ToInt32(tmpop[6]));
+                                            }
+                                            else
+                                            {
+                                                NHit.sample = new CSample(Convert.ToInt32(tmpop[0]), Convert.ToInt32(tmpop[2]));
+                                                NHit.A_sample = new CSample((int)TSample.Normal, 0);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            NHit.sample = new CSample((int)TSample.Normal, 0);
+                                            NHit.A_sample = new CSample((int)TSample.Normal, 0);
+                                        } break;
+                                    //HitSound,(SampleSet&Addition|SampleSet&Addition),(All SampleSet&Addition)
+                                    //SampleSet&Addition 只有sample没有setcount
+                                    //All SampleSet&Addition 啥都有
+                                    //数值1为不反复
+                                    //Length=长度（乘以每小节时间60000/BPM再乘以滑条速度SliderMultiplier为滑条时间长度）
+                                    //HitSound S1|S2|S3|S4......Sn 计算公式n=RepeatCount+1
+                                    default:
+                                        //Throw New FormatException("Failed to read .osu file")
+                                        //this is for mania
+                                        break;
 
+                                }
+                                break;
+
+                            }
                     }
                 }
             }
@@ -664,11 +573,11 @@ namespace OSU_player
                 throw (new FormatException("Failed to read .osu file", e));
             }
             tags = Rawdata[(int)OSUfile.Tags];
-            if (tags != "")
+            if (tags != null)
             {
                 foreach (string s in tags.Split(new char[] { ' ' }))
                 {
-                    I_tagList.Add(s);
+                    tagList.Add(s);
                 }
             }
             if (haveSB)
@@ -686,9 +595,12 @@ namespace OSU_player
         {
             return ArtistRomanized + " - " + TitleRomanized + " (" + Creator + " ) [" + Version + "]";
         }
-        //-1 if this beatmap's artist is before the other beatmap's artist
-        //0 if this beatmap's artist AND the beatmap's title is before the other beatmap's artist/title
-        //1 if this beatmap's artist is after the other beatmap's artist
+        /// <summary>
+        /// 比较先后
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns>-1 在前面
+        ///1 在后面</returns>
         public int CompareTo(Beatmap other)
         {
             int artist = this.ArtistRomanized.CompareTo(other.ArtistRomanized);
@@ -701,27 +613,24 @@ namespace OSU_player
                 return artist;
             }
         }
+        /// <summary>
+        /// 判断相等
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public override bool Equals(object obj)
         {
             if (obj is Beatmap)
             {
                 Beatmap b = (Beatmap)obj;
                 if ((b.beatmapId == beatmapId) && (beatmapId != 0))
-                {
-                    return true;
-                }
+                { return true; }
                 return this.ToString().Equals(b.ToString()) && this.Creator.Equals(b.Creator);
             }
             else
-            {
-                return false;
-            }
+            { return false; }
         }
         public string difftostring()
-        {
-            return Version;
-        }
-
-        public string tmpop { get; set; }
+        { return Version; }
     }
 }

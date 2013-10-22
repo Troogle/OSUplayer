@@ -10,6 +10,8 @@ using System.Windows.Forms;
 // End of VB project level imports
 
 using System.IO;
+using System.Runtime.InteropServices;
+using System.Text;
 
 namespace OSU_player
 {
@@ -110,17 +112,11 @@ namespace OSU_player
     {
         public Core()
         {
-            defaultBG = Path.Combine(Application.StartupPath, "default\\") + "defaultBG.png";
-
         }
         public static string osupath;
         public static List<BeatmapSet> allsets = new List<BeatmapSet>();
-        public static string defaultBG;
+        public static string defaultBG = Path.Combine(Application.StartupPath, "default\\") + "defaultBG.png";
         public static string uin;
-        public static string getsong()
-        {
-            return "";
-        }
         public static void Getpath()
         {
             string str = "";
@@ -140,7 +136,7 @@ namespace OSU_player
         public static void Superscanforset()
         {
             if (System.IO.Directory.Exists(System.IO.Path.Combine(osupath, "Songs")))
-                scanforset(System.IO.Path.Combine(osupath, "Songs\\1108"));
+                scanforset(System.IO.Path.Combine(osupath, "Songs"));
         }
         public static void scanforset(string path)
         {
@@ -148,7 +144,7 @@ namespace OSU_player
             if (osufiles.Length != 0)
             {
                 BeatmapSet tmp = new BeatmapSet(path);
-                //tmp.GetDetail()
+                tmp.GetDetail();
                 allsets.Add(tmp);
                 ListViewItem tmpl = new ListViewItem(tmp.name);
                 Form1.Default.ListView1.Items.Add(tmpl);
@@ -163,6 +159,4 @@ namespace OSU_player
             }
         }
     }
-
-
 }
