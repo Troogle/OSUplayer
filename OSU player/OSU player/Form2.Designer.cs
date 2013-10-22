@@ -90,6 +90,7 @@ public partial class Form2 : System.Windows.Forms.Form
             this.Button2.TabIndex = 3;
             this.Button2.Text = "确定";
             this.Button2.UseVisualStyleBackColor = true;
+            this.Button2.Click += new System.EventHandler(this.Button2_Click);
             // 
             // Form2
             // 

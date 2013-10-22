@@ -1,17 +1,7 @@
-﻿// VBConversions Note: VB project level imports
-using System.Collections.Generic;
-using System;
-using System.Drawing;
+﻿using System;
 using System.Diagnostics;
-using System.Data;
-using Microsoft.VisualBasic;
-using System.Collections;
+using System.Drawing;
 using System.Windows.Forms;
-// End of VB project level imports
-
-//using OSU_player.Selfupdate;
-//using OSU_player.Core;
-//using OSU_player.OsuDB;
 
 namespace OSU_player
 {
@@ -103,45 +93,10 @@ namespace OSU_player
 			TrackBar1.Enabled = true;
 			first_P = false;
 		}
-		public void PlayButton_Click(object sender, EventArgs e)
-		{
-			if (PlayButton.Text == "播放")
-			{
-				if (first_P)
-				{
-					Play();
-				}
-				else
-				{
-					uni_Video.Pause();
-				}
-				PlayButton.Text = "暂停";
-			}
-			else
-			{
-				//uni_Video.Pause()
-				//uni_timer.Stop()
-				PlayButton.Text = "播放";
-			}
-		}
-		public void Button1_Click(object sender, EventArgs e)
-		{
-			Form2.Default.Show();
-		}
-		public void ListView1_DoubleClick(object sender, EventArgs e)
-		{
-			Play();
-			PlayButton.Text = "暂停";
-		}
 		public bool ThumbnailCallback()
 		{
 			return false;
 		}
-        private void TrackBar1_MouseUp(object sender, EventArgs e)
-        {
-            uni_Video.seek(TrackBar1.Value / 100 * uni_Video.durnation);
-
-        }
 		public void ListBox1_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			if ((ListBox1.SelectedIndices.Count == 0) || (ListView1.SelectedIndices.Count == 0))
@@ -208,7 +163,42 @@ namespace OSU_player
             setbg();
 
         }
+        private void PlayButton_Click(object sender, EventArgs e)
+        {
+            if (PlayButton.Text == "播放")
+            {
+                if (first_P)
+                {
+                    Play();
+                }
+                else
+                {
+                    uni_Video.Pause();
+                }
+                PlayButton.Text = "暂停";
+            }
+            else
+            {
+                //uni_Video.Pause()
+                //uni_timer.Stop()
+                PlayButton.Text = "播放";
+            }
 
+        }
+        private void TrackBar1_MouseUp(object sender, MouseEventArgs e)
+        {
+            uni_Video.seek(TrackBar1.Value / 100 * uni_Video.durnation);
+
+        }
+        private void ListView1_DoubleClick(object sender, EventArgs e)
+        {
+            Play();
+            PlayButton.Text = "暂停";
+        }
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            Form2.Default.Show();
+        }
 	}
 	
 }

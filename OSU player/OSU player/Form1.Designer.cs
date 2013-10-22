@@ -316,6 +316,7 @@ public partial class Form1 : System.Windows.Forms.Form
             this.PlayButton.TabIndex = 3;
             this.PlayButton.Text = "播放";
             this.PlayButton.UseVisualStyleBackColor = true;
+            this.PlayButton.Click += new System.EventHandler(this.PlayButton_Click);
             // 
             // PreviousButton
             // 
@@ -336,6 +337,7 @@ public partial class Form1 : System.Windows.Forms.Form
             this.TrackBar1.Size = new System.Drawing.Size(363, 28);
             this.TrackBar1.TabIndex = 0;
             this.TrackBar1.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.TrackBar1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TrackBar1_MouseUp);
             // 
             // NextButton
             // 
@@ -363,6 +365,7 @@ public partial class Form1 : System.Windows.Forms.Form
             this.Button1.TabIndex = 9;
             this.Button1.Text = "选择QQ";
             this.Button1.UseVisualStyleBackColor = true;
+            this.Button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // TrackBar2
             // 
@@ -399,6 +402,7 @@ public partial class Form1 : System.Windows.Forms.Form
             this.ListView1.UseCompatibleStateImageBehavior = false;
             this.ListView1.View = System.Windows.Forms.View.Details;
             this.ListView1.SelectedIndexChanged += new System.EventHandler(this.ListView1_SelectedIndexChanged);
+            this.ListView1.DoubleClick += new System.EventHandler(this.ListView1_DoubleClick);
             // 
             // ColumnHeader1
             // 

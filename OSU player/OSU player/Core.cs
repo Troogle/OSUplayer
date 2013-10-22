@@ -13,62 +13,6 @@ using System.IO;
 
 namespace OSU_player
 {
-    public class Core
-    {
-        public Core()
-        {
-            defaultBG = Path.Combine(Application.StartupPath, "default\\") + "defaultBG.png";
-
-        }
-        public static string osupath;
-        public static List<BeatmapSet> allsets = new List<BeatmapSet>();
-        public static string defaultBG;
-        public static string getsong()
-        {
-            return "";
-        }
-        public static void Getpath()
-        {
-            string str = "";
-            try
-            {
-                Microsoft.Win32.RegistryKey rk = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey("osu!\\shell\\open\\command");
-                str = rk.GetValue("").ToString();
-                str = str.Substring(1, str.IndexOf("\"", 1) - 9);
-                osupath = str;
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("读取游戏目录出错! 请手动指定", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                osupath = "";
-            }
-        }
-        public static void Superscanforset()
-        {
-            if (System.IO.Directory.Exists(System.IO.Path.Combine(osupath, "Songs")))
-                scanforset(System.IO.Path.Combine(osupath, "Songs\\1108"));
-        }
-        public static void scanforset(string path)
-        {
-            string[] osufiles = Directory.GetFiles(path, "*.osu");
-            if (osufiles.Length != 0)
-            {
-                BeatmapSet tmp = new BeatmapSet(path);
-                //tmp.GetDetail()
-                allsets.Add(tmp);
-                ListViewItem tmpl = new ListViewItem(tmp.name);
-                Form1.Default.ListView1.Items.Add(tmpl);
-            }
-            else
-            {
-                string[] subfolder = Directory.GetDirectories(path);
-                for (int i = 0; i <= subfolder.Length - 1; i++)
-                {
-                    scanforset(System.IO.Path.Combine(path, subfolder[i]));
-                }
-            }
-        }
-    }
     public enum OSUfile
     {
         FileVersion,
@@ -151,4 +95,62 @@ namespace OSU_player
             this.sample = (TSample)sample;
         }
     }
+    public class Core
+    {
+        public Core()
+        {
+            defaultBG = Path.Combine(Application.StartupPath, "default\\") + "defaultBG.png";
+
+        }
+        public static string osupath;
+        public static List<BeatmapSet> allsets = new List<BeatmapSet>();
+        public static string defaultBG;
+        public static string getsong()
+        {
+            return "";
+        }
+        public static void Getpath()
+        {
+            string str = "";
+            try
+            {
+                Microsoft.Win32.RegistryKey rk = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey("osu!\\shell\\open\\command");
+                str = rk.GetValue("").ToString();
+                str = str.Substring(1, str.IndexOf("\"", 1) - 9);
+                osupath = str;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("读取游戏目录出错! 请手动指定", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                osupath = "";
+            }
+        }
+        public static void Superscanforset()
+        {
+            if (System.IO.Directory.Exists(System.IO.Path.Combine(osupath, "Songs")))
+                scanforset(System.IO.Path.Combine(osupath, "Songs\\1108"));
+        }
+        public static void scanforset(string path)
+        {
+            string[] osufiles = Directory.GetFiles(path, "*.osu");
+            if (osufiles.Length != 0)
+            {
+                BeatmapSet tmp = new BeatmapSet(path);
+                //tmp.GetDetail()
+                allsets.Add(tmp);
+                ListViewItem tmpl = new ListViewItem(tmp.name);
+                Form1.Default.ListView1.Items.Add(tmpl);
+            }
+            else
+            {
+                string[] subfolder = Directory.GetDirectories(path);
+                for (int i = 0; i <= subfolder.Length - 1; i++)
+                {
+                    scanforset(System.IO.Path.Combine(path, subfolder[i]));
+                }
+            }
+        }
+    }
+
+
 }
