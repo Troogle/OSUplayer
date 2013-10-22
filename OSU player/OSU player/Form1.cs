@@ -110,7 +110,7 @@ namespace OSU_player
         private void Form1_Load(object sender, EventArgs e)
         {
             Un4seen.Bass.BassNet.Registration("sqh1994@163.com", "2X280331512622");
-            //check_update()
+            Selfupdate.check_update();
             Core.Getpath();
         }
         private void SearchButton_Click(object sender, EventArgs e)
