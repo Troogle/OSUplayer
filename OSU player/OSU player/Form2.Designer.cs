@@ -81,6 +81,7 @@ public partial class Form2 : System.Windows.Forms.Form
             this.Button1.TabIndex = 2;
             this.Button1.Text = "刷新";
             this.Button1.UseVisualStyleBackColor = true;
+            this.Button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // Button2
             // 

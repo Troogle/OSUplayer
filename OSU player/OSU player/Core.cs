@@ -95,6 +95,17 @@ namespace OSU_player
             this.sample = (TSample)sample;
         }
     }
+    public struct QQInfo
+    {
+        public int uin;
+        public string nick;
+        public QQInfo(int uin, string nick)
+        {
+            this.uin = uin;
+            this.nick = nick;
+        }
+
+    }
     public class Core
     {
         public Core()
@@ -105,6 +116,7 @@ namespace OSU_player
         public static string osupath;
         public static List<BeatmapSet> allsets = new List<BeatmapSet>();
         public static string defaultBG;
+        public static string uin;
         public static string getsong()
         {
             return "";

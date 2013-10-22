@@ -43,7 +43,6 @@ namespace OSU_player
 		}
 		
 #endregion
-		public string uin;
 		public Videofiles uni_Video = new Videofiles();
 		//Public uni_Audio As New Audiofiles
 		public Stopwatch uni_timer = new Stopwatch();

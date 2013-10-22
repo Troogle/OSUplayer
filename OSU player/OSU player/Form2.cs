@@ -43,41 +43,45 @@ namespace OSU_player
 
         #endregion
         public QQ qq = new QQ();
-        List<QQ.QQInfo> @ref = new List<QQ.QQInfo>();
-
-        private void Button1_Click(object sender, EventArgs e)
-        {
-            @ref = qq.GetQQList();
-            ListView1.Clear();
-            ListView1.Columns.Add("ID", 100);
-            ListView1.Columns.Add("昵称", 100);
-            try
-            {
-                for (var i = 0; i <= @ref.Count - 1; i++)
-                {
-                    ListViewItem Tmp = new ListViewItem();
-                    Tmp.Text = (string)(@ref[System.Convert.ToInt32(i)].uin.ToString());
-                    Tmp.SubItems.Add(@ref[System.Convert.ToInt32(i)].nick);
-                    ListView1.Items.Add(Tmp);
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("获取当前在线QQ出错！");
-            }
-        }
-
+        List<QQInfo> tmp = new List<QQInfo>();
         private void Button2_Click(object sender, EventArgs e)
         {
             try
             {
                 Form1.Default.LabelQQ.Text = "当前同步QQ：" + ListView1.SelectedItems[0].Text;
-                Form1.Default.uin = ListView1.SelectedItems[0].Text;
+                Core.uin = ListView1.SelectedItems[0].Text;
                 this.Dispose();
             }
             catch (Exception)
             {
-                MessageBox.Show("别卖萌不选啊-0-");
+                if (ListView1.Items.Count != 0)
+                {
+                    MessageBox.Show("别卖萌不选啊-0-");
+                }
+            }
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            tmp = qq.GetQQList();
+            ListView1.Clear();
+            ListView1.Columns.Add("ID", 100);
+            ListView1.Columns.Add("昵称", 100);
+            try
+            {
+
+                foreach (QQInfo t in tmp)
+                {
+                    ListViewItem Tmp = new ListViewItem();
+                    Tmp.Text = t.uin.ToString();
+                    Tmp.SubItems.Add(t.nick);
+                    ListView1.Items.Add(Tmp);
+                }
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("获取当前在线QQ出错！");
             }
         }
     }
