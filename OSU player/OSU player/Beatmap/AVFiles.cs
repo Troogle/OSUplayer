@@ -269,14 +269,22 @@ namespace OSU_player
         }
         public void Pause()
         {
-            if (videofile.Paused)
+            try
             {
-                videofile.Play();
+                if (videofile.Paused)
+                {
+                    videofile.Play();
+                }
+                else
+                {
+                    videofile.Pause();
+                }
             }
-            else
+            catch (Exception)
             {
-                videofile.Pause();
+                
             }
+
         }
         public void seek(double time)
         {
@@ -284,8 +292,21 @@ namespace OSU_player
         }
         public void Dispose()
         {
-            videofile.Stop();
-            videofile.Dispose();
+            try
+            {
+                            if (videofile.Paused)
+            {
+                videofile.Play();
+            }
+            else
+            {
+                videofile.Pause();
+            }
+            }
+            catch (Exception)
+            {
+                
+            }
         }
     }
 }

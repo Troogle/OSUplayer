@@ -77,6 +77,10 @@ namespace OSU_player
                 uni_Video.init(System.IO.Path.Combine(tmpbm.location, tmpbm.Video));
                 uni_Video.Play(this.Panel1);
             }
+            else 
+            { 
+            uni_Video.Dispose();
+            }
             uni_Audio.init(tmpbm.Audio);
             uni_Audio.Play();
             timer1.Enabled = true;
@@ -159,11 +163,14 @@ namespace OSU_player
             if (PlayButton.Text == "播放")
             {
                     uni_Video.Pause();
+                    uni_Audio.Pause();
                 PlayButton.Text = "暂停";
             }
             else
             {
                 uni_Video.Pause();
+                uni_Audio.Pause();
+                uni_QQ.Send2QQ(Core.uin, "");
                 PlayButton.Text = "播放";
             }
 
