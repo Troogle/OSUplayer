@@ -116,7 +116,7 @@ namespace OSU_player
         public static string osupath;
         public static List<BeatmapSet> allsets = new List<BeatmapSet>();
         public static string defaultBG = Path.Combine(Application.StartupPath, "default\\") + "defaultBG.png";
-        public static string uin;
+        public static int uin;
         public static void Getpath()
         {
             string str = "";
@@ -136,7 +136,7 @@ namespace OSU_player
         public static void Superscanforset()
         {
             if (System.IO.Directory.Exists(System.IO.Path.Combine(osupath, "Songs")))
-                scanforset(System.IO.Path.Combine(osupath, "Songs\\1108"));
+                scanforset(System.IO.Path.Combine(osupath, "Songs\\1108\\"));
         }
         public static void scanforset(string path)
         {

@@ -22,7 +22,7 @@ namespace OSU_player
         /// <param name="Str">推送的内容</param>
         public void Send2QQ(int id, string Str)
         {
-            Process.Start("QSetinfo", id.ToString() + " " + Str);
+            Process.Start("QSetinfo", id.ToString() + " " + "\"" + Str + "\"");
         }
         /// <summary>
         /// 获取目前登陆QQ列表

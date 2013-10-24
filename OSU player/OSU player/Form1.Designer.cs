@@ -30,15 +30,15 @@ public partial class Form1 : System.Windows.Forms.Form
 				base.Dispose(disposing);
 			}
 		}
-		
-		//Windows 窗体设计器所必需的
-		private System.ComponentModel.Container components = null;
+
+        //Windows 窗体设计器所必需的
 		
 		//注意: 以下过程是 Windows 窗体设计器所必需的
 		//可以使用 Windows 窗体设计器修改它。
 		//不要使用代码编辑器修改它。
 		[System.Diagnostics.DebuggerStepThrough()]private void InitializeComponent()
 		{
+            this.components = new System.ComponentModel.Container();
             this.Panel1 = new System.Windows.Forms.Panel();
             this.MenuStrip1 = new System.Windows.Forms.MenuStrip();
             this.ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -89,6 +89,7 @@ public partial class Form1 : System.Windows.Forms.Form
             this.ColumnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ColumnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.button3 = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.MenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TrackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrackBar2)).BeginInit();
@@ -333,11 +334,12 @@ public partial class Form1 : System.Windows.Forms.Form
             this.TrackBar1.AutoSize = false;
             this.TrackBar1.Enabled = false;
             this.TrackBar1.Location = new System.Drawing.Point(503, 433);
-            this.TrackBar1.Maximum = 100;
+            this.TrackBar1.Maximum = 1000;
             this.TrackBar1.Name = "TrackBar1";
             this.TrackBar1.Size = new System.Drawing.Size(363, 28);
             this.TrackBar1.TabIndex = 0;
             this.TrackBar1.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.TrackBar1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TrackBar1_MouseDown);
             this.TrackBar1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TrackBar1_MouseUp);
             // 
             // NextButton
@@ -521,6 +523,10 @@ public partial class Form1 : System.Windows.Forms.Form
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -611,6 +617,8 @@ public partial class Form1 : System.Windows.Forms.Form
 		internal System.Windows.Forms.ColumnHeader ColumnHeader2;
 		internal System.Windows.Forms.ColumnHeader ColumnHeader3;
         private Button button3;
+        private Timer timer1;
+        private System.ComponentModel.IContainer components;
 		
 	}
 	

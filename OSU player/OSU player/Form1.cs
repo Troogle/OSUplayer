@@ -44,9 +44,8 @@ namespace OSU_player
 
         #endregion
         public Videofiles uni_Video = new Videofiles();
-        //Public uni_Audio As New Audiofiles
-        public Stopwatch uni_timer = new Stopwatch();
-        public bool first_P = true;
+        public Audiofiles uni_Audio = new Audiofiles();
+        public QQ uni_QQ = new QQ();
         BeatmapSet tmp;
         Beatmap tmpbm;
         public void AskForExit(object sender, System.Windows.Forms.FormClosingEventArgs e)
@@ -65,15 +64,7 @@ namespace OSU_player
         private void setbg()
         {
             System.Drawing.Image tmpimg = default(System.Drawing.Image);
-            string bgpath = "";
-            if (tmpbm.background == "")
-            {
-                bgpath = Core.defaultBG;
-            }
-            else
-            {
-                bgpath = System.IO.Path.Combine(tmpbm.location, tmpbm.background);
-            }
+            string bgpath = tmpbm.Background;
             tmpimg = Image.FromFile(bgpath);
             Image.GetThumbnailImageAbort myCallback = new Image.GetThumbnailImageAbort(ThumbnailCallback);
             Panel1.BackgroundImage = tmpimg.GetThumbnailImage(Panel1.Width, Panel1.Height, myCallback, IntPtr.Zero);
@@ -81,16 +72,16 @@ namespace OSU_player
         }
         private void Play()
         {
-            uni_timer.Start();
             if (tmpbm.haveVideo)
             {
                 uni_Video.init(System.IO.Path.Combine(tmpbm.location, tmpbm.Video));
                 uni_Video.Play(this.Panel1);
-                uni_Video.Pause();
-                uni_Video.Pause();
             }
+            uni_Audio.init(tmpbm.Audio);
+            uni_Audio.Play();
+            timer1.Enabled = true;
             TrackBar1.Enabled = true;
-            first_P = false;
+            uni_QQ.Send2QQ(Core.uin, tmp.name);
         }
         public bool ThumbnailCallback()
         {
@@ -104,8 +95,8 @@ namespace OSU_player
             }
             tmpbm = tmp.Diffs[ListBox1.SelectedIndex];
             setbg();
-            first_P = true;
-            PlayButton.Text = "播放";
+            PlayButton.Text = "暂停";
+            Play();
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -160,44 +151,27 @@ namespace OSU_player
                 tmpl.SubItems.Add(tmpbm.Rawdata[i]);
                 ListDetail.Items.Add(tmpl);
             }
-            try
-            {
-                uni_Video.dispose();
-                TrackBar1.Enabled = false;
-            }
-            catch (Exception)
-            {
-
-            }
-
+            TrackBar1.Enabled = false;
             setbg();
-
         }
         private void PlayButton_Click(object sender, EventArgs e)
         {
             if (PlayButton.Text == "播放")
             {
-                if (first_P)
-                {
-                    Play();
-                }
-                else
-                {
                     uni_Video.Pause();
-                }
                 PlayButton.Text = "暂停";
             }
             else
             {
-                //uni_Video.Pause()
-                //uni_timer.Stop()
+                uni_Video.Pause();
                 PlayButton.Text = "播放";
             }
 
         }
         private void TrackBar1_MouseUp(object sender, MouseEventArgs e)
         {
-            uni_Video.seek(TrackBar1.Value / 100 * uni_Video.durnation);
+            uni_Audio.seek(TrackBar1.Value * uni_Audio.durnation / TrackBar1.Maximum);
+            timer1.Enabled = true;
 
         }
         private void ListView1_DoubleClick(object sender, EventArgs e)
@@ -221,6 +195,18 @@ namespace OSU_player
                 Console.WriteLine(ex.StackTrace);
                 throw (new FormatException("Failed to read song path", ex));
             }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+         if (uni_Audio.durnation!=0) {
+             TrackBar1.Value = (int)Math.Round((uni_Audio.position / uni_Audio.durnation) * TrackBar1.Maximum);
+         }
+        }
+
+        private void TrackBar1_MouseDown(object sender, MouseEventArgs e)
+        {
+            timer1.Enabled = false;
         }
     }
 

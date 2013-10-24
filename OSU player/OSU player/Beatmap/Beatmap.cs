@@ -61,7 +61,7 @@ namespace OSU_player
         /// 以下是map属性的获取接口
         /// </summary>
         public string FileVersion { get { return Rawdata[(int)OSUfile.FileVersion]; } }
-        public string Audio { get { return Rawdata[(int)OSUfile.AudioFilename]; } }
+        public string Audio { get { return Path.Combine(location, Rawdata[(int)OSUfile.AudioFilename]); } }
         /// <summary>
         /// 对于不确定有没有值的会有默认值输出
         /// </summary>
@@ -295,7 +295,15 @@ namespace OSU_player
                 }
             }
         }
-        public string background = "";
+        private string background = "";
+        public string Background
+        {
+            get
+            {
+                if (background == "") { return Core.defaultBG; }
+                else { return Path.Combine(location, background); }
+            }
+        }
         public string backgroundOffset = "";
         public string Video;
         public int VideoOffset;

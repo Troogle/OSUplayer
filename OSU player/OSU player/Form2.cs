@@ -49,7 +49,7 @@ namespace OSU_player
             try
             {
                 Form1.Default.LabelQQ.Text = "当前同步QQ：" + ListView1.SelectedItems[0].Text;
-                Core.uin = ListView1.SelectedItems[0].Text;
+                Core.uin = Convert.ToInt32(ListView1.SelectedItems[0].Text);
                 this.Dispose();
             }
             catch (Exception)
