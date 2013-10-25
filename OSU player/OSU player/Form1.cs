@@ -60,6 +60,7 @@ namespace OSU_player
             {
                 e.Cancel = true;
             }
+            uni_QQ.Send2QQ(Core.uin,"");
         }
         private void setbg()
         {

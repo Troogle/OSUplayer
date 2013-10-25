@@ -22,7 +22,15 @@ namespace OSU_player
         /// <param name="Str">推送的内容</param>
         public void Send2QQ(int id, string Str)
         {
-            Process.Start("QSetinfo", id.ToString() + " " + "\"" + Str + "\"");
+            object objAdmin = null;
+            Type objAdminType = Type.GetTypeFromProgID("QQCPHelper.CPAdder");
+            Object[] args=new object[4];
+            args[0] = id;
+            args[1] = 65542;
+            args[2] = Str;
+            args[3] = "";
+            objAdmin = System.Activator.CreateInstance(objAdminType);
+            objAdminType.InvokeMember("PutRSInfo", System.Reflection.BindingFlags.InvokeMethod, null, objAdmin, args);
         }
         /// <summary>
         /// 获取目前登陆QQ列表
