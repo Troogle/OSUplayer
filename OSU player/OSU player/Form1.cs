@@ -60,7 +60,11 @@ namespace OSU_player
             {
                 e.Cancel = true;
             }
-            uni_QQ.Send2QQ(Core.uin,"");
+            uni_QQ.Send2QQ(Core.uin, "");
+        }
+        public bool ThumbnailCallback()
+        {
+            return false;
         }
         private void setbg()
         {
@@ -73,24 +77,63 @@ namespace OSU_player
         }
         private void Play()
         {
+            uni_Video.Dispose();
             if (tmpbm.haveVideo)
             {
                 uni_Video.init(System.IO.Path.Combine(tmpbm.location, tmpbm.Video));
-                uni_Video.Play(this.Panel1);
-            }
-            else 
-            { 
-            uni_Video.Dispose();
-            }
+            } 
             uni_Audio.init(tmpbm.Audio);
             uni_Audio.Play();
-            timer1.Enabled = true;
             TrackBar1.Enabled = true;
             uni_QQ.Send2QQ(Core.uin, tmp.name);
+            PlayButton.Text = "暂停";
         }
-        public bool ThumbnailCallback()
+        private void Pause()
         {
-            return false;
+            uni_Video.Pause();
+            uni_Audio.Pause();
+            AVsyncer.Enabled = false;
+            uni_QQ.Send2QQ(Core.uin, "");
+            PlayButton.Text = "播放";
+
+        }
+        private void Resume()
+        {      
+            uni_Video.Pause();
+            uni_Audio.Pause();
+            AVsyncer.Enabled = true;
+            PlayButton.Text = "暂停";
+        }
+        private void printdetail()
+        {
+            ListDetail.Items.Clear();
+            for (int i = (int)OSUfile.FileVersion; i < (int)OSUfile.OSUfilecount; i++)
+            {
+                ListViewItem tmpl = new ListViewItem(i.ToString());
+                tmpl.SubItems.Add(tmpbm.Rawdata[i]);
+                ListDetail.Items.Add(tmpl);
+            }
+        }
+        private void ListView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ListView1.SelectedIndices.Count == 0)
+            {
+                return;
+            }
+            ListBox1.Items.Clear();
+            tmp = Core.allsets[ListView1.SelectedIndices[0]];
+            if (!tmp.detailed)
+            {
+                tmp.GetDetail();
+            }
+            foreach (var s in tmp.diffstr)
+            {
+                ListBox1.Items.Add(s);
+            }
+            tmpbm = tmp.Diffs[0];
+            printdetail();
+            TrackBar1.Enabled = false;
+            setbg();
         }
         public void ListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -99,8 +142,8 @@ namespace OSU_player
                 return;
             }
             tmpbm = tmp.Diffs[ListBox1.SelectedIndex];
+            printdetail();
             setbg();
-            PlayButton.Text = "暂停";
             Play();
         }
         private void Form1_Load(object sender, EventArgs e)
@@ -132,66 +175,32 @@ namespace OSU_player
                 }
             }
         }
-        private void ListView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ListView1.SelectedIndices.Count == 0)
-            {
-                return;
-            }
-            ListBox1.Items.Clear();
-            ListDetail.Items.Clear();
-            tmp = Core.allsets[ListView1.SelectedIndices[0]];
-            if (!tmp.detailed)
-            {
-                tmp.GetDetail();
-            }
-            foreach (var s in tmp.diffstr)
-            {
-                ListBox1.Items.Add(s);
-            }
-            tmpbm = tmp.Diffs[0];
-            for (int i = (int)OSUfile.FileVersion; i < (int)OSUfile.OSUfilecount; i++)
-            {
-                ListViewItem tmpl = new ListViewItem(i.ToString());
-                tmpl.SubItems.Add(tmpbm.Rawdata[i]);
-                ListDetail.Items.Add(tmpl);
-            }
-            TrackBar1.Enabled = false;
-            setbg();
-        }
         private void PlayButton_Click(object sender, EventArgs e)
         {
             if (PlayButton.Text == "播放")
             {
-                    uni_Video.Pause();
-                    uni_Audio.Pause();
-                PlayButton.Text = "暂停";
-            }
+                Resume();
+             }
             else
             {
-                uni_Video.Pause();
-                uni_Audio.Pause();
-                uni_QQ.Send2QQ(Core.uin, "");
-                PlayButton.Text = "播放";
+                Pause();
             }
 
         }
         private void TrackBar1_MouseUp(object sender, MouseEventArgs e)
         {
             uni_Audio.seek(TrackBar1.Value * uni_Audio.durnation / TrackBar1.Maximum);
-            timer1.Enabled = true;
-
+            uni_Video.seek(TrackBar1.Value * uni_Audio.durnation / TrackBar1.Maximum + tmpbm.VideoOffset);
+            AVsyncer.Enabled = true;
         }
         private void ListView1_DoubleClick(object sender, EventArgs e)
         {
             Play();
-            PlayButton.Text = "暂停";
         }
         private void Button1_Click(object sender, EventArgs e)
         {
             Form2.Default.Show();
         }
-
         private void button3_Click(object sender, EventArgs e)
         {
             try
@@ -204,17 +213,24 @@ namespace OSU_player
                 throw (new FormatException("Failed to read song path", ex));
             }
         }
-
-        private void timer1_Tick(object sender, EventArgs e)
+        private void AVsync(object sender, EventArgs e)
         {
-         if (uni_Audio.durnation!=0) {
-             TrackBar1.Value = (int)Math.Round((uni_Audio.position / uni_Audio.durnation) * TrackBar1.Maximum);
-         }
+            if (uni_Audio.durnation != 0)
+            {
+                TrackBar1.Value = (int)Math.Round((uni_Audio.position / uni_Audio.durnation) * TrackBar1.Maximum);
+                if (tmpbm.haveVideo)
+                {
+                    if (uni_Audio.position + tmpbm.VideoOffset > 0)
+                    {
+                        if (!uni_Video.isplaying) { uni_Video.Play(this.Panel1); }
+                        //else { uni_Video.seek(uni_Audio.position + tmpbm.VideoOffset); }
+                    }
+                }
+            }
         }
-
         private void TrackBar1_MouseDown(object sender, MouseEventArgs e)
         {
-            timer1.Enabled = false;
+            AVsyncer.Enabled = false;
         }
     }
 

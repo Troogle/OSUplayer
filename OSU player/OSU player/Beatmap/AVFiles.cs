@@ -207,7 +207,7 @@ namespace OSU_player
             catch (Exception)
             {
             }
-            audiofile=new Audio(path,true);
+            audiofile = new Audio(path, true);
         }
         public void Play()
         {
@@ -231,7 +231,7 @@ namespace OSU_player
     }
     public class Videofiles
     {
-        private Video videofile;
+        private Video videofile = new Video(Core.defaultBG);
         public double durnation
         {
             get
@@ -246,21 +246,15 @@ namespace OSU_player
                 return videofile.CurrentPosition;
             }
         }
+        public bool isplaying { get { return videofile.Playing; } }
         public void init(string path)
         {
-            try
-            {
-                videofile.Dispose();
-            }
-            catch (Exception)
-            {
-            }
-            videofile = new Video(path,true); 
+            videofile = new Video(path);
         }
         public void Play(System.Windows.Forms.Panel panel)
         {
-            int height = panel.Height;
-            int width = panel.Width;
+            int height = 360;
+            int width = 480;
             videofile.Owner = panel;
             panel.Width = width;
             panel.Height = height;
@@ -282,7 +276,7 @@ namespace OSU_player
             }
             catch (Exception)
             {
-                
+
             }
 
         }
@@ -294,18 +288,13 @@ namespace OSU_player
         {
             try
             {
-                            if (videofile.Paused)
-            {
-                videofile.Play();
-            }
-            else
-            {
-                videofile.Pause();
-            }
+                videofile.Stop();
+                videofile.Owner = null;
+                videofile.Dispose();
             }
             catch (Exception)
             {
-                
+
             }
         }
     }

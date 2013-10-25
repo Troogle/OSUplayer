@@ -136,7 +136,7 @@ namespace OSU_player
         public static void Superscanforset()
         {
             if (System.IO.Directory.Exists(System.IO.Path.Combine(osupath, "Songs")))
-                scanforset(System.IO.Path.Combine(osupath, "Songs\\1108\\"));
+                scanforset(System.IO.Path.Combine(osupath, "Songs"));
         }
         public static void scanforset(string path)
         {
