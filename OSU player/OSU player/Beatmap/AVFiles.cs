@@ -1,16 +1,5 @@
-// VBConversions Note: VB project level imports
-using System.Collections.Generic;
-using System;
-using System.Drawing;
-using System.Diagnostics;
-using System.Data;
-using Microsoft.VisualBasic;
-using System.Collections;
-using System.Windows.Forms;
-// End of VB project level imports
-
 using Microsoft.DirectX.AudioVideoPlayback;
-using Un4seen.Bass;
+using System;
 
 namespace OSU_player
 {
@@ -183,31 +172,14 @@ namespace OSU_player
      */
     public class Audiofiles
     {
-        private Audio audiofile;
-        public double durnation
-        {
-            get
-            {
-                return audiofile.Duration;
-            }
-        }
-        public double position
-        {
-            get
-            {
-                return audiofile.CurrentPosition;
-            }
-        }
+        private Audio audiofile = new Audio(Core.defaultAudio);
+        public double durnation { get { return audiofile.Duration; } }
+        public double position { get { return audiofile.CurrentPosition; } }
+        public bool isstopped { get { return audiofile.Stopped; } }
+        public bool isplaying { get { return audiofile.Playing; } }
         public void init(string path)
         {
-            try
-            {
-                audiofile.Dispose();
-            }
-            catch (Exception)
-            {
-            }
-            audiofile = new Audio(path, true);
+            audiofile.Open(path);
         }
         public void Play()
         {
@@ -224,6 +196,10 @@ namespace OSU_player
                 audiofile.Pause();
             }
         }
+        public void Stop()
+        {
+            audiofile.Stop();
+        }
         public void seek(double time)
         {
             audiofile.SeekCurrentPosition(time * 10000000, SeekPositionFlags.AbsolutePositioning);
@@ -232,22 +208,14 @@ namespace OSU_player
     public class Videofiles
     {
         private Video videofile = new Video(Core.defaultBG);
-        public double durnation
-        {
-            get
-            {
-                return videofile.Duration;
-            }
-        }
-        public double position
-        {
-            get
-            {
-                return videofile.CurrentPosition;
-            }
-        }
-        public bool isplaying { get { return videofile.Playing; } }
+        public double durnation { get { return videofile.Duration; } }
+        public double position { get { return videofile.CurrentPosition; } }
+        public bool isstopped { get { return videofile.Stopped; } }
         public void init(string path)
+        {
+            videofile.Open(path);
+        }
+        public void initbg(string path)
         {
             videofile = new Video(path);
         }
@@ -276,26 +244,21 @@ namespace OSU_player
             }
             catch (Exception)
             {
-
+                
             }
+
 
         }
         public void seek(double time)
         {
             videofile.SeekCurrentPosition(time * 10000000, SeekPositionFlags.AbsolutePositioning);
         }
-        public void Dispose()
+        public void Stop()
         {
-            try
-            {
-                videofile.Stop();
-                videofile.Owner = null;
-                videofile.Dispose();
-            }
-            catch (Exception)
-            {
+            videofile.Owner = null;
+            videofile.Stop();
+            videofile.Dispose();
 
-            }
         }
     }
 }

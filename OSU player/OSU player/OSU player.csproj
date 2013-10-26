@@ -49,6 +49,9 @@
     <Compile Include="Beatmap\AVFiles.cs" />
     <Compile Include="Beatmap\Beatmap.cs" />
     <Compile Include="Beatmap\BeatmapSet.cs" />
+    <Compile Include="ToolStripRadioButtonMenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Core.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

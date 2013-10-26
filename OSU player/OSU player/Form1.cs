@@ -2,7 +2,9 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
-
+using System.Threading;
+using System.ComponentModel;
+using System.IO;
 namespace OSU_player
 {
     public partial class Form1
@@ -46,8 +48,11 @@ namespace OSU_player
         public Videofiles uni_Video = new Videofiles();
         public Audiofiles uni_Audio = new Audiofiles();
         public QQ uni_QQ = new QQ();
-        BeatmapSet tmp;
-        Beatmap tmpbm;
+       // Thread DelayVideo = new Thread((delegate() { Thread.Sleep(10); }));
+        BeatmapSet CurrentSet;
+        Beatmap CurrentBeatmap;
+        BeatmapSet TmpSet;
+        Beatmap TmpBeatmap;
         public void AskForExit(object sender, System.Windows.Forms.FormClosingEventArgs e)
         {
             DialogResult close;
@@ -66,84 +71,146 @@ namespace OSU_player
         {
             return false;
         }
-        private void setbg()
-        {
-            System.Drawing.Image tmpimg = default(System.Drawing.Image);
-            string bgpath = tmpbm.Background;
-            tmpimg = Image.FromFile(bgpath);
-            Image.GetThumbnailImageAbort myCallback = new Image.GetThumbnailImageAbort(ThumbnailCallback);
-            Panel1.BackgroundImage = tmpimg.GetThumbnailImage(Panel1.Width, Panel1.Height, myCallback, IntPtr.Zero);
-            tmpimg.Dispose();
-        }
-        private void Play()
-        {
-            uni_Video.Dispose();
-            if (tmpbm.haveVideo)
-            {
-                uni_Video.init(System.IO.Path.Combine(tmpbm.location, tmpbm.Video));
-            } 
-            uni_Audio.init(tmpbm.Audio);
-            uni_Audio.Play();
-            TrackBar1.Enabled = true;
-            uni_QQ.Send2QQ(Core.uin, tmp.name);
-            PlayButton.Text = "暂停";
-        }
-        private void Pause()
-        {
-            uni_Video.Pause();
-            uni_Audio.Pause();
-            AVsyncer.Enabled = false;
-            uni_QQ.Send2QQ(Core.uin, "");
-            PlayButton.Text = "播放";
-
-        }
-        private void Resume()
-        {      
-            uni_Video.Pause();
-            uni_Audio.Pause();
-            AVsyncer.Enabled = true;
-            PlayButton.Text = "暂停";
-        }
         private void printdetail()
         {
             ListDetail.Items.Clear();
             for (int i = (int)OSUfile.FileVersion; i < (int)OSUfile.OSUfilecount; i++)
             {
                 ListViewItem tmpl = new ListViewItem(i.ToString());
-                tmpl.SubItems.Add(tmpbm.Rawdata[i]);
+                tmpl.SubItems.Add(TmpBeatmap.Rawdata[i]);
                 ListDetail.Items.Add(tmpl);
             }
         }
+        private void setbg()
+        {
+            printdetail();
+            //System.Drawing.Image tmpimg = default(System.Drawing.Image);
+          //  string bgpath = CurrentBeatmap.Background;
+           // tmpimg = Image.FromFile(bgpath);
+           // Image.GetThumbnailImageAbort myCallback = new Image.GetThumbnailImageAbort(ThumbnailCallback);
+           // Panel1.BackgroundImage = tmpimg.GetThumbnailImage(Panel1.Width, Panel1.Height, myCallback, IntPtr.Zero);
+           // tmpimg.Dispose();
+            uni_Video.initbg(CurrentBeatmap.Background);
+            uni_Video.Play(this.Panel1);
+        }
+        private void Stop()
+        {
+            AVsyncer.Enabled = false;
+            uni_Audio.Stop();
+            uni_Video.Stop();
+            TrackBar1.Enabled = false;
+            TrackBar1.Value = 0;
+          //  DelayVideo.Abort();
+        }
+        private void Play()
+        {
+            Stop();
+            setbg();
+            if (CurrentBeatmap.haveVideo)
+            {
+                uni_Video.init(Path.Combine(CurrentBeatmap.location, CurrentBeatmap.Video));
+               if (CurrentBeatmap.VideoOffset > 0)
+            //    {
+            //        DelayVideo = new Thread((delegate()
+                    {
+                        Thread.Sleep(CurrentBeatmap.VideoOffset);
+        //                uni_Video.Play(this.Panel1);
+         //           }));
+         //           DelayVideo.Start();
+                }
+                else { uni_Video.Play(this.Panel1); }
+            }
+            uni_Audio.init(CurrentBeatmap.Audio);
+            uni_Audio.Play();
+            TrackBar1.Enabled = true;
+            AVsyncer.Enabled = true;
+            uni_QQ.Send2QQ(Core.uin, CurrentBeatmap.name);
+            PlayButton.Text = "暂停";
+        }
+        private void Pause()
+        {
+            uni_Video.Pause();
+            uni_Audio.Pause();
+            uni_QQ.Send2QQ(Core.uin, "");
+            PlayButton.Text = "播放";
+
+        }
+        private void Resume()
+        {
+            uni_Video.Pause();
+            uni_Audio.Pause();
+            AVsyncer.Enabled = true;
+            PlayButton.Text = "暂停";
+        }
+
         private void ListView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListBox1.Items.Clear();
+            if (ListView1.FocusedItem == null) { return; }
+            TmpSet = Core.allsets[ListView1.FocusedItem.Index];
+            if (!TmpSet.detailed)
+            {
+                TmpSet.GetDetail();
+            }
+            foreach (var s in TmpSet.diffstr)
+            {
+                ListBox1.Items.Add(s);
+            }
+            ListBox1.SelectedIndex = 0;
+            //因为改变selectedindex会触发listbox的进程，所以以下省略了
+            /*  if (uni_Audio.isstopped)
+              {
+                  CurrentSet = TmpSet;
+                  CurrentBeatmap = TmpBeatmap;
+                  setbg();
+              }
+              else if (uni_Audio.isplaying)
+              {
+                  printdetail();
+              }
+              else
+              {
+                  Stop();
+                  setbg();
+              }*/
+        }
+        public void ListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ListView1.SelectedIndices.Count == 0)
             {
                 return;
             }
-            ListBox1.Items.Clear();
-            tmp = Core.allsets[ListView1.SelectedIndices[0]];
-            if (!tmp.detailed)
+            TmpBeatmap = TmpSet.Diffs[ListBox1.SelectedIndex];
+            if (uni_Audio.isstopped)
             {
-                tmp.GetDetail();
+                CurrentSet = TmpSet;
+                CurrentBeatmap = TmpBeatmap;
+                setbg();
             }
-            foreach (var s in tmp.diffstr)
+            else if (uni_Audio.isplaying)
             {
-                ListBox1.Items.Add(s);
+                printdetail();
             }
-            tmpbm = tmp.Diffs[0];
-            printdetail();
-            TrackBar1.Enabled = false;
-            setbg();
+            else
+            {
+                Stop();
+                setbg();
+            }
         }
-        public void ListBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void ListView1_DoubleClick(object sender, EventArgs e)
         {
-            if ((ListBox1.SelectedIndices.Count == 0) || (ListView1.SelectedIndices.Count == 0))
-            {
-                return;
-            }
-            tmpbm = tmp.Diffs[ListBox1.SelectedIndex];
-            printdetail();
-            setbg();
+            TmpSet = Core.allsets[ListView1.FocusedItem.Index];
+            TmpBeatmap = TmpSet.Diffs[0];
+            CurrentSet = TmpSet;
+            CurrentBeatmap = TmpBeatmap;
+            Play();
+        }
+        private void ListBox1_DoubleClick(object sender, EventArgs e)
+        {
+            TmpSet = Core.allsets[ListView1.FocusedItem.Index];
+            TmpBeatmap = TmpSet.Diffs[ListBox1.SelectedIndex];
+            CurrentSet = TmpSet;
+            CurrentBeatmap = TmpBeatmap;
             Play();
         }
         private void Form1_Load(object sender, EventArgs e)
@@ -180,7 +247,7 @@ namespace OSU_player
             if (PlayButton.Text == "播放")
             {
                 Resume();
-             }
+            }
             else
             {
                 Pause();
@@ -190,12 +257,8 @@ namespace OSU_player
         private void TrackBar1_MouseUp(object sender, MouseEventArgs e)
         {
             uni_Audio.seek(TrackBar1.Value * uni_Audio.durnation / TrackBar1.Maximum);
-            uni_Video.seek(TrackBar1.Value * uni_Audio.durnation / TrackBar1.Maximum + tmpbm.VideoOffset);
+            uni_Video.seek(TrackBar1.Value * uni_Audio.durnation / TrackBar1.Maximum + CurrentBeatmap.VideoOffset);
             AVsyncer.Enabled = true;
-        }
-        private void ListView1_DoubleClick(object sender, EventArgs e)
-        {
-            Play();
         }
         private void Button1_Click(object sender, EventArgs e)
         {
@@ -205,7 +268,10 @@ namespace OSU_player
         {
             try
             {
-                Core.Superscanforset();
+                if (Directory.Exists(Path.Combine(Core.osupath, "Songs")))
+                {
+                    this.backgroundWorker1.RunWorkerAsync(Path.Combine(Core.osupath, "Songs"));
+                }
             }
             catch (SystemException ex)
             {
@@ -218,19 +284,69 @@ namespace OSU_player
             if (uni_Audio.durnation != 0)
             {
                 TrackBar1.Value = (int)Math.Round((uni_Audio.position / uni_Audio.durnation) * TrackBar1.Maximum);
-                if (tmpbm.haveVideo)
-                {
-                    if (uni_Audio.position + tmpbm.VideoOffset > 0)
-                    {
-                        if (!uni_Video.isplaying) { uni_Video.Play(this.Panel1); }
-                        //else { uni_Video.seek(uni_Audio.position + tmpbm.VideoOffset); }
-                    }
-                }
             }
         }
         private void TrackBar1_MouseDown(object sender, MouseEventArgs e)
         {
             AVsyncer.Enabled = false;
+        }
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            scanforset(e.Argument.ToString());
+        }
+        public void scanforset(string path)
+        {
+            string[] osufiles = Directory.GetFiles(path, "*.osu");
+            if (osufiles.Length != 0)
+            {
+                BeatmapSet tmp = new BeatmapSet(path);
+                //tmp.GetDetail();
+                Core.allsets.Add(tmp);
+                this.backgroundWorker1.ReportProgress(0, "");
+                this.backgroundWorker1.ReportProgress(1, tmp.name);
+            }
+            else
+            {
+                string[] tmpfolder = Directory.GetDirectories(path);
+                foreach (string subfolder in tmpfolder)
+                {
+                    scanforset(subfolder);
+                }
+            }
+        }
+        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            if (this.IsHandleCreated)
+            {
+                Invoke((EventHandler)delegate
+                {
+                    if (e.UserState.ToString().Length > 0)
+                    {
+                        ListViewItem tmpl = new ListViewItem(e.UserState.ToString());
+                        Form1.Default.ListView1.Items.Add(tmpl);
+                    }
+                });
+            }
+        }
+
+        private void 随机播放ToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (随机播放ToolStripMenuItem1.Checked) { return; }
+            顺序播放ToolStripMenuItem.Checked = false;
+
+        }
+        private void 顺序播放ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (顺序播放ToolStripMenuItem.Checked) { return; }
+            顺序播放ToolStripMenuItem.Checked = false;
+
+        }
+
+        private void 单曲循环ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (单曲循环ToolStripMenuItem.Checked) { return; }
+            顺序播放ToolStripMenuItem.Checked = false;
+
         }
     }
 

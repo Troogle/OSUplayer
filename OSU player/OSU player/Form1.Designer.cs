@@ -60,9 +60,9 @@ public partial class Form1 : System.Windows.Forms.Form
             this.音效ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.视频开关ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.播放模式ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.随机播放ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.顺序播放ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.单曲循环ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.随机播放ToolStripMenuItem1 = new ToolStripRadioButtonMenuItem();
+            this.顺序播放ToolStripMenuItem = new ToolStripRadioButtonMenuItem();
+            this.单曲循环ToolStripMenuItem = new ToolStripRadioButtonMenuItem();
             this.QQ状态同步ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.音效音乐控制ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SB开关ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -90,6 +90,7 @@ public partial class Form1 : System.Windows.Forms.Form
             this.ColumnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.button3 = new System.Windows.Forms.Button();
             this.AVsyncer = new System.Windows.Forms.Timer(this.components);
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.MenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TrackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrackBar2)).BeginInit();
@@ -266,22 +267,25 @@ public partial class Form1 : System.Windows.Forms.Form
             this.随机播放ToolStripMenuItem1.CheckOnClick = true;
             this.随机播放ToolStripMenuItem1.CheckState = System.Windows.Forms.CheckState.Checked;
             this.随机播放ToolStripMenuItem1.Name = "随机播放ToolStripMenuItem1";
-            this.随机播放ToolStripMenuItem1.Size = new System.Drawing.Size(138, 24);
+            this.随机播放ToolStripMenuItem1.Size = new System.Drawing.Size(152, 24);
             this.随机播放ToolStripMenuItem1.Text = "随机播放";
+            this.随机播放ToolStripMenuItem1.Click += new System.EventHandler(this.随机播放ToolStripMenuItem1_Click);
             // 
             // 顺序播放ToolStripMenuItem
             // 
             this.顺序播放ToolStripMenuItem.CheckOnClick = true;
             this.顺序播放ToolStripMenuItem.Name = "顺序播放ToolStripMenuItem";
-            this.顺序播放ToolStripMenuItem.Size = new System.Drawing.Size(138, 24);
+            this.顺序播放ToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
             this.顺序播放ToolStripMenuItem.Text = "顺序播放";
+            this.顺序播放ToolStripMenuItem.Click += new System.EventHandler(this.顺序播放ToolStripMenuItem_Click);
             // 
             // 单曲循环ToolStripMenuItem
             // 
             this.单曲循环ToolStripMenuItem.CheckOnClick = true;
             this.单曲循环ToolStripMenuItem.Name = "单曲循环ToolStripMenuItem";
-            this.单曲循环ToolStripMenuItem.Size = new System.Drawing.Size(138, 24);
+            this.单曲循环ToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
             this.单曲循环ToolStripMenuItem.Text = "单曲循环";
+            this.单曲循环ToolStripMenuItem.Click += new System.EventHandler(this.单曲循环ToolStripMenuItem_Click);
             // 
             // QQ状态同步ToolStripMenuItem
             // 
@@ -421,6 +425,7 @@ public partial class Form1 : System.Windows.Forms.Form
             this.ListBox1.Size = new System.Drawing.Size(320, 199);
             this.ListBox1.TabIndex = 0;
             this.ListBox1.SelectedIndexChanged += new System.EventHandler(this.ListBox1_SelectedIndexChanged);
+            this.ListBox1.DoubleClick += new System.EventHandler(this.ListBox1_DoubleClick);
             // 
             // TextBox1
             // 
@@ -527,6 +532,12 @@ public partial class Form1 : System.Windows.Forms.Form
             // 
             this.AVsyncer.Tick += new System.EventHandler(this.AVsync);
             // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.WorkerReportsProgress = true;
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -620,6 +631,7 @@ public partial class Form1 : System.Windows.Forms.Form
         private Button button3;
         private Timer AVsyncer;
         private System.ComponentModel.IContainer components;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
 		
 	}
 	

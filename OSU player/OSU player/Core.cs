@@ -15,6 +15,9 @@ using System.Text;
 
 namespace OSU_player
 {
+    /// <summary>
+    /// OSU文件内属性
+    /// </summary>
     public enum OSUfile
     {
         FileVersion,
@@ -61,6 +64,9 @@ namespace OSU_player
         SliderTickRate,
         OSUfilecount
     }
+    /// <summary>
+    /// HitObject的类别
+    /// </summary>
     public enum ObjectFlag
     {
         Normal = 1,
@@ -74,6 +80,9 @@ namespace OSU_player
         Hold = 128,
         ManiaLong = 128
     }
+    /// <summary>
+    /// 打击音效，可以叠加
+    /// </summary>
     public enum HitSound
     {
         Normal = 0,
@@ -81,12 +90,18 @@ namespace OSU_player
         Finish = 4,
         Clap = 8
     }
+    /// <summary>
+    /// 打击音效组的前缀
+    /// </summary>
     public enum TSample
     {
         Normal,
         Soft,
         Drum
     }
+    /// <summary>
+    /// 打击音效组
+    /// </summary>
     public struct CSample
     {
         public TSample sample;
@@ -97,6 +112,9 @@ namespace OSU_player
             this.sample = (TSample)sample;
         }
     }
+    /// <summary>
+    /// 获取的QQ信息
+    /// </summary>
     public struct QQInfo
     {
         public int uin;
@@ -113,10 +131,23 @@ namespace OSU_player
         public Core()
         {
         }
+        /// <summary>
+        /// OSU的路径
+        /// </summary>
         public static string osupath;
+        /// <summary>
+        /// 所有的set
+        /// </summary>
         public static List<BeatmapSet> allsets = new List<BeatmapSet>();
         public static string defaultBG = Path.Combine(Application.StartupPath, "default\\") + "defaultBG.png";
+        public static string defaultAudio = Path.Combine(Application.StartupPath, "default\\") + "blank.wav";
+        /// <summary>
+        /// 选定的QQ号
+        /// </summary>
         public static int uin;
+        /// <summary>
+        /// 获取OSU路径
+        /// </summary>
         public static void Getpath()
         {
             string str = "";
@@ -133,30 +164,9 @@ namespace OSU_player
                 osupath = "";
             }
         }
-        public static void Superscanforset()
-        {
-            if (System.IO.Directory.Exists(System.IO.Path.Combine(osupath, "Songs")))
-                scanforset(System.IO.Path.Combine(osupath, "Songs"));
-        }
-        public static void scanforset(string path)
-        {
-            string[] osufiles = Directory.GetFiles(path, "*.osu");
-            if (osufiles.Length != 0)
-            {
-                BeatmapSet tmp = new BeatmapSet(path);
-                //tmp.GetDetail();
-                allsets.Add(tmp);
-                ListViewItem tmpl = new ListViewItem(tmp.name);
-                Form1.Default.ListView1.Items.Add(tmpl);
-            }
-            else
-            {
-                string[] subfolder = Directory.GetDirectories(path);
-                for (int i = 0; i <= subfolder.Length - 1; i++)
-                {
-                    scanforset(System.IO.Path.Combine(path, subfolder[i]));
-                }
-            }
-        }
+        /// <summary>
+        /// 扫描指定的目录下的BeatmapSet，存储到allsets中
+        /// </summary>
+        /// <param name="path">扫描的路径</param>
     }
 }
