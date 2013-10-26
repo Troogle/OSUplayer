@@ -10,13 +10,12 @@ namespace OSU_player
     {
         public Selfupdate()
         {
-            temp = Environment.GetEnvironmentVariable("Temp").ToString() + "\\";
         }
         static string XmlFilePath = Application.StartupPath + "\\" + "update.xml";
         static XmlDocument UpDateXml = new XmlDocument();
         static string url = "";
         static string ver = "";
-        static string temp;
+        static string temp = Environment.GetEnvironmentVariable("Temp").ToString() + "\\";
         static public void download(string url)
         {
             try

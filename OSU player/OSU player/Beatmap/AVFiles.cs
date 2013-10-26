@@ -217,6 +217,9 @@ namespace OSU_player
         }
         public void initbg(string path)
         {
+            videofile.Owner = null;
+            videofile.Stop();
+            videofile.Dispose();
             videofile = new Video(path);
         }
         public void Play(System.Windows.Forms.Panel panel)
@@ -244,7 +247,7 @@ namespace OSU_player
             }
             catch (Exception)
             {
-                
+
             }
 
 

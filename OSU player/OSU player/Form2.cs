@@ -10,45 +10,13 @@ namespace OSU_player
         {
             InitializeComponent();
 
-            //Added to support default instance behavour in C#
-            if (defaultInstance == null)
-                defaultInstance = this;
         }
-
-        #region Default Instance
-
-        private static Form2 defaultInstance;
-
-        /// <summary>
-        /// Added by the VB.Net to C# Converter to support default instance behavour in C#
-        /// </summary>
-        public static Form2 Default
-        {
-            get
-            {
-                if (defaultInstance == null)
-                {
-                    defaultInstance = new Form2();
-                    defaultInstance.FormClosed += new FormClosedEventHandler(defaultInstance_FormClosed);
-                }
-
-                return defaultInstance;
-            }
-        }
-
-        static void defaultInstance_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            defaultInstance = null;
-        }
-
-        #endregion
         public QQ qq = new QQ();
         List<QQInfo> tmp = new List<QQInfo>();
         private void Button2_Click(object sender, EventArgs e)
         {
             try
             {
-                Form1.Default.LabelQQ.Text = "当前同步QQ：" + ListView1.SelectedItems[0].Text;
                 Core.uin = Convert.ToInt32(ListView1.SelectedItems[0].Text);
                 this.Dispose();
             }
