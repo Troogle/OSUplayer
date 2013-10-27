@@ -32,10 +32,12 @@ namespace OSU_player
         {
             public int time;
             public List<string> play;
-            public Fxlist(int time, List<string> play)
+            public int volume;
+            public Fxlist(int time, List<string> play, int volume)
             {
                 this.time = time;
                 this.play = play;
+                this.volume = volume;
             }
         }
         List<Fxlist> fxlist = new List<Fxlist>();
@@ -141,6 +143,7 @@ namespace OSU_player
             CSample nowdefault = tmp.timingpoints[currentT].sample;
             CSample olddefault = new CSample(0, 0);
             double bpm = tmp.timingpoints[currentT].bpm;
+            int volume = tmp.timingpoints[currentT].volume;
             for (int i = 0; i < uni_Audio.durnation * 1000; i++)
             {
                 if (currentT + 1 < tmp.timingpoints.Count)
@@ -149,6 +152,7 @@ namespace OSU_player
                     {
                         currentT++;
                         nowdefault = tmp.timingpoints[currentT].sample;
+                        volume = tmp.timingpoints[currentT].volume;
                         if (tmp.timingpoints[currentT].type == 1)
                         { bpm = tmp.timingpoints[currentT].bpm; }
                         else
@@ -168,10 +172,10 @@ namespace OSU_player
                     case ObjectFlag.NormalNewCombo:
                         if (!tmpH.sample.Equals(olddefault)) { tmpSample = tmpH.sample; }
                         fxlist.Add(
-                            new Fxlist(tmpH.starttime, CurrentSet.getsamplename(tmpSample, tmpH.allhitsound)));
+                            new Fxlist(tmpH.starttime, CurrentSet.getsamplename(tmpSample, tmpH.allhitsound),volume)) ;
                         fxlist.Add(
                            new Fxlist(tmpH.starttime, CurrentSet.getsamplename
-                               (tmpH.A_sample, tmpH.allhitsound)));
+                               (tmpH.A_sample, tmpH.allhitsound), volume));
                         break;
                     case ObjectFlag.Slider:
                     case ObjectFlag.SliderNewCombo:
@@ -182,20 +186,20 @@ namespace OSU_player
                         for (int j = 0; j <= tmpH.repeatcount; j++)
                         {
                             fxlist.Add(
-                                new Fxlist(tmpH.starttime + deltatime * j, CurrentSet.getsamplename(tmpSample, tmpH.Hitsounds[j])));
+                                new Fxlist(tmpH.starttime + deltatime * j, CurrentSet.getsamplename(tmpSample, tmpH.Hitsounds[j]), volume));
                             fxlist.Add(
                                new Fxlist(tmpH.starttime + deltatime * j, CurrentSet.getsamplename
-                                   (tmpH.A_sample, tmpH.Hitsounds[j])));
+                                   (tmpH.A_sample, tmpH.Hitsounds[j]), volume));
                         }
                         break;
                     case ObjectFlag.Spinner:
                     case ObjectFlag.SpinnerNewCombo:
                         if (!tmpH.sample.Equals(olddefault)) { tmpSample = tmpH.sample; }
                         fxlist.Add(
-                            new Fxlist(tmpH.EndTime, CurrentSet.getsamplename(tmpSample, tmpH.allhitsound)));
+                            new Fxlist(tmpH.EndTime, CurrentSet.getsamplename(tmpSample, tmpH.allhitsound), volume));
                         fxlist.Add(
                            new Fxlist(tmpH.EndTime, CurrentSet.getsamplename
-                               (tmpH.A_sample, tmpH.allhitsound)));
+                               (tmpH.A_sample, tmpH.allhitsound), volume));
                         break;
                     default:
                         break;
@@ -222,7 +226,7 @@ namespace OSU_player
             for (int j = 0; j < fxlist[fxpos].play.Count; j++)
             {
                 fxplayer[j].Open(fxlist[fxpos].play[j]);
-                fxplayer[j].Play(Allvolume * Fxvolume);
+                fxplayer[j].Play(Allvolume * Fxvolume*fxplayer[j].Volume);
             }
         }
         private void Pause()
@@ -311,6 +315,29 @@ namespace OSU_player
             Bass.BASS_Init(-1, 44100, BASSInit.BASS_DEVICE_DEFAULT, IntPtr.Zero);
             new Thread(new ThreadStart(Selfupdate.check_update)).Start();
             Core.Getpath();
+            Core.uin = Properties.Settings.Default.QQuin;
+            LabelQQ.Text = "当前同步QQ：" + Core.uin.ToString();
+            if (Core.uin == 0) {
+                if (
+                    MessageBox.Show(this, "木有设置过QQ号，需要现在设置么？", "提示", MessageBoxButtons.YesNo)
+                    == DialogResult.Yes)
+                {
+                    using (Form2 dialog = new Form2())
+                    {
+                        dialog.ShowDialog();
+                    }
+                    LabelQQ.Text = "当前同步QQ：" + Core.uin.ToString();
+                    Properties.Settings.Default.QQuin = Core.uin;
+                    Properties.Settings.Default.Save();
+                }
+                else
+                {
+
+                    QQ状态同步.Checked = false;
+                    Core.syncQQ = false;                
+                }
+            }
+
             MessageBox.Show("将开始初始化");
             initset();
         }
@@ -318,7 +345,7 @@ namespace OSU_player
         {
             if (!uni_Audio.isplaying)
             {
-                PlayNext();
+                //PlayNext();
                 return;
             }
             if (fxlist[fxpos].time <= (int)Math.Floor(uni_Audio.position * 1000))
@@ -459,9 +486,11 @@ namespace OSU_player
         {
             using (Form2 dialog = new Form2())
             {
-                dialog.Show();
+                dialog.ShowDialog();
             }
             LabelQQ.Text = "当前同步QQ：" + Core.uin.ToString();
+            Properties.Settings.Default.QQuin = Core.uin;
+            Properties.Settings.Default.Save();
         }
         private void TrackBar3_Scroll(object sender, EventArgs e)
         {
