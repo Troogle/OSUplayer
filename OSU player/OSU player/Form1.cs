@@ -22,11 +22,14 @@ namespace OSU_player
         public QQ uni_QQ = new QQ();
         // Thread DelayVideo = new Thread((delegate() { Thread.Sleep(10); }));
         int Nextmode = 3;
-        ListView FullList;
+        List<ListViewItem> FullList = new List<ListViewItem>();
         BeatmapSet CurrentSet;
         Beatmap CurrentBeatmap;
         BeatmapSet TmpSet;
         Beatmap TmpBeatmap;
+        int Allvolume;
+        int Musicvolume;
+        int Fxvolume;
         public void AskForExit(object sender, System.Windows.Forms.FormClosingEventArgs e)
         {
             DialogResult close;
@@ -75,6 +78,7 @@ namespace OSU_player
             TrackBar1.Enabled = false;
             TrackBar1.Value = 0;
             StopButton.Enabled = false;
+            PlayButton.Text = "播放";
             //  DelayVideo.Abort();
         }
         private void Play()
@@ -86,7 +90,7 @@ namespace OSU_player
                 uni_Video.init(Path.Combine(CurrentBeatmap.location, CurrentBeatmap.Video));
                 if (CurrentBeatmap.VideoOffset > 0)
                 {
-                    Thread.Sleep(CurrentBeatmap.VideoOffset);
+                    Thread.Sleep(CurrentBeatmap.VideoOffset / 1000);
                     uni_Video.Play(this.panel2);
 
                 }
@@ -113,8 +117,9 @@ namespace OSU_player
             AVsyncer.Enabled = true;
             PlayButton.Text = "暂停";
         }
-        private void Nextsong()
+        private void PlayNext()
         {
+            Stop();
             int next;
             int now;
             if (PlayList.SelectedItems.Count == 0) { now = 0; }
@@ -137,12 +142,17 @@ namespace OSU_player
             }
             PlayList.Items[next].Selected = true;
             PlayList.EnsureVisible(next);
+            TmpSet = Core.allsets[Convert.ToInt32(PlayList.SelectedItems[0].SubItems[1].Text)];
+            TmpBeatmap = TmpSet.Diffs[0];
+            CurrentSet = TmpSet;
+            CurrentBeatmap = TmpBeatmap;
+            Play();
         }
         private void PlayList_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (PlayList.SelectedItems.Count == 0) { return; }
             DiffList.Items.Clear();
-            TmpSet = Core.allsets[PlayList.SelectedItems[0].Index];
+            TmpSet = Core.allsets[Convert.ToInt32(PlayList.SelectedItems[0].SubItems[1].Text)];
             if (!TmpSet.detailed)
             {
                 TmpSet.GetDetail();
@@ -180,7 +190,7 @@ namespace OSU_player
         }
         private void PlayList_DoubleClick(object sender, EventArgs e)
         {
-            TmpSet = Core.allsets[PlayList.SelectedItems[0].Index];
+            TmpSet = Core.allsets[Convert.ToInt32(PlayList.SelectedItems[0].SubItems[1].Text)];
             TmpBeatmap = TmpSet.Diffs[0];
             CurrentSet = TmpSet;
             CurrentBeatmap = TmpBeatmap;
@@ -190,7 +200,7 @@ namespace OSU_player
         }
         private void DiffList_DoubleClick(object sender, EventArgs e)
         {
-            TmpSet = Core.allsets[PlayList.SelectedItems[0].Index];
+            TmpSet = Core.allsets[Convert.ToInt32(PlayList.SelectedItems[0].SubItems[1].Text)];
             TmpBeatmap = TmpSet.Diffs[DiffList.SelectedIndex];
             CurrentSet = TmpSet;
             CurrentBeatmap = TmpBeatmap;
@@ -223,27 +233,28 @@ namespace OSU_player
         }
         private void SearchButton_Click(object sender, EventArgs e)
         {
+            Stop();
+            PlayList.Items.Clear();
             if (TextBox1.Text == "")
             {
-                foreach (BeatmapSet tmpbms in Core.allsets)
+                foreach (ListViewItem item in FullList)
                 {
-                    ListViewItem tmpl = new ListViewItem(tmpbms.name);
-                    PlayList.Items.Add(tmpl);
+                    PlayList.Items.Add(item);
                 }
             }
             else
             {
-                PlayList.Clear();
-                foreach (ListViewItem tmp in PlayList.Items)
+                foreach (ListViewItem item in FullList)
                 {
-                    if (tmp.Text.ToLower().Contains(TextBox1.Text.ToLower()))
+                    if (item.Text.ToLower().Contains(TextBox1.Text.ToLower()))
                     {
-                        ListViewItem tmpl = new ListViewItem(tmp.Text);
-                        PlayList.Items.Add(tmpl);
+                        PlayList.Items.Add(item);
                     }
                 }
             }
-        }
+            if (PlayList.Items.Count != 0) { PlayList.Items[0].Selected = true; }
+
+       }
         private void PlayButton_Click(object sender, EventArgs e)
         {
             if (StopButton.Enabled == false)
@@ -266,7 +277,7 @@ namespace OSU_player
         private void TrackBar1_MouseUp(object sender, MouseEventArgs e)
         {
             uni_Audio.seek(TrackBar1.Value * uni_Audio.durnation / TrackBar1.Maximum);
-            uni_Video.seek(TrackBar1.Value * uni_Audio.durnation / TrackBar1.Maximum + CurrentBeatmap.VideoOffset);
+            uni_Video.seek(TrackBar1.Value * uni_Audio.durnation / TrackBar1.Maximum + CurrentBeatmap.VideoOffset / 1000);
             AVsyncer.Enabled = true;
         }
         private void Button1_Click(object sender, EventArgs e)
@@ -287,16 +298,13 @@ namespace OSU_player
             if (uni_Audio.durnation != 0)
             {
                 TrackBar1.Value = (int)Math.Round((uni_Audio.position / uni_Audio.durnation) * TrackBar1.Maximum);
+                label1.Text = String.Format("{0}:{1:D2} / {2}:{3:D2}", (int)uni_Audio.position / 60,
+                    (int)uni_Audio.position % 60, (int)uni_Audio.durnation / 60,
+                    (int)uni_Audio.durnation % 60);
             }
             if (uni_Audio.durnation == uni_Audio.position)
             {
-                Stop();
-                Nextsong();
-                TmpSet = Core.allsets[PlayList.SelectedItems[0].Index];
-                TmpBeatmap = TmpSet.Diffs[0];
-                CurrentSet = TmpSet;
-                CurrentBeatmap = TmpBeatmap;
-                Play();
+                PlayNext();
             }
         }
         private void TrackBar1_MouseDown(object sender, MouseEventArgs e)
@@ -339,44 +347,37 @@ namespace OSU_player
             foreach (ListViewItem item in PlayList.Items)
             {
                 item.SubItems.Add(item.Index.ToString());
+                FullList.Add(item);
             }
             MessageBox.Show(string.Format("初始化完毕，发现曲目{0}个", Core.allsets.Count));
-            FullList = PlayList;
             button3.Enabled = false;
             PlayList.Items[0].Selected = true;
         }
-
         private void StopButton_Click(object sender, EventArgs e)
         {
             Stop();
         }
-
         private void 随机播放ToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             Nextmode = 3;
         }
-
         private void NextButton_Click(object sender, EventArgs e)
         {
-            Stop();
-            Nextsong();
-            TmpSet = Core.allsets[PlayList.SelectedItems[0].Index];
-            TmpBeatmap = TmpSet.Diffs[0];
-            CurrentSet = TmpSet;
-            CurrentBeatmap = TmpBeatmap;
-            Play();
+            PlayNext();
         }
-
         private void 顺序播放ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Nextmode = 1;
         }
-
         private void 单曲循环ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Nextmode = 2;
         }
+        private void TrackBar2_MouseUp(object sender, MouseEventArgs e)
+        {
+            Allvolume = TrackBar2.Value / TrackBar2.Maximum;
 
+        }
 
 
     }

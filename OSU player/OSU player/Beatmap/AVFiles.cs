@@ -204,6 +204,10 @@ namespace OSU_player
         {
             audiofile.SeekCurrentPosition(time * 10000000, SeekPositionFlags.AbsolutePositioning);
         }
+        public void volume(int value)
+        {
+            audiofile.Volume = value;
+        }
     }
     public class Videofiles
     {

@@ -481,6 +481,7 @@ public partial class Form1 : System.Windows.Forms.Form
             this.TrackBar2.TabIndex = 33;
             this.TrackBar2.TickStyle = System.Windows.Forms.TickStyle.None;
             this.TrackBar2.Value = 100;
+            this.TrackBar2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TrackBar2_MouseUp);
             // 
             // Label4
             // 
