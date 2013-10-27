@@ -19,7 +19,7 @@ namespace OSU_player
         }
 
         public Videofiles uni_Video = new Videofiles();
-        public Audiofiles uni_Audio = new Audiofiles();
+        public Audiofiles uni_Audio;
         public QQ uni_QQ = new QQ();
         // Thread DelayVideo = new Thread((delegate() { Thread.Sleep(10); }));
         int Nextmode = 3;
@@ -28,9 +28,9 @@ namespace OSU_player
         Beatmap CurrentBeatmap;
         BeatmapSet TmpSet;
         Beatmap TmpBeatmap;
-        int Allvolume;
-        int Musicvolume;
-        int Fxvolume;
+        float Allvolume = 1.0f;
+        float Musicvolume = 0.8f;
+        float Fxvolume = 0.6f;
         public void AskForExit(object sender, System.Windows.Forms.FormClosingEventArgs e)
         {
             DialogResult close;
@@ -73,8 +73,9 @@ namespace OSU_player
         }
         private void Stop()
         {
-            AVsyncer.Enabled = false;
+            // AVsyncer.Enabled = false;
             uni_Audio.Stop();
+            uni_Audio.Dispose();
             uni_Video.Stop();
             TrackBar1.Enabled = false;
             TrackBar1.Value = 0;
@@ -84,8 +85,9 @@ namespace OSU_player
         }
         private void Play()
         {
-            uni_Audio.init(CurrentBeatmap.Audio);
-            uni_Audio.Play();
+            uni_Audio = new Audiofiles(CurrentBeatmap.Audio);
+            uni_Audio.UpdateTimer.Tick += new EventHandler(AVsync);
+            uni_Audio.Play(Allvolume * Musicvolume);
             if (CurrentBeatmap.haveVideo)
             {
                 uni_Video.init(Path.Combine(CurrentBeatmap.location, CurrentBeatmap.Video));
@@ -93,12 +95,11 @@ namespace OSU_player
                 {
                     Thread.Sleep(CurrentBeatmap.VideoOffset / 1000);
                     uni_Video.Play(this.panel2);
-
                 }
                 else { uni_Video.Play(this.panel2); }
             }
             TrackBar1.Enabled = true;
-            AVsyncer.Enabled = true;
+            //    AVsyncer.Enabled = true;
             uni_QQ.Send2QQ(Core.uin, CurrentBeatmap.name);
             PlayButton.Text = "暂停";
             StopButton.Enabled = true;
@@ -109,13 +110,12 @@ namespace OSU_player
             uni_Audio.Pause();
             uni_QQ.Send2QQ(Core.uin, "");
             PlayButton.Text = "播放";
-
         }
         private void Resume()
         {
             uni_Video.Pause();
             uni_Audio.Pause();
-            AVsyncer.Enabled = true;
+            //   AVsyncer.Enabled = true;
             PlayButton.Text = "暂停";
         }
         private void PlayNext()
@@ -256,7 +256,7 @@ namespace OSU_player
             }
             if (PlayList.Items.Count != 0) { PlayList.Items[0].Selected = true; }
 
-       }
+        }
         private void PlayButton_Click(object sender, EventArgs e)
         {
             if (StopButton.Enabled == false)
@@ -276,12 +276,6 @@ namespace OSU_player
             }
 
         }
-        private void TrackBar1_MouseUp(object sender, MouseEventArgs e)
-        {
-            uni_Audio.seek(TrackBar1.Value * uni_Audio.durnation / TrackBar1.Maximum);
-            uni_Video.seek(TrackBar1.Value * uni_Audio.durnation / TrackBar1.Maximum + CurrentBeatmap.VideoOffset / 1000);
-            AVsyncer.Enabled = true;
-        }
         private void Button1_Click(object sender, EventArgs e)
         {
             using (Form2 dialog = new Form2())
@@ -296,22 +290,19 @@ namespace OSU_player
         }
         private void AVsync(object sender, EventArgs e)
         {
-
-            if (uni_Audio.durnation != 0)
+            if (!uni_Audio.isplaying)
             {
-                TrackBar1.Value = (int)Math.Round((uni_Audio.position / uni_Audio.durnation) * TrackBar1.Maximum);
-                label1.Text = String.Format("{0}:{1:D2} / {2}:{3:D2}", (int)uni_Audio.position / 60,
-                    (int)uni_Audio.position % 60, (int)uni_Audio.durnation / 60,
-                    (int)uni_Audio.durnation % 60);
+                PlayNext();
+                return;
             }
+            TrackBar1.Value = (int)Math.Round((uni_Audio.position / uni_Audio.durnation) * TrackBar1.Maximum);
+            label1.Text = String.Format("{0}:{1:D2} / {2}:{3:D2}", (int)uni_Audio.position / 60,
+                (int)uni_Audio.position % 60, (int)uni_Audio.durnation / 60,
+                (int)uni_Audio.durnation % 60);
             if (uni_Audio.durnation == uni_Audio.position)
             {
                 PlayNext();
             }
-        }
-        private void TrackBar1_MouseDown(object sender, MouseEventArgs e)
-        {
-            AVsyncer.Enabled = false;
         }
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -375,9 +366,25 @@ namespace OSU_player
         {
             Nextmode = 2;
         }
-        private void TrackBar2_MouseUp(object sender, MouseEventArgs e)
+        private void TrackBar1_Scroll(object sender, EventArgs e)
         {
-            Allvolume = TrackBar2.Value / TrackBar2.Maximum;
+            uni_Audio.Seek(TrackBar1.Value * uni_Audio.durnation / TrackBar1.Maximum);
+            uni_Video.seek(TrackBar1.Value * uni_Audio.durnation / TrackBar1.Maximum + CurrentBeatmap.VideoOffset / 1000);
+        }
+        private void TrackBar2_Scroll(object sender, EventArgs e)
+        {
+            Allvolume = (float)TrackBar2.Value / (float)TrackBar2.Maximum;
+            if (uni_Audio != null) { uni_Audio.Volume = Allvolume * Musicvolume; }
+
+        }
+        private void TrackBar3_Scroll(object sender, EventArgs e)
+        {
+            Fxvolume = (float)TrackBar3.Value / (float)TrackBar3.Maximum;
+        }
+        private void trackBar4_Scroll(object sender, EventArgs e)
+        {
+            Musicvolume = (float)trackBar4.Value / (float)trackBar4.Maximum;
+            if (uni_Audio != null) { uni_Audio.Volume = Allvolume * Musicvolume; }
 
         }
 

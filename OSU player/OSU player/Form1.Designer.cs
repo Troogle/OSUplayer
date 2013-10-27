@@ -59,6 +59,9 @@ public partial class Form1 : System.Windows.Forms.Form
             this.音效ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.视频开关ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.播放模式ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.顺序播放ToolStripMenuItem = new OSU_player.ToolStripRadioButtonMenuItem();
+            this.单曲循环ToolStripMenuItem = new OSU_player.ToolStripRadioButtonMenuItem();
+            this.随机播放ToolStripMenuItem1 = new OSU_player.ToolStripRadioButtonMenuItem();
             this.QQ状态同步ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.音效音乐控制ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SB开关ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -91,9 +94,6 @@ public partial class Form1 : System.Windows.Forms.Form
             this.TrackBar1 = new System.Windows.Forms.TrackBar();
             this.StopButton = new System.Windows.Forms.Button();
             this.PlayButton = new System.Windows.Forms.Button();
-            this.顺序播放ToolStripMenuItem = new OSU_player.ToolStripRadioButtonMenuItem();
-            this.单曲循环ToolStripMenuItem = new OSU_player.ToolStripRadioButtonMenuItem();
-            this.随机播放ToolStripMenuItem1 = new OSU_player.ToolStripRadioButtonMenuItem();
             this.MenuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar4)).BeginInit();
@@ -258,6 +258,32 @@ public partial class Form1 : System.Windows.Forms.Form
             this.播放模式ToolStripMenuItem.Size = new System.Drawing.Size(168, 24);
             this.播放模式ToolStripMenuItem.Text = "播放模式";
             // 
+            // 顺序播放ToolStripMenuItem
+            // 
+            this.顺序播放ToolStripMenuItem.CheckOnClick = true;
+            this.顺序播放ToolStripMenuItem.Name = "顺序播放ToolStripMenuItem";
+            this.顺序播放ToolStripMenuItem.Size = new System.Drawing.Size(138, 24);
+            this.顺序播放ToolStripMenuItem.Text = "顺序播放";
+            this.顺序播放ToolStripMenuItem.Click += new System.EventHandler(this.顺序播放ToolStripMenuItem_Click);
+            // 
+            // 单曲循环ToolStripMenuItem
+            // 
+            this.单曲循环ToolStripMenuItem.CheckOnClick = true;
+            this.单曲循环ToolStripMenuItem.Name = "单曲循环ToolStripMenuItem";
+            this.单曲循环ToolStripMenuItem.Size = new System.Drawing.Size(138, 24);
+            this.单曲循环ToolStripMenuItem.Text = "单曲循环";
+            this.单曲循环ToolStripMenuItem.Click += new System.EventHandler(this.单曲循环ToolStripMenuItem_Click);
+            // 
+            // 随机播放ToolStripMenuItem1
+            // 
+            this.随机播放ToolStripMenuItem1.Checked = true;
+            this.随机播放ToolStripMenuItem1.CheckOnClick = true;
+            this.随机播放ToolStripMenuItem1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.随机播放ToolStripMenuItem1.Name = "随机播放ToolStripMenuItem1";
+            this.随机播放ToolStripMenuItem1.Size = new System.Drawing.Size(138, 24);
+            this.随机播放ToolStripMenuItem1.Text = "随机播放";
+            this.随机播放ToolStripMenuItem1.Click += new System.EventHandler(this.随机播放ToolStripMenuItem1_Click);
+            // 
             // QQ状态同步ToolStripMenuItem
             // 
             this.QQ状态同步ToolStripMenuItem.Checked = true;
@@ -297,7 +323,6 @@ public partial class Form1 : System.Windows.Forms.Form
             // 
             // AVsyncer
             // 
-            this.AVsyncer.Tick += new System.EventHandler(this.AVsync);
             // 
             // backgroundWorker1
             // 
@@ -367,7 +392,8 @@ public partial class Form1 : System.Windows.Forms.Form
             this.trackBar4.Size = new System.Drawing.Size(88, 27);
             this.trackBar4.TabIndex = 41;
             this.trackBar4.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.trackBar4.Value = 60;
+            this.trackBar4.Value = 80;
+            this.trackBar4.Scroll += new System.EventHandler(this.trackBar4_Scroll);
             // 
             // panel2
             // 
@@ -415,6 +441,7 @@ public partial class Form1 : System.Windows.Forms.Form
             this.TrackBar3.TabIndex = 37;
             this.TrackBar3.TickStyle = System.Windows.Forms.TickStyle.None;
             this.TrackBar3.Value = 60;
+            this.TrackBar3.Scroll += new System.EventHandler(this.TrackBar3_Scroll);
             // 
             // PlayList
             // 
@@ -481,7 +508,7 @@ public partial class Form1 : System.Windows.Forms.Form
             this.TrackBar2.TabIndex = 33;
             this.TrackBar2.TickStyle = System.Windows.Forms.TickStyle.None;
             this.TrackBar2.Value = 100;
-            this.TrackBar2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TrackBar2_MouseUp);
+            this.TrackBar2.Scroll += new System.EventHandler(this.TrackBar2_Scroll);
             // 
             // Label4
             // 
@@ -563,8 +590,7 @@ public partial class Form1 : System.Windows.Forms.Form
             this.TrackBar1.Size = new System.Drawing.Size(349, 28);
             this.TrackBar1.TabIndex = 23;
             this.TrackBar1.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.TrackBar1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TrackBar1_MouseDown);
-            this.TrackBar1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TrackBar1_MouseUp);
+            this.TrackBar1.Scroll += new System.EventHandler(this.TrackBar1_Scroll);
             // 
             // StopButton
             // 
@@ -588,32 +614,6 @@ public partial class Form1 : System.Windows.Forms.Form
             this.PlayButton.Text = "播放";
             this.PlayButton.UseVisualStyleBackColor = true;
             this.PlayButton.Click += new System.EventHandler(this.PlayButton_Click);
-            // 
-            // 顺序播放ToolStripMenuItem
-            // 
-            this.顺序播放ToolStripMenuItem.CheckOnClick = true;
-            this.顺序播放ToolStripMenuItem.Name = "顺序播放ToolStripMenuItem";
-            this.顺序播放ToolStripMenuItem.Size = new System.Drawing.Size(138, 24);
-            this.顺序播放ToolStripMenuItem.Text = "顺序播放";
-            this.顺序播放ToolStripMenuItem.Click += new System.EventHandler(this.顺序播放ToolStripMenuItem_Click);
-            // 
-            // 单曲循环ToolStripMenuItem
-            // 
-            this.单曲循环ToolStripMenuItem.CheckOnClick = true;
-            this.单曲循环ToolStripMenuItem.Name = "单曲循环ToolStripMenuItem";
-            this.单曲循环ToolStripMenuItem.Size = new System.Drawing.Size(138, 24);
-            this.单曲循环ToolStripMenuItem.Text = "单曲循环";
-            this.单曲循环ToolStripMenuItem.Click += new System.EventHandler(this.单曲循环ToolStripMenuItem_Click);
-            // 
-            // 随机播放ToolStripMenuItem1
-            // 
-            this.随机播放ToolStripMenuItem1.Checked = true;
-            this.随机播放ToolStripMenuItem1.CheckOnClick = true;
-            this.随机播放ToolStripMenuItem1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.随机播放ToolStripMenuItem1.Name = "随机播放ToolStripMenuItem1";
-            this.随机播放ToolStripMenuItem1.Size = new System.Drawing.Size(138, 24);
-            this.随机播放ToolStripMenuItem1.Text = "随机播放";
-            this.随机播放ToolStripMenuItem1.Click += new System.EventHandler(this.随机播放ToolStripMenuItem1_Click);
             // 
             // Form1
             // 
