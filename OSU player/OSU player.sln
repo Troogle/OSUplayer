@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSU player", "OSU player\OSU player.csproj", "{AE2C38D8-90F2-48AA-84D1-B72263AD1952}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSU_Player_WPF", "OSU Player WPF\OSU_Player_WPF.csproj", "{A4B7F9B0-A039-4CD6-B3B0-F27AADFCDA87}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{AE2C38D8-90F2-48AA-84D1-B72263AD1952}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE2C38D8-90F2-48AA-84D1-B72263AD1952}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE2C38D8-90F2-48AA-84D1-B72263AD1952}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4B7F9B0-A039-4CD6-B3B0-F27AADFCDA87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4B7F9B0-A039-4CD6-B3B0-F27AADFCDA87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4B7F9B0-A039-4CD6-B3B0-F27AADFCDA87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4B7F9B0-A039-4CD6-B3B0-F27AADFCDA87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
