@@ -588,6 +588,10 @@ namespace OSU_player
                     tagList.Add(s);
                 }
             }
+            tagList.Add(ArtistRomanized);
+            tagList.Add(TitleRomanized);
+            tagList.Add(Version);
+            tagList.Add(Creator);
             if (haveSB)
             {
                 SB = new StoryBoard(tmpSB);

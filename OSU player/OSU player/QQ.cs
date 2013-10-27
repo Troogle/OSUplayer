@@ -7,7 +7,7 @@ namespace OSU_player
 {
     public class QQ
     {
-
+        
         public WebBrowser web = new WebBrowser();
         //提前加载浏览器，给浏览器加载的时间
         public QQ()
@@ -22,6 +22,7 @@ namespace OSU_player
         /// <param name="Str">推送的内容</param>
         public void Send2QQ(int id, string Str)
         {
+            if (!Core.syncQQ) { return; }
             object objAdmin = null;
             Type objAdminType = Type.GetTypeFromProgID("QQCPHelper.CPAdder");
             Object[] args=new object[4];
@@ -58,7 +59,7 @@ namespace OSU_player
             }
             catch (Exception)
             {
-                MessageBox.Show("获取当前在线QQ出错！重试下试试？");
+                MessageBox.Show("获取当前在线QQ出错！刷新下试试？");
             }
             return ret;
 

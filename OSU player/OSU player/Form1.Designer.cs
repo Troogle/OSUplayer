@@ -41,31 +41,30 @@ public partial class Form1 : System.Windows.Forms.Form
             this.components = new System.ComponentModel.Container();
             this.MenuStrip1 = new System.Windows.Forms.MenuStrip();
             this.ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.运行OSUToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.手动指定OSU目录ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.运行OSU = new System.Windows.Forms.ToolStripMenuItem();
+            this.手动指定OSU目录 = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.重新导入osuToolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
-            this.重新导入scoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.重新导入collectionsToolStripMenuItem9 = new System.Windows.Forms.ToolStripMenuItem();
+            this.重新导入osu = new System.Windows.Forms.ToolStripMenuItem();
+            this.重新导入scores = new System.Windows.Forms.ToolStripMenuItem();
+            this.重新导入collections = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.打开曲目文件夹ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.打开铺面文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.打开SB文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.打开曲目文件夹 = new System.Windows.Forms.ToolStripMenuItem();
+            this.打开铺面文件 = new System.Windows.Forms.ToolStripMenuItem();
+            this.打开SB文件 = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.退出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.退出 = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.重复歌曲扫描ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.重复歌曲扫描 = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.音效ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.视频开关ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.播放模式ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.顺序播放ToolStripMenuItem = new OSU_player.ToolStripRadioButtonMenuItem();
-            this.单曲循环ToolStripMenuItem = new OSU_player.ToolStripRadioButtonMenuItem();
-            this.随机播放ToolStripMenuItem1 = new OSU_player.ToolStripRadioButtonMenuItem();
-            this.QQ状态同步ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.音效音乐控制ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.SB开关ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.音效 = new System.Windows.Forms.ToolStripMenuItem();
+            this.视频开关 = new System.Windows.Forms.ToolStripMenuItem();
+            this.播放模式 = new System.Windows.Forms.ToolStripMenuItem();
+            this.顺序播放 = new OSU_player.ToolStripRadioButtonMenuItem();
+            this.单曲循环 = new OSU_player.ToolStripRadioButtonMenuItem();
+            this.随机播放 = new OSU_player.ToolStripRadioButtonMenuItem();
+            this.QQ状态同步 = new System.Windows.Forms.ToolStripMenuItem();
+            this.SB开关 = new System.Windows.Forms.ToolStripMenuItem();
+            this.关于 = new System.Windows.Forms.ToolStripMenuItem();
             this.button3 = new System.Windows.Forms.Button();
             this.AVsyncer = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
@@ -108,7 +107,7 @@ public partial class Form1 : System.Windows.Forms.Form
             this.ToolStripMenuItem1,
             this.ToolStripMenuItem2,
             this.ToolStripMenuItem3,
-            this.关于ToolStripMenuItem});
+            this.关于});
             this.MenuStrip1.Location = new System.Drawing.Point(4, 4);
             this.MenuStrip1.Name = "MenuStrip1";
             this.MenuStrip1.Size = new System.Drawing.Size(884, 28);
@@ -118,198 +117,210 @@ public partial class Form1 : System.Windows.Forms.Form
             // ToolStripMenuItem1
             // 
             this.ToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.运行OSUToolStripMenuItem,
-            this.手动指定OSU目录ToolStripMenuItem,
+            this.运行OSU,
+            this.手动指定OSU目录,
             this.ToolStripSeparator1,
-            this.重新导入osuToolStripMenuItem7,
-            this.重新导入scoresToolStripMenuItem,
-            this.重新导入collectionsToolStripMenuItem9,
+            this.重新导入osu,
+            this.重新导入scores,
+            this.重新导入collections,
             this.ToolStripSeparator2,
-            this.打开曲目文件夹ToolStripMenuItem,
-            this.打开铺面文件ToolStripMenuItem,
-            this.打开SB文件ToolStripMenuItem,
+            this.打开曲目文件夹,
+            this.打开铺面文件,
+            this.打开SB文件,
             this.ToolStripSeparator3,
-            this.退出ToolStripMenuItem});
+            this.退出});
             this.ToolStripMenuItem1.Name = "ToolStripMenuItem1";
             this.ToolStripMenuItem1.Size = new System.Drawing.Size(51, 24);
             this.ToolStripMenuItem1.Text = "文件";
             // 
-            // 运行OSUToolStripMenuItem
+            // 运行OSU
             // 
-            this.运行OSUToolStripMenuItem.Name = "运行OSUToolStripMenuItem";
-            this.运行OSUToolStripMenuItem.Size = new System.Drawing.Size(241, 24);
-            this.运行OSUToolStripMenuItem.Text = "运行OSU!";
+            this.运行OSU.Name = "运行OSU";
+            this.运行OSU.Size = new System.Drawing.Size(241, 24);
+            this.运行OSU.Text = "运行OSU!";
+            this.运行OSU.Click += new System.EventHandler(this.运行OSU_Click);
             // 
-            // 手动指定OSU目录ToolStripMenuItem
+            // 手动指定OSU目录
             // 
-            this.手动指定OSU目录ToolStripMenuItem.Name = "手动指定OSU目录ToolStripMenuItem";
-            this.手动指定OSU目录ToolStripMenuItem.Size = new System.Drawing.Size(241, 24);
-            this.手动指定OSU目录ToolStripMenuItem.Text = "手动指定OSU目录";
+            this.手动指定OSU目录.Enabled = false;
+            this.手动指定OSU目录.Name = "手动指定OSU目录";
+            this.手动指定OSU目录.Size = new System.Drawing.Size(241, 24);
+            this.手动指定OSU目录.Text = "手动指定OSU目录";
+            this.手动指定OSU目录.Click += new System.EventHandler(this.手动指定OSU目录_Click);
             // 
             // ToolStripSeparator1
             // 
             this.ToolStripSeparator1.Name = "ToolStripSeparator1";
             this.ToolStripSeparator1.Size = new System.Drawing.Size(238, 6);
             // 
-            // 重新导入osuToolStripMenuItem7
+            // 重新导入osu
             // 
-            this.重新导入osuToolStripMenuItem7.Name = "重新导入osuToolStripMenuItem7";
-            this.重新导入osuToolStripMenuItem7.Size = new System.Drawing.Size(241, 24);
-            this.重新导入osuToolStripMenuItem7.Text = "重新导入osu.db";
+            this.重新导入osu.Enabled = false;
+            this.重新导入osu.Name = "重新导入osu";
+            this.重新导入osu.Size = new System.Drawing.Size(241, 24);
+            this.重新导入osu.Text = "重新导入osu.db";
+            this.重新导入osu.Click += new System.EventHandler(this.重新导入osu_Click);
             // 
-            // 重新导入scoresToolStripMenuItem
+            // 重新导入scores
             // 
-            this.重新导入scoresToolStripMenuItem.Name = "重新导入scoresToolStripMenuItem";
-            this.重新导入scoresToolStripMenuItem.Size = new System.Drawing.Size(241, 24);
-            this.重新导入scoresToolStripMenuItem.Text = "重新导入scores.db";
+            this.重新导入scores.Enabled = false;
+            this.重新导入scores.Name = "重新导入scores";
+            this.重新导入scores.Size = new System.Drawing.Size(241, 24);
+            this.重新导入scores.Text = "重新导入scores.db";
             // 
-            // 重新导入collectionsToolStripMenuItem9
+            // 重新导入collections
             // 
-            this.重新导入collectionsToolStripMenuItem9.Name = "重新导入collectionsToolStripMenuItem9";
-            this.重新导入collectionsToolStripMenuItem9.Size = new System.Drawing.Size(241, 24);
-            this.重新导入collectionsToolStripMenuItem9.Text = "重新导入collections.db";
+            this.重新导入collections.Enabled = false;
+            this.重新导入collections.Name = "重新导入collections";
+            this.重新导入collections.Size = new System.Drawing.Size(241, 24);
+            this.重新导入collections.Text = "重新导入collections.db";
+            this.重新导入collections.Click += new System.EventHandler(this.重新导入collections_Click);
             // 
             // ToolStripSeparator2
             // 
             this.ToolStripSeparator2.Name = "ToolStripSeparator2";
             this.ToolStripSeparator2.Size = new System.Drawing.Size(238, 6);
             // 
-            // 打开曲目文件夹ToolStripMenuItem
+            // 打开曲目文件夹
             // 
-            this.打开曲目文件夹ToolStripMenuItem.Name = "打开曲目文件夹ToolStripMenuItem";
-            this.打开曲目文件夹ToolStripMenuItem.Size = new System.Drawing.Size(241, 24);
-            this.打开曲目文件夹ToolStripMenuItem.Text = "打开曲目文件夹";
+            this.打开曲目文件夹.Name = "打开曲目文件夹";
+            this.打开曲目文件夹.Size = new System.Drawing.Size(241, 24);
+            this.打开曲目文件夹.Text = "打开曲目文件夹";
+            this.打开曲目文件夹.Click += new System.EventHandler(this.打开曲目文件夹_Click);
             // 
-            // 打开铺面文件ToolStripMenuItem
+            // 打开铺面文件
             // 
-            this.打开铺面文件ToolStripMenuItem.Name = "打开铺面文件ToolStripMenuItem";
-            this.打开铺面文件ToolStripMenuItem.Size = new System.Drawing.Size(241, 24);
-            this.打开铺面文件ToolStripMenuItem.Text = "打开铺面文件";
+            this.打开铺面文件.Name = "打开铺面文件";
+            this.打开铺面文件.Size = new System.Drawing.Size(241, 24);
+            this.打开铺面文件.Text = "打开铺面文件";
+            this.打开铺面文件.Click += new System.EventHandler(this.打开铺面文件_Click);
             // 
-            // 打开SB文件ToolStripMenuItem
+            // 打开SB文件
             // 
-            this.打开SB文件ToolStripMenuItem.Name = "打开SB文件ToolStripMenuItem";
-            this.打开SB文件ToolStripMenuItem.Size = new System.Drawing.Size(241, 24);
-            this.打开SB文件ToolStripMenuItem.Text = "打开SB文件";
+            this.打开SB文件.Name = "打开SB文件";
+            this.打开SB文件.Size = new System.Drawing.Size(241, 24);
+            this.打开SB文件.Text = "打开SB文件";
+            this.打开SB文件.Click += new System.EventHandler(this.打开SB文件_Click);
             // 
             // ToolStripSeparator3
             // 
             this.ToolStripSeparator3.Name = "ToolStripSeparator3";
             this.ToolStripSeparator3.Size = new System.Drawing.Size(238, 6);
             // 
-            // 退出ToolStripMenuItem
+            // 退出
             // 
-            this.退出ToolStripMenuItem.Name = "退出ToolStripMenuItem";
-            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(241, 24);
-            this.退出ToolStripMenuItem.Text = "退出";
+            this.退出.Name = "退出";
+            this.退出.Size = new System.Drawing.Size(241, 24);
+            this.退出.Text = "退出";
+            this.退出.Click += new System.EventHandler(this.退出_Click);
             // 
             // ToolStripMenuItem2
             // 
             this.ToolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.重复歌曲扫描ToolStripMenuItem});
+            this.重复歌曲扫描});
             this.ToolStripMenuItem2.Name = "ToolStripMenuItem2";
             this.ToolStripMenuItem2.Size = new System.Drawing.Size(51, 24);
             this.ToolStripMenuItem2.Text = "工具";
             // 
-            // 重复歌曲扫描ToolStripMenuItem
+            // 重复歌曲扫描
             // 
-            this.重复歌曲扫描ToolStripMenuItem.Name = "重复歌曲扫描ToolStripMenuItem";
-            this.重复歌曲扫描ToolStripMenuItem.Size = new System.Drawing.Size(168, 24);
-            this.重复歌曲扫描ToolStripMenuItem.Text = "重复歌曲扫描";
+            this.重复歌曲扫描.Name = "重复歌曲扫描";
+            this.重复歌曲扫描.Size = new System.Drawing.Size(168, 24);
+            this.重复歌曲扫描.Text = "重复歌曲扫描";
+            this.重复歌曲扫描.Click += new System.EventHandler(this.重复歌曲扫描_Click);
             // 
             // ToolStripMenuItem3
             // 
             this.ToolStripMenuItem3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.音效ToolStripMenuItem,
-            this.视频开关ToolStripMenuItem,
-            this.播放模式ToolStripMenuItem,
-            this.QQ状态同步ToolStripMenuItem,
-            this.音效音乐控制ToolStripMenuItem,
-            this.SB开关ToolStripMenuItem});
+            this.音效,
+            this.视频开关,
+            this.播放模式,
+            this.QQ状态同步,
+            this.SB开关});
             this.ToolStripMenuItem3.Name = "ToolStripMenuItem3";
             this.ToolStripMenuItem3.Size = new System.Drawing.Size(51, 24);
             this.ToolStripMenuItem3.Text = "选项";
             // 
-            // 音效ToolStripMenuItem
+            // 音效
             // 
-            this.音效ToolStripMenuItem.Checked = true;
-            this.音效ToolStripMenuItem.CheckOnClick = true;
-            this.音效ToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.音效ToolStripMenuItem.Name = "音效ToolStripMenuItem";
-            this.音效ToolStripMenuItem.Size = new System.Drawing.Size(168, 24);
-            this.音效ToolStripMenuItem.Text = "音效开关";
+            this.音效.Checked = true;
+            this.音效.CheckOnClick = true;
+            this.音效.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.音效.Name = "音效";
+            this.音效.Size = new System.Drawing.Size(162, 24);
+            this.音效.Text = "音效开关";
+            this.音效.Click += new System.EventHandler(this.音效_Click);
             // 
-            // 视频开关ToolStripMenuItem
+            // 视频开关
             // 
-            this.视频开关ToolStripMenuItem.Checked = true;
-            this.视频开关ToolStripMenuItem.CheckOnClick = true;
-            this.视频开关ToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.视频开关ToolStripMenuItem.Name = "视频开关ToolStripMenuItem";
-            this.视频开关ToolStripMenuItem.Size = new System.Drawing.Size(168, 24);
-            this.视频开关ToolStripMenuItem.Text = "视频开关";
+            this.视频开关.Checked = true;
+            this.视频开关.CheckOnClick = true;
+            this.视频开关.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.视频开关.Name = "视频开关";
+            this.视频开关.Size = new System.Drawing.Size(162, 24);
+            this.视频开关.Text = "视频开关";
+            this.视频开关.Click += new System.EventHandler(this.视频开关_Click);
             // 
-            // 播放模式ToolStripMenuItem
+            // 播放模式
             // 
-            this.播放模式ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.顺序播放ToolStripMenuItem,
-            this.单曲循环ToolStripMenuItem,
-            this.随机播放ToolStripMenuItem1});
-            this.播放模式ToolStripMenuItem.Name = "播放模式ToolStripMenuItem";
-            this.播放模式ToolStripMenuItem.Size = new System.Drawing.Size(168, 24);
-            this.播放模式ToolStripMenuItem.Text = "播放模式";
+            this.播放模式.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.顺序播放,
+            this.单曲循环,
+            this.随机播放});
+            this.播放模式.Name = "播放模式";
+            this.播放模式.Size = new System.Drawing.Size(162, 24);
+            this.播放模式.Text = "播放模式";
             // 
-            // 顺序播放ToolStripMenuItem
+            // 顺序播放
             // 
-            this.顺序播放ToolStripMenuItem.CheckOnClick = true;
-            this.顺序播放ToolStripMenuItem.Name = "顺序播放ToolStripMenuItem";
-            this.顺序播放ToolStripMenuItem.Size = new System.Drawing.Size(138, 24);
-            this.顺序播放ToolStripMenuItem.Text = "顺序播放";
-            this.顺序播放ToolStripMenuItem.Click += new System.EventHandler(this.顺序播放ToolStripMenuItem_Click);
+            this.顺序播放.CheckOnClick = true;
+            this.顺序播放.Name = "顺序播放";
+            this.顺序播放.Size = new System.Drawing.Size(138, 24);
+            this.顺序播放.Text = "顺序播放";
+            this.顺序播放.Click += new System.EventHandler(this.顺序播放_Click);
             // 
-            // 单曲循环ToolStripMenuItem
+            // 单曲循环
             // 
-            this.单曲循环ToolStripMenuItem.CheckOnClick = true;
-            this.单曲循环ToolStripMenuItem.Name = "单曲循环ToolStripMenuItem";
-            this.单曲循环ToolStripMenuItem.Size = new System.Drawing.Size(138, 24);
-            this.单曲循环ToolStripMenuItem.Text = "单曲循环";
-            this.单曲循环ToolStripMenuItem.Click += new System.EventHandler(this.单曲循环ToolStripMenuItem_Click);
+            this.单曲循环.CheckOnClick = true;
+            this.单曲循环.Name = "单曲循环";
+            this.单曲循环.Size = new System.Drawing.Size(138, 24);
+            this.单曲循环.Text = "单曲循环";
+            this.单曲循环.Click += new System.EventHandler(this.单曲循环_Click);
             // 
-            // 随机播放ToolStripMenuItem1
+            // 随机播放
             // 
-            this.随机播放ToolStripMenuItem1.Checked = true;
-            this.随机播放ToolStripMenuItem1.CheckOnClick = true;
-            this.随机播放ToolStripMenuItem1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.随机播放ToolStripMenuItem1.Name = "随机播放ToolStripMenuItem1";
-            this.随机播放ToolStripMenuItem1.Size = new System.Drawing.Size(138, 24);
-            this.随机播放ToolStripMenuItem1.Text = "随机播放";
-            this.随机播放ToolStripMenuItem1.Click += new System.EventHandler(this.随机播放ToolStripMenuItem1_Click);
+            this.随机播放.Checked = true;
+            this.随机播放.CheckOnClick = true;
+            this.随机播放.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.随机播放.Name = "随机播放";
+            this.随机播放.Size = new System.Drawing.Size(138, 24);
+            this.随机播放.Text = "随机播放";
+            this.随机播放.Click += new System.EventHandler(this.随机播放_Click);
             // 
-            // QQ状态同步ToolStripMenuItem
+            // QQ状态同步
             // 
-            this.QQ状态同步ToolStripMenuItem.Checked = true;
-            this.QQ状态同步ToolStripMenuItem.CheckOnClick = true;
-            this.QQ状态同步ToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.QQ状态同步ToolStripMenuItem.Name = "QQ状态同步ToolStripMenuItem";
-            this.QQ状态同步ToolStripMenuItem.Size = new System.Drawing.Size(168, 24);
-            this.QQ状态同步ToolStripMenuItem.Text = "QQ状态同步";
+            this.QQ状态同步.Checked = true;
+            this.QQ状态同步.CheckOnClick = true;
+            this.QQ状态同步.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.QQ状态同步.Name = "QQ状态同步";
+            this.QQ状态同步.Size = new System.Drawing.Size(162, 24);
+            this.QQ状态同步.Text = "QQ状态同步";
+            this.QQ状态同步.Click += new System.EventHandler(this.QQ状态同步_Click);
             // 
-            // 音效音乐控制ToolStripMenuItem
+            // SB开关
             // 
-            this.音效音乐控制ToolStripMenuItem.Name = "音效音乐控制ToolStripMenuItem";
-            this.音效音乐控制ToolStripMenuItem.Size = new System.Drawing.Size(168, 24);
-            this.音效音乐控制ToolStripMenuItem.Text = "音效音乐控制";
+            this.SB开关.Enabled = false;
+            this.SB开关.Name = "SB开关";
+            this.SB开关.Size = new System.Drawing.Size(162, 24);
+            this.SB开关.Text = "SB开关";
+            this.SB开关.Click += new System.EventHandler(this.SB开关_Click);
             // 
-            // SB开关ToolStripMenuItem
+            // 关于
             // 
-            this.SB开关ToolStripMenuItem.Name = "SB开关ToolStripMenuItem";
-            this.SB开关ToolStripMenuItem.Size = new System.Drawing.Size(168, 24);
-            this.SB开关ToolStripMenuItem.Text = "SB开关";
-            // 
-            // 关于ToolStripMenuItem
-            // 
-            this.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
-            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(51, 24);
-            this.关于ToolStripMenuItem.Text = "关于";
+            this.关于.Name = "关于";
+            this.关于.Size = new System.Drawing.Size(51, 24);
+            this.关于.Text = "关于";
+            this.关于.Click += new System.EventHandler(this.关于_Click);
             // 
             // button3
             // 
@@ -320,9 +331,6 @@ public partial class Form1 : System.Windows.Forms.Form
             this.button3.Text = "初始化";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // AVsyncer
-            // 
             // 
             // backgroundWorker1
             // 
@@ -548,6 +556,7 @@ public partial class Form1 : System.Windows.Forms.Form
             this.Button2.TabIndex = 32;
             this.Button2.Text = "选择Collection";
             this.Button2.UseVisualStyleBackColor = true;
+            this.Button2.Click += new System.EventHandler(this.Button2_Click);
             // 
             // Button1
             // 
@@ -644,35 +653,34 @@ public partial class Form1 : System.Windows.Forms.Form
 		}
 		internal System.Windows.Forms.MenuStrip MenuStrip1;
 		internal System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem1;
-		internal System.Windows.Forms.ToolStripMenuItem 运行OSUToolStripMenuItem;
-		internal System.Windows.Forms.ToolStripMenuItem 手动指定OSU目录ToolStripMenuItem;
+		internal System.Windows.Forms.ToolStripMenuItem 运行OSU;
+		internal System.Windows.Forms.ToolStripMenuItem 手动指定OSU目录;
 		internal System.Windows.Forms.ToolStripSeparator ToolStripSeparator1;
-		internal System.Windows.Forms.ToolStripMenuItem 重新导入osuToolStripMenuItem7;
-		internal System.Windows.Forms.ToolStripMenuItem 重新导入scoresToolStripMenuItem;
-		internal System.Windows.Forms.ToolStripMenuItem 重新导入collectionsToolStripMenuItem9;
+		internal System.Windows.Forms.ToolStripMenuItem 重新导入osu;
+		internal System.Windows.Forms.ToolStripMenuItem 重新导入scores;
+		internal System.Windows.Forms.ToolStripMenuItem 重新导入collections;
 		internal System.Windows.Forms.ToolStripSeparator ToolStripSeparator2;
-		internal System.Windows.Forms.ToolStripMenuItem 打开曲目文件夹ToolStripMenuItem;
-		internal System.Windows.Forms.ToolStripMenuItem 打开铺面文件ToolStripMenuItem;
-		internal System.Windows.Forms.ToolStripMenuItem 打开SB文件ToolStripMenuItem;
+		internal System.Windows.Forms.ToolStripMenuItem 打开曲目文件夹;
+		internal System.Windows.Forms.ToolStripMenuItem 打开铺面文件;
+		internal System.Windows.Forms.ToolStripMenuItem 打开SB文件;
 		internal System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem2;
 		private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem3;
-		internal System.Windows.Forms.ToolStripMenuItem 关于ToolStripMenuItem;
-		internal System.Windows.Forms.ToolStripMenuItem 重复歌曲扫描ToolStripMenuItem;
-		internal System.Windows.Forms.ToolStripMenuItem 音效ToolStripMenuItem;
+		internal System.Windows.Forms.ToolStripMenuItem 关于;
+		internal System.Windows.Forms.ToolStripMenuItem 重复歌曲扫描;
+		internal System.Windows.Forms.ToolStripMenuItem 音效;
 		internal System.Windows.Forms.ToolStripSeparator ToolStripSeparator3;
-		internal System.Windows.Forms.ToolStripMenuItem 退出ToolStripMenuItem;
-		internal System.Windows.Forms.ToolStripMenuItem 视频开关ToolStripMenuItem;
-        internal System.Windows.Forms.ToolStripMenuItem 播放模式ToolStripMenuItem;
-        internal System.Windows.Forms.ToolStripMenuItem QQ状态同步ToolStripMenuItem;
-		internal System.Windows.Forms.ToolStripMenuItem 音效音乐控制ToolStripMenuItem;
-        internal System.Windows.Forms.ToolStripMenuItem SB开关ToolStripMenuItem;
+		internal System.Windows.Forms.ToolStripMenuItem 退出;
+		internal System.Windows.Forms.ToolStripMenuItem 视频开关;
+        internal System.Windows.Forms.ToolStripMenuItem 播放模式;
+        internal System.Windows.Forms.ToolStripMenuItem QQ状态同步;
+        internal System.Windows.Forms.ToolStripMenuItem SB开关;
         private Button button3;
         private Timer AVsyncer;
         private System.ComponentModel.IContainer components;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        internal ToolStripRadioButtonMenuItem 随机播放ToolStripMenuItem1;
-        internal ToolStripRadioButtonMenuItem 顺序播放ToolStripMenuItem;
-        internal ToolStripRadioButtonMenuItem 单曲循环ToolStripMenuItem;
+        internal ToolStripRadioButtonMenuItem 随机播放;
+        internal ToolStripRadioButtonMenuItem 顺序播放;
+        internal ToolStripRadioButtonMenuItem 单曲循环;
         private Panel panel1;
         internal TextBox TextBox1;
         private Label label1;

@@ -1,6 +1,6 @@
 ﻿namespace OSU_player
 {
-    partial class About
+    partial class DelDulp
     {
         /// <summary>
         /// Required designer variable.
@@ -30,14 +30,14 @@
         {
             this.SuspendLayout();
             // 
-            // About
+            // DelDulp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(282, 253);
-            this.Name = "About";
-            this.Text = "About";
-            this.Load += new System.EventHandler(this.About_Load);
+            this.Name = "DelDulp";
+            this.Text = "DelDulp";
+            this.Load += new System.EventHandler(this.DelDulp_Load);
             this.ResumeLayout(false);
 
         }

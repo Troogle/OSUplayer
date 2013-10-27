@@ -91,6 +91,12 @@
     <Compile Include="Beatmap\AVFiles.cs" />
     <Compile Include="Beatmap\Beatmap.cs" />
     <Compile Include="Beatmap\BeatmapSet.cs" />
+    <Compile Include="DelDulp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DelDulp.Designer.cs">
+      <DependentUpon>DelDulp.cs</DependentUpon>
+    </Compile>
     <Compile Include="ToolStripRadioButtonMenuItem.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -113,6 +119,12 @@
     <Compile Include="QQ.cs" />
     <Compile Include="Selfupdate.cs" />
     <Compile Include="Beatmap\StoryBoard.cs" />
+    <EmbeddedResource Include="About.resx">
+      <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DelDulp.resx">
+      <DependentUpon>DelDulp.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

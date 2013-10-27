@@ -31,7 +31,12 @@ namespace OSU_player
         float Allvolume = 1.0f;
         float Musicvolume = 0.8f;
         float Fxvolume = 0.6f;
-        public void AskForExit(object sender, System.Windows.Forms.FormClosingEventArgs e)
+        bool playvideo = true;
+        bool playfx = true;
+        bool playsb = true;
+
+        #region 各种方法
+        private void AskForExit(object sender, System.Windows.Forms.FormClosingEventArgs e)
         {
             DialogResult close;
             close = MessageBox.Show("确认退出？", "提示", MessageBoxButtons.YesNo);
@@ -44,10 +49,7 @@ namespace OSU_player
                 e.Cancel = true;
             }
             uni_QQ.Send2QQ(Core.uin, "");
-        }
-        public bool ThumbnailCallback()
-        {
-            return false;
+            if (uni_Audio != null) { uni_Audio.Dispose(); };
         }
         private void printdetail()
         {
@@ -62,12 +64,6 @@ namespace OSU_player
         private void setbg()
         {
             printdetail();
-            //System.Drawing.Image tmpimg = default(System.Drawing.Image);
-            //  string bgpath = CurrentBeatmap.Background;
-            // tmpimg = Image.FromFile(bgpath);
-            // Image.GetThumbnailImageAbort myCallback = new Image.GetThumbnailImageAbort(ThumbnailCallback);
-            // Panel1.BackgroundImage = tmpimg.GetThumbnailImage(Panel1.Width, Panel1.Height, myCallback, IntPtr.Zero);
-            // tmpimg.Dispose();
             uni_Video.initbg(CurrentBeatmap.Background);
             uni_Video.Play(this.panel2);
         }
@@ -88,7 +84,7 @@ namespace OSU_player
             uni_Audio = new Audiofiles(CurrentBeatmap.Audio);
             uni_Audio.UpdateTimer.Tick += new EventHandler(AVsync);
             uni_Audio.Play(Allvolume * Musicvolume);
-            if (CurrentBeatmap.haveVideo)
+            if (CurrentBeatmap.haveVideo&& playvideo)
             {
                 uni_Video.init(Path.Combine(CurrentBeatmap.location, CurrentBeatmap.Video));
                 if (CurrentBeatmap.VideoOffset > 0)
@@ -149,6 +145,206 @@ namespace OSU_player
             CurrentBeatmap = TmpBeatmap;
             Play();
         }
+        private void scanforset(string path)
+        {
+            string[] osufiles = Directory.GetFiles(path, "*.osu");
+            if (osufiles.Length != 0)
+            {
+                BeatmapSet tmp = new BeatmapSet(path);
+                //tmp.GetDetail();
+                Core.allsets.Add(tmp);
+                this.backgroundWorker1.ReportProgress(0, tmp.name);
+            }
+            else
+            {
+                string[] tmpfolder = Directory.GetDirectories(path);
+                foreach (string subfolder in tmpfolder)
+                {
+                    scanforset(subfolder);
+                }
+            }
+        }
+        private void initset()
+        {
+            try
+            {
+                if (Directory.Exists(Path.Combine(Core.osupath, "Songs")))
+                {
+                    this.backgroundWorker1.RunWorkerAsync(Path.Combine(Core.osupath, "Songs"));
+                }
+            }
+            catch (SystemException ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+                throw (new FormatException("Failed to read song path", ex));
+            }
+        }
+        #endregion
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            BassNet.Registration("sqh1994@163.com", "2X280331512622");
+            Bass.BASS_Init(-1, 44100, BASSInit.BASS_DEVICE_DEFAULT, IntPtr.Zero);
+            new Thread(new ThreadStart(Selfupdate.check_update)).Start();
+            Core.Getpath();
+            MessageBox.Show("将开始初始化");
+            initset();
+        }
+        private void AVsync(object sender, EventArgs e)
+        {
+            if (!uni_Audio.isplaying)
+            {
+                PlayNext();
+                return;
+            }
+            TrackBar1.Value = (int)Math.Round((uni_Audio.position / uni_Audio.durnation) * TrackBar1.Maximum);
+            label1.Text = String.Format("{0}:{1:D2} / {2}:{3:D2}", (int)uni_Audio.position / 60,
+                (int)uni_Audio.position % 60, (int)uni_Audio.durnation / 60,
+                (int)uni_Audio.durnation % 60);
+            if (uni_Audio.durnation == uni_Audio.position)
+            {
+                PlayNext();
+            }
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            scanforset(e.Argument.ToString());
+        }
+        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            if (e.UserState.ToString().Length > 0)
+            {
+                ListViewItem tmpl = new ListViewItem(e.UserState.ToString());
+                PlayList.Items.Add(tmpl);
+            }
+        }
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            foreach (ListViewItem item in PlayList.Items)
+            {
+                item.SubItems.Add(item.Index.ToString());
+                FullList.Add(item);
+            }
+            MessageBox.Show(string.Format("初始化完毕，发现曲目{0}个", Core.allsets.Count));
+            button3.Enabled = false;
+            PlayList.Items[0].Selected = true;
+        }
+
+
+        #region 菜单栏
+        private void button3_Click(object sender, EventArgs e)
+        {
+            initset();
+        }
+        #region 文件
+        private void 运行OSU_Click(object sender, EventArgs e)
+        {
+            Process.Start(Path.Combine(Core.osupath, "osu!.exe"));
+        }
+        private void 手动指定OSU目录_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void 重新导入osu_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void 重新导入collections_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void 打开曲目文件夹_Click(object sender, EventArgs e)
+        {
+            Process.Start(TmpSet.location);
+        }
+        private void 打开铺面文件_Click(object sender, EventArgs e)
+        {
+            Process.Start("notepad.exe", TmpBeatmap.path);
+
+        }
+        private void 打开SB文件_Click(object sender, EventArgs e)
+        {
+            Process.Start("notepad.exe", TmpSet.OsbPath);
+        }
+        private void 退出_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+        #endregion
+        #region 工具
+        private void 重复歌曲扫描_Click(object sender, EventArgs e)
+        {
+            using (DelDulp dialog = new DelDulp())
+            {
+                dialog.Show();
+            }
+        }
+        #endregion
+        #region 选项
+        private void 随机播放_Click(object sender, EventArgs e)
+        {
+            Nextmode = 3;
+        }
+        private void 顺序播放_Click(object sender, EventArgs e)
+        {
+            Nextmode = 1;
+        }
+        private void 单曲循环_Click(object sender, EventArgs e)
+        {
+            Nextmode = 2;
+        }
+        private void 音效_Click(object sender, EventArgs e)
+        {
+            playfx = 音效.Checked;
+        }
+        private void 视频开关_Click(object sender, EventArgs e)
+        {
+            playvideo = 视频开关.Checked;
+        }
+        private void QQ状态同步_Click(object sender, EventArgs e)
+        {
+            Core.syncQQ = QQ状态同步.Checked;
+        }
+        private void SB开关_Click(object sender, EventArgs e)
+        {
+            playsb = SB开关.Checked;
+        }
+        #endregion
+        private void 关于_Click(object sender, EventArgs e)
+        {
+            using (About dialog = new About())
+            {
+                dialog.Show();
+            }
+
+        }
+
+        #endregion
+        #region 第一排
+        private void Button2_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            using (Form2 dialog = new Form2())
+            {
+                dialog.Show();
+            }
+            LabelQQ.Text = "当前同步QQ：" + Core.uin.ToString();
+        }
+        private void TrackBar3_Scroll(object sender, EventArgs e)
+        {
+            Fxvolume = (float)TrackBar3.Value / (float)TrackBar3.Maximum;
+        }
+        private void trackBar4_Scroll(object sender, EventArgs e)
+        {
+            Musicvolume = (float)trackBar4.Value / (float)trackBar4.Maximum;
+            if (uni_Audio != null) { uni_Audio.Volume = Allvolume * Musicvolume; }
+
+        }
+        #endregion
+        #region 第二排
         private void PlayList_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (PlayList.SelectedItems.Count == 0) { return; }
@@ -162,10 +358,14 @@ namespace OSU_player
             {
                 DiffList.Items.Add(s);
             }
+            if (!File.Exists(TmpSet.OsbPath))
+            { 打开SB文件.Enabled = false; }
+            else
+            { 打开SB文件.Enabled = true; }
             DiffList.SelectedIndex = 0;
             //因为改变selectedindex会触发listbox的进程，所以以下省略了
         }
-        public void DiffList_SelectedIndexChanged(object sender, EventArgs e)
+        private void DiffList_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (PlayList.SelectedIndices.Count == 0)
             {
@@ -209,29 +409,24 @@ namespace OSU_player
             setbg();
             Play();
         }
-        private void Form1_Load(object sender, EventArgs e)
+        private void StopButton_Click(object sender, EventArgs e)
         {
-            BassNet.Registration("sqh1994@163.com", "2X280331512622");
-            Bass.BASS_Init(-1, 44100, BASSInit.BASS_DEVICE_DEFAULT, IntPtr.Zero);
-            new Thread(new ThreadStart(Selfupdate.check_update)).Start();
-            Core.Getpath();
-            MessageBox.Show("将开始初始化");
-            initset();
+            Stop();
         }
-        private void initset()
+        private void NextButton_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (Directory.Exists(Path.Combine(Core.osupath, "Songs")))
-                {
-                    this.backgroundWorker1.RunWorkerAsync(Path.Combine(Core.osupath, "Songs"));
-                }
-            }
-            catch (SystemException ex)
-            {
-                Console.WriteLine(ex.StackTrace);
-                throw (new FormatException("Failed to read song path", ex));
-            }
+            PlayNext();
+        }
+        private void TrackBar1_Scroll(object sender, EventArgs e)
+        {
+            uni_Audio.Seek(TrackBar1.Value * uni_Audio.durnation / TrackBar1.Maximum);
+            uni_Video.seek(TrackBar1.Value * uni_Audio.durnation / TrackBar1.Maximum + CurrentBeatmap.VideoOffset / 1000);
+        }
+        private void TrackBar2_Scroll(object sender, EventArgs e)
+        {
+            Allvolume = (float)TrackBar2.Value / (float)TrackBar2.Maximum;
+            if (uni_Audio != null) { uni_Audio.Volume = Allvolume * Musicvolume; }
+
         }
         private void SearchButton_Click(object sender, EventArgs e)
         {
@@ -276,118 +471,6 @@ namespace OSU_player
             }
 
         }
-        private void Button1_Click(object sender, EventArgs e)
-        {
-            using (Form2 dialog = new Form2())
-            {
-                dialog.Show();
-            }
-            LabelQQ.Text = "当前同步QQ：" + Core.uin.ToString();
-        }
-        private void button3_Click(object sender, EventArgs e)
-        {
-            initset();
-        }
-        private void AVsync(object sender, EventArgs e)
-        {
-            if (!uni_Audio.isplaying)
-            {
-                PlayNext();
-                return;
-            }
-            TrackBar1.Value = (int)Math.Round((uni_Audio.position / uni_Audio.durnation) * TrackBar1.Maximum);
-            label1.Text = String.Format("{0}:{1:D2} / {2}:{3:D2}", (int)uni_Audio.position / 60,
-                (int)uni_Audio.position % 60, (int)uni_Audio.durnation / 60,
-                (int)uni_Audio.durnation % 60);
-            if (uni_Audio.durnation == uni_Audio.position)
-            {
-                PlayNext();
-            }
-        }
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
-        {
-            scanforset(e.Argument.ToString());
-        }
-        public void scanforset(string path)
-        {
-            string[] osufiles = Directory.GetFiles(path, "*.osu");
-            if (osufiles.Length != 0)
-            {
-                BeatmapSet tmp = new BeatmapSet(path);
-                //tmp.GetDetail();
-                Core.allsets.Add(tmp);
-                this.backgroundWorker1.ReportProgress(0, tmp.name);
-            }
-            else
-            {
-                string[] tmpfolder = Directory.GetDirectories(path);
-                foreach (string subfolder in tmpfolder)
-                {
-                    scanforset(subfolder);
-                }
-            }
-        }
-        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            if (e.UserState.ToString().Length > 0)
-            {
-                ListViewItem tmpl = new ListViewItem(e.UserState.ToString());
-                PlayList.Items.Add(tmpl);
-            }
-        }
-        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            foreach (ListViewItem item in PlayList.Items)
-            {
-                item.SubItems.Add(item.Index.ToString());
-                FullList.Add(item);
-            }
-            MessageBox.Show(string.Format("初始化完毕，发现曲目{0}个", Core.allsets.Count));
-            button3.Enabled = false;
-            PlayList.Items[0].Selected = true;
-        }
-        private void StopButton_Click(object sender, EventArgs e)
-        {
-            Stop();
-        }
-        private void 随机播放ToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            Nextmode = 3;
-        }
-        private void NextButton_Click(object sender, EventArgs e)
-        {
-            PlayNext();
-        }
-        private void 顺序播放ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Nextmode = 1;
-        }
-        private void 单曲循环ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Nextmode = 2;
-        }
-        private void TrackBar1_Scroll(object sender, EventArgs e)
-        {
-            uni_Audio.Seek(TrackBar1.Value * uni_Audio.durnation / TrackBar1.Maximum);
-            uni_Video.seek(TrackBar1.Value * uni_Audio.durnation / TrackBar1.Maximum + CurrentBeatmap.VideoOffset / 1000);
-        }
-        private void TrackBar2_Scroll(object sender, EventArgs e)
-        {
-            Allvolume = (float)TrackBar2.Value / (float)TrackBar2.Maximum;
-            if (uni_Audio != null) { uni_Audio.Volume = Allvolume * Musicvolume; }
-
-        }
-        private void TrackBar3_Scroll(object sender, EventArgs e)
-        {
-            Fxvolume = (float)TrackBar3.Value / (float)TrackBar3.Maximum;
-        }
-        private void trackBar4_Scroll(object sender, EventArgs e)
-        {
-            Musicvolume = (float)trackBar4.Value / (float)trackBar4.Maximum;
-            if (uni_Audio != null) { uni_Audio.Volume = Allvolume * Musicvolume; }
-
-        }
-
-
+        #endregion
     }
 }

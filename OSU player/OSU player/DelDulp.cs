@@ -8,14 +8,14 @@ using System.Windows.Forms;
 
 namespace OSU_player
 {
-    public partial class About : Form
+    public partial class DelDulp : Form
     {
-        public About()
+        public DelDulp()
         {
             InitializeComponent();
         }
 
-        private void About_Load(object sender, EventArgs e)
+        private void DelDulp_Load(object sender, EventArgs e)
         {
 
         }

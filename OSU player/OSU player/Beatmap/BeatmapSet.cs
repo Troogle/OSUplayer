@@ -9,7 +9,7 @@ namespace OSU_player
 	public class BeatmapSet
 	{
 		public string location;
-		public string Osbfilename;
+		public string OsbPath;
 		public int count; //number of diffs
 		public string name;
 		public List<string> diffstr = new List<string>();
@@ -127,7 +127,7 @@ namespace OSU_player
 			FileInfo[] osbfiles = F.GetFiles("*.osb");
 			if (osbfiles.Length != 0)
 			{
-				Osbfilename = osbfiles[0].Name;
+				OsbPath = osbfiles[0].Name;
 			}
 			//osb first
 			FileInfo[] osufiles = F.GetFiles("*.osu");
@@ -137,7 +137,7 @@ namespace OSU_player
 			{
 				count++;
 				string filename = s.Name;
-				Beatmap bm = new Beatmap(location, filename, Osbfilename);
+				Beatmap bm = new Beatmap(location, filename, OsbPath);
 				Diffs.Add(bm);
 			}
 		}

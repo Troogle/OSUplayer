@@ -164,9 +164,6 @@ namespace OSU_player
                 osupath = "";
             }
         }
-        /// <summary>
-        /// 扫描指定的目录下的BeatmapSet，存储到allsets中
-        /// </summary>
-        /// <param name="path">扫描的路径</param>
+        public static bool syncQQ = true;
     }
 }
