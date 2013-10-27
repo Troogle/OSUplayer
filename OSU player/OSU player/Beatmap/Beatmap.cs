@@ -429,7 +429,7 @@ namespace OSU_player
                                 else { Ntiming.meter = Convert.ToInt32(tmpop); }
                                 tmpop = picknext(ref row_t);
                                 if (tmpop == "") { Ntiming.sample = new CSample((int)TSample.Normal, 0); }
-                                else { Ntiming.sample = new CSample((int)(TSample)Enum.Parse(typeof(TSample), tmpop), Convert.ToInt32(picknext(ref row_t))); }
+                                else { Ntiming.sample = new CSample(Convert.ToInt32(tmpop), Convert.ToInt32(picknext(ref row_t))); }
                                 tmpop = picknext(ref row_t);
                                 if (tmpop == "") { Ntiming.volume = 100; }
                                 else { Ntiming.volume = Convert.ToInt32(tmpop); }
@@ -458,7 +458,8 @@ namespace OSU_player
                                 NHit.x = Convert.ToInt32(picknext(ref row_t));
                                 NHit.y = Convert.ToInt32(picknext(ref row_t));
                                 NHit.starttime = Convert.ToInt32(picknext(ref row_t));
-                                switch (check(picknext(ref row_t)))
+                                NHit.type=check(picknext(ref row_t));
+                                switch (NHit.type)
                                 {
                                     case ObjectFlag.Normal:
                                         NHit.allhitsound = Convert.ToInt32(picknext(ref row_t));
@@ -467,21 +468,22 @@ namespace OSU_player
                                         {
                                             if (tmpop.Length > 3)
                                             {
-                                                NHit.sample = new CSample(Convert.ToInt32(tmpop[0]), Convert.ToInt32(tmpop[4]));
+                                                NHit.sample = new CSample((int)Char.GetNumericValue(tmpop[0]), (int)Char.GetNumericValue(tmpop[4]));
                                                 if (tmpop.Length < 7) { tmpop = tmpop + ":0:"; }
-                                                NHit.A_sample = new CSample(Convert.ToInt32(tmpop[2]), Convert.ToInt32(tmpop[6]));
+                                                NHit.A_sample = new CSample((int)Char.GetNumericValue(tmpop[2]), (int)Char.GetNumericValue(tmpop[6]));
                                             }
                                             else
                                             {
-                                                NHit.sample = new CSample(Convert.ToInt32(tmpop[0]), Convert.ToInt32(tmpop[2]));
-                                                NHit.A_sample = new CSample((int)TSample.Normal, 0);
+                                                NHit.sample = new CSample((int)Char.GetNumericValue(tmpop[0]), (int)Char.GetNumericValue(tmpop[2]));
+                                                NHit.A_sample = new CSample(0, 0);
                                             }
                                         }
                                         else
                                         {
-                                            NHit.sample = new CSample((int)TSample.Normal, 0);
-                                            NHit.A_sample = new CSample((int)TSample.Normal, 0);
+                                            NHit.sample = new CSample(0, 0);
+                                            NHit.A_sample = new CSample(0, 0);
                                         }
+                                        HitObjects.Add(NHit);
                                         break;
                                     case ObjectFlag.Spinner:
                                         NHit.allhitsound = Convert.ToInt32(picknext(ref row_t));
@@ -491,21 +493,22 @@ namespace OSU_player
                                         {
                                             if (tmpop.Length > 3)
                                             {
-                                                NHit.sample = new CSample(Convert.ToInt32(tmpop[0]), Convert.ToInt32(tmpop[4]));
+                                                NHit.sample = new CSample((int)Char.GetNumericValue(tmpop[0]), (int)Char.GetNumericValue(tmpop[4]));
                                                 if (tmpop.Length < 7) { tmpop = tmpop + ":0:"; }
-                                                NHit.A_sample = new CSample(Convert.ToInt32(tmpop[2]), Convert.ToInt32(tmpop[6]));
+                                                NHit.A_sample = new CSample((int)Char.GetNumericValue(tmpop[2]), (int)Char.GetNumericValue(tmpop[6]));
                                             }
                                             else
                                             {
-                                                NHit.sample = new CSample(Convert.ToInt32(tmpop[0]), Convert.ToInt32(tmpop[2]));
-                                                NHit.A_sample = new CSample((int)TSample.Normal, 0);
+                                                NHit.sample = new CSample((int)Char.GetNumericValue(tmpop[0]), (int)Char.GetNumericValue(tmpop[2]));
+                                                NHit.A_sample = new CSample(0, 0);
                                             }
                                         }
                                         else
                                         {
-                                            NHit.sample = new CSample((int)TSample.Normal, 0);
-                                            NHit.A_sample = new CSample((int)TSample.Normal, 0);
+                                            NHit.sample = new CSample(0, 0);
+                                            NHit.A_sample = new CSample(0, 0);
                                         }
+                                        HitObjects.Add(NHit);
                                         break;
                                     case ObjectFlag.Slider:
                                         NHit.allhitsound = Convert.ToInt32(picknext(ref row_t));
@@ -513,7 +516,7 @@ namespace OSU_player
                                         //ignore all anthor
                                         tmpop = picknext(ref row_t);
                                         if (tmpop != "") { NHit.repeatcount = Convert.ToInt32(tmpop); }
-                                        else { NHit.repeatcount = 0; }
+                                        else { NHit.repeatcount = 1; }
                                         tmpop = picknext(ref row_t);
                                         if (tmpop != "") { NHit.length = Convert.ToDouble(tmpop); }
                                         else { NHit.length = 0; }
@@ -528,6 +531,13 @@ namespace OSU_player
                                                 NHit.Hitsounds.Add(Convert.ToInt32(str));
                                             }
                                         }
+                                        else
+                                        {
+                                            for (int i=0;i<=NHit.repeatcount;i++)
+                                            {
+                                                NHit.Hitsounds.Add(1);
+                                            }
+                                        }
                                         tmpop = picknext(ref row_t);
                                         if (tmpop != "")
                                         {
@@ -537,26 +547,36 @@ namespace OSU_player
                                                 NHit.A_samples.Add(new CSample(Convert.ToInt32(str[2]), 0));
                                             }
                                         }
+                                        else
+                                        {
+                                            for (int i = 0; i <= NHit.repeatcount; i++)
+                                            {
+                                                NHit.sample = new CSample(0, 0);
+                                                NHit.A_sample = new CSample(0, 0);
+                                            }
+                                        }
                                         tmpop = picknext(ref row_t);
                                         if (tmpop != "")
                                         {
                                             if (tmpop.Length > 3)
                                             {
-                                                NHit.sample = new CSample(Convert.ToInt32(tmpop[0]), Convert.ToInt32(tmpop[4]));
+                                                NHit.sample = new CSample((int)Char.GetNumericValue(tmpop[0]), (int)Char.GetNumericValue(tmpop[4]));
                                                 if (tmpop.Length < 7) { tmpop = tmpop + ":0:"; }
-                                                NHit.A_sample = new CSample(Convert.ToInt32(tmpop[2]), Convert.ToInt32(tmpop[6]));
+                                                NHit.A_sample = new CSample((int)Char.GetNumericValue(tmpop[2]), (int)Char.GetNumericValue(tmpop[6]));
                                             }
                                             else
                                             {
-                                                NHit.sample = new CSample(Convert.ToInt32(tmpop[0]), Convert.ToInt32(tmpop[2]));
-                                                NHit.A_sample = new CSample((int)TSample.Normal, 0);
+                                                NHit.sample = new CSample((int)Char.GetNumericValue(tmpop[0]), (int)Char.GetNumericValue(tmpop[2]));
+                                                NHit.A_sample = new CSample(0, 0);
                                             }
                                         }
                                         else
                                         {
-                                            NHit.sample = new CSample((int)TSample.Normal, 0);
-                                            NHit.A_sample = new CSample((int)TSample.Normal, 0);
-                                        } break;
+                                            NHit.sample = new CSample(0, 0);
+                                            NHit.A_sample = new CSample(0, 0);
+                                        }
+                                        HitObjects.Add(NHit);
+                                        break;
                                     //HitSound,(SampleSet&Addition|SampleSet&Addition),(All SampleSet&Addition)
                                     //SampleSet&Addition 只有sample没有setcount
                                     //All SampleSet&Addition 啥都有

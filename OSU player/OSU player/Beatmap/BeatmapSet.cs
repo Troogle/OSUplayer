@@ -19,24 +19,31 @@ namespace OSU_player
 		{
 			if (File.Exists(Path.Combine(location, url + ".wav")))
 			{
-				return (url + ".wav");
+                return Path.Combine(location, url + ".wav");
 			}
 			else
-			{
-				return (url + ".mp3");
+            {
+                if (File.Exists(Path.Combine(location, url + ".mp3")))
+                {
+                    return Path.Combine(location, url + ".mp3");
+                }
+                else
+                    return Application.StartupPath + "\\Default\\" + "normal-hitnormal.wav";
 			}
 		}
-		public List<string> getsamplename(CSample sample, int soundtype, int objecttype)
+        /// <summary>
+        /// 取需要播放的音效完整目录
+        /// </summary>
+        /// <param name="sample">需要处理的sample类型</param>
+        /// <param name="soundtype">需要处理的音效</param>
+        /// <returns>当前需要播放音效的List<string></returns>
+		public List<string> getsamplename(CSample sample, int soundtype)
 		{
 			List<string> tmp = new List<string>();
-            if (objecttype == (int)ObjectFlag.Spinner | objecttype == (int)ObjectFlag.SpinnerNewCombo)
-			{
-				return tmp;
-			}
-			string last = "";
+            if (sample.sample == 0) { return (tmp); }
 			if (sample.sampleset == 0)
 			{
-                string all = (string)(Path.Combine(Application.StartupPath, "\\defalut\\") + Enum.GetName(typeof(TSample), sample.sample));
+                string all = Application.StartupPath + "\\Default\\" + Enum.GetName(typeof(TSample), sample.sample);
 				if (soundtype % 2 == 0)
 				{
 					tmp.Add(all + "-hitnormal.wav");
@@ -57,7 +64,7 @@ namespace OSU_player
 				}
 				if (soundtype % 2 == 1)
 				{
-					tmp.Add(all + "-finish.wav");
+					tmp.Add(all + "-hitfinish.wav");
 				}
 				soundtype = (int) (soundtype / 2);
 				if (soundtype == 0)
@@ -71,6 +78,7 @@ namespace OSU_player
 				soundtype = (int) (soundtype / 2);
 				return tmp;
 			}
+            string last = "";
 			if (sample.sampleset == 1)
 			{
 				last = "";
@@ -83,8 +91,7 @@ namespace OSU_player
 			//normal-sliderwhistle(loops)
 			//normal-slidertick
 			//不考虑以上
-			string first = "";
-            first = Enum.GetName(typeof(TSample), sample.sample);
+			string first =Enum.GetName(typeof(TSample), sample.sample);
 			if (soundtype % 2 == 0)
 			{
 				tmp.Add(check(first + "-hitnormal" + last));
@@ -105,7 +112,7 @@ namespace OSU_player
 			}
 			if (soundtype % 2 == 1)
 			{
-				tmp.Add(check(first + "-finish" + last));
+				tmp.Add(check(first + "-hitfinish" + last));
 			}
 			soundtype = (int) (soundtype / 2);
 			if (soundtype == 0)

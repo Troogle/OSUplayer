@@ -95,21 +95,29 @@ namespace OSU_player
     /// </summary>
     public enum TSample
     {
-        Normal,
-        Soft,
-        Drum
+        None = 0,
+        Normal = 1,
+        Soft = 2,
+        Drum = 3
     }
     /// <summary>
     /// 打击音效组
     /// </summary>
     public struct CSample
     {
-        public TSample sample;
+        public int sample;
         public int sampleset;
         public CSample(int sample, int sampleset)
         {
             this.sampleset = sampleset;
-            this.sample = (TSample)sample;
+            this.sample = sample;
+        }
+        public override bool Equals(object obj)
+        {
+            if (!(obj is CSample))
+                return false;
+            CSample mys = (CSample)obj;
+            return mys.sample == this.sample && mys.sampleset == this.sampleset;
         }
     }
     /// <summary>

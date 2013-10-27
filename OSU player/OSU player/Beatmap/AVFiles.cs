@@ -13,7 +13,7 @@ namespace OSU_player
         private string Path = "";
         private SYNCPROC _sync = null;
         private int Interval = 1;
-        private BASSTimer Timer = null;
+        private BASSTimer Timer = new BASSTimer();
         private bool isPaused = false;
         public Audiofiles()
         {
@@ -90,30 +90,22 @@ namespace OSU_player
                 Bass.BASS_ChannelSetAttribute(channel, BASSAttribute.BASS_ATTRIB_VOL, value);
             }
         }
-        public Audiofiles(string path)
+        public void Open(string path)
         {
             Path = path;
             Timer = new BASSTimer(Interval);
             _sync = new SYNCPROC(ReachedEnd);
             Bass.BASS_StreamFree(channel);
-            if (Path != String.Empty)
-            {
-                BASSFlag flag = BASSFlag.BASS_SAMPLE_FLOAT | BASSFlag.BASS_STREAM_PRESCAN;
-                channel = Bass.BASS_StreamCreateFile(Path, 0, 0, flag);
-            }
+            BASSFlag flag = BASSFlag.BASS_SAMPLE_FLOAT | BASSFlag.BASS_STREAM_PRESCAN;
+            channel = Bass.BASS_StreamCreateFile(Path, 0, 0, flag);
             if (channel == 0)
             {
-                throw (new FormatException("Zero Ptr found while loading sample"));
+                throw (new FormatException(Bass.BASS_ErrorGetCode().ToString()));
             }
         }
         private void ReachedEnd(int handle, int channel, int data, IntPtr user)
         {
-            Bass.BASS_ChannelStop(channel);
-        }
-        public void Exit()
-        {
-            Bass.BASS_Stop();
-            Bass.BASS_Free();
+            Stop();
         }
         public BASSTimer UpdateTimer
         {

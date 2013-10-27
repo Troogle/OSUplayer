@@ -141,6 +141,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="app.config" />
     <None Include="Properties\app.manifest">
       <SubType>Designer</SubType>
     </None>
@@ -158,18 +159,6 @@
     <Content Include="bass.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Default\drum-hitclap0.wav" />
-    <Content Include="Default\drum-hitfinish0.wav" />
-    <Content Include="Default\drum-hitnormal0.wav" />
-    <Content Include="Default\drum-hitwhistle0.wav" />
-    <Content Include="Default\normal-hitclap0.wav" />
-    <Content Include="Default\normal-hitfinish0.wav" />
-    <Content Include="Default\normal-hitnormal0.wav" />
-    <Content Include="Default\normal-hitwhistle0.wav" />
-    <Content Include="Default\soft-hitclap0.wav" />
-    <Content Include="Default\soft-hitfinish0.wav" />
-    <Content Include="Default\soft-hitnormal0.wav" />
-    <Content Include="Default\soft-hitwhistle0.wav" />
     <None Include="Res\defaultBG.png" />
     <None Include="Res\defaultBG.avi" />
     <None Include="Res\blank.wav" />
