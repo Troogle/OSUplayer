@@ -6,6 +6,7 @@ using System.Threading;
 using System.ComponentModel;
 using System.IO;
 using System.Collections.Generic;
+using Un4seen.Bass;
 
 namespace OSU_player
 {
@@ -210,7 +211,8 @@ namespace OSU_player
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            Un4seen.Bass.BassNet.Registration("sqh1994@163.com", "2X280331512622");
+            BassNet.Registration("sqh1994@163.com", "2X280331512622");
+            Bass.BASS_Init(-1, 44100, BASSInit.BASS_DEVICE_DEFAULT, IntPtr.Zero);
             new Thread(new ThreadStart(Selfupdate.check_update)).Start();
             Core.Getpath();
             MessageBox.Show("将开始初始化");
