@@ -445,7 +445,12 @@ namespace OSU_player
         }
         private void 手动指定OSU目录_Click(object sender, EventArgs e)
         {
-
+            if (Core.Setpath())
+            {
+                Core.allsets.Clear();
+                PlayList.Items.Clear();
+                initset();
+            }
         }
         private void 重新导入osu_Click(object sender, EventArgs e)
         {

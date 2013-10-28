@@ -59,9 +59,6 @@ public partial class Form1 : System.Windows.Forms.Form
             this.音效 = new System.Windows.Forms.ToolStripMenuItem();
             this.视频开关 = new System.Windows.Forms.ToolStripMenuItem();
             this.播放模式 = new System.Windows.Forms.ToolStripMenuItem();
-            this.顺序播放 = new OSU_player.ToolStripRadioButtonMenuItem();
-            this.单曲循环 = new OSU_player.ToolStripRadioButtonMenuItem();
-            this.随机播放 = new OSU_player.ToolStripRadioButtonMenuItem();
             this.QQ状态同步 = new System.Windows.Forms.ToolStripMenuItem();
             this.SB开关 = new System.Windows.Forms.ToolStripMenuItem();
             this.关于 = new System.Windows.Forms.ToolStripMenuItem();
@@ -93,6 +90,10 @@ public partial class Form1 : System.Windows.Forms.Form
             this.TrackBar1 = new System.Windows.Forms.TrackBar();
             this.StopButton = new System.Windows.Forms.Button();
             this.PlayButton = new System.Windows.Forms.Button();
+            this.顺序播放 = new OSU_player.ToolStripRadioButtonMenuItem();
+            this.单曲循环 = new OSU_player.ToolStripRadioButtonMenuItem();
+            this.随机播放 = new OSU_player.ToolStripRadioButtonMenuItem();
+            this.香蕉分析器ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar4)).BeginInit();
@@ -142,7 +143,6 @@ public partial class Form1 : System.Windows.Forms.Form
             // 
             // 手动指定OSU目录
             // 
-            this.手动指定OSU目录.Enabled = false;
             this.手动指定OSU目录.Name = "手动指定OSU目录";
             this.手动指定OSU目录.Size = new System.Drawing.Size(241, 24);
             this.手动指定OSU目录.Text = "手动指定OSU目录";
@@ -217,7 +217,8 @@ public partial class Form1 : System.Windows.Forms.Form
             // ToolStripMenuItem2
             // 
             this.ToolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.重复歌曲扫描});
+            this.重复歌曲扫描,
+            this.香蕉分析器ToolStripMenuItem});
             this.ToolStripMenuItem2.Name = "ToolStripMenuItem2";
             this.ToolStripMenuItem2.Size = new System.Drawing.Size(51, 24);
             this.ToolStripMenuItem2.Text = "工具";
@@ -271,32 +272,6 @@ public partial class Form1 : System.Windows.Forms.Form
             this.播放模式.Size = new System.Drawing.Size(162, 24);
             this.播放模式.Text = "播放模式";
             // 
-            // 顺序播放
-            // 
-            this.顺序播放.CheckOnClick = true;
-            this.顺序播放.Name = "顺序播放";
-            this.顺序播放.Size = new System.Drawing.Size(138, 24);
-            this.顺序播放.Text = "顺序播放";
-            this.顺序播放.Click += new System.EventHandler(this.顺序播放_Click);
-            // 
-            // 单曲循环
-            // 
-            this.单曲循环.CheckOnClick = true;
-            this.单曲循环.Name = "单曲循环";
-            this.单曲循环.Size = new System.Drawing.Size(138, 24);
-            this.单曲循环.Text = "单曲循环";
-            this.单曲循环.Click += new System.EventHandler(this.单曲循环_Click);
-            // 
-            // 随机播放
-            // 
-            this.随机播放.Checked = true;
-            this.随机播放.CheckOnClick = true;
-            this.随机播放.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.随机播放.Name = "随机播放";
-            this.随机播放.Size = new System.Drawing.Size(138, 24);
-            this.随机播放.Text = "随机播放";
-            this.随机播放.Click += new System.EventHandler(this.随机播放_Click);
-            // 
             // QQ状态同步
             // 
             this.QQ状态同步.Checked = true;
@@ -324,7 +299,7 @@ public partial class Form1 : System.Windows.Forms.Form
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(213, 3);
+            this.button3.Location = new System.Drawing.Point(226, 5);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(68, 25);
             this.button3.TabIndex = 20;
@@ -624,6 +599,38 @@ public partial class Form1 : System.Windows.Forms.Form
             this.PlayButton.UseVisualStyleBackColor = true;
             this.PlayButton.Click += new System.EventHandler(this.PlayButton_Click);
             // 
+            // 顺序播放
+            // 
+            this.顺序播放.CheckOnClick = true;
+            this.顺序播放.Name = "顺序播放";
+            this.顺序播放.Size = new System.Drawing.Size(138, 24);
+            this.顺序播放.Text = "顺序播放";
+            this.顺序播放.Click += new System.EventHandler(this.顺序播放_Click);
+            // 
+            // 单曲循环
+            // 
+            this.单曲循环.CheckOnClick = true;
+            this.单曲循环.Name = "单曲循环";
+            this.单曲循环.Size = new System.Drawing.Size(138, 24);
+            this.单曲循环.Text = "单曲循环";
+            this.单曲循环.Click += new System.EventHandler(this.单曲循环_Click);
+            // 
+            // 随机播放
+            // 
+            this.随机播放.Checked = true;
+            this.随机播放.CheckOnClick = true;
+            this.随机播放.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.随机播放.Name = "随机播放";
+            this.随机播放.Size = new System.Drawing.Size(138, 24);
+            this.随机播放.Text = "随机播放";
+            this.随机播放.Click += new System.EventHandler(this.随机播放_Click);
+            // 
+            // 香蕉分析器ToolStripMenuItem
+            // 
+            this.香蕉分析器ToolStripMenuItem.Name = "香蕉分析器ToolStripMenuItem";
+            this.香蕉分析器ToolStripMenuItem.Size = new System.Drawing.Size(168, 24);
+            this.香蕉分析器ToolStripMenuItem.Text = "香蕉分析器";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -706,6 +713,7 @@ public partial class Form1 : System.Windows.Forms.Form
         internal Button StopButton;
         internal Button PlayButton;
         private ColumnHeader SetNum;
+        private ToolStripMenuItem 香蕉分析器ToolStripMenuItem;
 		
 	}
 	

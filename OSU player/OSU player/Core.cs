@@ -169,9 +169,35 @@ namespace OSU_player
             catch (Exception)
             {
                 MessageBox.Show("读取游戏目录出错! 请手动指定", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                osupath = "";
+                while (!Setpath()) { };
             }
         }
         public static bool syncQQ = true;
+        public static bool Setpath()
+        {
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            dialog.ShowNewFolderButton = false;
+            dialog.RootFolder = Environment.SpecialFolder.MyComputer;
+            try
+            {
+                if (DialogResult.OK == dialog.ShowDialog())
+                {
+                    if (File.Exists(dialog.SelectedPath + "\\osu!.exe"))
+                    {
+                        osupath = dialog.SelectedPath;
+                        return true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("为什么你总是想卖萌OAO", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("为什么你总是想卖萌OxO", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return false;
+        }
     }
 }
