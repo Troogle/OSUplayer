@@ -110,23 +110,23 @@ namespace OSU_player
             uni_Audio.UpdateTimer.Tick += new EventHandler(AVsync);
             if (CurrentBeatmap.haveVideo && playvideo)
             {
-                uni_Video.init(Path.Combine(CurrentBeatmap.location, CurrentBeatmap.Video));
-                if (CurrentBeatmap.VideoOffset > 0)
+                uni_Video.init(Path.Combine(CurrentBeatmap.Location, CurrentBeatmap.video));
+                if (CurrentBeatmap.videoOffset > 0)
                 {
                     uni_Audio.Play(0, Allvolume * Musicvolume);
-                    uni_Video.Play(this.panel2, CurrentBeatmap.VideoOffset);
+                    uni_Video.Play(this.panel2, CurrentBeatmap.videoOffset);
                 }
                 else
                 {
                     uni_Video.Play(this.panel2, 0);
-                    uni_Audio.Play(-CurrentBeatmap.VideoOffset, Allvolume * Musicvolume);
+                    uni_Audio.Play(-CurrentBeatmap.videoOffset, Allvolume * Musicvolume);
 
                 }
             }
             else { uni_Audio.Play(0, Allvolume * Musicvolume); }
             TrackBar1.Enabled = true;
             //    AVsyncer.Enabled = true;
-            uni_QQ.Send2QQ(Core.uin, CurrentBeatmap.name);
+            uni_QQ.Send2QQ(Core.uin, CurrentBeatmap.Name);
             PlayButton.Text = "暂停";
             StopButton.Enabled = true;
         }
@@ -145,24 +145,24 @@ namespace OSU_player
             Beatmap tmp = CurrentBeatmap;
             int currentT = 0;
             int current = 0;
-            CSample nowdefault = tmp.timingpoints[currentT].sample;
+            CSample nowdefault = tmp.Timingpoints[currentT].sample;
             CSample olddefault = new CSample(0, 0);
-            double bpm = tmp.timingpoints[currentT].bpm;
-            int volume = tmp.timingpoints[currentT].volume;
+            double bpm = tmp.Timingpoints[currentT].bpm;
+            int volume = tmp.Timingpoints[currentT].volume;
             for (int i = 0; i < uni_Audio.durnation * 1000; i++)
             {
-                if (currentT + 1 < tmp.timingpoints.Count)
+                if (currentT + 1 < tmp.Timingpoints.Count)
                 {
-                    if (tmp.timingpoints[currentT + 1].offset <= i)
+                    if (tmp.Timingpoints[currentT + 1].offset <= i)
                     {
                         currentT++;
-                        nowdefault = tmp.timingpoints[currentT].sample;
-                        volume = tmp.timingpoints[currentT].volume;
-                        if (tmp.timingpoints[currentT].type == 1)
-                        { bpm = tmp.timingpoints[currentT].bpm; }
+                        nowdefault = tmp.Timingpoints[currentT].sample;
+                        volume = tmp.Timingpoints[currentT].volume;
+                        if (tmp.Timingpoints[currentT].type == 1)
+                        { bpm = tmp.Timingpoints[currentT].bpm; }
                         else
                         {
-                            bpm = bpm * tmp.timingpoints[currentT].bpm;
+                            bpm = bpm * tmp.Timingpoints[currentT].bpm;
                         }
 
                     }
@@ -429,7 +429,7 @@ namespace OSU_player
         }
         private void 打开铺面文件_Click(object sender, EventArgs e)
         {
-            Process.Start("notepad.exe", TmpBeatmap.path);
+            Process.Start("notepad.exe", TmpBeatmap.Path);
 
         }
         private void 打开SB文件_Click(object sender, EventArgs e)
@@ -592,7 +592,7 @@ namespace OSU_player
         private void TrackBar1_Scroll(object sender, EventArgs e)
         {
             uni_Audio.Seek(TrackBar1.Value * uni_Audio.durnation / TrackBar1.Maximum);
-            uni_Video.seek(TrackBar1.Value * uni_Audio.durnation / TrackBar1.Maximum + CurrentBeatmap.VideoOffset / 1000);
+            uni_Video.seek(TrackBar1.Value * uni_Audio.durnation / TrackBar1.Maximum + CurrentBeatmap.videoOffset / 1000);
             fxpos = 0;
         }
         private void TrackBar2_Scroll(object sender, EventArgs e)
