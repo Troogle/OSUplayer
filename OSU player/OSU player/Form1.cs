@@ -90,7 +90,7 @@ namespace OSU_player
         {
             printdetail();
             uni_Video.initbg(CurrentBeatmap.Background);
-            uni_Video.Play(this.panel2);
+            uni_Video.Play(this.panel2,0);
         }
         private void Stop()
         {
@@ -108,17 +108,22 @@ namespace OSU_player
             uni_Audio.Open(CurrentBeatmap.Audio);
             if (playfx) { initfx(); fxpos = 0; }
             uni_Audio.UpdateTimer.Tick += new EventHandler(AVsync);
-            uni_Audio.Play(Allvolume * Musicvolume);
             if (CurrentBeatmap.haveVideo && playvideo)
             {
                 uni_Video.init(Path.Combine(CurrentBeatmap.location, CurrentBeatmap.Video));
                 if (CurrentBeatmap.VideoOffset > 0)
                 {
-                    Thread.Sleep(CurrentBeatmap.VideoOffset / 1000);
-                    uni_Video.Play(this.panel2);
+                    uni_Audio.Play(0, Allvolume * Musicvolume);
+                    uni_Video.Play(this.panel2, CurrentBeatmap.VideoOffset);
                 }
-                else { uni_Video.Play(this.panel2); }
+                else
+                {
+                    uni_Video.Play(this.panel2, 0);
+                    uni_Audio.Play(-CurrentBeatmap.VideoOffset, Allvolume * Musicvolume);
+
+                }
             }
+            else { uni_Audio.Play(0, Allvolume * Musicvolume); }
             TrackBar1.Enabled = true;
             //    AVsyncer.Enabled = true;
             uni_QQ.Send2QQ(Core.uin, CurrentBeatmap.name);
@@ -172,7 +177,7 @@ namespace OSU_player
                     case ObjectFlag.NormalNewCombo:
                         if (!tmpH.sample.Equals(olddefault)) { tmpSample = tmpH.sample; }
                         fxlist.Add(
-                            new Fxlist(tmpH.starttime, CurrentSet.getsamplename(tmpSample, tmpH.allhitsound),volume)) ;
+                            new Fxlist(tmpH.starttime, CurrentSet.getsamplename(tmpSample, tmpH.allhitsound), volume));
                         fxlist.Add(
                            new Fxlist(tmpH.starttime, CurrentSet.getsamplename
                                (tmpH.A_sample, tmpH.allhitsound), volume));
@@ -207,6 +212,13 @@ namespace OSU_player
                 current++;
             }
             fxlist.Sort(Fxlistcompare);
+            int index = 0;
+            while (index < fxlist.Count)
+            {
+                if (fxlist[index].play.Count == 0) { fxlist.RemoveAt(index); }
+                else { index++; };
+            }
+
             /*极度怀疑有无必要,取消了算了
             int index = 0;
             while (index < fxlist.Count-1)
@@ -226,7 +238,7 @@ namespace OSU_player
             for (int j = 0; j < fxlist[fxpos].play.Count; j++)
             {
                 fxplayer[j].Open(fxlist[fxpos].play[j]);
-                fxplayer[j].Play(Allvolume * Fxvolume*fxplayer[j].Volume);
+                fxplayer[j].Play(0,Allvolume * Fxvolume * fxplayer[j].Volume);
             }
         }
         private void Pause()
@@ -317,7 +329,8 @@ namespace OSU_player
             Core.Getpath();
             Core.uin = Properties.Settings.Default.QQuin;
             LabelQQ.Text = "当前同步QQ：" + Core.uin.ToString();
-            if (Core.uin == 0) {
+            if (Core.uin == 0)
+            {
                 if (
                     MessageBox.Show(this, "木有设置过QQ号，需要现在设置么？", "提示", MessageBoxButtons.YesNo)
                     == DialogResult.Yes)
@@ -334,7 +347,7 @@ namespace OSU_player
                 {
 
                     QQ状态同步.Checked = false;
-                    Core.syncQQ = false;                
+                    Core.syncQQ = false;
                 }
             }
 
@@ -348,7 +361,7 @@ namespace OSU_player
                 //PlayNext();
                 return;
             }
-            if (fxlist[fxpos].time <= (int)Math.Floor(uni_Audio.position * 1000))
+            while (fxlist[fxpos].time <= (int)Math.Floor(uni_Audio.position * 1000))
             {
                 PlayFx();
                 fxpos++;
@@ -580,6 +593,7 @@ namespace OSU_player
         {
             uni_Audio.Seek(TrackBar1.Value * uni_Audio.durnation / TrackBar1.Maximum);
             uni_Video.seek(TrackBar1.Value * uni_Audio.durnation / TrackBar1.Maximum + CurrentBeatmap.VideoOffset / 1000);
+            fxpos = 0;
         }
         private void TrackBar2_Scroll(object sender, EventArgs e)
         {

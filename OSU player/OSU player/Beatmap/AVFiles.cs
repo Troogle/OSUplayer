@@ -1,5 +1,6 @@
 using Microsoft.DirectX.AudioVideoPlayback;
 using System;
+using System.Threading;
 using Un4seen.Bass;
 
 namespace OSU_player
@@ -36,9 +37,10 @@ namespace OSU_player
         {
             get { return Bass.BASS_ChannelIsActive(channel) == BASSActive.BASS_ACTIVE_PLAYING; }
         }
-        public void Play(float volume = 1.0f)
+        public void Play(int offset,float volume = 1.0f)
         {
             Timer.Stop();
+            Thread.Sleep(offset);
             if (channel != 0 && Bass.BASS_ChannelPlay(channel, true))
             {
                 Timer.Start();
@@ -132,8 +134,9 @@ namespace OSU_player
             videofile.Dispose();
             videofile = new Video(path);
         }
-        public void Play(System.Windows.Forms.Panel panel)
+        public void Play(System.Windows.Forms.Panel panel,int offset)
         {
+            Thread.Sleep(offset);
             int height = 360;
             int width = 480;
             videofile.Owner = panel;
