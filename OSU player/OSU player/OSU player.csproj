@@ -156,6 +156,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="avatar_big.jpg" />
     <Content Include="bass.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
