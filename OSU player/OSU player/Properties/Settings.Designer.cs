@@ -34,5 +34,65 @@ namespace OSU_player.Properties {
                 this["QQuin"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public int NextMode {
+            get {
+                return ((int)(this["NextMode"]));
+            }
+            set {
+                this["NextMode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool PlayFx {
+            get {
+                return ((bool)(this["PlayFx"]));
+            }
+            set {
+                this["PlayFx"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool PlayVideo {
+            get {
+                return ((bool)(this["PlayVideo"]));
+            }
+            set {
+                this["PlayVideo"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool PlaySB {
+            get {
+                return ((bool)(this["PlaySB"]));
+            }
+            set {
+                this["PlaySB"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool SyncQQ {
+            get {
+                return ((bool)(this["SyncQQ"]));
+            }
+            set {
+                this["SyncQQ"] = value;
+            }
+        }
     }
 }

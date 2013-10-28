@@ -90,7 +90,7 @@ namespace OSU_player
         {
             printdetail();
             uni_Video.initbg(CurrentBeatmap.Background);
-            uni_Video.Play(this.panel2,0);
+            uni_Video.Play(this.panel2, 0);
         }
         private void Stop()
         {
@@ -238,7 +238,7 @@ namespace OSU_player
             for (int j = 0; j < fxlist[fxpos].play.Count; j++)
             {
                 fxplayer[j].Open(fxlist[fxpos].play[j]);
-                fxplayer[j].Play(0,Allvolume * Fxvolume * fxplayer[j].Volume);
+                fxplayer[j].Play(0, Allvolume * Fxvolume * fxplayer[j].Volume);
             }
         }
         private void Pause()
@@ -257,7 +257,7 @@ namespace OSU_player
         }
         private void PlayNext()
         {
-            Stop();
+
             int next;
             int now;
             if (PlayList.SelectedItems.Count == 0) { now = 0; }
@@ -321,12 +321,8 @@ namespace OSU_player
             }
         }
         #endregion
-        private void Form1_Load(object sender, EventArgs e)
+        private void LoadPreference()
         {
-            BassNet.Registration("sqh1994@163.com", "2X280331512622");
-            Bass.BASS_Init(-1, 44100, BASSInit.BASS_DEVICE_DEFAULT, IntPtr.Zero);
-            new Thread(new ThreadStart(Selfupdate.check_update)).Start();
-            Core.Getpath();
             Core.uin = Properties.Settings.Default.QQuin;
             LabelQQ.Text = "当前同步QQ：" + Core.uin.ToString();
             if (Core.uin == 0)
@@ -341,16 +337,49 @@ namespace OSU_player
                     }
                     LabelQQ.Text = "当前同步QQ：" + Core.uin.ToString();
                     Properties.Settings.Default.QQuin = Core.uin;
+                    Core.syncQQ = true;
+                    Properties.Settings.Default.SyncQQ = true;
                     Properties.Settings.Default.Save();
                 }
                 else
                 {
-
                     QQ状态同步.Checked = false;
                     Core.syncQQ = false;
+                    Properties.Settings.Default.SyncQQ = false;
+                    Properties.Settings.Default.Save();
                 }
             }
-
+            else
+            {
+                Core.syncQQ = Properties.Settings.Default.SyncQQ;
+                QQ状态同步.Checked = Core.syncQQ;
+            }
+            playfx = Properties.Settings.Default.PlayFx;
+            音效.Checked=playfx;
+            playsb = Properties.Settings.Default.PlaySB;
+            SB开关.Checked = playsb;
+            playvideo = Properties.Settings.Default.PlayVideo;
+            视频开关.Checked = playvideo;
+            Nextmode = Properties.Settings.Default.NextMode;
+            switch (Nextmode)
+            {
+                case 1: 顺序播放.Checked = true;
+                    break;
+                case 2: 单曲循环.Checked = true;
+                    break;
+                case 3: 随机播放.Checked = true;
+                    break;
+                default:
+                    break;
+            }
+        }
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            BassNet.Registration("sqh1994@163.com", "2X280331512622");
+            Bass.BASS_Init(-1, 44100, BASSInit.BASS_DEVICE_DEFAULT, IntPtr.Zero);
+            new Thread(new ThreadStart(Selfupdate.check_update)).Start();
+            Core.Getpath();
+            LoadPreference();
             MessageBox.Show("将开始初始化");
             initset();
         }
@@ -361,10 +390,13 @@ namespace OSU_player
                 //PlayNext();
                 return;
             }
-            while (fxlist[fxpos].time <= (int)Math.Floor(uni_Audio.position * 1000))
+            if (fxpos < fxlist.Count)
             {
-                PlayFx();
-                fxpos++;
+                while (fxlist[fxpos].time <= (int)Math.Floor(uni_Audio.position * 1000))
+                {
+                    PlayFx();
+                    if (fxpos + 1 < fxlist.Count) { fxpos++; } else { break; }
+                }
             }
             TrackBar1.Value = (int)Math.Round((uni_Audio.position / uni_Audio.durnation) * TrackBar1.Maximum);
             label1.Text = String.Format("{0}:{1:D2} / {2}:{3:D2}", (int)uni_Audio.position / 60,
@@ -454,37 +486,52 @@ namespace OSU_player
         private void 随机播放_Click(object sender, EventArgs e)
         {
             Nextmode = 3;
+            Properties.Settings.Default.NextMode = 3;
+            Properties.Settings.Default.Save();
         }
         private void 顺序播放_Click(object sender, EventArgs e)
         {
             Nextmode = 1;
+            Properties.Settings.Default.NextMode = 1;
+            Properties.Settings.Default.Save();
         }
         private void 单曲循环_Click(object sender, EventArgs e)
         {
             Nextmode = 2;
+            Properties.Settings.Default.NextMode = 2;
+            Properties.Settings.Default.Save();
         }
         private void 音效_Click(object sender, EventArgs e)
         {
             playfx = 音效.Checked;
+            Properties.Settings.Default.PlayFx = playfx;
+            Properties.Settings.Default.Save();
         }
         private void 视频开关_Click(object sender, EventArgs e)
         {
             playvideo = 视频开关.Checked;
+            Properties.Settings.Default.PlayVideo = playvideo;
+            Properties.Settings.Default.Save();
         }
         private void QQ状态同步_Click(object sender, EventArgs e)
         {
+            if (Core.syncQQ && Core.uin != 0) { uni_QQ.Send2QQ(Core.uin, ""); }
             Core.syncQQ = QQ状态同步.Checked;
+            Properties.Settings.Default.SyncQQ = Core.syncQQ;
+            Properties.Settings.Default.Save();
         }
         private void SB开关_Click(object sender, EventArgs e)
         {
             playsb = SB开关.Checked;
+            Properties.Settings.Default.PlaySB = playsb;
+            Properties.Settings.Default.Save();
         }
         #endregion
         private void 关于_Click(object sender, EventArgs e)
         {
             using (About dialog = new About())
             {
-                dialog.Show();
+                dialog.ShowDialog();
             }
 
         }
@@ -587,6 +634,7 @@ namespace OSU_player
         }
         private void NextButton_Click(object sender, EventArgs e)
         {
+            Stop();
             PlayNext();
         }
         private void TrackBar1_Scroll(object sender, EventArgs e)
