@@ -250,7 +250,7 @@ namespace OSU_player
                 k = 0;
                 while (fxplayer[k].isplaying) { k=(k+1)%16; }
                 fxplayer[k].Open(fxlist[fxpos].play[j]);
-                fxplayer[k].Play(0, Allvolume * Fxvolume * fxplayer[j].Volume);
+                fxplayer[k].Play(0, Allvolume * Fxvolume * fxlist[j].volume);
             }
         }
         private void Pause()
@@ -401,7 +401,7 @@ namespace OSU_player
         {
             if (!uni_Audio.isplaying)
             {
-                //PlayNext();
+                PlayNext();
                 return;
             }
             if (fxpos < fxlist.Count)

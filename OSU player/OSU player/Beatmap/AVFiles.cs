@@ -12,13 +12,11 @@ namespace OSU_player
     {
         private int channel = 0;
         private string Path = "";
-        private SYNCPROC _sync = null;
         private int Interval = 1;
         private BASSTimer Timer = new BASSTimer();
         private bool isPaused = false;
-        private bool autorelease;
-        public Audiofiles(bool Autorelease = false)
-        {autorelease=Autorelease;
+        public Audiofiles()
+        {
         }
         public double durnation
         {
@@ -95,19 +93,13 @@ namespace OSU_player
         {
             Path = path;
             Timer = new BASSTimer(Interval);
-            _sync = new SYNCPROC(ReachedEnd);
             Bass.BASS_StreamFree(channel);
             BASSFlag flag = BASSFlag.BASS_SAMPLE_FLOAT | BASSFlag.BASS_STREAM_PRESCAN|BASSFlag.BASS_STREAM_AUTOFREE;
             channel = Bass.BASS_StreamCreateFile(Path, 0, 0, flag);
-            Bass.BASS_ChannelSetSync(0, BASSSync.BASS_SYNC_END, 0, _sync, IntPtr.Zero);
             if (channel == 0)
             {
                 throw (new FormatException(Bass.BASS_ErrorGetCode().ToString()));
             }
-        }
-        private void ReachedEnd(int handle, int channel, int data, IntPtr user)
-        {
-            Stop();
         }
         public BASSTimer UpdateTimer
         {
@@ -134,7 +126,7 @@ namespace OSU_player
         }
         public void Play(string FileName,int offset)
         {
-           // Thread.Sleep(offset);
+            Thread.Sleep(offset);
             vlc_player_.PlayFile(FileName);
             is_playinig_ = true;
 
