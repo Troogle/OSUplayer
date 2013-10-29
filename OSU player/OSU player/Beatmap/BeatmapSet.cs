@@ -15,20 +15,21 @@ namespace OSU_player
 		public List<string> diffstr = new List<string>();
 		public bool detailed = false;
 		public List<Beatmap> Diffs = new List<Beatmap>();
-		private string check(string url)
+		private string check(string pre,string mid,string end)
 		{
-			if (File.Exists(Path.Combine(location, url + ".wav")))
+			if (File.Exists(pre+mid+end + ".wav"))
 			{
-                return Path.Combine(location, url + ".wav");
+                return pre + mid + end + ".wav";
 			}
 			else
             {
-                if (File.Exists(Path.Combine(location, url + ".mp3")))
+                if (File.Exists(pre + mid + end + ".mp3"))
                 {
-                    return Path.Combine(location, url + ".mp3");
+                    return pre + mid + end + ".mp3";
                 }
                 else
-                    return Application.StartupPath + "\\Default\\" + "normal-hitnormal.wav";
+                        return Application.StartupPath + "\\Default\\" + mid+".wav";
+                   // return "";
 			}
 		}
         /// <summary>
@@ -40,43 +41,30 @@ namespace OSU_player
 		public List<string> getsamplename(CSample sample, int soundtype)
 		{
 			List<string> tmp = new List<string>();
-            if (sample.sample == 0) { return (tmp); }
+            if (sample.sample == 0) { return tmp; }
 			if (sample.sampleset == 0)
 			{
                 string all = Application.StartupPath + "\\Default\\" + Enum.GetName(typeof(TSample), sample.sample);
-				if (soundtype % 2 == 0)
+				if (soundtype % 2 == 1)
 				{
 					tmp.Add(all + "-hitnormal.wav");
 				}
 				soundtype = (int) (soundtype / 2);
-				if (soundtype == 0)
-				{
-					return tmp;
-				}
 				if (soundtype % 2 == 1)
 				{
 					tmp.Add(all + "-hitwhistle.wav");
 				}
 				soundtype = (int) (soundtype / 2);
-				if (soundtype == 0)
-				{
-					return tmp;
-				}
 				if (soundtype % 2 == 1)
 				{
 					tmp.Add(all + "-hitfinish.wav");
 				}
 				soundtype = (int) (soundtype / 2);
-				if (soundtype == 0)
-				{
-					return tmp;
-				}
 				if (soundtype % 2 == 1)
 				{
 					tmp.Add(all + "-hitclap.wav");
 				}
-				soundtype = (int) (soundtype / 2);
-				return tmp;
+     			return tmp;
 			}
             string last = "";
 			if (sample.sampleset == 1)
@@ -91,39 +79,26 @@ namespace OSU_player
 			//normal-sliderwhistle(loops)
 			//normal-slidertick
 			//不考虑以上
-			string first =Enum.GetName(typeof(TSample), sample.sample);
-			if (soundtype % 2 == 0)
-			{
-				tmp.Add(check(first + "-hitnormal" + last));
-			}
-			soundtype = (int) (soundtype / 2);
-			if (soundtype == 0)
-			{
-				return tmp;
-			}
+			string first =location+"\\";
 			if (soundtype % 2 == 1)
 			{
-				tmp.Add(check(first + "-hitwhistle" + last));
+				tmp.Add(check(first,Enum.GetName(typeof(TSample), sample.sample)+"-hitnormal",last));
 			}
 			soundtype = (int) (soundtype / 2);
-			if (soundtype == 0)
-			{
-				return tmp;
-			}
 			if (soundtype % 2 == 1)
 			{
-				tmp.Add(check(first + "-hitfinish" + last));
+				tmp.Add(check(first,Enum.GetName(typeof(TSample), sample.sample)+"-hitwhistle",last));
 			}
 			soundtype = (int) (soundtype / 2);
-			if (soundtype == 0)
-			{
-				return tmp;
-			}
 			if (soundtype % 2 == 1)
 			{
-				tmp.Add(check(first + "-hitclap" + last));
+				tmp.Add(check(first,Enum.GetName(typeof(TSample), sample.sample)+"-hitfinish",last));
 			}
 			soundtype = (int) (soundtype / 2);
+			if (soundtype % 2 == 1)
+			{
+				tmp.Add(check(first,Enum.GetName(typeof(TSample), sample.sample)+"-hitclap",last));
+			}
 			return tmp;
 		}
 		public BeatmapSet(string path)

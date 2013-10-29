@@ -55,10 +55,14 @@ public partial class Form1 : System.Windows.Forms.Form
             this.退出 = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.重复歌曲扫描 = new System.Windows.Forms.ToolStripMenuItem();
+            this.香蕉分析器ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.音效 = new System.Windows.Forms.ToolStripMenuItem();
             this.视频开关 = new System.Windows.Forms.ToolStripMenuItem();
             this.播放模式 = new System.Windows.Forms.ToolStripMenuItem();
+            this.顺序播放 = new OSU_player.ToolStripRadioButtonMenuItem();
+            this.单曲循环 = new OSU_player.ToolStripRadioButtonMenuItem();
+            this.随机播放 = new OSU_player.ToolStripRadioButtonMenuItem();
             this.QQ状态同步 = new System.Windows.Forms.ToolStripMenuItem();
             this.SB开关 = new System.Windows.Forms.ToolStripMenuItem();
             this.关于 = new System.Windows.Forms.ToolStripMenuItem();
@@ -70,6 +74,7 @@ public partial class Form1 : System.Windows.Forms.Form
             this.label1 = new System.Windows.Forms.Label();
             this.trackBar4 = new System.Windows.Forms.TrackBar();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.ListDetail = new System.Windows.Forms.ListView();
             this.ColumnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ColumnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -90,13 +95,11 @@ public partial class Form1 : System.Windows.Forms.Form
             this.TrackBar1 = new System.Windows.Forms.TrackBar();
             this.StopButton = new System.Windows.Forms.Button();
             this.PlayButton = new System.Windows.Forms.Button();
-            this.顺序播放 = new OSU_player.ToolStripRadioButtonMenuItem();
-            this.单曲循环 = new OSU_player.ToolStripRadioButtonMenuItem();
-            this.随机播放 = new OSU_player.ToolStripRadioButtonMenuItem();
-            this.香蕉分析器ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar4)).BeginInit();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrackBar3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrackBar2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrackBar1)).BeginInit();
@@ -225,10 +228,18 @@ public partial class Form1 : System.Windows.Forms.Form
             // 
             // 重复歌曲扫描
             // 
+            this.重复歌曲扫描.Enabled = false;
             this.重复歌曲扫描.Name = "重复歌曲扫描";
             this.重复歌曲扫描.Size = new System.Drawing.Size(168, 24);
             this.重复歌曲扫描.Text = "重复歌曲扫描";
             this.重复歌曲扫描.Click += new System.EventHandler(this.重复歌曲扫描_Click);
+            // 
+            // 香蕉分析器ToolStripMenuItem
+            // 
+            this.香蕉分析器ToolStripMenuItem.Enabled = false;
+            this.香蕉分析器ToolStripMenuItem.Name = "香蕉分析器ToolStripMenuItem";
+            this.香蕉分析器ToolStripMenuItem.Size = new System.Drawing.Size(168, 24);
+            this.香蕉分析器ToolStripMenuItem.Text = "香蕉分析器";
             // 
             // ToolStripMenuItem3
             // 
@@ -271,6 +282,32 @@ public partial class Form1 : System.Windows.Forms.Form
             this.播放模式.Name = "播放模式";
             this.播放模式.Size = new System.Drawing.Size(162, 24);
             this.播放模式.Text = "播放模式";
+            // 
+            // 顺序播放
+            // 
+            this.顺序播放.CheckOnClick = true;
+            this.顺序播放.Name = "顺序播放";
+            this.顺序播放.Size = new System.Drawing.Size(138, 24);
+            this.顺序播放.Text = "顺序播放";
+            this.顺序播放.Click += new System.EventHandler(this.顺序播放_Click);
+            // 
+            // 单曲循环
+            // 
+            this.单曲循环.CheckOnClick = true;
+            this.单曲循环.Name = "单曲循环";
+            this.单曲循环.Size = new System.Drawing.Size(138, 24);
+            this.单曲循环.Text = "单曲循环";
+            this.单曲循环.Click += new System.EventHandler(this.单曲循环_Click);
+            // 
+            // 随机播放
+            // 
+            this.随机播放.Checked = true;
+            this.随机播放.CheckOnClick = true;
+            this.随机播放.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.随机播放.Name = "随机播放";
+            this.随机播放.Size = new System.Drawing.Size(138, 24);
+            this.随机播放.Text = "随机播放";
+            this.随机播放.Click += new System.EventHandler(this.随机播放_Click);
             // 
             // QQ状态同步
             // 
@@ -381,10 +418,20 @@ public partial class Form1 : System.Windows.Forms.Form
             // panel2
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Controls.Add(this.pictureBox1);
             this.panel2.Location = new System.Drawing.Point(344, 40);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(480, 360);
             this.panel2.TabIndex = 26;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(480, 360);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
             // 
             // ListDetail
             // 
@@ -599,38 +646,6 @@ public partial class Form1 : System.Windows.Forms.Form
             this.PlayButton.UseVisualStyleBackColor = true;
             this.PlayButton.Click += new System.EventHandler(this.PlayButton_Click);
             // 
-            // 顺序播放
-            // 
-            this.顺序播放.CheckOnClick = true;
-            this.顺序播放.Name = "顺序播放";
-            this.顺序播放.Size = new System.Drawing.Size(138, 24);
-            this.顺序播放.Text = "顺序播放";
-            this.顺序播放.Click += new System.EventHandler(this.顺序播放_Click);
-            // 
-            // 单曲循环
-            // 
-            this.单曲循环.CheckOnClick = true;
-            this.单曲循环.Name = "单曲循环";
-            this.单曲循环.Size = new System.Drawing.Size(138, 24);
-            this.单曲循环.Text = "单曲循环";
-            this.单曲循环.Click += new System.EventHandler(this.单曲循环_Click);
-            // 
-            // 随机播放
-            // 
-            this.随机播放.Checked = true;
-            this.随机播放.CheckOnClick = true;
-            this.随机播放.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.随机播放.Name = "随机播放";
-            this.随机播放.Size = new System.Drawing.Size(138, 24);
-            this.随机播放.Text = "随机播放";
-            this.随机播放.Click += new System.EventHandler(this.随机播放_Click);
-            // 
-            // 香蕉分析器ToolStripMenuItem
-            // 
-            this.香蕉分析器ToolStripMenuItem.Name = "香蕉分析器ToolStripMenuItem";
-            this.香蕉分析器ToolStripMenuItem.Size = new System.Drawing.Size(168, 24);
-            this.香蕉分析器ToolStripMenuItem.Text = "香蕉分析器";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -651,6 +666,8 @@ public partial class Form1 : System.Windows.Forms.Form
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar4)).EndInit();
+            this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrackBar3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrackBar2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrackBar1)).EndInit();
@@ -714,6 +731,7 @@ public partial class Form1 : System.Windows.Forms.Form
         internal Button PlayButton;
         private ColumnHeader SetNum;
         private ToolStripMenuItem 香蕉分析器ToolStripMenuItem;
+        private PictureBox pictureBox1;
 		
 	}
 	

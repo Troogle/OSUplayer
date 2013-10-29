@@ -1,7 +1,7 @@
-using Microsoft.DirectX.AudioVideoPlayback;
 using System;
 using System.Threading;
 using Un4seen.Bass;
+using System.Windows.Forms;
 
 namespace OSU_player
 {
@@ -16,8 +16,9 @@ namespace OSU_player
         private int Interval = 1;
         private BASSTimer Timer = new BASSTimer();
         private bool isPaused = false;
-        public Audiofiles()
-        {
+        private bool autorelease;
+        public Audiofiles(bool Autorelease = false)
+        {autorelease=Autorelease;
         }
         public double durnation
         {
@@ -37,7 +38,7 @@ namespace OSU_player
         {
             get { return Bass.BASS_ChannelIsActive(channel) == BASSActive.BASS_ACTIVE_PLAYING; }
         }
-        public void Play(int offset,float volume = 1.0f)
+        public void Play(int offset, float volume = 1.0f )
         {
             Timer.Stop();
             Thread.Sleep(offset);
@@ -72,8 +73,6 @@ namespace OSU_player
         }
         public void Dispose()
         {
-            Bass.BASS_StreamFree(channel);
-            channel = 0;
         }
         public void Seek(double time)
         {
@@ -98,8 +97,9 @@ namespace OSU_player
             Timer = new BASSTimer(Interval);
             _sync = new SYNCPROC(ReachedEnd);
             Bass.BASS_StreamFree(channel);
-            BASSFlag flag = BASSFlag.BASS_SAMPLE_FLOAT | BASSFlag.BASS_STREAM_PRESCAN;
+            BASSFlag flag = BASSFlag.BASS_SAMPLE_FLOAT | BASSFlag.BASS_STREAM_PRESCAN|BASSFlag.BASS_STREAM_AUTOFREE;
             channel = Bass.BASS_StreamCreateFile(Path, 0, 0, flag);
+            Bass.BASS_ChannelSetSync(0, BASSSync.BASS_SYNC_END, 0, _sync, IntPtr.Zero);
             if (channel == 0)
             {
                 throw (new FormatException(Bass.BASS_ErrorGetCode().ToString()));
@@ -116,66 +116,45 @@ namespace OSU_player
         }
     }
     /// <summary>
-    /// Class for Audio Playback
+    /// Class for Video Playback
     /// </summary>
-    public class Videofiles
+    public class Videofiles : IDisposable
     {
-        private Video videofile = new Video(Core.defaultBG);
-        public double durnation { get { return videofile.Duration; } }
-        public double position { get { return videofile.CurrentPosition; } }
-        public void init(string path)
+        private VlcPlayer vlc_player_;
+        private bool is_playinig_;
+        string pluginPath = Application.StartupPath + "\\vlc\\plugins\\";
+        public double durnation { get { return vlc_player_.Duration(); } }
+        public double position { get { return vlc_player_.GetPlayTime(); } }
+        public Videofiles(Panel panel)
         {
-            videofile.Open(path);
+            vlc_player_ = new VlcPlayer(pluginPath);
+            IntPtr render_wnd = panel.Handle;
+            vlc_player_.SetRenderWindow((int)render_wnd);
+            is_playinig_ = false;
         }
-        public void initbg(string path)
+        public void Play(string FileName,int offset)
         {
-            videofile.Owner = null;
-            videofile.Stop();
-            videofile.Dispose();
-            videofile = new Video(path);
-        }
-        public void Play(System.Windows.Forms.Panel panel,int offset)
-        {
-            Thread.Sleep(offset);
-            int height = 360;
-            int width = 480;
-            videofile.Owner = panel;
-            panel.Width = width;
-            panel.Height = height;
-            videofile.Size = panel.Size;
-            videofile.Play();
+           // Thread.Sleep(offset);
+            vlc_player_.PlayFile(FileName);
+            is_playinig_ = true;
+
         }
         public void Pause()
         {
-            try
-            {
-                if (videofile.Paused)
-                {
-                    videofile.Play();
-                }
-                else
-                {
-                    videofile.Pause();
-                }
-            }
-            catch (Exception)
-            {
-
-            }
-
-
+            vlc_player_.Pause();
         }
         public void seek(double time)
         {
-            videofile.SeekCurrentPosition(time * 10000000, SeekPositionFlags.AbsolutePositioning);
+            vlc_player_.SetPlayTime(time);
         }
         public void Stop()
         {
-            videofile.Owner = null;
-            videofile.Stop();
-            videofile.Dispose();
+            vlc_player_.Stop();
+            is_playinig_ = false;
+        }
+        public void Dispose()
+        {
 
         }
     }
-
 }
