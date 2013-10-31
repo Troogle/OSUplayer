@@ -338,9 +338,9 @@ public partial class Form1 : System.Windows.Forms.Form
             // 
             this.button3.Location = new System.Drawing.Point(226, 5);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(68, 25);
+            this.button3.Size = new System.Drawing.Size(90, 25);
             this.button3.TabIndex = 20;
-            this.button3.Text = "初始化";
+            this.button3.Text = "重新初始化";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 

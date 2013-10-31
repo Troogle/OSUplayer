@@ -625,7 +625,7 @@ namespace OSU_player
             tagList.Add(Creator);
             if (haveSB)
             {
-                SB = new StoryBoard(tmpSB);
+            //    SB = new StoryBoard(tmpSB);
             }
         }
         public Beatmap(string location_F, string name_F, string osb_F)

@@ -42,14 +42,16 @@ namespace OSU_player
         }
         List<Fxlist> fxlist = new List<Fxlist>();
         Audiofiles[] fxplayer = new Audiofiles[16] 
-        {   new Audiofiles(),new Audiofiles(), 
-            new Audiofiles(),new Audiofiles(), 
-            new Audiofiles(),new Audiofiles(),
-            new Audiofiles(),new Audiofiles(),
+        {   
+        new Audiofiles(),new Audiofiles(), 
+        new Audiofiles(),new Audiofiles(), 
         new Audiofiles(),new Audiofiles(),
         new Audiofiles(),new Audiofiles(),
         new Audiofiles(),new Audiofiles(),
-        new Audiofiles(),new Audiofiles(),};
+        new Audiofiles(),new Audiofiles(),
+        new Audiofiles(),new Audiofiles(),
+        new Audiofiles(),new Audiofiles()
+        };
         float Allvolume = 1.0f;
         float Musicvolume = 0.8f;
         float Fxvolume = 0.6f;
@@ -57,6 +59,7 @@ namespace OSU_player
         bool playvideo = true;
         bool playfx = true;
         bool playsb = true;
+        bool needsave = false;
 
         #region 各种方法
         private void AskForExit(object sender, System.Windows.Forms.FormClosingEventArgs e)
@@ -65,20 +68,22 @@ namespace OSU_player
             close = MessageBox.Show("确认退出？", "提示", MessageBoxButtons.YesNo);
             if (close == DialogResult.Yes)
             {
+                uni_QQ.Send2QQ(Core.uin, "");
+                uni_Audio.Dispose();
+                for (int j = 0; j < 7; j++)
+                {
+                    fxplayer[j].Dispose();
+                }
+                Bass.BASS_Stop();
+                Bass.BASS_Free();
+                if (needsave) { Core.SaveList(); }
                 this.Dispose();
             }
             else
             {
                 e.Cancel = true;
             }
-            uni_QQ.Send2QQ(Core.uin, "");
-            uni_Audio.Dispose();
-            for (int j = 0; j < 7; j++)
-            {
-                fxplayer[j].Dispose();
-            }
-            Bass.BASS_Stop();
-            Bass.BASS_Free();
+
         }
         private void printdetail()
         {
@@ -167,8 +172,9 @@ namespace OSU_player
                         nowdefault = tmp.Timingpoints[currentT].sample;
                         volume = tmp.Timingpoints[currentT].volume;
                         if (tmp.Timingpoints[currentT].type == 1)
-                        { bpm = tmp.Timingpoints[currentT].bpm;
-                         Tbpm = tmp.Timingpoints[currentT].bpm;
+                        {
+                            bpm = tmp.Timingpoints[currentT].bpm;
+                            Tbpm = tmp.Timingpoints[currentT].bpm;
                         }
                         else
                         {
@@ -248,7 +254,7 @@ namespace OSU_player
             for (int j = 0; j < fxlist[fxpos].play.Count; j++)
             {
                 k = 0;
-                while (fxplayer[k].isplaying) { k=(k+1)%16; }
+                while (fxplayer[k].isplaying) { k = (k + 1) % 16; }
                 fxplayer[k].Open(fxlist[fxpos].play[j]);
                 fxplayer[k].Play(0, Allvolume * Fxvolume * fxlist[j].volume);
             }
@@ -292,7 +298,6 @@ namespace OSU_player
             }
             PlayList.Items[next].Selected = true;
             PlayList.EnsureVisible(next);
-            TmpSet = Core.allsets[Convert.ToInt32(PlayList.SelectedItems[0].SubItems[1].Text)];
             TmpBeatmap = TmpSet.Diffs[0];
             CurrentSet = TmpSet;
             CurrentBeatmap = TmpBeatmap;
@@ -307,7 +312,7 @@ namespace OSU_player
                 BeatmapSet tmp = new BeatmapSet(path);
                 //tmp.GetDetail();
                 Core.allsets.Add(tmp);
-                this.backgroundWorker1.ReportProgress(0, tmp.name);
+                this.backgroundWorker1.ReportProgress(0, tmp.ToString());
             }
             else
             {
@@ -320,18 +325,54 @@ namespace OSU_player
         }
         private void initset()
         {
-            try
+            if (File.Exists("list.db") && Core.LoadList())
             {
-                if (Directory.Exists(Path.Combine(Core.osupath, "Songs")))
+                for (int i = 0; i < Core.allsets.Count; i++)
                 {
-                    this.backgroundWorker1.RunWorkerAsync(Path.Combine(Core.osupath, "Songs"));
+                    BeatmapSet bms = Core.allsets[i];
+                    ListViewItem tmpl = new ListViewItem(bms.ToString());
+                    tmpl.SubItems.Add(i.ToString());
+                    PlayList.Items.Add(tmpl);
+                    FullList.Add(tmpl);
                 }
             }
-            catch (SystemException ex)
+            else
             {
-                Console.WriteLine(ex.StackTrace);
-                throw (new FormatException("Failed to read song path", ex));
+                MessageBox.Show("将开始初始化");
+                try
+                {
+                    if (Directory.Exists(Path.Combine(Core.osupath, "Songs")))
+                    {
+                        this.backgroundWorker1.RunWorkerAsync(Path.Combine(Core.osupath, "Songs"));
+                    }
+                }
+                catch (SystemException ex)
+                {
+                    Console.WriteLine(ex.StackTrace);
+                    throw (new FormatException("Failed to read song path", ex));
+                }
             }
+        }
+        private void remove(int index)
+        {
+            PlayList.Enabled = false;
+            PlayList.Items.Clear();
+            DiffList.Items.Clear();
+            DiffList.Enabled = false;
+            Core.allsets.RemoveAt(index);
+            FullList.RemoveAt(index);
+            for (int i = index; i < FullList.Count; i++)
+            {
+                FullList[i].SubItems[1].Text = (Convert.ToInt32(FullList[i].SubItems[1].Text) + 1).ToString();
+            }
+            foreach (ListViewItem item in FullList)
+            {
+                PlayList.Items.Add(item);
+            }
+            PlayList.Enabled = true;
+            DiffList.Enabled = true;
+            needsave = true;
+            PlayNext();
         }
         #endregion
         private void LoadPreference()
@@ -393,7 +434,6 @@ namespace OSU_player
             new Thread(new ThreadStart(Selfupdate.check_update)).Start();
             Core.Getpath();
             LoadPreference();
-            MessageBox.Show("将开始初始化");
             initset();
             uni_Video = new Videofiles(this.panel2);
         }
@@ -421,7 +461,6 @@ namespace OSU_player
                 PlayNext();
             }
         }
-
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             scanforset(e.Argument.ToString());
@@ -442,14 +481,19 @@ namespace OSU_player
                 FullList.Add(item);
             }
             MessageBox.Show(string.Format("初始化完毕，发现曲目{0}个", Core.allsets.Count));
-            button3.Enabled = false;
             PlayList.Items[0].Selected = true;
+            Core.SaveList();
         }
 
 
         #region 菜单栏
         private void button3_Click(object sender, EventArgs e)
         {
+            File.Delete("list.db");
+            Core.allsets.Clear();
+            FullList.Clear();
+            PlayList.Items.Clear();
+            DiffList.Items.Clear();
             initset();
         }
         #region 文件
@@ -588,6 +632,12 @@ namespace OSU_player
             if (PlayList.SelectedItems.Count == 0) { return; }
             DiffList.Items.Clear();
             TmpSet = Core.allsets[Convert.ToInt32(PlayList.SelectedItems[0].SubItems[1].Text)];
+            if (!TmpSet.check())
+            {
+                MessageBox.Show("没事删什么曲子啊><", ">_<");
+                remove(Convert.ToInt32(PlayList.SelectedItems[0].SubItems[1].Text));
+                return;
+            }
             if (!TmpSet.detailed)
             {
                 TmpSet.GetDetail();
@@ -675,7 +725,10 @@ namespace OSU_player
         private void SearchButton_Click(object sender, EventArgs e)
         {
             Stop();
+            PlayList.Enabled = false;
             PlayList.Items.Clear();
+            DiffList.Items.Clear();
+            DiffList.Enabled = false;
             if (TextBox1.Text == "")
             {
                 foreach (ListViewItem item in FullList)
@@ -694,12 +747,17 @@ namespace OSU_player
                 }
             }
             if (PlayList.Items.Count != 0) { PlayList.Items[0].Selected = true; }
-
+            PlayList.Enabled = true;
+            DiffList.Enabled = true;
         }
         private void PlayButton_Click(object sender, EventArgs e)
         {
             if (StopButton.Enabled == false)
             {
+                if (CurrentSet == null)
+                {
+                    PlayList.Items[0].Selected = true;
+                }
                 Play();
             }
             else

@@ -77,8 +77,8 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(292, 175);
             this.label2.TabIndex = 3;
-            this.label2.Text = "OSU Player\r\nDeveloped By Troogle(Google)\r\n\r\nMDX 1.0\r\nBass.Net 2.4.10.3\r\n\r\nThx for" +
-    " using~";
+            this.label2.Text = "OSU Player Ver 2.0.1\r\nDeveloped By Troogle(Google)\r\n\r\nVLC 2.0.8\r\nBass.Net 2.4.10." +
+    "3\r\n\r\nThx for using~";
             // 
             // About
             // 

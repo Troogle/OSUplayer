@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace OSU_player
 {
@@ -173,6 +174,10 @@ namespace OSU_player
             }
         }
         public static bool syncQQ = true;
+        /// <summary>
+        /// 设置路径
+        /// </summary>
+        /// <returns>是否选择正常路径</returns>
         public static bool Setpath()
         {
             FolderBrowserDialog dialog = new FolderBrowserDialog();
@@ -198,6 +203,35 @@ namespace OSU_player
                 MessageBox.Show("为什么你总是想卖萌OxO", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return false;
+        }
+        /// <summary>
+        /// 载入播放列表
+        /// </summary>
+        /// <returns>是否正常载入</returns>
+        public static bool LoadList()
+        {
+            try
+            {
+                using (FileStream fs = new FileStream("list.db", FileMode.Open))
+                {
+                    BinaryFormatter formatter = new BinaryFormatter();
+                    allsets = (List<BeatmapSet>)formatter.Deserialize(fs);
+                }
+                return true;
+            }
+            catch
+            {
+                File.Delete("list.db");
+                return false;
+            }
+        }
+        public static void SaveList()
+        {
+                using (FileStream fs = new FileStream("list.db", FileMode.Create))
+                {
+                    BinaryFormatter formatter = new BinaryFormatter();
+                    formatter.Serialize(fs, allsets);
+                }
         }
     }
 }
