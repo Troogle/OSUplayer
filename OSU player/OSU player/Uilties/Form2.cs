@@ -26,6 +26,11 @@ namespace OSU_player
                 {
                     MessageBox.Show("别卖萌不选啊-0-");
                 }
+                else
+                {
+                    Core.uin = 0;
+                    Core.syncQQ = false;
+                }
             }
         }
 

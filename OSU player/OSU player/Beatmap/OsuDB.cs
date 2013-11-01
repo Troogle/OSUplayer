@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 
 namespace OSU_player
 {
@@ -13,8 +14,8 @@ namespace OSU_player
             if (ReadByte() == 0x0b)
             {
                 int len = Read7BitEncodedInt();
-                byte[] array = ReadBytes(len);
-                str = Encoding.UTF8.GetString(array, 0, array.Length);
+                byte[] bytes = ReadBytes(len);
+                str = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
             }
             return str;
         }
@@ -38,7 +39,7 @@ namespace OSU_player
                     List<Score> Nscore = new List<Score>();
                     for (int j = 0; j < scorecount; j++)
                     {
-                        Score Tscore = new Score() ;
+                        Score Tscore = new Score();
                         stash = reader.ReadByte();
                         stash = reader.ReadInt32();
                         stashs = reader.ReadString();
@@ -66,9 +67,109 @@ namespace OSU_player
         }
         public static void ReadDb(string file)
         {
+            using (System.IO.FileStream fs = new System.IO.FileStream(file, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.ReadWrite))
+            {
+                BinaryReader reader = new BinaryReader(fs);
+                int dbversion = reader.ReadInt32();
+                int stash = reader.ReadInt32(); //folders
+                stash = reader.ReadInt32();
+                stash = reader.ReadInt32();
+                stash = reader.ReadByte();
+                string stashs = reader.ReadString(); //player
+                bool stashb = false;
+                int mapcount = reader.ReadInt32();
+                Beatmap tmpbm = new Beatmap();
+                BeatmapSet tmpset = new BeatmapSet();
+                for (int i = 0; i < mapcount; i++)
+                {
+                    tmpbm.ArtistRomanized = reader.ReadString();
+                    stashs = reader.ReadString();
+                    if (stashs != "") { tmpbm.Artist=stashs; }
+                    tmpbm.TitleRomanized= reader.ReadString();
+                    stashs = reader.ReadString();
+                    if (stashs != "") { tmpbm.Title = stashs; }
+                    tmpbm.Creator = reader.ReadString();
+                    tmpbm.Version = reader.ReadString();
+                    tmpbm.Audio = reader.ReadString();
+                    tmpbm.hash = reader.ReadString();
+                    tmpbm.Name= reader.ReadString();
+                    stash = reader.ReadByte(); //4=ranked 5=app 2=Unranked
+                    stash = reader.ReadUInt16(); //circles
+                    stash = reader.ReadUInt16(); //sliders
+                    stash = reader.ReadUInt16(); //spinners
+                    Int64 stashB = reader.ReadInt64(); //最后编辑
+                    stash = reader.ReadByte(); //AR
+                    stash = reader.ReadByte(); //CS
+                    stash = reader.ReadByte(); //HP
+                    stash = reader.ReadByte(); //OD
+                    double stashD = reader.ReadDouble(); //SV
+                    stash = reader.ReadInt32(); //playtime
+                    stash = reader.ReadInt32(); //totaltime
+                    stash = reader.ReadInt32(); //preview
+                    stash = reader.ReadInt32(); //timting points 数
+                    for (int j = 0; j < stash; j++)
+                    {
+                        stashD = reader.ReadDouble(); //bpm
+                        stashD = reader.ReadDouble(); //offset
+                        stashb = reader.ReadBoolean();//红线
+                    }
+                    tmpbm.beatmapId = reader.ReadInt32();
+                    tmpbm.beatmapsetId = reader.ReadInt32();
+                    stash = reader.ReadInt32(); //threadid 
+                    stash = reader.ReadByte();//Ranking osu
+                    stash = reader.ReadByte();//Ranking taiko
+                    stash = reader.ReadByte();//Ranking ctb
+                    stash = reader.ReadByte();//Ranking mania
+                    tmpbm.offset = reader.ReadUInt16();
+                    stashD = reader.ReadSingle();  //stack
+                    stash = reader.ReadByte(); //mode
+                    tmpbm.Source = reader.ReadString();
+                    tmpbm.tags = reader.ReadString();
+                    stash = reader.ReadInt16();
+                    if (tmpbm.offset == 0 && stash != 0) { tmpbm.offset = stash; }
+                    stashs = reader.ReadString(); //title-font
+                    stashb = reader.ReadBoolean(); //unplayed
+                    stashB = reader.ReadInt64(); //最后玩
+                    stashb = reader.ReadBoolean(); //osz2
+                    tmpbm.Location = Path.Combine(Core.osupath,reader.ReadString());
+                    stashB = reader.ReadInt64(); //最后同步
+                    stashb = reader.ReadBoolean(); //忽略音效
+                    stashb = reader.ReadBoolean(); //忽略皮肤
+                    stashb = reader.ReadBoolean(); //禁用sb
+                    stash = reader.ReadByte(); //背景淡化
+                    stashB = reader.ReadInt64();
+                    if (tmpset.count == 0) { tmpset.add(tmpbm);}
+                    if (tmpset.Contains(tmpbm)) { tmpset.add(tmpbm); }
+                    else
+                    {
+                        Core.allsets.Add(tmpset);
+                        tmpset = new BeatmapSet();
+                        tmpset.add(tmpbm);
+                    }
+                    tmpbm = new Beatmap();
+                }
+            }
         }
         public static void ReadCollect(string file)
         {
+            using (System.IO.FileStream fs = new System.IO.FileStream(file, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.ReadWrite))
+            {
+                BinaryReader reader = new BinaryReader(fs);
+                int version = reader.ReadInt32();
+                int count = reader.ReadInt32();
+                string md5 = "";
+                for (int i = 0; i < count; i++)
+                {
+                    string title = reader.ReadString();
+                    int itemcount = reader.ReadInt32();
+                    List<int> Nset = new List<int>();
+                    for (int j = 0; j < itemcount; j++)
+                    {
+                        md5 = reader.ReadString();
+                    }
+                    Core.Collections.Add(title, Nset);
+                }
+            }
         }
     }
 }

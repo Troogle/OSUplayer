@@ -4,45 +4,37 @@ using System;
 using System.Security.Cryptography;
 namespace OSU_player
 {
+    [Serializable]
     public class Beatmap : IComparable<Beatmap>
     {
         private string osb;
         private string[] Rawdata = new string[(int)OSUfile.OSUfilecount];
-        private List<string> tagList = new List<string>();
-        private string background = "";
         private string backgroundOffset = "";
-        private string Video;
-        private int VideoOffset;
         //diff-wide storyboard
+        [NonSerialized]
         private StoryBoard SB;
-        //TimingPoints
-        private List<Timing> timingpoints = new List<Timing>();
-        //HitObjects
-        private List<HitObject> hitObjects = new List<HitObject>();
 
-        public string Location { get; private set; }
-        public string Name { get; private set; }
-        public string Path { get; private set; }
+        public int offset { get; set; }
+        public string Location { get; set; }
+        public string Name { get; set; }
+        public string Path { get; set; }
         public bool haveSB { get; private set; }
         public bool haveVideo { get; private set; }
-        public List<string> Taglist { get { return tagList; } }
-        public string Background
-        {
-            get
-            {
-                if (background == "") { return Core.defaultBG; }
-                else { return System.IO.Path.Combine(Location, background); }
-            }
-        }
-        public string BackgroundOffset { get { return backgroundOffset; } }
-        public string video { get { return Video; } }
-        public int videoOffset { get { return VideoOffset; } }
-        public List<Timing> Timingpoints { get { return timingpoints; } }
-        public List<HitObject> HitObjects { get { return hitObjects; } }
-        private string hash = "";
+        public string Background { get; private set; }
+        public string Video { get; private set; }
+        public int VideoOffset { get; private set; }
+        [NonSerialized]
+        public List<Timing> Timingpoints;
+        [NonSerialized]
+        public List<HitObject> HitObjects;
+        public string hash { get; set; }
         #region map属性的获取接口
         public string FileVersion { get { return Rawdata[(int)OSUfile.FileVersion]; } }
-        public string Audio { get { return System.IO.Path.Combine(Location, Rawdata[(int)OSUfile.AudioFilename]); } }
+        public string Audio
+        {
+            get { return System.IO.Path.Combine(Location, Rawdata[(int)OSUfile.AudioFilename]); }
+            set { Rawdata[(int)OSUfile.AudioFilename] = value; }
+        }
         public int Previewtime
         {
             get
@@ -99,6 +91,8 @@ namespace OSU_player
                     return (Rawdata[(int)OSUfile.Artist]);
                 }
             }
+            set
+            { Rawdata[(int)OSUfile.ArtistUnicode] = value; }
         }
         public string ArtistRomanized
         {
@@ -112,6 +106,10 @@ namespace OSU_player
                 {
                     return "<unknown artist>";
                 }
+            }
+            set
+            {
+                Rawdata[(int)OSUfile.Artist] = value;
             }
         }
         public string Title
@@ -127,6 +125,10 @@ namespace OSU_player
                     return (TitleRomanized);
                 }
             }
+            set
+            {
+                Rawdata[(int)OSUfile.TitleUnicode] = value;
+            }
         }
         public string TitleRomanized
         {
@@ -141,9 +143,14 @@ namespace OSU_player
                     return "<unknown title>";
                 }
             }
+            set
+            {
+                Rawdata[(int)OSUfile.Title] = value;
+            }
         }
-        public string Creator { get { return Rawdata[(int)OSUfile.Creator]; } }
-        public string Version { get { return Rawdata[(int)OSUfile.Version]; } }
+        public string Creator { get { return Rawdata[(int)OSUfile.Creator]; } set { Rawdata[(int)OSUfile.Creator] = value; } }
+        public string tags { get { return Rawdata[(int)OSUfile.Tags]; } set { Rawdata[(int)OSUfile.Tags] = value; } }
+        public string Version { get { return Rawdata[(int)OSUfile.Version]; } set { Rawdata[(int)OSUfile.Version] = value; } }
         public string Source
         {
             get
@@ -157,6 +164,7 @@ namespace OSU_player
                     return "<unknown source>";
                 }
             }
+            set { Rawdata[(int)OSUfile.Source] = value; }
         }
         public int beatmapId
         {
@@ -171,6 +179,7 @@ namespace OSU_player
                     return 0;
                 }
             }
+            set { Rawdata[(int)OSUfile.BeatmapID] = value.ToString(); }
         }
         public int beatmapsetId
         {
@@ -185,6 +194,7 @@ namespace OSU_player
                     return -1;
                 }
             }
+            set { Rawdata[(int)OSUfile.BeatmapSetID] = value.ToString(); }
         }
         public int HPDrainRate
         {
@@ -502,10 +512,14 @@ namespace OSU_player
             COLOURS,
             HITOBJECTS
         }
-        public void GetDetail()
+        public void GetDetail(string osb_F)
         {
+            osb = osb_F;
+            Path = System.IO.Path.Combine(Location, Name);
             List<string> tmpSB = new List<string>();
             List<string> content = new List<string>();
+            Timingpoints = new List<Timing>();
+            HitObjects = new List<HitObject>();
             content.AddRange(File.ReadAllLines(Path));
             if (osb != null) { content.AddRange(File.ReadAllLines(System.IO.Path.Combine(Location, osb))); }
             osuFileScanStatus position = osuFileScanStatus.VERSION_UNKNOWN;
@@ -542,7 +556,7 @@ namespace OSU_player
                                     backgroundOffset = str.Substring(str.IndexOf("\"") + 2);
                                     str = str.Substring(0, str.IndexOf("\""));
                                 }
-                                background = str;
+                                Background = System.IO.Path.Combine(Location, str);
                             }
                             else if (row.StartsWith("1,") || row.StartsWith("Video"))
                             {
@@ -558,10 +572,10 @@ namespace OSU_player
                             tmpSB.Add(row);
                             break;
                         case osuFileScanStatus.TIMINGPOINTS:
-                            timingpoints.Add(settiming(row));
+                            Timingpoints.Add(settiming(row));
                             break;
                         case osuFileScanStatus.HITOBJECTS:
-                            hitObjects.Add(setobject(row));
+                            HitObjects.Add(setobject(row));
                             break;
                     }
                 }
@@ -571,28 +585,19 @@ namespace OSU_player
                 Console.WriteLine(e.StackTrace);
                 throw (new FormatException("Failed to read .osu file", e));
             }
-            if (Rawdata[(int)OSUfile.Tags] != null)
-            {
-                foreach (string s in Rawdata[(int)OSUfile.Tags].Split(new char[] { ' ' }))
-                {
-                    tagList.Add(s);
-                }
-            }
-            tagList.Add(ArtistRomanized);
-            tagList.Add(TitleRomanized);
-            tagList.Add(Version);
-            tagList.Add(Creator);
+            Rawdata[(int)OSUfile.Tags] += " " + ArtistRomanized;
+            Rawdata[(int)OSUfile.Tags] += " " + TitleRomanized;
+            Rawdata[(int)OSUfile.Tags] += " " + Version;
+            Rawdata[(int)OSUfile.Tags] += " " + Creator;
+            Rawdata[(int)OSUfile.Tags] += " " + Source;
             if (haveSB)
             {
                 //    SB = new StoryBoard(tmpSB);
             }
         }
-        public Beatmap(string location_F, string name_F, string osb_F)
+        public Beatmap()
         {
-            Location = location_F;
-            Name = name_F;
-            osb = osb_F;
-            Path = System.IO.Path.Combine(Location, Name);
+            Background = Core.defaultBG;
             haveSB = false;
             haveVideo = false;
         }
@@ -600,8 +605,8 @@ namespace OSU_player
         {
             if (this.Mode < other.Mode) { return -1; }
             if (this.Mode > other.Mode) { return 1; }
-            if (this.hitObjects.Count == other.hitObjects.Count) { return 0; }
-            if (this.hitObjects.Count > other.hitObjects.Count) { return -1; } else { return 1; }
+            if (this.HitObjects.Count == other.HitObjects.Count) { return 0; }
+            if (this.HitObjects.Count > other.HitObjects.Count) { return -1; } else { return 1; }
         }
         /// <summary>
         /// 判断相等

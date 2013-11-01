@@ -17,7 +17,7 @@ namespace OSU_player
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            MessageBox.Show("会略慢- -b,请耐心等待下");
         }
     }
 }

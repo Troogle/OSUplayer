@@ -31,9 +31,9 @@ namespace OSU_player
         private struct Fxlist
         {
             public int time;
-            public List<string> play;
+            public List<int> play;
             public float volume;
-            public Fxlist(int time, List<string> play, float volume)
+            public Fxlist(int time, List<int> play, float volume)
             {
                 this.time = time;
                 this.play = play;
@@ -43,6 +43,7 @@ namespace OSU_player
         List<Fxlist> fxlist = new List<Fxlist>();
         const int maxfxplayer = 128;
         Audiofiles[] fxplayer = new Audiofiles[maxfxplayer];
+        string[] fxname = new string[maxfxplayer];
         float Allvolume = 1.0f;
         float Musicvolume = 0.8f;
         float Fxvolume = 0.6f;
@@ -52,7 +53,6 @@ namespace OSU_player
         bool playsb = true;
         bool needsave = false;
         bool cannext = true;
-
         #region 各种方法
         private void AskForExit(object sender, System.Windows.Forms.FormClosingEventArgs e)
         {
@@ -108,7 +108,7 @@ namespace OSU_player
             tmpl.SubItems.Add(TmpBeatmap.Background);
             ListDetail.Items.Add(tmpl);
             tmpl = new ListViewItem("视频文件名称");
-            tmpl.SubItems.Add(TmpBeatmap.video);
+            tmpl.SubItems.Add(TmpBeatmap.Video);
             ListDetail.Items.Add(tmpl);
             tmpl = new ListViewItem("OSU文件版本");
             tmpl.SubItems.Add(TmpBeatmap.FileVersion);
@@ -133,6 +133,7 @@ namespace OSU_player
         private void setbg()
         {
             printdetail();
+            if (!File.Exists(CurrentBeatmap.Background)) { MessageBox.Show("没事删什么BG！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
             pictureBox1.Image = Image.FromFile(CurrentBeatmap.Background);
             pictureBox1.Visible = true;
         }
@@ -142,39 +143,49 @@ namespace OSU_player
             uni_Audio.Stop();
             uni_Video.Stop();
             pictureBox1.Visible = true;
-            TrackBar1.Enabled = false;
-            TrackBar1.Value = 0;
+            TrackSeek.Enabled = false;
+            TrackSeek.Value = 0;
             StopButton.Enabled = false;
             PlayButton.Text = "播放";
-            cannext = true;
+
         }
         private void Play()
         {
+            cannext = true;
             uni_Audio.Open(CurrentBeatmap.Audio);
             if (playfx) { initfx(); fxpos = 0; }
             uni_Audio.UpdateTimer.Tick += new EventHandler(AVsync);
             if (CurrentBeatmap.haveVideo && playvideo)
             {
-                pictureBox1.Visible = false;
-                panel2.Visible = true;
-                if (CurrentBeatmap.videoOffset > 0)
+                if (!File.Exists(Path.Combine(CurrentBeatmap.Location, CurrentBeatmap.Video)))
                 {
+                    MessageBox.Show("没事删什么Video！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     uni_Audio.Play(Allvolume * Musicvolume);
-                    uni_Video.Play(Path.Combine(CurrentBeatmap.Location, CurrentBeatmap.video));//,CurrentBeatmap.videoOffset);
                 }
                 else
                 {
-                    uni_Video.Play(Path.Combine(CurrentBeatmap.Location, CurrentBeatmap.video));
-                    // uni_Audio.Play(-CurrentBeatmap.videoOffset, Allvolume * Musicvolume);
-                    uni_Audio.Play(Allvolume * Musicvolume);
+                    pictureBox1.Visible = false;
+                    if (CurrentBeatmap.VideoOffset > 0)
+                    {
+                        uni_Audio.Play(Allvolume * Musicvolume);
+                        uni_Video.Play(Path.Combine(CurrentBeatmap.Location, CurrentBeatmap.Video));//,CurrentBeatmap.videoOffset);
+                    }
+                    else
+                    {
+                        uni_Video.Play(Path.Combine(CurrentBeatmap.Location, CurrentBeatmap.Video));
+                        // uni_Audio.Play(-CurrentBeatmap.videoOffset, Allvolume * Musicvolume);
+                        uni_Audio.Play(Allvolume * Musicvolume);
 
+                    }
                 }
             }
             else { uni_Audio.Play(Allvolume * Musicvolume); }
-            TrackBar1.Enabled = true;
+
+            TrackSeek.Enabled = true;
             uni_QQ.Send2QQ(Core.uin, CurrentBeatmap.Name);
             PlayButton.Text = "暂停";
             StopButton.Enabled = true;
+            TrackSeek.Maximum = (int)uni_Audio.durnation * 1000;
         }
         private int Fxlistcompare(Fxlist a, Fxlist b)
         {
@@ -185,9 +196,35 @@ namespace OSU_player
             else if (a.time == b.time) { return 0; }
             else return -1;
         }
+        private List<int> setplayer(ref int player, List<string> filenames)
+        {
+            List<int> ret = new List<int>();
+            bool f = true;
+            foreach (string filename in filenames)
+            {
+                f = true;
+                for (int i = 0; i < player; i++)
+                {
+                    if (fxname[i] == filename) { ret.Add(i); f = false; break; }
+                }
+                if (f)
+                {
+                    fxname[player] = filename;
+                    fxplayer[player].Open(filename);
+                    ret.Add(player);
+                    player++;
+                }
+            }
+            return (ret);
+        }
+
         private void initfx()
         {
             fxlist.Clear();
+            for (int i = 0; i < maxfxplayer; i++)
+            {
+                fxname[i] = "";
+            }
             Beatmap tmp = CurrentBeatmap;
             int currentT = 0;
             int current = 0;
@@ -196,6 +233,7 @@ namespace OSU_player
             double bpm = tmp.Timingpoints[currentT].bpm;
             double Tbpm = bpm;
             float volume = tmp.Timingpoints[currentT].volume;
+            int player = 0;
             for (int i = 0; i < uni_Audio.durnation * 1000; i++)
             {
                 if (currentT + 1 < tmp.Timingpoints.Count)
@@ -229,26 +267,27 @@ namespace OSU_player
                         if (tmpH.sample != olddefault) { tmpSample = tmpH.sample; }
                         if (tmpH.S_Volume != 0) { volumeH = tmpH.S_Volume; }
                         fxlist.Add(
-                            new Fxlist(tmpH.starttime, CurrentSet.getsamplename
-                                (tmpSample, tmpH.allhitsound), volumeH));
+                            new Fxlist(tmpH.starttime, setplayer(ref player, CurrentSet.getsamplename
+                                (tmpSample, tmpH.allhitsound)), volumeH));
                         if (tmpH.A_sample.sample != 0)
                         {
                             fxlist.Add(
-                           new Fxlist(tmpH.starttime, CurrentSet.getsamplename
-                               (tmpH.A_sample, tmpH.allhitsound), volumeH));
+                           new Fxlist(tmpH.starttime, setplayer(ref player, CurrentSet.getsamplename
+                               (tmpH.A_sample, tmpH.allhitsound)), volumeH));
                         }
                         break;
                     case ObjectFlag.Slider:
                     case ObjectFlag.SliderNewCombo:
                         //TODO:每个节点的sampleset
                         if (tmpH.sample != olddefault) { tmpSample = tmpH.sample; }
-                        double deltatime = (600 * tmpH.length / (bpm * tmp.SliderMultiplier));
+                        double deltatime = (600.0 * tmpH.length / bpm / tmp.SliderMultiplier);
                         if (tmpH.S_Volume != 0) { volumeH = tmpH.S_Volume / 100; }
                         for (int j = 0; j <= tmpH.repeatcount; j++)
                         {
                             fxlist.Add(
-                                new Fxlist((int)(tmpH.starttime + deltatime * j), CurrentSet.getsamplename
-                            (tmpSample, tmpH.Hitsounds[j]), volumeH));
+                                new Fxlist((int)(tmpH.starttime + deltatime * j),
+                                    setplayer(ref player, CurrentSet.getsamplename
+                            (tmpSample, tmpH.Hitsounds[j])), volumeH));
                         }
                         break;
                     case ObjectFlag.Spinner:
@@ -256,11 +295,11 @@ namespace OSU_player
                         if (tmpH.sample != olddefault) { tmpSample = tmpH.sample; }
                         if (tmpH.S_Volume != 0) { volumeH = tmpH.S_Volume; }
                         fxlist.Add(
-                            new Fxlist(tmpH.EndTime, CurrentSet.getsamplename(tmpSample, tmpH.allhitsound), volumeH));
+                            new Fxlist(tmpH.EndTime, setplayer(ref player, CurrentSet.getsamplename(tmpSample, tmpH.allhitsound)), volumeH));
                         if (tmpH.A_sample.sample != 0)
                         {
-                            fxlist.Add(new Fxlist(tmpH.EndTime, CurrentSet.getsamplename
-                                (tmpH.A_sample, tmpH.allhitsound), volumeH));
+                            fxlist.Add(new Fxlist(tmpH.EndTime, setplayer(ref player, CurrentSet.getsamplename
+                                (tmpH.A_sample, tmpH.allhitsound)), volumeH));
                         }
                         break;
                     default:
@@ -269,14 +308,16 @@ namespace OSU_player
                 current++;
             }
             fxlist.Sort(Fxlistcompare);
+            fxlist.Add(new Fxlist(Int32.MaxValue, new List<int>(), 0));
+            /*极度怀疑有无必要,取消了算了
             int index = 0;
             while (index < fxlist.Count)
             {
                 if (fxlist[index].play.Count == 0) { fxlist.RemoveAt(index); }
                 else { index++; };
             }
-            fxlist.Add(new Fxlist(Int32.MaxValue, new List<string> { }, 0));
-            /*极度怀疑有无必要,取消了算了
+            fxlist.Add(new Fxlist(Int32.MaxValue, new List<int> { }, 0));
+
             int index = 0;
             while (index < fxlist.Count-1)
             {
@@ -291,13 +332,9 @@ namespace OSU_player
         private void PlayFx(int pos)
         {
             if (!playfx) { return; }
-            int k = 0;
             for (int j = 0; j < fxlist[pos].play.Count; j++)
             {
-                k = 0;
-                while (fxplayer[k].isplaying) { k = (k + 1) % maxfxplayer; }
-                fxplayer[k].Open(fxlist[pos].play[j]);
-                fxplayer[k].Play(Allvolume * Fxvolume * fxlist[pos].volume);
+                fxplayer[fxlist[pos].play[j]].Play(Allvolume * Fxvolume * fxlist[pos].volume);
             }
         }
         private void Pause()
@@ -347,25 +384,6 @@ namespace OSU_player
             setbg();
             Play();
         }
-        private void scanforset(string path)
-        {
-            string[] osufiles = Directory.GetFiles(path, "*.osu");
-            if (osufiles.Length != 0)
-            {
-                BeatmapSet tmp = new BeatmapSet(path);
-                //tmp.GetDetail();
-                Core.allsets.Add(tmp);
-                this.backgroundWorker1.ReportProgress(0, tmp.ToString());
-            }
-            else
-            {
-                string[] tmpfolder = Directory.GetDirectories(path);
-                foreach (string subfolder in tmpfolder)
-                {
-                    scanforset(subfolder);
-                }
-            }
-        }
         private void initset()
         {
             if (File.Exists("list.db") && Core.LoadList())
@@ -382,23 +400,20 @@ namespace OSU_player
             else
             {
                 MessageBox.Show("将开始初始化");
-                button3.Enabled = false;
-                try
+                if (File.Exists(Path.Combine(Core.osupath, "osu!.db")))
                 {
-                    if (Directory.Exists(Path.Combine(Core.osupath, "Songs")))
-                    {
-                        this.backgroundWorker1.RunWorkerAsync(Path.Combine(Core.osupath, "Songs"));
-                    }
+                    OsuDB.ReadDb(Path.Combine(Core.osupath, "osu!.db"));
                 }
-                catch (SystemException ex)
+                for (int i = 0; i < Core.allsets.Count; i++)
                 {
-                    Console.WriteLine(ex.StackTrace);
-                    throw (new FormatException("Failed to read song path", ex));
+                    BeatmapSet bms = Core.allsets[i];
+                    ListViewItem tmpl = new ListViewItem(bms.ToString());
+                    tmpl.SubItems.Add(i.ToString());
+                    PlayList.Items.Add(tmpl);
+                    FullList.Add(tmpl);
                 }
-            }
-            for (int i = 0; i < maxfxplayer; i++)
-            {
-                fxplayer[i] = new Audiofiles();
+                MessageBox.Show(string.Format("初始化完毕，发现曲目{0}个", Core.allsets.Count));
+                needsave=true;
             }
         }
         private void remove(int index)
@@ -468,8 +483,11 @@ namespace OSU_player
                 QQ状态同步.Checked = Core.syncQQ;
             }
             Allvolume = Properties.Settings.Default.Allvolume;
+            TrackVolume.Value = (int)(Allvolume * TrackVolume.Maximum);
             Fxvolume = Properties.Settings.Default.Fxvolume;
+            TrackFx.Value = (int)(Fxvolume * TrackFx.Maximum);
             Musicvolume = Properties.Settings.Default.Musicvolume;
+            TrackMusic.Value = (int)(Musicvolume * TrackMusic.Maximum);
             playfx = Properties.Settings.Default.PlayFx;
             音效.Checked = playfx;
             playsb = Properties.Settings.Default.PlaySB;
@@ -498,6 +516,10 @@ namespace OSU_player
             LoadPreference();
             initset();
             uni_Video = new Videofiles(this.panel2);
+            for (int i = 0; i < maxfxplayer; i++)
+            {
+                fxplayer[i] = new Audiofiles();
+            }
         }
         private void AVsync(object sender, EventArgs e)
         {
@@ -508,54 +530,20 @@ namespace OSU_player
             }
             if (fxpos < fxlist.Count)
             {
-                while (fxlist[fxpos].time <= (int)Math.Floor(uni_Audio.position * 1000))
+                while (fxlist[fxpos].time <= uni_Audio.position * 1000)
                 {
-                    new Thread(new ThreadStart(delegate() { PlayFx(fxpos); })).Start();
-                    if (fxpos + 1 < fxlist.Count) { fxpos++; } else { break; }
+                    while ((fxlist[fxpos + 1].time <= uni_Audio.position * 1000)) { fxpos++; }
+                    PlayFx(fxpos);
+                    fxpos++;
                 }
             }
-            TrackBar1.Value = (int)Math.Round((uni_Audio.position / uni_Audio.durnation) * TrackBar1.Maximum);
+            TrackSeek.Value = (int)uni_Audio.position * 1000;
             label1.Text = String.Format("{0}:{1:D2} / {2}:{3:D2}", (int)uni_Audio.position / 60,
                 (int)uni_Audio.position % 60, (int)uni_Audio.durnation / 60,
                 (int)uni_Audio.durnation % 60);
 
         }
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
-        {
-            scanforset(e.Argument.ToString());
-        }
-        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            if (e.UserState.ToString().Length > 0)
-            {
-                ListViewItem tmpl = new ListViewItem(e.UserState.ToString());
-                PlayList.Items.Add(tmpl);
-            }
-        }
-        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            foreach (ListViewItem item in PlayList.Items)
-            {
-                item.SubItems.Add(item.Index.ToString());
-                FullList.Add(item);
-            }
-            MessageBox.Show(string.Format("初始化完毕，发现曲目{0}个", Core.allsets.Count));
-            PlayList.Items[0].Selected = true;
-            Core.SaveList();
-            button3.Enabled = true;
-        }
-
-
         #region 菜单栏
-        private void button3_Click(object sender, EventArgs e)
-        {
-            File.Delete("list.db");
-            Core.allsets.Clear();
-            FullList.Clear();
-            PlayList.Items.Clear();
-            DiffList.Items.Clear();
-            initset();
-        }
         #region 文件
         private void 运行OSU_Click(object sender, EventArgs e)
         {
@@ -572,11 +560,17 @@ namespace OSU_player
         }
         private void 重新导入osu_Click(object sender, EventArgs e)
         {
-
+            File.Delete("list.db");
+            Core.allsets.Clear();
+            FullList.Clear();
+            PlayList.Items.Clear();
+            DiffList.Items.Clear();
+            initset();
         }
-        private void 重新导入collections_Click(object sender, EventArgs e)
+        private void 重新导入scores_Click(object sender, EventArgs e)
         {
-
+            string scorepath = Path.Combine(Core.osupath, "scores.db");
+            if (File.Exists(scorepath)) { OsuDB.ReadScore(scorepath); Core.scoresearched = true; }
         }
         private void 打开曲目文件夹_Click(object sender, EventArgs e)
         {
@@ -665,7 +659,7 @@ namespace OSU_player
         {
             using (ChooseColl dialog = new ChooseColl())
             {
-                dialog.Show();
+                dialog.ShowDialog();
             }
         }
         private void Button1_Click(object sender, EventArgs e)
@@ -680,13 +674,13 @@ namespace OSU_player
         }
         private void TrackBar3_Scroll(object sender, EventArgs e)
         {
-            Fxvolume = (float)TrackBar3.Value / (float)TrackBar3.Maximum;
+            Fxvolume = (float)TrackFx.Value / (float)TrackFx.Maximum;
             Properties.Settings.Default.Fxvolume = Fxvolume;
             Properties.Settings.Default.Save();
         }
         private void trackBar4_Scroll(object sender, EventArgs e)
         {
-            Musicvolume = (float)trackBar4.Value / (float)trackBar4.Maximum;
+            Musicvolume = (float)TrackMusic.Value / (float)TrackMusic.Maximum;
             if (uni_Audio != null) { uni_Audio.Volume = Allvolume * Musicvolume; }
             Properties.Settings.Default.Musicvolume = Musicvolume;
             Properties.Settings.Default.Save();
@@ -774,17 +768,17 @@ namespace OSU_player
         }
         private void TrackBar1_Scroll(object sender, EventArgs e)
         {
-            uni_Audio.Seek(TrackBar1.Value * uni_Audio.durnation / TrackBar1.Maximum);
-            uni_Video.seek(TrackBar1.Value * uni_Audio.durnation / TrackBar1.Maximum + CurrentBeatmap.videoOffset / 1000);
+            uni_Audio.Seek(TrackSeek.Value / 1000);
+            uni_Video.seek(TrackSeek.Value / 1000 + CurrentBeatmap.VideoOffset / 1000);
             fxpos = 0;
-            while (fxlist[fxpos].time <= (int)Math.Floor(uni_Audio.position * 1000))
+            while (fxlist[fxpos].time <= uni_Audio.position * 1000)
             {
-                if (fxpos + 1 < fxlist.Count) { fxpos++; } else { break; }
+                fxpos++;
             }
         }
         private void TrackBar2_Scroll(object sender, EventArgs e)
         {
-            Allvolume = (float)TrackBar2.Value / (float)TrackBar2.Maximum;
+            Allvolume = (float)TrackVolume.Value / (float)TrackVolume.Maximum;
             if (uni_Audio != null) { uni_Audio.Volume = Allvolume * Musicvolume; }
             Properties.Settings.Default.Allvolume = Allvolume;
             Properties.Settings.Default.Save();
@@ -856,14 +850,13 @@ namespace OSU_player
                         if (File.Exists(scorepath)) { OsuDB.ReadScore(scorepath); Core.scoresearched = true; }
                     }
                 }
+                if (TmpSet == null)
+                {
+                    PlayList.Items[0].Selected = true;
+                }
                 getscore();
             }
         }
 
-        private void 重新导入scores_Click(object sender, EventArgs e)
-        {
-            string scorepath = Path.Combine(Core.osupath, "scores.db");
-            if (File.Exists(scorepath)) { OsuDB.ReadScore(scorepath); Core.scoresearched = true; }
-        }
     }
 }

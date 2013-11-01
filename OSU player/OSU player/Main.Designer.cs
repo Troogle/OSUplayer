@@ -45,7 +45,6 @@ public partial class Main : System.Windows.Forms.Form
             this.ToolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.重新导入osu = new System.Windows.Forms.ToolStripMenuItem();
             this.重新导入scores = new System.Windows.Forms.ToolStripMenuItem();
-            this.重新导入collections = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.打开曲目文件夹 = new System.Windows.Forms.ToolStripMenuItem();
             this.打开铺面文件 = new System.Windows.Forms.ToolStripMenuItem();
@@ -62,8 +61,6 @@ public partial class Main : System.Windows.Forms.Form
             this.QQ状态同步 = new System.Windows.Forms.ToolStripMenuItem();
             this.SB开关 = new System.Windows.Forms.ToolStripMenuItem();
             this.关于 = new System.Windows.Forms.ToolStripMenuItem();
-            this.button3 = new System.Windows.Forms.Button();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -71,18 +68,19 @@ public partial class Main : System.Windows.Forms.Form
             this.ColumnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ColumnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.ScoreBox = new System.Windows.Forms.ListBox();
             this.TextBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.trackBar4 = new System.Windows.Forms.TrackBar();
+            this.TrackMusic = new System.Windows.Forms.TrackBar();
             this.panel2 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.TrackBar3 = new System.Windows.Forms.TrackBar();
+            this.TrackFx = new System.Windows.Forms.TrackBar();
             this.PlayList = new System.Windows.Forms.ListView();
             this.ColumnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SetNum = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Label3 = new System.Windows.Forms.Label();
             this.DiffList = new System.Windows.Forms.ListBox();
-            this.TrackBar2 = new System.Windows.Forms.TrackBar();
+            this.TrackVolume = new System.Windows.Forms.TrackBar();
             this.Label4 = new System.Windows.Forms.Label();
             this.SearchButton = new System.Windows.Forms.Button();
             this.Label2 = new System.Windows.Forms.Label();
@@ -90,10 +88,9 @@ public partial class Main : System.Windows.Forms.Form
             this.Button1 = new System.Windows.Forms.Button();
             this.LabelQQ = new System.Windows.Forms.Label();
             this.NextButton = new System.Windows.Forms.Button();
-            this.TrackBar1 = new System.Windows.Forms.TrackBar();
+            this.TrackSeek = new System.Windows.Forms.TrackBar();
             this.StopButton = new System.Windows.Forms.Button();
             this.PlayButton = new System.Windows.Forms.Button();
-            this.ScoreBox = new System.Windows.Forms.ListBox();
             this.顺序播放 = new OSU_player.ToolStripRadioButtonMenuItem();
             this.单曲循环 = new OSU_player.ToolStripRadioButtonMenuItem();
             this.随机播放 = new OSU_player.ToolStripRadioButtonMenuItem();
@@ -102,12 +99,12 @@ public partial class Main : System.Windows.Forms.Form
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TrackMusic)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TrackBar3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TrackBar2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TrackBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TrackFx)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TrackVolume)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TrackSeek)).BeginInit();
             this.SuspendLayout();
             // 
             // MenuStrip1
@@ -131,7 +128,6 @@ public partial class Main : System.Windows.Forms.Form
             this.ToolStripSeparator1,
             this.重新导入osu,
             this.重新导入scores,
-            this.重新导入collections,
             this.ToolStripSeparator2,
             this.打开曲目文件夹,
             this.打开铺面文件,
@@ -145,80 +141,71 @@ public partial class Main : System.Windows.Forms.Form
             // 运行OSU
             // 
             this.运行OSU.Name = "运行OSU";
-            this.运行OSU.Size = new System.Drawing.Size(241, 24);
+            this.运行OSU.Size = new System.Drawing.Size(209, 24);
             this.运行OSU.Text = "运行OSU!";
             this.运行OSU.Click += new System.EventHandler(this.运行OSU_Click);
             // 
             // 手动指定OSU目录
             // 
             this.手动指定OSU目录.Name = "手动指定OSU目录";
-            this.手动指定OSU目录.Size = new System.Drawing.Size(241, 24);
+            this.手动指定OSU目录.Size = new System.Drawing.Size(209, 24);
             this.手动指定OSU目录.Text = "手动指定OSU目录";
             this.手动指定OSU目录.Click += new System.EventHandler(this.手动指定OSU目录_Click);
             // 
             // ToolStripSeparator1
             // 
             this.ToolStripSeparator1.Name = "ToolStripSeparator1";
-            this.ToolStripSeparator1.Size = new System.Drawing.Size(238, 6);
+            this.ToolStripSeparator1.Size = new System.Drawing.Size(206, 6);
             // 
             // 重新导入osu
             // 
-            this.重新导入osu.Enabled = false;
             this.重新导入osu.Name = "重新导入osu";
-            this.重新导入osu.Size = new System.Drawing.Size(241, 24);
-            this.重新导入osu.Text = "重新导入osu.db";
+            this.重新导入osu.Size = new System.Drawing.Size(209, 24);
+            this.重新导入osu.Text = "重新初始化";
             this.重新导入osu.Click += new System.EventHandler(this.重新导入osu_Click);
             // 
             // 重新导入scores
             // 
             this.重新导入scores.Name = "重新导入scores";
-            this.重新导入scores.Size = new System.Drawing.Size(241, 24);
+            this.重新导入scores.Size = new System.Drawing.Size(209, 24);
             this.重新导入scores.Text = "重新导入scores.db";
             this.重新导入scores.Click += new System.EventHandler(this.重新导入scores_Click);
-            // 
-            // 重新导入collections
-            // 
-            this.重新导入collections.Enabled = false;
-            this.重新导入collections.Name = "重新导入collections";
-            this.重新导入collections.Size = new System.Drawing.Size(241, 24);
-            this.重新导入collections.Text = "重新导入collections.db";
-            this.重新导入collections.Click += new System.EventHandler(this.重新导入collections_Click);
             // 
             // ToolStripSeparator2
             // 
             this.ToolStripSeparator2.Name = "ToolStripSeparator2";
-            this.ToolStripSeparator2.Size = new System.Drawing.Size(238, 6);
+            this.ToolStripSeparator2.Size = new System.Drawing.Size(206, 6);
             // 
             // 打开曲目文件夹
             // 
             this.打开曲目文件夹.Name = "打开曲目文件夹";
-            this.打开曲目文件夹.Size = new System.Drawing.Size(241, 24);
+            this.打开曲目文件夹.Size = new System.Drawing.Size(209, 24);
             this.打开曲目文件夹.Text = "打开曲目文件夹";
             this.打开曲目文件夹.Click += new System.EventHandler(this.打开曲目文件夹_Click);
             // 
             // 打开铺面文件
             // 
             this.打开铺面文件.Name = "打开铺面文件";
-            this.打开铺面文件.Size = new System.Drawing.Size(241, 24);
+            this.打开铺面文件.Size = new System.Drawing.Size(209, 24);
             this.打开铺面文件.Text = "打开铺面文件";
             this.打开铺面文件.Click += new System.EventHandler(this.打开铺面文件_Click);
             // 
             // 打开SB文件
             // 
             this.打开SB文件.Name = "打开SB文件";
-            this.打开SB文件.Size = new System.Drawing.Size(241, 24);
+            this.打开SB文件.Size = new System.Drawing.Size(209, 24);
             this.打开SB文件.Text = "打开SB文件";
             this.打开SB文件.Click += new System.EventHandler(this.打开SB文件_Click);
             // 
             // ToolStripSeparator3
             // 
             this.ToolStripSeparator3.Name = "ToolStripSeparator3";
-            this.ToolStripSeparator3.Size = new System.Drawing.Size(238, 6);
+            this.ToolStripSeparator3.Size = new System.Drawing.Size(206, 6);
             // 
             // 退出
             // 
             this.退出.Name = "退出";
-            this.退出.Size = new System.Drawing.Size(241, 24);
+            this.退出.Size = new System.Drawing.Size(209, 24);
             this.退出.Text = "退出";
             this.退出.Click += new System.EventHandler(this.退出_Click);
             // 
@@ -233,7 +220,6 @@ public partial class Main : System.Windows.Forms.Form
             // 
             // 重复歌曲扫描
             // 
-            this.重复歌曲扫描.Enabled = false;
             this.重复歌曲扫描.Name = "重复歌曲扫描";
             this.重复歌曲扫描.Size = new System.Drawing.Size(168, 24);
             this.重复歌曲扫描.Text = "重复歌曲扫描";
@@ -313,23 +299,6 @@ public partial class Main : System.Windows.Forms.Form
             this.关于.Text = "关于";
             this.关于.Click += new System.EventHandler(this.关于_Click);
             // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(226, 5);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(90, 25);
-            this.button3.TabIndex = 20;
-            this.button3.Text = "重新初始化";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // backgroundWorker1
-            // 
-            this.backgroundWorker1.WorkerReportsProgress = true;
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
-            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
-            // 
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -338,13 +307,13 @@ public partial class Main : System.Windows.Forms.Form
             this.panel1.Controls.Add(this.tabControl1);
             this.panel1.Controls.Add(this.TextBox1);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.trackBar4);
+            this.panel1.Controls.Add(this.TrackMusic);
             this.panel1.Controls.Add(this.panel2);
-            this.panel1.Controls.Add(this.TrackBar3);
+            this.panel1.Controls.Add(this.TrackFx);
             this.panel1.Controls.Add(this.PlayList);
             this.panel1.Controls.Add(this.Label3);
             this.panel1.Controls.Add(this.DiffList);
-            this.panel1.Controls.Add(this.TrackBar2);
+            this.panel1.Controls.Add(this.TrackVolume);
             this.panel1.Controls.Add(this.Label4);
             this.panel1.Controls.Add(this.SearchButton);
             this.panel1.Controls.Add(this.Label2);
@@ -352,7 +321,7 @@ public partial class Main : System.Windows.Forms.Form
             this.panel1.Controls.Add(this.Button1);
             this.panel1.Controls.Add(this.LabelQQ);
             this.panel1.Controls.Add(this.NextButton);
-            this.panel1.Controls.Add(this.TrackBar1);
+            this.panel1.Controls.Add(this.TrackSeek);
             this.panel1.Controls.Add(this.StopButton);
             this.panel1.Controls.Add(this.PlayButton);
             this.panel1.Location = new System.Drawing.Point(4, 34);
@@ -425,6 +394,18 @@ public partial class Main : System.Windows.Forms.Form
             this.tabPage2.Text = "成绩信息";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // ScoreBox
+            // 
+            this.ScoreBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ScoreBox.FormattingEnabled = true;
+            this.ScoreBox.ItemHeight = 15;
+            this.ScoreBox.Location = new System.Drawing.Point(6, 6);
+            this.ScoreBox.Name = "ScoreBox";
+            this.ScoreBox.Size = new System.Drawing.Size(504, 169);
+            this.ScoreBox.TabIndex = 0;
+            // 
             // TextBox1
             // 
             this.TextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -444,19 +425,19 @@ public partial class Main : System.Windows.Forms.Form
             this.label1.TabIndex = 42;
             this.label1.Text = "00:00/00:00";
             // 
-            // trackBar4
+            // TrackMusic
             // 
-            this.trackBar4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.TrackMusic.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.trackBar4.AutoSize = false;
-            this.trackBar4.Location = new System.Drawing.Point(599, 7);
-            this.trackBar4.Maximum = 100;
-            this.trackBar4.Name = "trackBar4";
-            this.trackBar4.Size = new System.Drawing.Size(88, 27);
-            this.trackBar4.TabIndex = 41;
-            this.trackBar4.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.trackBar4.Value = 80;
-            this.trackBar4.Scroll += new System.EventHandler(this.trackBar4_Scroll);
+            this.TrackMusic.AutoSize = false;
+            this.TrackMusic.Location = new System.Drawing.Point(599, 7);
+            this.TrackMusic.Maximum = 100;
+            this.TrackMusic.Name = "TrackMusic";
+            this.TrackMusic.Size = new System.Drawing.Size(88, 27);
+            this.TrackMusic.TabIndex = 41;
+            this.TrackMusic.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.TrackMusic.Value = 80;
+            this.TrackMusic.Scroll += new System.EventHandler(this.trackBar4_Scroll);
             // 
             // panel2
             // 
@@ -476,18 +457,18 @@ public partial class Main : System.Windows.Forms.Form
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
-            // TrackBar3
+            // TrackFx
             // 
-            this.TrackBar3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.TrackBar3.AutoSize = false;
-            this.TrackBar3.Location = new System.Drawing.Point(736, 7);
-            this.TrackBar3.Maximum = 100;
-            this.TrackBar3.Name = "TrackBar3";
-            this.TrackBar3.Size = new System.Drawing.Size(88, 27);
-            this.TrackBar3.TabIndex = 37;
-            this.TrackBar3.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.TrackBar3.Value = 60;
-            this.TrackBar3.Scroll += new System.EventHandler(this.TrackBar3_Scroll);
+            this.TrackFx.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.TrackFx.AutoSize = false;
+            this.TrackFx.Location = new System.Drawing.Point(736, 7);
+            this.TrackFx.Maximum = 100;
+            this.TrackFx.Name = "TrackFx";
+            this.TrackFx.Size = new System.Drawing.Size(88, 27);
+            this.TrackFx.TabIndex = 37;
+            this.TrackFx.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.TrackFx.Value = 60;
+            this.TrackFx.Scroll += new System.EventHandler(this.TrackBar3_Scroll);
             // 
             // PlayList
             // 
@@ -542,19 +523,19 @@ public partial class Main : System.Windows.Forms.Form
             this.DiffList.SelectedIndexChanged += new System.EventHandler(this.DiffList_SelectedIndexChanged);
             this.DiffList.DoubleClick += new System.EventHandler(this.DiffList_DoubleClick);
             // 
-            // TrackBar2
+            // TrackVolume
             // 
-            this.TrackBar2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.TrackBar2.AutoSize = false;
-            this.TrackBar2.Location = new System.Drawing.Point(834, 40);
-            this.TrackBar2.Maximum = 100;
-            this.TrackBar2.Name = "TrackBar2";
-            this.TrackBar2.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.TrackBar2.Size = new System.Drawing.Size(34, 342);
-            this.TrackBar2.TabIndex = 33;
-            this.TrackBar2.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.TrackBar2.Value = 100;
-            this.TrackBar2.Scroll += new System.EventHandler(this.TrackBar2_Scroll);
+            this.TrackVolume.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.TrackVolume.AutoSize = false;
+            this.TrackVolume.Location = new System.Drawing.Point(834, 40);
+            this.TrackVolume.Maximum = 100;
+            this.TrackVolume.Name = "TrackVolume";
+            this.TrackVolume.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.TrackVolume.Size = new System.Drawing.Size(34, 342);
+            this.TrackVolume.TabIndex = 33;
+            this.TrackVolume.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.TrackVolume.Value = 100;
+            this.TrackVolume.Scroll += new System.EventHandler(this.TrackBar2_Scroll);
             // 
             // Label4
             // 
@@ -626,18 +607,18 @@ public partial class Main : System.Windows.Forms.Form
             this.NextButton.UseVisualStyleBackColor = true;
             this.NextButton.Click += new System.EventHandler(this.NextButton_Click);
             // 
-            // TrackBar1
+            // TrackSeek
             // 
-            this.TrackBar1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.TrackBar1.AutoSize = false;
-            this.TrackBar1.Enabled = false;
-            this.TrackBar1.Location = new System.Drawing.Point(519, 406);
-            this.TrackBar1.Maximum = 1000;
-            this.TrackBar1.Name = "TrackBar1";
-            this.TrackBar1.Size = new System.Drawing.Size(349, 28);
-            this.TrackBar1.TabIndex = 23;
-            this.TrackBar1.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.TrackBar1.Scroll += new System.EventHandler(this.TrackBar1_Scroll);
+            this.TrackSeek.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.TrackSeek.AutoSize = false;
+            this.TrackSeek.Enabled = false;
+            this.TrackSeek.Location = new System.Drawing.Point(519, 406);
+            this.TrackSeek.Maximum = 1000;
+            this.TrackSeek.Name = "TrackSeek";
+            this.TrackSeek.Size = new System.Drawing.Size(349, 28);
+            this.TrackSeek.TabIndex = 23;
+            this.TrackSeek.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.TrackSeek.Scroll += new System.EventHandler(this.TrackBar1_Scroll);
             // 
             // StopButton
             // 
@@ -661,18 +642,6 @@ public partial class Main : System.Windows.Forms.Form
             this.PlayButton.Text = "播放";
             this.PlayButton.UseVisualStyleBackColor = true;
             this.PlayButton.Click += new System.EventHandler(this.PlayButton_Click);
-            // 
-            // ScoreBox
-            // 
-            this.ScoreBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ScoreBox.FormattingEnabled = true;
-            this.ScoreBox.ItemHeight = 15;
-            this.ScoreBox.Location = new System.Drawing.Point(6, 6);
-            this.ScoreBox.Name = "ScoreBox";
-            this.ScoreBox.Size = new System.Drawing.Size(504, 169);
-            this.ScoreBox.TabIndex = 0;
             // 
             // 顺序播放
             // 
@@ -706,7 +675,6 @@ public partial class Main : System.Windows.Forms.Form
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(892, 705);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.button3);
             this.Controls.Add(this.MenuStrip1);
             this.MainMenuStrip = this.MenuStrip1;
             this.MinimumSize = new System.Drawing.Size(910, 752);
@@ -722,12 +690,12 @@ public partial class Main : System.Windows.Forms.Form
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TrackMusic)).EndInit();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TrackBar3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TrackBar2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TrackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TrackFx)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TrackVolume)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TrackSeek)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -738,8 +706,7 @@ public partial class Main : System.Windows.Forms.Form
 		internal System.Windows.Forms.ToolStripMenuItem 手动指定OSU目录;
 		internal System.Windows.Forms.ToolStripSeparator ToolStripSeparator1;
 		internal System.Windows.Forms.ToolStripMenuItem 重新导入osu;
-		internal System.Windows.Forms.ToolStripMenuItem 重新导入scores;
-		internal System.Windows.Forms.ToolStripMenuItem 重新导入collections;
+        internal System.Windows.Forms.ToolStripMenuItem 重新导入scores;
 		internal System.Windows.Forms.ToolStripSeparator ToolStripSeparator2;
 		internal System.Windows.Forms.ToolStripMenuItem 打开曲目文件夹;
 		internal System.Windows.Forms.ToolStripMenuItem 打开铺面文件;
@@ -755,26 +722,24 @@ public partial class Main : System.Windows.Forms.Form
         internal System.Windows.Forms.ToolStripMenuItem 播放模式;
         internal System.Windows.Forms.ToolStripMenuItem QQ状态同步;
         internal System.Windows.Forms.ToolStripMenuItem SB开关;
-        private Button button3;
         private System.ComponentModel.IContainer components;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         internal ToolStripRadioButtonMenuItem 随机播放;
         internal ToolStripRadioButtonMenuItem 顺序播放;
         internal ToolStripRadioButtonMenuItem 单曲循环;
         private Panel panel1;
         internal TextBox TextBox1;
         private Label label1;
-        internal TrackBar trackBar4;
+        internal TrackBar TrackMusic;
         internal Panel panel2;
         internal ListView ListDetail;
         internal ColumnHeader ColumnHeader2;
         internal ColumnHeader ColumnHeader3;
-        internal TrackBar TrackBar3;
+        internal TrackBar TrackFx;
         internal ListView PlayList;
         internal ColumnHeader ColumnHeader1;
         internal Label Label3;
         internal ListBox DiffList;
-        internal TrackBar TrackBar2;
+        internal TrackBar TrackVolume;
         internal Label Label4;
         internal Button SearchButton;
         internal Label Label2;
@@ -782,7 +747,7 @@ public partial class Main : System.Windows.Forms.Form
         internal Button Button1;
         internal Label LabelQQ;
         internal Button NextButton;
-        internal TrackBar TrackBar1;
+        internal TrackBar TrackSeek;
         internal Button StopButton;
         internal Button PlayButton;
         private ColumnHeader SetNum;

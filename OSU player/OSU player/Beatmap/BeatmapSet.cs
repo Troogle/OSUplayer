@@ -13,10 +13,10 @@ namespace OSU_player
         public string OsbPath;
         public int count; //number of diffs
         private string name;
+        public int setid;
         public List<string> diffstr = new List<string>();
         [NonSerialized()]
         public bool detailed = false;
-        [NonSerialized()]
         public List<Beatmap> Diffs;
         private string check(string pre, string mid, string end)
         {
@@ -52,7 +52,7 @@ namespace OSU_player
                 {
                     tmp.Add(all + "-hitnormal.wav");
                 }
-                soundtype = soundtype>>2;
+                soundtype = soundtype >> 2;
                 if (soundtype % 2 == 1)
                 {
                     tmp.Add(all + "-hitwhistle.wav");
@@ -104,32 +104,35 @@ namespace OSU_player
             }
             return tmp;
         }
-        public BeatmapSet(string path)
+        public void add(Beatmap tmpbm)
+        {
+            if (count == 0)
+            {
+                location = tmpbm.Location;
+                name = tmpbm.ArtistRomanized + " - " + tmpbm.TitleRomanized;
+                setid = tmpbm.beatmapsetId;
+            }
+            count++;
+            Diffs.Add(tmpbm);
+
+        }
+        public BeatmapSet()
         {
             count = 0;
-            location = path;
+            Diffs = new List<Beatmap>();
+        }
+        public void GetDetail()
+        {
+            diffstr.Clear();
             DirectoryInfo F = new DirectoryInfo(location);
             FileInfo[] osbfiles = F.GetFiles("*.osb");
             if (osbfiles.Length != 0)
             {
                 OsbPath = osbfiles[0].Name;
             }
-            //osb first
-            FileInfo[] osufiles = F.GetFiles("*.osu");
-            name = osufiles[0].Name;
-            name = name.Substring(0, name.LastIndexOf("("));
-        }
-        public void GetDetail()
-        {
-            Diffs = new List<Beatmap>();
-            diffstr.Clear();
-            foreach (var s in new DirectoryInfo(location).GetFiles("*.osu"))
+            foreach (Beatmap bm in Diffs)
             {
-                count++;
-                string filename = s.Name;
-                Beatmap bm = new Beatmap(location, filename, OsbPath);
-                Diffs.Add(bm);
-                bm.GetDetail();
+                bm.GetDetail(OsbPath);
             }
             Diffs.Sort();
             foreach (Beatmap bm in Diffs)
@@ -146,6 +149,14 @@ namespace OSU_player
         public override string ToString()
         {
             return name;
+        }
+        public bool Contains(Beatmap tmpbm)
+        {
+            if (setid == -1) {
+            if (name==tmpbm.ArtistRomanized + " - " + tmpbm.TitleRomanized){return true;}else{return false;}
+            }
+            if (tmpbm.beatmapsetId == setid) { return true; }
+            return false;
         }
     }
 

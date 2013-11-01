@@ -36,13 +36,12 @@ namespace OSU_player
         {
             get { return Bass.BASS_ChannelIsActive(channel) == BASSActive.BASS_ACTIVE_PLAYING; }
         }
-        public void Play(float volume = 1.0f )
+        public void Play(float volume)
         {
             Timer.Stop();
             if (channel != 0 && Bass.BASS_ChannelPlay(channel, true))
             {
                 Timer.Start();
-                isPaused = false;
             }
             else
             {
@@ -72,6 +71,8 @@ namespace OSU_player
         }
         public void Dispose()
         {
+            Bass.BASS_Stop();
+            Bass.BASS_Free();
         }
         public void Seek(double time)
         {
@@ -95,7 +96,7 @@ namespace OSU_player
             Path = path;
             Timer = new BASSTimer(Interval);
             Bass.BASS_StreamFree(channel);
-            BASSFlag flag = BASSFlag.BASS_SAMPLE_FLOAT | BASSFlag.BASS_STREAM_PRESCAN|BASSFlag.BASS_STREAM_AUTOFREE;
+            BASSFlag flag = BASSFlag.BASS_SAMPLE_FLOAT | BASSFlag.BASS_STREAM_PRESCAN;
             channel = Bass.BASS_StreamCreateFile(Path, 0, 0, flag);
             if (channel == 0)
             {
