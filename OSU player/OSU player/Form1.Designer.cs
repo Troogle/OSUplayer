@@ -38,7 +38,6 @@ public partial class Form1 : System.Windows.Forms.Form
 		//不要使用代码编辑器修改它。
 		[System.Diagnostics.DebuggerStepThrough()]private void InitializeComponent()
 		{
-            this.components = new System.ComponentModel.Container();
             this.MenuStrip1 = new System.Windows.Forms.MenuStrip();
             this.ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.运行OSU = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,7 +66,6 @@ public partial class Form1 : System.Windows.Forms.Form
             this.SB开关 = new System.Windows.Forms.ToolStripMenuItem();
             this.关于 = new System.Windows.Forms.ToolStripMenuItem();
             this.button3 = new System.Windows.Forms.Button();
-            this.AVsyncer = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.panel1 = new System.Windows.Forms.Panel();
             this.TextBox1 = new System.Windows.Forms.TextBox();
@@ -699,7 +697,6 @@ public partial class Form1 : System.Windows.Forms.Form
         internal System.Windows.Forms.ToolStripMenuItem QQ状态同步;
         internal System.Windows.Forms.ToolStripMenuItem SB开关;
         private Button button3;
-        private Timer AVsyncer;
         private System.ComponentModel.IContainer components;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         internal ToolStripRadioButtonMenuItem 随机播放;

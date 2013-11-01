@@ -43,6 +43,7 @@ namespace OSU_player
             if (channel != 0 && Bass.BASS_ChannelPlay(channel, true))
             {
                 Timer.Start();
+                isPaused = false;
             }
             else
             {
@@ -66,7 +67,8 @@ namespace OSU_player
         }
         public void Stop()
         {
-            Timer.Stop();
+            Timer.Stop(); 
+            isPaused = true;
             Bass.BASS_ChannelStop(channel);
         }
         public void Dispose()

@@ -94,5 +94,41 @@ namespace OSU_player.Properties {
                 this["SyncQQ"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public float Allvolume {
+            get {
+                return ((float)(this["Allvolume"]));
+            }
+            set {
+                this["Allvolume"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.8")]
+        public float Musicvolume {
+            get {
+                return ((float)(this["Musicvolume"]));
+            }
+            set {
+                this["Musicvolume"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.6")]
+        public float Fxvolume {
+            get {
+                return ((float)(this["Fxvolume"]));
+            }
+            set {
+                this["Fxvolume"] = value;
+            }
+        }
     }
 }

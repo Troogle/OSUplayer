@@ -42,11 +42,6 @@ namespace OSU_player
         SkinPreference,
         SpecialStyle,
         CustomSamples,
-        Bookmarks,
-        DistanceSpacing,
-        BeatDivisor,
-        GridSize,
-        CurrentTime,
         Title,
         TitleUnicode,
         Artist,
@@ -134,6 +129,51 @@ namespace OSU_player
             this.nick = nick;
         }
 
+    }
+    public enum modes
+    {
+        All = 0,
+        Taiko = 1,
+        CTB = 2,
+        Mania = 3
+    }
+    /// <summary>
+    /// Timing Points
+    /// </summary>
+    public struct Timing
+    {
+        public int offset;
+        public double bpm;
+        public int meter;
+        public CSample sample;
+        public float volume;
+        public int type;
+        public int kiai;
+    }
+    public struct note
+    {
+        public int x;
+        public int y;
+    }
+    /// <summary>
+    /// Hitobjects
+    /// </summary>
+    public struct HitObject
+    {
+        public int x;
+        public int y;
+        public int starttime;
+        public ObjectFlag type;
+        public int allhitsound;
+        public int EndTime;
+        public CSample sample;
+        public CSample A_sample;
+        public float S_Volume;
+        public char slidertype;
+        public int repeatcount;
+        public double length;
+        public int[] Hitsounds;
+        public CSample[] samples;
     }
     public class Core
     {

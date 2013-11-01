@@ -48,7 +48,7 @@ namespace OSU_player
             if (sample.sampleset == 0)
             {
                 string all = Application.StartupPath + "\\Default\\" + Enum.GetName(typeof(TSample), sample.sample);
-                if (soundtype % 2 == 1)
+                if (soundtype % 2 == 1 || soundtype == 0)
                 {
                     tmp.Add(all + "-hitnormal.wav");
                 }
@@ -83,7 +83,7 @@ namespace OSU_player
             //normal-slidertick
             //不考虑以上
             string first = location + "\\";
-            if (soundtype % 2 == 1)
+            if (soundtype % 2 == 1 || soundtype == 0)
             {
                 tmp.Add(check(first, Enum.GetName(typeof(TSample), sample.sample) + "-hitnormal", last));
             }
@@ -130,6 +130,11 @@ namespace OSU_player
                 Beatmap bm = new Beatmap(location, filename, OsbPath);
                 Diffs.Add(bm);
                 bm.GetDetail();
+
+            }
+            Diffs.Sort();
+            foreach (Beatmap bm in Diffs)
+            {
                 diffstr.Add(bm.Version);
             }
             detailed = true;
