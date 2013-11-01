@@ -36,10 +36,9 @@ namespace OSU_player
         {
             get { return Bass.BASS_ChannelIsActive(channel) == BASSActive.BASS_ACTIVE_PLAYING; }
         }
-        public void Play(int offset, float volume = 1.0f )
+        public void Play(float volume = 1.0f )
         {
             Timer.Stop();
-            Thread.Sleep(offset);
             if (channel != 0 && Bass.BASS_ChannelPlay(channel, true))
             {
                 Timer.Start();
@@ -47,7 +46,7 @@ namespace OSU_player
             }
             else
             {
-                throw new Exception("Internal Error! " + Bass.BASS_ErrorGetCode());
+                throw new FormatException(Bass.BASS_ErrorGetCode().ToString());
             }
             Volume = volume;
         }
@@ -126,12 +125,10 @@ namespace OSU_player
             vlc_player_.SetRenderWindow((int)render_wnd);
             is_playinig_ = false;
         }
-        public void Play(string FileName,int offset)
+        public void Play(string FileName)
         {
-            Thread.Sleep(offset);
             vlc_player_.PlayFile(FileName);
             is_playinig_ = true;
-
         }
         public void Pause()
         {

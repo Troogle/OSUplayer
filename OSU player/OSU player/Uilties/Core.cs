@@ -108,12 +108,13 @@ namespace OSU_player
             this.sampleset = sampleset;
             this.sample = sample;
         }
-        public override bool Equals(object obj)
+        public static bool operator ==(CSample a, CSample b)
         {
-            if (!(obj is CSample))
-                return false;
-            CSample mys = (CSample)obj;
-            return mys.sample == this.sample && mys.sampleset == this.sampleset;
+            return a.sample == b.sample && a.sampleset == b.sampleset;
+        }
+        public static bool operator !=(CSample a, CSample b)
+        {
+            return !(a == b);
         }
     }
     /// <summary>
@@ -132,11 +133,37 @@ namespace OSU_player
     }
     public enum modes
     {
-        All = 0,
+        Osu = 0,
         Taiko = 1,
         CTB = 2,
         Mania = 3
     }
+    public enum mods
+    {
+        NF,
+        EZ,
+        NV,
+        HD,
+        HR,
+        SD,
+        DT,
+        Relax,
+        HT,
+        NC,
+        FL,
+        Auto,
+        SO,
+        Autopilot,
+        PF,
+        Key4,
+        Key5,
+        Key6,
+        Key7,
+        Key8,
+        Fadein,
+        Random
+    }
+
     /// <summary>
     /// Timing Points
     /// </summary>
@@ -175,6 +202,21 @@ namespace OSU_player
         public int[] Hitsounds;
         public CSample[] samples;
     }
+    public struct Score
+    {
+        public string player;
+        public string rank;
+        public int score;
+        public modes mode;
+        public string mod;
+        public int hit300;
+        public int hit100;
+        public int hit50;
+        public int miss;
+        public int maxCombo;
+        public DateTime time;
+        public double acc;
+    }
     public class Core
     {
         public Core()
@@ -188,8 +230,10 @@ namespace OSU_player
         /// 所有的set
         /// </summary>
         public static List<BeatmapSet> allsets = new List<BeatmapSet>();
+        public static Dictionary<string, List<Score>> Scores = new Dictionary<string, List<Score>>();
         public static string defaultBG = Path.Combine(Application.StartupPath, "default\\") + "defaultBG.png";
         public static string defaultAudio = Path.Combine(Application.StartupPath, "default\\") + "blank.wav";
+        public static bool scoresearched = false;
         /// <summary>
         /// 选定的QQ号
         /// </summary>
@@ -267,11 +311,25 @@ namespace OSU_player
         }
         public static void SaveList()
         {
-                using (FileStream fs = new FileStream("list.db", FileMode.Create))
+            using (FileStream fs = new FileStream("list.db", FileMode.Create))
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                formatter.Serialize(fs, allsets);
+            }
+        }
+        public static string modconverter(int mod)
+        {
+            string cmod = "";
+            if (mod == 0) { cmod = "None"; }
+            else
+            {
+                for (int i = 0; i < (int)mods.Random; i++)
                 {
-                    BinaryFormatter formatter = new BinaryFormatter();
-                    formatter.Serialize(fs, allsets);
+                    if ((mod & 1) == 1) { cmod += " "+Enum.GetName(typeof(mods), i); }
+                    mod = mod >> 2;
                 }
+            }
+            return cmod;
         }
     }
 }

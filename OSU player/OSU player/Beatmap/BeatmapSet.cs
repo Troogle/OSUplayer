@@ -52,17 +52,17 @@ namespace OSU_player
                 {
                     tmp.Add(all + "-hitnormal.wav");
                 }
-                soundtype = (int)(soundtype / 2);
+                soundtype = soundtype>>2;
                 if (soundtype % 2 == 1)
                 {
                     tmp.Add(all + "-hitwhistle.wav");
                 }
-                soundtype = (int)(soundtype / 2);
+                soundtype = soundtype >> 2;
                 if (soundtype % 2 == 1)
                 {
                     tmp.Add(all + "-hitfinish.wav");
                 }
-                soundtype = (int)(soundtype / 2);
+                soundtype = soundtype >> 2;
                 if (soundtype % 2 == 1)
                 {
                     tmp.Add(all + "-hitclap.wav");
@@ -130,7 +130,6 @@ namespace OSU_player
                 Beatmap bm = new Beatmap(location, filename, OsbPath);
                 Diffs.Add(bm);
                 bm.GetDetail();
-
             }
             Diffs.Sort();
             foreach (Beatmap bm in Diffs)

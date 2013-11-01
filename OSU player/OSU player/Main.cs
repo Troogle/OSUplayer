@@ -11,9 +11,9 @@ using Un4seen.Bass;
 namespace OSU_player
 {
 
-    public partial class Form1
+    public partial class Main
     {
-        public Form1()
+        public Main()
         {
             InitializeComponent();
         }
@@ -125,6 +125,10 @@ namespace OSU_player
             tmpl = new ListViewItem("AR");
             tmpl.SubItems.Add(TmpBeatmap.ApproachRate.ToString());
             ListDetail.Items.Add(tmpl);
+            tmpl = new ListViewItem("md5");
+            tmpl.SubItems.Add(TmpBeatmap.GetHash());
+            ListDetail.Items.Add(tmpl);
+            getscore();
         }
         private void setbg()
         {
@@ -155,17 +159,18 @@ namespace OSU_player
                 panel2.Visible = true;
                 if (CurrentBeatmap.videoOffset > 0)
                 {
-                    uni_Audio.Play(0, Allvolume * Musicvolume);
-                    uni_Video.Play(Path.Combine(CurrentBeatmap.Location, CurrentBeatmap.video), CurrentBeatmap.videoOffset);
+                    uni_Audio.Play(Allvolume * Musicvolume);
+                    uni_Video.Play(Path.Combine(CurrentBeatmap.Location, CurrentBeatmap.video));//,CurrentBeatmap.videoOffset);
                 }
                 else
                 {
-                    uni_Video.Play(Path.Combine(CurrentBeatmap.Location, CurrentBeatmap.video), 0);
-                    uni_Audio.Play(-CurrentBeatmap.videoOffset, Allvolume * Musicvolume);
+                    uni_Video.Play(Path.Combine(CurrentBeatmap.Location, CurrentBeatmap.video));
+                    // uni_Audio.Play(-CurrentBeatmap.videoOffset, Allvolume * Musicvolume);
+                    uni_Audio.Play(Allvolume * Musicvolume);
 
                 }
             }
-            else { uni_Audio.Play(0, Allvolume * Musicvolume); }
+            else { uni_Audio.Play(Allvolume * Musicvolume); }
             TrackBar1.Enabled = true;
             uni_QQ.Send2QQ(Core.uin, CurrentBeatmap.Name);
             PlayButton.Text = "暂停";
@@ -221,7 +226,7 @@ namespace OSU_player
                 {
                     case ObjectFlag.Normal:
                     case ObjectFlag.NormalNewCombo:
-                        if (!tmpH.sample.Equals(olddefault)) { tmpSample = tmpH.sample; }
+                        if (tmpH.sample != olddefault) { tmpSample = tmpH.sample; }
                         if (tmpH.S_Volume != 0) { volumeH = tmpH.S_Volume; }
                         fxlist.Add(
                             new Fxlist(tmpH.starttime, CurrentSet.getsamplename
@@ -236,7 +241,7 @@ namespace OSU_player
                     case ObjectFlag.Slider:
                     case ObjectFlag.SliderNewCombo:
                         //TODO:每个节点的sampleset
-                        if (!tmpH.sample.Equals(olddefault)) { tmpSample = tmpH.sample; }
+                        if (tmpH.sample != olddefault) { tmpSample = tmpH.sample; }
                         double deltatime = (600 * tmpH.length / (bpm * tmp.SliderMultiplier));
                         if (tmpH.S_Volume != 0) { volumeH = tmpH.S_Volume / 100; }
                         for (int j = 0; j <= tmpH.repeatcount; j++)
@@ -248,7 +253,7 @@ namespace OSU_player
                         break;
                     case ObjectFlag.Spinner:
                     case ObjectFlag.SpinnerNewCombo:
-                        if (!tmpH.sample.Equals(olddefault)) { tmpSample = tmpH.sample; }
+                        if (tmpH.sample != olddefault) { tmpSample = tmpH.sample; }
                         if (tmpH.S_Volume != 0) { volumeH = tmpH.S_Volume; }
                         fxlist.Add(
                             new Fxlist(tmpH.EndTime, CurrentSet.getsamplename(tmpSample, tmpH.allhitsound), volumeH));
@@ -292,7 +297,7 @@ namespace OSU_player
                 k = 0;
                 while (fxplayer[k].isplaying) { k = (k + 1) % maxfxplayer; }
                 fxplayer[k].Open(fxlist[pos].play[j]);
-                fxplayer[k].Play(0, Allvolume * Fxvolume * fxlist[pos].volume);
+                fxplayer[k].Play(Allvolume * Fxvolume * fxlist[pos].volume);
             }
         }
         private void Pause()
@@ -416,6 +421,17 @@ namespace OSU_player
             DiffList.Enabled = true;
             needsave = true;
             PlayNext();
+        }
+        private void getscore()
+        {
+            ScoreBox.Items.Clear();
+            if (Core.Scores.ContainsKey(TmpBeatmap.GetHash()))
+            {
+                foreach (Score tmp in Core.Scores[TmpBeatmap.GetHash()])
+                {
+                    ScoreBox.Items.Add(String.Format("Player:{0},date:{1},score:{2},mods:{3},mode:{4}", tmp.player, tmp.time.ToString(), tmp.score.ToString(), tmp.mod, tmp.mode.ToString()));
+                }
+            }
         }
         #endregion
         private void LoadPreference()
@@ -647,7 +663,10 @@ namespace OSU_player
         #region 第一排
         private void Button2_Click(object sender, EventArgs e)
         {
-
+            using (ChooseColl dialog = new ChooseColl())
+            {
+                dialog.Show();
+            }
         }
         private void Button1_Click(object sender, EventArgs e)
         {
@@ -823,5 +842,28 @@ namespace OSU_player
 
         }
         #endregion
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedTab == tabPage2)
+            {
+                if (!Core.scoresearched)
+                {
+                    if (MessageBox.Show(this, "木有导入过score，现在导入么？", "提示", MessageBoxButtons.YesNo)
+                        == DialogResult.Yes)
+                    {
+                        string scorepath = Path.Combine(Core.osupath, "scores.db");
+                        if (File.Exists(scorepath)) { OsuDB.ReadScore(scorepath); Core.scoresearched = true; }
+                    }
+                }
+                getscore();
+            }
+        }
+
+        private void 重新导入scores_Click(object sender, EventArgs e)
+        {
+            string scorepath = Path.Combine(Core.osupath, "scores.db");
+            if (File.Exists(scorepath)) { OsuDB.ReadScore(scorepath); Core.scoresearched = true; }
+        }
     }
 }

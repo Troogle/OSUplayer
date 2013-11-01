@@ -1,14 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System;
-
+using System.Security.Cryptography;
 namespace OSU_player
 {
     public class Beatmap : IComparable<Beatmap>
     {
-        private string location;
-        private string name;
-        private string path;
         private string osb;
         private string[] Rawdata = new string[(int)OSUfile.OSUfilecount];
         private List<string> tagList = new List<string>();
@@ -23,15 +20,29 @@ namespace OSU_player
         //HitObjects
         private List<HitObject> hitObjects = new List<HitObject>();
 
-        public string Location { get { return location; } }
-        public string Name { get { return name; } }
-        public string Path { get { return path; } }
-        public bool haveSB { get; set; }
-        public bool haveVideo { get; set; }
-
+        public string Location { get; private set; }
+        public string Name { get; private set; }
+        public string Path { get; private set; }
+        public bool haveSB { get; private set; }
+        public bool haveVideo { get; private set; }
+        public List<string> Taglist { get { return tagList; } }
+        public string Background
+        {
+            get
+            {
+                if (background == "") { return Core.defaultBG; }
+                else { return System.IO.Path.Combine(Location, background); }
+            }
+        }
+        public string BackgroundOffset { get { return backgroundOffset; } }
+        public string video { get { return Video; } }
+        public int videoOffset { get { return VideoOffset; } }
+        public List<Timing> Timingpoints { get { return timingpoints; } }
+        public List<HitObject> HitObjects { get { return hitObjects; } }
+        private string hash = "";
         #region map属性的获取接口
         public string FileVersion { get { return Rawdata[(int)OSUfile.FileVersion]; } }
-        public string Audio { get { return System.IO.Path.Combine(location, Rawdata[(int)OSUfile.AudioFilename]); } }
+        public string Audio { get { return System.IO.Path.Combine(Location, Rawdata[(int)OSUfile.AudioFilename]); } }
         public int Previewtime
         {
             get
@@ -71,7 +82,7 @@ namespace OSU_player
                 }
                 else
                 {
-                    return modes.All;
+                    return modes.Osu;
                 }
             }
         }
@@ -147,7 +158,6 @@ namespace OSU_player
                 }
             }
         }
-        public List<string> Taglist { get { return tagList; } }
         public int beatmapId
         {
             get
@@ -260,19 +270,6 @@ namespace OSU_player
                 }
             }
         }
-        public string Background
-        {
-            get
-            {
-                if (background == "") { return Core.defaultBG; }
-                else { return System.IO.Path.Combine(Location, background); }
-            }
-        }
-        public string BackgroundOffset { get { return backgroundOffset; } }
-        public string video { get { return Video; } }
-        public int videoOffset { get { return VideoOffset; } }
-        public List<Timing> Timingpoints { get { return timingpoints; } }
-        public List<HitObject> HitObjects { get { return hitObjects; } }
         #endregion
 
         private string picknext(ref string str)
@@ -508,7 +505,6 @@ namespace OSU_player
         public void GetDetail()
         {
             List<string> tmpSB = new List<string>();
-            path = System.IO.Path.Combine(Location, Name);
             List<string> content = new List<string>();
             content.AddRange(File.ReadAllLines(Path));
             if (osb != null) { content.AddRange(File.ReadAllLines(System.IO.Path.Combine(Location, osb))); }
@@ -593,15 +589,12 @@ namespace OSU_player
         }
         public Beatmap(string location_F, string name_F, string osb_F)
         {
-            location = location_F;
-            name = name_F;
+            Location = location_F;
+            Name = name_F;
             osb = osb_F;
+            Path = System.IO.Path.Combine(Location, Name);
             haveSB = false;
             haveVideo = false;
-        }
-        public override string ToString()
-        {
-            return ArtistRomanized + " - " + TitleRomanized + " (" + Creator + " ) [" + Version + "]";
         }
         public int CompareTo(Beatmap other)
         {
@@ -627,7 +620,55 @@ namespace OSU_player
             else
             { return false; }
         }
-        public string difftostring()
-        { return Version; }
+        public override string ToString() { return Version; }
+        public string GetHash()
+        {
+            if (hash != "") { return hash; }
+            string strHashData = "";
+            byte[] arrHashValue;
+            try
+            {
+                using (MD5 md5Hash = MD5.Create())
+                {
+
+                    using (FileStream fs = new FileStream(Path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                    {
+                        arrHashValue = md5Hash.ComputeHash(fs);
+                    }
+                    strHashData = BitConverter.ToString(arrHashValue);
+                    strHashData = strHashData.Replace("-", "");
+                }
+            }
+            catch (System.Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+            }
+            hash = strHashData.ToLower();
+            return hash;
+        }
+        public override int GetHashCode()
+        {
+            int strHashData = 0;
+            byte[] arrHashValue;
+            try
+            {
+                using (MD5 md5Hash = MD5.Create())
+                {
+
+                    using (FileStream fs = new FileStream(Path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                    {
+                        arrHashValue = md5Hash.ComputeHash(fs);
+                    }
+
+                    strHashData = BitConverter.ToInt32(arrHashValue, 0);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+            }
+            return strHashData;
+        }
     }
 }
+

@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace OSU_player
 {
-public partial class Form1 : System.Windows.Forms.Form
+public partial class Main : System.Windows.Forms.Form
 	{
 		
 		//Form 重写 Dispose，以清理组件列表。
@@ -59,23 +59,23 @@ public partial class Form1 : System.Windows.Forms.Form
             this.音效 = new System.Windows.Forms.ToolStripMenuItem();
             this.视频开关 = new System.Windows.Forms.ToolStripMenuItem();
             this.播放模式 = new System.Windows.Forms.ToolStripMenuItem();
-            this.顺序播放 = new OSU_player.ToolStripRadioButtonMenuItem();
-            this.单曲循环 = new OSU_player.ToolStripRadioButtonMenuItem();
-            this.随机播放 = new OSU_player.ToolStripRadioButtonMenuItem();
             this.QQ状态同步 = new System.Windows.Forms.ToolStripMenuItem();
             this.SB开关 = new System.Windows.Forms.ToolStripMenuItem();
             this.关于 = new System.Windows.Forms.ToolStripMenuItem();
             this.button3 = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.ListDetail = new System.Windows.Forms.ListView();
+            this.ColumnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ColumnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.TextBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.trackBar4 = new System.Windows.Forms.TrackBar();
             this.panel2 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.ListDetail = new System.Windows.Forms.ListView();
-            this.ColumnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.ColumnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.TrackBar3 = new System.Windows.Forms.TrackBar();
             this.PlayList = new System.Windows.Forms.ListView();
             this.ColumnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -93,8 +93,15 @@ public partial class Form1 : System.Windows.Forms.Form
             this.TrackBar1 = new System.Windows.Forms.TrackBar();
             this.StopButton = new System.Windows.Forms.Button();
             this.PlayButton = new System.Windows.Forms.Button();
+            this.ScoreBox = new System.Windows.Forms.ListBox();
+            this.顺序播放 = new OSU_player.ToolStripRadioButtonMenuItem();
+            this.单曲循环 = new OSU_player.ToolStripRadioButtonMenuItem();
+            this.随机播放 = new OSU_player.ToolStripRadioButtonMenuItem();
             this.MenuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar4)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -164,10 +171,10 @@ public partial class Form1 : System.Windows.Forms.Form
             // 
             // 重新导入scores
             // 
-            this.重新导入scores.Enabled = false;
             this.重新导入scores.Name = "重新导入scores";
             this.重新导入scores.Size = new System.Drawing.Size(241, 24);
             this.重新导入scores.Text = "重新导入scores.db";
+            this.重新导入scores.Click += new System.EventHandler(this.重新导入scores_Click);
             // 
             // 重新导入collections
             // 
@@ -281,32 +288,6 @@ public partial class Form1 : System.Windows.Forms.Form
             this.播放模式.Size = new System.Drawing.Size(162, 24);
             this.播放模式.Text = "播放模式";
             // 
-            // 顺序播放
-            // 
-            this.顺序播放.CheckOnClick = true;
-            this.顺序播放.Name = "顺序播放";
-            this.顺序播放.Size = new System.Drawing.Size(138, 24);
-            this.顺序播放.Text = "顺序播放";
-            this.顺序播放.Click += new System.EventHandler(this.顺序播放_Click);
-            // 
-            // 单曲循环
-            // 
-            this.单曲循环.CheckOnClick = true;
-            this.单曲循环.Name = "单曲循环";
-            this.单曲循环.Size = new System.Drawing.Size(138, 24);
-            this.单曲循环.Text = "单曲循环";
-            this.单曲循环.Click += new System.EventHandler(this.单曲循环_Click);
-            // 
-            // 随机播放
-            // 
-            this.随机播放.Checked = true;
-            this.随机播放.CheckOnClick = true;
-            this.随机播放.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.随机播放.Name = "随机播放";
-            this.随机播放.Size = new System.Drawing.Size(138, 24);
-            this.随机播放.Text = "随机播放";
-            this.随机播放.Click += new System.EventHandler(this.随机播放_Click);
-            // 
             // QQ状态同步
             // 
             this.QQ状态同步.Checked = true;
@@ -354,11 +335,11 @@ public partial class Form1 : System.Windows.Forms.Form
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.tabControl1);
             this.panel1.Controls.Add(this.TextBox1);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.trackBar4);
             this.panel1.Controls.Add(this.panel2);
-            this.panel1.Controls.Add(this.ListDetail);
             this.panel1.Controls.Add(this.TrackBar3);
             this.panel1.Controls.Add(this.PlayList);
             this.panel1.Controls.Add(this.Label3);
@@ -377,8 +358,72 @@ public partial class Form1 : System.Windows.Forms.Form
             this.panel1.Location = new System.Drawing.Point(4, 34);
             this.panel1.MinimumSize = new System.Drawing.Size(882, 651);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(882, 651);
+            this.panel1.Size = new System.Drawing.Size(882, 663);
             this.panel1.TabIndex = 21;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Alignment = System.Windows.Forms.TabAlignment.Bottom;
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(340, 442);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(524, 214);
+            this.tabControl1.TabIndex = 43;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.ListDetail);
+            this.tabPage1.Location = new System.Drawing.Point(4, 4);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(516, 185);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Map信息";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // ListDetail
+            // 
+            this.ListDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ListDetail.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.ColumnHeader2,
+            this.ColumnHeader3});
+            this.ListDetail.FullRowSelect = true;
+            this.ListDetail.GridLines = true;
+            this.ListDetail.Location = new System.Drawing.Point(6, 6);
+            this.ListDetail.MultiSelect = false;
+            this.ListDetail.Name = "ListDetail";
+            this.ListDetail.Size = new System.Drawing.Size(504, 173);
+            this.ListDetail.TabIndex = 40;
+            this.ListDetail.UseCompatibleStateImageBehavior = false;
+            this.ListDetail.View = System.Windows.Forms.View.Details;
+            // 
+            // ColumnHeader2
+            // 
+            this.ColumnHeader2.Text = "Key";
+            this.ColumnHeader2.Width = 120;
+            // 
+            // ColumnHeader3
+            // 
+            this.ColumnHeader3.Text = "Value";
+            this.ColumnHeader3.Width = 300;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.ScoreBox);
+            this.tabPage2.Location = new System.Drawing.Point(4, 4);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(516, 185);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "成绩信息";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // TextBox1
             // 
@@ -431,33 +476,6 @@ public partial class Form1 : System.Windows.Forms.Form
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
-            // ListDetail
-            // 
-            this.ListDetail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ListDetail.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.ColumnHeader2,
-            this.ColumnHeader3});
-            this.ListDetail.FullRowSelect = true;
-            this.ListDetail.GridLines = true;
-            this.ListDetail.Location = new System.Drawing.Point(344, 445);
-            this.ListDetail.MultiSelect = false;
-            this.ListDetail.Name = "ListDetail";
-            this.ListDetail.Size = new System.Drawing.Size(524, 199);
-            this.ListDetail.TabIndex = 40;
-            this.ListDetail.UseCompatibleStateImageBehavior = false;
-            this.ListDetail.View = System.Windows.Forms.View.Details;
-            // 
-            // ColumnHeader2
-            // 
-            this.ColumnHeader2.Text = "Key";
-            this.ColumnHeader2.Width = 256;
-            // 
-            // ColumnHeader3
-            // 
-            this.ColumnHeader3.Text = "Value";
-            this.ColumnHeader3.Width = 256;
-            // 
             // TrackBar3
             // 
             this.TrackBar3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -494,7 +512,7 @@ public partial class Form1 : System.Windows.Forms.Form
             // ColumnHeader1
             // 
             this.ColumnHeader1.Text = "";
-            this.ColumnHeader1.Width = 315;
+            this.ColumnHeader1.Width = 500;
             // 
             // SetNum
             // 
@@ -517,9 +535,9 @@ public partial class Form1 : System.Windows.Forms.Form
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DiffList.FormattingEnabled = true;
             this.DiffList.ItemHeight = 15;
-            this.DiffList.Location = new System.Drawing.Point(14, 445);
+            this.DiffList.Location = new System.Drawing.Point(14, 442);
             this.DiffList.Name = "DiffList";
-            this.DiffList.Size = new System.Drawing.Size(320, 199);
+            this.DiffList.Size = new System.Drawing.Size(320, 214);
             this.DiffList.TabIndex = 25;
             this.DiffList.SelectedIndexChanged += new System.EventHandler(this.DiffList_SelectedIndexChanged);
             this.DiffList.DoubleClick += new System.EventHandler(this.DiffList_DoubleClick);
@@ -644,17 +662,55 @@ public partial class Form1 : System.Windows.Forms.Form
             this.PlayButton.UseVisualStyleBackColor = true;
             this.PlayButton.Click += new System.EventHandler(this.PlayButton_Click);
             // 
-            // Form1
+            // ScoreBox
+            // 
+            this.ScoreBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ScoreBox.FormattingEnabled = true;
+            this.ScoreBox.ItemHeight = 15;
+            this.ScoreBox.Location = new System.Drawing.Point(6, 6);
+            this.ScoreBox.Name = "ScoreBox";
+            this.ScoreBox.Size = new System.Drawing.Size(504, 169);
+            this.ScoreBox.TabIndex = 0;
+            // 
+            // 顺序播放
+            // 
+            this.顺序播放.CheckOnClick = true;
+            this.顺序播放.Name = "顺序播放";
+            this.顺序播放.Size = new System.Drawing.Size(138, 24);
+            this.顺序播放.Text = "顺序播放";
+            this.顺序播放.Click += new System.EventHandler(this.顺序播放_Click);
+            // 
+            // 单曲循环
+            // 
+            this.单曲循环.CheckOnClick = true;
+            this.单曲循环.Name = "单曲循环";
+            this.单曲循环.Size = new System.Drawing.Size(138, 24);
+            this.单曲循环.Text = "单曲循环";
+            this.单曲循环.Click += new System.EventHandler(this.单曲循环_Click);
+            // 
+            // 随机播放
+            // 
+            this.随机播放.Checked = true;
+            this.随机播放.CheckOnClick = true;
+            this.随机播放.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.随机播放.Name = "随机播放";
+            this.随机播放.Size = new System.Drawing.Size(138, 24);
+            this.随机播放.Text = "随机播放";
+            this.随机播放.Click += new System.EventHandler(this.随机播放_Click);
+            // 
+            // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(892, 693);
+            this.ClientSize = new System.Drawing.Size(892, 705);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.MenuStrip1);
             this.MainMenuStrip = this.MenuStrip1;
-            this.MinimumSize = new System.Drawing.Size(910, 740);
-            this.Name = "Form1";
+            this.MinimumSize = new System.Drawing.Size(910, 752);
+            this.Name = "Main";
             this.Padding = new System.Windows.Forms.Padding(4);
             this.Text = "Osu Player";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AskForExit);
@@ -663,6 +719,9 @@ public partial class Form1 : System.Windows.Forms.Form
             this.MenuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar4)).EndInit();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -729,6 +788,10 @@ public partial class Form1 : System.Windows.Forms.Form
         private ColumnHeader SetNum;
         private ToolStripMenuItem 香蕉分析器ToolStripMenuItem;
         private PictureBox pictureBox1;
+        private TabControl tabControl1;
+        private TabPage tabPage1;
+        private TabPage tabPage2;
+        private ListBox ScoreBox;
 		
 	}
 	
