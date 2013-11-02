@@ -598,7 +598,7 @@ namespace OSU_player
         {
             using (DelDulp dialog = new DelDulp())
             {
-                dialog.Show();
+                dialog.ShowDialog();
             }
         }
         #endregion

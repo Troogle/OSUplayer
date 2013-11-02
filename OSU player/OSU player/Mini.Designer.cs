@@ -56,6 +56,7 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             this.pictureBox1.MouseEnter += new System.EventHandler(this.pictureBox1_MouseEnter);
             this.pictureBox1.MouseLeave += new System.EventHandler(this.pictureBox1_MouseLeave);
             // 
@@ -145,9 +146,9 @@
             this.button4.ForeColor = System.Drawing.Color.White;
             this.button4.Location = new System.Drawing.Point(12, 7);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(27, 23);
+            this.button4.Size = new System.Drawing.Size(31, 35);
             this.button4.TabIndex = 6;
-            this.button4.Text = "←";
+            this.button4.Text = "■";
             this.button4.UseVisualStyleBackColor = false;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 

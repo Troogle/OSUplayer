@@ -601,6 +601,11 @@ namespace OSU_player
             haveSB = false;
             haveVideo = false;
         }
+        public Beatmap(string path,string location)
+        {
+            Path = path;
+            Location = location;
+        }
         public int CompareTo(Beatmap other)
         {
             if (this.Mode < other.Mode) { return -1; }
@@ -627,7 +632,7 @@ namespace OSU_player
         }
         public string GetHash()
         {
-            if (hash != "") { return hash; }
+            if (hash != null) { return hash; }
             string strHashData = "";
             byte[] arrHashValue;
             try
@@ -649,29 +654,6 @@ namespace OSU_player
             }
             hash = strHashData.ToLower();
             return hash;
-        }
-        public override int GetHashCode()
-        {
-            int strHashData = 0;
-            byte[] arrHashValue;
-            try
-            {
-                using (MD5 md5Hash = MD5.Create())
-                {
-
-                    using (FileStream fs = new FileStream(Path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                    {
-                        arrHashValue = md5Hash.ComputeHash(fs);
-                    }
-
-                    strHashData = BitConverter.ToInt32(arrHashValue, 0);
-                }
-            }
-            catch (System.Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
-            }
-            return strHashData;
         }
     }
 }

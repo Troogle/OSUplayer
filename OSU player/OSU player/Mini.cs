@@ -34,7 +34,7 @@ namespace OSU_player
                 g.DrawImage(bmp, new Rectangle(0, 0, 300, 300), new Rectangle(0, 0, bmp.Width, bmp.Height), GraphicsUnit.Pixel);
                 g.DrawImage(Front, new Rectangle(0, 0, Front.Width, Front.Height),
     new Rectangle(0, 0, Front.Width, Front.Height), GraphicsUnit.Pixel);
-                g.DrawImage(Front, new Rectangle(0, 300-Front.Height, Front.Width, Front.Height),
+                g.DrawImage(Front, new Rectangle(0, 240, Front.Width, Front.Height),
 new Rectangle(0, 0, Front.Width, Front.Height), GraphicsUnit.Pixel);
                 g.Dispose();
                 return b;
@@ -96,6 +96,11 @@ new Rectangle(0, 0, Front.Width, Front.Height), GraphicsUnit.Pixel);
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            return;
         }
 
 

@@ -333,63 +333,6 @@ namespace OSU_player
             }
             return cmod;
         }
-        /*   public static void findsetsbyfolder()
-           {
-               MessageBox.Show("将开始初始化");
-               try
-               {
-                   if (Directory.Exists(Path.Combine(Core.osupath, "Songs")))
-                   {
-                       this.backgroundWorker1.RunWorkerAsync(Path.Combine(Core.osupath, "Songs"));
-                   }
-               }
-               catch (SystemException ex)
-               {
-                   Console.WriteLine(ex.StackTrace);
-                   throw (new FormatException("Failed to read song path", ex));
-               }
-           }
-                 private void scanforset(string path)
-           {
-               string[] osufiles = Directory.GetFiles(path, "*.osu");
-               if (osufiles.Length != 0)
-               {
-                   BeatmapSet tmp = new BeatmapSet(path);
-                   //tmp.GetDetail();
-                   Core.allsets.Add(tmp);
-                   this.backgroundWorker1.ReportProgress(0, tmp.ToString());
-               }
-               else
-               {
-                   string[] tmpfolder = Directory.GetDirectories(path);
-                   foreach (string subfolder in tmpfolder)
-                   {
-                       scanforset(subfolder);
-                   }
-               }
-           }
-                 private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
-        {
-           scanforset(e.Argument.ToString());
-        }
-        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            if (e.UserState.ToString().Length > 0)
-            {
-                ListViewItem tmpl = new ListViewItem(e.UserState.ToString());
-                PlayList.Items.Add(tmpl);
-            }
-        }
-        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            foreach (ListViewItem item in PlayList.Items)
-            {
-                item.SubItems.Add(item.Index.ToString());
-                FullList.Add(item);
-            }
-            MessageBox.Show(string.Format("初始化完毕，发现曲目{0}个", Core.allsets.Count));
-            PlayList.Items[0].Selected = true;
-            Core.SaveList();
-        }*/
+
     }
 }

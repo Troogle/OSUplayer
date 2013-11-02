@@ -496,6 +496,7 @@ public partial class Main : System.Windows.Forms.Form
             this.SetNum});
             this.PlayList.FullRowSelect = true;
             this.PlayList.GridLines = true;
+            this.PlayList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.PlayList.Location = new System.Drawing.Point(14, 40);
             this.PlayList.MultiSelect = false;
             this.PlayList.Name = "PlayList";
