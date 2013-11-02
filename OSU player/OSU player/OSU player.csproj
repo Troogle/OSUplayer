@@ -78,6 +78,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mini.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Mini.Designer.cs">
+      <DependentUpon>Mini.cs</DependentUpon>
+    </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="Uilties\About.cs">
       <SubType>Form</SubType>
@@ -123,6 +129,9 @@
     <Compile Include="Uilties\Selfupdate.cs" />
     <Compile Include="Beatmap\StoryBoard.cs" />
     <Compile Include="Uilties\VlcPlayer.cs" />
+    <EmbeddedResource Include="Mini.resx">
+      <DependentUpon>Mini.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Uilties\About.resx">
       <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>
@@ -167,6 +176,7 @@
     <Content Include="bass.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Res\Front.png" />
     <Content Include="update.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

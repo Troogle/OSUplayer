@@ -14,7 +14,7 @@ namespace OSU_player
         public int count; //number of diffs
         private string name;
         public int setid;
-        public List<string> diffstr = new List<string>();
+        public List<string> md5 = new List<string>();
         [NonSerialized()]
         public bool detailed = false;
         public List<Beatmap> Diffs;
@@ -114,6 +114,7 @@ namespace OSU_player
             }
             count++;
             Diffs.Add(tmpbm);
+            md5.Add(tmpbm.GetHash());
 
         }
         public BeatmapSet()
@@ -123,7 +124,6 @@ namespace OSU_player
         }
         public void GetDetail()
         {
-            diffstr.Clear();
             DirectoryInfo F = new DirectoryInfo(location);
             FileInfo[] osbfiles = F.GetFiles("*.osb");
             if (osbfiles.Length != 0)
@@ -135,10 +135,6 @@ namespace OSU_player
                 bm.GetDetail(OsbPath);
             }
             Diffs.Sort();
-            foreach (Beatmap bm in Diffs)
-            {
-                diffstr.Add(bm.Version);
-            }
             detailed = true;
         }
         public bool check()

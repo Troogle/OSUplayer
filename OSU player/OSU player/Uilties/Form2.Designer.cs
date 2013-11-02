@@ -75,22 +75,28 @@ public partial class Form2 : System.Windows.Forms.Form
             // 
             // Button1
             // 
+            this.Button1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.Button1.FlatAppearance.BorderSize = 0;
+            this.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Button1.Location = new System.Drawing.Point(248, 52);
             this.Button1.Name = "Button1";
-            this.Button1.Size = new System.Drawing.Size(75, 23);
+            this.Button1.Size = new System.Drawing.Size(75, 26);
             this.Button1.TabIndex = 2;
             this.Button1.Text = "刷新";
-            this.Button1.UseVisualStyleBackColor = true;
+            this.Button1.UseVisualStyleBackColor = false;
             this.Button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // Button2
             // 
+            this.Button2.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.Button2.FlatAppearance.BorderSize = 0;
+            this.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Button2.Location = new System.Drawing.Point(248, 118);
             this.Button2.Name = "Button2";
             this.Button2.Size = new System.Drawing.Size(75, 23);
             this.Button2.TabIndex = 3;
             this.Button2.Text = "确定";
-            this.Button2.UseVisualStyleBackColor = true;
+            this.Button2.UseVisualStyleBackColor = false;
             this.Button2.Click += new System.EventHandler(this.Button2_Click);
             // 
             // Form2

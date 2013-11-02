@@ -152,6 +152,7 @@ namespace OSU_player
         }
         public static void ReadCollect(string file)
         {
+            Core.Collections.Clear();
             using (System.IO.FileStream fs = new System.IO.FileStream(file, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.ReadWrite))
             {
                 BinaryReader reader = new BinaryReader(fs);
@@ -166,6 +167,10 @@ namespace OSU_player
                     for (int j = 0; j < itemcount; j++)
                     {
                         md5 = reader.ReadString();
+                        for (int k=0;k<Core.allsets.Count;k++)
+                        {
+                            if (Core.allsets[k].md5.Contains(md5) && (!Nset.Contains(k))) { Nset.Add(k); }
+                        }
                     }
                     Core.Collections.Add(title, Nset);
                 }

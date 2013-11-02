@@ -133,7 +133,7 @@ namespace OSU_player
         private void setbg()
         {
             printdetail();
-            if (!File.Exists(CurrentBeatmap.Background)) { MessageBox.Show("没事删什么BG！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            if (!File.Exists(CurrentBeatmap.Background)) { MessageBox.Show("没事删什么BG！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error); CurrentBeatmap.Background = Core.defaultBG; }
             pictureBox1.Image = Image.FromFile(CurrentBeatmap.Background);
             pictureBox1.Visible = true;
         }
@@ -159,7 +159,9 @@ namespace OSU_player
             {
                 if (!File.Exists(Path.Combine(CurrentBeatmap.Location, CurrentBeatmap.Video)))
                 {
-                    MessageBox.Show("没事删什么Video！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    new Thread(new ThreadStart(delegate()
+                    { MessageBox.Show("没事删什么Video！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error); })).Start();
                     uni_Audio.Play(Allvolume * Musicvolume);
                 }
                 else
@@ -182,7 +184,7 @@ namespace OSU_player
             else { uni_Audio.Play(Allvolume * Musicvolume); }
 
             TrackSeek.Enabled = true;
-            uni_QQ.Send2QQ(Core.uin, CurrentBeatmap.Name);
+            uni_QQ.Send2QQ(Core.uin, CurrentBeatmap.NameToString());
             PlayButton.Text = "暂停";
             StopButton.Enabled = true;
             TrackSeek.Maximum = (int)uni_Audio.durnation * 1000;
@@ -349,7 +351,7 @@ namespace OSU_player
         {
             uni_Audio.Pause();
             uni_Video.Pause();
-            uni_QQ.Send2QQ(Core.uin, CurrentBeatmap.Name);
+            uni_QQ.Send2QQ(Core.uin, CurrentBeatmap.NameToString());
             PlayButton.Text = "暂停";
             cannext = true;
         }
@@ -413,7 +415,7 @@ namespace OSU_player
                     FullList.Add(tmpl);
                 }
                 MessageBox.Show(string.Format("初始化完毕，发现曲目{0}个", Core.allsets.Count));
-                needsave=true;
+                needsave = true;
             }
         }
         private void remove(int index)
@@ -569,6 +571,7 @@ namespace OSU_player
         }
         private void 重新导入scores_Click(object sender, EventArgs e)
         {
+            Core.Scores.Clear();
             string scorepath = Path.Combine(Core.osupath, "scores.db");
             if (File.Exists(scorepath)) { OsuDB.ReadScore(scorepath); Core.scoresearched = true; }
         }
@@ -702,9 +705,9 @@ namespace OSU_player
             {
                 TmpSet.GetDetail();
             }
-            foreach (var s in TmpSet.diffstr)
+            foreach (Beatmap s in TmpSet.Diffs)
             {
-                DiffList.Items.Add(s);
+                DiffList.Items.Add(s.Version);
             }
             if (!File.Exists(TmpSet.OsbPath))
             { 打开SB文件.Enabled = false; }
@@ -715,10 +718,7 @@ namespace OSU_player
         }
         private void DiffList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (PlayList.SelectedIndices.Count == 0)
-            {
-                return;
-            }
+            if (PlayList.SelectedIndices.Count == 0) { return; }
             TmpBeatmap = TmpSet.Diffs[DiffList.SelectedIndex];
             if (!StopButton.Enabled)
             {
@@ -856,6 +856,16 @@ namespace OSU_player
                 }
                 getscore();
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.Visible = false;
+            using (Mini dialog = new Mini())
+            {
+                dialog.ShowDialog();
+            }
+            this.Visible = true;
         }
 
     }

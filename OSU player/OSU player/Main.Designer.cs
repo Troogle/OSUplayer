@@ -62,6 +62,7 @@ public partial class Main : System.Windows.Forms.Form
             this.SB开关 = new System.Windows.Forms.ToolStripMenuItem();
             this.关于 = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button3 = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.ListDetail = new System.Windows.Forms.ListView();
@@ -304,6 +305,7 @@ public partial class Main : System.Windows.Forms.Form
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.tabControl1);
             this.panel1.Controls.Add(this.TextBox1);
             this.panel1.Controls.Add(this.label1);
@@ -329,6 +331,20 @@ public partial class Main : System.Windows.Forms.Form
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(882, 663);
             this.panel1.TabIndex = 21;
+            // 
+            // button3
+            // 
+            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button3.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.button3.FlatAppearance.BorderSize = 0;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.Location = new System.Drawing.Point(830, 7);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(30, 27);
+            this.button3.TabIndex = 22;
+            this.button3.Text = "↙";
+            this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // tabControl1
             // 
@@ -549,12 +565,15 @@ public partial class Main : System.Windows.Forms.Form
             // SearchButton
             // 
             this.SearchButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.SearchButton.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.SearchButton.FlatAppearance.BorderSize = 0;
+            this.SearchButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SearchButton.Location = new System.Drawing.Point(259, 406);
             this.SearchButton.Name = "SearchButton";
             this.SearchButton.Size = new System.Drawing.Size(75, 25);
             this.SearchButton.TabIndex = 36;
             this.SearchButton.Text = "搜索";
-            this.SearchButton.UseVisualStyleBackColor = true;
+            this.SearchButton.UseVisualStyleBackColor = false;
             this.SearchButton.Click += new System.EventHandler(this.SearchButton_Click);
             // 
             // Label2
@@ -569,22 +588,28 @@ public partial class Main : System.Windows.Forms.Form
             // 
             // Button2
             // 
-            this.Button2.Location = new System.Drawing.Point(14, 7);
+            this.Button2.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.Button2.FlatAppearance.BorderSize = 0;
+            this.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Button2.Location = new System.Drawing.Point(14, 5);
             this.Button2.Name = "Button2";
-            this.Button2.Size = new System.Drawing.Size(127, 23);
+            this.Button2.Size = new System.Drawing.Size(131, 27);
             this.Button2.TabIndex = 32;
             this.Button2.Text = "选择Collection";
-            this.Button2.UseVisualStyleBackColor = true;
+            this.Button2.UseVisualStyleBackColor = false;
             this.Button2.Click += new System.EventHandler(this.Button2_Click);
             // 
             // Button1
             // 
-            this.Button1.Location = new System.Drawing.Point(344, 7);
+            this.Button1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.Button1.FlatAppearance.BorderSize = 0;
+            this.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Button1.Location = new System.Drawing.Point(344, 5);
             this.Button1.Name = "Button1";
-            this.Button1.Size = new System.Drawing.Size(75, 23);
+            this.Button1.Size = new System.Drawing.Size(84, 27);
             this.Button1.TabIndex = 31;
             this.Button1.Text = "选择QQ";
-            this.Button1.UseVisualStyleBackColor = true;
+            this.Button1.UseVisualStyleBackColor = false;
             this.Button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // LabelQQ
@@ -599,12 +624,15 @@ public partial class Main : System.Windows.Forms.Form
             // NextButton
             // 
             this.NextButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.NextButton.Location = new System.Drawing.Point(470, 408);
+            this.NextButton.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.NextButton.FlatAppearance.BorderSize = 0;
+            this.NextButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.NextButton.Location = new System.Drawing.Point(470, 405);
             this.NextButton.Name = "NextButton";
-            this.NextButton.Size = new System.Drawing.Size(43, 23);
+            this.NextButton.Size = new System.Drawing.Size(43, 26);
             this.NextButton.TabIndex = 29;
             this.NextButton.Text = "→";
-            this.NextButton.UseVisualStyleBackColor = true;
+            this.NextButton.UseVisualStyleBackColor = false;
             this.NextButton.Click += new System.EventHandler(this.NextButton_Click);
             // 
             // TrackSeek
@@ -623,24 +651,30 @@ public partial class Main : System.Windows.Forms.Form
             // StopButton
             // 
             this.StopButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.StopButton.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.StopButton.Enabled = false;
-            this.StopButton.Location = new System.Drawing.Point(407, 408);
+            this.StopButton.FlatAppearance.BorderSize = 0;
+            this.StopButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.StopButton.Location = new System.Drawing.Point(407, 405);
             this.StopButton.Name = "StopButton";
-            this.StopButton.Size = new System.Drawing.Size(57, 23);
+            this.StopButton.Size = new System.Drawing.Size(57, 26);
             this.StopButton.TabIndex = 28;
             this.StopButton.Text = "停止";
-            this.StopButton.UseVisualStyleBackColor = true;
+            this.StopButton.UseVisualStyleBackColor = false;
             this.StopButton.Click += new System.EventHandler(this.StopButton_Click);
             // 
             // PlayButton
             // 
             this.PlayButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.PlayButton.Location = new System.Drawing.Point(344, 408);
+            this.PlayButton.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.PlayButton.FlatAppearance.BorderSize = 0;
+            this.PlayButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PlayButton.Location = new System.Drawing.Point(344, 405);
             this.PlayButton.Name = "PlayButton";
-            this.PlayButton.Size = new System.Drawing.Size(57, 23);
+            this.PlayButton.Size = new System.Drawing.Size(57, 26);
             this.PlayButton.TabIndex = 27;
             this.PlayButton.Text = "播放";
-            this.PlayButton.UseVisualStyleBackColor = true;
+            this.PlayButton.UseVisualStyleBackColor = false;
             this.PlayButton.Click += new System.EventHandler(this.PlayButton_Click);
             // 
             // 顺序播放
@@ -757,6 +791,7 @@ public partial class Main : System.Windows.Forms.Form
         private TabPage tabPage1;
         private TabPage tabPage2;
         private ListBox ScoreBox;
+        private Button button3;
 		
 	}
 	

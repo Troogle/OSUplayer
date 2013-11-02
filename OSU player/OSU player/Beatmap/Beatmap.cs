@@ -20,7 +20,7 @@ namespace OSU_player
         public string Path { get; set; }
         public bool haveSB { get; private set; }
         public bool haveVideo { get; private set; }
-        public string Background { get; private set; }
+        public string Background { get; set; }
         public string Video { get; private set; }
         public int VideoOffset { get; private set; }
         [NonSerialized]
@@ -613,19 +613,18 @@ namespace OSU_player
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public override bool Equals(object obj)
+        public bool Equals(Beatmap obj)
         {
-            if (obj is Beatmap)
-            {
-                Beatmap b = (Beatmap)obj;
-                if ((b.beatmapId == beatmapId) && (beatmapId != 0))
-                { return true; }
-                return this.ToString().Equals(b.ToString()) && this.Creator.Equals(b.Creator);
-            }
-            else
-            { return false; }
+            Beatmap b = obj;
+            if ((b.beatmapId == beatmapId) && (beatmapId != 0))
+            { return true; }
+            return this.ToString().Equals(b.ToString()) && this.Creator.Equals(b.Creator);
         }
         public override string ToString() { return Version; }
+        public string NameToString()
+        {
+            return (Name.Substring(0, Name.LastIndexOf('.')));
+        }
         public string GetHash()
         {
             if (hash != "") { return hash; }
