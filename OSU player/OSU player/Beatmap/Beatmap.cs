@@ -586,11 +586,6 @@ namespace OSU_player
                 Console.WriteLine(e.StackTrace);
                 throw (new FormatException("Failed to read .osu file", e));
             }
-            Rawdata[(int)OSUfile.Tags] += " " + ArtistRomanized;
-            Rawdata[(int)OSUfile.Tags] += " " + TitleRomanized;
-            Rawdata[(int)OSUfile.Tags] += " " + Version;
-            Rawdata[(int)OSUfile.Tags] += " " + Creator;
-            Rawdata[(int)OSUfile.Tags] += " " + Source;
             if (haveSB)
             {
                 //    SB = new StoryBoard(tmpSB);

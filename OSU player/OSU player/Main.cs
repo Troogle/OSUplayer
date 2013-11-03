@@ -777,7 +777,7 @@ namespace OSU_player
             {
                 foreach (ListViewItem item in FullList)
                 {
-                    if (item.Text.ToLower().Contains(TextBox1.Text.ToLower()))
+                    if (Core.allsets[Convert.ToInt32(item.SubItems[1].Text)].tags.ToLower().Contains(TextBox1.Text.ToLower()))
                     {
                         PlayList.Items.Add(item);
                     }

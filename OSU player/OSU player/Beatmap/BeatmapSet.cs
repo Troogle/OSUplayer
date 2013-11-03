@@ -18,6 +18,7 @@ namespace OSU_player
         [NonSerialized()]
         public bool detailed = false;
         public List<Beatmap> Diffs;
+        public string tags;
         private string check(string pre, string mid, string end)
         {
             if (File.Exists(pre + mid + end + ".wav"))
@@ -111,11 +112,16 @@ namespace OSU_player
                 location = tmpbm.Location;
                 name = tmpbm.ArtistRomanized + " - " + tmpbm.TitleRomanized;
                 setid = tmpbm.beatmapsetId;
+                tags = tmpbm.tags;
+                tags += " " + tmpbm.ArtistRomanized;
+                tags += " " + tmpbm.TitleRomanized;
+                tags += " " + tmpbm.Creator;
+                tags += " " + tmpbm.Source;
             }
             count++;
             Diffs.Add(tmpbm);
             md5.Add(tmpbm.GetHash());
-
+            tags += " " + tmpbm.Version;
         }
         public BeatmapSet()
         {
