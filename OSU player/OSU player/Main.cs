@@ -132,8 +132,16 @@ namespace OSU_player
         private void setbg()
         {
             printdetail();
-            if (!File.Exists(CurrentBeatmap.Background)) { RadMessageBox.Show("没事删什么BG！", "错误", MessageBoxButtons.OK, RadMessageIcon.Error); CurrentBeatmap.Background = Core.defaultBG; }
-            pictureBox1.Image = Image.FromFile(CurrentBeatmap.Background);
+            if (CurrentBeatmap.Background != "" && !File.Exists(CurrentBeatmap.Background))
+            {
+                RadMessageBox.Show("没事删什么BG！", "错误", MessageBoxButtons.OK, RadMessageIcon.Error);
+                CurrentBeatmap.Background = "";
+            }
+            if (CurrentBeatmap.Background == "")
+            {
+                pictureBox1.Image = Core.defaultBG;
+            }
+            else { pictureBox1.Image = Image.FromFile(CurrentBeatmap.Background); }
             pictureBox1.Visible = true;
         }
         private void Stop()
@@ -154,31 +162,22 @@ namespace OSU_player
             uni_Audio.Open(CurrentBeatmap.Audio);
             if (playfx) { initfx(); fxpos = 0; }
             uni_Audio.UpdateTimer.Tick += new EventHandler(AVsync);
-            if (CurrentBeatmap.haveVideo && playvideo)
+            if (CurrentBeatmap.haveVideo && playvideo && File.Exists(Path.Combine(CurrentBeatmap.Location, CurrentBeatmap.Video)))
             {
-                if (!File.Exists(Path.Combine(CurrentBeatmap.Location, CurrentBeatmap.Video)))
+                pictureBox1.Visible = false;
+                if (CurrentBeatmap.VideoOffset > 0)
                 {
-
-                    new Thread(new ThreadStart(delegate()
-                    { RadMessageBox.Show("没事删什么Video！", "错误", MessageBoxButtons.OK, RadMessageIcon.Error); })).Start();
                     uni_Audio.Play(Allvolume * Musicvolume);
+                    uni_Video.Play(Path.Combine(CurrentBeatmap.Location, CurrentBeatmap.Video));//,CurrentBeatmap.videoOffset);
                 }
                 else
                 {
-                    pictureBox1.Visible = false;
-                    if (CurrentBeatmap.VideoOffset > 0)
-                    {
-                        uni_Audio.Play(Allvolume * Musicvolume);
-                        uni_Video.Play(Path.Combine(CurrentBeatmap.Location, CurrentBeatmap.Video));//,CurrentBeatmap.videoOffset);
-                    }
-                    else
-                    {
-                        uni_Video.Play(Path.Combine(CurrentBeatmap.Location, CurrentBeatmap.Video));
-                        // uni_Audio.Play(-CurrentBeatmap.videoOffset, Allvolume * Musicvolume);
-                        uni_Audio.Play(Allvolume * Musicvolume);
+                    uni_Video.Play(Path.Combine(CurrentBeatmap.Location, CurrentBeatmap.Video));
+                    // uni_Audio.Play(-CurrentBeatmap.videoOffset, Allvolume * Musicvolume);
+                    uni_Audio.Play(Allvolume * Musicvolume);
 
-                    }
                 }
+
             }
             else { uni_Audio.Play(Allvolume * Musicvolume); }
 
@@ -483,7 +482,7 @@ namespace OSU_player
                 QQ状态同步.IsChecked = Core.syncQQ;
             }
             Allvolume = Properties.Settings.Default.Allvolume;
-            TrackVolume.Value = 100-(int)(Allvolume * TrackVolume.Maximum);
+            TrackVolume.Value = 100 - (int)(Allvolume * TrackVolume.Maximum);
             Fxvolume = Properties.Settings.Default.Fxvolume;
             TrackFx.Value = (int)(Fxvolume * TrackFx.Maximum);
             Musicvolume = Properties.Settings.Default.Musicvolume;
@@ -495,7 +494,7 @@ namespace OSU_player
             playvideo = Properties.Settings.Default.PlayVideo;
             视频开关.IsChecked = playvideo;
             Nextmode = Properties.Settings.Default.NextMode;
-            radMenuComboItem1.ComboBoxElement.SelectedIndex = Nextmode-1;
+            radMenuComboItem1.ComboBoxElement.SelectedIndex = Nextmode - 1;
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -551,6 +550,7 @@ namespace OSU_player
         private void 重新导入osu_Click(object sender, EventArgs e)
         {
             File.Delete("list.db");
+            Stop();
             Core.allsets.Clear();
             FullList.Clear();
             PlayList.Items.Clear();
@@ -561,7 +561,7 @@ namespace OSU_player
         {
             Core.Scores.Clear();
             string scorepath = Path.Combine(Core.osupath, "scores.db");
-            if (File.Exists(scorepath)) { OsuDB.ReadScore(scorepath); Core.scoresearched = true; }
+            if (File.Exists(scorepath)) { OsuDB.ReadScore(scorepath); Core.scoresearched = true; 重新导入scores.Text = "重新导入scores.db"; }
         }
         private void 打开曲目文件夹_Click(object sender, EventArgs e)
         {
@@ -605,7 +605,7 @@ namespace OSU_player
         }
         private void radMenuComboItem1_ComboBoxElement_SelectedIndexChanged(object sender, Telerik.WinControls.UI.Data.PositionChangedEventArgs e)
         {
-            Nextmode = radMenuComboItem1.ComboBoxElement.SelectedIndex+1;
+            Nextmode = radMenuComboItem1.ComboBoxElement.SelectedIndex + 1;
             Properties.Settings.Default.NextMode = Nextmode;
             Properties.Settings.Default.Save();
         }
@@ -754,7 +754,7 @@ namespace OSU_player
         }
         private void TrackBar2_Scroll(object sender, EventArgs e)
         {
-            Allvolume = 1.0f-(float)TrackVolume.Value / (float)TrackVolume.Maximum;
+            Allvolume = 1.0f - (float)TrackVolume.Value / (float)TrackVolume.Maximum;
             if (uni_Audio != null) { uni_Audio.Volume = Allvolume * Musicvolume; }
             Properties.Settings.Default.Allvolume = Allvolume;
             Properties.Settings.Default.Save();
@@ -838,7 +838,7 @@ namespace OSU_player
                         == DialogResult.Yes)
                     {
                         string scorepath = Path.Combine(Core.osupath, "scores.db");
-                        if (File.Exists(scorepath)) { OsuDB.ReadScore(scorepath); Core.scoresearched = true; }
+                        if (File.Exists(scorepath)) { OsuDB.ReadScore(scorepath); Core.scoresearched = true; 重新导入scores.Text = "重新导入scores.db"; }
                     }
                 }
                 if (TmpSet == null)
@@ -846,6 +846,18 @@ namespace OSU_player
                     PlayList.Items[0].Selected = true;
                 }
                 getscore();
+            }
+        }
+
+        private void radMenuButtonItem1_Click(object sender, EventArgs e)
+        {
+            if (ThemeResolutionService.ApplicationThemeName == "Default")
+            {
+                ThemeResolutionService.ApplicationThemeName = "TelerikMetroBlue";
+            }
+            else
+            {
+                ThemeResolutionService.ApplicationThemeName = "Default";
             }
         }
 

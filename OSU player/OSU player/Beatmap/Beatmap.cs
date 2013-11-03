@@ -522,7 +522,7 @@ namespace OSU_player
             Timingpoints = new List<Timing>();
             HitObjects = new List<HitObject>();
             content.AddRange(File.ReadAllLines(Path));
-            if (osb != null) { content.AddRange(File.ReadAllLines(System.IO.Path.Combine(Location, osb))); }
+            if (osb != null) { content.AddRange(File.ReadAllLines(osb)); }
             osuFileScanStatus position = osuFileScanStatus.VERSION_UNKNOWN;
             try
             {
@@ -598,7 +598,7 @@ namespace OSU_player
         }
         public Beatmap()
         {
-            Background = Core.defaultBG;
+            Background = "";
             haveSB = false;
             haveVideo = false;
         }

@@ -223,8 +223,8 @@ namespace OSU_player
         public static List<BeatmapSet> allsets = new List<BeatmapSet>();
         public static Dictionary<string, List<Score>> Scores = new Dictionary<string, List<Score>>();
         public static Dictionary<string, List<int>> Collections = new Dictionary<string, List<int>>();
-        public static string defaultBG = Path.Combine(Application.StartupPath, "default\\") + "defaultBG.png";
-        public static string defaultAudio = Path.Combine(Application.StartupPath, "default\\") + "blank.wav";
+        public static System.Drawing.Image defaultBG = Properties.Resources.defaultBG;
+        public static string defaultAudio = Application.StartupPath + "\\Default\\" + "blank.wav";
         public static bool scoresearched = false;
         /// <summary>
         /// 选定的QQ号
@@ -318,7 +318,7 @@ namespace OSU_player
             {
                 for (int i = 0; i < (int)mods.Random; i++)
                 {
-                    if ((mod & 1) == 1) { cmod += " "+Enum.GetName(typeof(mods), i); }
+                    if ((mod & 1) == 1) { cmod += " " + Enum.GetName(typeof(mods), i); }
                     mod = mod >> 2;
                 }
             }

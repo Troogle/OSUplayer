@@ -10,14 +10,8 @@ namespace OSU_player
         public BinaryReader(System.IO.Stream stream) : base(stream) { }
         public override string ReadString()
         {
-            string str = "";
-            if (ReadByte() == 0x0b)
-            {
-                int len = Read7BitEncodedInt();
-                byte[] bytes = ReadBytes(len);
-                str = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
-            }
-            return str;
+            if (ReadByte() == 0x0b) { return base.ReadString(); }
+            return "";
         }
     }
     class OsuDB
@@ -84,15 +78,15 @@ namespace OSU_player
                 {
                     tmpbm.ArtistRomanized = reader.ReadString();
                     stashs = reader.ReadString();
-                    if (stashs != "") { tmpbm.Artist=stashs; }
-                    tmpbm.TitleRomanized= reader.ReadString();
+                    if (stashs != "") { tmpbm.Artist = stashs; }
+                    tmpbm.TitleRomanized = reader.ReadString();
                     stashs = reader.ReadString();
                     if (stashs != "") { tmpbm.Title = stashs; }
                     tmpbm.Creator = reader.ReadString();
                     tmpbm.Version = reader.ReadString();
                     tmpbm.Audio = reader.ReadString();
                     tmpbm.hash = reader.ReadString();
-                    tmpbm.Name= reader.ReadString();
+                    tmpbm.Name = reader.ReadString();
                     stash = reader.ReadByte(); //4=ranked 5=app 2=Unranked
                     stash = reader.ReadUInt16(); //circles
                     stash = reader.ReadUInt16(); //sliders
@@ -131,7 +125,7 @@ namespace OSU_player
                     stashb = reader.ReadBoolean(); //unplayed
                     stashB = reader.ReadInt64(); //最后玩
                     stashb = reader.ReadBoolean(); //osz2
-                    tmpbm.Location = Path.Combine(Core.osupath,reader.ReadString());
+                    tmpbm.Location = Path.Combine(Core.osupath, reader.ReadString());
                     stashB = reader.ReadInt64(); //最后同步
                     stashb = reader.ReadBoolean(); //忽略音效
                     stashb = reader.ReadBoolean(); //忽略皮肤
@@ -170,7 +164,7 @@ namespace OSU_player
                     for (int j = 0; j < itemcount; j++)
                     {
                         md5 = reader.ReadString();
-                        for (int k=0;k<Core.allsets.Count;k++)
+                        for (int k = 0; k < Core.allsets.Count; k++)
                         {
                             if (Core.allsets[k].md5.Contains(md5) && (!Nset.Contains(k))) { Nset.Add(k); }
                         }

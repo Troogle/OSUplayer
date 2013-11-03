@@ -128,7 +128,7 @@ namespace OSU_player
             FileInfo[] osbfiles = F.GetFiles("*.osb");
             if (osbfiles.Length != 0)
             {
-                OsbPath = osbfiles[0].Name;
+                OsbPath = osbfiles[0].FullName;
             }
             foreach (Beatmap bm in Diffs)
             {

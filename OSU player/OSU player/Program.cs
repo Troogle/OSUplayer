@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Text;
+using Telerik.WinControls;
+using System.Reflection;
 
 namespace OSU_player
 {
@@ -23,6 +25,9 @@ namespace OSU_player
             Application.SetCompatibleTextRenderingDefault(false);
             try
             {
+                ThemeResolutionService.LoadPackageResource("OSU_player.Res.Default.tssp");
+                ThemeResolutionService.LoadPackageResource("OSU_player.Res.Metro.tssp");
+                Telerik.WinControls.ThemeResolutionService.ApplicationThemeName = "Default";
                 Application.Run(new Main());
             }
             catch (Exception ex)

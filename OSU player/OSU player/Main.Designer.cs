@@ -28,7 +28,6 @@ namespace OSU_player
         /// </summary>
         private void InitializeComponent()
         {
-<<<<<<< HEAD
             Telerik.WinControls.UI.RadListDataItem radListDataItem1 = new Telerik.WinControls.UI.RadListDataItem();
             Telerik.WinControls.UI.RadListDataItem radListDataItem2 = new Telerik.WinControls.UI.RadListDataItem();
             Telerik.WinControls.UI.RadListDataItem radListDataItem3 = new Telerik.WinControls.UI.RadListDataItem();
@@ -55,34 +54,7 @@ namespace OSU_player
             this.QQ状态同步 = new Telerik.WinControls.UI.RadMenuItem();
             this.SB开关 = new Telerik.WinControls.UI.RadMenuItem();
             this.关于 = new Telerik.WinControls.UI.RadMenuItem();
-=======
-            this.MenuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.运行OSU = new System.Windows.Forms.ToolStripMenuItem();
-            this.手动指定OSU目录 = new System.Windows.Forms.ToolStripMenuItem();
-            this.ToolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.重新导入osu = new System.Windows.Forms.ToolStripMenuItem();
-            this.重新导入scores = new System.Windows.Forms.ToolStripMenuItem();
-            this.ToolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.打开曲目文件夹 = new System.Windows.Forms.ToolStripMenuItem();
-            this.打开铺面文件 = new System.Windows.Forms.ToolStripMenuItem();
-            this.打开SB文件 = new System.Windows.Forms.ToolStripMenuItem();
-            this.ToolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.退出 = new System.Windows.Forms.ToolStripMenuItem();
-            this.ToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.重复歌曲扫描 = new System.Windows.Forms.ToolStripMenuItem();
-            this.香蕉分析器ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.音效 = new System.Windows.Forms.ToolStripMenuItem();
-            this.视频开关 = new System.Windows.Forms.ToolStripMenuItem();
-            this.播放模式 = new System.Windows.Forms.ToolStripMenuItem();
-            this.顺序播放 = new OSU_player.ToolStripRadioButtonMenuItem();
-            this.单曲循环 = new OSU_player.ToolStripRadioButtonMenuItem();
-            this.随机播放 = new OSU_player.ToolStripRadioButtonMenuItem();
-            this.QQ状态同步 = new System.Windows.Forms.ToolStripMenuItem();
-            this.SB开关 = new System.Windows.Forms.ToolStripMenuItem();
-            this.关于 = new System.Windows.Forms.ToolStripMenuItem();
->>>>>>> 22d4977ad7b3975591800c8dc2b8a2855efe5e89
+            this.radMenuButtonItem1 = new Telerik.WinControls.UI.RadMenuButtonItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.radPageView1 = new Telerik.WinControls.UI.RadPageView();
             this.radPageViewPage1 = new Telerik.WinControls.UI.RadPageViewPage();
@@ -96,7 +68,6 @@ namespace OSU_player
             this.label1 = new System.Windows.Forms.Label();
             this.TrackMusic = new Telerik.WinControls.UI.RadTrackBar();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.TrackFx = new Telerik.WinControls.UI.RadTrackBar();
             this.PlayList = new System.Windows.Forms.ListView();
             this.ColumnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -114,12 +85,9 @@ namespace OSU_player
             this.TrackSeek = new Telerik.WinControls.UI.RadTrackBar();
             this.StopButton = new Telerik.WinControls.UI.RadButton();
             this.PlayButton = new Telerik.WinControls.UI.RadButton();
-<<<<<<< HEAD
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.MenuStrip1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radMenuComboItem1.ComboBoxElement)).BeginInit();
-=======
-            this.MenuStrip1.SuspendLayout();
->>>>>>> 22d4977ad7b3975591800c8dc2b8a2855efe5e89
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radPageView1)).BeginInit();
             this.radPageView1.SuspendLayout();
@@ -129,7 +97,6 @@ namespace OSU_player
             ((System.ComponentModel.ISupportInitialize)(this.TextBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrackMusic)).BeginInit();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrackFx)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrackVolume)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SearchButton)).BeginInit();
@@ -139,6 +106,7 @@ namespace OSU_player
             ((System.ComponentModel.ISupportInitialize)(this.TrackSeek)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.StopButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -148,14 +116,11 @@ namespace OSU_player
             this.ToolStripMenuItem1,
             this.ToolStripMenuItem2,
             this.ToolStripMenuItem3,
-            this.关于});
+            this.关于,
+            this.radMenuButtonItem1});
             this.MenuStrip1.Location = new System.Drawing.Point(4, 4);
             this.MenuStrip1.Name = "MenuStrip1";
-<<<<<<< HEAD
-            this.MenuStrip1.Size = new System.Drawing.Size(894, 24);
-=======
-            this.MenuStrip1.Size = new System.Drawing.Size(894, 28);
->>>>>>> 22d4977ad7b3975591800c8dc2b8a2855efe5e89
+            this.MenuStrip1.Size = new System.Drawing.Size(894, 30);
             this.MenuStrip1.TabIndex = 2;
             this.MenuStrip1.Text = "MenuStrip1";
             // 
@@ -216,7 +181,7 @@ namespace OSU_player
             this.重新导入scores.AccessibleDescription = "重新导入scores.db";
             this.重新导入scores.AccessibleName = "重新导入scores.db";
             this.重新导入scores.Name = "重新导入scores";
-            this.重新导入scores.Text = "重新导入scores.db";
+            this.重新导入scores.Text = "导入scores.db";
             this.重新导入scores.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.重新导入scores.Click += new System.EventHandler(this.重新导入scores_Click);
             // 
@@ -393,32 +358,6 @@ namespace OSU_player
             this.radMenuComboItem1.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             ((Telerik.WinControls.UI.RadDropDownListElement)(this.radMenuComboItem1.GetChildAt(3))).DropDownStyle = Telerik.WinControls.RadDropDownStyle.DropDownList;
             // 
-            // 顺序播放
-            // 
-            this.顺序播放.CheckOnClick = true;
-            this.顺序播放.Name = "顺序播放";
-            this.顺序播放.Size = new System.Drawing.Size(138, 24);
-            this.顺序播放.Text = "顺序播放";
-            this.顺序播放.Click += new System.EventHandler(this.顺序播放_Click);
-            // 
-            // 单曲循环
-            // 
-            this.单曲循环.CheckOnClick = true;
-            this.单曲循环.Name = "单曲循环";
-            this.单曲循环.Size = new System.Drawing.Size(138, 24);
-            this.单曲循环.Text = "单曲循环";
-            this.单曲循环.Click += new System.EventHandler(this.单曲循环_Click);
-            // 
-            // 随机播放
-            // 
-            this.随机播放.Checked = true;
-            this.随机播放.CheckOnClick = true;
-            this.随机播放.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.随机播放.Name = "随机播放";
-            this.随机播放.Size = new System.Drawing.Size(138, 24);
-            this.随机播放.Text = "随机播放";
-            this.随机播放.Click += new System.EventHandler(this.随机播放_Click);
-            // 
             // QQ状态同步
             // 
             this.QQ状态同步.AccessibleDescription = "QQ状态同步";
@@ -451,6 +390,20 @@ namespace OSU_player
             this.关于.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.关于.Click += new System.EventHandler(this.关于_Click);
             // 
+            // radMenuButtonItem1
+            // 
+            this.radMenuButtonItem1.AccessibleDescription = "切换主题";
+            this.radMenuButtonItem1.AccessibleName = "切换主题";
+            // 
+            // 
+            // 
+            this.radMenuButtonItem1.ButtonElement.AccessibleDescription = "切换主题";
+            this.radMenuButtonItem1.ButtonElement.AccessibleName = "切换主题";
+            this.radMenuButtonItem1.Name = "radMenuButtonItem1";
+            this.radMenuButtonItem1.Text = "切换主题";
+            this.radMenuButtonItem1.Visibility = Telerik.WinControls.ElementVisibility.Visible;
+            this.radMenuButtonItem1.Click += new System.EventHandler(this.radMenuButtonItem1_Click);
+            // 
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -477,22 +430,21 @@ namespace OSU_player
             this.panel1.Controls.Add(this.TrackSeek);
             this.panel1.Controls.Add(this.StopButton);
             this.panel1.Controls.Add(this.PlayButton);
-            this.panel1.Location = new System.Drawing.Point(4, 34);
+            this.panel1.Location = new System.Drawing.Point(4, 40);
             this.panel1.MinimumSize = new System.Drawing.Size(882, 651);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(882, 663);
+            this.panel1.Size = new System.Drawing.Size(882, 671);
             this.panel1.TabIndex = 21;
             // 
             // radPageView1
             // 
-            this.radPageView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.radPageView1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.radPageView1.Controls.Add(this.radPageViewPage1);
             this.radPageView1.Controls.Add(this.radPageViewPage2);
             this.radPageView1.Location = new System.Drawing.Point(344, 437);
             this.radPageView1.Name = "radPageView1";
             this.radPageView1.SelectedPage = this.radPageViewPage1;
-            this.radPageView1.Size = new System.Drawing.Size(524, 219);
+            this.radPageView1.Size = new System.Drawing.Size(524, 221);
             this.radPageView1.TabIndex = 1;
             this.radPageView1.Text = "radPageView1";
             this.radPageView1.SelectedPageChanged += new System.EventHandler(this.radPageView1_SelectedPageChanged);
@@ -504,7 +456,7 @@ namespace OSU_player
             this.radPageViewPage1.Controls.Add(this.ListDetail);
             this.radPageViewPage1.Location = new System.Drawing.Point(10, 10);
             this.radPageViewPage1.Name = "radPageViewPage1";
-            this.radPageViewPage1.Size = new System.Drawing.Size(503, 167);
+            this.radPageViewPage1.Size = new System.Drawing.Size(503, 173);
             this.radPageViewPage1.Text = "Map信息";
             // 
             // ListDetail
@@ -520,11 +472,7 @@ namespace OSU_player
             this.ListDetail.Location = new System.Drawing.Point(3, 3);
             this.ListDetail.MultiSelect = false;
             this.ListDetail.Name = "ListDetail";
-<<<<<<< HEAD
-            this.ListDetail.Size = new System.Drawing.Size(497, 169);
-=======
-            this.ListDetail.Size = new System.Drawing.Size(497, 165);
->>>>>>> 22d4977ad7b3975591800c8dc2b8a2855efe5e89
+            this.ListDetail.Size = new System.Drawing.Size(497, 161);
             this.ListDetail.TabIndex = 40;
             this.ListDetail.UseCompatibleStateImageBehavior = false;
             this.ListDetail.View = System.Windows.Forms.View.Details;
@@ -544,7 +492,7 @@ namespace OSU_player
             this.radPageViewPage2.Controls.Add(this.ScoreBox);
             this.radPageViewPage2.Location = new System.Drawing.Point(10, 10);
             this.radPageViewPage2.Name = "radPageViewPage2";
-            this.radPageViewPage2.Size = new System.Drawing.Size(503, 167);
+            this.radPageViewPage2.Size = new System.Drawing.Size(503, 169);
             this.radPageViewPage2.Text = "成绩信息";
             // 
             // ScoreBox
@@ -556,7 +504,7 @@ namespace OSU_player
             this.ScoreBox.ItemHeight = 15;
             this.ScoreBox.Location = new System.Drawing.Point(3, 3);
             this.ScoreBox.Name = "ScoreBox";
-            this.ScoreBox.Size = new System.Drawing.Size(497, 139);
+            this.ScoreBox.Size = new System.Drawing.Size(497, 154);
             this.ScoreBox.TabIndex = 0;
             // 
             // button3
@@ -573,7 +521,7 @@ namespace OSU_player
             // 
             this.TextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TextBox1.Location = new System.Drawing.Point(14, 407);
+            this.TextBox1.Location = new System.Drawing.Point(14, 411);
             this.TextBox1.Name = "TextBox1";
             this.TextBox1.NullText = "Enter Keywords";
             this.TextBox1.Size = new System.Drawing.Size(239, 24);
@@ -614,15 +562,6 @@ namespace OSU_player
             this.panel2.Size = new System.Drawing.Size(480, 360);
             this.panel2.TabIndex = 26;
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(480, 360);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            // 
             // TrackFx
             // 
             this.TrackFx.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -652,7 +591,7 @@ namespace OSU_player
             this.PlayList.Location = new System.Drawing.Point(14, 40);
             this.PlayList.MultiSelect = false;
             this.PlayList.Name = "PlayList";
-            this.PlayList.Size = new System.Drawing.Size(320, 360);
+            this.PlayList.Size = new System.Drawing.Size(320, 364);
             this.PlayList.TabIndex = 24;
             this.PlayList.UseCompatibleStateImageBehavior = false;
             this.PlayList.View = System.Windows.Forms.View.Details;
@@ -685,7 +624,7 @@ namespace OSU_player
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DiffList.FormattingEnabled = true;
             this.DiffList.ItemHeight = 15;
-            this.DiffList.Location = new System.Drawing.Point(14, 442);
+            this.DiffList.Location = new System.Drawing.Point(14, 444);
             this.DiffList.Name = "DiffList";
             this.DiffList.Size = new System.Drawing.Size(320, 214);
             this.DiffList.TabIndex = 25;
@@ -718,9 +657,9 @@ namespace OSU_player
             // SearchButton
             // 
             this.SearchButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.SearchButton.Location = new System.Drawing.Point(259, 406);
+            this.SearchButton.Location = new System.Drawing.Point(259, 411);
             this.SearchButton.Name = "SearchButton";
-            this.SearchButton.Size = new System.Drawing.Size(75, 25);
+            this.SearchButton.Size = new System.Drawing.Size(75, 27);
             this.SearchButton.TabIndex = 36;
             this.SearchButton.Text = "搜索";
             this.SearchButton.Click += new System.EventHandler(this.SearchButton_Click);
@@ -807,14 +746,23 @@ namespace OSU_player
             this.PlayButton.Text = "播放";
             this.PlayButton.Click += new System.EventHandler(this.PlayButton_Click);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(480, 360);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(902, 722);
+            this.ClientSize = new System.Drawing.Size(902, 718);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.MenuStrip1);
-            this.MinimumSize = new System.Drawing.Size(910, 752);
+            this.MinimumSize = new System.Drawing.Size(910, 748);
             this.Name = "Main";
             this.Padding = new System.Windows.Forms.Padding(4);
             // 
@@ -836,7 +784,6 @@ namespace OSU_player
             ((System.ComponentModel.ISupportInitialize)(this.TextBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrackMusic)).EndInit();
             this.panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrackFx)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrackVolume)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SearchButton)).EndInit();
@@ -846,6 +793,7 @@ namespace OSU_player
             ((System.ComponentModel.ISupportInitialize)(this.TrackSeek)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.StopButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -853,8 +801,6 @@ namespace OSU_player
         }
 
         #endregion
-<<<<<<< HEAD
-
         private Telerik.WinControls.UI.RadMenu MenuStrip1;
         private Telerik.WinControls.UI.RadMenuItem ToolStripMenuItem1;
         private Telerik.WinControls.UI.RadMenuItem 运行OSU;
@@ -876,34 +822,6 @@ namespace OSU_player
         private Telerik.WinControls.UI.RadMenuItem 视频开关;
         private Telerik.WinControls.UI.RadMenuItem QQ状态同步;
         private Telerik.WinControls.UI.RadMenuItem SB开关;
-=======
-        
-        private System.Windows.Forms.MenuStrip MenuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem 运行OSU;
-        private System.Windows.Forms.ToolStripMenuItem 手动指定OSU目录;
-        private System.Windows.Forms.ToolStripSeparator ToolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem 重新导入osu;
-        private System.Windows.Forms.ToolStripMenuItem 重新导入scores;
-        private System.Windows.Forms.ToolStripSeparator ToolStripSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem 打开曲目文件夹;
-        private System.Windows.Forms.ToolStripMenuItem 打开铺面文件;
-        private System.Windows.Forms.ToolStripMenuItem 打开SB文件;
-        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem3;
-        private System.Windows.Forms.ToolStripMenuItem 关于;
-        private System.Windows.Forms.ToolStripMenuItem 重复歌曲扫描;
-        private System.Windows.Forms.ToolStripMenuItem 音效;
-        private System.Windows.Forms.ToolStripSeparator ToolStripSeparator3;
-        private System.Windows.Forms.ToolStripMenuItem 退出;
-        private System.Windows.Forms.ToolStripMenuItem 视频开关;
-        private System.Windows.Forms.ToolStripMenuItem 播放模式;
-        private System.Windows.Forms.ToolStripMenuItem QQ状态同步;
-        private System.Windows.Forms.ToolStripMenuItem SB开关;
-        private ToolStripRadioButtonMenuItem 随机播放;
-        private ToolStripRadioButtonMenuItem 顺序播放;
-        private ToolStripRadioButtonMenuItem 单曲循环;
->>>>>>> 22d4977ad7b3975591800c8dc2b8a2855efe5e89
         private System.Windows.Forms.Panel panel1;
         private Telerik.WinControls.UI.RadTextBox TextBox1;
         private System.Windows.Forms.Label label1;
@@ -929,23 +847,15 @@ namespace OSU_player
         private Telerik.WinControls.UI.RadButton StopButton;
         private Telerik.WinControls.UI.RadButton PlayButton;
         private System.Windows.Forms.ColumnHeader SetNum;
-<<<<<<< HEAD
         private Telerik.WinControls.UI.RadMenuItem 香蕉分析器ToolStripMenuItem;
-=======
-        private System.Windows.Forms.ToolStripMenuItem 香蕉分析器ToolStripMenuItem;
->>>>>>> 22d4977ad7b3975591800c8dc2b8a2855efe5e89
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ListBox ScoreBox;
         private Telerik.WinControls.UI.RadButton button3;
         private Telerik.WinControls.UI.RadPageView radPageView1;
         private Telerik.WinControls.UI.RadPageViewPage radPageViewPage1;
         private Telerik.WinControls.UI.RadPageViewPage radPageViewPage2;
-<<<<<<< HEAD
         private Telerik.WinControls.UI.RadMenuComboItem radMenuComboItem1;
-=======
->>>>>>> 22d4977ad7b3975591800c8dc2b8a2855efe5e89
-
-
+        private Telerik.WinControls.UI.RadMenuButtonItem radMenuButtonItem1;
     }
 
 }

@@ -12,7 +12,6 @@ namespace OSU_player
         public Selfupdate()
         {
         }
-        static string XmlFilePath = Application.StartupPath + "\\" + "update.xml";
         static XmlDocument UpDateXml = new XmlDocument();
         static string url = "";
         static string ver = "";
@@ -47,7 +46,7 @@ namespace OSU_player
         {
             try
             {
-                UpDateXml.Load(XmlFilePath);
+                UpDateXml.LoadXml(Properties.Resources.update);
                 url = UpDateXml.SelectNodes("/Xml/Url")[0].InnerText;
                 ver = UpDateXml.SelectNodes("/Xml/Version")[0].InnerText;
             }

@@ -33,6 +33,9 @@
             this.ColumnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Button1 = new Telerik.WinControls.UI.RadButton();
             this.Button2 = new Telerik.WinControls.UI.RadButton();
+            ((System.ComponentModel.ISupportInitialize)(this.Button1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Button2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // ListView1
@@ -73,9 +76,9 @@
             // 
             // Button2
             // 
-            this.Button2.Location = new System.Drawing.Point(248, 118);
+            this.Button2.Location = new System.Drawing.Point(248, 122);
             this.Button2.Name = "Button2";
-            this.Button2.Size = new System.Drawing.Size(75, 23);
+            this.Button2.Size = new System.Drawing.Size(75, 27);
             this.Button2.TabIndex = 3;
             this.Button2.Text = "确定";
             this.Button2.Click += new System.EventHandler(this.Button2_Click);
@@ -89,7 +92,14 @@
             this.Controls.Add(this.Button1);
             this.Controls.Add(this.ListView1);
             this.Name = "Form2";
+            // 
+            // 
+            // 
+            this.RootElement.ApplyShapeToControl = true;
             this.Text = "QQ";
+            ((System.ComponentModel.ISupportInitialize)(this.Button1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Button2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
 		}
