@@ -148,11 +148,12 @@ namespace OSU_player
         }
         public bool Contains(Beatmap tmpbm)
         {
-            if (setid == -1) {
+            if (location == tmpbm.Location) { return true; } else { return false; }
+            /* if (setid == -1) {
             if (name==tmpbm.ArtistRomanized + " - " + tmpbm.TitleRomanized){return true;}else{return false;}
             }
             if (tmpbm.beatmapsetId == setid) { return true; }
-            return false;
+            return false;*/
         }
     }
 

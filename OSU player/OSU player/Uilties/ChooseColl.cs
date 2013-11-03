@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.IO;
-using System.Windows.Forms;
+using Telerik.WinControls;
+using Telerik.WinControls.UI;
 
 namespace OSU_player
 {
-    public partial class ChooseColl : Form
+    public partial class ChooseColl : RadForm
     {
         public ChooseColl()
         {
@@ -26,7 +23,7 @@ namespace OSU_player
                 listBox1.Items.Add(key);
             }
             if (listBox1.Items.Count != 0) { listBox1.SelectedIndex = 0; }
-            MessageBox.Show("刷新完毕！");
+            RadMessageBox.Show("刷新完毕！");
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)

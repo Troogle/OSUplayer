@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System;
 using System.Windows.Forms;
+using Telerik.WinControls.UI;
+using Telerik.WinControls;
 
 namespace OSU_player
 {
-    public partial class Form2
+    public partial class Form2 : RadForm
     {
         public Form2()
         {
@@ -24,7 +26,7 @@ namespace OSU_player
             {
                 if (ListView1.Items.Count != 0)
                 {
-                    MessageBox.Show("别卖萌不选啊-0-");
+                    RadMessageBox.Show("别卖萌不选啊-0-");
                 }
                 else
                 {
@@ -54,7 +56,7 @@ namespace OSU_player
             }
             catch (Exception)
             {
-                MessageBox.Show("获取当前在线QQ出错！");
+                RadMessageBox.Show("获取当前在线QQ出错！");
             }
         }
     }

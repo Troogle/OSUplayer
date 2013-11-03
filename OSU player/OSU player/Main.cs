@@ -1,17 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.Windows.Forms;
-using System.Threading;
-using System.ComponentModel;
 using System.IO;
-using System.Collections.Generic;
+using System.Threading;
+using System.Windows.Forms;
+using Telerik.WinControls;
+using Telerik.WinControls.UI;
 using Un4seen.Bass;
 
 namespace OSU_player
 {
 
-    public partial class Main
+    public partial class Main : RadForm
     {
         public Main()
         {
@@ -56,9 +57,7 @@ namespace OSU_player
         #region 各种方法
         private void AskForExit(object sender, System.Windows.Forms.FormClosingEventArgs e)
         {
-            DialogResult close;
-            close = MessageBox.Show("确认退出？", "提示", MessageBoxButtons.YesNo);
-            if (close == DialogResult.Yes)
+            if (RadMessageBox.Show("确认退出？", "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 uni_QQ.Send2QQ(Core.uin, "");
                 uni_Audio.Dispose();
@@ -133,7 +132,7 @@ namespace OSU_player
         private void setbg()
         {
             printdetail();
-            if (!File.Exists(CurrentBeatmap.Background)) { MessageBox.Show("没事删什么BG！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error); CurrentBeatmap.Background = Core.defaultBG; }
+            if (!File.Exists(CurrentBeatmap.Background)) { RadMessageBox.Show("没事删什么BG！", "错误", MessageBoxButtons.OK, RadMessageIcon.Error); CurrentBeatmap.Background = Core.defaultBG; }
             pictureBox1.Image = Image.FromFile(CurrentBeatmap.Background);
             pictureBox1.Visible = true;
         }
@@ -161,7 +160,7 @@ namespace OSU_player
                 {
 
                     new Thread(new ThreadStart(delegate()
-                    { MessageBox.Show("没事删什么Video！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error); })).Start();
+                    { RadMessageBox.Show("没事删什么Video！", "错误", MessageBoxButtons.OK, RadMessageIcon.Error); })).Start();
                     uni_Audio.Play(Allvolume * Musicvolume);
                 }
                 else
@@ -373,7 +372,6 @@ namespace OSU_player
                 default: next = 0;
                     break;
             }
-            PlayList.Select();
             if (PlayList.SelectedItems.Count != 0)
             {
                 PlayList.SelectedItems[0].Selected = false;
@@ -401,7 +399,7 @@ namespace OSU_player
             }
             else
             {
-                MessageBox.Show("将开始初始化");
+                RadMessageBox.Show("将开始初始化");
                 if (File.Exists(Path.Combine(Core.osupath, "osu!.db")))
                 {
                     OsuDB.ReadDb(Path.Combine(Core.osupath, "osu!.db"));
@@ -414,7 +412,7 @@ namespace OSU_player
                     PlayList.Items.Add(tmpl);
                     FullList.Add(tmpl);
                 }
-                MessageBox.Show(string.Format("初始化完毕，发现曲目{0}个", Core.allsets.Count));
+                RadMessageBox.Show(string.Format("初始化完毕，发现曲目{0}个", Core.allsets.Count));
                 needsave = true;
             }
         }
@@ -458,7 +456,7 @@ namespace OSU_player
             if (Core.uin == 0)
             {
                 if (
-                    MessageBox.Show(this, "木有设置过QQ号，需要现在设置么？", "提示", MessageBoxButtons.YesNo)
+                    RadMessageBox.Show(this, "木有设置过QQ号，需要现在设置么？", "提示", MessageBoxButtons.YesNo)
                     == DialogResult.Yes)
                 {
                     using (Form2 dialog = new Form2())
@@ -473,7 +471,7 @@ namespace OSU_player
                 }
                 else
                 {
-                    QQ状态同步.Checked = false;
+                    QQ状态同步.IsChecked = false;
                     Core.syncQQ = false;
                     Properties.Settings.Default.SyncQQ = false;
                     Properties.Settings.Default.Save();
@@ -482,32 +480,22 @@ namespace OSU_player
             else
             {
                 Core.syncQQ = Properties.Settings.Default.SyncQQ;
-                QQ状态同步.Checked = Core.syncQQ;
+                QQ状态同步.IsChecked = Core.syncQQ;
             }
             Allvolume = Properties.Settings.Default.Allvolume;
-            TrackVolume.Value = (int)(Allvolume * TrackVolume.Maximum);
+            TrackVolume.Value = 100-(int)(Allvolume * TrackVolume.Maximum);
             Fxvolume = Properties.Settings.Default.Fxvolume;
             TrackFx.Value = (int)(Fxvolume * TrackFx.Maximum);
             Musicvolume = Properties.Settings.Default.Musicvolume;
             TrackMusic.Value = (int)(Musicvolume * TrackMusic.Maximum);
             playfx = Properties.Settings.Default.PlayFx;
-            音效.Checked = playfx;
+            音效.IsChecked = playfx;
             playsb = Properties.Settings.Default.PlaySB;
-            SB开关.Checked = playsb;
+            SB开关.IsChecked = playsb;
             playvideo = Properties.Settings.Default.PlayVideo;
-            视频开关.Checked = playvideo;
+            视频开关.IsChecked = playvideo;
             Nextmode = Properties.Settings.Default.NextMode;
-            switch (Nextmode)
-            {
-                case 1: 顺序播放.Checked = true;
-                    break;
-                case 2: 单曲循环.Checked = true;
-                    break;
-                case 3: 随机播放.Checked = true;
-                    break;
-                default:
-                    break;
-            }
+            radMenuComboItem1.ComboBoxElement.SelectedIndex = Nextmode-1;
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -603,46 +591,34 @@ namespace OSU_player
         }
         #endregion
         #region 选项
-        private void 随机播放_Click(object sender, EventArgs e)
-        {
-            Nextmode = 3;
-            Properties.Settings.Default.NextMode = 3;
-            Properties.Settings.Default.Save();
-        }
-        private void 顺序播放_Click(object sender, EventArgs e)
-        {
-            Nextmode = 1;
-            Properties.Settings.Default.NextMode = 1;
-            Properties.Settings.Default.Save();
-        }
-        private void 单曲循环_Click(object sender, EventArgs e)
-        {
-            Nextmode = 2;
-            Properties.Settings.Default.NextMode = 2;
-            Properties.Settings.Default.Save();
-        }
         private void 音效_Click(object sender, EventArgs e)
         {
-            playfx = 音效.Checked;
+            playfx = 音效.IsChecked;
             Properties.Settings.Default.PlayFx = playfx;
             Properties.Settings.Default.Save();
         }
         private void 视频开关_Click(object sender, EventArgs e)
         {
-            playvideo = 视频开关.Checked;
+            playvideo = 视频开关.IsChecked;
             Properties.Settings.Default.PlayVideo = playvideo;
+            Properties.Settings.Default.Save();
+        }
+        private void radMenuComboItem1_ComboBoxElement_SelectedIndexChanged(object sender, Telerik.WinControls.UI.Data.PositionChangedEventArgs e)
+        {
+            Nextmode = radMenuComboItem1.ComboBoxElement.SelectedIndex+1;
+            Properties.Settings.Default.NextMode = Nextmode;
             Properties.Settings.Default.Save();
         }
         private void QQ状态同步_Click(object sender, EventArgs e)
         {
             if (Core.syncQQ && Core.uin != 0) { uni_QQ.Send2QQ(Core.uin, ""); }
-            Core.syncQQ = QQ状态同步.Checked;
+            Core.syncQQ = QQ状态同步.IsChecked;
             Properties.Settings.Default.SyncQQ = Core.syncQQ;
             Properties.Settings.Default.Save();
         }
         private void SB开关_Click(object sender, EventArgs e)
         {
-            playsb = SB开关.Checked;
+            playsb = SB开关.IsChecked;
             Properties.Settings.Default.PlaySB = playsb;
             Properties.Settings.Default.Save();
         }
@@ -697,7 +673,7 @@ namespace OSU_player
             TmpSet = Core.allsets[Convert.ToInt32(PlayList.SelectedItems[0].SubItems[1].Text)];
             if (!TmpSet.check())
             {
-                MessageBox.Show("没事删什么曲子啊><", ">_<");
+                RadMessageBox.Show("没事删什么曲子啊><", ">_<");
                 remove(Convert.ToInt32(PlayList.SelectedItems[0].SubItems[1].Text));
                 return;
             }
@@ -778,7 +754,7 @@ namespace OSU_player
         }
         private void TrackBar2_Scroll(object sender, EventArgs e)
         {
-            Allvolume = (float)TrackVolume.Value / (float)TrackVolume.Maximum;
+            Allvolume = 1.0f-(float)TrackVolume.Value / (float)TrackVolume.Maximum;
             if (uni_Audio != null) { uni_Audio.Volume = Allvolume * Musicvolume; }
             Properties.Settings.Default.Allvolume = Allvolume;
             Properties.Settings.Default.Save();
@@ -839,11 +815,26 @@ namespace OSU_player
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (tabControl1.SelectedTab == tabPage2)
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.Visible = false;
+            using (Mini dialog = new Mini())
+            {
+                dialog.ShowDialog();
+            }
+            this.Visible = true;
+        }
+
+        private void radPageView1_SelectedPageChanged(object sender, EventArgs e)
+        {
+            if (radPageView1.SelectedPage == radPageViewPage2)
             {
                 if (!Core.scoresearched)
                 {
-                    if (MessageBox.Show(this, "木有导入过score，现在导入么？", "提示", MessageBoxButtons.YesNo)
+                    if (RadMessageBox.Show(this, "木有导入过score，现在导入么？", "提示", MessageBoxButtons.YesNo)
                         == DialogResult.Yes)
                     {
                         string scorepath = Path.Combine(Core.osupath, "scores.db");
@@ -858,15 +849,6 @@ namespace OSU_player
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            this.Visible = false;
-            using (Mini dialog = new Mini())
-            {
-                dialog.ShowDialog();
-            }
-            this.Visible = true;
-        }
 
     }
 }

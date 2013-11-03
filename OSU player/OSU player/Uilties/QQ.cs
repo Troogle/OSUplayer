@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System;
-using System.Diagnostics;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
+using Telerik.WinControls;
 
 namespace OSU_player
 {
@@ -59,7 +59,7 @@ namespace OSU_player
             }
             catch (Exception)
             {
-                MessageBox.Show("获取当前在线QQ出错！刷新下试试？");
+                RadMessageBox.Show("获取当前在线QQ出错！刷新下试试？");
             }
             return ret;
 

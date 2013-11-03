@@ -6,10 +6,11 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
+using Telerik.WinControls.UI;
 
 namespace OSU_player
 {
-    public partial class About : Form
+    public partial class About : RadForm
     {
         public About()
         {

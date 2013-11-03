@@ -1,18 +1,9 @@
-﻿// VBConversions Note: VB project level imports
+﻿using System;
 using System.Collections.Generic;
-using System;
-using System.Drawing;
-using System.Diagnostics;
-using System.Data;
-using Microsoft.VisualBasic;
-using System.Collections;
-using System.Windows.Forms;
-// End of VB project level imports
-
 using System.IO;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Windows.Forms;
+using Telerik.WinControls;
 
 namespace OSU_player
 {
@@ -254,7 +245,7 @@ namespace OSU_player
             }
             catch (Exception)
             {
-                MessageBox.Show("读取游戏目录出错! 请手动指定", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                RadMessageBox.Show("读取游戏目录出错! 请手动指定", "错误", MessageBoxButtons.OK, RadMessageIcon.Error);
                 while (!Setpath()) { };
             }
         }
@@ -280,13 +271,13 @@ namespace OSU_player
                     }
                     else
                     {
-                        MessageBox.Show("为什么你总是想卖萌OAO", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        RadMessageBox.Show("为什么你总是想卖萌OAO", "错误", MessageBoxButtons.OK, RadMessageIcon.Error);
                     }
                 }
             }
             catch (Exception)
             {
-                MessageBox.Show("为什么你总是想卖萌OxO", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                RadMessageBox.Show("为什么你总是想卖萌OxO", "错误", MessageBoxButtons.OK, RadMessageIcon.Error);
             }
             return false;
         }

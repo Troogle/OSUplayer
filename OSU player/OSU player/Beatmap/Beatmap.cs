@@ -2,6 +2,7 @@
 using System.IO;
 using System;
 using System.Security.Cryptography;
+
 namespace OSU_player
 {
     [Serializable]
@@ -601,7 +602,7 @@ namespace OSU_player
             haveSB = false;
             haveVideo = false;
         }
-        public Beatmap(string path,string location)
+        public Beatmap(string path, string location)
         {
             Path = path;
             Location = location;
@@ -635,22 +636,15 @@ namespace OSU_player
             if (hash != null) { return hash; }
             string strHashData = "";
             byte[] arrHashValue;
-            try
+            using (MD5 md5Hash = MD5.Create())
             {
-                using (MD5 md5Hash = MD5.Create())
-                {
 
-                    using (FileStream fs = new FileStream(Path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                    {
-                        arrHashValue = md5Hash.ComputeHash(fs);
-                    }
-                    strHashData = BitConverter.ToString(arrHashValue);
-                    strHashData = strHashData.Replace("-", "");
+                using (FileStream fs = new FileStream(Path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                {
+                    arrHashValue = md5Hash.ComputeHash(fs);
                 }
-            }
-            catch (System.Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
+                strHashData = BitConverter.ToString(arrHashValue);
+                strHashData = strHashData.Replace("-", "");
             }
             hash = strHashData.ToLower();
             return hash;

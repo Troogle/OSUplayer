@@ -1,49 +1,38 @@
-﻿// VBConversions Note: VB project level imports
-using System.Collections.Generic;
-using System;
-using System.Drawing;
-using System.Diagnostics;
-using System.Data;
-using Microsoft.VisualBasic;
-using System.Collections;
-using System.Windows.Forms;
-// End of VB project level imports
-
-
-namespace OSU_player
+﻿namespace OSU_player
 {
-public partial class Form2 : System.Windows.Forms.Form
+    partial class Form2
 	{
-		
-		//Form 重写 Dispose，以清理组件列表。
-		[System.Diagnostics.DebuggerNonUserCode()]protected override void Dispose(bool disposing)
-		{
-			try
-			{
-				if (disposing && components != null)
-				{
-					components.Dispose();
-				}
-			}
-			finally
-			{
-				base.Dispose(disposing);
-			}
-		}
-		
-		//Windows 窗体设计器所必需的
-		private System.ComponentModel.Container components = null;
-		
-		//注意: 以下过程是 Windows 窗体设计器所必需的
-		//可以使用 Windows 窗体设计器修改它。
-		//不要使用代码编辑器修改它。
-		[System.Diagnostics.DebuggerStepThrough()]private void InitializeComponent()
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
 		{
             this.ListView1 = new System.Windows.Forms.ListView();
             this.ColumnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ColumnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Button1 = new System.Windows.Forms.Button();
-            this.Button2 = new System.Windows.Forms.Button();
+            this.Button1 = new Telerik.WinControls.UI.RadButton();
+            this.Button2 = new Telerik.WinControls.UI.RadButton();
             this.SuspendLayout();
             // 
             // ListView1
@@ -75,28 +64,20 @@ public partial class Form2 : System.Windows.Forms.Form
             // 
             // Button1
             // 
-            this.Button1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.Button1.FlatAppearance.BorderSize = 0;
-            this.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Button1.Location = new System.Drawing.Point(248, 52);
             this.Button1.Name = "Button1";
             this.Button1.Size = new System.Drawing.Size(75, 26);
             this.Button1.TabIndex = 2;
             this.Button1.Text = "刷新";
-            this.Button1.UseVisualStyleBackColor = false;
             this.Button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // Button2
             // 
-            this.Button2.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.Button2.FlatAppearance.BorderSize = 0;
-            this.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Button2.Location = new System.Drawing.Point(248, 118);
             this.Button2.Name = "Button2";
             this.Button2.Size = new System.Drawing.Size(75, 23);
             this.Button2.TabIndex = 3;
             this.Button2.Text = "确定";
-            this.Button2.UseVisualStyleBackColor = false;
             this.Button2.Click += new System.EventHandler(this.Button2_Click);
             // 
             // Form2
@@ -112,11 +93,13 @@ public partial class Form2 : System.Windows.Forms.Form
             this.ResumeLayout(false);
 
 		}
-		internal System.Windows.Forms.ListView ListView1;
-		internal System.Windows.Forms.Button Button1;
-		internal System.Windows.Forms.Button Button2;
-		internal System.Windows.Forms.ColumnHeader ColumnHeader2;
-		private System.Windows.Forms.ColumnHeader ColumnHeader1;
+        #endregion
+        
+        private System.Windows.Forms.ListView ListView1;
+		private Telerik.WinControls.UI.RadButton Button1;
+		private Telerik.WinControls.UI.RadButton Button2;
+		private System.Windows.Forms.ColumnHeader ColumnHeader2;
+        private System.Windows.Forms.ColumnHeader ColumnHeader1;
 	}
 	
 }

@@ -138,13 +138,16 @@ namespace OSU_player
                     stashb = reader.ReadBoolean(); //禁用sb
                     stash = reader.ReadByte(); //背景淡化
                     stashB = reader.ReadInt64();
-                    if (tmpset.count == 0) { tmpset.add(tmpbm);}
-                    if (tmpset.Contains(tmpbm)) { tmpset.add(tmpbm); }
+                    if (tmpset.count == 0) { tmpset.add(tmpbm); }
                     else
                     {
-                        Core.allsets.Add(tmpset);
-                        tmpset = new BeatmapSet();
-                        tmpset.add(tmpbm);
+                        if (tmpset.Contains(tmpbm)) { tmpset.add(tmpbm); }
+                        else
+                        {
+                            Core.allsets.Add(tmpset);
+                            tmpset = new BeatmapSet();
+                            tmpset.add(tmpbm);
+                        }
                     }
                     tmpbm = new Beatmap();
                 }

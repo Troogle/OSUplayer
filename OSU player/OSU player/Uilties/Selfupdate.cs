@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Net;
 using System.Windows.Forms;
 using System.Xml;
-using System.Net;
+using Telerik.WinControls;
 
 namespace OSU_player
 {
@@ -29,7 +30,7 @@ namespace OSU_player
                 newver = UpDateXml.SelectNodes("/Xml/Version")[0].InnerText;
                 if (newver.CompareTo(ver) > 0)
                 {
-                    res = MessageBox.Show("新版本" + newver + "发布了~", "提醒", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                    res = RadMessageBox.Show("新版本" + newver + "发布了~", "提醒", MessageBoxButtons.OKCancel, RadMessageIcon.Info);
                     if (res == System.Windows.Forms.DialogResult.OK)
                     {
                         Process.Start(UpDateXml.SelectNodes("/Xml/Link")[0].InnerText);
@@ -38,7 +39,7 @@ namespace OSU_player
             }
             catch (Exception)
             {
-                MessageBox.Show("更新配置文件出错!", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                RadMessageBox.Show("更新配置文件出错!", "错误", MessageBoxButtons.OK, RadMessageIcon.Error);
             }
         }
 
@@ -52,7 +53,7 @@ namespace OSU_player
             }
             catch (Exception)
             {
-                MessageBox.Show("本地配置文件出错!", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                RadMessageBox.Show("本地配置文件出错!", "错误", MessageBoxButtons.OK, RadMessageIcon.Error);
                 return;
             }
             download(url + "update.xml");

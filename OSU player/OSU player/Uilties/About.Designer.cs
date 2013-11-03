@@ -33,6 +33,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // linkLabel1
@@ -77,7 +78,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(292, 175);
             this.label2.TabIndex = 3;
-            this.label2.Text = "OSU Player Ver 2.7.0\r\nDeveloped By Troogle(Google)\r\n\r\nVLC 2.0.8\r\nBass.Net 2.4.10." +
+            this.label2.Text = "OSU Player Ver 2.9.0\r\nDeveloped By Troogle(Google)\r\n\r\nVLC 2.0.8\r\nBass.Net 2.4.10." +
     "3\r\n\r\nThx for using~";
             // 
             // About
@@ -90,9 +91,14 @@
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.pictureBox1);
             this.Name = "About";
+            // 
+            // 
+            // 
+            this.RootElement.ApplyShapeToControl = true;
             this.Text = "About";
             this.Load += new System.EventHandler(this.About_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

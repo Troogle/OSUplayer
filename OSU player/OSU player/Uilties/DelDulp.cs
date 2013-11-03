@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
+using Telerik.WinControls;
+using Telerik.WinControls.UI;
 
 namespace OSU_player
 {
-    public partial class DelDulp : Form
+    public partial class DelDulp : RadForm
     {
         public DelDulp()
         {
@@ -101,7 +101,7 @@ namespace OSU_player
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             progressBar1.Maximum += Convert.ToInt32(e.UserState.ToString());
-            progressBar1.Value = (progressBar1.Value + 1) % progressBar1.Maximum;
+            progressBar1.Value1 = (progressBar1.Value1 + 1) % progressBar1.Maximum;
         }
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -110,7 +110,7 @@ namespace OSU_player
                 while (i < tmpbms.Count && tmpbms[i].Location == tmpbms[i - 1].Location) { tmpbms.RemoveAt(i); }
             }
             progressBar1.Maximum = tmpbms.Count;
-            progressBar1.Value = 0;
+            progressBar1.Value1 = 0;
             this.backgroundWorker2.RunWorkerAsync(0);
         }
         private void button3_Click(object sender, EventArgs e)
@@ -135,11 +135,11 @@ namespace OSU_player
         }
         private void backgroundWorker2_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            progressBar1.Value++;
+            progressBar1.Value1++;
         }
         private void backgroundWorker2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            progressBar1.Value = 0;
+            progressBar1.Value1 = 0;
             this.backgroundWorker3.RunWorkerAsync(0);
         }
         private void backgroundWorker3_DoWork(object sender, DoWorkEventArgs e)
@@ -151,14 +151,14 @@ namespace OSU_player
         }
         private void backgroundWorker3_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            progressBar1.Value++;
+            progressBar1.Value1++;
         }
         private void backgroundWorker3_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (dul.Count == 0) { MessageBox.Show("没有神马要删除的！><"); this.Dispose()}
+            if (dul.Count == 0) { RadMessageBox.Show("没有神马要删除的！><"); this.Dispose(); }
             else
             {
-                MessageBox.Show(string.Format("扫描完毕，发现重复曲目{0}个", dul.Count));
+                RadMessageBox.Show(string.Format("扫描完毕，发现重复曲目{0}个", dul.Count));
                 adddul();
             }
         }
@@ -201,7 +201,7 @@ namespace OSU_player
         {
             if (listView1.CheckedItems.Count == 0)
             {
-                MessageBox.Show("没有神马要删除的！><");
+                RadMessageBox.Show("没有神马要删除的！><");
                 return;
             }
             int count = 0;
@@ -217,9 +217,9 @@ namespace OSU_player
             }
             if (count != 0)
             {
-                if (MessageBox.Show(string.Format("有{0}组被全部选中，确定继续？", count), "提示", MessageBoxButtons.YesNo) != DialogResult.Yes) { return; }
+                if (RadMessageBox.Show(string.Format("有{0}组被全部选中，确定继续？", count), "提示", MessageBoxButtons.YesNo) != DialogResult.Yes) { return; }
             }
-            if (MessageBox.Show(string.Format("将删除{0}个，确定继续？", listView1.CheckedItems.Count), "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (RadMessageBox.Show(string.Format("将删除{0}个，确定继续？", listView1.CheckedItems.Count), "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 List<string> filedelete = new List<string>();
                 foreach (ListViewItem item in listView1.CheckedItems)
@@ -227,7 +227,7 @@ namespace OSU_player
                     filedelete.Add(item.Text);
                 }
                 Delete(filedelete);
-                MessageBox.Show(string.Format("删除完毕，共删除{0}个", listView1.CheckedItems.Count));
+                RadMessageBox.Show(string.Format("删除完毕，共删除{0}个", listView1.CheckedItems.Count));
                 this.Dispose();
             }
         }
@@ -274,7 +274,6 @@ namespace OSU_player
 
         private void button5_Click(object sender, EventArgs e)
         {
-            listView1.Select();
             listView1.SelectedItems.Clear();
             foreach (ListViewItem tmp in listView1.CheckedItems)
             {
