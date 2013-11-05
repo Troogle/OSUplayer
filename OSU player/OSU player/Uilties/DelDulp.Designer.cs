@@ -35,17 +35,19 @@
             this.button2 = new Telerik.WinControls.UI.RadButton();
             this.button3 = new Telerik.WinControls.UI.RadButton();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.progressBar1 = new Telerik.WinControls.UI.RadProgressBar();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
             this.button4 = new Telerik.WinControls.UI.RadButton();
             this.button5 = new Telerik.WinControls.UI.RadButton();
+            this.radStatusStrip1 = new Telerik.WinControls.UI.RadStatusStrip();
+            this.progressBar1 = new Telerik.WinControls.UI.RadProgressBarElement();
+            this.Label1 = new Telerik.WinControls.UI.RadLabelElement();
             ((System.ComponentModel.ISupportInitialize)(this.button1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.button2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.button3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.progressBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.button4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.button5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radStatusStrip1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -123,15 +125,6 @@
             this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
-            // progressBar1
-            // 
-            this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar1.Location = new System.Drawing.Point(12, 331);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(433, 23);
-            this.progressBar1.TabIndex = 4;
-            // 
             // backgroundWorker2
             // 
             this.backgroundWorker2.WorkerReportsProgress = true;
@@ -168,18 +161,58 @@
             this.button5.Text = "清除选中";
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
+            // radStatusStrip1
+            // 
+            this.radStatusStrip1.Items.AddRange(new Telerik.WinControls.RadItem[] {
+            this.progressBar1,
+            this.Label1});
+            this.radStatusStrip1.Location = new System.Drawing.Point(0, 329);
+            this.radStatusStrip1.Name = "radStatusStrip1";
+            this.radStatusStrip1.Size = new System.Drawing.Size(538, 28);
+            this.radStatusStrip1.TabIndex = 7;
+            this.radStatusStrip1.Text = "radStatusStrip1";
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.AutoSize = false;
+            this.progressBar1.Bounds = new System.Drawing.Rectangle(0, 0, 300, 22);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.SeparatorColor1 = System.Drawing.Color.White;
+            this.progressBar1.SeparatorColor2 = System.Drawing.Color.White;
+            this.progressBar1.SeparatorColor3 = System.Drawing.Color.White;
+            this.progressBar1.SeparatorColor4 = System.Drawing.Color.White;
+            this.progressBar1.SeparatorGradientAngle = 0;
+            this.progressBar1.SeparatorGradientPercentage1 = 0.4F;
+            this.progressBar1.SeparatorGradientPercentage2 = 0.6F;
+            this.progressBar1.SeparatorNumberOfColors = 2;
+            this.radStatusStrip1.SetSpring(this.progressBar1, false);
+            this.progressBar1.StepWidth = 14;
+            this.progressBar1.SweepAngle = 90;
+            this.progressBar1.Text = "";
+            this.progressBar1.Visibility = Telerik.WinControls.ElementVisibility.Visible;
+            // 
+            // Label1
+            // 
+            this.Label1.Alignment = System.Drawing.ContentAlignment.TopLeft;
+            this.Label1.Name = "Label1";
+            this.radStatusStrip1.SetSpring(this.Label1, false);
+            this.Label1.Text = "";
+            this.Label1.TextWrap = true;
+            this.Label1.Visibility = Telerik.WinControls.ElementVisibility.Visible;
+            // 
             // DelDulp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(538, 369);
+            this.ClientSize = new System.Drawing.Size(538, 357);
+            this.Controls.Add(this.radStatusStrip1);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
-            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.listView1);
+            this.MinimumSize = new System.Drawing.Size(546, 387);
             this.Name = "DelDulp";
             // 
             // 
@@ -190,11 +223,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.button1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.button2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.button3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.progressBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.button4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.button5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radStatusStrip1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -205,12 +239,14 @@
         private Telerik.WinControls.UI.RadButton button2;
         private Telerik.WinControls.UI.RadButton button3;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private Telerik.WinControls.UI.RadProgressBar progressBar1;
         private System.ComponentModel.BackgroundWorker backgroundWorker2;
         private System.ComponentModel.BackgroundWorker backgroundWorker3;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private Telerik.WinControls.UI.RadButton button4;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private Telerik.WinControls.UI.RadButton button5;
+        private Telerik.WinControls.UI.RadStatusStrip radStatusStrip1;
+        private Telerik.WinControls.UI.RadProgressBarElement progressBar1;
+        private Telerik.WinControls.UI.RadLabelElement Label1;
     }
 }

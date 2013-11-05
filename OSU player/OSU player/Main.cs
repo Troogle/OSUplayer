@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
@@ -129,6 +130,26 @@ namespace OSU_player
             ListDetail.Items.Add(tmpl);
             getscore();
         }
+        private Image resize(Image bmp, Size size)
+        {
+            try
+            {
+                Bitmap tmp = new Bitmap(size.Width, size.Height);
+                Graphics g = Graphics.FromImage(tmp);
+                g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                double mul = size.Width > size.Height ? (double)size.Width / (double)bmp.Width : (double)size.Height / (double)bmp.Height;
+                int newWidth = (int)(bmp.Width * mul);
+                int newHeight = (int)(bmp.Height * mul);
+                g.Clear(Color.Black);
+                g.DrawImage(bmp, new Rectangle((size.Width - newWidth) / 2, (size.Height - newHeight) / 2, newWidth, newHeight), new Rectangle(0, 0, bmp.Width, bmp.Height), GraphicsUnit.Pixel);
+                g.Dispose();
+                return tmp;
+            }
+            catch
+            {
+                return null;
+            }
+        }
         private void setbg()
         {
             printdetail();
@@ -139,17 +160,15 @@ namespace OSU_player
             }
             if (CurrentBeatmap.Background == "")
             {
-                pictureBox1.Image = Core.defaultBG;
+                panel2.BackgroundImage = resize(Core.defaultBG, panel2.Size);
             }
-            else { pictureBox1.Image = Image.FromFile(CurrentBeatmap.Background); }
-            pictureBox1.Visible = true;
+            else { panel2.BackgroundImage = resize(Image.FromFile(CurrentBeatmap.Background), panel2.Size); }
         }
         private void Stop()
         {
             cannext = false;
             uni_Audio.Stop();
             uni_Video.Stop();
-            pictureBox1.Visible = true;
             TrackSeek.Enabled = false;
             TrackSeek.Value = 0;
             StopButton.Enabled = false;
@@ -164,7 +183,6 @@ namespace OSU_player
             uni_Audio.UpdateTimer.Tick += new EventHandler(AVsync);
             if (CurrentBeatmap.haveVideo && playvideo && File.Exists(Path.Combine(CurrentBeatmap.Location, CurrentBeatmap.Video)))
             {
-                pictureBox1.Visible = false;
                 if (CurrentBeatmap.VideoOffset > 0)
                 {
                     uni_Audio.Play(Allvolume * Musicvolume);
@@ -355,7 +373,6 @@ namespace OSU_player
         }
         private void PlayNext()
         {
-
             int next;
             int now;
             if (PlayList.SelectedItems.Count == 0) { now = 0; }
@@ -439,11 +456,22 @@ namespace OSU_player
         private void getscore()
         {
             ScoreBox.Items.Clear();
-            if (Core.Scores.ContainsKey(TmpBeatmap.GetHash()))
+            for (int i = 0; i < TmpSet.count; i++)
             {
-                foreach (Score tmp in Core.Scores[TmpBeatmap.GetHash()])
+                if (Core.Scores.ContainsKey(TmpSet.Diffs[i].GetHash()))
                 {
-                    ScoreBox.Items.Add(String.Format("Player:{0},date:{1},score:{2},mods:{3},mode:{4}", tmp.player, tmp.time.ToString(), tmp.score.ToString(), tmp.mod, tmp.mode.ToString()));
+                    foreach (Score tmp in Core.Scores[TmpSet.Diffs[i].GetHash()])
+                    {
+                        ListViewDataItem tmpl = new ListViewDataItem();
+                        tmpl.Image = Core.getrank();
+                        tmpl.Text = String.Format(
+                            "<html>Player:{0},Date:{1},Score: {2}<br>Diff:{3},Mods:{4},Mode:{5}<br>300:{6},100:{7},50:{8},Miss:{9},Maxcombo:{10}</html>", 
+                            tmp.player, tmp.time.ToString(), tmp.score, TmpSet.Diffs[i].Version, 
+                            tmp.mod, tmp.mode.ToString(),
+                            tmp.hit300,tmp.hit100,tmp.hit50,tmp.miss,tmp.maxCombo);
+                        tmpl.Font = ScoreBox.Font;
+                        ScoreBox.Items.Add(tmpl);
+                    }
                 }
             }
         }
@@ -451,7 +479,6 @@ namespace OSU_player
         private void LoadPreference()
         {
             Core.uin = Properties.Settings.Default.QQuin;
-            LabelQQ.Text = "当前同步QQ：" + Core.uin.ToString();
             if (Core.uin == 0)
             {
                 if (
@@ -478,6 +505,7 @@ namespace OSU_player
             }
             else
             {
+                LabelQQ.Text = "当前同步QQ：" + Core.uin.ToString();
                 Core.syncQQ = Properties.Settings.Default.SyncQQ;
                 QQ状态同步.IsChecked = Core.syncQQ;
             }
@@ -641,23 +669,13 @@ namespace OSU_player
                 dialog.ShowDialog();
             }
         }
-        private void Button1_Click(object sender, EventArgs e)
-        {
-            using (Form2 dialog = new Form2())
-            {
-                dialog.ShowDialog();
-            }
-            LabelQQ.Text = "当前同步QQ：" + Core.uin.ToString();
-            Properties.Settings.Default.QQuin = Core.uin;
-            Properties.Settings.Default.Save();
-        }
-        private void TrackBar3_Scroll(object sender, EventArgs e)
+        private void TrackFx_Scroll(object sender, ScrollEventArgs e)
         {
             Fxvolume = (float)TrackFx.Value / (float)TrackFx.Maximum;
             Properties.Settings.Default.Fxvolume = Fxvolume;
             Properties.Settings.Default.Save();
         }
-        private void trackBar4_Scroll(object sender, EventArgs e)
+        private void TrackMusic_Scroll(object sender, ScrollEventArgs e)
         {
             Musicvolume = (float)TrackMusic.Value / (float)TrackMusic.Maximum;
             if (uni_Audio != null) { uni_Audio.Volume = Allvolume * Musicvolume; }
@@ -742,17 +760,20 @@ namespace OSU_player
             Stop();
             PlayNext();
         }
-        private void TrackBar1_Scroll(object sender, EventArgs e)
+        private void TrackSeek_Scroll(object sender, ScrollEventArgs e)
         {
             uni_Audio.Seek(TrackSeek.Value / 1000);
             uni_Video.seek(TrackSeek.Value / 1000 + CurrentBeatmap.VideoOffset / 1000);
             fxpos = 0;
-            while (fxlist[fxpos].time <= uni_Audio.position * 1000)
+            if (playfx)
             {
-                fxpos++;
+                while (fxlist[fxpos].time <= uni_Audio.position * 1000)
+                {
+                    fxpos++;
+                }
             }
         }
-        private void TrackBar2_Scroll(object sender, EventArgs e)
+        private void TrackVolume_Scroll(object sender, ScrollEventArgs e)
         {
             Allvolume = 1.0f - (float)TrackVolume.Value / (float)TrackVolume.Maximum;
             if (uni_Audio != null) { uni_Audio.Volume = Allvolume * Musicvolume; }
@@ -793,7 +814,7 @@ namespace OSU_player
             {
                 if (CurrentSet == null)
                 {
-                    PlayList.Items[0].Selected = true;
+                    PlayNext();
                 }
                 Play();
             }
@@ -812,11 +833,6 @@ namespace OSU_player
 
         }
         #endregion
-
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void button3_Click(object sender, EventArgs e)
         {
@@ -861,6 +877,48 @@ namespace OSU_player
             }
         }
 
+        private void radMenuItem1_Click(object sender, EventArgs e)
+        {
+            using (Form2 dialog = new Form2())
+            {
+                dialog.ShowDialog();
+            }
+            if (Core.uin == 0)
+            {
+                LabelQQ.Text = "当前同步QQ：";
+                QQ状态同步.IsChecked = false;
+                Core.syncQQ = false;
+                Properties.Settings.Default.SyncQQ = false;
+                Properties.Settings.Default.Save();
+            }
+            else
+            {
+                LabelQQ.Text = "当前同步QQ：" + Core.uin.ToString();
+                Properties.Settings.Default.QQuin = Core.uin;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+
+
+        private void radButton1_Click(object sender, EventArgs e)
+        {
+            if (panel1.Visible)
+            {
+                panel1.Visible = false;
+                radButton1.Text = "↘";
+                this.Size = new Size(540, 500);
+                this.Refresh();
+            }
+            else
+            {
+                panel1.Visible = true;
+                radButton1.Text = "↖";
+                this.Size = new Size(900, 740);
+                this.Refresh();
+
+            }
+        }
 
     }
 }

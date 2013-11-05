@@ -28,9 +28,9 @@ namespace OSU_player
         /// </summary>
         private void InitializeComponent()
         {
-            Telerik.WinControls.UI.RadListDataItem radListDataItem1 = new Telerik.WinControls.UI.RadListDataItem();
-            Telerik.WinControls.UI.RadListDataItem radListDataItem2 = new Telerik.WinControls.UI.RadListDataItem();
-            Telerik.WinControls.UI.RadListDataItem radListDataItem3 = new Telerik.WinControls.UI.RadListDataItem();
+            Telerik.WinControls.UI.RadListDataItem radListDataItem4 = new Telerik.WinControls.UI.RadListDataItem();
+            Telerik.WinControls.UI.RadListDataItem radListDataItem5 = new Telerik.WinControls.UI.RadListDataItem();
+            Telerik.WinControls.UI.RadListDataItem radListDataItem6 = new Telerik.WinControls.UI.RadListDataItem();
             this.MenuStrip1 = new Telerik.WinControls.UI.RadMenu();
             this.ToolStripMenuItem1 = new Telerik.WinControls.UI.RadMenuItem();
             this.运行OSU = new Telerik.WinControls.UI.RadMenuItem();
@@ -51,62 +51,65 @@ namespace OSU_player
             this.音效 = new Telerik.WinControls.UI.RadMenuItem();
             this.视频开关 = new Telerik.WinControls.UI.RadMenuItem();
             this.radMenuComboItem1 = new Telerik.WinControls.UI.RadMenuComboItem();
+            this.radMenuItem1 = new Telerik.WinControls.UI.RadMenuItem();
             this.QQ状态同步 = new Telerik.WinControls.UI.RadMenuItem();
             this.SB开关 = new Telerik.WinControls.UI.RadMenuItem();
             this.关于 = new Telerik.WinControls.UI.RadMenuItem();
             this.radMenuButtonItem1 = new Telerik.WinControls.UI.RadMenuButtonItem();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.TextBox1 = new Telerik.WinControls.UI.RadTextBox();
+            this.PlayList = new System.Windows.Forms.ListView();
+            this.ColumnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.SetNum = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.SearchButton = new Telerik.WinControls.UI.RadButton();
+            this.Button2 = new Telerik.WinControls.UI.RadButton();
             this.radPageView1 = new Telerik.WinControls.UI.RadPageView();
+            this.radPageViewPage3 = new Telerik.WinControls.UI.RadPageViewPage();
+            this.DiffList = new System.Windows.Forms.ListBox();
             this.radPageViewPage1 = new Telerik.WinControls.UI.RadPageViewPage();
             this.ListDetail = new System.Windows.Forms.ListView();
             this.ColumnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ColumnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.radPageViewPage2 = new Telerik.WinControls.UI.RadPageViewPage();
-            this.ScoreBox = new System.Windows.Forms.ListBox();
+            this.LabelQQ = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.radButton1 = new Telerik.WinControls.UI.RadButton();
             this.button3 = new Telerik.WinControls.UI.RadButton();
-            this.TextBox1 = new Telerik.WinControls.UI.RadTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.TrackMusic = new Telerik.WinControls.UI.RadTrackBar();
             this.panel2 = new System.Windows.Forms.Panel();
             this.TrackFx = new Telerik.WinControls.UI.RadTrackBar();
-            this.PlayList = new System.Windows.Forms.ListView();
-            this.ColumnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.SetNum = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Label3 = new System.Windows.Forms.Label();
-            this.DiffList = new System.Windows.Forms.ListBox();
             this.TrackVolume = new Telerik.WinControls.UI.RadTrackBar();
             this.Label4 = new System.Windows.Forms.Label();
-            this.SearchButton = new Telerik.WinControls.UI.RadButton();
             this.Label2 = new System.Windows.Forms.Label();
-            this.Button2 = new Telerik.WinControls.UI.RadButton();
-            this.Button1 = new Telerik.WinControls.UI.RadButton();
-            this.LabelQQ = new System.Windows.Forms.Label();
             this.NextButton = new Telerik.WinControls.UI.RadButton();
             this.TrackSeek = new Telerik.WinControls.UI.RadTrackBar();
             this.StopButton = new Telerik.WinControls.UI.RadButton();
             this.PlayButton = new Telerik.WinControls.UI.RadButton();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.ScoreBox = new Telerik.WinControls.UI.RadListView();
             ((System.ComponentModel.ISupportInitialize)(this.MenuStrip1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radMenuComboItem1.ComboBoxElement)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radPageView1)).BeginInit();
-            this.radPageView1.SuspendLayout();
-            this.radPageViewPage1.SuspendLayout();
-            this.radPageViewPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.button3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TextBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TrackMusic)).BeginInit();
-            this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.TrackFx)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TrackVolume)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SearchButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Button2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Button1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radPageView1)).BeginInit();
+            this.radPageView1.SuspendLayout();
+            this.radPageViewPage3.SuspendLayout();
+            this.radPageViewPage1.SuspendLayout();
+            this.radPageViewPage2.SuspendLayout();
+            this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radButton1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.button3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TrackMusic)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TrackFx)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TrackVolume)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NextButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrackSeek)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.StopButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayButton)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ScoreBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -120,7 +123,7 @@ namespace OSU_player
             this.radMenuButtonItem1});
             this.MenuStrip1.Location = new System.Drawing.Point(4, 4);
             this.MenuStrip1.Name = "MenuStrip1";
-            this.MenuStrip1.Size = new System.Drawing.Size(894, 30);
+            this.MenuStrip1.Size = new System.Drawing.Size(884, 30);
             this.MenuStrip1.TabIndex = 2;
             this.MenuStrip1.Text = "MenuStrip1";
             // 
@@ -268,6 +271,7 @@ namespace OSU_player
             this.音效,
             this.视频开关,
             this.radMenuComboItem1,
+            this.radMenuItem1,
             this.QQ状态同步,
             this.SB开关});
             this.ToolStripMenuItem3.Name = "ToolStripMenuItem3";
@@ -330,16 +334,16 @@ namespace OSU_player
             this.radMenuComboItem1.ComboBoxElement.FormatString = "";
             this.radMenuComboItem1.ComboBoxElement.FormattingEnabled = true;
             this.radMenuComboItem1.ComboBoxElement.ItemHeight = 18;
-            radListDataItem1.Text = "顺序播放";
-            radListDataItem1.TextWrap = true;
-            radListDataItem2.Text = "单曲循环";
-            radListDataItem2.TextWrap = true;
-            radListDataItem3.Selected = true;
-            radListDataItem3.Text = "随机播放";
-            radListDataItem3.TextWrap = true;
-            this.radMenuComboItem1.ComboBoxElement.Items.Add(radListDataItem1);
-            this.radMenuComboItem1.ComboBoxElement.Items.Add(radListDataItem2);
-            this.radMenuComboItem1.ComboBoxElement.Items.Add(radListDataItem3);
+            radListDataItem4.Text = "顺序播放";
+            radListDataItem4.TextWrap = true;
+            radListDataItem5.Text = "单曲循环";
+            radListDataItem5.TextWrap = true;
+            radListDataItem6.Selected = true;
+            radListDataItem6.Text = "随机播放";
+            radListDataItem6.TextWrap = true;
+            this.radMenuComboItem1.ComboBoxElement.Items.Add(radListDataItem4);
+            this.radMenuComboItem1.ComboBoxElement.Items.Add(radListDataItem5);
+            this.radMenuComboItem1.ComboBoxElement.Items.Add(radListDataItem6);
             this.radMenuComboItem1.ComboBoxElement.MaxDropDownItems = 0;
             this.radMenuComboItem1.ComboBoxElement.MaxLength = 32767;
             this.radMenuComboItem1.ComboBoxElement.MaxValue = null;
@@ -357,6 +361,15 @@ namespace OSU_player
             this.radMenuComboItem1.Text = "radMenuComboItem1";
             this.radMenuComboItem1.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             ((Telerik.WinControls.UI.RadDropDownListElement)(this.radMenuComboItem1.GetChildAt(3))).DropDownStyle = Telerik.WinControls.RadDropDownStyle.DropDownList;
+            // 
+            // radMenuItem1
+            // 
+            this.radMenuItem1.AccessibleDescription = "选择QQ";
+            this.radMenuItem1.AccessibleName = "选择QQ";
+            this.radMenuItem1.Name = "radMenuItem1";
+            this.radMenuItem1.Text = "选择QQ";
+            this.radMenuItem1.Visibility = Telerik.WinControls.ElementVisibility.Visible;
+            this.radMenuItem1.Click += new System.EventHandler(this.radMenuItem1_Click);
             // 
             // QQ状态同步
             // 
@@ -406,57 +419,122 @@ namespace OSU_player
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.radPageView1);
-            this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.TextBox1);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.TrackMusic);
-            this.panel1.Controls.Add(this.panel2);
-            this.panel1.Controls.Add(this.TrackFx);
             this.panel1.Controls.Add(this.PlayList);
-            this.panel1.Controls.Add(this.Label3);
-            this.panel1.Controls.Add(this.DiffList);
-            this.panel1.Controls.Add(this.TrackVolume);
-            this.panel1.Controls.Add(this.Label4);
             this.panel1.Controls.Add(this.SearchButton);
-            this.panel1.Controls.Add(this.Label2);
             this.panel1.Controls.Add(this.Button2);
-            this.panel1.Controls.Add(this.Button1);
+            this.panel1.Controls.Add(this.radPageView1);
             this.panel1.Controls.Add(this.LabelQQ);
-            this.panel1.Controls.Add(this.NextButton);
-            this.panel1.Controls.Add(this.TrackSeek);
-            this.panel1.Controls.Add(this.StopButton);
-            this.panel1.Controls.Add(this.PlayButton);
             this.panel1.Location = new System.Drawing.Point(4, 40);
             this.panel1.MinimumSize = new System.Drawing.Size(882, 651);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(882, 671);
+            this.panel1.Size = new System.Drawing.Size(882, 663);
             this.panel1.TabIndex = 21;
+            // 
+            // TextBox1
+            // 
+            this.TextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TextBox1.Location = new System.Drawing.Point(535, 627);
+            this.TextBox1.Name = "TextBox1";
+            this.TextBox1.NullText = "Enter Keywords";
+            this.TextBox1.Size = new System.Drawing.Size(250, 24);
+            this.TextBox1.TabIndex = 35;
+            this.TextBox1.TabStop = false;
+            // 
+            // PlayList
+            // 
+            this.PlayList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.PlayList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.ColumnHeader1,
+            this.SetNum});
+            this.PlayList.FullRowSelect = true;
+            this.PlayList.GridLines = true;
+            this.PlayList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.PlayList.HideSelection = false;
+            this.PlayList.Location = new System.Drawing.Point(535, 32);
+            this.PlayList.MultiSelect = false;
+            this.PlayList.Name = "PlayList";
+            this.PlayList.Size = new System.Drawing.Size(344, 586);
+            this.PlayList.TabIndex = 24;
+            this.PlayList.UseCompatibleStateImageBehavior = false;
+            this.PlayList.View = System.Windows.Forms.View.Details;
+            this.PlayList.SelectedIndexChanged += new System.EventHandler(this.PlayList_SelectedIndexChanged);
+            this.PlayList.DoubleClick += new System.EventHandler(this.PlayList_DoubleClick);
+            // 
+            // ColumnHeader1
+            // 
+            this.ColumnHeader1.Text = "";
+            this.ColumnHeader1.Width = 500;
+            // 
+            // SetNum
+            // 
+            this.SetNum.Text = "SetNum";
+            this.SetNum.Width = 0;
+            // 
+            // SearchButton
+            // 
+            this.SearchButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.SearchButton.Location = new System.Drawing.Point(791, 624);
+            this.SearchButton.Name = "SearchButton";
+            this.SearchButton.Size = new System.Drawing.Size(88, 32);
+            this.SearchButton.TabIndex = 36;
+            this.SearchButton.Text = "搜索";
+            this.SearchButton.Click += new System.EventHandler(this.SearchButton_Click);
+            // 
+            // Button2
+            // 
+            this.Button2.Location = new System.Drawing.Point(535, 3);
+            this.Button2.Name = "Button2";
+            this.Button2.Size = new System.Drawing.Size(131, 27);
+            this.Button2.TabIndex = 32;
+            this.Button2.Text = "导入Collection";
+            this.Button2.Click += new System.EventHandler(this.Button2_Click);
             // 
             // radPageView1
             // 
             this.radPageView1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.radPageView1.Controls.Add(this.radPageViewPage3);
             this.radPageView1.Controls.Add(this.radPageViewPage1);
             this.radPageView1.Controls.Add(this.radPageViewPage2);
-            this.radPageView1.Location = new System.Drawing.Point(344, 437);
+            this.radPageView1.Location = new System.Drawing.Point(-3, 422);
             this.radPageView1.Name = "radPageView1";
-            this.radPageView1.SelectedPage = this.radPageViewPage1;
-            this.radPageView1.Size = new System.Drawing.Size(524, 221);
+            this.radPageView1.SelectedPage = this.radPageViewPage3;
+            this.radPageView1.Size = new System.Drawing.Size(533, 238);
             this.radPageView1.TabIndex = 1;
             this.radPageView1.Text = "radPageView1";
             this.radPageView1.SelectedPageChanged += new System.EventHandler(this.radPageView1_SelectedPageChanged);
             ((Telerik.WinControls.UI.RadPageViewStripElement)(this.radPageView1.GetChildAt(0))).StripButtons = Telerik.WinControls.UI.StripViewButtons.None;
             ((Telerik.WinControls.UI.RadPageViewStripElement)(this.radPageView1.GetChildAt(0))).StripAlignment = Telerik.WinControls.UI.StripViewAlignment.Bottom;
             // 
+            // radPageViewPage3
+            // 
+            this.radPageViewPage3.Controls.Add(this.DiffList);
+            this.radPageViewPage3.Location = new System.Drawing.Point(10, 10);
+            this.radPageViewPage3.Name = "radPageViewPage3";
+            this.radPageViewPage3.Size = new System.Drawing.Size(512, 186);
+            this.radPageViewPage3.Text = "Diff信息";
+            // 
+            // DiffList
+            // 
+            this.DiffList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.DiffList.FormattingEnabled = true;
+            this.DiffList.ItemHeight = 15;
+            this.DiffList.Location = new System.Drawing.Point(3, 10);
+            this.DiffList.Name = "DiffList";
+            this.DiffList.Size = new System.Drawing.Size(506, 169);
+            this.DiffList.TabIndex = 25;
+            this.DiffList.SelectedIndexChanged += new System.EventHandler(this.DiffList_SelectedIndexChanged);
+            this.DiffList.DoubleClick += new System.EventHandler(this.DiffList_DoubleClick);
+            // 
             // radPageViewPage1
             // 
             this.radPageViewPage1.Controls.Add(this.ListDetail);
             this.radPageViewPage1.Location = new System.Drawing.Point(10, 10);
             this.radPageViewPage1.Name = "radPageViewPage1";
-            this.radPageViewPage1.Size = new System.Drawing.Size(503, 173);
+            this.radPageViewPage1.Size = new System.Drawing.Size(508, 179);
             this.radPageViewPage1.Text = "Map信息";
             // 
             // ListDetail
@@ -472,7 +550,7 @@ namespace OSU_player
             this.ListDetail.Location = new System.Drawing.Point(3, 3);
             this.ListDetail.MultiSelect = false;
             this.ListDetail.Name = "ListDetail";
-            this.ListDetail.Size = new System.Drawing.Size(497, 161);
+            this.ListDetail.Size = new System.Drawing.Size(502, 169);
             this.ListDetail.TabIndex = 40;
             this.ListDetail.UseCompatibleStateImageBehavior = false;
             this.ListDetail.View = System.Windows.Forms.View.Details;
@@ -492,277 +570,209 @@ namespace OSU_player
             this.radPageViewPage2.Controls.Add(this.ScoreBox);
             this.radPageViewPage2.Location = new System.Drawing.Point(10, 10);
             this.radPageViewPage2.Name = "radPageViewPage2";
-            this.radPageViewPage2.Size = new System.Drawing.Size(503, 169);
+            this.radPageViewPage2.Size = new System.Drawing.Size(508, 179);
             this.radPageViewPage2.Text = "成绩信息";
-            // 
-            // ScoreBox
-            // 
-            this.ScoreBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ScoreBox.FormattingEnabled = true;
-            this.ScoreBox.ItemHeight = 15;
-            this.ScoreBox.Location = new System.Drawing.Point(3, 3);
-            this.ScoreBox.Name = "ScoreBox";
-            this.ScoreBox.Size = new System.Drawing.Size(497, 154);
-            this.ScoreBox.TabIndex = 0;
-            // 
-            // button3
-            // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Location = new System.Drawing.Point(830, 7);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(30, 27);
-            this.button3.TabIndex = 22;
-            this.button3.Text = "↙";
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // TextBox1
-            // 
-            this.TextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.TextBox1.Location = new System.Drawing.Point(14, 411);
-            this.TextBox1.Name = "TextBox1";
-            this.TextBox1.NullText = "Enter Keywords";
-            this.TextBox1.Size = new System.Drawing.Size(239, 24);
-            this.TextBox1.TabIndex = 35;
-            this.TextBox1.TabStop = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(434, 11);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(106, 15);
-            this.label1.TabIndex = 42;
-            this.label1.Text = "00:00/00:00";
-            // 
-            // TrackMusic
-            // 
-            this.TrackMusic.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.TrackMusic.Location = new System.Drawing.Point(599, 7);
-            this.TrackMusic.Maximum = 100;
-            this.TrackMusic.Name = "TrackMusic";
-            this.TrackMusic.ShowTicks = false;
-            this.TrackMusic.Size = new System.Drawing.Size(88, 27);
-            this.TrackMusic.SliderAreaColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.TrackMusic.TabIndex = 41;
-            this.TrackMusic.TickStyle = Telerik.WinControls.Enumerations.TickStyles.None;
-            this.TrackMusic.Value = 80;
-            this.TrackMusic.Scroll += new System.Windows.Forms.ScrollEventHandler(this.trackBar4_Scroll);
-            // 
-            // panel2
-            // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.Controls.Add(this.pictureBox1);
-            this.panel2.Location = new System.Drawing.Point(344, 40);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(480, 360);
-            this.panel2.TabIndex = 26;
-            // 
-            // TrackFx
-            // 
-            this.TrackFx.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.TrackFx.Location = new System.Drawing.Point(736, 7);
-            this.TrackFx.Maximum = 100;
-            this.TrackFx.Name = "TrackFx";
-            this.TrackFx.ShowTicks = false;
-            this.TrackFx.Size = new System.Drawing.Size(88, 27);
-            this.TrackFx.SliderAreaColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.TrackFx.TabIndex = 37;
-            this.TrackFx.TickStyle = Telerik.WinControls.Enumerations.TickStyles.None;
-            this.TrackFx.Value = 60;
-            this.TrackFx.Scroll += new System.Windows.Forms.ScrollEventHandler(this.TrackBar3_Scroll);
-            // 
-            // PlayList
-            // 
-            this.PlayList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.PlayList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.ColumnHeader1,
-            this.SetNum});
-            this.PlayList.FullRowSelect = true;
-            this.PlayList.GridLines = true;
-            this.PlayList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.PlayList.HideSelection = false;
-            this.PlayList.Location = new System.Drawing.Point(14, 40);
-            this.PlayList.MultiSelect = false;
-            this.PlayList.Name = "PlayList";
-            this.PlayList.Size = new System.Drawing.Size(320, 364);
-            this.PlayList.TabIndex = 24;
-            this.PlayList.UseCompatibleStateImageBehavior = false;
-            this.PlayList.View = System.Windows.Forms.View.Details;
-            this.PlayList.SelectedIndexChanged += new System.EventHandler(this.PlayList_SelectedIndexChanged);
-            this.PlayList.DoubleClick += new System.EventHandler(this.PlayList_DoubleClick);
-            // 
-            // ColumnHeader1
-            // 
-            this.ColumnHeader1.Text = "";
-            this.ColumnHeader1.Width = 500;
-            // 
-            // SetNum
-            // 
-            this.SetNum.Text = "SetNum";
-            this.SetNum.Width = 0;
-            // 
-            // Label3
-            // 
-            this.Label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Label3.AutoSize = true;
-            this.Label3.Location = new System.Drawing.Point(693, 11);
-            this.Label3.Name = "Label3";
-            this.Label3.Size = new System.Drawing.Size(37, 19);
-            this.Label3.TabIndex = 38;
-            this.Label3.Text = "音效";
-            // 
-            // DiffList
-            // 
-            this.DiffList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.DiffList.FormattingEnabled = true;
-            this.DiffList.ItemHeight = 15;
-            this.DiffList.Location = new System.Drawing.Point(14, 444);
-            this.DiffList.Name = "DiffList";
-            this.DiffList.Size = new System.Drawing.Size(320, 214);
-            this.DiffList.TabIndex = 25;
-            this.DiffList.SelectedIndexChanged += new System.EventHandler(this.DiffList_SelectedIndexChanged);
-            this.DiffList.DoubleClick += new System.EventHandler(this.DiffList_DoubleClick);
-            // 
-            // TrackVolume
-            // 
-            this.TrackVolume.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.TrackVolume.Location = new System.Drawing.Point(835, 40);
-            this.TrackVolume.Maximum = 100;
-            this.TrackVolume.Name = "TrackVolume";
-            this.TrackVolume.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.TrackVolume.ShowTicks = false;
-            this.TrackVolume.Size = new System.Drawing.Size(29, 342);
-            this.TrackVolume.SliderAreaColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.TrackVolume.TabIndex = 33;
-            this.TrackVolume.TickStyle = Telerik.WinControls.Enumerations.TickStyles.None;
-            this.TrackVolume.Scroll += new System.Windows.Forms.ScrollEventHandler(this.TrackBar2_Scroll);
-            // 
-            // Label4
-            // 
-            this.Label4.AutoSize = true;
-            this.Label4.Location = new System.Drawing.Point(556, 11);
-            this.Label4.Name = "Label4";
-            this.Label4.Size = new System.Drawing.Size(37, 19);
-            this.Label4.TabIndex = 39;
-            this.Label4.Text = "音乐";
-            // 
-            // SearchButton
-            // 
-            this.SearchButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.SearchButton.Location = new System.Drawing.Point(259, 411);
-            this.SearchButton.Name = "SearchButton";
-            this.SearchButton.Size = new System.Drawing.Size(75, 27);
-            this.SearchButton.TabIndex = 36;
-            this.SearchButton.Text = "搜索";
-            this.SearchButton.Click += new System.EventHandler(this.SearchButton_Click);
-            // 
-            // Label2
-            // 
-            this.Label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Label2.AutoSize = true;
-            this.Label2.Location = new System.Drawing.Point(831, 385);
-            this.Label2.Name = "Label2";
-            this.Label2.Size = new System.Drawing.Size(37, 19);
-            this.Label2.TabIndex = 34;
-            this.Label2.Text = "音量";
-            // 
-            // Button2
-            // 
-            this.Button2.Location = new System.Drawing.Point(14, 5);
-            this.Button2.Name = "Button2";
-            this.Button2.Size = new System.Drawing.Size(131, 27);
-            this.Button2.TabIndex = 32;
-            this.Button2.Text = "选择Collection";
-            this.Button2.Click += new System.EventHandler(this.Button2_Click);
-            // 
-            // Button1
-            // 
-            this.Button1.Location = new System.Drawing.Point(344, 5);
-            this.Button1.Name = "Button1";
-            this.Button1.Size = new System.Drawing.Size(84, 27);
-            this.Button1.TabIndex = 31;
-            this.Button1.Text = "选择QQ";
-            this.Button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // LabelQQ
             // 
             this.LabelQQ.AutoSize = true;
-            this.LabelQQ.Location = new System.Drawing.Point(151, 11);
+            this.LabelQQ.Location = new System.Drawing.Point(672, 8);
             this.LabelQQ.Name = "LabelQQ";
             this.LabelQQ.Size = new System.Drawing.Size(90, 19);
             this.LabelQQ.TabIndex = 30;
             this.LabelQQ.Text = "当前同步QQ:";
             // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.radButton1);
+            this.panel3.Controls.Add(this.button3);
+            this.panel3.Controls.Add(this.label1);
+            this.panel3.Controls.Add(this.TrackMusic);
+            this.panel3.Controls.Add(this.panel2);
+            this.panel3.Controls.Add(this.TrackFx);
+            this.panel3.Controls.Add(this.Label3);
+            this.panel3.Controls.Add(this.TrackVolume);
+            this.panel3.Controls.Add(this.Label4);
+            this.panel3.Controls.Add(this.Label2);
+            this.panel3.Controls.Add(this.NextButton);
+            this.panel3.Controls.Add(this.TrackSeek);
+            this.panel3.Controls.Add(this.StopButton);
+            this.panel3.Controls.Add(this.PlayButton);
+            this.panel3.Location = new System.Drawing.Point(4, 40);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(529, 423);
+            this.panel3.TabIndex = 22;
+            // 
+            // radButton1
+            // 
+            this.radButton1.Location = new System.Drawing.Point(493, 392);
+            this.radButton1.Name = "radButton1";
+            this.radButton1.Size = new System.Drawing.Size(30, 27);
+            this.radButton1.TabIndex = 44;
+            this.radButton1.Text = "↖";
+            this.radButton1.Click += new System.EventHandler(this.radButton1_Click);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(493, 2);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(30, 27);
+            this.button3.TabIndex = 43;
+            this.button3.Text = "↓";
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(7, 8);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(106, 15);
+            this.label1.TabIndex = 55;
+            this.label1.Text = "00:00/00:00";
+            // 
+            // TrackMusic
+            // 
+            this.TrackMusic.Location = new System.Drawing.Point(162, 2);
+            this.TrackMusic.Maximum = 100;
+            this.TrackMusic.Name = "TrackMusic";
+            this.TrackMusic.ShowTicks = false;
+            this.TrackMusic.Size = new System.Drawing.Size(148, 27);
+            this.TrackMusic.SliderAreaColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.TrackMusic.TabIndex = 54;
+            this.TrackMusic.TickStyle = Telerik.WinControls.Enumerations.TickStyles.None;
+            this.TrackMusic.Value = 80;
+            this.TrackMusic.Scroll += new System.Windows.Forms.ScrollEventHandler(this.TrackMusic_Scroll);
+            // 
+            // panel2
+            // 
+            this.panel2.Location = new System.Drawing.Point(7, 29);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(480, 360);
+            this.panel2.TabIndex = 45;
+            // 
+            // TrackFx
+            // 
+            this.TrackFx.Location = new System.Drawing.Point(359, 2);
+            this.TrackFx.Maximum = 100;
+            this.TrackFx.Name = "TrackFx";
+            this.TrackFx.ShowTicks = false;
+            this.TrackFx.Size = new System.Drawing.Size(128, 27);
+            this.TrackFx.SliderAreaColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.TrackFx.TabIndex = 51;
+            this.TrackFx.TickStyle = Telerik.WinControls.Enumerations.TickStyles.None;
+            this.TrackFx.Value = 60;
+            this.TrackFx.Scroll += new System.Windows.Forms.ScrollEventHandler(this.TrackFx_Scroll);
+            // 
+            // Label3
+            // 
+            this.Label3.AutoSize = true;
+            this.Label3.Location = new System.Drawing.Point(316, 6);
+            this.Label3.Name = "Label3";
+            this.Label3.Size = new System.Drawing.Size(37, 19);
+            this.Label3.TabIndex = 52;
+            this.Label3.Text = "音效";
+            // 
+            // TrackVolume
+            // 
+            this.TrackVolume.Location = new System.Drawing.Point(493, 35);
+            this.TrackVolume.Maximum = 100;
+            this.TrackVolume.Name = "TrackVolume";
+            this.TrackVolume.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.TrackVolume.ShowTicks = false;
+            this.TrackVolume.Size = new System.Drawing.Size(29, 332);
+            this.TrackVolume.SliderAreaColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.TrackVolume.TabIndex = 49;
+            this.TrackVolume.TickStyle = Telerik.WinControls.Enumerations.TickStyles.None;
+            this.TrackVolume.Scroll += new System.Windows.Forms.ScrollEventHandler(this.TrackVolume_Scroll);
+            // 
+            // Label4
+            // 
+            this.Label4.AutoSize = true;
+            this.Label4.Location = new System.Drawing.Point(119, 6);
+            this.Label4.Name = "Label4";
+            this.Label4.Size = new System.Drawing.Size(37, 19);
+            this.Label4.TabIndex = 53;
+            this.Label4.Text = "音乐";
+            // 
+            // Label2
+            // 
+            this.Label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Label2.AutoSize = true;
+            this.Label2.Location = new System.Drawing.Point(489, 370);
+            this.Label2.Name = "Label2";
+            this.Label2.Size = new System.Drawing.Size(37, 19);
+            this.Label2.TabIndex = 50;
+            this.Label2.Text = "音量";
+            // 
             // NextButton
             // 
-            this.NextButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.NextButton.Location = new System.Drawing.Point(470, 405);
+            this.NextButton.Location = new System.Drawing.Point(133, 395);
             this.NextButton.Name = "NextButton";
             this.NextButton.Size = new System.Drawing.Size(43, 26);
-            this.NextButton.TabIndex = 29;
+            this.NextButton.TabIndex = 48;
             this.NextButton.Text = "→";
             this.NextButton.Click += new System.EventHandler(this.NextButton_Click);
             // 
             // TrackSeek
             // 
-            this.TrackSeek.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.TrackSeek.Enabled = false;
-            this.TrackSeek.Location = new System.Drawing.Point(519, 406);
+            this.TrackSeek.Location = new System.Drawing.Point(182, 393);
             this.TrackSeek.Maximum = 1000;
             this.TrackSeek.Name = "TrackSeek";
             this.TrackSeek.ShowTicks = false;
-            this.TrackSeek.Size = new System.Drawing.Size(345, 28);
+            this.TrackSeek.Size = new System.Drawing.Size(305, 28);
             this.TrackSeek.SliderAreaColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.TrackSeek.TabIndex = 23;
+            this.TrackSeek.TabIndex = 44;
             this.TrackSeek.TickStyle = Telerik.WinControls.Enumerations.TickStyles.None;
-            this.TrackSeek.Scroll += new System.Windows.Forms.ScrollEventHandler(this.TrackBar1_Scroll);
+            this.TrackSeek.Scroll += new System.Windows.Forms.ScrollEventHandler(this.TrackSeek_Scroll);
             // 
             // StopButton
             // 
-            this.StopButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.StopButton.Enabled = false;
-            this.StopButton.Location = new System.Drawing.Point(407, 405);
+            this.StopButton.Location = new System.Drawing.Point(70, 395);
             this.StopButton.Name = "StopButton";
             this.StopButton.Size = new System.Drawing.Size(57, 26);
-            this.StopButton.TabIndex = 28;
+            this.StopButton.TabIndex = 47;
             this.StopButton.Text = "停止";
             this.StopButton.Click += new System.EventHandler(this.StopButton_Click);
             // 
             // PlayButton
             // 
-            this.PlayButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.PlayButton.Location = new System.Drawing.Point(344, 405);
+            this.PlayButton.Location = new System.Drawing.Point(7, 395);
             this.PlayButton.Name = "PlayButton";
             this.PlayButton.Size = new System.Drawing.Size(57, 26);
-            this.PlayButton.TabIndex = 27;
+            this.PlayButton.TabIndex = 46;
             this.PlayButton.Text = "播放";
             this.PlayButton.Click += new System.EventHandler(this.PlayButton_Click);
             // 
-            // pictureBox1
+            // ScoreBox
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(480, 360);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.ScoreBox.AllowColumnReorder = false;
+            this.ScoreBox.AllowColumnResize = false;
+            this.ScoreBox.AllowEdit = false;
+            this.ScoreBox.AllowRemove = false;
+            this.ScoreBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ScoreBox.AutoScroll = true;
+            this.ScoreBox.ItemSize = new System.Drawing.Size(200, 60);
+            this.ScoreBox.Location = new System.Drawing.Point(3, 3);
+            this.ScoreBox.Name = "ScoreBox";
+            this.ScoreBox.ShowColumnHeaders = false;
+            this.ScoreBox.Size = new System.Drawing.Size(502, 169);
+            this.ScoreBox.TabIndex = 26;
+            this.ScoreBox.Text = "radListView1";
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(902, 718);
+            this.ClientSize = new System.Drawing.Size(892, 710);
+            this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.MenuStrip1);
-            this.MinimumSize = new System.Drawing.Size(910, 748);
+            this.MinimumSize = new System.Drawing.Size(900, 740);
             this.Name = "Main";
             this.Padding = new System.Windows.Forms.Padding(4);
             // 
@@ -776,24 +786,26 @@ namespace OSU_player
             ((System.ComponentModel.ISupportInitialize)(this.radMenuComboItem1.ComboBoxElement)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radPageView1)).EndInit();
-            this.radPageView1.ResumeLayout(false);
-            this.radPageViewPage1.ResumeLayout(false);
-            this.radPageViewPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.button3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TextBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TrackMusic)).EndInit();
-            this.panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.TrackFx)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TrackVolume)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SearchButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Button2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Button1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radPageView1)).EndInit();
+            this.radPageView1.ResumeLayout(false);
+            this.radPageViewPage3.ResumeLayout(false);
+            this.radPageViewPage1.ResumeLayout(false);
+            this.radPageViewPage2.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radButton1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.button3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TrackMusic)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TrackFx)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TrackVolume)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NextButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrackSeek)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.StopButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayButton)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ScoreBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -824,38 +836,40 @@ namespace OSU_player
         private Telerik.WinControls.UI.RadMenuItem SB开关;
         private System.Windows.Forms.Panel panel1;
         private Telerik.WinControls.UI.RadTextBox TextBox1;
-        private System.Windows.Forms.Label label1;
-        private Telerik.WinControls.UI.RadTrackBar TrackMusic;
-        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.ListView ListDetail;
         private System.Windows.Forms.ColumnHeader ColumnHeader2;
         private System.Windows.Forms.ColumnHeader ColumnHeader3;
-        private Telerik.WinControls.UI.RadTrackBar TrackFx;
         private System.Windows.Forms.ListView PlayList;
         private System.Windows.Forms.ColumnHeader ColumnHeader1;
-        private System.Windows.Forms.Label Label3;
         private System.Windows.Forms.ListBox DiffList;
-        private Telerik.WinControls.UI.RadTrackBar TrackVolume;
-        private System.Windows.Forms.Label Label4;
         private Telerik.WinControls.UI.RadButton SearchButton;
-        private System.Windows.Forms.Label Label2;
         private Telerik.WinControls.UI.RadButton Button2;
-        private Telerik.WinControls.UI.RadButton Button1;
         private System.Windows.Forms.Label LabelQQ;
-        private Telerik.WinControls.UI.RadButton NextButton;
-        private Telerik.WinControls.UI.RadTrackBar TrackSeek;
-        private Telerik.WinControls.UI.RadButton StopButton;
-        private Telerik.WinControls.UI.RadButton PlayButton;
         private System.Windows.Forms.ColumnHeader SetNum;
         private Telerik.WinControls.UI.RadMenuItem 香蕉分析器ToolStripMenuItem;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.ListBox ScoreBox;
-        private Telerik.WinControls.UI.RadButton button3;
         private Telerik.WinControls.UI.RadPageView radPageView1;
         private Telerik.WinControls.UI.RadPageViewPage radPageViewPage1;
         private Telerik.WinControls.UI.RadPageViewPage radPageViewPage2;
         private Telerik.WinControls.UI.RadMenuComboItem radMenuComboItem1;
         private Telerik.WinControls.UI.RadMenuButtonItem radMenuButtonItem1;
+        private Telerik.WinControls.UI.RadMenuItem radMenuItem1;
+        private System.Windows.Forms.Panel panel3;
+        private Telerik.WinControls.UI.RadPageViewPage radPageViewPage3;
+        private Telerik.WinControls.UI.RadButton button3;
+        private System.Windows.Forms.Label label1;
+        private Telerik.WinControls.UI.RadTrackBar TrackMusic;
+        private System.Windows.Forms.Panel panel2;
+        private Telerik.WinControls.UI.RadTrackBar TrackFx;
+        private System.Windows.Forms.Label Label3;
+        private Telerik.WinControls.UI.RadTrackBar TrackVolume;
+        private System.Windows.Forms.Label Label4;
+        private System.Windows.Forms.Label Label2;
+        private Telerik.WinControls.UI.RadButton NextButton;
+        private Telerik.WinControls.UI.RadTrackBar TrackSeek;
+        private Telerik.WinControls.UI.RadButton StopButton;
+        private Telerik.WinControls.UI.RadButton PlayButton;
+        private Telerik.WinControls.UI.RadButton radButton1;
+        private Telerik.WinControls.UI.RadListView ScoreBox;
     }
 
 }

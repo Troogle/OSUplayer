@@ -24,7 +24,7 @@ namespace OSU_player
             }
             catch (Exception)
             {
-                if (ListView1.Items.Count != 0)
+                if (ListView1.SelectedItems.Count==0)
                 {
                     RadMessageBox.Show("别卖萌不选啊-0-");
                 }
@@ -32,8 +32,10 @@ namespace OSU_player
                 {
                     Core.uin = 0;
                     Core.syncQQ = false;
+                    this.Dispose();
                 }
             }
+
         }
 
         private void Button1_Click(object sender, EventArgs e)
@@ -52,6 +54,10 @@ namespace OSU_player
                     Tmp.SubItems.Add(t.nick);
                     ListView1.Items.Add(Tmp);
                 }
+                ListViewItem Tmpl = new ListViewItem();
+                Tmpl.Text = "清空QQ号";
+                Tmpl.SubItems.Add("");
+                ListView1.Items.Add(Tmpl);
 
             }
             catch (Exception)

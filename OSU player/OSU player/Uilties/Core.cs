@@ -4,6 +4,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 using Telerik.WinControls;
+using System.Drawing;
 
 namespace OSU_player
 {
@@ -324,6 +325,9 @@ namespace OSU_player
             }
             return cmod;
         }
-
+        public static Image getrank()
+        {
+            return Properties.Resources.A;
+        }
     }
 }

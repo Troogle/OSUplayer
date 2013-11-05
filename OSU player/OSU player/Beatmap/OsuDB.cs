@@ -34,7 +34,7 @@ namespace OSU_player
                     for (int j = 0; j < scorecount; j++)
                     {
                         Score Tscore = new Score();
-                        stash = reader.ReadByte();
+                        Tscore.mode = (modes)reader.ReadByte();
                         stash = reader.ReadInt32();
                         stashs = reader.ReadString();
                         Tscore.player = reader.ReadString();

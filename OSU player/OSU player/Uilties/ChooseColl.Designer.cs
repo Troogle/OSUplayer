@@ -77,17 +77,17 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(56, 9);
+            this.label1.Location = new System.Drawing.Point(92, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(370, 19);
+            this.label1.Size = new System.Drawing.Size(251, 19);
             this.label1.TabIndex = 0;
-            this.label1.Text = "双击Collection名称或单独曲目名称导入（会清除已有List）";
+            this.label1.Text = "双击Collection名称或单独曲目名称导入";
             // 
             // ChooseColl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(564, 307);
+            this.ClientSize = new System.Drawing.Size(564, 301);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);

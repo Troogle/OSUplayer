@@ -70,6 +70,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Bass.Net, Version=2.4.10.3, Culture=neutral, PublicKeyToken=b7566c273e6ef480, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.AnalysisServices.AdomdClient, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -79,6 +80,11 @@
     <Reference Include="Telerik.WinControls, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
+    <Reference Include="Telerik.WinControls.ChartView, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e" />
+    <Reference Include="Telerik.WinControls.GridView, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.PivotGrid, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.RadDock, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.Scheduler, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
     <Reference Include="Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
@@ -103,6 +109,9 @@
     <Compile Include="Beatmap\AVFiles.cs" />
     <Compile Include="Beatmap\Beatmap.cs" />
     <Compile Include="Beatmap\BeatmapSet.cs" />
+    <Compile Include="Uilties\BubbleBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Uilties\ChooseColl.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -131,6 +140,7 @@
     <Compile Include="Beatmap\OsuDB.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Uilties\Player.cs" />
     <Compile Include="Uilties\QQ.cs" />
     <Compile Include="Uilties\Selfupdate.cs" />
     <Compile Include="Beatmap\StoryBoard.cs" />
@@ -187,6 +197,16 @@
     </Content>
     <None Include="Res\Front.png" />
     <None Include="Res\defaultBG.png" />
+    <None Include="Res\A.png" />
+    <None Include="Res\B.png" />
+    <None Include="Res\C.png" />
+    <None Include="Res\D.png" />
+    <None Include="Res\S.png" />
+    <None Include="Res\SH.png" />
+    <None Include="Res\X.png" />
+    <None Include="Res\XH.png" />
+    <None Include="Res\osu.png" />
+    <None Include="Res\play.png" />
     <Content Include="update.xml" />
   </ItemGroup>
   <ItemGroup>

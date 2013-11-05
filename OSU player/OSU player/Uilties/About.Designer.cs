@@ -72,14 +72,13 @@
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.Location = new System.Drawing.Point(218, 22);
+            this.label2.Font = new System.Drawing.Font("微软雅黑", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label2.Location = new System.Drawing.Point(216, 12);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(292, 175);
+            this.label2.Size = new System.Drawing.Size(300, 200);
             this.label2.TabIndex = 3;
-            this.label2.Text = "OSU Player Ver 2.9.0\r\nDeveloped By Troogle(Google)\r\n\r\nVLC 2.0.8\r\nBass.Net 2.4.10." +
-    "3\r\n\r\nThx for using~";
+            this.label2.Text = "OSU Player Ver 3.0.0\r\nDeveloped By Troogle(Google)\r\n\r\nSpecial Thanks:\r\nWei♂ren,葵姐" +
+    "姐(?,popner,tony8128,[-Baidu-],[-Crystal-]\r\n\r\nAND YOU!\r\nThx for using~";
             // 
             // About
             // 

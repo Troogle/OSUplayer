@@ -18,6 +18,8 @@ namespace OSU_player
         }
         private List<Beatmap> tmpbms = new List<Beatmap>();
         private Dictionary<string, List<int>> dul = new Dictionary<string, List<int>>();
+        private int ok = 0;
+        private int all = 1;
         private void DelDulp_Load(object sender, EventArgs e)
         {
 
@@ -32,17 +34,19 @@ namespace OSU_player
                     Beatmap tmp = new Beatmap(osufile, path);
                     tmpbms.Add(tmp);
                 }
-                this.backgroundWorker1.ReportProgress(0, 0);
+                this.backgroundWorker1.ReportProgress(0);
             }
             else
             {
                 string[] tmpfolder = Directory.GetDirectories(path);
-                this.backgroundWorker1.ReportProgress(0, tmpfolder.Length);
+                all += tmpfolder.Length;
+                this.backgroundWorker1.ReportProgress(0);
                 foreach (string subfolder in tmpfolder)
                 {
                     scanforset(subfolder);
                 }
             }
+            ok++;
         }
         private void gethashs()
         {
@@ -96,12 +100,14 @@ namespace OSU_player
         }
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
+            Label1.Text = "扫描歌曲目录";
             scanforset(e.Argument.ToString());
         }
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            progressBar1.Maximum += Convert.ToInt32(e.UserState.ToString());
-            progressBar1.Value1 = (progressBar1.Value1 + 1) % progressBar1.Maximum;
+            progressBar1.Maximum = all;
+            progressBar1.Value1 = ok;
+            Label1.Text = String.Format("扫描歌曲目录{0}/{1}", ok, all);
         }
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -136,6 +142,7 @@ namespace OSU_player
         private void backgroundWorker2_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             progressBar1.Value1++;
+            Label1.Text = String.Format("获得歌曲信息{0}/{1}", progressBar1.Value1, tmpbms.Count);
         }
         private void backgroundWorker2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -152,6 +159,8 @@ namespace OSU_player
         private void backgroundWorker3_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             progressBar1.Value1++;
+            Label1.Text = String.Format("寻找重复map{0}/{1}", progressBar1.Value1, tmpbms.Count);
+
         }
         private void backgroundWorker3_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -159,6 +168,7 @@ namespace OSU_player
             else
             {
                 RadMessageBox.Show(string.Format("扫描完毕，发现重复曲目{0}个", dul.Count));
+                Label1.Text = string.Format("扫描完毕，发现重复曲目{0}个", dul.Count);
                 adddul();
             }
         }
@@ -192,7 +202,7 @@ namespace OSU_player
             {
                 pm.pFrom += '\0' + path[i];
             }
-            pm.pFrom += '\0' ;
+            pm.pFrom += '\0';
             pm.pTo = null;
             pm.fFlags = FOF_ALLOWUNDO | FOF_WANTNUKEWARNING;
             return SHFileOperation(pm);
