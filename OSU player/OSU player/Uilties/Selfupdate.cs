@@ -4,7 +4,6 @@ using System.Net;
 using System.Windows.Forms;
 using System.Xml;
 using Telerik.WinControls;
-
 namespace OSU_player
 {
     public class Selfupdate
@@ -22,7 +21,6 @@ namespace OSU_player
             {
                 WebClient myWebClient = new WebClient();
                 myWebClient.DownloadFile(url, temp + "update.xml");
-
                 DialogResult res;
                 UpDateXml.Load(temp + "update.xml");
                 string newver = "";
@@ -41,7 +39,6 @@ namespace OSU_player
                 RadMessageBox.Show("更新配置文件出错!", "错误", MessageBoxButtons.OK, RadMessageIcon.Error);
             }
         }
-
         public static void check_update()
         {
             try
@@ -58,5 +55,4 @@ namespace OSU_player
             download(url + "update.xml");
         }
     }
-
 }

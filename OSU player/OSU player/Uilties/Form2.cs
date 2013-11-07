@@ -3,7 +3,6 @@ using System;
 using System.Windows.Forms;
 using Telerik.WinControls.UI;
 using Telerik.WinControls;
-
 namespace OSU_player
 {
     public partial class Form2 : RadForm
@@ -11,7 +10,6 @@ namespace OSU_player
         public Form2()
         {
             InitializeComponent();
-
         }
         public QQ qq = new QQ();
         List<QQInfo> tmp = new List<QQInfo>();
@@ -35,9 +33,7 @@ namespace OSU_player
                     this.Dispose();
                 }
             }
-
         }
-
         private void Button1_Click(object sender, EventArgs e)
         {
             tmp = qq.GetQQList();
@@ -46,7 +42,6 @@ namespace OSU_player
             ListView1.Columns.Add("昵称", 100);
             try
             {
-
                 foreach (QQInfo t in tmp)
                 {
                     ListViewItem Tmp = new ListViewItem();
@@ -58,7 +53,6 @@ namespace OSU_player
                 Tmpl.Text = "清空QQ号";
                 Tmpl.SubItems.Add("");
                 ListView1.Items.Add(Tmpl);
-
             }
             catch (Exception)
             {

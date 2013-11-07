@@ -5,7 +5,6 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
-
 namespace OSU_player
 {
     class Player : IDisposable
@@ -28,15 +27,12 @@ namespace OSU_player
         const int maxfxplayer = 128;
         Audiofiles[] fxplayer = new Audiofiles[maxfxplayer];
         string[] fxname = new string[maxfxplayer];
-
         bool cannext = true;
         public bool willnext = false;
         int fxpos = 0;
-
         float Allvolume { get { return Core.Allvolume; } }
         float Musicvolume { get { return Core.Musicvolume; } }
         float Fxvolume { get { return Core.Fxvolume; } }
-
         bool playvideo { get { return Core.playvideo; } }
         bool playfx { get { return Core.playfx; } }
         bool playsb { get { return Core.playsb; } }
@@ -144,7 +140,6 @@ namespace OSU_player
                         {
                             bpm = Tbpm * Map.Timingpoints[currentT].bpm;
                         }
-
                     }
                 }
                 if (current == Map.HitObjects.Count) { break; }
@@ -249,9 +244,7 @@ namespace OSU_player
                     uni_Video.Play(Path.Combine(Map.Location, Map.Video));
                     // uni_Audio.Play(-map.videoOffset, Allvolume * Musicvolume);
                     uni_Audio.Play(Allvolume * Musicvolume);
-
                 }
-
             }
             else { uni_Audio.Play(Allvolume * Musicvolume); }
         }
@@ -286,7 +279,6 @@ namespace OSU_player
                 }
             }
         }
-
         private void AVsync(object sender, EventArgs e)
         {
             if (!uni_Audio.isplaying && cannext)
@@ -303,9 +295,6 @@ namespace OSU_player
                     fxpos++;
                 }
             }
-
-
         }
-
     }
 }

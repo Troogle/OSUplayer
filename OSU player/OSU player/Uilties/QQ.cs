@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Telerik.WinControls;
-
 namespace OSU_player
 {
     public class QQ
     {
-
         public WebBrowser web = new WebBrowser();
         //提前加载浏览器，给浏览器加载的时间
         public QQ()
@@ -58,8 +56,6 @@ namespace OSU_player
                 RadMessageBox.Show("获取当前在线QQ出错！ 稍等再刷新下？");
             }
             return ret;
-
         }
     }
-
 }

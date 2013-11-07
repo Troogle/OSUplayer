@@ -2,7 +2,6 @@ using System;
 using System.Threading;
 using Un4seen.Bass;
 using System.Windows.Forms;
-
 namespace OSU_player
 {
     /// <summary>
@@ -147,7 +146,6 @@ namespace OSU_player
         }
         public void Dispose()
         {
-
         }
     }
 }

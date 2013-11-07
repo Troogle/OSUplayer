@@ -7,22 +7,16 @@
 //     重新生成代码，这些更改将会丢失。
 // </auto-generated>
 //------------------------------------------------------------------------------
-
 namespace OSU_player.Properties {
-    
-    
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "11.0.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
-        
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
-        
         public static Settings Default {
             get {
                 return defaultInstance;
             }
         }
-        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
@@ -34,7 +28,6 @@ namespace OSU_player.Properties {
                 this["QQuin"] = value;
             }
         }
-        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("3")]
@@ -46,7 +39,6 @@ namespace OSU_player.Properties {
                 this["NextMode"] = value;
             }
         }
-        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
@@ -58,7 +50,6 @@ namespace OSU_player.Properties {
                 this["PlayFx"] = value;
             }
         }
-        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
@@ -70,7 +61,6 @@ namespace OSU_player.Properties {
                 this["PlayVideo"] = value;
             }
         }
-        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -82,7 +72,6 @@ namespace OSU_player.Properties {
                 this["PlaySB"] = value;
             }
         }
-        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
@@ -94,7 +83,6 @@ namespace OSU_player.Properties {
                 this["SyncQQ"] = value;
             }
         }
-        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("1")]
@@ -106,7 +94,6 @@ namespace OSU_player.Properties {
                 this["Allvolume"] = value;
             }
         }
-        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0.8")]
@@ -118,7 +105,6 @@ namespace OSU_player.Properties {
                 this["Musicvolume"] = value;
             }
         }
-        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0.6")]

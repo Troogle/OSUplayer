@@ -6,7 +6,6 @@ namespace OSU_player
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
-
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
@@ -19,9 +18,7 @@ namespace OSU_player
             }
             base.Dispose(disposing);
         }
-
         #region Windows Form Designer generated code
-
         /// <summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
@@ -29,10 +26,9 @@ namespace OSU_player
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Telerik.WinControls.UI.RadListDataItem radListDataItem4 = new Telerik.WinControls.UI.RadListDataItem();
-            Telerik.WinControls.UI.RadListDataItem radListDataItem5 = new Telerik.WinControls.UI.RadListDataItem();
-            Telerik.WinControls.UI.RadListDataItem radListDataItem6 = new Telerik.WinControls.UI.RadListDataItem();
-            this.MenuStrip1 = new Telerik.WinControls.UI.RadMenu();
+            Telerik.WinControls.UI.RadListDataItem radListDataItem1 = new Telerik.WinControls.UI.RadListDataItem();
+            Telerik.WinControls.UI.RadListDataItem radListDataItem2 = new Telerik.WinControls.UI.RadListDataItem();
+            Telerik.WinControls.UI.RadListDataItem radListDataItem3 = new Telerik.WinControls.UI.RadListDataItem();
             this.ToolStripMenuItem1 = new Telerik.WinControls.UI.RadMenuItem();
             this.运行OSU = new Telerik.WinControls.UI.RadMenuItem();
             this.手动指定OSU目录 = new Telerik.WinControls.UI.RadMenuItem();
@@ -56,7 +52,6 @@ namespace OSU_player
             this.QQ状态同步 = new Telerik.WinControls.UI.RadMenuItem();
             this.SB开关 = new Telerik.WinControls.UI.RadMenuItem();
             this.关于 = new Telerik.WinControls.UI.RadMenuItem();
-            this.radMenuButtonItem1 = new Telerik.WinControls.UI.RadMenuButtonItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.TextBox1 = new Telerik.WinControls.UI.RadTextBox();
             this.PlayList = new System.Windows.Forms.ListView();
@@ -89,7 +84,7 @@ namespace OSU_player
             this.StopButton = new Telerik.WinControls.UI.RadButton();
             this.PlayButton = new Telerik.WinControls.UI.RadButton();
             this.UpdateTimer = new System.Windows.Forms.Timer(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.MenuStrip1)).BeginInit();
+            this.MenuStrip1 = new Telerik.WinControls.UI.RadMenu();
             ((System.ComponentModel.ISupportInitialize)(this.radMenuComboItem1.ComboBoxElement)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TextBox1)).BeginInit();
@@ -111,22 +106,9 @@ namespace OSU_player
             ((System.ComponentModel.ISupportInitialize)(this.TrackSeek)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.StopButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MenuStrip1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
-            // 
-            // MenuStrip1
-            // 
-            this.MenuStrip1.Items.AddRange(new Telerik.WinControls.RadItem[] {
-            this.ToolStripMenuItem1,
-            this.ToolStripMenuItem2,
-            this.ToolStripMenuItem3,
-            this.关于,
-            this.radMenuButtonItem1});
-            this.MenuStrip1.Location = new System.Drawing.Point(4, 4);
-            this.MenuStrip1.Name = "MenuStrip1";
-            this.MenuStrip1.Size = new System.Drawing.Size(884, 30);
-            this.MenuStrip1.TabIndex = 2;
-            this.MenuStrip1.Text = "MenuStrip1";
             // 
             // ToolStripMenuItem1
             // 
@@ -335,16 +317,16 @@ namespace OSU_player
             this.radMenuComboItem1.ComboBoxElement.FormatString = "";
             this.radMenuComboItem1.ComboBoxElement.FormattingEnabled = true;
             this.radMenuComboItem1.ComboBoxElement.ItemHeight = 18;
-            radListDataItem4.Text = "顺序播放";
-            radListDataItem4.TextWrap = true;
-            radListDataItem5.Text = "单曲循环";
-            radListDataItem5.TextWrap = true;
-            radListDataItem6.Selected = true;
-            radListDataItem6.Text = "随机播放";
-            radListDataItem6.TextWrap = true;
-            this.radMenuComboItem1.ComboBoxElement.Items.Add(radListDataItem4);
-            this.radMenuComboItem1.ComboBoxElement.Items.Add(radListDataItem5);
-            this.radMenuComboItem1.ComboBoxElement.Items.Add(radListDataItem6);
+            radListDataItem1.Text = "顺序播放";
+            radListDataItem1.TextWrap = true;
+            radListDataItem2.Text = "单曲循环";
+            radListDataItem2.TextWrap = true;
+            radListDataItem3.Selected = true;
+            radListDataItem3.Text = "随机播放";
+            radListDataItem3.TextWrap = true;
+            this.radMenuComboItem1.ComboBoxElement.Items.Add(radListDataItem1);
+            this.radMenuComboItem1.ComboBoxElement.Items.Add(radListDataItem2);
+            this.radMenuComboItem1.ComboBoxElement.Items.Add(radListDataItem3);
             this.radMenuComboItem1.ComboBoxElement.MaxDropDownItems = 0;
             this.radMenuComboItem1.ComboBoxElement.MaxLength = 32767;
             this.radMenuComboItem1.ComboBoxElement.MaxValue = null;
@@ -404,20 +386,6 @@ namespace OSU_player
             this.关于.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.关于.Click += new System.EventHandler(this.关于_Click);
             // 
-            // radMenuButtonItem1
-            // 
-            this.radMenuButtonItem1.AccessibleDescription = "切换主题";
-            this.radMenuButtonItem1.AccessibleName = "切换主题";
-            // 
-            // 
-            // 
-            this.radMenuButtonItem1.ButtonElement.AccessibleDescription = "切换主题";
-            this.radMenuButtonItem1.ButtonElement.AccessibleName = "切换主题";
-            this.radMenuButtonItem1.Name = "radMenuButtonItem1";
-            this.radMenuButtonItem1.Text = "切换主题";
-            this.radMenuButtonItem1.Visibility = Telerik.WinControls.ElementVisibility.Visible;
-            this.radMenuButtonItem1.Click += new System.EventHandler(this.radMenuButtonItem1_Click);
-            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.TextBox1);
@@ -426,7 +394,7 @@ namespace OSU_player
             this.panel1.Controls.Add(this.Button2);
             this.panel1.Controls.Add(this.radPageView1);
             this.panel1.Controls.Add(this.LabelQQ);
-            this.panel1.Location = new System.Drawing.Point(4, 40);
+            this.panel1.Location = new System.Drawing.Point(4, 34);
             this.panel1.MinimumSize = new System.Drawing.Size(882, 651);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(882, 663);
@@ -611,7 +579,7 @@ namespace OSU_player
             this.panel3.Controls.Add(this.TrackSeek);
             this.panel3.Controls.Add(this.StopButton);
             this.panel3.Controls.Add(this.PlayButton);
-            this.panel3.Location = new System.Drawing.Point(4, 40);
+            this.panel3.Location = new System.Drawing.Point(4, 34);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(529, 423);
             this.panel3.TabIndex = 22;
@@ -646,15 +614,13 @@ namespace OSU_player
             // 
             // TrackMusic
             // 
-            this.TrackMusic.Location = new System.Drawing.Point(162, 2);
-            this.TrackMusic.Maximum = 100;
+            this.TrackMusic.Location = new System.Drawing.Point(162, 7);
+            this.TrackMusic.Maximum = 100F;
             this.TrackMusic.Name = "TrackMusic";
-            this.TrackMusic.ShowTicks = false;
-            this.TrackMusic.Size = new System.Drawing.Size(148, 27);
-            this.TrackMusic.SliderAreaColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.TrackMusic.Size = new System.Drawing.Size(148, 17);
             this.TrackMusic.TabIndex = 54;
             this.TrackMusic.TickStyle = Telerik.WinControls.Enumerations.TickStyles.None;
-            this.TrackMusic.Value = 80;
+            this.TrackMusic.Value = 80F;
             this.TrackMusic.Scroll += new System.Windows.Forms.ScrollEventHandler(this.TrackMusic_Scroll);
             // 
             // panel2
@@ -666,15 +632,13 @@ namespace OSU_player
             // 
             // TrackFx
             // 
-            this.TrackFx.Location = new System.Drawing.Point(359, 2);
-            this.TrackFx.Maximum = 100;
+            this.TrackFx.Location = new System.Drawing.Point(359, 7);
+            this.TrackFx.Maximum = 100F;
             this.TrackFx.Name = "TrackFx";
-            this.TrackFx.ShowTicks = false;
-            this.TrackFx.Size = new System.Drawing.Size(128, 27);
-            this.TrackFx.SliderAreaColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.TrackFx.Size = new System.Drawing.Size(128, 17);
             this.TrackFx.TabIndex = 51;
             this.TrackFx.TickStyle = Telerik.WinControls.Enumerations.TickStyles.None;
-            this.TrackFx.Value = 60;
+            this.TrackFx.Value = 60F;
             this.TrackFx.Scroll += new System.Windows.Forms.ScrollEventHandler(this.TrackFx_Scroll);
             // 
             // Label3
@@ -688,13 +652,16 @@ namespace OSU_player
             // 
             // TrackVolume
             // 
-            this.TrackVolume.Location = new System.Drawing.Point(493, 35);
-            this.TrackVolume.Maximum = 100;
+            this.TrackVolume.Location = new System.Drawing.Point(490, 35);
+            this.TrackVolume.Maximum = 100F;
             this.TrackVolume.Name = "TrackVolume";
             this.TrackVolume.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.TrackVolume.ShowTicks = false;
-            this.TrackVolume.Size = new System.Drawing.Size(29, 332);
-            this.TrackVolume.SliderAreaColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            // 
+            // 
+            // 
+            this.TrackVolume.RootElement.StretchHorizontally = false;
+            this.TrackVolume.RootElement.StretchVertically = true;
+            this.TrackVolume.Size = new System.Drawing.Size(37, 332);
             this.TrackVolume.TabIndex = 49;
             this.TrackVolume.TickStyle = Telerik.WinControls.Enumerations.TickStyles.None;
             this.TrackVolume.Scroll += new System.Windows.Forms.ScrollEventHandler(this.TrackVolume_Scroll);
@@ -712,7 +679,7 @@ namespace OSU_player
             // 
             this.Label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Label2.AutoSize = true;
-            this.Label2.Location = new System.Drawing.Point(489, 370);
+            this.Label2.Location = new System.Drawing.Point(490, 370);
             this.Label2.Name = "Label2";
             this.Label2.Size = new System.Drawing.Size(37, 19);
             this.Label2.TabIndex = 50;
@@ -720,7 +687,7 @@ namespace OSU_player
             // 
             // NextButton
             // 
-            this.NextButton.Location = new System.Drawing.Point(133, 395);
+            this.NextButton.Location = new System.Drawing.Point(132, 392);
             this.NextButton.Name = "NextButton";
             this.NextButton.Size = new System.Drawing.Size(43, 26);
             this.NextButton.TabIndex = 48;
@@ -730,12 +697,10 @@ namespace OSU_player
             // TrackSeek
             // 
             this.TrackSeek.Enabled = false;
-            this.TrackSeek.Location = new System.Drawing.Point(182, 393);
-            this.TrackSeek.Maximum = 1000;
+            this.TrackSeek.Location = new System.Drawing.Point(181, 397);
+            this.TrackSeek.Maximum = 1000F;
             this.TrackSeek.Name = "TrackSeek";
-            this.TrackSeek.ShowTicks = false;
-            this.TrackSeek.Size = new System.Drawing.Size(305, 28);
-            this.TrackSeek.SliderAreaColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.TrackSeek.Size = new System.Drawing.Size(305, 17);
             this.TrackSeek.TabIndex = 44;
             this.TrackSeek.TickStyle = Telerik.WinControls.Enumerations.TickStyles.None;
             this.TrackSeek.Scroll += new System.Windows.Forms.ScrollEventHandler(this.TrackSeek_Scroll);
@@ -743,7 +708,7 @@ namespace OSU_player
             // StopButton
             // 
             this.StopButton.Enabled = false;
-            this.StopButton.Location = new System.Drawing.Point(70, 395);
+            this.StopButton.Location = new System.Drawing.Point(69, 392);
             this.StopButton.Name = "StopButton";
             this.StopButton.Size = new System.Drawing.Size(57, 26);
             this.StopButton.TabIndex = 47;
@@ -752,7 +717,7 @@ namespace OSU_player
             // 
             // PlayButton
             // 
-            this.PlayButton.Location = new System.Drawing.Point(7, 395);
+            this.PlayButton.Location = new System.Drawing.Point(7, 392);
             this.PlayButton.Name = "PlayButton";
             this.PlayButton.Size = new System.Drawing.Size(57, 26);
             this.PlayButton.TabIndex = 46;
@@ -764,18 +729,30 @@ namespace OSU_player
             this.UpdateTimer.Interval = 10;
             this.UpdateTimer.Tick += new System.EventHandler(this.UpdateTimer_Tick);
             // 
+            // MenuStrip1
+            // 
+            this.MenuStrip1.Items.AddRange(new Telerik.WinControls.RadItem[] {
+            this.ToolStripMenuItem1,
+            this.ToolStripMenuItem2,
+            this.ToolStripMenuItem3,
+            this.关于});
+            this.MenuStrip1.Location = new System.Drawing.Point(4, 4);
+            this.MenuStrip1.Name = "MenuStrip1";
+            this.MenuStrip1.Size = new System.Drawing.Size(879, 24);
+            this.MenuStrip1.TabIndex = 2;
+            this.MenuStrip1.Text = "MenuStrip1";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(892, 710);
+            this.ClientSize = new System.Drawing.Size(887, 700);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.MenuStrip1);
-            this.MinimumSize = new System.Drawing.Size(900, 740);
+            this.MinimumSize = new System.Drawing.Size(895, 730);
             this.Name = "Main";
             this.Padding = new System.Windows.Forms.Padding(4);
-           
             // 
             // 
             // 
@@ -783,7 +760,6 @@ namespace OSU_player
             this.Text = "";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AskForExit);
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.MenuStrip1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radMenuComboItem1.ComboBoxElement)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -807,14 +783,12 @@ namespace OSU_player
             ((System.ComponentModel.ISupportInitialize)(this.TrackSeek)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.StopButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MenuStrip1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
-
         #endregion
-        private Telerik.WinControls.UI.RadMenu MenuStrip1;
         private Telerik.WinControls.UI.RadMenuItem ToolStripMenuItem1;
         private Telerik.WinControls.UI.RadMenuItem 运行OSU;
         private Telerik.WinControls.UI.RadMenuItem 手动指定OSU目录;
@@ -851,7 +825,6 @@ namespace OSU_player
         private Telerik.WinControls.UI.RadPageViewPage radPageViewPage1;
         private Telerik.WinControls.UI.RadPageViewPage radPageViewPage2;
         private Telerik.WinControls.UI.RadMenuComboItem radMenuComboItem1;
-        private Telerik.WinControls.UI.RadMenuButtonItem radMenuButtonItem1;
         private Telerik.WinControls.UI.RadMenuItem radMenuItem1;
         private System.Windows.Forms.Panel panel3;
         private Telerik.WinControls.UI.RadPageViewPage radPageViewPage3;
@@ -871,6 +844,6 @@ namespace OSU_player
         private Telerik.WinControls.UI.RadButton radButton1;
         private Telerik.WinControls.UI.RadListView ScoreBox;
         private System.Windows.Forms.Timer UpdateTimer;
+        private Telerik.WinControls.UI.RadMenu MenuStrip1;
     }
-
 }

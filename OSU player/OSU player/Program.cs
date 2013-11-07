@@ -3,7 +3,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using Telerik.WinControls;
-
+using Telerik.WinControls.Themes;
 namespace OSU_player
 {
     static class Program
@@ -24,10 +24,8 @@ namespace OSU_player
             Application.SetCompatibleTextRenderingDefault(false);
             try
             {
-                ThemeResolutionService.LoadPackageResource("OSU_player.Res.Default.tssp");
-                ThemeResolutionService.LoadPackageResource("OSU_player.Res.Metro.tssp");
-                Telerik.WinControls.ThemeResolutionService.ApplicationThemeName = "Default";
-
+                ThemeResolutionService.LoadPackageResource("OSU_player.Res.Light.tssp");
+                ThemeResolutionService.ApplicationThemeName = "Light";
                 Un4seen.Bass.BassNet.Registration("sqh1994@163.com", "2X280331512622");
                 Un4seen.Bass.Bass.BASS_Init(-1, 44100, Un4seen.Bass.BASSInit.BASS_DEVICE_DEFAULT, IntPtr.Zero);
                 Application.Run(new Main());
@@ -48,7 +46,6 @@ namespace OSU_player
         {
             string str = GetExceptionMsg(e.ExceptionObject as Exception, e.ToString());
             MessageBox.Show(str, "发生了一些令人悲伤的事情><", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
         }
         /// <summary>
         /// 生成自定义异常消息

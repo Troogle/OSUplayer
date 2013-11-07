@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-
-
 namespace OSU_player
 {
     public class StoryBoard 
@@ -487,7 +485,6 @@ namespace OSU_player
                             else
                             {
                                 dealevent(row, currentelement, 0, ref i);
-
                             }
                             break;
                     }
@@ -499,5 +496,4 @@ namespace OSU_player
             }
         }
     }
-
 }

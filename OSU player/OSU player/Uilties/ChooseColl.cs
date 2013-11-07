@@ -4,7 +4,6 @@ using System.IO;
 using System.Windows.Forms;
 using Telerik.WinControls;
 using Telerik.WinControls.UI;
-
 namespace OSU_player
 {
     public partial class ChooseColl : RadForm
@@ -26,7 +25,6 @@ namespace OSU_player
             if (listBox1.Items.Count != 0) { listBox1.SelectedIndex = 0; }
             RadMessageBox.Show("刷新完毕！");
         }
-
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listBox1.SelectedItems.Count == 0) { return; }
@@ -39,22 +37,18 @@ namespace OSU_player
                 tmpindex.Add(mapindex);
             }
         }
-
         private void listBox2_MouseDoubleClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             if (listBox2.SelectedItems.Count == 0) { return; }
             Core.AddSet(tmpindex[listBox2.SelectedIndex]);
             RadMessageBox.Show(String.Format("成功导入{0}",listBox2.SelectedItem.ToString()));
         }
-
         private void listBox1_MouseDoubleClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             if (listBox1.SelectedItems.Count == 0) { return; }
             Core.AddRangeSet(tmpindex);
             RadMessageBox.Show(String.Format("成功导入{0}首曲目", tmpindex.Count.ToString()));
-
         }
-
         private void button2_Click(object sender, EventArgs e)
         {
             this.Dispose();

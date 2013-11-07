@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
-
 namespace OSU_player
 {
     public class BinaryReader : System.IO.BinaryReader
@@ -16,7 +15,6 @@ namespace OSU_player
     }
     class OsuDB
     {
-
         public static void ReadScore(string file)
         {
             using (System.IO.FileStream fs = new System.IO.FileStream(file, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.ReadWrite))
@@ -59,7 +57,6 @@ namespace OSU_player
                     Core.Scores.Add(songmd5, Nscore);
                 }
             }
-
         }
         public static void ReadDb(string file)
         {

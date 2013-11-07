@@ -2,7 +2,6 @@
 using System.IO;
 using System;
 using System.Security.Cryptography;
-
 namespace OSU_player
 {
     [Serializable]
@@ -14,7 +13,6 @@ namespace OSU_player
         //diff-wide storyboard
         [NonSerialized]
         private StoryBoard SB;
-
         public int offset { get; set; }
         public string Location { get; set; }
         public string Name { get; set; }
@@ -70,7 +68,6 @@ namespace OSU_player
             {
                 if (Rawdata[(int)OSUfile.Mode] != null)
                 {
-
                     return (modes)Enum.Parse(typeof(modes), Rawdata[(int)OSUfile.Mode]);
                 }
                 else
@@ -282,7 +279,6 @@ namespace OSU_player
             }
         }
         #endregion
-
         private string picknext(ref string str)
         {
             string ret = "";
@@ -633,7 +629,6 @@ namespace OSU_player
             byte[] arrHashValue;
             using (MD5 md5Hash = MD5.Create())
             {
-
                 using (FileStream fs = new FileStream(Path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                 {
                     arrHashValue = md5Hash.ComputeHash(fs);
@@ -646,4 +641,3 @@ namespace OSU_player
         }
     }
 }
-

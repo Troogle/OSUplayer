@@ -8,7 +8,6 @@ using System.Drawing;
 using OSU_player.Properties;
 using System.Threading;
 using Telerik.WinControls.UI;
-
 namespace OSU_player
 {
     /// <summary>
@@ -124,7 +123,6 @@ namespace OSU_player
             this.uin = uin;
             this.nick = nick;
         }
-
     }
     public enum modes
     {
@@ -158,7 +156,6 @@ namespace OSU_player
         Fadein,
         Random
     }
-
     /// <summary>
     /// Timing Points
     /// </summary>
@@ -214,7 +211,6 @@ namespace OSU_player
         public DateTime time;
         public double acc;
     }
-
     public class Core
     {
         #region 数据区
@@ -227,32 +223,26 @@ namespace OSU_player
         /// </summary>
         public static List<BeatmapSet> allsets = new List<BeatmapSet>();
         public static List<int> PlayList = new List<int>();
-
         public static Dictionary<string, List<Score>> Scores = new Dictionary<string, List<Score>>();
         public static Dictionary<string, List<int>> Collections = new Dictionary<string, List<int>>();
         public static bool scoresearched = false;
-
         public static System.Drawing.Image defaultBG = Properties.Resources.defaultBG;
         public static string defaultAudio = Application.StartupPath + "\\Default\\" + "blank.wav";
-
         public static float Allvolume = 1.0f;
         public static float Musicvolume = 0.8f;
         public static float Fxvolume = 0.6f;
         public static int Nextmode = 3;
-
         /// <summary>
         /// 选定的QQ号
         /// </summary>
         public static int uin;
         public static bool syncQQ = true;
         public static QQ uni_QQ = new QQ();
-
         public static bool playvideo = true;
         public static bool playfx = true;
         public static bool playsb = true;
         public static bool needsave = false;
         #endregion
-
         private static Player player;
         public static int currentset = 0;
         public static int currentmap = 0;
@@ -264,7 +254,6 @@ namespace OSU_player
         public static Beatmap TmpBeatmap { get { return CurrentSet.Diffs[tmpmap]; } }
         public static Size size;
         public static IntPtr handle;
-
         public static void init(IntPtr Shandle, Size Ssize)
         {
             Getpath();
@@ -282,7 +271,6 @@ namespace OSU_player
             if (needsave) { SaveList(); }
         }
         #region 方法区
-
         #region 初始化有关
         /// <summary>
         /// 获取OSU路径
@@ -334,7 +322,6 @@ namespace OSU_player
             }
             return false;
         }
-
         /// <summary>
         /// 载入播放列表
         /// </summary>
@@ -367,7 +354,6 @@ namespace OSU_player
                 formatter.Serialize(fs, allsets);
             }
         }
-
         public static void SetQQ(bool show = true)
         {
             if (show) { using (Form2 dialog = new Form2()) { dialog.ShowDialog(); } }
@@ -376,14 +362,12 @@ namespace OSU_player
                 Properties.Settings.Default.QQuin = 0;
                 syncQQ = false;
                 Properties.Settings.Default.SyncQQ = false;
-                Properties.Settings.Default.Save();
             }
             else
             {
                 Properties.Settings.Default.QQuin = uin;
                 syncQQ = true;
                 Properties.Settings.Default.SyncQQ = true;
-                Properties.Settings.Default.Save();
             }
         }
         public static void LoadPreference()
@@ -436,9 +420,9 @@ namespace OSU_player
         #endregion
         public static void remove(int index)
         {
-            Core.allsets.RemoveAt(PlayList[index]);
+            //  Core.allsets.RemoveAt(PlayList[index]);
             PlayList.RemoveAt(index);
-            needsave = true;
+            //  needsave = true;
         }
         public static bool SetSet(int vaule, bool p = false)
         {
@@ -455,7 +439,6 @@ namespace OSU_player
             }
             if (p) { currentset = tmpset; }
             return false;
-
         }
         public static bool SetMap(int vaule, bool p = false)
         {
@@ -469,7 +452,6 @@ namespace OSU_player
             if (p) { currentmap = tmpmap; }
             return false;
         }
-
         public static void SetVolume(int set, float volume)
         {
             switch (set)
@@ -477,17 +459,14 @@ namespace OSU_player
                 case 1:
                     Allvolume = volume;
                     Properties.Settings.Default.Allvolume = Allvolume;
-                    Properties.Settings.Default.Save();
                     break;
                 case 2:
                     Musicvolume = volume;
                     Properties.Settings.Default.Musicvolume = Musicvolume;
-                    Properties.Settings.Default.Save();
                     break;
                 case 3:
                     Fxvolume = volume;
                     Properties.Settings.Default.Fxvolume = Fxvolume;
-                    Properties.Settings.Default.Save();
                     break;
                 default:
                     break;

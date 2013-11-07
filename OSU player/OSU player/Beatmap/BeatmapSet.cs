@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using System.IO;
 using System.Windows.Forms;
-
 namespace OSU_player
 {
     [Serializable]
@@ -162,5 +160,4 @@ namespace OSU_player
             return false;*/
         }
     }
-
 }

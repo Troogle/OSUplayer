@@ -7,7 +7,6 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Telerik.WinControls;
 using Telerik.WinControls.UI;
-
 namespace OSU_player
 {
     public partial class DelDulp : RadForm
@@ -118,6 +117,7 @@ namespace OSU_player
         private void button3_Click(object sender, EventArgs e)
         {
             button3.Enabled = false;
+            button2.Enabled = false;
             try
             {
                 if (Directory.Exists(Path.Combine(Core.osupath, "Songs")))
@@ -156,7 +156,6 @@ namespace OSU_player
         {
             progressBar1.Value1++;
             Label1.Text = String.Format("寻找重复map{0}/{1}", progressBar1.Value1, tmpbms.Count);
-
         }
         private void backgroundWorker3_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -167,15 +166,13 @@ namespace OSU_player
                 Label1.Text = string.Format("扫描完毕，发现重复曲目{0}个", dul.Count);
                 adddul();
             }
+            button2.Enabled = true;
         }
         private const int FO_DELETE = 0x3;
         private const ushort FOF_ALLOWUNDO = 0x40;
         private const ushort FOF_WANTNUKEWARNING = 0x4000;
-
-
         [DllImport("shell32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         private static extern int SHFileOperation([In, Out] _SHFILEOPSTRUCT str);
-
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         private class _SHFILEOPSTRUCT
         {
@@ -188,7 +185,6 @@ namespace OSU_player
             public IntPtr hNameMappings;
             public string lpszProgressTitle;
         }
-
         private int Delete(List<string> path)
         {
             _SHFILEOPSTRUCT pm = new _SHFILEOPSTRUCT();
@@ -237,13 +233,11 @@ namespace OSU_player
                 this.Dispose();
             }
         }
-
         private void listView1_SizeChanged(object sender, EventArgs e)
         {
             if (listView1.Width > listView1.Columns[0].Width)
             { listView1.Columns[0].Width = listView1.Width - 10; }
         }
-
         private void button4_Click(object sender, EventArgs e)
         {
             listView1.Select();
@@ -264,12 +258,10 @@ namespace OSU_player
                 listView1.Items[i].Checked = false;
             }
         }
-
         private void button2_Click(object sender, EventArgs e)
         {
             this.Dispose();
         }
-
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
             foreach (ListViewItem tmp in listView1.SelectedItems)
@@ -277,7 +269,6 @@ namespace OSU_player
                 tmp.Checked = true;
             }
         }
-
         private void button5_Click(object sender, EventArgs e)
         {
             listView1.SelectedItems.Clear();
@@ -286,12 +277,9 @@ namespace OSU_player
                 tmp.Checked = false;
             }
         }
-
         private void DelDulp_FormClosing(object sender, FormClosingEventArgs e)
         {
-            backgroundWorker1.Dispose();
-            backgroundWorker2.Dispose();
-            backgroundWorker3.Dispose();
+            if (!button2.Enabled) { e.Cancel = true; }
         }
     }
 }

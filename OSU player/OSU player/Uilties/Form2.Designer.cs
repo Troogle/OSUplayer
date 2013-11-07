@@ -6,7 +6,6 @@
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
-
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
@@ -19,9 +18,7 @@
             }
             base.Dispose(disposing);
         }
-
         #region Windows Form Designer generated code
-
         /// <summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
@@ -101,15 +98,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.Button2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
-
 		}
         #endregion
-        
         private System.Windows.Forms.ListView ListView1;
 		private Telerik.WinControls.UI.RadButton Button1;
 		private Telerik.WinControls.UI.RadButton Button2;
 		private System.Windows.Forms.ColumnHeader ColumnHeader2;
         private System.Windows.Forms.ColumnHeader ColumnHeader1;
 	}
-	
 }

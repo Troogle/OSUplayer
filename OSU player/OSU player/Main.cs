@@ -7,17 +7,16 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using Telerik.WinControls;
 using Telerik.WinControls.UI;
-
 namespace OSU_player
 {
-
     public partial class Main : RadForm
     {
         public Main()
         {
             InitializeComponent();
         }
-
+        private Size orisize;
+        private Size pansize;
         #region 各种方法
         private void AskForExit(object sender, System.Windows.Forms.FormClosingEventArgs e)
         {
@@ -30,7 +29,6 @@ namespace OSU_player
             {
                 e.Cancel = true;
             }
-
         }
         private void setbg()
         {
@@ -79,7 +77,6 @@ namespace OSU_player
             setbg();
             Play();
         }
-
         private void setscore()
         {
             ScoreBox.Items.Clear();
@@ -90,7 +87,6 @@ namespace OSU_player
                     ScoreBox.Items.Add(item);
                 }
             }
-
         }
         #endregion
         private void SetForm()
@@ -112,10 +108,12 @@ namespace OSU_player
             DiffList.Items.Clear();
             PlayList.Enabled = false;
             DiffList.Enabled = false;
+            //    PlayList.BeginUpdate();
             for (int i = 0; i < Core.PlayList.Count; i++)
             {
                 PlayList.Items.Add(Core.allsets[Core.PlayList[i]].ToString());
             }
+            //     PlayList.EndUpdate();
             if (PlayList.Items.Count != 0) { PlayList.Items[0].Selected = true; }
             PlayList.Enabled = true;
             DiffList.Enabled = true;
@@ -124,8 +122,11 @@ namespace OSU_player
         {
             Core.init(this.panel2.Handle, this.panel2.Size);
             SetForm();
+            orisize = this.Size;
+            pansize = this.panel3.Size;
+            pansize.Height += 80;
+            pansize.Width += 20;
         }
-
         #region 菜单栏
         #region 文件
         private void 运行OSU_Click(object sender, EventArgs e)
@@ -162,7 +163,6 @@ namespace OSU_player
         private void 打开铺面文件_Click(object sender, EventArgs e)
         {
             Process.Start("notepad.exe", Core.TmpBeatmap.Path);
-
         }
         private void 打开SB文件_Click(object sender, EventArgs e)
         {
@@ -187,32 +187,27 @@ namespace OSU_player
         {
             Core.playfx = 音效.IsChecked;
             Properties.Settings.Default.PlayFx = Core.playfx;
-            Properties.Settings.Default.Save();
         }
         private void 视频开关_Click(object sender, EventArgs e)
         {
             Core.playvideo = 视频开关.IsChecked;
             Properties.Settings.Default.PlayVideo = Core.playvideo;
-            Properties.Settings.Default.Save();
         }
         private void radMenuComboItem1_ComboBoxElement_SelectedIndexChanged(object sender, Telerik.WinControls.UI.Data.PositionChangedEventArgs e)
         {
             Core.Nextmode = radMenuComboItem1.ComboBoxElement.SelectedIndex + 1;
             Properties.Settings.Default.NextMode = Core.Nextmode;
-            Properties.Settings.Default.Save();
         }
         private void QQ状态同步_Click(object sender, EventArgs e)
         {
             if (Core.syncQQ && Core.uin != 0) { Core.uni_QQ.Send2QQ(Core.uin, ""); }
             Core.syncQQ = QQ状态同步.IsChecked;
             Properties.Settings.Default.SyncQQ = Core.syncQQ;
-            Properties.Settings.Default.Save();
         }
         private void SB开关_Click(object sender, EventArgs e)
         {
             Core.playsb = SB开关.IsChecked;
             Properties.Settings.Default.PlaySB = Core.playsb;
-            Properties.Settings.Default.Save();
         }
         #endregion
         private void 关于_Click(object sender, EventArgs e)
@@ -221,7 +216,6 @@ namespace OSU_player
             {
                 dialog.ShowDialog();
             }
-
         }
         #endregion
         #region 第一排
@@ -232,7 +226,6 @@ namespace OSU_player
             {
                 dialog.ShowDialog();
             }
-         
             this.Visible = true;
             RefreshList();
         }
@@ -248,9 +241,7 @@ namespace OSU_player
         {
             Core.SetVolume(1, 1.0f - (float)TrackVolume.Value / (float)TrackVolume.Maximum);
         }
-
         #endregion
-
         #region 第二排
         private void PlayList_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -294,19 +285,17 @@ namespace OSU_player
                     setbg();
                 }
             }
-
         }
         private void PlayList_DoubleClick(object sender, EventArgs e)
         {
-            if (Core.SetSet(PlayList.SelectedIndices[0],true)) { RefreshList(); PlayNext(); }
+            if (Core.SetSet(PlayList.SelectedIndices[0], true)) { RefreshList(); PlayNext(); }
             else
             {
-                Core.SetMap(0,true);
+                Core.SetMap(0, true);
                 Stop();
                 setbg();
                 Play();
             }
-
         }
         private void DiffList_DoubleClick(object sender, EventArgs e)
         {
@@ -334,7 +323,6 @@ namespace OSU_player
         {
             Core.seek((double)TrackSeek.Value / 1000);
         }
-
         private void SearchButton_Click(object sender, EventArgs e)
         {
             Stop();
@@ -349,7 +337,6 @@ namespace OSU_player
             }
             else
             {
-
                 if (PlayButton.Text == "播放")
                 {
                     Resume();
@@ -359,10 +346,8 @@ namespace OSU_player
                     Pause();
                 }
             }
-
         }
         #endregion
-
         private void button3_Click(object sender, EventArgs e)
         {
             this.Visible = false;
@@ -388,17 +373,6 @@ namespace OSU_player
                 setscore();
             }
         }
-        private void radMenuButtonItem1_Click(object sender, EventArgs e)
-        {
-            if (ThemeResolutionService.ApplicationThemeName == "Default")
-            {
-                ThemeResolutionService.ApplicationThemeName = "TelerikMetroBlue";
-            }
-            else
-            {
-                ThemeResolutionService.ApplicationThemeName = "Default";
-            }
-        }
         private void radMenuItem1_Click(object sender, EventArgs e)
         {
             Core.SetQQ(true);
@@ -411,27 +385,25 @@ namespace OSU_player
             {
                 panel1.Visible = false;
                 radButton1.Text = "↘";
-                this.Size = new Size(540, 500);
+                this.Size = pansize;
+                this.MenuStrip1.Refresh();
                 this.Refresh();
             }
             else
             {
                 panel1.Visible = true;
                 radButton1.Text = "↖";
-                this.Size = new Size(900, 740);
+                this.Size = orisize;
                 this.Refresh();
-
             }
         }
-
         private void UpdateTimer_Tick(object sender, EventArgs e)
         {
             TrackSeek.Value = (int)Core.position * 1000;
             label1.Text = String.Format("{0}:{1:D2} / {2}:{3:D2}", (int)Core.position / 60,
                 (int)Core.position % 60, (int)Core.durnation / 60,
                 (int)Core.durnation % 60);
-            if (Core.willnext) {PlayNext();}
+            if (Core.willnext) { PlayNext(); }
         }
-
     }
 }
