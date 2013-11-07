@@ -42,8 +42,8 @@ namespace OSU_player
                         Tscore.hit300 = reader.ReadInt16();
                         Tscore.hit100 = reader.ReadInt16();
                         Tscore.hit50 = reader.ReadInt16();
-                        stash = reader.ReadInt16();
-                        stash = reader.ReadInt16();
+                        Tscore.hit320 = reader.ReadInt16();
+                        Tscore.hit200 = reader.ReadInt16();
                         Tscore.miss = reader.ReadInt16();
                         Tscore.score = reader.ReadInt32();
                         Tscore.maxCombo = reader.ReadInt16();
@@ -52,6 +52,8 @@ namespace OSU_player
                         Tscore.time = new DateTime(reader.ReadInt64());
                         stash = reader.ReadInt32();
                         stash = reader.ReadInt32();
+                        Tscore.acc = Core.getacc(Tscore);
+                        Tscore.totalhit = Tscore.hit300 + Tscore.hit100 + Tscore.hit50 + Tscore.miss;
                         Nscore.Add(Tscore);
                     }
                     Core.Scores.Add(songmd5, Nscore);

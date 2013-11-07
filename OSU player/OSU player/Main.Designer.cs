@@ -28,6 +28,7 @@ namespace OSU_player
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             Telerik.WinControls.UI.RadListDataItem radListDataItem4 = new Telerik.WinControls.UI.RadListDataItem();
             Telerik.WinControls.UI.RadListDataItem radListDataItem5 = new Telerik.WinControls.UI.RadListDataItem();
             Telerik.WinControls.UI.RadListDataItem radListDataItem6 = new Telerik.WinControls.UI.RadListDataItem();
@@ -60,7 +61,6 @@ namespace OSU_player
             this.TextBox1 = new Telerik.WinControls.UI.RadTextBox();
             this.PlayList = new System.Windows.Forms.ListView();
             this.ColumnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.SetNum = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SearchButton = new Telerik.WinControls.UI.RadButton();
             this.Button2 = new Telerik.WinControls.UI.RadButton();
             this.radPageView1 = new Telerik.WinControls.UI.RadPageView();
@@ -71,6 +71,7 @@ namespace OSU_player
             this.ColumnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ColumnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.radPageViewPage2 = new Telerik.WinControls.UI.RadPageViewPage();
+            this.ScoreBox = new Telerik.WinControls.UI.RadListView();
             this.LabelQQ = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.radButton1 = new Telerik.WinControls.UI.RadButton();
@@ -87,7 +88,7 @@ namespace OSU_player
             this.TrackSeek = new Telerik.WinControls.UI.RadTrackBar();
             this.StopButton = new Telerik.WinControls.UI.RadButton();
             this.PlayButton = new Telerik.WinControls.UI.RadButton();
-            this.ScoreBox = new Telerik.WinControls.UI.RadListView();
+            this.UpdateTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.MenuStrip1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radMenuComboItem1.ComboBoxElement)).BeginInit();
             this.panel1.SuspendLayout();
@@ -99,6 +100,7 @@ namespace OSU_player
             this.radPageViewPage3.SuspendLayout();
             this.radPageViewPage1.SuspendLayout();
             this.radPageViewPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ScoreBox)).BeginInit();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radButton1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.button3)).BeginInit();
@@ -109,7 +111,6 @@ namespace OSU_player
             ((System.ComponentModel.ISupportInitialize)(this.TrackSeek)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.StopButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayButton)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ScoreBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -447,8 +448,7 @@ namespace OSU_player
             this.PlayList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.PlayList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.ColumnHeader1,
-            this.SetNum});
+            this.ColumnHeader1});
             this.PlayList.FullRowSelect = true;
             this.PlayList.GridLines = true;
             this.PlayList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
@@ -467,11 +467,6 @@ namespace OSU_player
             // 
             this.ColumnHeader1.Text = "";
             this.ColumnHeader1.Width = 500;
-            // 
-            // SetNum
-            // 
-            this.SetNum.Text = "SetNum";
-            this.SetNum.Width = 0;
             // 
             // SearchButton
             // 
@@ -522,7 +517,7 @@ namespace OSU_player
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DiffList.FormattingEnabled = true;
             this.DiffList.ItemHeight = 15;
-            this.DiffList.Location = new System.Drawing.Point(3, 10);
+            this.DiffList.Location = new System.Drawing.Point(3, 3);
             this.DiffList.Name = "DiffList";
             this.DiffList.Size = new System.Drawing.Size(506, 169);
             this.DiffList.TabIndex = 25;
@@ -534,7 +529,7 @@ namespace OSU_player
             this.radPageViewPage1.Controls.Add(this.ListDetail);
             this.radPageViewPage1.Location = new System.Drawing.Point(10, 10);
             this.radPageViewPage1.Name = "radPageViewPage1";
-            this.radPageViewPage1.Size = new System.Drawing.Size(508, 179);
+            this.radPageViewPage1.Size = new System.Drawing.Size(512, 186);
             this.radPageViewPage1.Text = "Map信息";
             // 
             // ListDetail
@@ -550,7 +545,7 @@ namespace OSU_player
             this.ListDetail.Location = new System.Drawing.Point(3, 3);
             this.ListDetail.MultiSelect = false;
             this.ListDetail.Name = "ListDetail";
-            this.ListDetail.Size = new System.Drawing.Size(502, 169);
+            this.ListDetail.Size = new System.Drawing.Size(506, 169);
             this.ListDetail.TabIndex = 40;
             this.ListDetail.UseCompatibleStateImageBehavior = false;
             this.ListDetail.View = System.Windows.Forms.View.Details;
@@ -570,8 +565,26 @@ namespace OSU_player
             this.radPageViewPage2.Controls.Add(this.ScoreBox);
             this.radPageViewPage2.Location = new System.Drawing.Point(10, 10);
             this.radPageViewPage2.Name = "radPageViewPage2";
-            this.radPageViewPage2.Size = new System.Drawing.Size(508, 179);
+            this.radPageViewPage2.Size = new System.Drawing.Size(512, 186);
             this.radPageViewPage2.Text = "成绩信息";
+            // 
+            // ScoreBox
+            // 
+            this.ScoreBox.AllowColumnReorder = false;
+            this.ScoreBox.AllowColumnResize = false;
+            this.ScoreBox.AllowEdit = false;
+            this.ScoreBox.AllowRemove = false;
+            this.ScoreBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ScoreBox.AutoScroll = true;
+            this.ScoreBox.ItemSize = new System.Drawing.Size(200, 60);
+            this.ScoreBox.Location = new System.Drawing.Point(3, 3);
+            this.ScoreBox.Name = "ScoreBox";
+            this.ScoreBox.ShowColumnHeaders = false;
+            this.ScoreBox.Size = new System.Drawing.Size(506, 169);
+            this.ScoreBox.TabIndex = 26;
+            this.ScoreBox.Text = "radListView1";
             // 
             // LabelQQ
             // 
@@ -746,23 +759,10 @@ namespace OSU_player
             this.PlayButton.Text = "播放";
             this.PlayButton.Click += new System.EventHandler(this.PlayButton_Click);
             // 
-            // ScoreBox
+            // UpdateTimer
             // 
-            this.ScoreBox.AllowColumnReorder = false;
-            this.ScoreBox.AllowColumnResize = false;
-            this.ScoreBox.AllowEdit = false;
-            this.ScoreBox.AllowRemove = false;
-            this.ScoreBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ScoreBox.AutoScroll = true;
-            this.ScoreBox.ItemSize = new System.Drawing.Size(200, 60);
-            this.ScoreBox.Location = new System.Drawing.Point(3, 3);
-            this.ScoreBox.Name = "ScoreBox";
-            this.ScoreBox.ShowColumnHeaders = false;
-            this.ScoreBox.Size = new System.Drawing.Size(502, 169);
-            this.ScoreBox.TabIndex = 26;
-            this.ScoreBox.Text = "radListView1";
+            this.UpdateTimer.Interval = 10;
+            this.UpdateTimer.Tick += new System.EventHandler(this.UpdateTimer_Tick);
             // 
             // Main
             // 
@@ -775,6 +775,7 @@ namespace OSU_player
             this.MinimumSize = new System.Drawing.Size(900, 740);
             this.Name = "Main";
             this.Padding = new System.Windows.Forms.Padding(4);
+           
             // 
             // 
             // 
@@ -794,6 +795,7 @@ namespace OSU_player
             this.radPageViewPage3.ResumeLayout(false);
             this.radPageViewPage1.ResumeLayout(false);
             this.radPageViewPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ScoreBox)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radButton1)).EndInit();
@@ -805,7 +807,6 @@ namespace OSU_player
             ((System.ComponentModel.ISupportInitialize)(this.TrackSeek)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.StopButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayButton)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ScoreBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -845,7 +846,6 @@ namespace OSU_player
         private Telerik.WinControls.UI.RadButton SearchButton;
         private Telerik.WinControls.UI.RadButton Button2;
         private System.Windows.Forms.Label LabelQQ;
-        private System.Windows.Forms.ColumnHeader SetNum;
         private Telerik.WinControls.UI.RadMenuItem 香蕉分析器ToolStripMenuItem;
         private Telerik.WinControls.UI.RadPageView radPageView1;
         private Telerik.WinControls.UI.RadPageViewPage radPageViewPage1;
@@ -870,6 +870,7 @@ namespace OSU_player
         private Telerik.WinControls.UI.RadButton PlayButton;
         private Telerik.WinControls.UI.RadButton radButton1;
         private Telerik.WinControls.UI.RadListView ScoreBox;
+        private System.Windows.Forms.Timer UpdateTimer;
     }
 
 }

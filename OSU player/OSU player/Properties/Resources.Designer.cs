@@ -93,6 +93,16 @@ namespace OSU_player.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap bg {
+            get {
+                object obj = ResourceManager.GetObject("bg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap C {
             get {
                 object obj = ResourceManager.GetObject("C", resourceCulture);
@@ -116,26 +126,6 @@ namespace OSU_player.Properties {
         internal static System.Drawing.Bitmap defaultBG {
             get {
                 object obj = ResourceManager.GetObject("defaultBG", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap Front {
-            get {
-                object obj = ResourceManager.GetObject("Front", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap osu {
-            get {
-                object obj = ResourceManager.GetObject("osu", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -172,7 +162,7 @@ namespace OSU_player.Properties {
         
         /// <summary>
         ///   查找类似 &lt;Xml&gt;
-        ///&lt;Url&gt;https://raw.github.com/Troogle/OSUplayer/master/OSU%20player/OSU%20player/&lt;/Url&gt;
+        ///&lt;Url&gt;https://raw.github.com/Troogle/OSUplayer/master/&lt;/Url&gt;
         ///&lt;Version&gt;2.9.0&lt;/Version&gt;
         ///&lt;Link&gt;&lt;![CDATA[http://pan.baidu.com/share/link?shareid=1540404661&amp;uk=2804632131]]&gt;&lt;/Link&gt;
         ///&lt;/Xml&gt; 的本地化字符串。

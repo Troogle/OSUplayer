@@ -188,7 +188,6 @@
             this.radStatusStrip1.SetSpring(this.progressBar1, false);
             this.progressBar1.StepWidth = 14;
             this.progressBar1.SweepAngle = 90;
-            this.progressBar1.Text = "";
             this.progressBar1.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             // 
             // Label1
@@ -219,7 +218,7 @@
             // 
             this.RootElement.ApplyShapeToControl = true;
             this.Text = "DelDulp";
-            this.Load += new System.EventHandler(this.DelDulp_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DelDulp_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.button1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.button2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.button3)).EndInit();

@@ -47,6 +47,7 @@
             this.listBox1.Size = new System.Drawing.Size(90, 259);
             this.listBox1.TabIndex = 0;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            this.listBox1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBox1_MouseDoubleClick);
             // 
             // listBox2
             // 
@@ -56,6 +57,7 @@
             this.listBox2.Name = "listBox2";
             this.listBox2.Size = new System.Drawing.Size(366, 259);
             this.listBox2.TabIndex = 1;
+            this.listBox2.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBox2_MouseDoubleClick);
             // 
             // button1
             // 
@@ -72,7 +74,8 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 31);
             this.button2.TabIndex = 3;
-            this.button2.Text = "取消";
+            this.button2.Text = "确定";
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // label1
             // 

@@ -7,7 +7,7 @@ namespace OSU_player
 {
     public class QQ
     {
-        
+
         public WebBrowser web = new WebBrowser();
         //提前加载浏览器，给浏览器加载的时间
         public QQ()
@@ -25,7 +25,7 @@ namespace OSU_player
             if (!Core.syncQQ) { return; }
             object objAdmin = null;
             Type objAdminType = Type.GetTypeFromProgID("QQCPHelper.CPAdder");
-            Object[] args=new object[4];
+            Object[] args = new object[4];
             args[0] = id;
             args[1] = 65542;
             args[2] = Str;
@@ -39,27 +39,23 @@ namespace OSU_player
         public List<QQInfo> GetQQList()
         {
             List<QQInfo> ret = new List<QQInfo>();
-            try
+            if (web.ReadyState == WebBrowserReadyState.Complete)
             {
-                if (web.ReadyState == WebBrowserReadyState.Complete)
+                HtmlDocument doc = web.Document;
+                HtmlElement uinList = doc.GetElementById("list_uin");
+                if (uinList != null)
                 {
-                    HtmlDocument doc = web.Document;
-                    HtmlElement uinList = doc.GetElementById("list_uin");
-                    if (uinList != null)
+                    for (var i = 0; i <= uinList.Children.Count - 1; i++)
                     {
-                        for (var i = 0; i <= uinList.Children.Count - 1; i++)
-                        {
-                            string str = uinList.Children[i].InnerText.Trim();
-                            string[] temp = str.Split(new char[] { ' ' });
-                            QQInfo NInfo = new QQInfo(Convert.ToInt32(temp[1].Substring(1, temp[1].Length - 2)), temp[0]);
-                            ret.Add(NInfo);
-                        }
+                        string str = uinList.Children[i].InnerText.Trim();
+                        QQInfo NInfo = new QQInfo(Convert.ToInt32(str.Substring(str.LastIndexOf("(") + 1, str.LastIndexOf(")") - str.LastIndexOf("(") - 1)), str.Substring(0, str.LastIndexOf("(") - 1));
+                        ret.Add(NInfo);
                     }
                 }
             }
-            catch (Exception)
+            else
             {
-                RadMessageBox.Show("获取当前在线QQ出错！刷新下试试？");
+                RadMessageBox.Show("获取当前在线QQ出错！ 稍等再刷新下？");
             }
             return ret;
 

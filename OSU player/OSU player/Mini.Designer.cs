@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.button1 = new Button1();
             this.bubbleBar1 = new OSU_player.BubbleBar();
             this.radButtonElement7 = new Telerik.WinControls.UI.RadButtonElement();
             this.radButtonElement1 = new Telerik.WinControls.UI.RadButtonElement();
@@ -36,9 +37,19 @@
             this.radButtonElement4 = new Telerik.WinControls.UI.RadButtonElement();
             this.radButtonElement5 = new Telerik.WinControls.UI.RadButtonElement();
             this.radButtonElement6 = new Telerik.WinControls.UI.RadButtonElement();
-            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.bubbleBar1)).BeginInit();
             this.SuspendLayout();
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.Transparent;
+            this.button1.BackgroundImage = global::OSU_player.Properties.Resources.play;
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.button1.Location = new System.Drawing.Point(87, 123);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(103, 107);
+            this.button1.TabIndex = 0;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // bubbleBar1
             // 
@@ -141,22 +152,12 @@
             this.radButtonElement6.ShowBorder = false;
             this.radButtonElement6.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             // 
-            // button1
-            // 
-            this.button1.Image = global::OSU_player.Properties.Resources.play;
-            this.button1.Location = new System.Drawing.Point(304, 96);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(127, 123);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // Mini
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
+            this.BackgroundImage = global::OSU_player.Properties.Resources.bg;
             this.ClientSize = new System.Drawing.Size(775, 425);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.bubbleBar1);
@@ -179,6 +180,6 @@
         private Telerik.WinControls.UI.RadButtonElement radButtonElement5;
         private Telerik.WinControls.UI.RadButtonElement radButtonElement6;
         private Telerik.WinControls.UI.RadButtonElement radButtonElement7;
-        private System.Windows.Forms.Button button1;
+        private Button1 button1;
     }
 }

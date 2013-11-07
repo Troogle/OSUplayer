@@ -20,10 +20,6 @@ namespace OSU_player
         private Dictionary<string, List<int>> dul = new Dictionary<string, List<int>>();
         private int ok = 0;
         private int all = 1;
-        private void DelDulp_Load(object sender, EventArgs e)
-        {
-
-        }
         private void scanforset(string path)
         {
             string[] osufiles = Directory.GetFiles(path, "*.osu");
@@ -289,6 +285,13 @@ namespace OSU_player
             {
                 tmp.Checked = false;
             }
+        }
+
+        private void DelDulp_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            backgroundWorker1.Dispose();
+            backgroundWorker2.Dispose();
+            backgroundWorker3.Dispose();
         }
     }
 }

@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
 using System.Text;
+using System.Threading;
+using System.Windows.Forms;
 using Telerik.WinControls;
-using System.Reflection;
 
 namespace OSU_player
 {
@@ -18,7 +17,7 @@ namespace OSU_player
             //设置应用程序处理异常方式：ThreadException处理
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
             //处理UI线程异常
-            Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
+            Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
             //处理非UI线程异常
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
             Application.EnableVisualStyles();
@@ -28,8 +27,12 @@ namespace OSU_player
                 ThemeResolutionService.LoadPackageResource("OSU_player.Res.Default.tssp");
                 ThemeResolutionService.LoadPackageResource("OSU_player.Res.Metro.tssp");
                 Telerik.WinControls.ThemeResolutionService.ApplicationThemeName = "Default";
+
+                Un4seen.Bass.BassNet.Registration("sqh1994@163.com", "2X280331512622");
+                Un4seen.Bass.Bass.BASS_Init(-1, 44100, Un4seen.Bass.BASSInit.BASS_DEVICE_DEFAULT, IntPtr.Zero);
                 Application.Run(new Main());
             }
+            #region 异常处理
             catch (Exception ex)
             {
                 string str = GetExceptionMsg(ex, "QxQ");
@@ -71,5 +74,6 @@ namespace OSU_player
             sb.AppendLine("***************************************************************");
             return sb.ToString();
         }
+        #endregion
     }
 }

@@ -70,7 +70,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Bass.Net, Version=2.4.10.3, Culture=neutral, PublicKeyToken=b7566c273e6ef480, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.AnalysisServices.AdomdClient, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -80,11 +79,6 @@
     <Reference Include="Telerik.WinControls, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.WinControls.ChartView, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e" />
-    <Reference Include="Telerik.WinControls.GridView, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
-    <Reference Include="Telerik.WinControls.PivotGrid, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
-    <Reference Include="Telerik.WinControls.RadDock, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
-    <Reference Include="Telerik.WinControls.Scheduler, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
     <Reference Include="Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
@@ -93,6 +87,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Button1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Button1.Designer.cs">
+      <DependentUpon>Button1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Mini.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -145,6 +145,9 @@
     <Compile Include="Uilties\Selfupdate.cs" />
     <Compile Include="Beatmap\StoryBoard.cs" />
     <Compile Include="Uilties\VlcPlayer.cs" />
+    <EmbeddedResource Include="Button1.resx">
+      <DependentUpon>Button1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Mini.resx">
       <DependentUpon>Mini.cs</DependentUpon>
     </EmbeddedResource>
@@ -205,8 +208,8 @@
     <None Include="Res\SH.png" />
     <None Include="Res\X.png" />
     <None Include="Res\XH.png" />
-    <None Include="Res\osu.png" />
     <None Include="Res\play.png" />
+    <None Include="Res\bg.png" />
     <Content Include="update.xml" />
   </ItemGroup>
   <ItemGroup>

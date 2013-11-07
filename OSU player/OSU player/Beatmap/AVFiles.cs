@@ -72,7 +72,7 @@ namespace OSU_player
         }
         public void Dispose()
         {
-            Bass.BASS_Stop();
+           Bass.BASS_Stop();
             Bass.BASS_Free();
         }
         public void Seek(double time)
@@ -120,10 +120,10 @@ namespace OSU_player
         string pluginPath = Application.StartupPath + "\\vlc\\plugins\\";
         public double durnation { get { return vlc_player_.Duration(); } }
         public double position { get { return vlc_player_.GetPlayTime(); } }
-        public Videofiles(Panel panel)
+        public Videofiles(IntPtr handle)
         {
             vlc_player_ = new VlcPlayer(pluginPath);
-            IntPtr render_wnd = panel.Handle;
+            IntPtr render_wnd = handle;
             vlc_player_.SetRenderWindow((int)render_wnd);
             is_playinig_ = false;
         }
