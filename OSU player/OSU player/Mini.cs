@@ -172,6 +172,8 @@ namespace OSU_player
             TrackSeek.Value = 0;
             StopButton.Enabled = false;
             SetPlay(true);
+            Artist = "";
+            Title = "";
         }
         private void Play()
         {
@@ -181,8 +183,11 @@ namespace OSU_player
             SetPlay(false);
             StopButton.Enabled = true;
             TrackSeek.MaxValue = (int)Core.durnation * 1000;
+            this.LabelArtist.Refresh();
+            this.LabelTitle.Refresh();
             Artist = Core.CurrentBeatmap.ArtistRomanized;
             Title = Core.CurrentBeatmap.TitleRomanized;
+
         }
         private void Pause()
         {
@@ -198,6 +203,8 @@ namespace OSU_player
         private void PlayNext()
         {
             UpdateTimer.Enabled = false;
+            Artist = "";
+            Title = "";
             int next = Core.GetNext();
             Core.allsets[next].GetDetail();
             Play();
@@ -210,7 +217,7 @@ namespace OSU_player
             LabelTime.Text = String.Format("{0}:{1:D2} | {2}:{3:D2}", (int)Core.position / 60,
                 (int)Core.position % 60, (int)Core.durnation / 60,
                 (int)Core.durnation % 60);
-            if (Core.willnext) { PlayNext(); }
+            if (Core.willnext) { Stop(); PlayNext(); }
 
 
         }

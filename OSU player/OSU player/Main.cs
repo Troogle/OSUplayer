@@ -350,6 +350,7 @@ namespace OSU_player
         private void button3_Click(object sender, EventArgs e)
         {
             this.Visible = false;
+            this.UpdateTimer.Enabled = false;
             using (Mini dialog = new Mini())
             {
                 dialog.ShowDialog();
@@ -367,6 +368,7 @@ namespace OSU_player
                 UpdateTimer.Enabled = true;
                 PlayButton.Text = "暂停";
                 StopButton.Enabled = true;
+
             }
             else
             {
@@ -376,6 +378,7 @@ namespace OSU_player
                 StopButton.Enabled = false;
             }
             this.Visible = true;
+            
 
         }
         private void radPageView1_SelectedPageChanged(object sender, EventArgs e)
@@ -424,7 +427,7 @@ namespace OSU_player
             label1.Text = String.Format("{0}:{1:D2} / {2}:{3:D2}", (int)Core.position / 60,
                 (int)Core.position % 60, (int)Core.durnation / 60,
                 (int)Core.durnation % 60);
-            if (Core.willnext) { PlayNext(); }
+            if (Core.willnext) { Stop(); PlayNext(); }
         }
     }
 }

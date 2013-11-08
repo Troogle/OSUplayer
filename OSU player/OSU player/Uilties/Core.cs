@@ -502,7 +502,10 @@ namespace OSU_player
         }
         public static void seek(double time)
         {
-            player.seek(time);
+            if (player.durnation - 10 > time)
+            {
+                player.seek(time);
+            }
         }
         public static int GetNext()
         {

@@ -268,6 +268,7 @@ namespace OSU_player
         { get { return uni_Audio.isplaying; } }
         public void seek(double time)
         {
+            cannext = false;
             uni_Audio.Seek(time);
             uni_Video.seek(time + Map.VideoOffset / 1000);
             fxpos = 0;
@@ -278,6 +279,7 @@ namespace OSU_player
                     fxpos++;
                 }
             }
+            cannext = true;
         }
         private void AVsync(object sender, EventArgs e)
         {
