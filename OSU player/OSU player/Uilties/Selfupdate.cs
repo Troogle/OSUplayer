@@ -14,6 +14,7 @@ namespace OSU_player
         static XmlDocument UpDateXml = new XmlDocument();
         static string url = "";
         static string ver = "";
+        static string info = "";
         static string temp = Environment.GetEnvironmentVariable("Temp").ToString() + "\\";
         static public void download(string url)
         {
@@ -24,10 +25,12 @@ namespace OSU_player
                 DialogResult res;
                 UpDateXml.Load(temp + "update.xml");
                 string newver = "";
+                string text = "";
                 newver = UpDateXml.SelectNodes("/Xml/Version")[0].InnerText;
+                text = UpDateXml.SelectNodes("/Xml/Text")[0].InnerText;
                 if (newver.CompareTo(ver) > 0)
                 {
-                    res = RadMessageBox.Show("新版本" + newver + "发布了~", "提醒", MessageBoxButtons.OKCancel, RadMessageIcon.Info);
+                    res = RadMessageBox.Show(String.Format("新版本{0}发布了~\n版本更新提示{1}", newver, text), "提醒", MessageBoxButtons.OKCancel, RadMessageIcon.Info);
                     if (res == System.Windows.Forms.DialogResult.OK)
                     {
                         Process.Start(UpDateXml.SelectNodes("/Xml/Link")[0].InnerText);

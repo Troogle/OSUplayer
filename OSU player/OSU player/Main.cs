@@ -100,7 +100,8 @@ namespace OSU_player
             SB开关.IsChecked = Core.playsb;
             视频开关.IsChecked = Core.playvideo;
             radMenuComboItem1.ComboBoxElement.SelectedIndex = Core.Nextmode - 1;
-            RefreshList();
+
+           
         }
         private void RefreshList()
         {
@@ -122,6 +123,7 @@ namespace OSU_player
         {
             Core.init(this.panel2.Handle, this.panel2.Size);
             SetForm();
+            RefreshList();
             orisize = this.Size;
             pansize = this.panel3.Size;
             pansize.Height += 80;
@@ -358,6 +360,21 @@ namespace OSU_player
             }
             PlayList.Items[Core.currentset].Selected = true;
             PlayList.EnsureVisible(Core.currentset);
+            if (Core.isplaying)
+            {
+                TrackSeek.Maximum = (int)Core.durnation * 1000;
+                TrackSeek.Enabled = true;
+                UpdateTimer.Enabled = true;
+                PlayButton.Text = "暂停";
+                StopButton.Enabled = true;
+            }
+            else
+            {
+                TrackSeek.Enabled = false;
+                UpdateTimer.Enabled = false;
+                PlayButton.Text = "播放";
+                StopButton.Enabled = false;
+            }
             this.Visible = true;
 
         }

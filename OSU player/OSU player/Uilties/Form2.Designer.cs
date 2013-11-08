@@ -66,7 +66,7 @@
             // 
             this.Button1.Location = new System.Drawing.Point(248, 52);
             this.Button1.Name = "Button1";
-            this.Button1.Size = new System.Drawing.Size(75, 26);
+            this.Button1.Size = new System.Drawing.Size(75, 30);
             this.Button1.TabIndex = 2;
             this.Button1.Text = "刷新";
             this.Button1.Click += new System.EventHandler(this.Button1_Click);
@@ -98,6 +98,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.Button2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
+
 		}
         #endregion
         private System.Windows.Forms.ListView ListView1;

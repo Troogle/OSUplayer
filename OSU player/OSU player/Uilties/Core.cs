@@ -370,6 +370,13 @@ namespace OSU_player
                 Properties.Settings.Default.SyncQQ = true;
             }
         }
+        public static void initplaylist()
+        {
+            for (int i = 0; i < allsets.Count; i++)
+            {
+                PlayList.Add(i);
+            }
+        }
         public static void LoadPreference()
         {
             uin = Properties.Settings.Default.QQuin;
@@ -393,10 +400,7 @@ namespace OSU_player
         {
             if (File.Exists("list.db") && LoadList())
             {
-                for (int i = 0; i < allsets.Count; i++)
-                {
-                    PlayList.Add(i);
-                }
+                initplaylist();
             }
             else
             {
@@ -405,10 +409,7 @@ namespace OSU_player
                 {
                     OsuDB.ReadDb(Path.Combine(Core.osupath, "osu!.db"));
                 }
-                for (int i = 0; i < allsets.Count; i++)
-                {
-                    PlayList.Add(i);
-                }
+                initplaylist();
                 RadMessageBox.Show(string.Format("初始化完毕，发现曲目{0}个", allsets.Count));
                 needsave = true;
             }
@@ -526,10 +527,7 @@ namespace OSU_player
         {
             if (keyword == "")
             {
-                for (int i = 0; i < allsets.Count; i++)
-                {
-                    PlayList.Add(i);
-                }
+                initplaylist();
             }
             else
             {

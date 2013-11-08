@@ -85,6 +85,7 @@ namespace OSU_player
             if (Core.isplaying)
             {
                 TrackSeek.MaxValue = (int)Core.durnation * 1000;
+                TrackSeek.Enabled = true;
                 Artist = Core.CurrentBeatmap.ArtistRomanized;
                 Title = Core.CurrentBeatmap.TitleRomanized;
                 UpdateTimer.Enabled = true;

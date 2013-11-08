@@ -609,7 +609,7 @@ namespace OSU_player
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(491, 2);
+            this.button3.Location = new System.Drawing.Point(491, 3);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(30, 27);
             this.button3.TabIndex = 43;
@@ -742,12 +742,13 @@ namespace OSU_player
             // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(887, 700);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.MenuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(895, 730);
             this.Name = "Main";
             this.Padding = new System.Windows.Forms.Padding(4);
