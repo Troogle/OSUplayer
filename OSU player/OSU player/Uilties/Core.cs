@@ -251,7 +251,7 @@ namespace OSU_player
         public static BeatmapSet CurrentSet { get { return allsets[PlayList[currentset]]; } }
         public static Beatmap CurrentBeatmap { get { return CurrentSet.Diffs[currentmap]; } }
         public static BeatmapSet TmpSet { get { return allsets[PlayList[tmpset]]; } }
-        public static Beatmap TmpBeatmap { get { return CurrentSet.Diffs[tmpmap]; } }
+        public static Beatmap TmpBeatmap { get { return TmpSet.Diffs[tmpmap]; } }
         public static Size size;
         public static IntPtr handle;
         public static void init(IntPtr Shandle, Size Ssize)
@@ -518,8 +518,6 @@ namespace OSU_player
                 default: next = 0;
                     break;
             }
-            tmpmap = 0;
-            tmpset = 0;
             currentset = next;
             currentmap = 0;
             return next;

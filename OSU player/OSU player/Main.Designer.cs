@@ -69,18 +69,17 @@ namespace OSU_player
             this.ScoreBox = new Telerik.WinControls.UI.RadListView();
             this.LabelQQ = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.radButton1 = new Telerik.WinControls.UI.RadButton();
+            this.TrackVolume = new Telerik.WinControls.UI.RadTrackBar();
+            this.TrackSeek = new Telerik.WinControls.UI.RadTrackBar();
             this.button3 = new Telerik.WinControls.UI.RadButton();
             this.label1 = new System.Windows.Forms.Label();
             this.TrackMusic = new Telerik.WinControls.UI.RadTrackBar();
             this.panel2 = new System.Windows.Forms.Panel();
             this.TrackFx = new Telerik.WinControls.UI.RadTrackBar();
             this.Label3 = new System.Windows.Forms.Label();
-            this.TrackVolume = new Telerik.WinControls.UI.RadTrackBar();
             this.Label4 = new System.Windows.Forms.Label();
             this.Label2 = new System.Windows.Forms.Label();
             this.NextButton = new Telerik.WinControls.UI.RadButton();
-            this.TrackSeek = new Telerik.WinControls.UI.RadTrackBar();
             this.StopButton = new Telerik.WinControls.UI.RadButton();
             this.PlayButton = new Telerik.WinControls.UI.RadButton();
             this.UpdateTimer = new System.Windows.Forms.Timer(this.components);
@@ -97,13 +96,12 @@ namespace OSU_player
             this.radPageViewPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ScoreBox)).BeginInit();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radButton1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TrackVolume)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TrackSeek)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.button3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrackMusic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrackFx)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TrackVolume)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NextButton)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TrackSeek)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.StopButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MenuStrip1)).BeginInit();
@@ -565,37 +563,53 @@ namespace OSU_player
             // 
             // panel3
             // 
-            this.panel3.Controls.Add(this.radButton1);
+            this.panel3.Controls.Add(this.TrackVolume);
+            this.panel3.Controls.Add(this.TrackSeek);
             this.panel3.Controls.Add(this.button3);
             this.panel3.Controls.Add(this.label1);
             this.panel3.Controls.Add(this.TrackMusic);
             this.panel3.Controls.Add(this.panel2);
             this.panel3.Controls.Add(this.TrackFx);
             this.panel3.Controls.Add(this.Label3);
-            this.panel3.Controls.Add(this.TrackVolume);
             this.panel3.Controls.Add(this.Label4);
             this.panel3.Controls.Add(this.Label2);
             this.panel3.Controls.Add(this.NextButton);
-            this.panel3.Controls.Add(this.TrackSeek);
             this.panel3.Controls.Add(this.StopButton);
             this.panel3.Controls.Add(this.PlayButton);
             this.panel3.Location = new System.Drawing.Point(4, 34);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(529, 423);
+            this.panel3.Size = new System.Drawing.Size(530, 426);
             this.panel3.TabIndex = 22;
             // 
-            // radButton1
+            // TrackVolume
             // 
-            this.radButton1.Location = new System.Drawing.Point(493, 392);
-            this.radButton1.Name = "radButton1";
-            this.radButton1.Size = new System.Drawing.Size(30, 27);
-            this.radButton1.TabIndex = 44;
-            this.radButton1.Text = "↖";
-            this.radButton1.Click += new System.EventHandler(this.radButton1_Click);
+            this.TrackVolume.Location = new System.Drawing.Point(491, 32);
+            this.TrackVolume.Maximum = 100;
+            this.TrackVolume.Name = "TrackVolume";
+            this.TrackVolume.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.TrackVolume.ShowTicks = false;
+            this.TrackVolume.Size = new System.Drawing.Size(30, 335);
+            this.TrackVolume.TabIndex = 0;
+            this.TrackVolume.Text = "radTrackBar1";
+            this.TrackVolume.TickStyle = Telerik.WinControls.Enumerations.TickStyles.None;
+            this.TrackVolume.Scroll += new System.Windows.Forms.ScrollEventHandler(this.TrackVolume_Scroll);
+            // 
+            // TrackSeek
+            // 
+            this.TrackSeek.Location = new System.Drawing.Point(181, 397);
+            this.TrackSeek.Name = "TrackSeek";
+            this.TrackSeek.ShowTicks = false;
+            this.TrackSeek.Size = new System.Drawing.Size(306, 17);
+            this.TrackSeek.TabIndex = 0;
+            this.TrackSeek.Text = "radTrackBar1";
+            this.TrackSeek.TickStyle = Telerik.WinControls.Enumerations.TickStyles.None;
+            this.TrackSeek.Scroll += new System.Windows.Forms.ScrollEventHandler(this.TrackSeek_Scroll);
+            ((Telerik.WinControls.UI.RadTrackBarElement)(this.TrackSeek.GetChildAt(0))).ShowTicks = false;
+            ((Telerik.WinControls.UI.RadTrackBarElement)(this.TrackSeek.GetChildAt(0))).TickStyle = Telerik.WinControls.Enumerations.TickStyles.None;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(493, 2);
+            this.button3.Location = new System.Drawing.Point(491, 2);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(30, 27);
             this.button3.TabIndex = 43;
@@ -615,13 +629,19 @@ namespace OSU_player
             // TrackMusic
             // 
             this.TrackMusic.Location = new System.Drawing.Point(162, 7);
-            this.TrackMusic.Maximum = 100F;
+            this.TrackMusic.Maximum = 100;
             this.TrackMusic.Name = "TrackMusic";
+            this.TrackMusic.ShowTicks = false;
             this.TrackMusic.Size = new System.Drawing.Size(148, 17);
             this.TrackMusic.TabIndex = 54;
             this.TrackMusic.TickStyle = Telerik.WinControls.Enumerations.TickStyles.None;
-            this.TrackMusic.Value = 80F;
+            this.TrackMusic.Value = 80;
             this.TrackMusic.Scroll += new System.Windows.Forms.ScrollEventHandler(this.TrackMusic_Scroll);
+            ((Telerik.WinControls.UI.RadTrackBarElement)(this.TrackMusic.GetChildAt(0))).Minimum = 0;
+            ((Telerik.WinControls.UI.RadTrackBarElement)(this.TrackMusic.GetChildAt(0))).Maximum = 100;
+            ((Telerik.WinControls.UI.RadTrackBarElement)(this.TrackMusic.GetChildAt(0))).Value = 80;
+            ((Telerik.WinControls.UI.RadTrackBarElement)(this.TrackMusic.GetChildAt(0))).ShowTicks = false;
+            ((Telerik.WinControls.UI.RadTrackBarElement)(this.TrackMusic.GetChildAt(0))).TickStyle = Telerik.WinControls.Enumerations.TickStyles.None;
             // 
             // panel2
             // 
@@ -633,13 +653,19 @@ namespace OSU_player
             // TrackFx
             // 
             this.TrackFx.Location = new System.Drawing.Point(359, 7);
-            this.TrackFx.Maximum = 100F;
+            this.TrackFx.Maximum = 100;
             this.TrackFx.Name = "TrackFx";
+            this.TrackFx.ShowTicks = false;
             this.TrackFx.Size = new System.Drawing.Size(128, 17);
             this.TrackFx.TabIndex = 51;
             this.TrackFx.TickStyle = Telerik.WinControls.Enumerations.TickStyles.None;
-            this.TrackFx.Value = 60F;
+            this.TrackFx.Value = 60;
             this.TrackFx.Scroll += new System.Windows.Forms.ScrollEventHandler(this.TrackFx_Scroll);
+            ((Telerik.WinControls.UI.RadTrackBarElement)(this.TrackFx.GetChildAt(0))).Minimum = 0;
+            ((Telerik.WinControls.UI.RadTrackBarElement)(this.TrackFx.GetChildAt(0))).Maximum = 100;
+            ((Telerik.WinControls.UI.RadTrackBarElement)(this.TrackFx.GetChildAt(0))).Value = 60;
+            ((Telerik.WinControls.UI.RadTrackBarElement)(this.TrackFx.GetChildAt(0))).ShowTicks = false;
+            ((Telerik.WinControls.UI.RadTrackBarElement)(this.TrackFx.GetChildAt(0))).TickStyle = Telerik.WinControls.Enumerations.TickStyles.None;
             // 
             // Label3
             // 
@@ -649,22 +675,6 @@ namespace OSU_player
             this.Label3.Size = new System.Drawing.Size(37, 19);
             this.Label3.TabIndex = 52;
             this.Label3.Text = "音效";
-            // 
-            // TrackVolume
-            // 
-            this.TrackVolume.Location = new System.Drawing.Point(490, 35);
-            this.TrackVolume.Maximum = 100F;
-            this.TrackVolume.Name = "TrackVolume";
-            this.TrackVolume.Orientation = System.Windows.Forms.Orientation.Vertical;
-            // 
-            // 
-            // 
-            this.TrackVolume.RootElement.StretchHorizontally = false;
-            this.TrackVolume.RootElement.StretchVertically = true;
-            this.TrackVolume.Size = new System.Drawing.Size(37, 332);
-            this.TrackVolume.TabIndex = 49;
-            this.TrackVolume.TickStyle = Telerik.WinControls.Enumerations.TickStyles.None;
-            this.TrackVolume.Scroll += new System.Windows.Forms.ScrollEventHandler(this.TrackVolume_Scroll);
             // 
             // Label4
             // 
@@ -679,7 +689,7 @@ namespace OSU_player
             // 
             this.Label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Label2.AutoSize = true;
-            this.Label2.Location = new System.Drawing.Point(490, 370);
+            this.Label2.Location = new System.Drawing.Point(488, 370);
             this.Label2.Name = "Label2";
             this.Label2.Size = new System.Drawing.Size(37, 19);
             this.Label2.TabIndex = 50;
@@ -693,17 +703,6 @@ namespace OSU_player
             this.NextButton.TabIndex = 48;
             this.NextButton.Text = "→";
             this.NextButton.Click += new System.EventHandler(this.NextButton_Click);
-            // 
-            // TrackSeek
-            // 
-            this.TrackSeek.Enabled = false;
-            this.TrackSeek.Location = new System.Drawing.Point(181, 397);
-            this.TrackSeek.Maximum = 1000F;
-            this.TrackSeek.Name = "TrackSeek";
-            this.TrackSeek.Size = new System.Drawing.Size(305, 17);
-            this.TrackSeek.TabIndex = 44;
-            this.TrackSeek.TickStyle = Telerik.WinControls.Enumerations.TickStyles.None;
-            this.TrackSeek.Scroll += new System.Windows.Forms.ScrollEventHandler(this.TrackSeek_Scroll);
             // 
             // StopButton
             // 
@@ -726,7 +725,6 @@ namespace OSU_player
             // 
             // UpdateTimer
             // 
-            this.UpdateTimer.Interval = 10;
             this.UpdateTimer.Tick += new System.EventHandler(this.UpdateTimer_Tick);
             // 
             // MenuStrip1
@@ -774,19 +772,19 @@ namespace OSU_player
             ((System.ComponentModel.ISupportInitialize)(this.ScoreBox)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radButton1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TrackVolume)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TrackSeek)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.button3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrackMusic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrackFx)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TrackVolume)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NextButton)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TrackSeek)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.StopButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MenuStrip1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
         #endregion
         private Telerik.WinControls.UI.RadMenuItem ToolStripMenuItem1;
@@ -834,16 +832,15 @@ namespace OSU_player
         private System.Windows.Forms.Panel panel2;
         private Telerik.WinControls.UI.RadTrackBar TrackFx;
         private System.Windows.Forms.Label Label3;
-        private Telerik.WinControls.UI.RadTrackBar TrackVolume;
         private System.Windows.Forms.Label Label4;
         private System.Windows.Forms.Label Label2;
         private Telerik.WinControls.UI.RadButton NextButton;
-        private Telerik.WinControls.UI.RadTrackBar TrackSeek;
         private Telerik.WinControls.UI.RadButton StopButton;
         private Telerik.WinControls.UI.RadButton PlayButton;
-        private Telerik.WinControls.UI.RadButton radButton1;
         private Telerik.WinControls.UI.RadListView ScoreBox;
         private System.Windows.Forms.Timer UpdateTimer;
         private Telerik.WinControls.UI.RadMenu MenuStrip1;
+        private Telerik.WinControls.UI.RadTrackBar TrackSeek;
+        private Telerik.WinControls.UI.RadTrackBar TrackVolume;
     }
 }

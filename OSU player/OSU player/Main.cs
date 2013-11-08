@@ -52,7 +52,7 @@ namespace OSU_player
             TrackSeek.Enabled = true;
             PlayButton.Text = "暂停";
             StopButton.Enabled = true;
-            TrackSeek.Maximum = (int)Core.durnation * 1000;
+            TrackSeek.Maximum = (int)Core.durnation*1000;
         }
         private void Pause()
         {
@@ -299,12 +299,9 @@ namespace OSU_player
         }
         private void DiffList_DoubleClick(object sender, EventArgs e)
         {
-            if (Core.SetSet(PlayList.SelectedIndices[0], true)) { RefreshList(); PlayNext(); }
+            if (Core.SetMap(DiffList.SelectedIndex, true)) { RefreshList(); PlayNext(); }
             else
             {
-                Core.SetMap(DiffList.SelectedIndex, true);
-                Core.currentset = Core.tmpset;
-                Core.currentmap = Core.tmpmap;
                 Stop();
                 setbg();
                 Play();
@@ -355,7 +352,14 @@ namespace OSU_player
             {
                 dialog.ShowDialog();
             }
+            if (PlayList.SelectedItems.Count != 0)
+            {
+                PlayList.SelectedItems[0].Selected = false;
+            }
+            PlayList.Items[Core.currentset].Selected = true;
+            PlayList.EnsureVisible(Core.currentset);
             this.Visible = true;
+
         }
         private void radPageView1_SelectedPageChanged(object sender, EventArgs e)
         {
@@ -384,7 +388,7 @@ namespace OSU_player
             if (panel1.Visible)
             {
                 panel1.Visible = false;
-                radButton1.Text = "↘";
+            //    radButton1.Text = "↘";
                 this.Size = pansize;
                 this.MenuStrip1.Refresh();
                 this.Refresh();
@@ -392,14 +396,14 @@ namespace OSU_player
             else
             {
                 panel1.Visible = true;
-                radButton1.Text = "↖";
+         //       radButton1.Text = "↖";
                 this.Size = orisize;
                 this.Refresh();
             }
         }
         private void UpdateTimer_Tick(object sender, EventArgs e)
         {
-            TrackSeek.Value = (int)Core.position * 1000;
+            TrackSeek.Value = (int)Core.position*1000 ;
             label1.Text = String.Format("{0}:{1:D2} / {2}:{3:D2}", (int)Core.position / 60,
                 (int)Core.position % 60, (int)Core.durnation / 60,
                 (int)Core.durnation % 60);

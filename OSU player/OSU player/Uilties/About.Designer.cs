@@ -25,6 +25,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(About));
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -70,12 +71,11 @@
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("微软雅黑", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.Location = new System.Drawing.Point(216, 12);
+            this.label2.Location = new System.Drawing.Point(216, 4);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(300, 200);
+            this.label2.Size = new System.Drawing.Size(300, 220);
             this.label2.TabIndex = 3;
-            this.label2.Text = "OSU Player Ver 3.0.0\r\nDeveloped By Troogle(Google)\r\n\r\nSpecial Thanks:\r\nWei♂ren,葵姐" +
-    "姐(?,popner,tony8128,[-Baidu-],[-Crystal-]\r\n\r\nAND YOU!\r\nThx for using~";
+            this.label2.Text = resources.GetString("label2.Text");
             // 
             // About
             // 
@@ -97,6 +97,7 @@
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
         #endregion
         private System.Windows.Forms.PictureBox pictureBox1;
