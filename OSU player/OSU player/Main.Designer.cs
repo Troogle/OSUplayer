@@ -596,6 +596,7 @@ namespace OSU_player
             // 
             // TrackSeek
             // 
+            this.TrackSeek.Enabled = false;
             this.TrackSeek.Location = new System.Drawing.Point(181, 397);
             this.TrackSeek.Name = "TrackSeek";
             this.TrackSeek.ShowTicks = false;

@@ -21,6 +21,7 @@ namespace OSU_player
             try
             {
                 WebClient myWebClient = new WebClient();
+                if (System.IO.File.Exists(temp + "update.xml")) { System.IO.File.Delete(temp + "update.xml"); }
                 myWebClient.DownloadFile(url, temp + "update.xml");
                 DialogResult res;
                 UpDateXml.Load(temp + "update.xml");

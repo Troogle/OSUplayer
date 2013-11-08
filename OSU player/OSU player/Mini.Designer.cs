@@ -53,6 +53,8 @@
             // 
             this.TrackSeek.BackColor = System.Drawing.Color.Transparent;
             this.TrackSeek.BrushStyle = gTrackBar.gTrackBar.eBrushStyle.Image;
+            this.TrackSeek.ChangeLarge = 10000;
+            this.TrackSeek.ChangeSmall = 1000;
             this.TrackSeek.Enabled = false;
             this.TrackSeek.FloatValue = false;
             this.TrackSeek.FloatValueFontColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(82)))), ((int)(((byte)(92)))));

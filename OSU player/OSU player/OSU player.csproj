@@ -229,7 +229,9 @@
     <None Include="Res\trackBase.png" />
     <None Include="Res\VolumeBase.png" />
     <None Include="Res\VolumeHandle.png" />
-    <Content Include="update.xml" />
+    <Content Include="update.xml">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

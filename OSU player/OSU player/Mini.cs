@@ -197,6 +197,7 @@ namespace OSU_player
         }
         private void PlayNext()
         {
+            UpdateTimer.Enabled = false;
             int next = Core.GetNext();
             Core.allsets[next].GetDetail();
             Play();
@@ -206,7 +207,6 @@ namespace OSU_player
         {
 
             TrackSeek.Value = (int)Core.position * 1000;
-
             LabelTime.Text = String.Format("{0}:{1:D2} | {2}:{3:D2}", (int)Core.position / 60,
                 (int)Core.position % 60, (int)Core.durnation / 60,
                 (int)Core.durnation % 60);
