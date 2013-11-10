@@ -487,6 +487,8 @@ namespace OSU_player
         }
         public static void Play()
         {
+            if (!CurrentSet.detailed) { CurrentSet.GetDetail(); }
+            if (!File.Exists(CurrentBeatmap.Audio)) { RadMessageBox.Show("丧心病狂不？音频文件你都删！"); return; }
             player.Play();
             uni_QQ.Send2QQ(uin, CurrentBeatmap.NameToString());
         }
@@ -542,6 +544,7 @@ namespace OSU_player
                         PlayList.Add(i);
                     }
                 }
+                if (PlayList.Count == 0) { RadMessageBox.Show("神马都木有找到！"); initplaylist(); }
             }
         }
         public static double durnation
@@ -640,7 +643,7 @@ namespace OSU_player
         }
         #endregion
         #region 通用转换区
-        public static string modconverter(int mod)
+        public static string modconverter(long mod)
         {
             string cmod = "";
             if (mod == 0) { cmod = "None"; }
@@ -648,8 +651,11 @@ namespace OSU_player
             {
                 for (int i = 0; i < (int)mods.Random; i++)
                 {
-                    if ((mod & 1) == 1) { cmod += " " + Enum.GetName(typeof(mods), i); }
-                    mod = mod >> 2;
+                    if ((mod & 1) == 1)
+                    {
+                        cmod += " " + Enum.GetName(typeof(mods), i);
+                    }
+                    mod = mod >> 1;
                 }
             }
             return cmod;
@@ -764,10 +770,10 @@ namespace OSU_player
             {
                 case modes.Osu:
                     return (S.hit300 * 6 + S.hit100 * 2 + S.hit50)
-                        / (double)(S.hit300 * 6 + S.hit100 * 6 + S.hit50 * 6 + S.miss * 6);
+                        / (double)((S.hit300 + S.hit100 + S.hit50 + S.miss) * 6);
                 case modes.Taiko:
                     return (S.hit300 * 2 + S.hit100)
-                        / (double)(S.hit300 * 2 + S.hit100 * 2 + S.miss * 2);
+                        / (double)((S.hit300 + S.hit100 + S.miss) * 2);
                 case modes.CTB:
                     return (S.hit300 + S.hit100 + S.hit50)
                         / (double)(S.hit300 + S.hit100 + S.hit50 + S.hit200 + S.miss);

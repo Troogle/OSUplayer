@@ -82,21 +82,18 @@ namespace OSU_player
         {
             Front = false;
             SetFormRoundRectRgn(this, 12);
+            TrackVolume.Value = (int)(100 * Core.Allvolume);
+            if (!this.Bounds.Contains(Cursor.Position)) { this.Opacity = 0.5d; }
             if (Core.isplaying)
             {
                 TrackSeek.MaxValue = (int)Core.durnation * 1000;
                 TrackSeek.Enabled = true;
-                Artist = Core.CurrentBeatmap.ArtistRomanized;
-                Title = Core.CurrentBeatmap.TitleRomanized;
+                Artist = Core.CurrentBeatmap.Artist;
+                Title = Core.CurrentBeatmap.Title;
                 UpdateTimer.Enabled = true;
                 SetPlay(false);
                 StopButton.Enabled = true;
             }
-        }
-
-        private void TrackVolume_Scroll(object sender, ScrollEventArgs e)
-        {
-
         }
 
         private void imageButton2_Click(object sender, EventArgs e)
@@ -177,16 +174,19 @@ namespace OSU_player
         }
         private void Play()
         {
-            UpdateTimer.Enabled = true;
-            Core.Play();
-            TrackSeek.Enabled = true;
-            SetPlay(false);
-            StopButton.Enabled = true;
-            TrackSeek.MaxValue = (int)Core.durnation * 1000;
-            this.LabelArtist.Refresh();
-            this.LabelTitle.Refresh();
-            Artist = Core.CurrentBeatmap.ArtistRomanized;
-            Title = Core.CurrentBeatmap.TitleRomanized;
+            if (Core.PlayList.Count != 0)
+            {
+                UpdateTimer.Enabled = true;
+                Core.Play();
+                TrackSeek.Enabled = true;
+                SetPlay(false);
+                StopButton.Enabled = true;
+                TrackSeek.MaxValue = (int)Core.durnation * 1000;
+                this.LabelArtist.Refresh();
+                this.LabelTitle.Refresh();
+                Artist = Core.CurrentBeatmap.Artist;
+                Title = Core.CurrentBeatmap.Title;
+            }
 
         }
         private void Pause()
@@ -205,9 +205,11 @@ namespace OSU_player
             UpdateTimer.Enabled = false;
             Artist = "";
             Title = "";
-            int next = Core.GetNext();
-            Core.allsets[next].GetDetail();
-            Play();
+            if (Core.PlayList.Count != 0)
+            {
+                int next = Core.GetNext();
+                Play();
+            }
         }
 
         private void UpdateTimer_Tick(object sender, EventArgs e)

@@ -15,6 +15,15 @@ namespace OSU_player
     }
     class OsuDB
     {
+        private static int Scorecompare(Score a, Score b)
+        {
+            if (a.score > b.score)
+            {
+                return 1;
+            }
+            else if (a.score == b.score) { return 0; }
+            else return -1;
+        }
         public static void ReadScore(string file)
         {
             using (System.IO.FileStream fs = new System.IO.FileStream(file, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.ReadWrite))
@@ -45,8 +54,8 @@ namespace OSU_player
                         Tscore.miss = reader.ReadInt16();
                         Tscore.score = reader.ReadInt32();
                         Tscore.maxCombo = reader.ReadInt16();
-                        Tscore.mod = Core.modconverter(reader.ReadInt32());
-                        stash = reader.ReadInt16();
+                        reader.ReadBoolean();//isperfect
+                        Tscore.mod = Core.modconverter(reader.ReadUInt32() + reader.ReadByte() << 32);
                         Tscore.time = new DateTime(reader.ReadInt64());
                         stash = reader.ReadInt32();
                         stash = reader.ReadInt32();
@@ -54,6 +63,7 @@ namespace OSU_player
                         Tscore.totalhit = Tscore.hit300 + Tscore.hit100 + Tscore.hit50 + Tscore.miss;
                         Nscore.Add(Tscore);
                     }
+                    Nscore.Sort(Scorecompare);
                     Core.Scores.Add(songmd5, Nscore);
                 }
             }
@@ -113,16 +123,16 @@ namespace OSU_player
                     stash = reader.ReadByte();//Ranking taiko
                     stash = reader.ReadByte();//Ranking ctb
                     stash = reader.ReadByte();//Ranking mania
-                    tmpbm.offset = reader.ReadUInt16();
+                    tmpbm.offset = reader.ReadInt16();
                     stashD = reader.ReadSingle();  //stack
-                    stash = reader.ReadByte(); //mode
+                    tmpbm.mode = reader.ReadByte();
                     tmpbm.Source = reader.ReadString();
                     tmpbm.tags = reader.ReadString();
-                    stash = reader.ReadInt16();
+                    stash = reader.ReadInt16();//online-offset
                     if (tmpbm.offset == 0 && stash != 0) { tmpbm.offset = stash; }
                     stashs = reader.ReadString(); //title-font
                     stashb = reader.ReadBoolean(); //unplayed
-                    stashB = reader.ReadInt64(); //最后玩
+                    stashB = reader.ReadInt64(); //last_play
                     stashb = reader.ReadBoolean(); //osz2
                     tmpbm.Location = Path.Combine(Core.osupath, reader.ReadString());
                     stashB = reader.ReadInt64(); //最后同步

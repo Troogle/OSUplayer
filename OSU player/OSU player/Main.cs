@@ -47,12 +47,15 @@ namespace OSU_player
         }
         private void Play()
         {
-            UpdateTimer.Enabled = true;
-            Core.Play();
-            TrackSeek.Enabled = true;
-            PlayButton.Text = "暂停";
-            StopButton.Enabled = true;
-            TrackSeek.Maximum = (int)Core.durnation*1000;
+            if (Core.PlayList.Count != 0)
+            {
+                UpdateTimer.Enabled = true;
+                Core.Play();
+                TrackSeek.Enabled = true;
+                PlayButton.Text = "暂停";
+                StopButton.Enabled = true;
+                TrackSeek.Maximum = (int)Core.durnation * 1000;
+            }
         }
         private void Pause()
         {
@@ -67,15 +70,18 @@ namespace OSU_player
         }
         private void PlayNext()
         {
-            int next = Core.GetNext();
-            if (PlayList.SelectedItems.Count != 0)
+            if (Core.PlayList.Count != 0)
             {
-                PlayList.SelectedItems[0].Selected = false;
+                int next = Core.GetNext();
+                if (PlayList.SelectedItems.Count != 0)
+                {
+                    PlayList.SelectedItems[0].Selected = false;
+                }
+                PlayList.Items[next].Selected = true;
+                PlayList.EnsureVisible(next);
+                setbg();
+                Play();
             }
-            PlayList.Items[next].Selected = true;
-            PlayList.EnsureVisible(next);
-            setbg();
-            Play();
         }
         private void setscore()
         {
@@ -101,7 +107,7 @@ namespace OSU_player
             视频开关.IsChecked = Core.playvideo;
             radMenuComboItem1.ComboBoxElement.SelectedIndex = Core.Nextmode - 1;
 
-           
+
         }
         private void RefreshList()
         {
@@ -378,7 +384,7 @@ namespace OSU_player
                 StopButton.Enabled = false;
             }
             this.Visible = true;
-            
+
 
         }
         private void radPageView1_SelectedPageChanged(object sender, EventArgs e)
@@ -387,12 +393,12 @@ namespace OSU_player
             {
                 if (!Core.scoresearched)
                 {
-                    if (RadMessageBox.Show(this, "木有导入过score，现在导入么？", "提示", MessageBoxButtons.YesNo)
-                        == DialogResult.Yes)
-                    {
-                        string scorepath = Path.Combine(Core.osupath, "scores.db");
-                        if (File.Exists(scorepath)) { OsuDB.ReadScore(scorepath); Core.scoresearched = true; 重新导入scores.Text = "重新导入scores.db"; }
-                    }
+                    //  if (RadMessageBox.Show(this, "木有导入过score，现在导入么？", "提示", MessageBoxButtons.YesNo)
+                    //        == DialogResult.Yes)
+                    //     {
+                    string scorepath = Path.Combine(Core.osupath, "scores.db");
+                    if (File.Exists(scorepath)) { OsuDB.ReadScore(scorepath); Core.scoresearched = true; 重新导入scores.Text = "重新导入scores.db"; }
+                    //     }
                 }
                 setscore();
             }
@@ -408,7 +414,7 @@ namespace OSU_player
             if (panel1.Visible)
             {
                 panel1.Visible = false;
-            //    radButton1.Text = "↘";
+                //    radButton1.Text = "↘";
                 this.Size = pansize;
                 this.MenuStrip1.Refresh();
                 this.Refresh();
@@ -416,18 +422,36 @@ namespace OSU_player
             else
             {
                 panel1.Visible = true;
-         //       radButton1.Text = "↖";
+                //       radButton1.Text = "↖";
                 this.Size = orisize;
                 this.Refresh();
             }
         }
         private void UpdateTimer_Tick(object sender, EventArgs e)
         {
-            TrackSeek.Value = (int)Core.position*1000 ;
+            TrackSeek.Value = (int)Core.position * 1000;
             label1.Text = String.Format("{0}:{1:D2} / {2}:{3:D2}", (int)Core.position / 60,
                 (int)Core.position % 60, (int)Core.durnation / 60,
                 (int)Core.durnation % 60);
             if (Core.willnext) { Stop(); PlayNext(); }
+        }
+
+        private void radMenuItem2_Click(object sender, EventArgs e)
+        {
+            if (Core.CurrentBeatmap.Background != null && Core.CurrentBeatmap.Background != "")
+            {
+                FolderBrowserDialog dialog = new FolderBrowserDialog();
+                dialog.ShowNewFolderButton = false;
+                dialog.RootFolder = Environment.SpecialFolder.DesktopDirectory;
+                dialog.Description = "请选择BG保存目录~";
+                if (DialogResult.OK == dialog.ShowDialog())
+                {
+                    File.Copy(Core.CurrentBeatmap.Background, Path.Combine(dialog.SelectedPath, new FileInfo(Core.CurrentBeatmap.Background).Name), true);
+                }
+                else
+                {
+                }
+            }
         }
     }
 }

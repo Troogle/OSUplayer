@@ -62,6 +62,10 @@ namespace OSU_player
                 }
             }
         }
+        public int mode
+        {
+            set { Rawdata[(int)OSUfile.Mode] = value.ToString(); }
+        }
         public modes Mode
         {
             get
@@ -542,7 +546,15 @@ namespace OSU_player
                         case osuFileScanStatus.METADATA:
                         case osuFileScanStatus.DIFFICULTY:
                             string[] s = row.Split(new char[] { ':' }, 2);
-                            Rawdata[(int)(OSUfile)Enum.Parse(typeof(OSUfile), (s[0].Trim()))] = s[1].Trim();
+                            try
+                            {
+                                Rawdata[(int)(OSUfile)Enum.Parse(typeof(OSUfile), (s[0].Trim()))] = s[1].Trim();
+
+                            }
+                            catch
+                            {
+
+                            }
                             break;
                         case osuFileScanStatus.EVENTS:
                             if (row.StartsWith("0,0,"))

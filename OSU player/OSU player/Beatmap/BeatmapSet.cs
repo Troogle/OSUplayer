@@ -108,7 +108,7 @@ namespace OSU_player
             if (count == 0)
             {
                 location = tmpbm.Location;
-                name = tmpbm.ArtistRomanized + " - " + tmpbm.TitleRomanized;
+                name = tmpbm.Artist + " - " + tmpbm.Title;
                 setid = tmpbm.beatmapsetId;
                 tags = tmpbm.tags;
                 tags += " " + tmpbm.ArtistRomanized;
