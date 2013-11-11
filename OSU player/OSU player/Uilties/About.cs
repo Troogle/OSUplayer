@@ -17,6 +17,7 @@ namespace OSU_player
         }
         private void About_Load(object sender, EventArgs e)
         {
+            label2.Text = "OSU Player Ver " + Core.Version + "\n" + label2.Text;
             label1.SendToBack();
         }
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -25,7 +26,7 @@ namespace OSU_player
         }
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            Process.Start("https://osu.ppy.sh/u/3281474"); 
+            Process.Start("https://osu.ppy.sh/u/3281474");
         }
     }
 }

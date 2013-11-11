@@ -8,6 +8,8 @@ using System.Drawing;
 using OSU_player.Properties;
 using System.Threading;
 using Telerik.WinControls.UI;
+using System.Reflection;
+using System.Diagnostics;
 namespace OSU_player
 {
     /// <summary>
@@ -254,6 +256,16 @@ namespace OSU_player
         public static Beatmap TmpBeatmap { get { return TmpSet.Diffs[tmpmap]; } }
         public static Size size;
         public static IntPtr handle;
+        public static string Version
+        {
+            get
+            {
+                Assembly asm = Assembly.GetExecutingAssembly();
+                
+                FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(asm.Location);
+                return fvi.FileVersion;
+             }
+        }
         public static void init(IntPtr Shandle, Size Ssize)
         {
             Getpath();

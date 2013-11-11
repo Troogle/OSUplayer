@@ -16,8 +16,9 @@ namespace OSU_player
         static string ver = "";
         static public void download(string url)
         {
-            try {
-				UpDateXml.Load(new XmlTextReader(url));
+            try
+            {
+                UpDateXml.Load(new XmlTextReader(url));
                 DialogResult res;
                 string newver = "";
                 string text = "";
@@ -39,17 +40,8 @@ namespace OSU_player
         }
         public static void check_update()
         {
-            try
-            {
-                UpDateXml.LoadXml(Properties.Resources.update);
-                url = UpDateXml.SelectNodes("/Xml/Url")[0].InnerText;
-                ver = UpDateXml.SelectNodes("/Xml/Version")[0].InnerText;
-            }
-            catch (Exception)
-            {
-                RadMessageBox.Show("本地配置文件出错!", "错误", MessageBoxButtons.OK, RadMessageIcon.Error);
-                return;
-            }
+            url = "https://raw.github.com/Troogle/OSUplayer/master/";
+            ver = Core.Version;
             download(url + "update.xml");
         }
     }

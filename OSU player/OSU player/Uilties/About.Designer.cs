@@ -74,9 +74,9 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(300, 220);
             this.label2.TabIndex = 3;
-            this.label2.Text = "OSU Player Ver 3.05\r\nDeveloped By Troogle(Google)\r\n\r\nThanks for testing:\r\ntony812" +
-    "8,[-Crystal-],[-AZUSA-]\r\n[-Baidu-],ts8zs,-N a n a m i-\r\nSpecial Thanks:\r\nWei♂ren" +
-    ",Muscipular\r\n\r\nAND YOU!\r\nThx for using~";
+            this.label2.Text = "Developed By Troogle(Google)\r\n\r\nThanks for testing:\r\ntony8128,[-Crystal-],[-AZUSA" +
+    "-]\r\n[-Baidu-],ts8zs,-N a n a m i-\r\nSpecial Thanks:\r\nWei♂ren,Muscipular\r\n\r\nAND YO" +
+    "U!\r\nThx for using~";
             // 
             // About
             // 
