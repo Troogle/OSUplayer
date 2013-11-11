@@ -16,7 +16,7 @@ namespace OSU_player
         public Main()
         {
             InitializeComponent();
-			nextSong.DoWork += nextSong_DoWork;
+            nextSong.DoWork += nextSong_DoWork;
         }
 
         private Size orisize;
@@ -72,8 +72,6 @@ namespace OSU_player
             Core.Resume();
             PlayButton.Text = "暂停";
         }
-
-		// Issue #24, 解决快速切歌可能会造成的假死问题
 		private BackgroundWorker nextSong = new BackgroundWorker();
 		private int nextSongId = 0;
 		public delegate void nextSong_DoWork_CallbackType();
@@ -421,12 +419,8 @@ namespace OSU_player
             {
                 if (!Core.scoresearched)
                 {
-                    //  if (RadMessageBox.Show(this, "木有导入过score，现在导入么？", "提示", MessageBoxButtons.YesNo)
-                    //        == DialogResult.Yes)
-                    //     {
                     string scorepath = Path.Combine(Core.osupath, "scores.db");
                     if (File.Exists(scorepath)) { OsuDB.ReadScore(scorepath); Core.scoresearched = true; 重新导入scores.Text = "重新导入scores.db"; }
-                    //     }
                 }
                 setscore();
             }

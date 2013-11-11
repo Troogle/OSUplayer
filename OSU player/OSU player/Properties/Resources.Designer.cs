@@ -131,6 +131,16 @@ namespace OSU_player.Properties {
         }
         
         /// <summary>
+        ///   查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Icon icon {
+            get {
+                object obj = ResourceManager.GetObject("icon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
         internal static System.Drawing.Bitmap Next {
@@ -343,7 +353,8 @@ namespace OSU_player.Properties {
         /// <summary>
         ///   查找类似 &lt;Xml&gt;
         ///&lt;Url&gt;https://raw.github.com/Troogle/OSUplayer/master/&lt;/Url&gt;
-        ///&lt;Version&gt;2.9.0&lt;/Version&gt;
+        ///&lt;Version&gt;3.1.0&lt;/Version&gt;
+        ///&lt;Text&gt;修正了Mini Player错位的问题~&lt;/Text&gt;
         ///&lt;Link&gt;&lt;![CDATA[http://pan.baidu.com/share/link?shareid=1540404661&amp;uk=2804632131]]&gt;&lt;/Link&gt;
         ///&lt;/Xml&gt; 的本地化字符串。
         /// </summary>

@@ -530,28 +530,26 @@ namespace OSU_player
         }
         public static void search(string k)
         {
-			List<int> searchedMaps = new List<int>();
-			string keyword = k.Trim().ToLower();
-
-            if (keyword.Length == 0) {
-				PlayList.Clear();
+            List<int> searchedMaps = new List<int>();
+            string keyword = k.Trim().ToLower();
+            if (keyword.Length == 0)
+            {
+                PlayList.Clear();
                 initplaylist();
-            } else {
-                // PlayList.Clear();
-                for (int i = 0; i < allsets.Count; i++) {
-                    if (allsets[i].tags.ToLower().Contains(keyword)) {
-						searchedMaps.Add(i);
-                    }
+            }
+            else
+            {
+                //PlayList.Clear();
+                for (int i = 0; i < allsets.Count; i++)
+                {
+                    if (allsets[i].tags.ToLower().Contains(keyword)) { searchedMaps.Add(i); }
                 }
-				if (searchedMaps.Count == 0) {
-					RadMessageBox.Show("神马都木有找到！");
-				} else {
-					PlayList.Clear();
-					for (int i = 0; i < searchedMaps.Count; i++) {
-						// Console.WriteLine(string.Format("Adding: {0}/{1}", i, searchedMaps.Count));
-						PlayList.Add(searchedMaps[i]);
-					}
-				}
+                if (searchedMaps.Count == 0) { RadMessageBox.Show("神马都木有找到！"); }
+                else
+                {
+                    PlayList.Clear();
+                    for (int i = 0; i < searchedMaps.Count; i++) { PlayList.Add(searchedMaps[i]); }
+                }
 
             }
         }

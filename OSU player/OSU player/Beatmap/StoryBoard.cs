@@ -8,7 +8,6 @@ namespace OSU_player
         //TODO:单独抽取trigger并作索引
         public List<SBvar> Variables = new List<SBvar>();
         public Dictionary<Triggertype, TriggerEvent> trigger = new Dictionary<Triggertype, TriggerEvent>();
-        public List<SBEvent> events = new List<SBEvent>();
         public List<string> raw;
         //目录由beatmapfiles.location-->beatmap.location
         public enum ElementType
@@ -83,7 +82,6 @@ namespace OSU_player
         }
         public struct SBEvent
         {
-            public int elemnet;
             public EventType Type;
             public int easing;
             //0 - none【没有缓冲】
@@ -117,6 +115,7 @@ namespace OSU_player
         }
         public class SBelement
         {
+            public List<SBEvent> events = new List<SBEvent>();
             public ElementType Type;
             public ElementLayer Layers;
             public ElementOrigin Origin; //sample时无
@@ -167,7 +166,6 @@ namespace OSU_player
                     }
                     return;
                 }
-                tmpe.elemnet = element;
                 tmpe.easing = Convert.ToInt32(picknext(ref str));
                 tmpe.startT = Convert.ToInt32(picknext(ref str)) + delta;
                 //②_M,0,1000,1000,320,240,320,240-->_M,0,1000,,320,240,320,240(开始结束时间相同）
@@ -195,7 +193,6 @@ namespace OSU_player
                             tmpe.endxF = Convert.ToDouble(tmp);
                         }
                         //③_M,0,1000,,320,240,320,240-->_M,0,1000,,320,240 (开始结束值相同）
-                        events.Add(tmpe);
                         break;
                     case " MX":
                         tmpe.startx = Convert.ToInt32(picknext(ref str));
@@ -208,7 +205,6 @@ namespace OSU_player
                         {
                             tmpe.endx = Convert.ToInt32(tmp);
                         }
-                        events.Add(tmpe);
                         break;
                     case " MY":
                         tmpe.starty = Convert.ToInt32(picknext(ref str));
@@ -221,7 +217,6 @@ namespace OSU_player
                         {
                             tmpe.endy = Convert.ToInt32(tmp);
                         }
-                        events.Add(tmpe);
                         break;
                     case " M":
                         tmpe.startx = Convert.ToInt32(picknext(ref str));
@@ -244,7 +239,6 @@ namespace OSU_player
                         {
                             tmpe.endy = Convert.ToInt32(tmp);
                         }
-                        events.Add(tmpe);
                         break;
                     case " S":
                         tmpe.startxF = Convert.ToDouble(picknext(ref str));
@@ -257,7 +251,6 @@ namespace OSU_player
                         {
                             tmpe.endxF = Convert.ToDouble(tmp);
                         }
-                        events.Add(tmpe);
                         break;
                     case " V":
                         tmpe.startxF = Convert.ToDouble(picknext(ref str));
@@ -280,7 +273,6 @@ namespace OSU_player
                         {
                             tmpe.endyF = Convert.ToDouble(tmp);
                         }
-                        events.Add(tmpe);
                         break;
                     case " R":
                         tmpe.startxF = Convert.ToDouble(picknext(ref str));
@@ -293,7 +285,6 @@ namespace OSU_player
                         {
                             tmpe.endxF = Convert.ToDouble(tmp);
                         }
-                        events.Add(tmpe);
                         break;
                     case " C":
                         tmpe.r1 = Convert.ToInt32(picknext(ref str));
@@ -326,7 +317,6 @@ namespace OSU_player
                         {
                             tmpe.b2 = Convert.ToInt32(tmp);
                         }
-                        events.Add(tmpe);
                         break;
                     case " P":
                         switch (picknext(ref str))
@@ -363,6 +353,7 @@ namespace OSU_player
                             //throw (new FormatException("Failed to read .osb file"));
                             break;
                         }
+                        elements[element].events.Add(tmpe);
                 }
                 //_event,easing,starttime,endtime,val1,val2,val3,...,valN
                 if (str != "")
@@ -433,8 +424,7 @@ namespace OSU_player
                                 {
                                     tmpev.volume = Convert.ToInt32(tmp[4]);
                                 }
-                                tmpev.elemnet = currentelement;
-                                events.Add(tmpev);
+                                elements[currentelement].events.Add(tmpev);
                                 i++;
                             }
                             else if (row.StartsWith("Animation") || row.StartsWith("6,"))
