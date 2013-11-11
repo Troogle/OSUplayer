@@ -7,6 +7,8 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using Telerik.WinControls;
 using Telerik.WinControls.UI;
+using System.ComponentModel;
+using System.Threading;
 namespace OSU_player
 {
     public partial class Main : RadForm
@@ -14,7 +16,9 @@ namespace OSU_player
         public Main()
         {
             InitializeComponent();
+			nextSong.DoWork += nextSong_DoWork;
         }
+
         private Size orisize;
         private Size pansize;
         #region 各种方法
@@ -68,20 +72,35 @@ namespace OSU_player
             Core.Resume();
             PlayButton.Text = "暂停";
         }
+
+		// Issue #24, 解决快速切歌可能会造成的假死问题
+		private BackgroundWorker nextSong = new BackgroundWorker();
+		private int nextSongId = 0;
+		public delegate void nextSong_DoWork_CallbackType();
+		private bool changeNextLocked = false;
+		void nextSong_DoWork_Callback() {
+			changeNextLocked = true;
+			PlayList.Items[nextSongId].Selected = true;
+			PlayList.EnsureVisible(nextSongId);
+			setbg();
+			Play();
+			changeNextLocked = false;
+		}
+		void nextSong_DoWork(object sender, DoWorkEventArgs e) {
+			Thread.Sleep(75);
+			nextSongId = Core.GetNext();
+			if (!changeNextLocked)
+				Invoke(new nextSong_DoWork_CallbackType(nextSong_DoWork_Callback));
+		}
         private void PlayNext()
         {
-            if (Core.PlayList.Count != 0)
-            {
-                int next = Core.GetNext();
-                if (PlayList.SelectedItems.Count != 0)
-                {
-                    PlayList.SelectedItems[0].Selected = false;
-                }
-                PlayList.Items[next].Selected = true;
-                PlayList.EnsureVisible(next);
-                setbg();
-                Play();
-            }
+			if (Core.PlayList.Count != 0) {
+				if (PlayList.SelectedItems.Count != 0) {
+					PlayList.SelectedItems[0].Selected = false;
+				}
+				if (!nextSong.IsBusy)
+					nextSong.RunWorkerAsync();
+			}
         }
         private void setscore()
         {
@@ -134,7 +153,16 @@ namespace OSU_player
             pansize = this.panel3.Size;
             pansize.Height += 80;
             pansize.Width += 20;
+
+			TextBox1.KeyPress += TextBox1_KeyPress;
         }
+
+		void TextBox1_KeyPress(object sender, KeyPressEventArgs e) {
+			if (e.KeyChar == (char)13)
+				SearchButton.PerformClick();
+		}
+
+
         #region 菜单栏
         #region 文件
         private void 运行OSU_Click(object sender, EventArgs e)
@@ -330,7 +358,7 @@ namespace OSU_player
         }
         private void SearchButton_Click(object sender, EventArgs e)
         {
-            Stop();
+            // Stop();
             Core.search(TextBox1.Text);
             RefreshList();
         }

@@ -528,23 +528,31 @@ namespace OSU_player
             currentmap = 0;
             return next;
         }
-        public static void search(string keyword)
+        public static void search(string k)
         {
-            if (keyword == "")
-            {
+			List<int> searchedMaps = new List<int>();
+			string keyword = k.Trim().ToLower();
+
+            if (keyword.Length == 0) {
+				PlayList.Clear();
                 initplaylist();
-            }
-            else
-            {
-                PlayList.Clear();
-                for (int i = 0; i < allsets.Count; i++)
-                {
-                    if (allsets[i].tags.ToLower().Contains(keyword.ToLower()))
-                    {
-                        PlayList.Add(i);
+            } else {
+                // PlayList.Clear();
+                for (int i = 0; i < allsets.Count; i++) {
+                    if (allsets[i].tags.ToLower().Contains(keyword)) {
+						searchedMaps.Add(i);
                     }
                 }
-                if (PlayList.Count == 0) { RadMessageBox.Show("神马都木有找到！"); initplaylist(); }
+				if (searchedMaps.Count == 0) {
+					RadMessageBox.Show("神马都木有找到！");
+				} else {
+					PlayList.Clear();
+					for (int i = 0; i < searchedMaps.Count; i++) {
+						// Console.WriteLine(string.Format("Adding: {0}/{1}", i, searchedMaps.Count));
+						PlayList.Add(searchedMaps[i]);
+					}
+				}
+
             }
         }
         public static double durnation

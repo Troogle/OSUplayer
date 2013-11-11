@@ -18,20 +18,18 @@ namespace OSU_player
         static string temp = Environment.GetEnvironmentVariable("Temp").ToString() + "\\";
         static public void download(string url)
         {
-            try
-            {
-                WebClient myWebClient = new WebClient();
-                if (System.IO.File.Exists(temp + "update.xml")) { System.IO.File.Delete(temp + "update.xml"); }
-                myWebClient.DownloadFile(url, temp + "update.xml");
+            try {
+				// 直接读取网络 xml 数据…
+				UpDateXml.Load(new XmlTextReader(url));
                 DialogResult res;
-                UpDateXml.Load(temp + "update.xml");
                 string newver = "";
                 string text = "";
                 newver = UpDateXml.SelectNodes("/Xml/Version")[0].InnerText;
-                text = UpDateXml.SelectNodes("/Xml/Text")[0].InnerText;
+                text = UpDateXml.SelectNodes("/Xml/Text")[0].InnerText.Replace(@"\n", "\n");
                 if (newver.CompareTo(ver) > 0)
                 {
-                    res = RadMessageBox.Show(String.Format("新版本{0}发布了~\n版本更新提示{1}", newver, text), "提醒", MessageBoxButtons.OKCancel, RadMessageIcon.Info);
+					// Issue #30
+                    res = RadMessageBox.Show(String.Format("新版本 {0} 发布了~\n更新内容:\n{1}", newver, text), "提醒", MessageBoxButtons.OKCancel, RadMessageIcon.Info);
                     if (res == System.Windows.Forms.DialogResult.OK)
                     {
                         Process.Start(UpDateXml.SelectNodes("/Xml/Link")[0].InnerText);
