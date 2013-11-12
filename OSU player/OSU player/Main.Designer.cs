@@ -26,9 +26,9 @@ namespace OSU_player
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Telerik.WinControls.UI.RadListDataItem radListDataItem4 = new Telerik.WinControls.UI.RadListDataItem();
-            Telerik.WinControls.UI.RadListDataItem radListDataItem5 = new Telerik.WinControls.UI.RadListDataItem();
-            Telerik.WinControls.UI.RadListDataItem radListDataItem6 = new Telerik.WinControls.UI.RadListDataItem();
+            Telerik.WinControls.UI.RadListDataItem radListDataItem1 = new Telerik.WinControls.UI.RadListDataItem();
+            Telerik.WinControls.UI.RadListDataItem radListDataItem2 = new Telerik.WinControls.UI.RadListDataItem();
+            Telerik.WinControls.UI.RadListDataItem radListDataItem3 = new Telerik.WinControls.UI.RadListDataItem();
             this.ToolStripMenuItem1 = new Telerik.WinControls.UI.RadMenuItem();
             this.运行OSU = new Telerik.WinControls.UI.RadMenuItem();
             this.手动指定OSU目录 = new Telerik.WinControls.UI.RadMenuItem();
@@ -39,6 +39,7 @@ namespace OSU_player
             this.打开曲目文件夹 = new Telerik.WinControls.UI.RadMenuItem();
             this.打开铺面文件 = new Telerik.WinControls.UI.RadMenuItem();
             this.打开SB文件 = new Telerik.WinControls.UI.RadMenuItem();
+            this.radMenuItem2 = new Telerik.WinControls.UI.RadMenuItem();
             this.ToolStripSeparator3 = new Telerik.WinControls.UI.RadMenuSeparatorItem();
             this.退出 = new Telerik.WinControls.UI.RadMenuItem();
             this.ToolStripMenuItem2 = new Telerik.WinControls.UI.RadMenuItem();
@@ -84,7 +85,8 @@ namespace OSU_player
             this.PlayButton = new Telerik.WinControls.UI.RadButton();
             this.UpdateTimer = new System.Windows.Forms.Timer(this.components);
             this.MenuStrip1 = new Telerik.WinControls.UI.RadMenu();
-            this.radMenuItem2 = new Telerik.WinControls.UI.RadMenuItem();
+            this.NextTimer = new System.Windows.Forms.Timer(this.components);
+            this.SearchTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.radMenuComboItem1.ComboBoxElement)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TextBox1)).BeginInit();
@@ -203,6 +205,15 @@ namespace OSU_player
             this.打开SB文件.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.打开SB文件.Click += new System.EventHandler(this.打开SB文件_Click);
             // 
+            // radMenuItem2
+            // 
+            this.radMenuItem2.AccessibleDescription = "导出BG";
+            this.radMenuItem2.AccessibleName = "导出BG";
+            this.radMenuItem2.Name = "radMenuItem2";
+            this.radMenuItem2.Text = "导出BG";
+            this.radMenuItem2.Visibility = Telerik.WinControls.ElementVisibility.Visible;
+            this.radMenuItem2.Click += new System.EventHandler(this.radMenuItem2_Click);
+            // 
             // ToolStripSeparator3
             // 
             this.ToolStripSeparator3.Name = "ToolStripSeparator3";
@@ -317,16 +328,16 @@ namespace OSU_player
             this.radMenuComboItem1.ComboBoxElement.FormatString = "";
             this.radMenuComboItem1.ComboBoxElement.FormattingEnabled = true;
             this.radMenuComboItem1.ComboBoxElement.ItemHeight = 18;
-            radListDataItem4.Text = "顺序播放";
-            radListDataItem4.TextWrap = true;
-            radListDataItem5.Text = "单曲循环";
-            radListDataItem5.TextWrap = true;
-            radListDataItem6.Selected = true;
-            radListDataItem6.Text = "随机播放";
-            radListDataItem6.TextWrap = true;
-            this.radMenuComboItem1.ComboBoxElement.Items.Add(radListDataItem4);
-            this.radMenuComboItem1.ComboBoxElement.Items.Add(radListDataItem5);
-            this.radMenuComboItem1.ComboBoxElement.Items.Add(radListDataItem6);
+            radListDataItem1.Text = "顺序播放";
+            radListDataItem1.TextWrap = true;
+            radListDataItem2.Text = "单曲循环";
+            radListDataItem2.TextWrap = true;
+            radListDataItem3.Selected = true;
+            radListDataItem3.Text = "随机播放";
+            radListDataItem3.TextWrap = true;
+            this.radMenuComboItem1.ComboBoxElement.Items.Add(radListDataItem1);
+            this.radMenuComboItem1.ComboBoxElement.Items.Add(radListDataItem2);
+            this.radMenuComboItem1.ComboBoxElement.Items.Add(radListDataItem3);
             this.radMenuComboItem1.ComboBoxElement.MaxDropDownItems = 0;
             this.radMenuComboItem1.ComboBoxElement.MaxLength = 32767;
             this.radMenuComboItem1.ComboBoxElement.MaxValue = null;
@@ -410,6 +421,7 @@ namespace OSU_player
             this.TextBox1.Size = new System.Drawing.Size(250, 24);
             this.TextBox1.TabIndex = 35;
             this.TextBox1.TabStop = false;
+            this.TextBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBox1_KeyPress);
             // 
             // PlayList
             // 
@@ -743,14 +755,15 @@ namespace OSU_player
             this.MenuStrip1.TabIndex = 2;
             this.MenuStrip1.Text = "MenuStrip1";
             // 
-            // radMenuItem2
+            // NextTimer
             // 
-            this.radMenuItem2.AccessibleDescription = "导出BG";
-            this.radMenuItem2.AccessibleName = "导出BG";
-            this.radMenuItem2.Name = "radMenuItem2";
-            this.radMenuItem2.Text = "导出BG";
-            this.radMenuItem2.Visibility = Telerik.WinControls.ElementVisibility.Visible;
-            this.radMenuItem2.Click += new System.EventHandler(this.radMenuItem2_Click);
+            this.NextTimer.Interval = 200;
+            this.NextTimer.Tick += new System.EventHandler(this.NextTimer_Tick);
+            // 
+            // SearchTimer
+            // 
+            this.SearchTimer.Interval = 500;
+            this.SearchTimer.Tick += new System.EventHandler(this.SearchTimer_Tick);
             // 
             // Main
             // 
@@ -856,5 +869,7 @@ namespace OSU_player
         private Telerik.WinControls.UI.RadTrackBar TrackSeek;
         private Telerik.WinControls.UI.RadTrackBar TrackVolume;
         private Telerik.WinControls.UI.RadMenuItem radMenuItem2;
+        private System.Windows.Forms.Timer NextTimer;
+        private System.Windows.Forms.Timer SearchTimer;
     }
 }

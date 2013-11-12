@@ -18,7 +18,7 @@ namespace OSU_player
         /// </summary>
         /// <param name="id">QQ号</param>
         /// <param name="Str">推送的内容</param>
-        public void Send2QQ(int id, string Str)
+        public void Send2QQ(string id, string Str)
         {
             if (!Core.syncQQ) { return; }
             object objAdmin = null;
@@ -46,7 +46,7 @@ namespace OSU_player
                     for (var i = 0; i <= uinList.Children.Count - 1; i++)
                     {
                         string str = uinList.Children[i].InnerText.Trim();
-                        QQInfo NInfo = new QQInfo(Convert.ToInt32(str.Substring(str.LastIndexOf("(") + 1, str.LastIndexOf(")") - str.LastIndexOf("(") - 1)), str.Substring(0, str.LastIndexOf("(") - 1));
+                        QQInfo NInfo = new QQInfo(str.Substring(str.LastIndexOf("(") + 1, str.LastIndexOf(")") - str.LastIndexOf("(") - 1), str.Substring(0, str.LastIndexOf("(") - 1));
                         ret.Add(NInfo);
                     }
                 }

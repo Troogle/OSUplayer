@@ -17,7 +17,8 @@ namespace OSU_player
         {
             try
             {
-                Core.uin = Convert.ToInt32(ListView1.SelectedItems[0].Text);
+                Core.uin = ListView1.SelectedItems[0].Text;
+                if (Core.uin == "清空QQ号") { Core.uin = "0"; }
                 this.Dispose();
             }
             catch (Exception)
@@ -28,7 +29,7 @@ namespace OSU_player
                 }
                 else
                 {
-                    Core.uin = 0;
+                    Core.uin = "0";
                     Core.syncQQ = false;
                     this.Dispose();
                 }

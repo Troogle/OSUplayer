@@ -16,11 +16,9 @@ namespace OSU_player
         public Main()
         {
             InitializeComponent();
-            nextSong.DoWork += nextSong_DoWork;
+
         }
 
-        private Size orisize;
-        private Size pansize;
         #region 各种方法
         private void AskForExit(object sender, System.Windows.Forms.FormClosingEventArgs e)
         {
@@ -72,33 +70,20 @@ namespace OSU_player
             Core.Resume();
             PlayButton.Text = "暂停";
         }
-		private BackgroundWorker nextSong = new BackgroundWorker();
-		private int nextSongId = 0;
-		public delegate void nextSong_DoWork_CallbackType();
-		private bool changeNextLocked = false;
-		void nextSong_DoWork_Callback() {
-			changeNextLocked = true;
-			PlayList.Items[nextSongId].Selected = true;
-			PlayList.EnsureVisible(nextSongId);
-			setbg();
-			Play();
-			changeNextLocked = false;
-		}
-		void nextSong_DoWork(object sender, DoWorkEventArgs e) {
-			Thread.Sleep(75);
-			nextSongId = Core.GetNext();
-			if (!changeNextLocked)
-				Invoke(new nextSong_DoWork_CallbackType(nextSong_DoWork_Callback));
-		}
         private void PlayNext()
         {
-			if (Core.PlayList.Count != 0) {
-				if (PlayList.SelectedItems.Count != 0) {
-					PlayList.SelectedItems[0].Selected = false;
-				}
-				if (!nextSong.IsBusy)
-					nextSong.RunWorkerAsync();
-			}
+            if (Core.PlayList.Count != 0)
+            {
+                int nextSongId = Core.GetNext();
+                if (PlayList.SelectedItems.Count != 0)
+                {
+                    PlayList.SelectedItems[0].Selected = false;
+                }
+                PlayList.Items[nextSongId].Selected = true;
+                PlayList.EnsureVisible(nextSongId);
+                setbg();
+                Play();
+            }
         }
         private void setscore()
         {
@@ -114,7 +99,7 @@ namespace OSU_player
         #endregion
         private void SetForm()
         {
-            LabelQQ.Text = "当前同步QQ：" + Core.uin.ToString();
+            LabelQQ.Text = "当前同步QQ：" + Core.uin;
             QQ状态同步.IsChecked = Core.syncQQ;
             TrackVolume.Value = 100 - (int)(Core.Allvolume * TrackVolume.Maximum);
             TrackFx.Value = (int)(Core.Fxvolume * TrackFx.Maximum);
@@ -126,7 +111,8 @@ namespace OSU_player
 
 
         }
-        private void RefreshList()
+        BackgroundWorker refreash = new BackgroundWorker();
+        private void refreshlist()
         {
             PlayList.Items.Clear();
             DiffList.Items.Clear();
@@ -142,25 +128,24 @@ namespace OSU_player
             PlayList.Enabled = true;
             DiffList.Enabled = true;
         }
+
+        private void RefreshList()
+        {
+            if (!refreash.IsBusy) { refreash.RunWorkerAsync(); }
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
+
             Core.init(this.panel2.Handle, this.panel2.Size);
             SetForm();
-            RefreshList();
-            orisize = this.Size;
-            pansize = this.panel3.Size;
-            pansize.Height += 80;
-            pansize.Width += 20;
-
-			TextBox1.KeyPress += TextBox1_KeyPress;
+            refreash.DoWork += refreash_DoWork;
+            refreshlist();
         }
 
-		void TextBox1_KeyPress(object sender, KeyPressEventArgs e) {
-			if (e.KeyChar == (char)13)
-				SearchButton.PerformClick();
-		}
-
-
+        private void refreash_DoWork(object sender, DoWorkEventArgs e)
+        {
+            refreshlist();
+        }
         #region 菜单栏
         #region 文件
         private void 运行OSU_Click(object sender, EventArgs e)
@@ -234,7 +219,7 @@ namespace OSU_player
         }
         private void QQ状态同步_Click(object sender, EventArgs e)
         {
-            if (Core.syncQQ && Core.uin != 0) { Core.uni_QQ.Send2QQ(Core.uin, ""); }
+            if (Core.syncQQ && Core.uin != "0") { Core.uni_QQ.Send2QQ(Core.uin, ""); }
             Core.syncQQ = QQ状态同步.IsChecked;
             Properties.Settings.Default.SyncQQ = Core.syncQQ;
         }
@@ -348,12 +333,26 @@ namespace OSU_player
         private void NextButton_Click(object sender, EventArgs e)
         {
             Stop();
-            PlayNext();
+            NextTimer.Enabled = false;
+            NextTimer.Enabled = true;
         }
         private void TrackSeek_Scroll(object sender, ScrollEventArgs e)
         {
             Core.seek((double)TrackSeek.Value / 1000);
         }
+
+        void TextBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Escape) { TextBox1.Text = ""; SearchButton.PerformClick(); }
+            if (e.KeyChar == (char)13)
+                SearchButton.PerformClick();
+            else
+            {
+                SearchTimer.Enabled = false;
+                SearchTimer.Enabled = true;
+            }
+        }
+
         private void SearchButton_Click(object sender, EventArgs e)
         {
             // Stop();
@@ -428,26 +427,8 @@ namespace OSU_player
         private void radMenuItem1_Click(object sender, EventArgs e)
         {
             Core.SetQQ(true);
-            LabelQQ.Text = "当前同步QQ：" + Core.uin.ToString();
+            LabelQQ.Text = "当前同步QQ：" + Core.uin;
             QQ状态同步.IsChecked = Core.syncQQ;
-        }
-        private void radButton1_Click(object sender, EventArgs e)
-        {
-            if (panel1.Visible)
-            {
-                panel1.Visible = false;
-                //    radButton1.Text = "↘";
-                this.Size = pansize;
-                this.MenuStrip1.Refresh();
-                this.Refresh();
-            }
-            else
-            {
-                panel1.Visible = true;
-                //       radButton1.Text = "↖";
-                this.Size = orisize;
-                this.Refresh();
-            }
         }
         private void UpdateTimer_Tick(object sender, EventArgs e)
         {
@@ -470,10 +451,20 @@ namespace OSU_player
                 {
                     File.Copy(Core.CurrentBeatmap.Background, Path.Combine(dialog.SelectedPath, new FileInfo(Core.CurrentBeatmap.Background).Name), true);
                 }
-                else
-                {
-                }
             }
+        }
+
+        private void NextTimer_Tick(object sender, EventArgs e)
+        {
+            NextTimer.Enabled = false;
+            PlayNext();
+        }
+
+        private void SearchTimer_Tick(object sender, EventArgs e)
+        {
+            SearchTimer.Enabled = false;
+            Core.search(TextBox1.Text);
+            RefreshList();
         }
     }
 }

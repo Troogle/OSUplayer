@@ -118,9 +118,9 @@ namespace OSU_player
     /// </summary>
     public struct QQInfo
     {
-        public int uin;
+        public string uin;
         public string nick;
-        public QQInfo(int uin, string nick)
+        public QQInfo(string uin, string nick)
         {
             this.uin = uin;
             this.nick = nick;
@@ -237,7 +237,7 @@ namespace OSU_player
         /// <summary>
         /// 选定的QQ号
         /// </summary>
-        public static int uin;
+        public static string uin;
         public static bool syncQQ = true;
         public static QQ uni_QQ = new QQ();
         public static bool playvideo = true;
@@ -369,9 +369,9 @@ namespace OSU_player
         public static void SetQQ(bool show = true)
         {
             if (show) { using (Form2 dialog = new Form2()) { dialog.ShowDialog(); } }
-            if (uin == 0)
+            if (uin == "0")
             {
-                Properties.Settings.Default.QQuin = 0;
+                Properties.Settings.Default.QQuin = "0";
                 syncQQ = false;
                 Properties.Settings.Default.SyncQQ = false;
             }
@@ -393,7 +393,7 @@ namespace OSU_player
         {
             uin = Properties.Settings.Default.QQuin;
             syncQQ = Properties.Settings.Default.SyncQQ;
-            if (uin == 0)
+            if (uin == "0")
             {
                 if (
                     RadMessageBox.Show("木有设置过QQ号，需要现在设置么？", "提示", MessageBoxButtons.YesNo)
@@ -507,12 +507,12 @@ namespace OSU_player
         public static void Pause()
         {
             player.Pause();
-            uni_QQ.Send2QQ(Core.uin, "");
+            uni_QQ.Send2QQ(uin, "");
         }
         public static void Resume()
         {
             player.Resume();
-            uni_QQ.Send2QQ(Core.uin, CurrentBeatmap.NameToString());
+            uni_QQ.Send2QQ(uin, CurrentBeatmap.NameToString());
         }
         public static void seek(double time)
         {

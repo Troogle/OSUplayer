@@ -2,7 +2,7 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="OSU_player.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="QQuin" Type="System.Int32" Scope="User">
+    <Setting Name="QQuin" Type="System.String" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="NextMode" Type="System.Int32" Scope="User">
