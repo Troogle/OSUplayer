@@ -391,6 +391,11 @@ namespace OSU_player
         }
         public static void LoadPreference()
         {
+            if (!Properties.Settings.Default.Upgraded)
+            {
+                Properties.Settings.Default.Upgrade();
+                Properties.Settings.Default.Save();
+            }
             uin = Properties.Settings.Default.QQuin;
             syncQQ = Properties.Settings.Default.SyncQQ;
             if (uin == "0")
@@ -407,6 +412,7 @@ namespace OSU_player
             playsb = Properties.Settings.Default.PlaySB;
             playvideo = Properties.Settings.Default.PlayVideo;
             Nextmode = Properties.Settings.Default.NextMode;
+            Properties.Settings.Default.Upgraded = true;
         }
         public static void initset()
         {

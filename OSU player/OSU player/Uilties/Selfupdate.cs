@@ -32,12 +32,16 @@ namespace OSU_player
                         Process.Start(UpDateXml.SelectNodes("/Xml/Link")[0].InnerText);
                     }
                 }
-                WebRequest request;
-                request = WebRequest.Create("http://troogle.ueuo.com/index.php?counter="+Core.Version);
-                request.Credentials = CredentialCache.DefaultCredentials;
-                request.Timeout = 20000;
-                WebResponse response;
-                response = request.GetResponse();
+                try
+                {
+                    WebRequest request;
+                    request = WebRequest.Create("http://troogle.ueuo.com/index.php?counter=" + Core.Version);
+                    request.Credentials = CredentialCache.DefaultCredentials;
+                    request.Timeout = 20000;
+                    WebResponse response;
+                    response = request.GetResponse();
+                }
+                catch { }
             }
             catch (Exception)
             {

@@ -81,6 +81,7 @@ namespace OSU_player
                 }
                 PlayList.Items[nextSongId].Selected = true;
                 PlayList.EnsureVisible(nextSongId);
+                PlayList.Focus();
                 setbg();
                 Play();
             }
@@ -332,7 +333,6 @@ namespace OSU_player
         }
         private void NextButton_Click(object sender, EventArgs e)
         {
-            Stop();
             NextTimer.Enabled = false;
             NextTimer.Enabled = true;
         }
@@ -392,6 +392,7 @@ namespace OSU_player
             }
             PlayList.Items[Core.currentset].Selected = true;
             PlayList.EnsureVisible(Core.currentset);
+            PlayList.Focus();
             if (Core.isplaying)
             {
                 TrackSeek.Maximum = (int)Core.durnation * 1000;
@@ -457,6 +458,7 @@ namespace OSU_player
         private void NextTimer_Tick(object sender, EventArgs e)
         {
             NextTimer.Enabled = false;
+            Stop();
             PlayNext();
         }
 

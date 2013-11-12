@@ -56,12 +56,16 @@ namespace OSU_player
         /// <returns>异常字符串文本</returns>
         static string GetExceptionMsg(Exception ex, string backStr)
         {
-            WebRequest request;
-            request = WebRequest.Create("http://troogle.ueuo.com/index.php?error=" + ex.GetType().Name + " " + ex.Message);
-            request.Credentials = CredentialCache.DefaultCredentials;
-            request.Timeout = 20000;
-            WebResponse response;
-            response = request.GetResponse();
+            try
+            {
+                WebRequest request;
+                request = WebRequest.Create("http://troogle.ueuo.com/index.php?error=" + ex.GetType().Name + " " + ex.Message);
+                request.Credentials = CredentialCache.DefaultCredentials;
+                request.Timeout = 20000;
+                WebResponse response;
+                response = request.GetResponse();
+            }
+            catch { }
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("****************************异常文本****************************");
             sb.AppendLine("【出现时间】：" + DateTime.Now.ToString());
@@ -77,7 +81,8 @@ namespace OSU_player
             }
             sb.AppendLine("***************************************************************");
             return sb.ToString();
+
         }
-        #endregion
+            #endregion
     }
 }

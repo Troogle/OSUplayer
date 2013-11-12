@@ -8,16 +8,15 @@
         public Settings() {
             // // 若要为保存和更改设置添加事件处理程序，请取消注释下列行:
             //
-             this.SettingChanging += this.SettingChangingEventHandler;
+            this.PropertyChanged += Settings_PropertyChanged;
             //
             // this.SettingsSaving += this.SettingsSavingEventHandler;
             //
         }
-        private void SettingChangingEventHandler(object sender, System.Configuration.SettingChangingEventArgs e) {
+
+        void Settings_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
             this.Save();
-        }
-        private void SettingsSavingEventHandler(object sender, System.ComponentModel.CancelEventArgs e) {
-            // 在此处添加用于处理 SettingsSaving 事件的代码。
         }
     }
 }
