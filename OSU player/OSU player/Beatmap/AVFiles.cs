@@ -109,43 +109,4 @@ namespace OSU_player
             set { UpdateTimer = value; }
         }
     }
-    /// <summary>
-    /// Class for Video Playback
-    /// </summary>
-    public class Videofiles : IDisposable
-    {
-        private VlcPlayer vlc_player_;
-        private bool is_playinig_;
-        string pluginPath = Application.StartupPath + "\\vlc\\plugins\\";
-        public double durnation { get { return vlc_player_.Duration(); } }
-        public double position { get { return vlc_player_.GetPlayTime(); } }
-        public Videofiles(IntPtr handle)
-        {
-            vlc_player_ = new VlcPlayer(pluginPath);
-            IntPtr render_wnd = handle;
-            vlc_player_.SetRenderWindow((int)render_wnd);
-            is_playinig_ = false;
-        }
-        public void Play(string FileName)
-        {
-            vlc_player_.PlayFile(FileName);
-            is_playinig_ = true;
-        }
-        public void Pause()
-        {
-            vlc_player_.Pause();
-        }
-        public void seek(double time)
-        {
-            vlc_player_.SetPlayTime(time);
-        }
-        public void Stop()
-        {
-            vlc_player_.Stop();
-            is_playinig_ = false;
-        }
-        public void Dispose()
-        {
-        }
-    }
 }

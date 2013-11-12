@@ -250,7 +250,7 @@ namespace OSU_player
         public static int currentmap = 0;
         public static int tmpset = 0;
         public static int tmpmap = 0;
-        public static BeatmapSet CurrentSet { get { return allsets[PlayList[currentset]]; } }
+        public static BeatmapSet CurrentSet { get { return allsets[currentset]; } }
         public static Beatmap CurrentBeatmap { get { return CurrentSet.Diffs[currentmap]; } }
         public static BeatmapSet TmpSet { get { return allsets[PlayList[tmpset]]; } }
         public static Beatmap TmpBeatmap { get { return TmpSet.Diffs[tmpmap]; } }
@@ -456,7 +456,7 @@ namespace OSU_player
             {
                 TmpSet.GetDetail();
             }
-            if (p) { currentset = tmpset; }
+            if (p) { currentset = PlayList[tmpset]; }
             return false;
         }
         public static bool SetMap(int vaule, bool p = false)
@@ -615,6 +615,10 @@ namespace OSU_player
             Detail[15] = new ListViewItem("md5");
             Detail[15].SubItems.Add(TmpBeatmap.GetHash());
             return Detail;
+        }
+        public static void Render()
+        {
+            player.Render();
         }
         public static ListViewDataItem[] getscore(Font font)
         {

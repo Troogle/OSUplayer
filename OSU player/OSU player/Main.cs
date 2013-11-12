@@ -113,7 +113,7 @@ namespace OSU_player
 
         }
         BackgroundWorker refreash = new BackgroundWorker();
-        private void refreshlist()
+        private void refreshlist(object sender, EventArgs e)
         {
             PlayList.Items.Clear();
             DiffList.Items.Clear();
@@ -140,12 +140,19 @@ namespace OSU_player
             Core.init(this.panel2.Handle, this.panel2.Size);
             SetForm();
             refreash.DoWork += refreash_DoWork;
-            refreshlist();
+            RefreshList();
         }
 
         private void refreash_DoWork(object sender, DoWorkEventArgs e)
         {
-            refreshlist();
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke(new EventHandler(refreshlist));
+            }
+            else
+            {
+                refreshlist(null,null);
+            } 
         }
         #region 菜单栏
         #region 文件

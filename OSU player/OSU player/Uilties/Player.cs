@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Windows.Forms;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.IO;
+using Microsoft.DirectX;
+using Microsoft.DirectX.Direct3D;
+using FFmpeg;
 namespace OSU_player
 {
     class Player : IDisposable
     {
-        public Videofiles uni_Video;
         public Audiofiles uni_Audio;
         private struct Fxlist
         {
@@ -29,6 +29,7 @@ namespace OSU_player
         string[] fxname = new string[maxfxplayer];
         bool cannext = true;
         public bool willnext = false;
+        bool videoexist = false;
         int fxpos = 0;
         float Allvolume { get { return Core.Allvolume; } }
         float Musicvolume { get { return Core.Musicvolume; } }
@@ -40,14 +41,46 @@ namespace OSU_player
         BeatmapSet Set { get { return Core.CurrentSet; } }
         Size size { get { return Core.size; } }
         IntPtr handle { get { return Core.handle; } }
+        Device device = null;
+        VideoDecoder decoder;
+        Texture showPicture;
+        Sprite sprite;
+        float width = 480f;
+        float height = 360f;
+        PresentParameters presentParams = new PresentParameters();
         public Player()
         {
-            uni_Video = new Videofiles(handle);
             uni_Audio = new Audiofiles();
+            presentParams.Windowed = true;
+            presentParams.SwapEffect = SwapEffect.Discard;
+            device = new Device(0, DeviceType.Hardware, handle, CreateFlags.SoftwareVertexProcessing, presentParams);
+            sprite = new Sprite(device);
+
             for (int i = 0; i < maxfxplayer; i++)
             {
                 fxplayer[i] = new Audiofiles();
             }
+        }
+        public void Render()
+        {
+            if (!videoexist) { return; }
+            if (device == null || position - (double)Map.VideoOffset / 1000 < 0) { return; }
+            device.Clear(ClearFlags.Target, Color.Black, 1.0f, 0);
+            device.BeginScene();
+            GraphicsStream dataRectangle = showPicture.LockRectangle(0, LockFlags.None);
+            dataRectangle.Write(decoder.GetFrame(Convert.ToInt32(position * 1000 - Map.VideoOffset)), 0, decoder.height * decoder.width * 4);
+            showPicture.UnlockRectangle(0);
+            sprite.Begin(SpriteFlags.None);
+            Matrix scale = new Matrix();
+            //       float scalef = width / decoder.width < height / decoder.height ? width / decoder.width : height / decoder.height;
+            //     scale.Scale(scalef, scalef, 0);
+            scale.Scale(width / decoder.width, height / decoder.height, 0);
+            sprite.Transform = scale;
+
+            sprite.Draw(showPicture, new Rectangle(0, 0, decoder.width, decoder.height), new Vector3(0, 0, 0), new Vector3(0, 0, 0), Color.White);
+            sprite.End();
+            device.EndScene();
+            device.Present();
         }
         public void Dispose()
         {
@@ -63,7 +96,7 @@ namespace OSU_player
             {
                 Bitmap tmp = new Bitmap(size.Width, size.Height);
                 Graphics g = Graphics.FromImage(tmp);
-                g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
                 double mul = size.Width > size.Height ? (double)size.Width / (double)bmp.Width : (double)size.Height / (double)bmp.Height;
                 int newWidth = (int)(bmp.Width * mul);
                 int newHeight = (int)(bmp.Height * mul);
@@ -223,41 +256,32 @@ namespace OSU_player
         public void Stop()
         {
             cannext = false;
+            if (videoexist) { videoexist = false; showPicture.Dispose(); decoder.Dispose(); }
             uni_Audio.Stop();
-            uni_Video.Stop();
         }
         public void Play()
         {
-            willnext = false; cannext = true;
+            willnext = false; cannext = true; videoexist = false;
             uni_Audio.Open(Map.Audio);
             if (playfx) { initfx(); fxpos = 0; }
             uni_Audio.UpdateTimer.Tick += new EventHandler(AVsync);
             if (Map.haveVideo && playvideo && File.Exists(Path.Combine(Map.Location, Map.Video)))
             {
-                if (Map.VideoOffset > 0)
-                {
-                    uni_Audio.Play(Allvolume * Musicvolume);
-                    uni_Video.Play(Path.Combine(Map.Location, Map.Video));//,map.videoOffset);
-                }
-                else
-                {
-                    uni_Video.Play(Path.Combine(Map.Location, Map.Video));
-                    // uni_Audio.Play(-map.videoOffset, Allvolume * Musicvolume);
-                    uni_Audio.Play(Allvolume * Musicvolume);
-                }
+                decoder = new VideoDecoder(100);
+                decoder.Open(Path.Combine(Map.Location, Map.Video));
+                showPicture = new Texture(device, decoder.width, decoder.height, 0, 0, Format.A8R8G8B8, Pool.Managed);
+                videoexist = true;
             }
-            else { uni_Audio.Play(Allvolume * Musicvolume); }
+            uni_Audio.Play(Allvolume * Musicvolume);
         }
         public void Pause()
         {
             cannext = false;
             uni_Audio.Pause();
-            uni_Video.Pause();
         }
         public void Resume()
         {
             uni_Audio.Pause();
-            uni_Video.Pause();
             cannext = true;
         }
         public double durnation
@@ -270,7 +294,6 @@ namespace OSU_player
         {
             cannext = false;
             uni_Audio.Seek(time);
-            uni_Video.seek(time + Map.VideoOffset / 1000);
             fxpos = 0;
             if (playfx)
             {

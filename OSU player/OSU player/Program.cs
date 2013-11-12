@@ -29,7 +29,14 @@ namespace OSU_player
                 ThemeResolutionService.ApplicationThemeName = "Light";
                 Un4seen.Bass.BassNet.Registration("sqh1994@163.com", "2X280331512622");
                 Un4seen.Bass.Bass.BASS_Init(-1, 44100, Un4seen.Bass.BASSInit.BASS_DEVICE_DEFAULT, IntPtr.Zero);
-                Application.Run(new Main());
+                Main Mainwindow = new Main();
+                Mainwindow.Show();
+                while (Mainwindow.Created)
+                {
+                    Application.DoEvents();
+                    Core.Render();
+                }
+             //   Application.Run(new Main());
             }
             #region 异常处理
             catch (Exception ex)
@@ -59,7 +66,7 @@ namespace OSU_player
             try
             {
                 WebRequest request;
-                request = WebRequest.Create("http://troogle.ueuo.com/index.php?error=" + ex.GetType().Name + " " + ex.Message);
+                request = WebRequest.Create("http://wenwo.at/counter.php?error=" + ex.GetType().Name + " " + ex.Message);
                 request.Credentials = CredentialCache.DefaultCredentials;
                 request.Timeout = 20000;
                 WebResponse response;

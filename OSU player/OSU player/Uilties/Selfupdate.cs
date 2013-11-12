@@ -35,7 +35,7 @@ namespace OSU_player
                 try
                 {
                     WebRequest request;
-                    request = WebRequest.Create("http://troogle.ueuo.com/index.php?counter=" + Core.Version);
+                    request = WebRequest.Create("http://wenwo.at/counter.php?counter=" + Core.Version);
                     request.Credentials = CredentialCache.DefaultCredentials;
                     request.Timeout = 20000;
                     WebResponse response;

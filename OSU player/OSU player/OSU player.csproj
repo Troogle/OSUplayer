@@ -38,6 +38,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -78,6 +79,18 @@
     <Reference Include="gTrackBar">
       <HintPath>Res\gTrackBar.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.DirectX, Version=1.0.2902.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Windows\Microsoft.NET\DirectX for Managed Code\1.0.2902.0\Microsoft.DirectX.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.DirectX.Direct3D, Version=1.0.2902.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Windows\Microsoft.NET\DirectX for Managed Code\1.0.2902.0\Microsoft.DirectX.Direct3D.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.DirectX.Direct3DX, Version=1.0.2911.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Windows\Microsoft.NET\DirectX for Managed Code\1.0.2911.0\Microsoft.DirectX.Direct3DX.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -95,6 +108,7 @@
     <Compile Include="Mini.Designer.cs">
       <DependentUpon>Mini.cs</DependentUpon>
     </Compile>
+    <Compile Include="Uilties\FFmpeg.cs" />
     <Compile Include="Uilties\ImageButton.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -143,7 +157,7 @@
     <Compile Include="Uilties\QQ.cs" />
     <Compile Include="Uilties\Selfupdate.cs" />
     <Compile Include="Beatmap\StoryBoard.cs" />
-    <Compile Include="Uilties\VlcPlayer.cs" />
+    <Compile Include="Uilties\VideoDecoder.cs" />
     <EmbeddedResource Include="Mini.resx">
       <DependentUpon>Mini.cs</DependentUpon>
     </EmbeddedResource>
@@ -196,9 +210,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Res\avatar_big.jpg" />
-    <Content Include="bass.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="Res\defaultBG.png" />
     <None Include="Res\A.png" />
     <None Include="Res\B.png" />
