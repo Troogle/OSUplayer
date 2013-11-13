@@ -30,6 +30,7 @@
             this.ColumnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Button1 = new Telerik.WinControls.UI.RadButton();
             this.Button2 = new Telerik.WinControls.UI.RadButton();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.Button1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Button2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
@@ -66,25 +67,34 @@
             // 
             this.Button1.Location = new System.Drawing.Point(248, 52);
             this.Button1.Name = "Button1";
-            this.Button1.Size = new System.Drawing.Size(75, 30);
+            this.Button1.Size = new System.Drawing.Size(86, 30);
             this.Button1.TabIndex = 2;
-            this.Button1.Text = "刷新";
+            this.Button1.Text = "手动获取";
             this.Button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // Button2
             // 
             this.Button2.Location = new System.Drawing.Point(248, 122);
             this.Button2.Name = "Button2";
-            this.Button2.Size = new System.Drawing.Size(75, 27);
+            this.Button2.Size = new System.Drawing.Size(86, 27);
             this.Button2.TabIndex = 3;
             this.Button2.Text = "确定";
             this.Button2.Click += new System.EventHandler(this.Button2_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(12, 86);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(216, 25);
+            this.textBox1.TabIndex = 4;
+            this.textBox1.Visible = false;
             // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(346, 209);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.Button2);
             this.Controls.Add(this.Button1);
             this.Controls.Add(this.ListView1);
@@ -94,10 +104,12 @@
             // 
             this.RootElement.ApplyShapeToControl = true;
             this.Text = "QQ";
+            this.Load += new System.EventHandler(this.Form2_Load);
             ((System.ComponentModel.ISupportInitialize)(this.Button1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Button2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
 		}
         #endregion
@@ -106,5 +118,6 @@
 		private Telerik.WinControls.UI.RadButton Button2;
 		private System.Windows.Forms.ColumnHeader ColumnHeader2;
         private System.Windows.Forms.ColumnHeader ColumnHeader1;
+        private System.Windows.Forms.TextBox textBox1;
 	}
 }

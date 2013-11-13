@@ -12,6 +12,24 @@ namespace OSU_player
         {
             string url = "http://xui.ptlogin2.qq.com/cgi-bin/qlogin";
             web.Url = new Uri(url);
+            web.DocumentCompleted += web_DocumentCompleted;
+        }
+
+        void web_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+            HtmlDocument doc = web.Document;
+            HtmlElement uinList = doc.GetElementById("list_uin");
+            if (uinList != null)
+            {
+                for (var i = 0; i <= uinList.Children.Count - 1; i++)
+                {
+                    string str = uinList.Children[i].InnerText.Trim();
+                    QQInfo NInfo = new QQInfo(str.Substring(str.LastIndexOf("(") + 1, str.LastIndexOf(")") - str.LastIndexOf("(") - 1), str.Substring(0, str.LastIndexOf("(") - 1));
+                    GetQQList.Add(NInfo);
+                }
+            }
+            Refreshed = true;
+
         }
         /// <summary>
         /// 推送消息给指定ID
@@ -34,28 +52,7 @@ namespace OSU_player
         /// <summary>
         /// 获取目前登陆QQ列表
         /// </summary>
-        public List<QQInfo> GetQQList()
-        {
-            List<QQInfo> ret = new List<QQInfo>();
-            if (web.ReadyState == WebBrowserReadyState.Complete)
-            {
-                HtmlDocument doc = web.Document;
-                HtmlElement uinList = doc.GetElementById("list_uin");
-                if (uinList != null)
-                {
-                    for (var i = 0; i <= uinList.Children.Count - 1; i++)
-                    {
-                        string str = uinList.Children[i].InnerText.Trim();
-                        QQInfo NInfo = new QQInfo(str.Substring(str.LastIndexOf("(") + 1, str.LastIndexOf(")") - str.LastIndexOf("(") - 1), str.Substring(0, str.LastIndexOf("(") - 1));
-                        ret.Add(NInfo);
-                    }
-                }
-            }
-            else
-            {
-                RadMessageBox.Show("获取当前在线QQ出错！ 稍等再刷新下？");
-            }
-            return ret;
-        }
+        public List<QQInfo> GetQQList = new List<QQInfo>();
+        public bool Refreshed = false;
     }
 }

@@ -124,7 +124,7 @@
                 this.frameFinished = 0;
                 try
                 {
-                    FFmpeg.avcodec_close(this.pCodecCtx);
+                 //   FFmpeg.avcodec_close(this.pCodecCtx);
                     FFmpeg.av_close_input_file(this.pFormatCtx);
                 }
                 catch

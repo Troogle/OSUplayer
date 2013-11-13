@@ -549,12 +549,8 @@ namespace OSU_player
                             try
                             {
                                 Rawdata[(int)(OSUfile)Enum.Parse(typeof(OSUfile), (s[0].Trim()))] = s[1].Trim();
-
                             }
-                            catch
-                            {
-
-                            }
+                            catch { } 
                             break;
                         case osuFileScanStatus.EVENTS:
                             if (row.StartsWith("0,0,"))

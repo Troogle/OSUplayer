@@ -35,7 +35,9 @@ namespace OSU_player
                 {
                     Application.DoEvents();
                     Core.Render();
+                    Thread.Sleep(10); 
                 }
+
              //   Application.Run(new Main());
             }
             #region 异常处理

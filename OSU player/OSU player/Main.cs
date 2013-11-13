@@ -25,6 +25,7 @@ namespace OSU_player
             if (RadMessageBox.Show("确认退出？", "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 Core.exit();
+                
                 this.Dispose();
             }
             else

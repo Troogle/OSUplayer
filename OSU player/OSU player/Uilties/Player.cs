@@ -42,12 +42,16 @@ namespace OSU_player
         Size size { get { return Core.size; } }
         IntPtr handle { get { return Core.handle; } }
         Device device = null;
-        VideoDecoder decoder;
+        VideoDecoder decoder = new VideoDecoder(100);
         Texture showPicture;
         Sprite sprite;
         float width = 480f;
         float height = 360f;
         PresentParameters presentParams = new PresentParameters();
+        Rectangle video;
+        Matrix transformMatrix = new Matrix();
+        Matrix rotateMatrix = new Matrix();
+        Matrix scaleMatrix = new Matrix();
         public Player()
         {
             uni_Audio = new Audiofiles();
@@ -71,13 +75,8 @@ namespace OSU_player
             dataRectangle.Write(decoder.GetFrame(Convert.ToInt32(position * 1000 - Map.VideoOffset)), 0, decoder.height * decoder.width * 4);
             showPicture.UnlockRectangle(0);
             sprite.Begin(SpriteFlags.None);
-            Matrix scale = new Matrix();
-            //       float scalef = width / decoder.width < height / decoder.height ? width / decoder.width : height / decoder.height;
-            //     scale.Scale(scalef, scalef, 0);
-            scale.Scale(width / decoder.width, height / decoder.height, 0);
-            sprite.Transform = scale;
-
-            sprite.Draw(showPicture, new Rectangle(0, 0, decoder.width, decoder.height), new Vector3(0, 0, 0), new Vector3(0, 0, 0), Color.White);
+            sprite.Transform = rotateMatrix * scaleMatrix * transformMatrix;
+            sprite.Draw(showPicture, video, Vector3.Empty, Vector3.Empty, Color.White);
             sprite.End();
             device.EndScene();
             device.Present();
@@ -89,6 +88,7 @@ namespace OSU_player
             {
                 fxplayer[j].Dispose();
             }
+            device.Dispose();
         }
         public Image Resize(Image bmp)
         {
@@ -270,6 +270,12 @@ namespace OSU_player
                 decoder = new VideoDecoder(100);
                 decoder.Open(Path.Combine(Map.Location, Map.Video));
                 showPicture = new Texture(device, decoder.width, decoder.height, 0, 0, Format.A8R8G8B8, Pool.Managed);
+                float scalef = width / decoder.width < height / decoder.height ? width / decoder.width : height / decoder.height;
+                scaleMatrix.Scale(scalef, scalef, 0.0f);
+                //scaleMatrix.Scale(width / decoder.width, height / decoder.height, 0.0f);
+                rotateMatrix.RotateZ(0f);
+                transformMatrix.Translate(new Vector3((width - decoder.width * scalef) / 2, (height - decoder.height * scalef) / 2, 0));
+                video = new Rectangle(0, 0, decoder.width, decoder.height);
                 videoexist = true;
             }
             uni_Audio.Play(Allvolume * Musicvolume);
