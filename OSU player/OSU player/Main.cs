@@ -26,7 +26,7 @@ namespace OSU_player
             if (RadMessageBox.Show("确认退出？", "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 Core.exit();
-                
+
                 this.Dispose();
             }
             else
@@ -73,7 +73,7 @@ namespace OSU_player
             Core.Resume();
             PlayButton.Text = "暂停";
         }
-        private void PlayNext(bool play=true)
+        private void PlayNext(bool play = true)
         {
             if (Core.PlayList.Count != 0)
             {
@@ -154,8 +154,8 @@ namespace OSU_player
             }
             else
             {
-                refreshlist(null,null);
-            } 
+                refreshlist(null, null);
+            }
         }
         #region 菜单栏
         #region 文件
@@ -477,6 +477,13 @@ namespace OSU_player
             SearchTimer.Enabled = false;
             Core.search(TextBox1.Text);
             RefreshList();
+        }
+
+        private void radButton1_Click(object sender, EventArgs e)
+        {
+            Core.Stop();
+            File.SetLastWriteTime(Path.Combine(Core.osupath, "Songs"), DateTime.Now);
+            File.SetLastWriteTime(Core.CurrentBeatmap.Path, DateTime.Now);
         }
     }
 }

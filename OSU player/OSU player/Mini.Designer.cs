@@ -239,6 +239,7 @@
             this.Controls.Add(this.TrackSeek);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Mini";
             this.Text = "Mini";
             this.Load += new System.EventHandler(this.Mini_Load);
