@@ -103,6 +103,11 @@ namespace OSU_player
             bg = new Rectangle(0, 0, CurrentBG.Width, CurrentBG.Height);
         }
         public void RenderSB() { }
+        public void initSB() 
+        {
+            Map.Getsb();
+
+        }
         public void RenderVideo()
         {
             if (position - (double)Map.VideoOffset / 1000 < 0) { return; }
@@ -293,12 +298,12 @@ namespace OSU_player
         public void Play()
         {
             willnext = false; cannext = true; videoexist = false;
-            initBG();
+            //initBG();
             uni_Audio.Open(Map.Audio);
             if (playfx) { initfx(); fxpos = 0; }
             uni_Audio.UpdateTimer.Tick += new EventHandler(AVsync);
             if (Map.haveVideo && playvideo && File.Exists(Path.Combine(Map.Location, Map.Video))) { initvideo(); }
-            if (Map.haveSB && playsb) { }
+            if (Map.haveSB && playsb) { initSB(); }
             uni_Audio.Play(Allvolume * Musicvolume);
         }
         public void Pause()

@@ -403,6 +403,7 @@ namespace OSU_player
             PlayList.Items[Core.currentset].Selected = true;
             PlayList.EnsureVisible(Core.currentset);
             PlayList.Focus();
+            Core.setBG();
             if (Core.isplaying)
             {
                 TrackSeek.Maximum = (int)Core.durnation * 1000;

@@ -28,8 +28,6 @@ namespace OSU_player
         public List<Timing> Timingpoints;
         [NonSerialized]
         public List<HitObject> HitObjects;
-        [NonSerialized]
-        public List<string> tmpSB;
         public string hash { get; set; }
         #region map属性的获取接口
         public string FileVersion { get { return Rawdata[(int)OSUfile.FileVersion]; } }
@@ -521,86 +519,81 @@ namespace OSU_player
         {
             osb = osb_F;
             Path = System.IO.Path.Combine(Location, Name);
-            List<string> content = new List<string>();
-            Timingpoints = new List<Timing>();
-            HitObjects = new List<HitObject>();
-            tmpSB = new List<string>();
-            content.AddRange(File.ReadAllLines(Path));
-            if (osb != null) { content.AddRange(File.ReadAllLines(osb)); }
+            StreamReader reader;
             osuFileScanStatus position = osuFileScanStatus.VERSION_UNKNOWN;
             try
             {
-                foreach (string row in content)
+                using (reader = new StreamReader(Path))
                 {
-                    if (row.Trim() == "") { continue; }
-                    if (row.StartsWith("//") || row.Length == 0) { continue; }
-                    if (row.StartsWith("["))
+                    Timingpoints = new List<Timing>();
+                    HitObjects = new List<HitObject>();
+                    string row;
+                    while (!reader.EndOfStream)
                     {
-                        position = (osuFileScanStatus)Enum.Parse(typeof(osuFileScanStatus), (row.Substring(1, row.Length - 2).ToUpper()));
-                        if (position == osuFileScanStatus.EVENTS) { tmpSB.Add("[Events]"); }
-                        if (position == osuFileScanStatus.VARIABLES) { tmpSB.Add("[Variables]"); }
-                        continue;
-                    }
-                    switch (position)
-                    {
-                        case osuFileScanStatus.VERSION_UNKNOWN:
-                            Rawdata[(int)OSUfile.FileVersion] = row.Substring(17);
-                            break;
-                        case osuFileScanStatus.GENERAL:
-                        case osuFileScanStatus.METADATA:
-                        case osuFileScanStatus.DIFFICULTY:
-                            string[] s = row.Split(new char[] { ':' }, 2);
-                            try
-                            {
-                                Rawdata[(int)(OSUfile)Enum.Parse(typeof(OSUfile), (s[0].Trim()))] = s[1].Trim();
-                            }
-                            catch { }
-                            break;
-                        case osuFileScanStatus.EVENTS:
-                            if (row.StartsWith("0,0,"))
-                            {
-                                string str = row.Substring(5, row.Length - 6);
-                                if (str.Contains("\""))
+                        row = reader.ReadLine();
+                        if (row.Trim() == "") { continue; }
+                        if (row.StartsWith("//") || row.Length == 0) { continue; }
+                        if (row.StartsWith("["))
+                        {
+                            position = (osuFileScanStatus)Enum.Parse(typeof(osuFileScanStatus), (row.Substring(1, row.Length - 2).ToUpper()));
+                            continue;
+                        }
+                        switch (position)
+                        {
+                            case osuFileScanStatus.VERSION_UNKNOWN:
+                                Rawdata[(int)OSUfile.FileVersion] = row.Substring(17);
+                                break;
+                            case osuFileScanStatus.GENERAL:
+                            case osuFileScanStatus.METADATA:
+                            case osuFileScanStatus.DIFFICULTY:
+                                string[] s = row.Split(new char[] { ':' }, 2);
+                                try { Rawdata[(int)(OSUfile)Enum.Parse(typeof(OSUfile), (s[0].Trim()))] = s[1].Trim(); }
+                                catch { }
+                                break;
+                            case osuFileScanStatus.EVENTS:
+                                if (row.StartsWith("0,0,"))
                                 {
-                                    backgroundOffset = str.Substring(str.IndexOf("\"") + 2);
-                                    str = str.Substring(0, str.IndexOf("\""));
+                                    string str = row.Substring(5, row.Length - 6);
+                                    if (str.Contains("\""))
+                                    {
+                                        backgroundOffset = str.Substring(str.IndexOf("\"") + 2);
+                                        str = str.Substring(0, str.IndexOf("\""));
+                                    }
+                                    Background = System.IO.Path.Combine(Location, str);
                                 }
-                                Background = System.IO.Path.Combine(Location, str);
-                            }
-                            else if (row.StartsWith("1,") || row.StartsWith("Video"))
-                            {
-                                haveVideo = true;
-                                string[] vdata = row.Split(new char[] { ',' });
-                                VideoOffset = Convert.ToInt32(vdata[1]);
-                                Video = vdata[2].Substring(1, System.Convert.ToInt32(vdata[2].Length - 2));
-                            }
-                            else if (row.StartsWith("3,") || row.StartsWith("2,")) { break; }
-                            else { tmpSB.Add(row); haveSB = true; }
-                            break;
-                        case osuFileScanStatus.VARIABLES:
-                            tmpSB.Add(row);
-                            break;
-                        case osuFileScanStatus.TIMINGPOINTS:
-                            Timingpoints.Add(settiming(row));
-                            break;
-                        case osuFileScanStatus.HITOBJECTS:
-                            HitObjects.Add(setobject(row));
-                            break;
+                                else if (row.StartsWith("1,") || row.StartsWith("Video"))
+                                {
+                                    haveVideo = true;
+                                    string[] vdata = row.Split(new char[] { ',' });
+                                    VideoOffset = Convert.ToInt32(vdata[1]);
+                                    Video = vdata[2].Substring(1, System.Convert.ToInt32(vdata[2].Length - 2));
+                                }
+                                else if (row.StartsWith("3,") || row.StartsWith("2,")) { break; }
+                                else { haveSB = true; }
+                                break;
+                            case osuFileScanStatus.TIMINGPOINTS:
+                                Timingpoints.Add(settiming(row));
+                                break;
+                            case osuFileScanStatus.HITOBJECTS:
+                                HitObjects.Add(setobject(row));
+                                break;
+                        }
                     }
                 }
+                if (osb != null) { haveSB = true; }
+                detailed = true;
             }
             catch (SystemException e)
             {
                 Console.WriteLine(e.StackTrace);
                 throw (new FormatException("Failed to read .osu file", e));
             }
-            detailed = true;
         }
         public void Getsb()
         {
             if (haveSB)
             {
-                SB = new StoryBoard(tmpSB);
+                SB = new StoryBoard(Path, osb);
             }
         }
         public Beatmap()

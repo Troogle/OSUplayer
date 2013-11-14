@@ -109,7 +109,4 @@ namespace OSU_player
             set { UpdateTimer = value; }
         }
     }
-    public class VideoGraphics
-    {
-    }
 }

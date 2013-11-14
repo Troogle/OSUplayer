@@ -383,7 +383,6 @@ namespace OSU_player
             this.SB开关.AccessibleDescription = "SB开关";
             this.SB开关.AccessibleName = "SB开关";
             this.SB开关.CheckOnClick = true;
-            this.SB开关.Enabled = false;
             this.SB开关.Name = "SB开关";
             this.SB开关.Text = "SB开关";
             this.SB开关.Visibility = Telerik.WinControls.ElementVisibility.Visible;
