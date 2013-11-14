@@ -2,8 +2,26 @@
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
-namespace OSU_player
+namespace OSU_player.OSUFiles
 {
+    public struct Score
+    {
+        public string player;
+        public int score;
+        public modes mode;
+        public string mod;
+        public int hit300;
+        public int hit320;
+        public int hit200;
+        public int hit100;
+        public int hit50;
+        public int totalhit;
+        public int miss;
+        public int maxCombo;
+        public DateTime time;
+        public double acc;
+    }
+
     public class BinaryReader : System.IO.BinaryReader
     {
         public BinaryReader(System.IO.Stream stream) : base(stream) { }
@@ -55,11 +73,11 @@ namespace OSU_player
                         Tscore.score = reader.ReadInt32();
                         Tscore.maxCombo = reader.ReadInt16();
                         reader.ReadBoolean();//isperfect
-                        Tscore.mod = Core.modconverter(reader.ReadUInt32() + reader.ReadByte() << 32);
+                        Tscore.mod = modconverter(reader.ReadUInt32() + reader.ReadByte() << 32);
                         Tscore.time = new DateTime(reader.ReadInt64());
                         stash = reader.ReadInt32();
                         stash = reader.ReadInt32();
-                        Tscore.acc = Core.getacc(Tscore);
+                        Tscore.acc = getacc(Tscore);
                         Tscore.totalhit = Tscore.hit300 + Tscore.hit100 + Tscore.hit50 + Tscore.miss;
                         Nscore.Add(Tscore);
                     }
@@ -181,6 +199,43 @@ namespace OSU_player
                     Core.Collections.Add(title, Nset);
                 }
             }
+        }
+        public static double getacc(Score S)
+        {
+            switch (S.mode)
+            {
+                case modes.Osu:
+                    return (S.hit300 * 6 + S.hit100 * 2 + S.hit50)
+                        / (double)((S.hit300 + S.hit100 + S.hit50 + S.miss) * 6);
+                case modes.Taiko:
+                    return (S.hit300 * 2 + S.hit100)
+                        / (double)((S.hit300 + S.hit100 + S.miss) * 2);
+                case modes.CTB:
+                    return (S.hit300 + S.hit100 + S.hit50)
+                        / (double)(S.hit300 + S.hit100 + S.hit50 + S.hit200 + S.miss);
+                case modes.Mania:
+                    return (S.hit300 * 6 + S.hit320 * 6 + S.hit200 * 4 + S.hit100 * 2 + S.hit50)
+                        / (double)((S.hit300 + S.hit320 + S.hit200 + S.hit100 + S.hit50 + S.miss) * 6);
+                default:
+                    return 0;
+            }
+        }
+        public static string modconverter(long mod)
+        {
+            string cmod = "";
+            if (mod == 0) { cmod = "None"; }
+            else
+            {
+                for (int i = 0; i < (int)mods.Random; i++)
+                {
+                    if ((mod & 1) == 1)
+                    {
+                        cmod += " " + Enum.GetName(typeof(mods), i);
+                    }
+                    mod = mod >> 1;
+                }
+            }
+            return cmod;
         }
     }
 }

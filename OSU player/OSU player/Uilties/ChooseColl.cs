@@ -4,7 +4,8 @@ using System.IO;
 using System.Windows.Forms;
 using Telerik.WinControls;
 using Telerik.WinControls.UI;
-namespace OSU_player
+using OSU_player.OSUFiles;
+namespace OSU_player.Uilties
 {
     public partial class ChooseColl : RadForm
     {

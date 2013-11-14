@@ -10,209 +10,9 @@ using System.Threading;
 using Telerik.WinControls.UI;
 using System.Reflection;
 using System.Diagnostics;
+using OSU_player.OSUFiles;
 namespace OSU_player
 {
-    /// <summary>
-    /// OSU文件内属性
-    /// </summary>
-    public enum OSUfile
-    {
-        FileVersion,
-        AudioFilename,
-        AudioHash,
-        AudioLeadIn,
-        PreviewTime,
-        Countdown,
-        SampleSet,
-        StackLeniency,
-        Mode,
-        LetterboxInBreaks,
-        StoryFireInFront,
-        EpilepsyWarning,
-        CountdownOffset,
-        WidescreenStoryboard,
-        EditorBookmarks,
-        EditorDistanceSpacing,
-        UseSkinSprites,
-        OverlayPosition,
-        SkinPreference,
-        SpecialStyle,
-        CustomSamples,
-        Title,
-        TitleUnicode,
-        Artist,
-        ArtistUnicode,
-        Creator,
-        Version,
-        Source,
-        Tags,
-        BeatmapID,
-        BeatmapSetID,
-        HPDrainRate,
-        CircleSize,
-        OverallDifficulty,
-        ApproachRate,
-        SliderMultiplier,
-        SliderTickRate,
-        OSUfilecount
-    }
-    /// <summary>
-    /// HitObject的类别
-    /// </summary>
-    public enum ObjectFlag
-    {
-        Normal = 1,
-        Slider = 2,
-        NewCombo = 4,
-        NormalNewCombo = 5,
-        SliderNewCombo = 6,
-        Spinner = 8,
-        SpinnerNewCombo = 12,
-        ColourHax = 112,
-        Hold = 128,
-        ManiaLong = 128
-    }
-    /// <summary>
-    /// 打击音效，可以叠加
-    /// </summary>
-    public enum HitSound
-    {
-        Normal = 0,
-        Whistle = 2,
-        Finish = 4,
-        Clap = 8
-    }
-    /// <summary>
-    /// 打击音效组的前缀
-    /// </summary>
-    public enum TSample
-    {
-        None = 0,
-        Normal = 1,
-        Soft = 2,
-        Drum = 3
-    }
-    /// <summary>
-    /// 打击音效组
-    /// </summary>
-    public struct CSample
-    {
-        public int sample;
-        public int sampleset;
-        public CSample(int sample, int sampleset)
-        {
-            this.sampleset = sampleset;
-            this.sample = sample;
-        }
-        public static bool operator ==(CSample a, CSample b)
-        {
-            return a.sample == b.sample && a.sampleset == b.sampleset;
-        }
-        public static bool operator !=(CSample a, CSample b)
-        {
-            return !(a == b);
-        }
-    }
-    /// <summary>
-    /// 获取的QQ信息
-    /// </summary>
-    public struct QQInfo
-    {
-        public string uin;
-        public string nick;
-        public QQInfo(string uin, string nick)
-        {
-            this.uin = uin;
-            this.nick = nick;
-        }
-    }
-    public enum modes
-    {
-        Osu = 0,
-        Taiko = 1,
-        CTB = 2,
-        Mania = 3
-    }
-    public enum mods
-    {
-        NF,
-        EZ,
-        NV,
-        HD,
-        HR,
-        SD,
-        DT,
-        Relax,
-        HT,
-        NC,
-        FL,
-        Auto,
-        SO,
-        Autopilot,
-        PF,
-        Key4,
-        Key5,
-        Key6,
-        Key7,
-        Key8,
-        Fadein,
-        Random
-    }
-    /// <summary>
-    /// Timing Points
-    /// </summary>
-    public struct Timing
-    {
-        public int offset;
-        public double bpm;
-        public int meter;
-        public CSample sample;
-        public float volume;
-        public int type;
-        public int kiai;
-    }
-    public struct note
-    {
-        public int x;
-        public int y;
-    }
-    /// <summary>
-    /// Hitobjects
-    /// </summary>
-    public struct HitObject
-    {
-        public int x;
-        public int y;
-        public int starttime;
-        public ObjectFlag type;
-        public int allhitsound;
-        public int EndTime;
-        public CSample sample;
-        public CSample A_sample;
-        public float S_Volume;
-        public char slidertype;
-        public int repeatcount;
-        public double length;
-        public int[] Hitsounds;
-        public CSample[] samples;
-    }
-    public struct Score
-    {
-        public string player;
-        public int score;
-        public modes mode;
-        public string mod;
-        public int hit300;
-        public int hit320;
-        public int hit200;
-        public int hit100;
-        public int hit50;
-        public int totalhit;
-        public int miss;
-        public int maxCombo;
-        public DateTime time;
-        public double acc;
-    }
     public class Core
     {
         #region 数据区
@@ -239,7 +39,7 @@ namespace OSU_player
         /// </summary>
         public static string uin;
         public static bool syncQQ = true;
-        public static QQ uni_QQ = new QQ();
+        public static Uilties.QQ uni_QQ = new Uilties.QQ();
         public static bool playvideo = true;
         public static bool playfx = true;
         public static bool playsb = true;
@@ -270,7 +70,7 @@ namespace OSU_player
         {
             Getpath();
             LoadPreference();
-            new Thread(new ThreadStart(Selfupdate.check_update)).Start();
+            new Thread(new ThreadStart(Uilties.Selfupdate.check_update)).Start();
             initset();
             size = Ssize;
             handle = Shandle;
@@ -662,23 +462,6 @@ namespace OSU_player
         }
         #endregion
         #region 通用转换区
-        public static string modconverter(long mod)
-        {
-            string cmod = "";
-            if (mod == 0) { cmod = "None"; }
-            else
-            {
-                for (int i = 0; i < (int)mods.Random; i++)
-                {
-                    if ((mod & 1) == 1)
-                    {
-                        cmod += " " + Enum.GetName(typeof(mods), i);
-                    }
-                    mod = mod >> 1;
-                }
-            }
-            return cmod;
-        }
         public static Image getrank(Score S)
         {
             switch (S.mode)
@@ -781,26 +564,6 @@ namespace OSU_player
                     return Resources.D;
                 default:
                     return Resources.D;
-            }
-        }
-        public static double getacc(Score S)
-        {
-            switch (S.mode)
-            {
-                case modes.Osu:
-                    return (S.hit300 * 6 + S.hit100 * 2 + S.hit50)
-                        / (double)((S.hit300 + S.hit100 + S.hit50 + S.miss) * 6);
-                case modes.Taiko:
-                    return (S.hit300 * 2 + S.hit100)
-                        / (double)((S.hit300 + S.hit100 + S.miss) * 2);
-                case modes.CTB:
-                    return (S.hit300 + S.hit100 + S.hit50)
-                        / (double)(S.hit300 + S.hit100 + S.hit50 + S.hit200 + S.miss);
-                case modes.Mania:
-                    return (S.hit300 * 6 + S.hit320 * 6 + S.hit200 * 4 + S.hit100 * 2 + S.hit50)
-                        / (double)((S.hit300 + S.hit320 + S.hit200 + S.hit100 + S.hit50 + S.miss) * 6);
-                default:
-                    return 0;
             }
         }
         #endregion

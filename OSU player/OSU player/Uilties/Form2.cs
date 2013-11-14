@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using Telerik.WinControls.UI;
 using Telerik.WinControls;
 using System.ComponentModel;
+using OSU_player.Uilties;
 namespace OSU_player
 {
     public partial class Form2 : RadForm

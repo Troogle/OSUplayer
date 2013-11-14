@@ -9,6 +9,7 @@ using Telerik.WinControls;
 using Telerik.WinControls.UI;
 using System.ComponentModel;
 using System.Threading;
+using OSU_player.OSUFiles;
 namespace OSU_player
 {
     public partial class Main : RadForm
@@ -206,7 +207,7 @@ namespace OSU_player
         #region 工具
         private void 重复歌曲扫描_Click(object sender, EventArgs e)
         {
-            using (DelDulp dialog = new DelDulp())
+            using (Uilties.DelDulp dialog = new Uilties.DelDulp())
             {
                 dialog.ShowDialog();
             }
@@ -242,7 +243,7 @@ namespace OSU_player
         #endregion
         private void 关于_Click(object sender, EventArgs e)
         {
-            using (About dialog = new About())
+            using (Uilties.About dialog = new Uilties.About())
             {
                 dialog.ShowDialog();
             }
@@ -252,7 +253,7 @@ namespace OSU_player
         private void Button2_Click(object sender, EventArgs e)
         {
             this.Visible = false;
-            using (ChooseColl dialog = new ChooseColl())
+            using (Uilties.ChooseColl dialog = new Uilties.ChooseColl())
             {
                 dialog.ShowDialog();
             }

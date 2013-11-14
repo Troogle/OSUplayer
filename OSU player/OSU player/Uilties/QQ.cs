@@ -2,8 +2,21 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Telerik.WinControls;
-namespace OSU_player
+namespace OSU_player.Uilties
 {
+    /// <summary>
+    /// 获取的QQ信息
+    /// </summary>
+    public struct QQInfo
+    {
+        public string uin;
+        public string nick;
+        public QQInfo(string uin, string nick)
+        {
+            this.uin = uin;
+            this.nick = nick;
+        }
+    }
     public class QQ
     {
         public WebBrowser web = new WebBrowser();

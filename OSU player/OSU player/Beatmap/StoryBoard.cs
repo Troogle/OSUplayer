@@ -1,8 +1,128 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-namespace OSU_player
+namespace OSU_player.OSUFiles
 {
+    public enum ElementType
+    {
+        Background,
+        Video,
+        Break,
+        Colour,
+        Sprite,
+        Sample,
+        Animation
+    }
+    public enum ElementLayer
+    {
+        Background,
+        Fail,
+        Pass,
+        Foreground
+    }
+    public enum ElementOrigin
+    {
+        TopLeft,
+        TopCentre,
+        TopRight,
+        CentreLeft,
+        Centre,
+        CentreRight,
+        BottomLeft,
+        BottomCentre,
+        BottomRight
+    }
+    public enum ElementLoopType
+    {
+        LoopOnce,
+        LoopForever
+    }
+    public enum EventType
+    {
+        //F - fade【隐藏(淡入淡出)】
+        //M - move【移动】
+        //S - scale【缩放】
+        //V - vector scale (width and height separately)【矢量缩放(宽高分别变动)】
+        //R - rotate【旋转】
+        //C - colour【颜色】
+        //L - loop【循环】
+        //T - Event-triggered loop【事件触发循环】
+        //P - Parameters【参数】
+        //Play - 播放sample
+        F,
+        M,
+        S,
+        V,
+        R,
+        C,
+        L,
+        T,
+        P,
+        Play
+    }
+    public enum Triggertype
+    {
+        HitSoundClap,
+        HitSoundFinish,
+        HitSoundWhistle,
+        Passing,
+        Failing
+    }
+    public struct SBvar
+    {
+        public string name;
+        public string replace;
+    }
+    public struct SBEvent
+    {
+        public EventType Type;
+        public int easing;
+        //0 - none【没有缓冲】
+        //1 - start fast and slow down【开始快结束慢】
+        //2 - start slow and speed up【开始慢结束快】
+        public int startT;
+        public int endT;
+        public double startxF; //F,S,R(只用x),V 'F stands for float-option
+        public double startyF;
+        public double endyF;
+        public double endxF;
+        public int startx; //M,MX,MY（只用x/y)
+        public int starty;
+        public int endx;
+        public int endy;
+        //P只用startx H - 水平翻转(0) V - 垂直翻转(1) A - additive-blend colour (2)
+        public int r1; //C
+        public int g1;
+        public int b1;
+        public int r2;
+        public int g2;
+        public int b2;
+        public int volume; //Play
+    }
+    public struct TriggerEvent
+    {
+        public int triggerstart;
+        public int triggerend;
+        public SBEvent[] events;
+        public int count;
+    }
+    public class SBelement
+    {
+        public List<SBEvent> events = new List<SBEvent>();
+        public ElementType Type;
+        public ElementLayer Layers;
+        public ElementOrigin Origin; //sample时无
+        public string path;
+        public int x; //sample时无时无
+        public int y;
+        //Animation only
+        public int frameCount;
+        public int framedelay;
+        public ElementLoopType Looptype; //默认LoopForever【一直循环】
+        //事件触发循环可以被游戏时间事件触发. 虽然叫做循环, 事件触发循环循环时只执行一次
+        //触发器循环和普通循环一样是从零计数. 如果两个重叠, 第一个将会被停止且被一个从头开始的循环替代.
+        //如果他们和任何存在的故事版事件重叠,他们将不会循环直到那些故事版事件不在生效
+    }
     public class StoryBoard
     {
         public List<SBelement> elements = new List<SBelement>();
@@ -10,126 +130,6 @@ namespace OSU_player
         public List<SBvar> Variables = new List<SBvar>();
         //public Dictionary<Triggertype, TriggerEvent> trigger = new Dictionary<Triggertype, TriggerEvent>();
         //目录由beatmapfiles.location-->beatmap.location
-        public enum ElementType
-        {
-            Background,
-            Video,
-            Break,
-            Colour,
-            Sprite,
-            Sample,
-            Animation
-        }
-        public enum ElementLayer
-        {
-            Background,
-            Fail,
-            Pass,
-            Foreground
-        }
-        public enum ElementOrigin
-        {
-            TopLeft,
-            TopCentre,
-            TopRight,
-            CentreLeft,
-            Centre,
-            CentreRight,
-            BottomLeft,
-            BottomCentre,
-            BottomRight
-        }
-        public enum ElementLoopType
-        {
-            LoopOnce,
-            LoopForever
-        }
-        public enum EventType
-        {
-            //F - fade【隐藏(淡入淡出)】
-            //M - move【移动】
-            //S - scale【缩放】
-            //V - vector scale (width and height separately)【矢量缩放(宽高分别变动)】
-            //R - rotate【旋转】
-            //C - colour【颜色】
-            //L - loop【循环】
-            //T - Event-triggered loop【事件触发循环】
-            //P - Parameters【参数】
-            //Play - 播放sample
-            F,
-            M,
-            S,
-            V,
-            R,
-            C,
-            L,
-            T,
-            P,
-            Play
-        }
-        public enum Triggertype
-        {
-            HitSoundClap,
-            HitSoundFinish,
-            HitSoundWhistle,
-            Passing,
-            Failing
-        }
-        public struct SBvar
-        {
-            public string name;
-            public string replace;
-        }
-        public struct SBEvent
-        {
-            public EventType Type;
-            public int easing;
-            //0 - none【没有缓冲】
-            //1 - start fast and slow down【开始快结束慢】
-            //2 - start slow and speed up【开始慢结束快】
-            public int startT;
-            public int endT;
-            public double startxF; //F,S,R(只用x),V 'F stands for float-option
-            public double startyF;
-            public double endyF;
-            public double endxF;
-            public int startx; //M,MX,MY（只用x/y)
-            public int starty;
-            public int endx;
-            public int endy;
-            //P只用startx H - 水平翻转(0) V - 垂直翻转(1) A - additive-blend colour (2)
-            public int r1; //C
-            public int g1;
-            public int b1;
-            public int r2;
-            public int g2;
-            public int b2;
-            public int volume; //Play
-        }
-        public struct TriggerEvent
-        {
-            public int triggerstart;
-            public int triggerend;
-            public SBEvent[] events;
-            public int count;
-        }
-        public class SBelement
-        {
-            public List<SBEvent> events = new List<SBEvent>();
-            public ElementType Type;
-            public ElementLayer Layers;
-            public ElementOrigin Origin; //sample时无
-            public string path;
-            public int x; //sample时无时无
-            public int y;
-            //Animation only
-            public int frameCount;
-            public int framedelay;
-            public ElementLoopType Looptype; //默认LoopForever【一直循环】
-            //事件触发循环可以被游戏时间事件触发. 虽然叫做循环, 事件触发循环循环时只执行一次
-            //触发器循环和普通循环一样是从零计数. 如果两个重叠, 第一个将会被停止且被一个从头开始的循环替代.
-            //如果他们和任何存在的故事版事件重叠,他们将不会循环直到那些故事版事件不在生效
-        }
         private string picknext(ref string str)
         {
             string ret = "";

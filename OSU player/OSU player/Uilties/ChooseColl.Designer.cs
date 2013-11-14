@@ -1,4 +1,4 @@
-﻿namespace OSU_player
+﻿namespace OSU_player.Uilties
 {
     partial class ChooseColl
     {

@@ -2,8 +2,179 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
-namespace OSU_player
+namespace OSU_player.OSUFiles
 {
+    /// <summary>
+    /// OSU文件内属性
+    /// </summary>
+    public enum OSUfile
+    {
+        FileVersion,
+        AudioFilename,
+        AudioHash,
+        AudioLeadIn,
+        PreviewTime,
+        Countdown,
+        SampleSet,
+        StackLeniency,
+        Mode,
+        LetterboxInBreaks,
+        StoryFireInFront,
+        EpilepsyWarning,
+        CountdownOffset,
+        WidescreenStoryboard,
+        EditorBookmarks,
+        EditorDistanceSpacing,
+        UseSkinSprites,
+        OverlayPosition,
+        SkinPreference,
+        SpecialStyle,
+        CustomSamples,
+        Title,
+        TitleUnicode,
+        Artist,
+        ArtistUnicode,
+        Creator,
+        Version,
+        Source,
+        Tags,
+        BeatmapID,
+        BeatmapSetID,
+        HPDrainRate,
+        CircleSize,
+        OverallDifficulty,
+        ApproachRate,
+        SliderMultiplier,
+        SliderTickRate,
+        OSUfilecount
+    }
+    /// <summary>
+    /// HitObject的类别
+    /// </summary>
+    public enum ObjectFlag
+    {
+        Normal = 1,
+        Slider = 2,
+        NewCombo = 4,
+        NormalNewCombo = 5,
+        SliderNewCombo = 6,
+        Spinner = 8,
+        SpinnerNewCombo = 12,
+        ColourHax = 112,
+        Hold = 128,
+        ManiaLong = 128
+    }
+    /// <summary>
+    /// 打击音效，可以叠加
+    /// </summary>
+    public enum HitSound
+    {
+        Normal = 0,
+        Whistle = 2,
+        Finish = 4,
+        Clap = 8
+    }
+    /// <summary>
+    /// 打击音效组的前缀
+    /// </summary>
+    public enum TSample
+    {
+        None = 0,
+        Normal = 1,
+        Soft = 2,
+        Drum = 3
+    }
+    /// <summary>
+    /// 打击音效组
+    /// </summary>
+    public struct CSample
+    {
+        public int sample;
+        public int sampleset;
+        public CSample(int sample, int sampleset)
+        {
+            this.sampleset = sampleset;
+            this.sample = sample;
+        }
+        public static bool operator ==(CSample a, CSample b)
+        {
+            return a.sample == b.sample && a.sampleset == b.sampleset;
+        }
+        public static bool operator !=(CSample a, CSample b)
+        {
+            return !(a == b);
+        }
+    }
+    public enum modes
+    {
+        Osu = 0,
+        Taiko = 1,
+        CTB = 2,
+        Mania = 3
+    }
+    public enum mods
+    {
+        NF,
+        EZ,
+        NV,
+        HD,
+        HR,
+        SD,
+        DT,
+        Relax,
+        HT,
+        NC,
+        FL,
+        Auto,
+        SO,
+        Autopilot,
+        PF,
+        Key4,
+        Key5,
+        Key6,
+        Key7,
+        Key8,
+        Fadein,
+        Random
+    }
+    /// <summary>
+    /// Timing Points
+    /// </summary>
+    public struct Timing
+    {
+        public int offset;
+        public double bpm;
+        public int meter;
+        public CSample sample;
+        public float volume;
+        public int type;
+        public int kiai;
+    }
+    public struct note
+    {
+        public int x;
+        public int y;
+    }
+    /// <summary>
+    /// Hitobjects
+    /// </summary>
+    public struct HitObject
+    {
+        public int x;
+        public int y;
+        public int starttime;
+        public ObjectFlag type;
+        public int allhitsound;
+        public int EndTime;
+        public CSample sample;
+        public CSample A_sample;
+        public float S_Volume;
+        public char slidertype;
+        public int repeatcount;
+        public double length;
+        public int[] Hitsounds;
+        public CSample[] samples;
+    }
     [Serializable]
     public class BeatmapSet
     {

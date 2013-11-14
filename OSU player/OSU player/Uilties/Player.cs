@@ -6,6 +6,7 @@ using System.IO;
 using Microsoft.DirectX;
 using Microsoft.DirectX.Direct3D;
 using FFmpeg;
+using OSU_player.OSUFiles;
 namespace OSU_player
 {
     class Player : IDisposable
@@ -59,6 +60,7 @@ namespace OSU_player
         Matrix bgtransformMatrix = new Matrix();
         Matrix bgrotateMatrix = new Matrix();
         Matrix bgscaleMatrix = new Matrix();
+        List<TGraphic> SBelements = new List<TGraphic>();
         public Player()
         {
             uni_Audio = new Audiofiles();
@@ -93,7 +95,7 @@ namespace OSU_player
             }
             Bitmap CurrentBG;
             if (Map.Background == "")
-            { CurrentBG = new Bitmap(Core.defaultBG); } 
+            { CurrentBG = new Bitmap(Core.defaultBG); }
             else { CurrentBG = new Bitmap(Map.Background); }
             BGTexture = Texture.FromBitmap(device, CurrentBG, 0, Pool.Managed);
             float scalef = width / CurrentBG.Width < height / CurrentBG.Height ? width / CurrentBG.Width : height / CurrentBG.Height;
@@ -103,10 +105,30 @@ namespace OSU_player
             bg = new Rectangle(0, 0, CurrentBG.Width, CurrentBG.Height);
         }
         public void RenderSB() { }
-        public void initSB() 
+        public void initSB()
         {
-            Map.Getsb();
-
+            /*  Map.Getsb();
+              for (int i = 0; i < Map.SB.elements.Count; i++)
+              {
+                  SBelement Element = Map.SB.elements[i];
+                
+                  switch (Element.Type)
+                  {
+                      case ElementType.Sprite:
+                        
+                          SBelements.Add(new TGraphic(device, new Bitmap(Path.Combine(Map.Location,Element.path)), new Vector3(640, 360, 0), new Vector3(40.5f, 42.5f, 0f)));
+                          break;
+                      case ElementType.Sample:
+                          break;
+                      case ElementType.Animation:
+                          SBelements.Add(new TGraphic(device, new Bitmap(Path.Combine(Map.Location, Element.path)), new Vector3(640, 360, 0), new Vector3(40.5f, 42.5f, 0f)));
+    
+                          break;
+                      default:
+                          break;
+                  }
+              }
+              SBexist = true;*/
         }
         public void RenderVideo()
         {
@@ -128,7 +150,7 @@ namespace OSU_player
         }
         public void Render()
         {
-            if (device == null||device.Disposed) { return; }
+            if (device == null || device.Disposed) { return; }
             device.Clear(ClearFlags.Target, Color.Black, 1.0f, 0);
             device.BeginScene();
             if (!videoexist) { RenderBG(); }
@@ -293,6 +315,7 @@ namespace OSU_player
         {
             cannext = false;
             if (videoexist) { videoexist = false; VideoTexture.Dispose(); decoder.Dispose(); }
+            if (SBexist) { SBexist = false; SBelements.Clear(); }
             uni_Audio.Stop();
         }
         public void Play()
@@ -329,7 +352,7 @@ namespace OSU_player
             fxpos = 0;
             if (playfx)
             {
-                while (fxlist[fxpos].time <= uni_Audio.position * 1000)
+                while (fxlist[fxpos].time <= uni_Audio.position * 1000 && fxpos < fxlist.Count)
                 {
                     fxpos++;
                 }

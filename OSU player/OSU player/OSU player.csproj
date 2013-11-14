@@ -163,8 +163,9 @@
     <Compile Include="Uilties\QQ.cs" />
     <Compile Include="Uilties\Selfupdate.cs" />
     <Compile Include="Beatmap\StoryBoard.cs" />
-    <Compile Include="Uilties\TGraphics.cs" />
     <Compile Include="Uilties\VideoDecoder.cs" />
+    <Compile Include="Uilties\TGraphic.cs" />
+    <Compile Include="Uilties\TSpriteAction.cs" />
     <EmbeddedResource Include="Mini.resx">
       <DependentUpon>Mini.cs</DependentUpon>
     </EmbeddedResource>

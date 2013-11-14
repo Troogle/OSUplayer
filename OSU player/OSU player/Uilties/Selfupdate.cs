@@ -4,7 +4,7 @@ using System.Net;
 using System.Windows.Forms;
 using System.Xml;
 using Telerik.WinControls;
-namespace OSU_player
+namespace OSU_player.Uilties
 {
     public class Selfupdate
     {
