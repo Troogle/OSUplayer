@@ -301,7 +301,7 @@ namespace OSU_player
                 if (Core.scoresearched) { setscore(); }
                 if (!StopButton.Enabled)
                 {
-                    Core.currentset = Core.tmpset;
+                    Core.currentset = Core.PlayList[Core.tmpset];
                     Core.currentmap = Core.tmpmap;
                     SetDetail();
                 }
@@ -401,8 +401,9 @@ namespace OSU_player
             {
                 PlayList.SelectedItems[0].Selected = false;
             }
-            PlayList.Items[Core.currentset].Selected = true;
-            PlayList.EnsureVisible(Core.currentset);
+            int currentset = Core.PlayList.IndexOf(Core.currentset, 0); ;
+            PlayList.Items[currentset].Selected = true;
+            PlayList.EnsureVisible(currentset);
             PlayList.Focus();
             Core.setBG();
             if (Core.isplaying)

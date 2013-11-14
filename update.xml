@@ -1,6 +1,6 @@
 ﻿<Xml>
 <Url>https://raw.github.com/Troogle/OSUplayer/master/</Url>
-<Version>3.1.0</Version>
-<Text>修正读取分数的Mods有误\n修正Mini默认音量最大问题\n默认显示日文名\n增加保存BG功能\n成绩信息排序\n</Text>
-<Link><![CDATA[http://pan.baidu.com/share/link?shareid=2584723340&uk=2804632131]]></Link>
+<Version>3.3.0</Version>
+<Text>感谢JixunMoe和Noatalgika！\n使用FFMPEG解码(与osu核心相同)\n手动输入QQ功能\n搜索框的改进，输入后自动搜索，也可回车搜索，按esc清空\n添加在线版本统计及错误统计功能\n更换了默认的BG\n更好的版本控制\n修正了设置无法保存的问题\n添加了程序图标\n修正QQ号溢出问题</Text>
+<Link><![CDATA[http://pan.baidu.com/share/link?shareid=429227579&uk=2804632131]]></Link>
 </Xml>

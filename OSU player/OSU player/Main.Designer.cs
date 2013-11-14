@@ -782,7 +782,7 @@ namespace OSU_player
             // 
             // 
             this.RootElement.ApplyShapeToControl = true;
-            this.Text = "";
+            this.Text = "OSUplayer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AskForExit);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.radMenuComboItem1.ComboBoxElement)).EndInit();

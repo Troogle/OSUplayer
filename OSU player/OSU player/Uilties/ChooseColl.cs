@@ -24,7 +24,7 @@ namespace OSU_player.Uilties
                 listBox1.Items.Add(key);
             }
             if (listBox1.Items.Count != 0) { listBox1.SelectedIndex = 0; }
-            RadMessageBox.Show("刷新完毕！");
+           // RadMessageBox.Show("刷新完毕！");
         }
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -70,6 +70,7 @@ namespace OSU_player.Uilties
         private void ChooseColl_Load(object sender, EventArgs e)
         {
             label2.Text = "当前播放列表曲目数:"+Core.PlayList.Count;
+            button1.PerformClick();
         }
     }
 }

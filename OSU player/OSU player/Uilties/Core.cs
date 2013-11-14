@@ -200,10 +200,11 @@ namespace OSU_player
             syncQQ = Properties.Settings.Default.SyncQQ;
             if (uin == "0")
             {
-                if (
-                    RadMessageBox.Show("木有设置过QQ号，需要现在设置么？", "提示", MessageBoxButtons.YesNo)
-                    == DialogResult.Yes) { SetQQ(); }
-                else { SetQQ(false); }
+                /* if (
+                     RadMessageBox.Show("木有设置过QQ号，需要现在设置么？", "提示", MessageBoxButtons.YesNo)
+                     == DialogResult.Yes) { SetQQ(); }
+                 else { SetQQ(false); }*/
+                SetQQ();
             }
             Allvolume = Properties.Settings.Default.Allvolume;
             Fxvolume = Properties.Settings.Default.Fxvolume;
@@ -222,13 +223,13 @@ namespace OSU_player
             }
             else
             {
-                RadMessageBox.Show("将开始初始化");
+                //RadMessageBox.Show("将开始初始化");
                 if (File.Exists(Path.Combine(Core.osupath, "osu!.db")))
                 {
                     OsuDB.ReadDb(Path.Combine(Core.osupath, "osu!.db"));
                 }
                 initplaylist();
-                RadMessageBox.Show(string.Format("初始化完毕，发现曲目{0}个", allsets.Count));
+                //RadMessageBox.Show(string.Format("初始化完毕，发现曲目{0}个", allsets.Count));
                 needsave = true;
             }
             currentset = 0;
@@ -248,7 +249,7 @@ namespace OSU_player
             tmpset = vaule;
             if (!TmpSet.check())
             {
-                RadMessageBox.Show("没事删什么曲子啊><", ">_<");
+                //RadMessageBox.Show("没事删什么曲子啊><", ">_<");
                 remove(tmpset);
                 return true;
             }
@@ -256,7 +257,7 @@ namespace OSU_player
             {
                 TmpSet.GetDetail();
             }
-            if (p) { currentset = PlayList[tmpset];  }
+            if (p) { currentset = PlayList[tmpset]; }
             return false;
         }
         public static bool SetMap(int vaule, bool p = false)
@@ -264,7 +265,7 @@ namespace OSU_player
             tmpmap = vaule;
             if (!File.Exists(TmpBeatmap.Path))
             {
-                RadMessageBox.Show("没事删什么曲子啊><", ">_<");
+                //RadMessageBox.Show("没事删什么曲子啊><", ">_<");
                 remove(tmpset);
                 return true;
             }
@@ -306,7 +307,10 @@ namespace OSU_player
         public static void Play()
         {
             if (!CurrentSet.detailed) { CurrentSet.GetDetail(); }
-            if (!File.Exists(CurrentBeatmap.Audio)) { RadMessageBox.Show("丧心病狂不？音频文件你都删！"); return; }
+            if (!File.Exists(CurrentBeatmap.Audio))
+            { //RadMessageBox.Show("丧心病狂不？音频文件你都删！"); 
+                return;
+            }
             player.Play();
             uni_QQ.Send2QQ(uin, CurrentBeatmap.NameToString());
         }
@@ -330,7 +334,7 @@ namespace OSU_player
         public static int GetNext()
         {
             int next;
-            int now = currentset;
+            int now = PlayList.IndexOf(currentset, 0);
             switch (Nextmode)
             {
                 case 1: next = (now + 1) % PlayList.Count;
@@ -342,7 +346,7 @@ namespace OSU_player
                 default: next = 0;
                     break;
             }
-            currentset = next;
+            currentset = PlayList[next];
             currentmap = 0;
             return next;
         }

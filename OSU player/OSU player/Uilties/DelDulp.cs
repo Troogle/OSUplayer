@@ -163,7 +163,7 @@ namespace OSU_player.Uilties
             if (dul.Count == 0) { RadMessageBox.Show("没有神马要删除的！><"); this.Dispose(); }
             else
             {
-                RadMessageBox.Show(string.Format("扫描完毕，发现重复曲目{0}个", dul.Count));
+                //RadMessageBox.Show(string.Format("扫描完毕，发现重复曲目{0}个", dul.Count));
                 Label1.Text = string.Format("扫描完毕，发现重复曲目{0}个", dul.Count);
                 adddul();
             }
