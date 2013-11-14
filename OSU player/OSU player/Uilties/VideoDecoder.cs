@@ -125,7 +125,7 @@
                 try
                 {
                  //   FFmpeg.avcodec_close(this.pCodecCtx);
-                    FFmpeg.av_close_input_file(this.pFormatCtx);
+                 //   FFmpeg.av_close_input_file(this.pFormatCtx);
                 }
                 catch
                 {

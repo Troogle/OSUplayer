@@ -30,6 +30,7 @@ namespace OSU_player
         bool cannext = true;
         public bool willnext = false;
         bool videoexist = false;
+        bool SBexist = false;
         int fxpos = 0;
         float Allvolume { get { return Core.Allvolume; } }
         float Musicvolume { get { return Core.Musicvolume; } }
@@ -43,7 +44,9 @@ namespace OSU_player
         IntPtr handle { get { return Core.handle; } }
         Device device = null;
         VideoDecoder decoder = new VideoDecoder(100);
-        Texture showPicture;
+        Texture VideoTexture;
+        Texture BGTexture;
+        Sprite BGsprite;
         Sprite sprite;
         float width = 480f;
         float height = 360f;
@@ -52,6 +55,10 @@ namespace OSU_player
         Matrix transformMatrix = new Matrix();
         Matrix rotateMatrix = new Matrix();
         Matrix scaleMatrix = new Matrix();
+        Rectangle bg;
+        Matrix bgtransformMatrix = new Matrix();
+        Matrix bgrotateMatrix = new Matrix();
+        Matrix bgscaleMatrix = new Matrix();
         public Player()
         {
             uni_Audio = new Audiofiles();
@@ -59,55 +66,79 @@ namespace OSU_player
             presentParams.SwapEffect = SwapEffect.Discard;
             device = new Device(0, DeviceType.Hardware, handle, CreateFlags.SoftwareVertexProcessing, presentParams);
             sprite = new Sprite(device);
-
+            BGsprite = new Sprite(device);
             for (int i = 0; i < maxfxplayer; i++)
             {
                 fxplayer[i] = new Audiofiles();
             }
         }
-        public void Render()
+        public void initvideo()
         {
-            if (!videoexist) { return; }
-            if (device == null || position - (double)Map.VideoOffset / 1000 < 0) { return; }
-            device.Clear(ClearFlags.Target, Color.Black, 1.0f, 0);
-            device.BeginScene();
-            GraphicsStream dataRectangle = showPicture.LockRectangle(0, LockFlags.None);
+            decoder = new VideoDecoder(100);
+            decoder.Open(Path.Combine(Map.Location, Map.Video));
+            VideoTexture = Texture.FromBitmap(device, new Bitmap(Properties.Resources.BlackBase, decoder.width, decoder.height), 0, Pool.Managed);
+            float scalef = width / decoder.width < height / decoder.height ? width / decoder.width : height / decoder.height;
+            scaleMatrix.Scale(scalef, scalef, 0.0f);
+            rotateMatrix.RotateZ(0f);
+            transformMatrix.Translate(new Vector3((width - decoder.width * scalef) / 2, (height - decoder.height * scalef) / 2, 0));
+            video = new Rectangle(0, 0, decoder.width, decoder.height);
+            videoexist = true;
+        }
+        public void initBG()
+        {
+            if (Map.Background != "" && !File.Exists(Map.Background))
+            {
+                //RadMessageBox.Show("没事删什么BG！", "错误", MessageBoxButtons.OK, RadMessageIcon.Error);
+                Map.Background = "";
+            }
+            Bitmap CurrentBG;
+            if (Map.Background == "")
+            { CurrentBG = new Bitmap(Core.defaultBG); } 
+            else { CurrentBG = new Bitmap(Map.Background); }
+            BGTexture = Texture.FromBitmap(device, CurrentBG, 0, Pool.Managed);
+            float scalef = width / CurrentBG.Width < height / CurrentBG.Height ? width / CurrentBG.Width : height / CurrentBG.Height;
+            bgscaleMatrix.Scale(scalef, scalef, 0.0f);
+            bgrotateMatrix.RotateZ(0f);
+            bgtransformMatrix.Translate(new Vector3((width - CurrentBG.Width * scalef) / 2, (height - CurrentBG.Height * scalef) / 2, 0));
+            bg = new Rectangle(0, 0, CurrentBG.Width, CurrentBG.Height);
+        }
+        public void RenderSB() { }
+        public void RenderVideo()
+        {
+            if (position - (double)Map.VideoOffset / 1000 < 0) { return; }
+            GraphicsStream dataRectangle = VideoTexture.LockRectangle(0, LockFlags.None);
             dataRectangle.Write(decoder.GetFrame(Convert.ToInt32(position * 1000 - Map.VideoOffset)), 0, decoder.height * decoder.width * 4);
-            showPicture.UnlockRectangle(0);
+            VideoTexture.UnlockRectangle(0);
             sprite.Begin(SpriteFlags.None);
             sprite.Transform = rotateMatrix * scaleMatrix * transformMatrix;
-            sprite.Draw(showPicture, video, Vector3.Empty, Vector3.Empty, Color.White);
+            sprite.Draw(VideoTexture, video, Vector3.Empty, Vector3.Empty, Color.White);
             sprite.End();
+        }
+        public void RenderBG()
+        {
+            BGsprite.Begin(SpriteFlags.None);
+            BGsprite.Transform = bgrotateMatrix * bgscaleMatrix * bgtransformMatrix;
+            BGsprite.Draw(BGTexture, bg, Vector3.Empty, Vector3.Empty, Color.White);
+            BGsprite.End();
+        }
+        public void Render()
+        {
+            if (device == null||device.Disposed) { return; }
+            device.Clear(ClearFlags.Target, Color.Black, 1.0f, 0);
+            device.BeginScene();
+            if (!videoexist) { RenderBG(); }
+            if (videoexist) { RenderVideo(); }
+            if (SBexist) { RenderSB(); }
             device.EndScene();
             device.Present();
         }
         public void Dispose()
         {
+            device.Dispose();
             uni_Audio.Dispose();
             for (int j = 0; j < maxfxplayer; j++)
             {
                 fxplayer[j].Dispose();
-            }
-            device.Dispose();
-        }
-        public Image Resize(Image bmp)
-        {
-            try
-            {
-                Bitmap tmp = new Bitmap(size.Width, size.Height);
-                Graphics g = Graphics.FromImage(tmp);
-                g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-                double mul = size.Width > size.Height ? (double)size.Width / (double)bmp.Width : (double)size.Height / (double)bmp.Height;
-                int newWidth = (int)(bmp.Width * mul);
-                int newHeight = (int)(bmp.Height * mul);
-                g.Clear(Color.Black);
-                g.DrawImage(bmp, new Rectangle((size.Width - newWidth) / 2, (size.Height - newHeight) / 2, newWidth, newHeight), new Rectangle(0, 0, bmp.Width, bmp.Height), GraphicsUnit.Pixel);
-                g.Dispose();
-                return tmp;
-            }
-            catch
-            {
-                return null;
             }
         }
         private int Fxlistcompare(Fxlist a, Fxlist b)
@@ -256,28 +287,18 @@ namespace OSU_player
         public void Stop()
         {
             cannext = false;
-            if (videoexist) { videoexist = false; showPicture.Dispose(); decoder.Dispose(); }
+            if (videoexist) { videoexist = false; VideoTexture.Dispose(); decoder.Dispose(); }
             uni_Audio.Stop();
         }
         public void Play()
         {
             willnext = false; cannext = true; videoexist = false;
+            initBG();
             uni_Audio.Open(Map.Audio);
             if (playfx) { initfx(); fxpos = 0; }
             uni_Audio.UpdateTimer.Tick += new EventHandler(AVsync);
-            if (Map.haveVideo && playvideo && File.Exists(Path.Combine(Map.Location, Map.Video)))
-            {
-                decoder = new VideoDecoder(100);
-                decoder.Open(Path.Combine(Map.Location, Map.Video));
-                showPicture = new Texture(device, decoder.width, decoder.height, 0, 0, Format.A8R8G8B8, Pool.Managed);
-                float scalef = width / decoder.width < height / decoder.height ? width / decoder.width : height / decoder.height;
-                scaleMatrix.Scale(scalef, scalef, 0.0f);
-                //scaleMatrix.Scale(width / decoder.width, height / decoder.height, 0.0f);
-                rotateMatrix.RotateZ(0f);
-                transformMatrix.Translate(new Vector3((width - decoder.width * scalef) / 2, (height - decoder.height * scalef) / 2, 0));
-                video = new Rectangle(0, 0, decoder.width, decoder.height);
-                videoexist = true;
-            }
+            if (Map.haveVideo && playvideo && File.Exists(Path.Combine(Map.Location, Map.Video))) { initvideo(); }
+            if (Map.haveSB && playsb) { }
             uni_Audio.Play(Allvolume * Musicvolume);
         }
         public void Pause()

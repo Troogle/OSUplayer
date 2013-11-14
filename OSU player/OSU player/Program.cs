@@ -35,7 +35,7 @@ namespace OSU_player
                 {
                     Application.DoEvents();
                     Core.Render();
-                    Thread.Sleep(10); 
+                    Thread.Sleep(5); 
                 }
 
              //   Application.Run(new Main());

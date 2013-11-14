@@ -261,10 +261,10 @@ namespace OSU_player
             get
             {
                 Assembly asm = Assembly.GetExecutingAssembly();
-                
+
                 FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(asm.Location);
                 return fvi.FileVersion;
-             }
+            }
         }
         public static void init(IntPtr Shandle, Size Ssize)
         {
@@ -456,7 +456,7 @@ namespace OSU_player
             {
                 TmpSet.GetDetail();
             }
-            if (p) { currentset = PlayList[tmpset]; }
+            if (p) { currentset = PlayList[tmpset];  }
             return false;
         }
         public static bool SetMap(int vaule, bool p = false)
@@ -562,7 +562,7 @@ namespace OSU_player
                 {
                     if (allsets[i].tags.ToLower().Contains(keyword)) { searchedMaps.Add(i); }
                 }
-                if (searchedMaps.Count == 0) { RadMessageBox.Show("神马都木有找到！"); }
+                if (searchedMaps.Count == 0) { PlayList.Clear(); }
                 else
                 {
                     PlayList.Clear();
@@ -656,18 +656,9 @@ namespace OSU_player
         {
             if (!PlayList.Contains(setno)) { PlayList.Add(setno); }
         }
-        public static Image getbg()
+        public static void setBG()
         {
-            if (CurrentBeatmap.Background != "" && !File.Exists(CurrentBeatmap.Background))
-            {
-                RadMessageBox.Show("没事删什么BG！", "错误", MessageBoxButtons.OK, RadMessageIcon.Error);
-                CurrentBeatmap.Background = "";
-            }
-            if (CurrentBeatmap.Background == "")
-            {
-                return player.Resize(Core.defaultBG);
-            }
-            else { return player.Resize(Image.FromFile(CurrentBeatmap.Background)); }
+            player.initBG();
         }
         #endregion
         #region 通用转换区

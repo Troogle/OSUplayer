@@ -23,9 +23,13 @@ namespace OSU_player
         public string Video { get; private set; }
         public int VideoOffset { get; private set; }
         [NonSerialized]
+        public bool detailed = false;
+        [NonSerialized]
         public List<Timing> Timingpoints;
         [NonSerialized]
         public List<HitObject> HitObjects;
+        [NonSerialized]
+        public List<string> tmpSB;
         public string hash { get; set; }
         #region map属性的获取接口
         public string FileVersion { get { return Rawdata[(int)OSUfile.FileVersion]; } }
@@ -517,10 +521,10 @@ namespace OSU_player
         {
             osb = osb_F;
             Path = System.IO.Path.Combine(Location, Name);
-            List<string> tmpSB = new List<string>();
             List<string> content = new List<string>();
             Timingpoints = new List<Timing>();
             HitObjects = new List<HitObject>();
+            tmpSB = new List<string>();
             content.AddRange(File.ReadAllLines(Path));
             if (osb != null) { content.AddRange(File.ReadAllLines(osb)); }
             osuFileScanStatus position = osuFileScanStatus.VERSION_UNKNOWN;
@@ -550,7 +554,7 @@ namespace OSU_player
                             {
                                 Rawdata[(int)(OSUfile)Enum.Parse(typeof(OSUfile), (s[0].Trim()))] = s[1].Trim();
                             }
-                            catch { } 
+                            catch { }
                             break;
                         case osuFileScanStatus.EVENTS:
                             if (row.StartsWith("0,0,"))
@@ -590,9 +594,13 @@ namespace OSU_player
                 Console.WriteLine(e.StackTrace);
                 throw (new FormatException("Failed to read .osu file", e));
             }
+            detailed = true;
+        }
+        public void Getsb()
+        {
             if (haveSB)
             {
-                //    SB = new StoryBoard(tmpSB);
+                SB = new StoryBoard(tmpSB);
             }
         }
         public Beatmap()

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 namespace OSU_player
 {
-    public class StoryBoard 
+    public class StoryBoard
     {
         public List<SBelement> elements = new List<SBelement>();
         //TODO:单独抽取trigger并作索引
@@ -353,8 +353,8 @@ namespace OSU_player
                             //throw (new FormatException("Failed to read .osb file"));
                             break;
                         }
-                        elements[element].events.Add(tmpe);
                 }
+                elements[element].events.Add(tmpe);
                 //_event,easing,starttime,endtime,val1,val2,val3,...,valN
                 if (str != "")
                 {
@@ -482,7 +482,7 @@ namespace OSU_player
             }
             catch (Exception ex)
             {
-                throw (new FormatException("Failed to read .osb file",ex));
+                throw (new FormatException("Failed to read .osb file", ex));
             }
         }
     }

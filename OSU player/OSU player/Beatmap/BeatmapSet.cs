@@ -136,7 +136,7 @@ namespace OSU_player
             }
             foreach (Beatmap bm in Diffs)
             {
-                bm.GetDetail(OsbPath);
+                if (!bm.detailed){bm.GetDetail(OsbPath);}
             }
             Diffs.Sort();
             detailed = true;

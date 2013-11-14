@@ -22,6 +22,7 @@ namespace OSU_player
         #region 各种方法
         private void AskForExit(object sender, System.Windows.Forms.FormClosingEventArgs e)
         {
+            Core.Pause();
             if (RadMessageBox.Show("确认退出？", "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 Core.exit();
@@ -31,13 +32,14 @@ namespace OSU_player
             else
             {
                 e.Cancel = true;
+                Core.Resume();
             }
         }
-        private void setbg()
+        private void SetDetail()
         {
             ListDetail.Items.Clear();
             ListDetail.Items.AddRange(Core.getdetail());
-            panel2.BackgroundImage = Core.getbg();
+            Core.setBG();
         }
         private void Stop()
         {
@@ -71,7 +73,7 @@ namespace OSU_player
             Core.Resume();
             PlayButton.Text = "暂停";
         }
-        private void PlayNext()
+        private void PlayNext(bool play=true)
         {
             if (Core.PlayList.Count != 0)
             {
@@ -83,8 +85,8 @@ namespace OSU_player
                 PlayList.Items[nextSongId].Selected = true;
                 PlayList.EnsureVisible(nextSongId);
                 PlayList.Focus();
-                setbg();
-                Play();
+                SetDetail();
+                if (play) { Play(); }
             }
         }
         private void setscore()
@@ -300,7 +302,7 @@ namespace OSU_player
                 {
                     Core.currentset = Core.tmpset;
                     Core.currentmap = Core.tmpmap;
-                    setbg();
+                    SetDetail();
                 }
                 else if (Core.isplaying)
                 {
@@ -310,7 +312,7 @@ namespace OSU_player
                 else
                 {
                     Stop();
-                    setbg();
+                    SetDetail();
                 }
             }
         }
@@ -321,7 +323,7 @@ namespace OSU_player
             {
                 Core.SetMap(0, true);
                 Stop();
-                setbg();
+                SetDetail();
                 Play();
             }
         }
@@ -331,7 +333,7 @@ namespace OSU_player
             else
             {
                 Stop();
-                setbg();
+                SetDetail();
                 Play();
             }
         }

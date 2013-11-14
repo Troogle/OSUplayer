@@ -163,6 +163,7 @@
     <Compile Include="Uilties\QQ.cs" />
     <Compile Include="Uilties\Selfupdate.cs" />
     <Compile Include="Beatmap\StoryBoard.cs" />
+    <Compile Include="Uilties\TGraphics.cs" />
     <Compile Include="Uilties\VideoDecoder.cs" />
     <EmbeddedResource Include="Mini.resx">
       <DependentUpon>Mini.cs</DependentUpon>
@@ -262,6 +263,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Res\BlackBase.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
