@@ -1,6 +1,6 @@
 ﻿<Xml>
 <Url>https://raw.github.com/Troogle/OSUplayer/master/</Url>
-<Version>3.3.3</Version>
+<Version>3.33</Version>
 <Text>Ver 3.33\n修正了可能的DeviceLost错误\n修正了可能的OSU文件读取错误\n全面消灭弹出框，使用气泡提示\n切换歌曲气泡弹出显示\nVer 3.30\n感谢JixunMoe和Noatalgika！\n使用FFMPEG解码(与osu核心相同)\n手动输入QQ功能\n搜索框的改进，输入后自动搜索，也可回车搜索，按esc清空\n添加在线版本统计及错误统计功能\n错误日志\n更换了默认的BG\n更好的版本控制\n修正了设置无法保存的问题\n添加了程序图标\n修正QQ号溢出问题\n优化Mini贴边检测</Text>
 <Link><![CDATA[http://pan.baidu.com/share/link?shareid=2320386400&uk=2804632131]]></Link>
 </Xml>

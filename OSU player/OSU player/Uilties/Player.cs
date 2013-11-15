@@ -5,9 +5,9 @@ using System.Drawing;
 using System.IO;
 using Microsoft.DirectX;
 using Microsoft.DirectX.Direct3D;
-using FFmpeg;
+using OSU_player.Graphic;
 using OSU_player.OSUFiles;
-namespace OSU_player
+namespace OSU_player.Graphic
 {
     class Player : IDisposable
     {
@@ -49,8 +49,6 @@ namespace OSU_player
         Texture BGTexture;
         Sprite BGsprite;
         Sprite sprite;
-        float width = 480f;
-        float height = 360f;
         PresentParameters presentParams = new PresentParameters();
         Rectangle video;
         Matrix transformMatrix = new Matrix();
@@ -113,10 +111,10 @@ namespace OSU_player
             decoder = new VideoDecoder(100);
             decoder.Open(Path.Combine(Map.Location, Map.Video));
             VideoTexture = Texture.FromBitmap(device, new Bitmap(Properties.Resources.BlackBase, decoder.width, decoder.height), 0, Pool.Managed);
-            float scalef = width / decoder.width < height / decoder.height ? width / decoder.width : height / decoder.height;
+            float scalef = (float)size.Width / decoder.width < (float)size.Height / decoder.height ? (float)size.Width / decoder.width : (float)size.Height / decoder.height;
             scaleMatrix.Scale(scalef, scalef, 0.0f);
             rotateMatrix.RotateZ(0f);
-            transformMatrix.Translate(new Vector3((width - decoder.width * scalef) / 2, (height - decoder.height * scalef) / 2, 0));
+            transformMatrix.Translate(new Vector3((size.Width - decoder.width * scalef) / 2, (size.Height - decoder.height * scalef) / 2, 0));
             video = new Rectangle(0, 0, decoder.width, decoder.height);
             videoexist = true;
         }
@@ -132,24 +130,24 @@ namespace OSU_player
             { CurrentBG = new Bitmap(Core.defaultBG); }
             else { CurrentBG = new Bitmap(Map.Background); }
             BGTexture = Texture.FromBitmap(device, CurrentBG, 0, Pool.Managed);
-            float scalef = width / CurrentBG.Width < height / CurrentBG.Height ? width / CurrentBG.Width : height / CurrentBG.Height;
+            float scalef = (float)size.Width / CurrentBG.Width < (float)size.Height / CurrentBG.Height ? (float)size.Width / CurrentBG.Width : (float)size.Height / CurrentBG.Height;
             bgscaleMatrix.Scale(scalef, scalef, 0.0f);
             bgrotateMatrix.RotateZ(0f);
-            bgtransformMatrix.Translate(new Vector3((width - CurrentBG.Width * scalef) / 2, (height - CurrentBG.Height * scalef) / 2, 0));
+            bgtransformMatrix.Translate(new Vector3((size.Width - CurrentBG.Width * scalef) / 2, (size.Height - CurrentBG.Height * scalef) / 2, 0));
             bg = new Rectangle(0, 0, CurrentBG.Width, CurrentBG.Height);
         }
         public void RenderSB() { }
         public void initSB()
         {
-          /*  Map.Getsb();
-              for (int i = 0; i < Map.SB.elements.Count; i++)
-              {
-                  if (Map.SB.elements[i].Type != StoryBoard.ElementType.Sample)
-                  {
-                      SBelements.Add(new TGraphic(device, Map.SB.elements[i], Map.Location));
-                  }
-              }
-              SBexist = true;*/
+            Map.Getsb();
+            for (int i = 0; i < Map.SB.elements.Count; i++)
+            {
+                if (Map.SB.elements[i].Type != OSUFiles.StoryBoard.ElementType.Sample)
+                {
+                    SBelements.Add(new TGraphic(device, Map.SB.elements[i], Map.Location));
+                }
+            }
+            SBexist = true;
         }
         public void RenderVideo()
         {

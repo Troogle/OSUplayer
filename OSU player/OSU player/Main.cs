@@ -137,19 +137,15 @@ namespace OSU_player
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            string mName = Process.GetCurrentProcess().MainModule.ModuleName;
-            string pName = Path.GetFileNameWithoutExtension(mName);
-            Process[] pro = Process.GetProcessesByName(pName);
-            if (pro.Length > 1)
-            {
-                //MessageBox.Show("程序已经在运行，无需重复运行。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Dispose();
-                Application.ExitThread();
-            }
             Core.init(this.panel2.Handle, this.panel2.Size);
             SetForm();
             refreash.DoWork += refreash_DoWork;
             RefreshList();
+        }
+
+        void Main_VisibleChanged(object sender, EventArgs e)
+        {
+            Core.MainIsVisible = this.Visible;
         }
 
         private void refreash_DoWork(object sender, DoWorkEventArgs e)
@@ -493,6 +489,11 @@ namespace OSU_player
             Core.Stop();
             File.SetLastWriteTime(Path.Combine(Core.osupath, "Songs"), DateTime.Now);
             File.SetLastWriteTime(Core.CurrentBeatmap.Path, DateTime.Now);
+        }
+
+        private void Main_Shown(object sender, EventArgs e)
+        {
+            this.VisibleChanged += Main_VisibleChanged;
         }
     }
 }

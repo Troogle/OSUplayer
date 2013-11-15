@@ -3,8 +3,8 @@ using System.Drawing;
 using System.IO;
 using Microsoft.DirectX;
 using Microsoft.DirectX.Direct3D;
-using OSU_player.StoryBoard;
-namespace OSU_player
+using OSU_player.OSUFiles.StoryBoard;
+namespace OSU_player.Graphic
 {
     /// <summary>
     /// MDX静态图像基类
@@ -18,6 +18,12 @@ namespace OSU_player
         protected float rotate;                                               //旋转角度
         protected float scale;                                                //缩放比例
         protected Color color;
+        protected bool alphablend;
+        protected byte aplha;
+        /// <summary>
+        /// 0=none,1=H,2=V,3=A
+        /// </summary>
+        protected byte parameter;
         protected Rectangle rectangle;
 
 

@@ -1,4 +1,4 @@
-﻿namespace FFmpeg
+﻿namespace OSU_player.Graphic
 {
     using System;
     using System.IO;

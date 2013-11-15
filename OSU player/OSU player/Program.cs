@@ -4,6 +4,7 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Net;
 using System.IO;
+using System.Diagnostics;
 using Telerik.WinControls;
 using Telerik.WinControls.Themes;
 namespace OSU_player
@@ -26,6 +27,15 @@ namespace OSU_player
             Application.EnableVisualStyles();
             try
             {
+                string mName = Process.GetCurrentProcess().MainModule.ModuleName;
+                string pName = Path.GetFileNameWithoutExtension(mName);
+                Process[] pro = Process.GetProcessesByName(pName);
+                if (pro.Length > 1)
+                {
+                    MessageBox.Show("程序已经在运行，无需重复运行。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Application.ExitThread();
+                    return;
+                }
                 ThemeResolutionService.LoadPackageResource("OSU_player.Res.Light.tssp");
                 ThemeResolutionService.ApplicationThemeName = "Light";
                 Un4seen.Bass.BassNet.Registration("sqh1994@163.com", "2X280331512622");
@@ -45,7 +55,7 @@ namespace OSU_player
             catch (Exception ex)
             {
                 string str = GetExceptionMsg(ex, "QxQ");
-                NotifyIcon notifyIcon1=new NotifyIcon();
+                NotifyIcon notifyIcon1 = new NotifyIcon();
                 notifyIcon1.ShowBalloonTip(1000, "发生了一些令人悲伤的事情><", "错误已上报，程序将试图继续运行", System.Windows.Forms.ToolTipIcon.Error);
             }
         }
@@ -72,15 +82,16 @@ namespace OSU_player
                 WebRequest request;
                 if (ex != null)
                 {
-                    int start=ex.StackTrace.IndexOf("OSU_player");
-                    request = WebRequest.Create("http://wenwo.at/counter.php?error=" +ex.GetType().Name+ex.Message + " " + ex.StackTrace.Substring(start, 300 > ex.StackTrace.Length - start - 1 ? ex.StackTrace.Length - start - 1 : 300));
+                    int start = ex.StackTrace.IndexOf("OSU_player");
+                    request = WebRequest.Create("http://wenwo.at/counter.php?error=" + ex.GetType().Name + ex.Message + " " + ex.StackTrace.Substring(start, 300 > ex.StackTrace.Length - start - 1 ? ex.StackTrace.Length - start - 1 : 300));
                     request.Credentials = CredentialCache.DefaultCredentials;
                     request.Timeout = 2000;
                     WebResponse response;
                     response = request.GetResponse();
                 }
             }
-            catch {
+            catch
+            {
                 return "";
             }
             StringBuilder sb = new StringBuilder();
@@ -91,7 +102,7 @@ namespace OSU_player
                 sb.AppendLine("【堆栈调用】：" + ex.StackTrace);
                 using (StreamWriter writer = File.CreateText("Errlog.txt"))
                 {
-                   // writer.WriteLine(ex.ToString());
+                    // writer.WriteLine(ex.ToString());
                     writer.WriteLine(sb.ToString());
                 }
             }

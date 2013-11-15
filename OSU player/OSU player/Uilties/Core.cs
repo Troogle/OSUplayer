@@ -11,6 +11,7 @@ using Telerik.WinControls.UI;
 using System.Reflection;
 using System.Diagnostics;
 using OSU_player.OSUFiles;
+using OSU_player.Graphic;
 namespace OSU_player
 {
     public class Core
@@ -107,7 +108,7 @@ namespace OSU_player
         #endregion
         public static Uilties.QQ uni_QQ = new Uilties.QQ();
         private static Player player;
-        public static NotifyIcon notifyIcon1=new NotifyIcon();
+        public static NotifyIcon notifyIcon1 = new NotifyIcon();
         public static string Version
         {
             get
@@ -117,7 +118,7 @@ namespace OSU_player
                 return fvi.FileVersion;
             }
         }
-
+        public static bool MainIsVisible = true;
         public static void exit()
         {
             uni_QQ.Send2QQ(uin, "");
@@ -305,7 +306,7 @@ namespace OSU_player
                     OsuDB.ReadDb(Path.Combine(Core.osupath, "osu!.db"));
                 }
                 initplaylist();
-                notifyIcon1.ShowBalloonTip(1000,"OSUplayer",string.Format("初始化完毕，发现曲目{0}个", allsets.Count),ToolTipIcon.Info);
+                notifyIcon1.ShowBalloonTip(1000, "OSUplayer", string.Format("初始化完毕，发现曲目{0}个", allsets.Count), ToolTipIcon.Info);
                 needsave = true;
             }
             currentset = 0;
@@ -389,7 +390,7 @@ namespace OSU_player
                 return;
             }
             player.Play();
-            Core.notifyIcon1.ShowBalloonTip(1000, "OSUplayer", "正在播放\n"+CurrentBeatmap.NameToString(), System.Windows.Forms.ToolTipIcon.Info);     
+            Core.notifyIcon1.ShowBalloonTip(1000, "OSUplayer", "正在播放\n" + CurrentBeatmap.NameToString(), System.Windows.Forms.ToolTipIcon.Info);
             uni_QQ.Send2QQ(uin, CurrentBeatmap.NameToString());
         }
         public static void Pause()
@@ -504,7 +505,7 @@ namespace OSU_player
         }
         public static void Render()
         {
-            player.Render();
+            if (MainIsVisible) { player.Render(); }
         }
         public static ListViewDataItem[] getscore(Font font)
         {

@@ -1,4 +1,4 @@
-﻿namespace OSU_player
+﻿namespace OSU_player.Graphic
 {
     /// <summary>
     /// 精灵动作

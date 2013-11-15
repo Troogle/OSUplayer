@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-namespace OSU_player.StoryBoard
+namespace OSU_player.OSUFiles.StoryBoard
 {
     public enum ElementType
     {
@@ -361,13 +361,13 @@ namespace OSU_player.StoryBoard
                     switch (picknext(ref str))
                     {
                         case "H":
-                            tmpe.startx = 0;
-                            break;
-                        case "V":
                             tmpe.startx = 1;
                             break;
-                        case "A":
+                        case "V":
                             tmpe.startx = 2;
+                            break;
+                        case "A":
+                            tmpe.startx = 3;
                             break;
                     }
                     break;
@@ -420,7 +420,7 @@ namespace OSU_player.StoryBoard
                             tmpe = new SBelement();
                             tmpe.Type = ElementType.Sample;
                             tmpe.Layers = (ElementLayer)(System.Enum.Parse(typeof(ElementLayer), tmp[2]));
-                            tmpe.path = tmp[3];
+                            tmpe.path = tmp[3].Substring(1, tmp[3].Length - 2);
                             elements.Add(tmpe);
                             element++;
                             SBEvent tmpev = new SBEvent();
@@ -444,7 +444,7 @@ namespace OSU_player.StoryBoard
                             tmpe.Type = ElementType.Animation;
                             tmpe.Layers = (ElementLayer)(System.Enum.Parse(typeof(ElementLayer), tmp[1]));
                             tmpe.Origin = (ElementOrigin)(System.Enum.Parse(typeof(ElementOrigin), tmp[2]));
-                            tmpe.path = tmp[3];
+                            tmpe.path = tmp[3].Substring(1,tmp[3].Length-2);
                             tmpe.x = Convert.ToInt32(tmp[4]);
                             tmpe.y = Convert.ToInt32(tmp[5]);
                             tmpe.frameCount = Convert.ToInt32(tmp[6]);
@@ -462,7 +462,7 @@ namespace OSU_player.StoryBoard
                             tmpe.Type = ElementType.Sprite;
                             tmpe.Layers = (ElementLayer)(System.Enum.Parse(typeof(ElementLayer), tmp[1]));
                             tmpe.Origin = (ElementOrigin)(System.Enum.Parse(typeof(ElementOrigin), tmp[2]));
-                            tmpe.path = tmp[3];
+                            tmpe.path = tmp[3].Substring(1, tmp[3].Length - 2);
                             tmpe.x = Convert.ToInt32(tmp[4]);
                             tmpe.y = Convert.ToInt32(tmp[5]);
                             elements.Add(tmpe);
