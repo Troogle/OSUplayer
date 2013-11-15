@@ -21,12 +21,24 @@ namespace OSU_player
         /// </summary>
         public static string osupath;
         /// <summary>
-        /// 所有的set
+        /// 程序中的所有set
         /// </summary>
         public static List<BeatmapSet> allsets = new List<BeatmapSet>();
+        /// <summary>
+        /// 播放列表，和显示的一一对应，int中是Set的程序内部编号
+        /// </summary>
         public static List<int> PlayList = new List<int>();
+        /// <summary>
+        /// 本地成绩，Key是地图MD5,Value是Score
+        /// </summary>
         public static Dictionary<string, List<Score>> Scores = new Dictionary<string, List<Score>>();
+        /// <summary>
+        /// 本地Collection，Key是Collection名字,Value是Set的程序内部编号的List
+        /// </summary>
         public static Dictionary<string, List<int>> Collections = new Dictionary<string, List<int>>();
+        /// <summary>
+        /// 是否已经载入过本地成绩
+        /// </summary>
         public static bool scoresearched = false;
         public static Image defaultBG = Properties.Resources.defaultBG;
         public static string defaultAudio = Application.StartupPath + "\\Default\\" + "blank.wav";
@@ -38,35 +50,87 @@ namespace OSU_player
         /// 选定的QQ号
         /// </summary>
         public static string uin;
+        /// <summary>
+        /// 是否同步QQ
+        /// </summary>
         public static bool syncQQ = true;
-        public static Uilties.QQ uni_QQ = new Uilties.QQ();
         public static bool playvideo = true;
+        /// <summary>
+        /// 是否播放音效
+        /// </summary>
         public static bool playfx = true;
         public static bool playsb = true;
+        /// <summary>
+        /// Set有变化，需要保存
+        /// </summary>
         public static bool needsave = false;
-        #endregion
-        private static Player player;
+        /// <summary>
+        /// 目前正在播放的Set程序内部编号
+        /// </summary>
         public static int currentset = 0;
+        /// <summary>
+        /// 目前正在播放的Map在Set中的编号
+        /// </summary>
         public static int currentmap = 0;
+        /// <summary>
+        /// 目前选中的Set在播放列表中的编号
+        /// </summary>
         public static int tmpset = 0;
+        /// <summary>
+        /// 目前选中的Map在Set中的编号
+        /// </summary>
         public static int tmpmap = 0;
+        /// <summary>
+        /// 目前正在播放的Set
+        /// </summary>
         public static BeatmapSet CurrentSet { get { return allsets[currentset]; } }
+        /// <summary>
+        /// 目前正在播放的Map
+        /// </summary>
         public static Beatmap CurrentBeatmap { get { return CurrentSet.Diffs[currentmap]; } }
+        /// <summary>
+        /// 目前选中的Set
+        /// </summary>
         public static BeatmapSet TmpSet { get { return allsets[PlayList[tmpset]]; } }
+        /// <summary>
+        /// 目前选中的Map
+        /// </summary>
         public static Beatmap TmpBeatmap { get { return TmpSet.Diffs[tmpmap]; } }
+        /// <summary>
+        /// 渲染区域大小
+        /// </summary>
         public static Size size;
+        /// <summary>
+        /// 渲染区域的handle
+        /// </summary>
         public static IntPtr handle;
+        #endregion
+        public static Uilties.QQ uni_QQ = new Uilties.QQ();
+        private static Player player;
         public static NotifyIcon notifyIcon1=new NotifyIcon();
         public static string Version
         {
             get
             {
                 Assembly asm = Assembly.GetExecutingAssembly();
-
                 FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(asm.Location);
                 return fvi.FileVersion;
             }
         }
+
+        public static void exit()
+        {
+            uni_QQ.Send2QQ(uin, "");
+            player.Dispose();
+            if (needsave) { SaveList(); }
+        }
+        #region 方法区
+        #region 初始化有关
+        /// <summary>
+        /// 全局初始化
+        /// </summary>
+        /// <param name="Shandle">显示区域的handle</param>
+        /// <param name="Ssize">显示区域的大小</param>
         public static void init(IntPtr Shandle, Size Ssize)
         {
             notifyIcon1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
@@ -84,14 +148,6 @@ namespace OSU_player
             handle = Shandle;
             player = new Player();
         }
-        public static void exit()
-        {
-            uni_QQ.Send2QQ(uin, "");
-            player.Dispose();
-            if (needsave) { SaveList(); }
-        }
-        #region 方法区
-        #region 初始化有关
         /// <summary>
         /// 获取OSU路径
         /// </summary>
@@ -143,9 +199,9 @@ namespace OSU_player
             return false;
         }
         /// <summary>
-        /// 载入播放列表
+        /// 从文件读取Set(allset)
         /// </summary>
-        /// <returns>是否正常载入</returns>
+        /// <returns>是否正常读取</returns>
         public static bool LoadList()
         {
             try
@@ -164,7 +220,7 @@ namespace OSU_player
             }
         }
         /// <summary>
-        /// 保存全局Set
+        /// 保存全局Set(allset)到文件
         /// </summary>
         public static void SaveList()
         {
@@ -174,6 +230,10 @@ namespace OSU_player
                 formatter.Serialize(fs, allsets);
             }
         }
+        /// <summary>
+        /// 设置QQ
+        /// </summary>
+        /// <param name="show">是否显示设置窗口</param>
         public static void SetQQ(bool show = true)
         {
             if (show) { using (Form2 dialog = new Form2()) { dialog.ShowDialog(); } }
@@ -190,6 +250,9 @@ namespace OSU_player
                 Properties.Settings.Default.SyncQQ = true;
             }
         }
+        /// <summary>
+        /// 初始化播放列表，初始时与Set一一对应
+        /// </summary>
         public static void initplaylist()
         {
             for (int i = 0; i < allsets.Count; i++)
@@ -197,6 +260,9 @@ namespace OSU_player
                 PlayList.Add(i);
             }
         }
+        /// <summary>
+        /// 载入设置
+        /// </summary>
         public static void LoadPreference()
         {
             if (!Properties.Settings.Default.Upgraded)
@@ -223,6 +289,9 @@ namespace OSU_player
             Nextmode = Properties.Settings.Default.NextMode;
             Properties.Settings.Default.Upgraded = true;
         }
+        /// <summary>
+        /// 初始化Set的总方法，从文件读取或从osu!.db读取
+        /// </summary>
         public static void initset()
         {
             if (File.Exists("list.db") && LoadList())
@@ -340,6 +409,10 @@ namespace OSU_player
                 player.seek(time);
             }
         }
+        /// <summary>
+        /// 获得下一首音乐
+        /// </summary>
+        /// <returns>下一首Set的Playlist编号</returns>
         public static int GetNext()
         {
             int next;
@@ -382,7 +455,6 @@ namespace OSU_player
                     PlayList.Clear();
                     for (int i = 0; i < searchedMaps.Count; i++) { PlayList.Add(searchedMaps[i]); }
                 }
-
             }
         }
         public static double durnation

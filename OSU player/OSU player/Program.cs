@@ -3,6 +3,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using System.Net;
+using System.IO;
 using Telerik.WinControls;
 using Telerik.WinControls.Themes;
 namespace OSU_player
@@ -88,6 +89,11 @@ namespace OSU_player
                 sb.AppendLine("【异常类型】：" + ex.GetType().Name);
                 sb.AppendLine("【异常信息】：" + ex.Message);
                 sb.AppendLine("【堆栈调用】：" + ex.StackTrace);
+                using (StreamWriter writer = File.CreateText("Errlog.txt"))
+                {
+                   // writer.WriteLine(ex.ToString());
+                    writer.WriteLine(sb.ToString());
+                }
             }
             return sb.ToString();
 

@@ -1,7 +1,9 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.IO;
 using Microsoft.DirectX;
 using Microsoft.DirectX.Direct3D;
+using OSU_player.StoryBoard;
 namespace OSU_player
 {
     /// <summary>
@@ -20,7 +22,7 @@ namespace OSU_player
 
 
         public TStaticGraphic(Device graphicDevice, Bitmap bitmap, Vector3 position,
-                                          float rotate, float scale, byte alpha)
+                                          float rotate, float scale, Color color)
         {
             this.texture = Texture.FromBitmap(graphicDevice, bitmap, Usage.Dynamic, Pool.Default);
             this.center = new Vector3(0, 0, 0);
@@ -30,10 +32,16 @@ namespace OSU_player
             this.position = position;
             this.rotate = rotate;
             this.scale = scale;
-            this.color = Color.FromArgb(alpha, 255, 255, 255);
+            this.color = color;
             this.rectangle = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
         }
-
+        public TStaticGraphic(Device graphicDevice)
+        {
+            this.center = new Vector3(0, 0, 0);
+            this.transformMatrix = new Matrix();
+            this.rotateMatrix = new Matrix();
+            this.scaleMatrix = new Matrix();
+        }
 
         /// <summary>
         /// 绘制图像
@@ -58,7 +66,7 @@ namespace OSU_player
         protected int currentFrameIndex; //当前材质行索引
         protected int mSPerFrame; // 帧动画的速率
         protected int msSinceLastFrame; //上一帧到现在的时间
-
+        protected ElementLoopType Loop;
         protected TSpriteAction xAction;
         protected TSpriteAction yAction;
         protected TSpriteAction scaleAction;
@@ -66,19 +74,48 @@ namespace OSU_player
         protected TSpriteAction alphaAction;
 
 
+        public TGraphic(Device graphicDevice, SBelement Element, string Location)
+            : base(graphicDevice)
+        {
+            Bitmap bitmap;
+            switch (Element.Type)
+            {
+                case ElementType.Sprite:
+                    {
+                        bitmap = new Bitmap(45 * 4, 60);
+                        break;
+                    }
+                case ElementType.Animation:
+                    {
+                        Graphics resultGraphics;    //用来绘图的实例
+                        bitmap = new Bitmap(45 * 4, 60);    //总高宽
+                        resultGraphics = Graphics.FromImage(bitmap);
+                        string[] numberImgPath = { "0.jpg", "3.jpg", "1.jpg", "7.jpg" };
+                        for (int i = 0; i < numberImgPath.Length; i++)
+                        {
+                            resultGraphics.DrawImage(Image.FromFile(numberImgPath[i]), 45 * i, 60);
+                        }
+                        resultGraphics.Dispose();
+                        break;
+                    }
+                default:
+                    throw (new FormatException("Failed to resolve .osb file"));
+            }
+            this.texture = Texture.FromBitmap(graphicDevice, bitmap, Usage.Dynamic, Pool.Default);
+            this.rectangle = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
+        }
         /// <summary>
         /// 创建一个多帧WGraphic实例
         /// </summary>
         /// <param name="graphicDevice">显示设备</param>
         /// <param name="bitmap">要绘制的图像</param>
-        /// <param name="pRectangle">单帧矩形裁剪框</param>
         /// <param name="pPosition">绘制坐标</param>
         /// <param name="pCenter">旋转中心</param>
         /// <param name="pFrameCount">总帧数</param>
         /// <param name="pFPS">FPS</param>
         public TGraphic(Device graphicDevice, Bitmap bitmap, Vector3 pPosition, Vector3 pCenter,
                                  int pFrameCount, int pFPS)
-            : base(graphicDevice, bitmap, pPosition, 0f, 1f, 255)
+            : base(graphicDevice, bitmap, pPosition, 0f, 1f, Color.White)
         {
             this.frameCount = pFrameCount;
             this.currentFrameIndex = 0;
@@ -96,7 +133,7 @@ namespace OSU_player
         /// <param name="pPosition">绘制坐标</param>
         /// <param name="pCenter">旋转中心</param>
         public TGraphic(Device graphicDevice, Bitmap bitmap, Vector3 pPosition, Vector3 pCenter)
-            : base(graphicDevice, bitmap, pPosition, 0f, 1f, 255)
+            : base(graphicDevice, bitmap, pPosition, 0f, 1f, Color.White)
         {
             this.center = pCenter;
             this.frameCount = 1;

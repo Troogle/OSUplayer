@@ -72,6 +72,22 @@ namespace OSU_player
             if (this.Bounds.Contains(Cursor.Position)) { return; }
             this.Opacity = 0.5d;
         }
+        protected override void OnMouseUp(MouseEventArgs e)
+        {
+            base.OnMouseUp(e);
+            Rectangle Rects = new Rectangle(this.Left, this.Top, this.Left + this.Width, this.Top + this.Height);
+            if ((this.Top < 0 && PtInRect(ref Rects, Cursor.Position)))
+            {
+                this.Top = 0;
+            }
+            else
+            {
+                if (this.Top > -5 && this.Top < 5 && !(PtInRect(ref Rects, Cursor.Position)))
+                {
+                    this.Top = 2 - this.Height;
+                }
+            }
+        }
         #endregion
         private void imageButton4_Click(object sender, EventArgs e)
         {
@@ -220,8 +236,6 @@ namespace OSU_player
                 (int)Core.position % 60, (int)Core.durnation / 60,
                 (int)Core.durnation % 60);
             if (Core.willnext) { Stop(); PlayNext(); }
-
-
         }
 
         private void TrackVolume_ValueChanged(object sender, EventArgs e)
@@ -257,18 +271,6 @@ namespace OSU_player
         private Graphics g;
         private void GUITimer_Tick(object sender, EventArgs e)
         {
-            Rectangle Rects = new Rectangle(this.Left, this.Top, this.Left + this.Width, this.Top + this.Height);
-            if ((this.Top < 0 && PtInRect(ref Rects, Cursor.Position)))
-            {
-                this.Top = 0;
-            }
-            else
-            {
-                if (this.Top > -5 && this.Top < 5 && !(PtInRect(ref Rects, Cursor.Position)))
-                {
-                    this.Top = 2 - this.Height;
-                }
-            }
             g = this.LabelArtist.CreateGraphics();
             if (g.MeasureString(Artist, LabelArtist.Font).Width > LabelArtist.Width)
             {

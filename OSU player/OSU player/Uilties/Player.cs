@@ -141,25 +141,12 @@ namespace OSU_player
         public void RenderSB() { }
         public void initSB()
         {
-            /*  Map.Getsb();
+          /*  Map.Getsb();
               for (int i = 0; i < Map.SB.elements.Count; i++)
               {
-                  SBelement Element = Map.SB.elements[i];
-                
-                  switch (Element.Type)
+                  if (Map.SB.elements[i].Type != StoryBoard.ElementType.Sample)
                   {
-                      case ElementType.Sprite:
-                        
-                          SBelements.Add(new TGraphic(device, new Bitmap(Path.Combine(Map.Location,Element.path)), new Vector3(640, 360, 0), new Vector3(40.5f, 42.5f, 0f)));
-                          break;
-                      case ElementType.Sample:
-                          break;
-                      case ElementType.Animation:
-                          SBelements.Add(new TGraphic(device, new Bitmap(Path.Combine(Map.Location, Element.path)), new Vector3(640, 360, 0), new Vector3(40.5f, 42.5f, 0f)));
-    
-                          break;
-                      default:
-                          break;
+                      SBelements.Add(new TGraphic(device, Map.SB.elements[i], Map.Location));
                   }
               }
               SBexist = true;*/

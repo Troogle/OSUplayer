@@ -12,7 +12,7 @@ namespace OSU_player.OSUFiles
         private string backgroundOffset = "";
         //diff-wide storyboard
         [NonSerialized]
-        public StoryBoard SB;
+        public StoryBoard.StoryBoard SB;
         public int offset { get; set; }
         public string Location { get; set; }
         public string Name { get; set; }
@@ -593,7 +593,7 @@ namespace OSU_player.OSUFiles
         {
             if (haveSB)
             {
-                SB = new StoryBoard(Path, osb);
+                SB = new StoryBoard.StoryBoard(Path, osb);
             }
         }
         public Beatmap()
