@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using OSU_player.Graphic;
 namespace OSU_player.OSUFiles.StoryBoard
 {
     public enum ElementType
@@ -50,6 +51,8 @@ namespace OSU_player.OSUFiles.StoryBoard
         //P - Parameters【参数】
         //Play - 播放sample
         F,
+        MX,
+        MY,
         M,
         S,
         V,
@@ -82,10 +85,10 @@ namespace OSU_player.OSUFiles.StoryBoard
         //2 - start slow and speed up【开始慢结束快】
         public int startT;
         public int endT;
-        public double startxF; //F,S,R(只用x),V 'F stands for float-option
-        public double startyF;
-        public double endyF;
-        public double endxF;
+        public float startxF; //F,S,R(只用x),V 'F stands for float-option
+        public float startyF;
+        public float endyF;
+        public float endxF;
         public int startx; //M,MX,MY（只用x/y)
         public int starty;
         public int endx;
@@ -108,7 +111,14 @@ namespace OSU_player.OSUFiles.StoryBoard
     }
     public class SBelement
     {
-        public List<SBEvent> events = new List<SBEvent>();
+        public List<TActionNode> F = new List<TActionNode>();
+        public List<TActionNode> X = new List<TActionNode>();
+        public List<TActionNode> Y = new List<TActionNode>();
+        public List<TActionNode> SX = new List<TActionNode>();
+        public List<TActionNode> SY = new List<TActionNode>();
+        public List<TActionNode> R = new List<TActionNode>();
+        public List<TActionNode> C = new List<TActionNode>();
+        public List<TActionNode> P = new List<TActionNode>();
         public ElementType Type;
         public ElementLayer Layers;
         public ElementOrigin Origin; //sample时无
@@ -130,22 +140,26 @@ namespace OSU_player.OSUFiles.StoryBoard
         public List<SBvar> Variables = new List<SBvar>();
         //public Dictionary<Triggertype, TriggerEvent> trigger = new Dictionary<Triggertype, TriggerEvent>();
         //目录由beatmapfiles.location-->beatmap.location
-        private string picknext(ref string str)
+        private string picknext(ref string str, bool change = true)
         {
             string ret = "";
             if (!str.Contains(","))
             {
                 ret = str;
-                str = "";
+                if (change) { str = ""; }
             }
             else
             {
                 ret = str.Substring(0, str.IndexOf(","));
-                str = str.Substring(str.IndexOf(",") + 1);
+                if (change) { str = str.Substring(str.IndexOf(",") + 1); }
             }
             return ret;
         }
-        private void dealevents(int element, StreamReader reader)
+        private int color(int r, int g, int b)
+        {
+            return (r << 0x10) | (g << 8) | b;
+        }
+        private string dealevents(int element, StreamReader reader)
         {
             string row = "";
             row = reader.ReadLine();
@@ -153,8 +167,8 @@ namespace OSU_player.OSUFiles.StoryBoard
             {
                 if (row.Trim() == "") { row = reader.ReadLine(); continue; }
                 if (row.StartsWith("//") || row.Length == 0) { row = reader.ReadLine(); continue; }
-                if (row.StartsWith("[")) { return; }
-                if (!row.StartsWith(" ")) { return; }
+                if (row.StartsWith("[")) { return(row); }
+                if (!row.StartsWith(" ")) { return (row); }
                 //do variables change first
                 foreach (SBvar tmpvar in Variables)
                 {
@@ -178,7 +192,7 @@ namespace OSU_player.OSUFiles.StoryBoard
                         }
                         row = reader.ReadLine();
                     }
-                    return;
+                    return (row);
                 }
                 else if (row.StartsWith(" T"))
                 {
@@ -191,6 +205,7 @@ namespace OSU_player.OSUFiles.StoryBoard
                         //Next
                         row = reader.ReadLine();
                     }
+                    return (row);
                 }
                 else
                 {
@@ -198,204 +213,115 @@ namespace OSU_player.OSUFiles.StoryBoard
                     row = reader.ReadLine();
                 }
             }
+            return ("");
+        }
+        private void addevent(int element, EventType type, int time, ref string values, int easing)
+        {
+            switch (type)
+            {
+                case EventType.F:
+                    elements[element].F.Add(new TActionNode(time, Convert.ToSingle(picknext(ref values))*255, easing));
+                    break;
+                case EventType.MX:
+                    elements[element].X.Add(new TActionNode(time, Convert.ToInt32(picknext(ref values)), easing));
+                    break;
+                case EventType.MY:
+                    elements[element].Y.Add(new TActionNode(time, Convert.ToInt32(picknext(ref values)), easing));
+                    break;
+                case EventType.M:
+                    elements[element].X.Add(new TActionNode(time, Convert.ToInt32(picknext(ref values)), easing));
+                    elements[element].Y.Add(new TActionNode(time, Convert.ToInt32(picknext(ref values)), easing));
+                    break;
+                case EventType.S:
+                    float tmp = Convert.ToSingle(picknext(ref values));
+                    elements[element].SX.Add(new TActionNode(time, tmp, easing));
+                    elements[element].SY.Add(new TActionNode(time, tmp, easing));
+                    break;
+                case EventType.V:
+                    elements[element].SX.Add(new TActionNode(time, Convert.ToSingle(picknext(ref values)), easing));
+                    elements[element].SY.Add(new TActionNode(time, Convert.ToSingle(picknext(ref values)), easing));
+                    break;
+                case EventType.R:
+                    elements[element].R.Add(new TActionNode(time, Convert.ToSingle(picknext(ref values)), easing));
+                    break;
+                case EventType.C:
+                    elements[element].C.Add(
+                    new TActionNode(time,
+                        color(
+                        Convert.ToInt32(picknext(ref values)),
+                        Convert.ToInt32(picknext(ref values)),
+                        Convert.ToInt32(picknext(ref values))
+                        ),
+                        easing));
+                    break;
+                default:
+                    //throw (new FormatException("Failed to read .osb file"));
+                    break;
+            }
         }
         private void dealevent(string str, int element, int delta)
         {
-            SBEvent tmpe = new SBEvent();
-            string op = "";
+            //SBEvent tmpe = new SBEvent();
             string tmp = "";
-            op = picknext(ref str);
-            tmpe.easing = Convert.ToInt32(picknext(ref str));
-            tmpe.startT = Convert.ToInt32(picknext(ref str)) + delta;
+            EventType type = (EventType)Enum.Parse(typeof(EventType), picknext(ref str).Trim());
+            int easing = Convert.ToInt32(picknext(ref str));
+            int startT = Convert.ToInt32(picknext(ref str)) + delta;
+            int endT;
             //②_M,0,1000,1000,320,240,320,240-->_M,0,1000,,320,240,320,240(开始结束时间相同）
             tmp = picknext(ref str);
-            if (tmp == "")
+            if (tmp == "") { endT = startT; } else { endT = Convert.ToInt32(tmp) + delta; }
+            while (str != "")
             {
-                tmpe.endT = tmpe.startT;
-            }
-            else
-            {
-                tmpe.endT = Convert.ToInt32(tmp) + delta;
-            }
-            string first = string.Concat(op, ",", tmpe.easing.ToString(), ",", tmpe.startT.ToString(), ",", tmpe.endT.ToString(), ",");
-            switch (op)
-            {
-                case " F":
-                    tmpe.startxF = Convert.ToDouble(picknext(ref str));
-                    tmp = picknext(ref str);
-                    if (tmp == "")
-                    {
-                        tmpe.endxF = tmpe.startxF;
-                    }
-                    else
-                    {
-                        tmpe.endxF = Convert.ToDouble(tmp);
-                    }
-                    //③_M,0,1000,,320,240,320,240-->_M,0,1000,,320,240 (开始结束值相同）
-                    break;
-                case " MX":
-                    tmpe.startx = Convert.ToInt32(picknext(ref str));
-                    tmp = picknext(ref str);
-                    if (tmp == "")
-                    {
-                        tmpe.endx = tmpe.startx;
-                    }
-                    else
-                    {
-                        tmpe.endx = Convert.ToInt32(tmp);
-                    }
-                    break;
-                case " MY":
-                    tmpe.starty = Convert.ToInt32(picknext(ref str));
-                    tmp = picknext(ref str);
-                    if (tmp == "")
-                    {
-                        tmpe.endy = tmpe.starty;
-                    }
-                    else
-                    {
-                        tmpe.endy = Convert.ToInt32(tmp);
-                    }
-                    break;
-                case " M":
-                    tmpe.startx = Convert.ToInt32(picknext(ref str));
-                    tmpe.starty = Convert.ToInt32(picknext(ref str));
-                    tmp = picknext(ref str);
-                    if (tmp == "")
-                    {
-                        tmpe.endx = tmpe.startx;
-                    }
-                    else
-                    {
-                        tmpe.endx = Convert.ToInt32(tmp);
-                    }
-                    tmp = picknext(ref str);
-                    if (tmp == "")
-                    {
-                        tmpe.endy = tmpe.starty;
-                    }
-                    else
-                    {
-                        tmpe.endy = Convert.ToInt32(tmp);
-                    }
-                    break;
-                case " S":
-                    tmpe.startxF = Convert.ToDouble(picknext(ref str));
-                    tmp = picknext(ref str);
-                    if (tmp == "")
-                    {
-                        tmpe.endxF = tmpe.startxF;
-                    }
-                    else
-                    {
-                        tmpe.endxF = Convert.ToDouble(tmp);
-                    }
-                    break;
-                case " V":
-                    tmpe.startxF = Convert.ToDouble(picknext(ref str));
-                    tmpe.startyF = Convert.ToDouble(picknext(ref str));
-                    tmp = picknext(ref str);
-                    if (tmp == "")
-                    {
-                        tmpe.endxF = tmpe.startxF;
-                    }
-                    else
-                    {
-                        tmpe.endxF = Convert.ToDouble(tmp);
-                    }
-                    tmp = picknext(ref str);
-                    if (tmp == "")
-                    {
-                        tmpe.endyF = tmpe.startyF;
-                    }
-                    else
-                    {
-                        tmpe.endyF = Convert.ToDouble(tmp);
-                    }
-                    break;
-                case " R":
-                    tmpe.startxF = Convert.ToDouble(picknext(ref str));
-                    tmp = picknext(ref str);
-                    if (tmp == "")
-                    {
-                        tmpe.endxF = tmpe.startxF;
-                    }
-                    else
-                    {
-                        tmpe.endxF = Convert.ToDouble(tmp);
-                    }
-                    break;
-                case " C":
-                    tmpe.r1 = Convert.ToInt32(picknext(ref str));
-                    tmpe.g1 = Convert.ToInt32(picknext(ref str));
-                    tmpe.b1 = Convert.ToInt32(picknext(ref str));
-                    tmp = picknext(ref str);
-                    if (tmp == "")
-                    {
-                        tmpe.r2 = tmpe.r1;
-                    }
-                    else
-                    {
-                        tmpe.r2 = Convert.ToInt32(tmp);
-                    }
-                    tmp = picknext(ref str);
-                    if (tmp == "")
-                    {
-                        tmpe.g2 = tmpe.g1;
-                    }
-                    else
-                    {
-                        tmpe.g2 = Convert.ToInt32(tmp);
-                    }
-                    tmp = picknext(ref str);
-                    if (tmp == "")
-                    {
-                        tmpe.b2 = tmpe.b1;
-                    }
-                    else
-                    {
-                        tmpe.b2 = Convert.ToInt32(tmp);
-                    }
-                    break;
-                case " P":
+                if (type == EventType.P)
+                {
                     switch (picknext(ref str))
                     {
                         case "H":
-                            tmpe.startx = 1;
+                            elements[element].P.Add(new TActionNode(startT, 1, 3));
+                            elements[element].P.Add(new TActionNode(endT, 0, 3));
                             break;
                         case "V":
-                            tmpe.startx = 2;
+                            elements[element].P.Add(new TActionNode(startT, 2, 3));
+                            elements[element].P.Add(new TActionNode(endT, 0, 3));
                             break;
                         case "A":
-                            tmpe.startx = 3;
+                            elements[element].P.Add(new TActionNode(startT, 3, 3));
+                            elements[element].P.Add(new TActionNode(endT, 0, 3));
                             break;
                     }
-                    break;
-                default:
-                    {
-                        //throw (new FormatException("Failed to read .osb file"));
-                        break;
-                    }
-            }
-            elements[element].events.Add(tmpe);
-            //_event,easing,starttime,endtime,val1,val2,val3,...,valN
-            if (str != "")
-            {
-                dealevent(first + str, element, tmpe.endT - tmpe.startT);
+                    continue;
+                }
+                string oristr = str;
+                addevent(element, type, startT, ref str, easing);
+                tmp = picknext(ref str, false);
+                //③_M,0,1000,,320,240,320,240-->_M,0,1000,,320,240 (开始结束值相同）
+                if (tmp == "")
+                {
+                    addevent(element, type, startT, ref oristr, easing);
+                }
+                else
+                {
+                    addevent(element, type, startT, ref str, easing);
+                }
+                //_event,easing,starttime,endtime,val1,val2,val3,...,valN
+                delta = endT - startT;
+                startT += delta;
+                endT += delta;
             }
         }
         private void dealfile(StreamReader reader, ref int element)
         {
             string row;
             string[] tmp = null;
-            SBelement tmpe = new SBelement();
+            SBelement tmpe;
             string Position = "";
+            row = reader.ReadLine(); 
             while (!reader.EndOfStream)
             {
-                row = reader.ReadLine();
-                if (row.Trim() == "") { continue; }
-                if (row.StartsWith("//") || row.Length == 0) { continue; }
-                if (row.StartsWith("[")) { Position = row.Substring(1, row.Length - 2); continue; }
+                if (row.Trim() == "") { row = reader.ReadLine(); continue; }
+                if (row.StartsWith("//") || row.Length == 0) { row = reader.ReadLine(); continue; }
+                if (row.StartsWith("[")) { Position = row.Substring(1, row.Length - 2); 
+                    row = reader.ReadLine(); continue; }
                 switch (Position)
                 {
                     case "Variables":
@@ -405,6 +331,7 @@ namespace OSU_player.OSUFiles.StoryBoard
                             tmpvar.replace = row.Split(new char[] { '=' }, 2)[1];
                             tmpvar.name.Substring(1, tmpvar.name.Length - 1);
                             Variables.Add(tmpvar);
+                            row = reader.ReadLine();
                             break;
                         }
                     case "Events":
@@ -434,7 +361,8 @@ namespace OSU_player.OSUFiles.StoryBoard
                             {
                                 tmpev.volume = Convert.ToInt32(tmp[4]);
                             }
-                            elements[element].events.Add(tmpev);
+                            row = reader.ReadLine();
+                            //  elements[element].events.Add(tmpev);
                         }
                         else if (row.StartsWith("Animation") || row.StartsWith("6,"))
                         {
@@ -443,8 +371,9 @@ namespace OSU_player.OSUFiles.StoryBoard
                             tmpe = new SBelement();
                             tmpe.Type = ElementType.Animation;
                             tmpe.Layers = (ElementLayer)(System.Enum.Parse(typeof(ElementLayer), tmp[1]));
+                            if (tmpe.Layers == ElementLayer.Fail || tmpe.Layers == ElementLayer.Pass) { row = reader.ReadLine(); continue; }
                             tmpe.Origin = (ElementOrigin)(System.Enum.Parse(typeof(ElementOrigin), tmp[2]));
-                            tmpe.path = tmp[3].Substring(1,tmp[3].Length-2);
+                            tmpe.path = tmp[3].Substring(1, tmp[3].Length - 2);
                             tmpe.x = Convert.ToInt32(tmp[4]);
                             tmpe.y = Convert.ToInt32(tmp[5]);
                             tmpe.frameCount = Convert.ToInt32(tmp[6]);
@@ -452,7 +381,7 @@ namespace OSU_player.OSUFiles.StoryBoard
                             tmpe.Looptype = (ElementLoopType)(System.Enum.Parse(typeof(ElementLoopType), tmp[8]));
                             elements.Add(tmpe);
                             element++;
-                            dealevents(element, reader);
+                            row=dealevents(element, reader);
                         }
                         else if (row.StartsWith("Sprite") || row.StartsWith("4,"))
                         {
@@ -461,29 +390,33 @@ namespace OSU_player.OSUFiles.StoryBoard
                             tmpe = new SBelement();
                             tmpe.Type = ElementType.Sprite;
                             tmpe.Layers = (ElementLayer)(System.Enum.Parse(typeof(ElementLayer), tmp[1]));
+                            if (tmpe.Layers == ElementLayer.Fail || tmpe.Layers == ElementLayer.Pass) { row = reader.ReadLine(); continue; }
                             tmpe.Origin = (ElementOrigin)(System.Enum.Parse(typeof(ElementOrigin), tmp[2]));
                             tmpe.path = tmp[3].Substring(1, tmp[3].Length - 2);
                             tmpe.x = Convert.ToInt32(tmp[4]);
                             tmpe.y = Convert.ToInt32(tmp[5]);
                             elements.Add(tmpe);
                             element++;
-                            dealevents(element, reader);
+                            row = dealevents(element, reader);
                         }
-                        else if (row.StartsWith("0,"))
-                        {
-                            tmp = row.Split(new char[] { ',' });
-                            tmpe = new SBelement();
-                            tmpe.Type = ElementType.Sprite;
-                            tmpe.Layers = ElementLayer.Background;
-                            tmpe.Origin = ElementOrigin.Centre;
-                            tmpe.path = tmp[2];
-                            elements.Add(tmpe);
-                            element++;
-                            dealevents(element, reader);
-                        }
+                        /*    else if (row.StartsWith("0,"))
+                            {
+                                tmp = row.Split(new char[] { ',' });
+                                tmpe = new SBelement();
+                                tmpe.Type = ElementType.Sprite;
+                                tmpe.Layers = ElementLayer.Background;
+                                tmpe.Origin = ElementOrigin.Centre;
+                                tmpe.path = tmp[2].Substring(1, tmp[2].Length - 2);
+                                elements.Add(tmpe);
+                                element++;
+                                row = dealevents(element, reader);
+                            }*/
+                        else { row = reader.ReadLine(); }
+                        break;
+                    default:
+                        row = reader.ReadLine();
                         break;
                 }
-
             }
         }
         public StoryBoard(string osu, string osb)

@@ -1,14 +1,17 @@
-﻿namespace OSU_player.Graphic
+﻿using System;
+using System.Collections.Generic;
+namespace OSU_player.Graphic
 {
     /// <summary>
     /// 精灵动作
     /// </summary>
     class TSpriteAction
     {
-        private float currentValue, k, b;
+        private float currentValue, k, a, b, prevalue;
         private int currentIndex;
-        private TActionNode[] actionList;  
+        private TActionNode[] actionList;
         private int timeCount;
+        private int easing;
         private bool isLoop;  //动作是否循环
         private bool isEnable;  //动作是否激活
         private bool isKeepValue;  //非循环动作在结束后是否保持值
@@ -36,18 +39,37 @@
         /// 创建一个精灵动作实例
         /// </summary>
         /// <param name="pActionList">动作列表</param>
+        /// <param name="pEasing">缓冲设定</param>
         /// <param name="pIsLoop">是否循环</param>
         /// <param name="pIsKeepValue">动作结束后是否保持值</param>
-        public TSpriteAction(TActionNode[] pActionList, bool pIsLoop, bool pIsKeepValue)
+        public TSpriteAction(List<TActionNode> pActionList, bool pIsLoop = false, bool pIsKeepValue = true)
         {
-            this.actionList = new TActionNode[pActionList.Length];
-            for (int i = 0; i < pActionList.Length; i++)
+            if (pActionList.Count == 0)
             {
-                this.actionList[i] = new TActionNode(pActionList[i].Time, pActionList[i].Value);
+                this.actionList = new TActionNode[0];
+                this.isLoop = false;
+                this.isKeepValue = false;
+                this.currentIndex = 0;
+                this.currentValue = 0;
+                this.k = 0;
+                this.b = 0;
+                this.timeCount = 0;
+                this.isEnable = false;
+                this.isOver = true;
             }
-            this.isLoop = pIsLoop;
-            this.isKeepValue = pIsKeepValue;
-            this.Reset();
+            else
+            {
+                this.actionList = new TActionNode[pActionList.Count];
+                for (int i = 0; i < pActionList.Count; i++)
+                {
+                    this.actionList[i] = new TActionNode(pActionList[i].Time, pActionList[i].Value, pActionList[i].Easing);
+                }
+                this.isLoop = pIsLoop;
+                this.isKeepValue = pIsKeepValue;
+                this.Reset();
+                this.prevalue = 0;
+                this.easing = 0;
+            }
         }
 
 
@@ -72,11 +94,11 @@
         /// <summary>
         /// 更新动作的值
         /// </summary>
-        public void Update(int pElapsedMS)
+        public void Update(int CurrentTime)
         {
             if (!this.isOver)
             {
-                this.timeCount += pElapsedMS;
+                this.timeCount = CurrentTime;
             }
 
             //如果结点列表只有一个元素，则到达时间点时直接赋值
@@ -94,10 +116,11 @@
                 {
                     if (this.currentIndex < this.actionList.Length - 1)
                     {
-                        this.k = (this.actionList[this.currentIndex + 1].Value - this.actionList[this.currentIndex].Value) /
-                                    (this.actionList[this.currentIndex + 1].Time - this.actionList[this.currentIndex].Time);
-
-                        this.b = this.actionList[this.currentIndex].Value - k * this.actionList[this.currentIndex].Time;
+                        this.a = this.actionList[this.currentIndex + 1].Value - this.actionList[this.currentIndex].Value;
+                        this.b = this.actionList[this.currentIndex + 1].Time - this.actionList[this.currentIndex].Time;
+                        this.k = a / b;
+                        this.prevalue = this.actionList[this.currentIndex].Value;
+                        this.easing = this.actionList[this.currentIndex].Easing;
                         this.currentIndex++;
                     }
                     //如果要循环则重新开始
@@ -111,10 +134,10 @@
                         else
                         {
                             this.isOver = true;
-                            if (this.isKeepValue) 
+                            if (this.isKeepValue)
                             {
                                 this.currentValue = this.actionList[this.actionList.Length - 1].Value;
-                                return; 
+                                return;
                             }
                             else
                             {
@@ -125,8 +148,26 @@
                         }
                     }
                 }
+                int elapsedTime = timeCount - actionList[currentIndex].Time;
+                switch (this.easing)
+                {
+                    case 0:
+                        this.currentValue = k * elapsedTime + prevalue;
+                        break;
+                    case 1:
+                        this.currentValue = (float)Math.Sqrt(b * b - k * k * (elapsedTime - a) * (elapsedTime - a)) + prevalue;
+                        break;
+                    case 2:
+                        this.currentValue = b - (float)Math.Sqrt(b * b - k * k * elapsedTime * elapsedTime) + prevalue;
+                        break;
+                    case 3:
+                        this.currentValue = prevalue;
+                        break;
+                    default:
+                        this.currentValue = k * elapsedTime + prevalue;
+                        break;
+                }
                 //根据k和b算出值
-                this.currentValue = k * timeCount + b;
             }
         }
 
@@ -168,12 +209,12 @@
             this.isOver = false;
         }
     }
-    
+
 
     /// <summary>
     /// 动作结点
     /// </summary>
-    class TActionNode
+    public class TActionNode
     {
         private int time;
         private float value;
@@ -195,11 +236,19 @@
             set { this.value = value; }
             get { return this.value; }
         }
-
-        public TActionNode(int pTime, float pValue)
+        /// <summary>
+        /// 获取或设置结点的缓冲值
+        /// </summary>
+        public int Easing
+        {
+            set { this.easing = value; }
+            get { return this.easing; }
+        }
+        public TActionNode(int pTime, float pValue,int pEasing)
         {
             this.time = pTime;
             this.value = pValue;
+            this.easing = pEasing;
         }
         #endregion
     }

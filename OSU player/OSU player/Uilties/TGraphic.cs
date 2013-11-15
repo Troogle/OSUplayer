@@ -16,19 +16,19 @@ namespace OSU_player.Graphic
         protected Vector3 center;                                         //旋转中心
         protected Vector3 position;                                       //显示位置
         protected float rotate;                                               //旋转角度
-        protected float scale;                                                //缩放比例
+        protected float scaleX;                                                //缩放比例
+        protected float scaleY;
         protected Color color;
-        protected bool alphablend;
-        protected byte aplha;
+        protected byte alpha;
         /// <summary>
         /// 0=none,1=H,2=V,3=A
         /// </summary>
-        protected byte parameter;
+        public byte parameter;
         protected Rectangle rectangle;
 
 
         public TStaticGraphic(Device graphicDevice, Bitmap bitmap, Vector3 position,
-                                          float rotate, float scale, Color color)
+                                          float rotate, float scale, Color color, byte alpha, byte parameter)
         {
             this.texture = Texture.FromBitmap(graphicDevice, bitmap, Usage.Dynamic, Pool.Default);
             this.center = new Vector3(0, 0, 0);
@@ -37,8 +37,11 @@ namespace OSU_player.Graphic
             this.scaleMatrix = new Matrix();
             this.position = position;
             this.rotate = rotate;
-            this.scale = scale;
+            this.scaleX = scale;
+            this.scaleY = scale;
             this.color = color;
+            this.alpha = alpha;
+            this.parameter = parameter;
             this.rectangle = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
         }
         public TStaticGraphic(Device graphicDevice)
@@ -55,10 +58,10 @@ namespace OSU_player.Graphic
         public virtual void Draw(Sprite sprite)
         {
             this.rotateMatrix.RotateZ(this.rotate);
-            this.scaleMatrix.Scale(this.scale, this.scale, 0);
+            this.scaleMatrix.Scale(this.scaleX, this.scaleY, 0);
             this.transformMatrix.Translate(this.position);
             sprite.Transform = this.rotateMatrix * this.scaleMatrix * this.transformMatrix;
-            sprite.Draw(this.texture, this.rectangle, this.center, Vector3.Empty, this.color);
+            sprite.Draw(this.texture, this.rectangle, this.center, Vector3.Empty, Color.FromArgb(this.alpha, this.color));
         }
     }
 
@@ -71,14 +74,19 @@ namespace OSU_player.Graphic
         protected int frameCount;  //材质行总数
         protected int currentFrameIndex; //当前材质行索引
         protected int mSPerFrame; // 帧动画的速率
-        protected int msSinceLastFrame; //上一帧到现在的时间
+        protected int msLastFrame; //上次记录的时间
         protected ElementLoopType Loop;
         protected TSpriteAction xAction;
         protected TSpriteAction yAction;
-        protected TSpriteAction scaleAction;
+        protected TSpriteAction scaleXAction;
+        protected TSpriteAction scaleYAction;
         protected TSpriteAction rotateAction;
         protected TSpriteAction alphaAction;
-
+        protected TSpriteAction colorAction;
+        protected TSpriteAction parameterAction;
+        protected Texture[] texturearray;
+        protected Rectangle[] rectarray;
+        protected ElementOrigin Origin;
 
         public TGraphic(Device graphicDevice, SBelement Element, string Location)
             : base(graphicDevice)
@@ -88,30 +96,59 @@ namespace OSU_player.Graphic
             {
                 case ElementType.Sprite:
                     {
-                        bitmap = new Bitmap(45 * 4, 60);
+                        bitmap = new Bitmap(Path.Combine(Location, Element.path));
+                        this.frameCount = 1;
+                        this.currentFrameIndex = 0;
+                        this.msLastFrame = 0;
+                        this.mSPerFrame = 16;
+                        this.texture = Texture.FromBitmap(graphicDevice, bitmap, Usage.Dynamic, Pool.Default);
+                        this.rectangle = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
+                        this.position = new Vector3(Element.x, Element.y, 0);
+                        this.center = Getcenter(-1);
                         break;
                     }
                 case ElementType.Animation:
                     {
-                        Graphics resultGraphics;    //用来绘图的实例
-                        bitmap = new Bitmap(45 * 4, 60);    //总高宽
-                        resultGraphics = Graphics.FromImage(bitmap);
-                        string[] numberImgPath = { "0.jpg", "3.jpg", "1.jpg", "7.jpg" };
-                        for (int i = 0; i < numberImgPath.Length; i++)
+                        string prefix = Path.Combine(Location, Element.path);
+                        string ext = prefix.Substring(prefix.LastIndexOf(".") + 1);
+                        prefix = prefix.Substring(0, prefix.LastIndexOf("."));
+                        texturearray = new Texture[Element.frameCount];
+                        rectarray = new Rectangle[Element.frameCount];
+                        for (int i = 0; i < Element.frameCount; i++)
                         {
-                            resultGraphics.DrawImage(Image.FromFile(numberImgPath[i]), 45 * i, 60);
+                            if (File.Exists(prefix + i.ToString() + "." + ext))
+                            {
+                                bitmap = new Bitmap(prefix + i.ToString() + "." + ext);
+                            }
+                            else { bitmap = new Bitmap(Properties.Resources.BlackBase, 1, 1); }
+                            texturearray[i] = Texture.FromBitmap(graphicDevice, bitmap, Usage.Dynamic, Pool.Default);
+                            rectarray[i] = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
                         }
-                        resultGraphics.Dispose();
+                        this.frameCount = Element.frameCount;
+                        this.mSPerFrame = Element.framedelay;
+                        this.Loop = Element.Looptype;
+                        this.currentFrameIndex = 0;
+                        this.msLastFrame = 0;
+                        this.position = new Vector3(Element.x, Element.y, 0);
+                        this.rectangle = rectarray[0];
+                        this.texture = texturearray[0];
+                        this.center = Getcenter(0);
                         break;
                     }
                 default:
                     throw (new FormatException("Failed to resolve .osb file"));
             }
-            this.texture = Texture.FromBitmap(graphicDevice, bitmap, Usage.Dynamic, Pool.Default);
-            this.rectangle = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
+            this.color = Color.White;
+            this.alpha = 255;
+            this.parameter = 0;
+            this.Origin = Element.Origin;
+            this.rotate = 0f;
+            this.scaleX = 1f;
+            this.scaleY = 1f;
+          //  this.InitSpriteAction();
         }
         /// <summary>
-        /// 创建一个多帧WGraphic实例
+        /// 创建一个多帧TGraphic实例
         /// </summary>
         /// <param name="graphicDevice">显示设备</param>
         /// <param name="bitmap">要绘制的图像</param>
@@ -121,86 +158,133 @@ namespace OSU_player.Graphic
         /// <param name="pFPS">FPS</param>
         public TGraphic(Device graphicDevice, Bitmap bitmap, Vector3 pPosition, Vector3 pCenter,
                                  int pFrameCount, int pFPS)
-            : base(graphicDevice, bitmap, pPosition, 0f, 1f, Color.White)
+            : base(graphicDevice, bitmap, pPosition, 0f, 1f, Color.White, 255, 0)
         {
             this.frameCount = pFrameCount;
             this.currentFrameIndex = 0;
             this.mSPerFrame = (int)(1f / pFPS * 1000);
-            this.msSinceLastFrame = 0;
+            this.msLastFrame = 0;
             this.center = pCenter;
             this.InitSpriteAction();
         }
 
         /// <summary>
-        /// 创建一个单帧WGraphic实例
+        /// 创建一个单帧TGraphic实例
         /// </summary>
         /// <param name="graphicDevice">显示设备</param>
         /// <param name="bitmap">要绘制的图像</param>
         /// <param name="pPosition">绘制坐标</param>
         /// <param name="pCenter">旋转中心</param>
         public TGraphic(Device graphicDevice, Bitmap bitmap, Vector3 pPosition, Vector3 pCenter)
-            : base(graphicDevice, bitmap, pPosition, 0f, 1f, Color.White)
+            : base(graphicDevice, bitmap, pPosition, 0f, 1f, Color.White, 255, 0)
         {
             this.center = pCenter;
             this.frameCount = 1;
             this.currentFrameIndex = 0;
-            this.msSinceLastFrame = 0;
+            this.msLastFrame = 0;
             this.mSPerFrame = 16;
             this.InitSpriteAction();
         }
-
+        private Vector3 Getcenter(int count)
+        {
+            Rectangle tmp;
+            if (count == -1)
+            {
+                tmp = this.rectangle;
+            }
+            else
+            {
+                tmp = this.rectarray[count];
+            }
+            switch (this.Origin)
+            {
+                case ElementOrigin.TopLeft:
+                    break;
+                case ElementOrigin.TopCentre:
+                    break;
+                case ElementOrigin.TopRight:
+                    break;
+                case ElementOrigin.CentreLeft:
+                    break;
+                case ElementOrigin.Centre:
+                    break;
+                case ElementOrigin.CentreRight:
+                    break;
+                case ElementOrigin.BottomLeft:
+                    break;
+                case ElementOrigin.BottomCentre:
+                    break;
+                case ElementOrigin.BottomRight:
+                    break;
+                default:
+                    break;
+            }
+            return Vector3.Empty;
+        }
 
         /// <summary>
         /// 更新图像
         /// </summary>
-        public virtual void Update(int pElapsedMS)
+        public virtual void Update(int CurrentTime)
         {
             //处理动作更新
             //
             if (this.alphaAction.Enable)
             {
-                this.alphaAction.Update(pElapsedMS);
-                this.color = Color.FromArgb((byte)alphaAction.CurrentValue, 255, 255, 255);
+                this.alphaAction.Update(CurrentTime);
+                this.alpha = (byte)alphaAction.CurrentValue;
+            }
+            if (this.colorAction.Enable)
+            {
+                this.colorAction.Update(CurrentTime);
+                this.color = Color.FromArgb((int)colorAction.CurrentValue);
             }
             if (this.xAction.Enable)
             {
-                this.xAction.Update(pElapsedMS);
+                this.xAction.Update(CurrentTime);
                 this.position.X = this.xAction.CurrentValue;
             }
             if (this.yAction.Enable)
             {
-                this.yAction.Update(pElapsedMS);
+                this.yAction.Update(CurrentTime);
                 this.position.Y = this.yAction.CurrentValue;
             }
-            if (this.scaleAction.Enable)
+            if (this.scaleXAction.Enable)
             {
-                this.scaleAction.Update(pElapsedMS);
-                this.scale = this.scaleAction.CurrentValue;
+                this.scaleXAction.Update(CurrentTime);
+                this.scaleX = this.scaleXAction.CurrentValue;
+            }
+            if (this.scaleYAction.Enable)
+            {
+                this.scaleYAction.Update(CurrentTime);
+                this.scaleY = this.scaleYAction.CurrentValue;
             }
             if (this.rotateAction.Enable)
             {
-                this.rotateAction.Update(pElapsedMS);
+                this.rotateAction.Update(CurrentTime);
                 this.rotate = this.rotateAction.CurrentValue;
+            }
+            if (this.parameterAction.Enable)
+            {
+                this.parameterAction.Update(CurrentTime);
+                this.parameter = (byte)this.parameterAction.CurrentValue;
             }
 
             // 处理帧更新
             //
             if (this.frameCount > 1)
             {
-                if (this.msSinceLastFrame + pElapsedMS >= this.mSPerFrame)
+                if (CurrentTime - this.msLastFrame >= this.mSPerFrame)
                 {
-                    this.msSinceLastFrame = 0;
-                    this.rectangle.X = this.currentFrameIndex * this.rectangle.Width;
+                    this.msLastFrame = CurrentTime;
                     this.currentFrameIndex++;
-
-                    if (this.currentFrameIndex == this.frameCount)
+                    if (this.Loop == ElementLoopType.LoopForever && this.currentFrameIndex == this.frameCount)
                     {
                         this.currentFrameIndex = 0;
                     }
-                }
-                else
-                {
-                    this.msSinceLastFrame += pElapsedMS;
+                    this.texture = texturearray[currentFrameIndex];
+                    this.rectangle = rectarray[currentFrameIndex];
+                    this.center = Getcenter(currentFrameIndex);
                 }
             }
         }
@@ -215,8 +299,11 @@ namespace OSU_player.Graphic
             this.alphaAction = new TSpriteAction();
             this.xAction = new TSpriteAction();
             this.yAction = new TSpriteAction();
-            this.scaleAction = new TSpriteAction();
+            this.scaleXAction = new TSpriteAction();
+            this.scaleYAction = new TSpriteAction();
             this.rotateAction = new TSpriteAction();
+            this.colorAction = new TSpriteAction();
+            this.parameterAction = new TSpriteAction();
         }
         /// <summary>
         /// 设置Alpha动作
@@ -240,11 +327,18 @@ namespace OSU_player.Graphic
             this.yAction = pYAction;
         }
         /// <summary>
-        /// 设置Scale动作
+        /// 设置ScaleX动作
         /// </summary>
-        public void SetScaleAction(TSpriteAction pScaleAction)
+        public void SetScaleXAction(TSpriteAction pScaleAction)
         {
-            this.scaleAction = pScaleAction;
+            this.scaleXAction = pScaleAction;
+        }
+        /// <summary>
+        /// 设置ScaleY动作
+        /// </summary>
+        public void SetScaleYAction(TSpriteAction pScaleAction)
+        {
+            this.scaleYAction = pScaleAction;
         }
         /// <summary>
         /// 设置Rotate动作
@@ -252,6 +346,20 @@ namespace OSU_player.Graphic
         public void SetRotateAction(TSpriteAction pRotateAction)
         {
             this.rotateAction = pRotateAction;
+        }
+        /// <summary>
+        /// 设置Color动作
+        /// </summary>
+        public void SetColorAction(TSpriteAction pColorAction)
+        {
+            this.colorAction = pColorAction;
+        }
+        /// <summary>
+        /// 设置Parameter动作
+        /// </summary>
+        public void SetParameterAction(TSpriteAction pParameterAction)
+        {
+            this.parameterAction = pParameterAction;
         }
         #endregion
     }
