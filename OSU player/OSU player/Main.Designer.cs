@@ -872,5 +872,6 @@ namespace OSU_player
         private Telerik.WinControls.UI.RadMenuItem radMenuItem2;
         private System.Windows.Forms.Timer NextTimer;
         private System.Windows.Forms.Timer SearchTimer;
+
     }
 }

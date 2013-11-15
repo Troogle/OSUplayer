@@ -163,7 +163,7 @@ namespace OSU_player.Uilties
             if (dul.Count == 0) { RadMessageBox.Show("没有神马要删除的！><"); this.Dispose(); }
             else
             {
-                //RadMessageBox.Show(string.Format("扫描完毕，发现重复曲目{0}个", dul.Count));
+                Core.notifyIcon1.ShowBalloonTip(1000, "OSUplayer", string.Format("扫描完毕，发现重复曲目{0}个", dul.Count), System.Windows.Forms.ToolTipIcon.Info);
                 Label1.Text = string.Format("扫描完毕，发现重复曲目{0}个", dul.Count);
                 adddul();
             }
@@ -230,7 +230,7 @@ namespace OSU_player.Uilties
                     filedelete.Add(item.Text);
                 }
                 Delete(filedelete);
-                RadMessageBox.Show(string.Format("删除完毕，共删除{0}个", listView1.CheckedItems.Count));
+                Core.notifyIcon1.ShowBalloonTip(1000, "OSUplayer", string.Format("删除完毕，共删除{0}个", listView1.CheckedItems.Count), System.Windows.Forms.ToolTipIcon.Info);
                 this.Dispose();
             }
         }

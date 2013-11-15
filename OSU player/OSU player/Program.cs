@@ -15,6 +15,7 @@ namespace OSU_player
         [STAThread]
         static void Main()
         {
+            Application.SetCompatibleTextRenderingDefault(false);
             //设置应用程序处理异常方式：ThreadException处理
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
             //处理UI线程异常
@@ -22,7 +23,6 @@ namespace OSU_player
             //处理非UI线程异常
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
             Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
             try
             {
                 ThemeResolutionService.LoadPackageResource("OSU_player.Res.Light.tssp");
@@ -35,27 +35,28 @@ namespace OSU_player
                 {
                     Application.DoEvents();
                     Core.Render();
-                    Thread.Sleep(5); 
+                    Thread.Sleep(5);
                 }
 
-             //   Application.Run(new Main());
+                //   Application.Run(new Main());
             }
             #region 异常处理
             catch (Exception ex)
             {
                 string str = GetExceptionMsg(ex, "QxQ");
-                MessageBox.Show(str, "发生了一些令人悲伤的事情><", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                NotifyIcon notifyIcon1=new NotifyIcon();
+                notifyIcon1.ShowBalloonTip(1000, "发生了一些令人悲伤的事情><", "错误已上报，程序将试图继续运行", System.Windows.Forms.ToolTipIcon.Error);
             }
         }
         static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
             string str = GetExceptionMsg(e.Exception, e.ToString());
-            MessageBox.Show(str, "发生了一些令人悲伤的事情><", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            Core.notifyIcon1.ShowBalloonTip(1000, "发生了一些令人悲伤的事情><", "错误已上报，程序将试图继续运行", System.Windows.Forms.ToolTipIcon.Error);
         }
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             string str = GetExceptionMsg(e.ExceptionObject as Exception, e.ToString());
-            MessageBox.Show(str, "发生了一些令人悲伤的事情><", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            Core.notifyIcon1.ShowBalloonTip(1000, "发生了一些令人悲伤的事情><", "错误已上报，程序将试图继续运行", System.Windows.Forms.ToolTipIcon.Error);
         }
         /// <summary>
         /// 生成自定义异常消息
@@ -68,27 +69,26 @@ namespace OSU_player
             try
             {
                 WebRequest request;
-                request = WebRequest.Create("http://wenwo.at/counter.php?error=" + ex.GetType().Name + " " + ex.Message);
-                request.Credentials = CredentialCache.DefaultCredentials;
-                request.Timeout = 20000;
-                WebResponse response;
-                response = request.GetResponse();
+                if (ex != null)
+                {
+                    int start=ex.StackTrace.IndexOf("OSU_player");
+                    request = WebRequest.Create("http://wenwo.at/counter.php?error=" +ex.GetType().Name+ex.Message + " " + ex.StackTrace.Substring(start, 300 > ex.StackTrace.Length - start - 1 ? ex.StackTrace.Length - start - 1 : 300));
+                    request.Credentials = CredentialCache.DefaultCredentials;
+                    request.Timeout = 2000;
+                    WebResponse response;
+                    response = request.GetResponse();
+                }
             }
-            catch { }
+            catch {
+                return "";
+            }
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("****************************异常文本****************************");
-            sb.AppendLine("【出现时间】：" + DateTime.Now.ToString());
             if (ex != null)
             {
                 sb.AppendLine("【异常类型】：" + ex.GetType().Name);
                 sb.AppendLine("【异常信息】：" + ex.Message);
                 sb.AppendLine("【堆栈调用】：" + ex.StackTrace);
             }
-            else
-            {
-                sb.AppendLine("【未处理异常】：" + backStr);
-            }
-            sb.AppendLine("***************************************************************");
             return sb.ToString();
 
         }

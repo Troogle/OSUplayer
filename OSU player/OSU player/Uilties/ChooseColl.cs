@@ -24,7 +24,7 @@ namespace OSU_player.Uilties
                 listBox1.Items.Add(key);
             }
             if (listBox1.Items.Count != 0) { listBox1.SelectedIndex = 0; }
-           // RadMessageBox.Show("刷新完毕！");
+            Core.notifyIcon1.ShowBalloonTip(1000, "OSUplayer", "刷新完毕！", System.Windows.Forms.ToolTipIcon.Info);
         }
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -42,14 +42,14 @@ namespace OSU_player.Uilties
         {
             if (listBox2.SelectedItems.Count == 0) { return; }
             Core.AddSet(tmpindex[listBox2.SelectedIndex]);
-            RadMessageBox.Show(String.Format("成功导入{0}",listBox2.SelectedItem.ToString()));
+            Core.notifyIcon1.ShowBalloonTip(1000, "OSUplayer", String.Format("成功导入{0}", listBox2.SelectedItem.ToString()), System.Windows.Forms.ToolTipIcon.Info);
             label2.Text = "当前播放列表曲目数:" + Core.PlayList.Count;
         }
         private void listBox1_MouseDoubleClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             if (listBox1.SelectedItems.Count == 0) { return; }
             Core.AddRangeSet(tmpindex);
-            RadMessageBox.Show(String.Format("成功导入{0}首曲目", tmpindex.Count.ToString()));
+            Core.notifyIcon1.ShowBalloonTip(1000, "OSUplayer", String.Format("成功导入{0}首曲目", tmpindex.Count.ToString()), System.Windows.Forms.ToolTipIcon.Info);
             label2.Text = "当前播放列表曲目数:" + Core.PlayList.Count;
         }
         private void button2_Click(object sender, EventArgs e)

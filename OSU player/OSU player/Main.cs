@@ -27,7 +27,6 @@ namespace OSU_player
             if (RadMessageBox.Show("确认退出？", "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 Core.exit();
-
                 this.Dispose();
             }
             else
@@ -113,8 +112,6 @@ namespace OSU_player
             SB开关.IsChecked = Core.playsb;
             视频开关.IsChecked = Core.playvideo;
             radMenuComboItem1.ComboBoxElement.SelectedIndex = Core.Nextmode - 1;
-
-
         }
         BackgroundWorker refreash = new BackgroundWorker();
         private void refreshlist(object sender, EventArgs e)
@@ -401,7 +398,8 @@ namespace OSU_player
             {
                 PlayList.SelectedItems[0].Selected = false;
             }
-            int currentset = Core.PlayList.IndexOf(Core.currentset, 0); ;
+            int currentset = Core.PlayList.IndexOf(Core.currentset, 0);
+            if (currentset == -1) { currentset = 0; }
             PlayList.Items[currentset].Selected = true;
             PlayList.EnsureVisible(currentset);
             PlayList.Focus();

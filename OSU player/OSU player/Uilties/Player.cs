@@ -61,6 +61,8 @@ namespace OSU_player
         Matrix bgrotateMatrix = new Matrix();
         Matrix bgscaleMatrix = new Matrix();
         List<TGraphic> SBelements = new List<TGraphic>();
+        GraphicsStream VideoStream;
+        bool deviceislost = false;
         public Player()
         {
             uni_Audio = new Audiofiles();
@@ -72,6 +74,38 @@ namespace OSU_player
             for (int i = 0; i < maxfxplayer; i++)
             {
                 fxplayer[i] = new Audiofiles();
+            }
+        }
+        bool CanRender()
+        {
+            if (deviceislost == false)
+                return true;
+            int Result;
+            device.CheckCooperativeLevel(out Result);
+            switch ((ResultCode)Result)
+            {
+                case ResultCode.Success:
+                    deviceislost = false;
+                    return true;
+                case ResultCode.DeviceLost:
+                    return false;
+                case ResultCode.DeviceNotReset:
+                    try
+                    {
+                        device.Reset(device.PresentationParameters);
+                        deviceislost = false;
+                        return true;
+                    }
+                    catch (DirectXException exception)
+                    {
+                        if ((ResultCode)exception.ErrorCode == ResultCode.DeviceLost)
+                            return false;
+                        throw exception;
+                    }
+                default:
+                    DirectXException DXException = new DirectXException();
+                    DXException.ErrorCode = Result;
+                    throw DXException;
             }
         }
         public void initvideo()
@@ -90,7 +124,7 @@ namespace OSU_player
         {
             if (Map.Background != "" && !File.Exists(Map.Background))
             {
-                //RadMessageBox.Show("没事删什么BG！", "错误", MessageBoxButtons.OK, RadMessageIcon.Error);
+                Core.notifyIcon1.ShowBalloonTip(1000, "OSUplayer", "没事删什么BG TAT", System.Windows.Forms.ToolTipIcon.Info);
                 Map.Background = "";
             }
             Bitmap CurrentBG;
@@ -133,8 +167,8 @@ namespace OSU_player
         public void RenderVideo()
         {
             if (position - (double)Map.VideoOffset / 1000 < 0) { return; }
-            GraphicsStream dataRectangle = VideoTexture.LockRectangle(0, LockFlags.None);
-            dataRectangle.Write(decoder.GetFrame(Convert.ToInt32(position * 1000 - Map.VideoOffset)), 0, decoder.height * decoder.width * 4);
+            VideoStream = VideoTexture.LockRectangle(0, LockFlags.None);
+            VideoStream.Write(decoder.GetFrame(Convert.ToInt32(position * 1000 - Map.VideoOffset)), 0, decoder.height * decoder.width * 4);
             VideoTexture.UnlockRectangle(0);
             sprite.Begin(SpriteFlags.None);
             sprite.Transform = rotateMatrix * scaleMatrix * transformMatrix;
@@ -150,14 +184,19 @@ namespace OSU_player
         }
         public void Render()
         {
-            if (device == null || device.Disposed) { return; }
+            if (device == null || device.Disposed || !CanRender()) { return; }
             device.Clear(ClearFlags.Target, Color.Black, 1.0f, 0);
             device.BeginScene();
             if (!videoexist) { RenderBG(); }
             if (videoexist) { RenderVideo(); }
             if (SBexist) { RenderSB(); }
             device.EndScene();
-            device.Present();
+            try
+            {
+                device.Present();
+            }
+            catch { deviceislost = true; }
+
         }
         public void Dispose()
         {

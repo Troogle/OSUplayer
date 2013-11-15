@@ -51,16 +51,23 @@ namespace OSU_player.Uilties
         /// <param name="Str">推送的内容</param>
         public void Send2QQ(string id, string Str)
         {
-            if (!Core.syncQQ) { return; }
-            object objAdmin = null;
-            Type objAdminType = Type.GetTypeFromProgID("QQCPHelper.CPAdder");
-            Object[] args = new object[4];
-            args[0] = id;
-            args[1] = 65542;
-            args[2] = Str;
-            args[3] = "";
-            objAdmin = System.Activator.CreateInstance(objAdminType);
-            objAdminType.InvokeMember("PutRSInfo", System.Reflection.BindingFlags.InvokeMethod, null, objAdmin, args);
+            try
+            {
+                if (!Core.syncQQ) { return; }
+                object objAdmin = null;
+                Type objAdminType = Type.GetTypeFromProgID("QQCPHelper.CPAdder");
+                Object[] args = new object[4];
+                args[0] = id;
+                args[1] = 65542;
+                args[2] = Str;
+                args[3] = "";
+                objAdmin = System.Activator.CreateInstance(objAdminType);
+                objAdminType.InvokeMember("PutRSInfo", System.Reflection.BindingFlags.InvokeMethod, null, objAdmin, args);
+            }
+            catch
+            {
+                Core.notifyIcon1.ShowBalloonTip(1000, "OSUplayer", "QQ推送失败！", System.Windows.Forms.ToolTipIcon.Info);
+            }
         }
         /// <summary>
         /// 获取目前登陆QQ列表

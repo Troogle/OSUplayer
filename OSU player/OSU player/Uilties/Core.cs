@@ -28,7 +28,7 @@ namespace OSU_player
         public static Dictionary<string, List<Score>> Scores = new Dictionary<string, List<Score>>();
         public static Dictionary<string, List<int>> Collections = new Dictionary<string, List<int>>();
         public static bool scoresearched = false;
-        public static System.Drawing.Image defaultBG = Properties.Resources.defaultBG;
+        public static Image defaultBG = Properties.Resources.defaultBG;
         public static string defaultAudio = Application.StartupPath + "\\Default\\" + "blank.wav";
         public static float Allvolume = 1.0f;
         public static float Musicvolume = 0.8f;
@@ -56,6 +56,7 @@ namespace OSU_player
         public static Beatmap TmpBeatmap { get { return TmpSet.Diffs[tmpmap]; } }
         public static Size size;
         public static IntPtr handle;
+        public static NotifyIcon notifyIcon1=new NotifyIcon();
         public static string Version
         {
             get
@@ -68,6 +69,13 @@ namespace OSU_player
         }
         public static void init(IntPtr Shandle, Size Ssize)
         {
+            notifyIcon1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            notifyIcon1.BalloonTipTitle = "OSUplayer";
+            notifyIcon1.BalloonTipText = "正在初始化...";
+            notifyIcon1.Icon = ((System.Drawing.Icon)(Resources.icon));
+            notifyIcon1.Text = "OSUplayer";
+            notifyIcon1.Visible = true;
+            notifyIcon1.ShowBalloonTip(1000);
             Getpath();
             LoadPreference();
             new Thread(new ThreadStart(Uilties.Selfupdate.check_update)).Start();
@@ -223,13 +231,12 @@ namespace OSU_player
             }
             else
             {
-                //RadMessageBox.Show("将开始初始化");
                 if (File.Exists(Path.Combine(Core.osupath, "osu!.db")))
                 {
                     OsuDB.ReadDb(Path.Combine(Core.osupath, "osu!.db"));
                 }
                 initplaylist();
-                //RadMessageBox.Show(string.Format("初始化完毕，发现曲目{0}个", allsets.Count));
+                notifyIcon1.ShowBalloonTip(1000,"OSUplayer",string.Format("初始化完毕，发现曲目{0}个", allsets.Count),ToolTipIcon.Info);
                 needsave = true;
             }
             currentset = 0;
@@ -249,7 +256,7 @@ namespace OSU_player
             tmpset = vaule;
             if (!TmpSet.check())
             {
-                //RadMessageBox.Show("没事删什么曲子啊><", ">_<");
+                Core.notifyIcon1.ShowBalloonTip(1000, "OSUplayer", "没事删什么曲子啊><", System.Windows.Forms.ToolTipIcon.Info);
                 remove(tmpset);
                 return true;
             }
@@ -265,7 +272,7 @@ namespace OSU_player
             tmpmap = vaule;
             if (!File.Exists(TmpBeatmap.Path))
             {
-                //RadMessageBox.Show("没事删什么曲子啊><", ">_<");
+                Core.notifyIcon1.ShowBalloonTip(1000, "OSUplayer", "没事删什么曲子啊><", System.Windows.Forms.ToolTipIcon.Info);
                 remove(tmpset);
                 return true;
             }
@@ -308,10 +315,12 @@ namespace OSU_player
         {
             if (!CurrentSet.detailed) { CurrentSet.GetDetail(); }
             if (!File.Exists(CurrentBeatmap.Audio))
-            { //RadMessageBox.Show("丧心病狂不？音频文件你都删！"); 
+            {
+                Core.notifyIcon1.ShowBalloonTip(1000, "OSUplayer", "音频文件你都删！><", System.Windows.Forms.ToolTipIcon.Info);
                 return;
             }
             player.Play();
+            Core.notifyIcon1.ShowBalloonTip(1000, "OSUplayer", "正在播放\n"+CurrentBeatmap.NameToString(), System.Windows.Forms.ToolTipIcon.Info);     
             uni_QQ.Send2QQ(uin, CurrentBeatmap.NameToString());
         }
         public static void Pause()
@@ -335,6 +344,7 @@ namespace OSU_player
         {
             int next;
             int now = PlayList.IndexOf(currentset, 0);
+            if (currentset == -1) { currentset = 0; }
             switch (Nextmode)
             {
                 case 1: next = (now + 1) % PlayList.Count;

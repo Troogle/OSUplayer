@@ -399,10 +399,10 @@ namespace OSU_player.OSUFiles
                     tmpop = picknext(ref row);
                     NHit.Hitsounds = new int[NHit.repeatcount + 1];
                     NHit.samples = new CSample[NHit.repeatcount + 1];
-                    if (tmpop != "")
+                    string[] split = tmpop.Split(new char[] { '|' });
+                    if (split.Length != 1)
                     {
-                        string[] split = tmpop.Split(new char[] { '|' });
-                        for (int i = 0; i < split.Length; i++)
+                        for (int i = 0; i <= NHit.repeatcount; i++)
                         {
                             NHit.Hitsounds[i] = Convert.ToInt32(split[i]);
                         }
@@ -415,10 +415,10 @@ namespace OSU_player.OSUFiles
                         }
                     }
                     tmpop = picknext(ref row);
-                    if (tmpop != "")
+                    split = tmpop.Split(new char[] { '|' });
+                    if (split.Length != 1)
                     {
-                        string[] split = tmpop.Split(new char[] { '|' });
-                        for (int i = 0; i < split.Length; i++)
+                        for (int i = 0; i <= NHit.repeatcount; i++)
                         {
                             NHit.samples[i] = new CSample(Convert.ToInt32(split[i][0]),
                                 Convert.ToInt32(split[i][2]));

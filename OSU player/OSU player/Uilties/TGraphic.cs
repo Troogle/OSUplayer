@@ -1,8 +1,7 @@
 ﻿using System.Drawing;
+using System.IO;
 using Microsoft.DirectX;
 using Microsoft.DirectX.Direct3D;
-
-
 namespace OSU_player
 {
     /// <summary>
