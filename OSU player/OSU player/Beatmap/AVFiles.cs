@@ -65,14 +65,22 @@ namespace OSU_player
         }
         public void Stop()
         {
-            Timer.Stop(); 
+            Timer.Stop();
             isPaused = true;
             Bass.BASS_ChannelStop(channel);
         }
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Bass.BASS_Stop();
+                Bass.BASS_Free();
+            }
+            Timer.Dispose();
+        }
         public void Dispose()
         {
-           Bass.BASS_Stop();
-            Bass.BASS_Free();
+            Dispose(true);
         }
         public void Seek(double time)
         {

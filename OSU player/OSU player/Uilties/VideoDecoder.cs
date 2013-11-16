@@ -103,33 +103,25 @@
                     Marshal.FreeHGlobal(this.packet);
                     Marshal.FreeHGlobal(this.buffer);
                 }
-                catch
-                {
-                }
+                catch { }
                 try
                 {
                     FFmpeg.av_free(this.pFrameRGB);
                     FFmpeg.av_free(this.pFrame);
                 }
-                catch
-                {
-                }
+                catch { }
                 try
                 {
                     this.streamHandle.Free();
                 }
-                catch
-                {
-                }
+                catch { }
                 this.frameFinished = 0;
                 try
                 {
-                 //   FFmpeg.avcodec_close(this.pCodecCtx);
-                 //   FFmpeg.av_close_input_file(this.pFormatCtx);
+                      FFmpeg.avcodec_close(this.pCodecCtx);
+                      FFmpeg.av_close_input_file(this.pFormatCtx);
                 }
-                catch
-                {
-                }
+                catch { }
             }
         }
         ~VideoDecoder()

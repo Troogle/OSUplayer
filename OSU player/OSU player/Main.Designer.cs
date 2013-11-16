@@ -476,7 +476,7 @@ namespace OSU_player
             this.radPageView1.Controls.Add(this.radPageViewPage2);
             this.radPageView1.Location = new System.Drawing.Point(-3, 547);
             this.radPageView1.Name = "radPageView1";
-            this.radPageView1.SelectedPage = this.radPageViewPage2;
+            this.radPageView1.SelectedPage = this.radPageViewPage3;
             this.radPageView1.Size = new System.Drawing.Size(694, 238);
             this.radPageView1.TabIndex = 1;
             this.radPageView1.Text = "radPageView1";
@@ -489,7 +489,7 @@ namespace OSU_player
             this.radPageViewPage3.Controls.Add(this.DiffList);
             this.radPageViewPage3.Location = new System.Drawing.Point(10, 10);
             this.radPageViewPage3.Name = "radPageViewPage3";
-            this.radPageViewPage3.Size = new System.Drawing.Size(512, 186);
+            this.radPageViewPage3.Size = new System.Drawing.Size(673, 186);
             this.radPageViewPage3.Text = "Diff信息";
             // 
             // DiffList
@@ -500,7 +500,7 @@ namespace OSU_player
             this.DiffList.ItemHeight = 15;
             this.DiffList.Location = new System.Drawing.Point(3, 3);
             this.DiffList.Name = "DiffList";
-            this.DiffList.Size = new System.Drawing.Size(506, 169);
+            this.DiffList.Size = new System.Drawing.Size(667, 169);
             this.DiffList.TabIndex = 25;
             this.DiffList.SelectedIndexChanged += new System.EventHandler(this.DiffList_SelectedIndexChanged);
             this.DiffList.DoubleClick += new System.EventHandler(this.DiffList_DoubleClick);
@@ -620,7 +620,7 @@ namespace OSU_player
             this.TrackSeek.Location = new System.Drawing.Point(181, 522);
             this.TrackSeek.Name = "TrackSeek";
             this.TrackSeek.ShowTicks = false;
-            this.TrackSeek.Size = new System.Drawing.Size(467, 17);
+            this.TrackSeek.Size = new System.Drawing.Size(466, 17);
             this.TrackSeek.TabIndex = 0;
             this.TrackSeek.Text = "radTrackBar1";
             this.TrackSeek.TickStyle = Telerik.WinControls.Enumerations.TickStyles.None;
@@ -656,7 +656,7 @@ namespace OSU_player
             this.TrackMusic.Maximum = 100;
             this.TrackMusic.Name = "TrackMusic";
             this.TrackMusic.ShowTicks = false;
-            this.TrackMusic.Size = new System.Drawing.Size(309, 17);
+            this.TrackMusic.Size = new System.Drawing.Size(197, 17);
             this.TrackMusic.TabIndex = 54;
             this.TrackMusic.TickStyle = Telerik.WinControls.Enumerations.TickStyles.None;
             this.TrackMusic.Value = 80;
@@ -677,11 +677,11 @@ namespace OSU_player
             // TrackFx
             // 
             this.TrackFx.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.TrackFx.Location = new System.Drawing.Point(520, 7);
+            this.TrackFx.Location = new System.Drawing.Point(408, 7);
             this.TrackFx.Maximum = 100;
             this.TrackFx.Name = "TrackFx";
             this.TrackFx.ShowTicks = false;
-            this.TrackFx.Size = new System.Drawing.Size(128, 17);
+            this.TrackFx.Size = new System.Drawing.Size(239, 17);
             this.TrackFx.TabIndex = 51;
             this.TrackFx.TickStyle = Telerik.WinControls.Enumerations.TickStyles.None;
             this.TrackFx.Value = 60;
@@ -696,7 +696,7 @@ namespace OSU_player
             // 
             this.Label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Label3.AutoSize = true;
-            this.Label3.Location = new System.Drawing.Point(477, 6);
+            this.Label3.Location = new System.Drawing.Point(365, 6);
             this.Label3.Name = "Label3";
             this.Label3.Size = new System.Drawing.Size(37, 19);
             this.Label3.TabIndex = 52;

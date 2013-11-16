@@ -42,10 +42,16 @@ namespace OSU_player.Graphic
         bool playsb { get { return Core.playsb; } }
         Beatmap Map { get { return Core.CurrentBeatmap; } }
         BeatmapSet Set { get { return Core.CurrentSet; } }
-        Size size { get { return Core.size; } }
-        IntPtr handle { get { return Core.handle; } }
+        /// <summary>
+        /// 渲染区域大小
+        /// </summary>
+        Size size;
+        /// <summary>
+        /// 渲染区域的handle
+        /// </summary>
+        IntPtr handle;
         Device device = null;
-        VideoDecoder decoder = new VideoDecoder(100);
+        VideoDecoder decoder;
         Texture VideoTexture;
         Texture BGTexture;
         Texture Black;
@@ -63,9 +69,11 @@ namespace OSU_player.Graphic
         Sprite NormalSprite;
         Sprite AlphaSprite;
         bool deviceislost = false;
-        public Player()
+        public Player(IntPtr Shandle, Size Ssize)
         {
             uni_Audio = new Audiofiles();
+            handle = Shandle;
+            size = Ssize;
             presentParams.Windowed = true;
             presentParams.SwapEffect = SwapEffect.Discard;
             device = new Device(0, DeviceType.Hardware, handle, CreateFlags.SoftwareVertexProcessing, presentParams);
@@ -110,7 +118,8 @@ namespace OSU_player.Graphic
         }
         public void initvideo()
         {
-            decoder = new VideoDecoder(100);
+            //decoder.Dispose();
+            decoder = new VideoDecoder(10);
             decoder.Open(Path.Combine(Map.Location, Map.Video));
             VideoTexture = Texture.FromBitmap(device, new Bitmap(Properties.Resources.BlackBase, decoder.width, decoder.height), 0, Pool.Managed);
             Black = Texture.FromBitmap(device, new Bitmap(Properties.Resources.BlackBase, size.Width, size.Height), 0, Pool.Managed);

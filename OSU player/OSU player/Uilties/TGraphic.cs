@@ -58,7 +58,9 @@ namespace OSU_player.Graphic
         public virtual void Draw(Sprite sprite)
         {
             this.rotateMatrix.RotateZ(this.rotate);
-            this.scaleMatrix.Scale(this.scaleX, this.scaleY, 0);
+            if (this.parameter == 1) { this.scaleMatrix.Scale(-this.scaleX, this.scaleY, 0); }
+            else if (this.parameter == 2) { this.scaleMatrix.Scale(this.scaleX, -this.scaleY, 0); }
+            else { this.scaleMatrix.Scale(this.scaleX, this.scaleY, 0); }
             this.transformMatrix.Translate(this.position);
             sprite.Transform = this.rotateMatrix * this.scaleMatrix * this.transformMatrix;
             sprite.Draw(this.texture, this.rectangle, this.center, Vector3.Empty, Color.FromArgb(this.alpha, this.color));
@@ -96,11 +98,16 @@ namespace OSU_player.Graphic
             {
                 case ElementType.Sprite:
                     {
-                        bitmap = new Bitmap(Path.Combine(Location, Element.path));
+                        if (File.Exists(Path.Combine(Location, Element.path)))
+                        {
+                            bitmap = new Bitmap(Path.Combine(Location, Element.path));
+                        }
+                        else { bitmap = new Bitmap(Properties.Resources.BlackBase, 1, 1); }
                         this.frameCount = 1;
                         this.currentFrameIndex = 0;
                         this.msLastFrame = 0;
                         this.mSPerFrame = 16;
+                        this.Origin = Element.Origin;
                         this.texture = Texture.FromBitmap(graphicDevice, bitmap, Usage.Dynamic, Pool.Default);
                         this.rectangle = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
                         this.position = new Vector3(Element.x, Element.y, 0);
@@ -129,6 +136,7 @@ namespace OSU_player.Graphic
                         this.Loop = Element.Looptype;
                         this.currentFrameIndex = 0;
                         this.msLastFrame = 0;
+                        this.Origin = Element.Origin;
                         this.position = new Vector3(Element.x, Element.y, 0);
                         this.rectangle = rectarray[0];
                         this.texture = texturearray[0];
@@ -139,13 +147,12 @@ namespace OSU_player.Graphic
                     throw (new FormatException("Failed to resolve .osb file"));
             }
             this.color = Color.White;
-            this.alpha = 255;
+            this.alpha = 0;
             this.parameter = 0;
-            this.Origin = Element.Origin;
             this.rotate = 0f;
             this.scaleX = 1f;
             this.scaleY = 1f;
-          //  this.InitSpriteAction();
+            //  this.InitSpriteAction();
         }
         /// <summary>
         /// 创建一个多帧TGraphic实例
@@ -196,30 +203,10 @@ namespace OSU_player.Graphic
             {
                 tmp = this.rectarray[count];
             }
-            switch (this.Origin)
-            {
-                case ElementOrigin.TopLeft:
-                    break;
-                case ElementOrigin.TopCentre:
-                    break;
-                case ElementOrigin.TopRight:
-                    break;
-                case ElementOrigin.CentreLeft:
-                    break;
-                case ElementOrigin.Centre:
-                    break;
-                case ElementOrigin.CentreRight:
-                    break;
-                case ElementOrigin.BottomLeft:
-                    break;
-                case ElementOrigin.BottomCentre:
-                    break;
-                case ElementOrigin.BottomRight:
-                    break;
-                default:
-                    break;
-            }
-            return Vector3.Empty;
+            int id = (int)this.Origin;
+            float x = (float)(id % 3) / 2 * tmp.Width;
+            float y = (float)(id - id % 3) / 6 * tmp.Height;
+            return new Vector3(x, y, 0);
         }
 
         /// <summary>
@@ -281,6 +268,10 @@ namespace OSU_player.Graphic
                     if (this.Loop == ElementLoopType.LoopForever && this.currentFrameIndex == this.frameCount)
                     {
                         this.currentFrameIndex = 0;
+                    }
+                    else
+                    {
+                        this.currentFrameIndex = this.frameCount - 1;
                     }
                     this.texture = texturearray[currentFrameIndex];
                     this.rectangle = rectarray[currentFrameIndex];

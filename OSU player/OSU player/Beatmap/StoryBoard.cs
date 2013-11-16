@@ -128,6 +128,7 @@ namespace OSU_player.OSUFiles.StoryBoard
         //Animation only
         public int frameCount;
         public int framedelay;
+        public int lasttime = Int32.MinValue;
         public ElementLoopType Looptype; //默认LoopForever【一直循环】
         //事件触发循环可以被游戏时间事件触发. 虽然叫做循环, 事件触发循环循环时只执行一次
         //触发器循环和普通循环一样是从零计数. 如果两个重叠, 第一个将会被停止且被一个从头开始的循环替代.
@@ -167,7 +168,7 @@ namespace OSU_player.OSUFiles.StoryBoard
             {
                 if (row.Trim() == "") { row = reader.ReadLine(); continue; }
                 if (row.StartsWith("//") || row.Length == 0) { row = reader.ReadLine(); continue; }
-                if (row.StartsWith("[")) { return(row); }
+                if (row.StartsWith("[")) { return (row); }
                 if (!row.StartsWith(" ")) { return (row); }
                 //do variables change first
                 foreach (SBvar tmpvar in Variables)
@@ -220,7 +221,7 @@ namespace OSU_player.OSUFiles.StoryBoard
             switch (type)
             {
                 case EventType.F:
-                    elements[element].F.Add(new TActionNode(time, Convert.ToSingle(picknext(ref values))*255, easing));
+                    elements[element].F.Add(new TActionNode(time, Convert.ToSingle(picknext(ref values)) * 255, easing));
                     break;
                 case EventType.MX:
                     elements[element].X.Add(new TActionNode(time, Convert.ToInt32(picknext(ref values)), easing));
@@ -253,6 +254,33 @@ namespace OSU_player.OSUFiles.StoryBoard
                         Convert.ToInt32(picknext(ref values))
                         ),
                         easing));
+                    break;
+                default:
+                    //throw (new FormatException("Failed to read .osb file"));
+                    break;
+            }
+            if (elements[element].lasttime < time) { elements[element].lasttime = time; }
+        }
+        private void emptyevent(EventType type, ref string values)
+        {
+            switch (type)
+            {
+                case EventType.F:
+                case EventType.MX:
+                case EventType.MY:
+                case EventType.S:
+                case EventType.R:
+                    picknext(ref values);
+                    break;
+                case EventType.M:
+                case EventType.V:
+                    picknext(ref values);
+                    picknext(ref values);
+                    break;
+                case EventType.C:
+                    picknext(ref values);
+                    picknext(ref values);
+                    picknext(ref values);
                     break;
                 default:
                     //throw (new FormatException("Failed to read .osb file"));
@@ -292,16 +320,16 @@ namespace OSU_player.OSUFiles.StoryBoard
                     continue;
                 }
                 string oristr = str;
-                addevent(element, type, startT, ref str, easing);
+                if (endT == startT) { emptyevent(type, ref str); } else { addevent(element, type, startT, ref str, easing); }
                 tmp = picknext(ref str, false);
                 //③_M,0,1000,,320,240,320,240-->_M,0,1000,,320,240 (开始结束值相同）
                 if (tmp == "")
                 {
-                    addevent(element, type, startT, ref oristr, easing);
+                    addevent(element, type, endT, ref oristr, easing);
                 }
                 else
                 {
-                    addevent(element, type, startT, ref str, easing);
+                    addevent(element, type, endT, ref str, easing);
                 }
                 //_event,easing,starttime,endtime,val1,val2,val3,...,valN
                 delta = endT - startT;
@@ -315,13 +343,16 @@ namespace OSU_player.OSUFiles.StoryBoard
             string[] tmp = null;
             SBelement tmpe;
             string Position = "";
-            row = reader.ReadLine(); 
+            row = reader.ReadLine();
             while (!reader.EndOfStream)
             {
                 if (row.Trim() == "") { row = reader.ReadLine(); continue; }
                 if (row.StartsWith("//") || row.Length == 0) { row = reader.ReadLine(); continue; }
-                if (row.StartsWith("[")) { Position = row.Substring(1, row.Length - 2); 
-                    row = reader.ReadLine(); continue; }
+                if (row.StartsWith("["))
+                {
+                    Position = row.Substring(1, row.Length - 2);
+                    row = reader.ReadLine(); continue;
+                }
                 switch (Position)
                 {
                     case "Variables":
@@ -381,7 +412,9 @@ namespace OSU_player.OSUFiles.StoryBoard
                             tmpe.Looptype = (ElementLoopType)(System.Enum.Parse(typeof(ElementLoopType), tmp[8]));
                             elements.Add(tmpe);
                             element++;
-                            row=dealevents(element, reader);
+                            row = dealevents(element, reader);
+                            string tmps = "0";
+                            addevent(element, EventType.F, elements[element].lasttime, ref tmps, 0);
                         }
                         else if (row.StartsWith("Sprite") || row.StartsWith("4,"))
                         {
@@ -398,6 +431,8 @@ namespace OSU_player.OSUFiles.StoryBoard
                             elements.Add(tmpe);
                             element++;
                             row = dealevents(element, reader);
+                            string tmps = "0";
+                            addevent(element, EventType.F, elements[element].lasttime, ref tmps, 0);
                         }
                         /*    else if (row.StartsWith("0,"))
                             {

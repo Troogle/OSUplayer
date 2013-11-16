@@ -586,7 +586,7 @@ namespace OSU_player.OSUFiles
             catch (SystemException e)
             {
                 Console.WriteLine(e.StackTrace);
-                throw (new FormatException("Failed to read .osu file", e));
+                throw (new FormatException("Failed to read .osu file" + this.Path, e));
             }
         }
         public void Getsb()

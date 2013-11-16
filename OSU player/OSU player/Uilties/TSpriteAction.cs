@@ -10,7 +10,7 @@ namespace OSU_player.Graphic
         private float currentValue, k, a, b, prevalue;
         private int currentIndex;
         private TActionNode[] actionList;
-        private int timeCount;
+        private int timeCount, pretime;
         private int easing;
         private bool isLoop;  //动作是否循环
         private bool isEnable;  //动作是否激活
@@ -46,16 +46,7 @@ namespace OSU_player.Graphic
         {
             if (pActionList.Count == 0)
             {
-                this.actionList = new TActionNode[0];
-                this.isLoop = false;
-                this.isKeepValue = false;
-                this.currentIndex = 0;
-                this.currentValue = 0;
-                this.k = 0;
-                this.b = 0;
-                this.timeCount = 0;
                 this.isEnable = false;
-                this.isOver = true;
             }
             else
             {
@@ -67,8 +58,6 @@ namespace OSU_player.Graphic
                 this.isLoop = pIsLoop;
                 this.isKeepValue = pIsKeepValue;
                 this.Reset();
-                this.prevalue = 0;
-                this.easing = 0;
             }
         }
 
@@ -99,78 +88,77 @@ namespace OSU_player.Graphic
             if (!this.isOver)
             {
                 this.timeCount = CurrentTime;
-            }
-
-            //如果结点列表只有一个元素，则到达时间点时直接赋值
-            if (this.actionList.Length == 1)
-            {
-                if (timeCount >= actionList[0].Time)
+                //如果结点列表只有一个元素，则到达时间点时直接赋值
+                if (this.actionList.Length == 1)
                 {
-                    this.currentValue = actionList[0].Value;
-                }
-            }
-            else
-            {
-                //否则根据结点设置k和b
-                if (timeCount >= actionList[currentIndex].Time)
-                {
-                    if (this.currentIndex < this.actionList.Length - 1)
+                    if (timeCount >= actionList[0].Time)
                     {
-                        this.a = this.actionList[this.currentIndex + 1].Value - this.actionList[this.currentIndex].Value;
-                        this.b = this.actionList[this.currentIndex + 1].Time - this.actionList[this.currentIndex].Time;
-                        this.k = a / b;
-                        this.prevalue = this.actionList[this.currentIndex].Value;
-                        this.easing = this.actionList[this.currentIndex].Easing;
-                        this.currentIndex++;
+                        this.currentValue = actionList[0].Value;
                     }
-                    //如果要循环则重新开始
-                    else
+                }
+                else
+                {
+                    //否则根据结点设置k和b
+                    if (timeCount >= actionList[currentIndex].Time)
                     {
-                        if (this.isLoop)
+                        if (this.currentIndex < this.actionList.Length - 1)
                         {
-                            this.currentIndex = 0;
-                            this.timeCount = 0;
+                            this.a = this.actionList[this.currentIndex + 1].Value - this.actionList[this.currentIndex].Value;
+                            this.b = this.actionList[this.currentIndex + 1].Time - this.actionList[this.currentIndex].Time;
+                            this.k = a / b;
+                            this.prevalue = this.actionList[this.currentIndex].Value;
+                            this.pretime = this.actionList[this.currentIndex].Time;
+                            this.easing = this.actionList[this.currentIndex].Easing;
+                            this.currentIndex++;
                         }
+                        //如果要循环则重新开始
                         else
                         {
-                            this.isOver = true;
-                            if (this.isKeepValue)
+                            if (this.isLoop)
                             {
-                                this.currentValue = this.actionList[this.actionList.Length - 1].Value;
-                                return;
+                                this.currentIndex = 0;
+                                this.timeCount = 0;
                             }
                             else
                             {
-                                this.isEnable = false;
-                                this.currentValue = 0;
-                                return;
+                                this.isOver = true;
+                                if (this.isKeepValue)
+                                {
+                                    this.currentValue = this.actionList[this.actionList.Length - 1].Value;
+                                    return;
+                                }
+                                else
+                                {
+                                    this.isEnable = false;
+                                    this.currentValue = 0;
+                                    return;
+                                }
                             }
                         }
                     }
+                    int elapsedTime = timeCount - pretime;
+                    switch (this.easing)
+                    {
+                        case 0:
+                            this.currentValue = k * elapsedTime + prevalue;
+                            break;
+                        case 1:
+                            this.currentValue = (float)Math.Sqrt(b * b - k * k * (elapsedTime - a) * (elapsedTime - a)) + prevalue;
+                            break;
+                        case 2:
+                            this.currentValue = b - (float)Math.Sqrt(b * b - k * k * elapsedTime * elapsedTime) + prevalue;
+                            break;
+                        case 3:
+                            this.currentValue = prevalue;
+                            break;
+                        default:
+                            this.currentValue = k * elapsedTime + prevalue;
+                            break;
+                    }
+                    //根据k和b算出值
                 }
-                int elapsedTime = timeCount - actionList[currentIndex].Time;
-                switch (this.easing)
-                {
-                    case 0:
-                        this.currentValue = k * elapsedTime + prevalue;
-                        break;
-                    case 1:
-                        this.currentValue = (float)Math.Sqrt(b * b - k * k * (elapsedTime - a) * (elapsedTime - a)) + prevalue;
-                        break;
-                    case 2:
-                        this.currentValue = b - (float)Math.Sqrt(b * b - k * k * elapsedTime * elapsedTime) + prevalue;
-                        break;
-                    case 3:
-                        this.currentValue = prevalue;
-                        break;
-                    default:
-                        this.currentValue = k * elapsedTime + prevalue;
-                        break;
-                }
-                //根据k和b算出值
             }
         }
-
 
 
         /// <summary>
@@ -207,6 +195,9 @@ namespace OSU_player.Graphic
             this.timeCount = 0;
             this.isEnable = true;
             this.isOver = false;
+            this.prevalue = 0;
+            this.easing = 0;
+            this.pretime = 0;
         }
     }
 
@@ -244,7 +235,7 @@ namespace OSU_player.Graphic
             set { this.easing = value; }
             get { return this.easing; }
         }
-        public TActionNode(int pTime, float pValue,int pEasing)
+        public TActionNode(int pTime, float pValue, int pEasing)
         {
             this.time = pTime;
             this.value = pValue;

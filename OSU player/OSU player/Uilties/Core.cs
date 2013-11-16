@@ -97,14 +97,6 @@ namespace OSU_player
         /// 目前选中的Map
         /// </summary>
         public static Beatmap TmpBeatmap { get { return TmpSet.Diffs[tmpmap]; } }
-        /// <summary>
-        /// 渲染区域大小
-        /// </summary>
-        public static Size size;
-        /// <summary>
-        /// 渲染区域的handle
-        /// </summary>
-        public static IntPtr handle;
         #endregion
         public static Uilties.QQ uni_QQ = new Uilties.QQ();
         private static Player player;
@@ -123,6 +115,7 @@ namespace OSU_player
         {
             uni_QQ.Send2QQ(uin, "");
             player.Dispose();
+            notifyIcon1.Dispose();
             if (needsave) { SaveList(); }
         }
         #region 方法区
@@ -145,9 +138,7 @@ namespace OSU_player
             LoadPreference();
             new Thread(new ThreadStart(Uilties.Selfupdate.check_update)).Start();
             initset();
-            size = Ssize;
-            handle = Shandle;
-            player = new Player();
+            player = new Player(Shandle,Ssize);
         }
         /// <summary>
         /// 获取OSU路径
@@ -259,6 +250,7 @@ namespace OSU_player
             for (int i = 0; i < allsets.Count; i++)
             {
                 PlayList.Add(i);
+                //allsets[i].GetDetail();
             }
         }
         /// <summary>
@@ -285,7 +277,8 @@ namespace OSU_player
             Fxvolume = Properties.Settings.Default.Fxvolume;
             Musicvolume = Properties.Settings.Default.Musicvolume;
             playfx = Properties.Settings.Default.PlayFx;
-            playsb = Properties.Settings.Default.PlaySB;
+            //playsb = Properties.Settings.Default.PlaySB;
+            playsb = false;
             playvideo = Properties.Settings.Default.PlayVideo;
             Nextmode = Properties.Settings.Default.NextMode;
             Properties.Settings.Default.Upgraded = true;
