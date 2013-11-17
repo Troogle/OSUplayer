@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
-namespace OSU_player.OSUFiles
+namespace OSUplayer.OSUFiles
 {
     public struct Score
     {

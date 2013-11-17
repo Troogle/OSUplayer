@@ -4,7 +4,7 @@ using System.Net;
 using System.Windows.Forms;
 using System.Xml;
 using Telerik.WinControls;
-namespace OSU_player.Uilties
+namespace OSUplayer.Uilties
 {
     public class Selfupdate
     {
@@ -32,7 +32,7 @@ namespace OSU_player.Uilties
                         Process.Start(UpDateXml.SelectNodes("/Xml/Link")[0].InnerText);
                     }
                 }
-                try
+               /* try
                 {
                     WebRequest request;
                     request = WebRequest.Create("http://wenwo.at/counter.php?counter=" + Core.Version);
@@ -41,7 +41,7 @@ namespace OSU_player.Uilties
                     WebResponse response;
                     response = request.GetResponse();
                 }
-                catch { }
+                catch { }*/
             }
             catch (Exception)
             {

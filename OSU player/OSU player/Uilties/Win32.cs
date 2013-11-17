@@ -5,7 +5,7 @@ using System.Text;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace OSU_player.Uilties
+namespace OSUplayer.Uilties
 {
     [Flags()]
     public enum KeyModifiers

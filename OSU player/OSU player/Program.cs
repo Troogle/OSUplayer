@@ -7,7 +7,7 @@ using System.IO;
 using System.Diagnostics;
 using Telerik.WinControls;
 using Telerik.WinControls.Themes;
-namespace OSU_player
+namespace OSUplayer
 {
     static class Program
     {
@@ -36,7 +36,7 @@ namespace OSU_player
                     Application.ExitThread();
                     return;
                 }
-                ThemeResolutionService.LoadPackageResource("OSU_player.Res.Light.tssp");
+                ThemeResolutionService.LoadPackageResource("OSUplayer.Res.Light.tssp");
                 ThemeResolutionService.ApplicationThemeName = "Light";
                 Un4seen.Bass.BassNet.Registration("sqh1994@163.com", "2X280331512622");
                 Un4seen.Bass.Bass.BASS_Init(-1, 44100, Un4seen.Bass.BASSInit.BASS_DEVICE_DEFAULT, IntPtr.Zero);
@@ -82,7 +82,7 @@ namespace OSU_player
                 WebRequest request;
                 if (ex != null)
                 {
-                    int start = ex.StackTrace.IndexOf("OSU_player");
+                    int start = ex.StackTrace.IndexOf("OSUplayer");
                     request = WebRequest.Create("http://wenwo.at/counter.php?error=" + ex.GetType().Name + ex.Message + " " + ex.StackTrace.Substring(start, 300 > ex.StackTrace.Length - start - 1 ? ex.StackTrace.Length - start - 1 : 300));
                     request.Credentials = CredentialCache.DefaultCredentials;
                     request.Timeout = 2000;

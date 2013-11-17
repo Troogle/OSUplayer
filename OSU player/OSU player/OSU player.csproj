@@ -7,7 +7,7 @@
     <ProjectGuid>{AE2C38D8-90F2-48AA-84D1-B72263AD1952}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OSU_player</RootNamespace>
+    <RootNamespace>OSUplayer</RootNamespace>
     <AssemblyName>OSU player</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -73,7 +73,7 @@
     <ApplicationIcon>Res\icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>OSU_player.Program</StartupObject>
+    <StartupObject>OSUplayer.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Bass.Net, Version=2.4.10.3, Culture=neutral, PublicKeyToken=b7566c273e6ef480, processorArchitecture=MSIL">

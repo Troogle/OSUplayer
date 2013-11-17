@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
-using OSU_player.OSUFiles.StoryBoard;
+using OSUplayer.OSUFiles.StoryBoard;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Device = Microsoft.Xna.Framework.Graphics.GraphicsDevice;
 using Color = Microsoft.Xna.Framework.Graphics.Color;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
-namespace OSU_player.Graphic
+namespace OSUplayer.Graphic
 {
     /// <summary>
     /// MDX静态图像基类

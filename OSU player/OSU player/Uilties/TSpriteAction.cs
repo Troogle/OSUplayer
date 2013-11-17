@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-namespace OSU_player.Graphic
+namespace OSUplayer.Graphic
 {
     /// <summary>
     /// 精灵动作

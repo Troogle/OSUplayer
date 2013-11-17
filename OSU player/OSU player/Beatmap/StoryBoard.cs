@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using OSU_player.Graphic;
-namespace OSU_player.OSUFiles.StoryBoard
+using OSUplayer.Graphic;
+namespace OSUplayer.OSUFiles.StoryBoard
 {
     public enum ElementType
     {

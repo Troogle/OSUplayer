@@ -1,4 +1,4 @@
-﻿namespace OSU_player
+﻿namespace OSUplayer
 {
     partial class Mini
     {
@@ -38,11 +38,11 @@
             this.LabelTitle = new System.Windows.Forms.Label();
             this.LabelTime = new System.Windows.Forms.Label();
             this.GUITimer = new System.Windows.Forms.Timer(this.components);
-            this.imageButton5 = new OSU_player.ImageButton();
-            this.imageButton4 = new OSU_player.ImageButton();
-            this.imageButton3 = new OSU_player.ImageButton();
-            this.StopButton = new OSU_player.ImageButton();
-            this.PlayButton = new OSU_player.ImageButton();
+            this.imageButton5 = new OSUplayer.ImageButton();
+            this.imageButton4 = new OSUplayer.ImageButton();
+            this.imageButton3 = new OSUplayer.ImageButton();
+            this.StopButton = new OSUplayer.ImageButton();
+            this.PlayButton = new OSUplayer.ImageButton();
             this.SuspendLayout();
             // 
             // UpdateTimer
@@ -70,7 +70,7 @@
             colorLinearGradient2.ColorA = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(82)))), ((int)(((byte)(92)))));
             colorLinearGradient2.ColorB = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(82)))), ((int)(((byte)(92)))));
             this.TrackSeek.SliderColorLow = colorLinearGradient2;
-            this.TrackSeek.SliderImage = global::OSU_player.Properties.Resources.track;
+            this.TrackSeek.SliderImage = global::OSUplayer.Properties.Resources.track;
             this.TrackSeek.SliderSize = new System.Drawing.Size(38, 48);
             this.TrackSeek.SliderWidthHigh = 10F;
             this.TrackSeek.SliderWidthLow = 10F;
@@ -104,7 +104,7 @@
             colorLinearGradient4.ColorA = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(82)))), ((int)(((byte)(92)))));
             colorLinearGradient4.ColorB = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(82)))), ((int)(((byte)(92)))));
             this.TrackVolume.SliderColorLow = colorLinearGradient4;
-            this.TrackVolume.SliderImage = global::OSU_player.Properties.Resources.VolumeHandle;
+            this.TrackVolume.SliderImage = global::OSUplayer.Properties.Resources.VolumeHandle;
             this.TrackVolume.SliderSize = new System.Drawing.Size(27, 43);
             this.TrackVolume.SliderWidthHigh = 10F;
             this.TrackVolume.SliderWidthLow = 10F;
@@ -157,11 +157,11 @@
             // imageButton5
             // 
             this.imageButton5.BackColor = System.Drawing.Color.Transparent;
-            this.imageButton5.BackgroundImage = global::OSU_player.Properties.Resources.Pin;
+            this.imageButton5.BackgroundImage = global::OSUplayer.Properties.Resources.Pin;
             this.imageButton5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.imageButton5.BaseImage = global::OSU_player.Properties.Resources.Pin;
-            this.imageButton5.ClickImage = global::OSU_player.Properties.Resources.Pined;
-            this.imageButton5.EnterImage = global::OSU_player.Properties.Resources.PinE;
+            this.imageButton5.BaseImage = global::OSUplayer.Properties.Resources.Pin;
+            this.imageButton5.ClickImage = global::OSUplayer.Properties.Resources.Pined;
+            this.imageButton5.EnterImage = global::OSUplayer.Properties.Resources.PinE;
             this.imageButton5.Location = new System.Drawing.Point(2, 1);
             this.imageButton5.Name = "imageButton5";
             this.imageButton5.Size = new System.Drawing.Size(46, 46);
@@ -171,10 +171,10 @@
             // imageButton4
             // 
             this.imageButton4.BackColor = System.Drawing.Color.Transparent;
-            this.imageButton4.BackgroundImage = global::OSU_player.Properties.Resources.Up;
-            this.imageButton4.BaseImage = global::OSU_player.Properties.Resources.Up;
-            this.imageButton4.ClickImage = global::OSU_player.Properties.Resources.UpC;
-            this.imageButton4.EnterImage = global::OSU_player.Properties.Resources.UpE;
+            this.imageButton4.BackgroundImage = global::OSUplayer.Properties.Resources.Up;
+            this.imageButton4.BaseImage = global::OSUplayer.Properties.Resources.Up;
+            this.imageButton4.ClickImage = global::OSUplayer.Properties.Resources.UpC;
+            this.imageButton4.EnterImage = global::OSUplayer.Properties.Resources.UpE;
             this.imageButton4.Location = new System.Drawing.Point(524, 55);
             this.imageButton4.Name = "imageButton4";
             this.imageButton4.Size = new System.Drawing.Size(84, 90);
@@ -184,10 +184,10 @@
             // imageButton3
             // 
             this.imageButton3.BackColor = System.Drawing.Color.Transparent;
-            this.imageButton3.BackgroundImage = global::OSU_player.Properties.Resources.Next;
-            this.imageButton3.BaseImage = global::OSU_player.Properties.Resources.Next;
-            this.imageButton3.ClickImage = global::OSU_player.Properties.Resources.NextC;
-            this.imageButton3.EnterImage = global::OSU_player.Properties.Resources.NextE;
+            this.imageButton3.BackgroundImage = global::OSUplayer.Properties.Resources.Next;
+            this.imageButton3.BaseImage = global::OSUplayer.Properties.Resources.Next;
+            this.imageButton3.ClickImage = global::OSUplayer.Properties.Resources.NextC;
+            this.imageButton3.EnterImage = global::OSUplayer.Properties.Resources.NextE;
             this.imageButton3.Location = new System.Drawing.Point(434, 55);
             this.imageButton3.Name = "imageButton3";
             this.imageButton3.Size = new System.Drawing.Size(84, 90);
@@ -197,11 +197,11 @@
             // StopButton
             // 
             this.StopButton.BackColor = System.Drawing.Color.Transparent;
-            this.StopButton.BackgroundImage = global::OSU_player.Properties.Resources.Stop;
-            this.StopButton.BaseImage = global::OSU_player.Properties.Resources.Stop;
-            this.StopButton.ClickImage = global::OSU_player.Properties.Resources.StopC;
+            this.StopButton.BackgroundImage = global::OSUplayer.Properties.Resources.Stop;
+            this.StopButton.BaseImage = global::OSUplayer.Properties.Resources.Stop;
+            this.StopButton.ClickImage = global::OSUplayer.Properties.Resources.StopC;
             this.StopButton.Enabled = false;
-            this.StopButton.EnterImage = global::OSU_player.Properties.Resources.StopE;
+            this.StopButton.EnterImage = global::OSUplayer.Properties.Resources.StopE;
             this.StopButton.Location = new System.Drawing.Point(344, 55);
             this.StopButton.Name = "StopButton";
             this.StopButton.Size = new System.Drawing.Size(84, 90);
@@ -211,10 +211,10 @@
             // PlayButton
             // 
             this.PlayButton.BackColor = System.Drawing.Color.Transparent;
-            this.PlayButton.BackgroundImage = global::OSU_player.Properties.Resources.play;
-            this.PlayButton.BaseImage = global::OSU_player.Properties.Resources.play;
-            this.PlayButton.ClickImage = global::OSU_player.Properties.Resources.PlayC;
-            this.PlayButton.EnterImage = global::OSU_player.Properties.Resources.PlayE;
+            this.PlayButton.BackgroundImage = global::OSUplayer.Properties.Resources.play;
+            this.PlayButton.BaseImage = global::OSUplayer.Properties.Resources.play;
+            this.PlayButton.ClickImage = global::OSUplayer.Properties.Resources.PlayC;
+            this.PlayButton.EnterImage = global::OSUplayer.Properties.Resources.PlayE;
             this.PlayButton.Location = new System.Drawing.Point(234, 35);
             this.PlayButton.Name = "PlayButton";
             this.PlayButton.Size = new System.Drawing.Size(104, 110);

@@ -7,7 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
 using Telerik.WinControls.UI;
-namespace OSU_player.Uilties
+namespace OSUplayer.Uilties
 {
     public partial class About : RadForm
     {

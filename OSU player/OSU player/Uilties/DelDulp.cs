@@ -6,8 +6,8 @@ using System.IO;
 using System.Windows.Forms;
 using Telerik.WinControls;
 using Telerik.WinControls.UI;
-using OSU_player.OSUFiles;
-namespace OSU_player.Uilties
+using OSUplayer.OSUFiles;
+namespace OSUplayer.Uilties
 {
     public partial class DelDulp : RadForm
     {

@@ -1,4 +1,4 @@
-﻿namespace OSU_player.Uilties
+﻿namespace OSUplayer.Uilties
 {
     partial class About
     {
@@ -58,8 +58,8 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::OSU_player.Properties.Resources.avatar_big;
-            this.pictureBox1.InitialImage = global::OSU_player.Properties.Resources.avatar_big;
+            this.pictureBox1.Image = global::OSUplayer.Properties.Resources.avatar_big;
+            this.pictureBox1.InitialImage = global::OSUplayer.Properties.Resources.avatar_big;
             this.pictureBox1.Location = new System.Drawing.Point(12, 12);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(200, 200);

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Telerik.WinControls;
-namespace OSU_player.Uilties
+namespace OSUplayer.Uilties
 {
     /// <summary>
     /// 获取的QQ信息

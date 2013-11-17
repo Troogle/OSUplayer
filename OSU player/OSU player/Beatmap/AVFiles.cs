@@ -2,7 +2,7 @@ using System;
 using System.Threading;
 using Un4seen.Bass;
 using System.Windows.Forms;
-namespace OSU_player
+namespace OSUplayer
 {
     /// <summary>
     /// Class for Audio Playback
@@ -10,62 +10,66 @@ namespace OSU_player
     public class Audiofiles : IDisposable
     {
         private int channel = 0;
-        private string Path = "";
-        private int Interval = 1;
-        private BASSTimer Timer = new BASSTimer();
+        private string path = "";
+        private int interval = 1;
+        private BASSTimer timer = new BASSTimer();
+        private bool isopened = false;
         private bool isPaused = false;
         public Audiofiles()
         {
         }
-        public double durnation
+        public double Durnation
         {
             get
             {
                 return Bass.BASS_ChannelBytes2Seconds(channel, Bass.BASS_ChannelGetLength(channel));
             }
         }
-        public double position
+        public double Position
         {
             get
             {
                 return Bass.BASS_ChannelBytes2Seconds(channel, Bass.BASS_ChannelGetPosition(channel));
             }
         }
-        public bool isplaying
+        public bool Isplaying
         {
             get { return Bass.BASS_ChannelIsActive(channel) == BASSActive.BASS_ACTIVE_PLAYING; }
         }
         public void Play(float volume)
         {
-            Timer.Stop();
-            if (channel != 0 && Bass.BASS_ChannelPlay(channel, true))
+            timer.Stop();
+            if (isopened)
             {
-                Timer.Start();
-                isPaused = false;
+                if (channel != 0 && Bass.BASS_ChannelPlay(channel, true))
+                {
+                    timer.Start();
+                    isPaused = false;
+                }
+                else
+                {
+                    throw new FormatException(Bass.BASS_ErrorGetCode().ToString());
+                }
+                Volume = volume;
             }
-            else
-            {
-                throw new FormatException(Bass.BASS_ErrorGetCode().ToString());
-            }
-            Volume = volume;
         }
         public void Pause()
         {
             if (isPaused)
             {
-                Timer.Start();
+                timer.Start();
                 Bass.BASS_ChannelPlay(channel, false);
             }
             else
             {
-                Timer.Stop();
+                timer.Stop();
                 Bass.BASS_ChannelPause(channel);
             }
             isPaused = !isPaused;
         }
         public void Stop()
         {
-            Timer.Stop();
+            timer.Stop();
             isPaused = true;
             Bass.BASS_ChannelStop(channel);
         }
@@ -76,11 +80,12 @@ namespace OSU_player
                 Bass.BASS_Stop();
                 Bass.BASS_Free();
             }
-            Timer.Dispose();
+            timer.Dispose();
         }
         public void Dispose()
         {
             Dispose(true);
+            isopened = false;
         }
         public void Seek(double time)
         {
@@ -101,19 +106,21 @@ namespace OSU_player
         }
         public void Open(string path)
         {
-            Path = path;
-            Timer = new BASSTimer(Interval);
+            path = path;
+            timer = new BASSTimer(interval);
             Bass.BASS_StreamFree(channel);
             BASSFlag flag = BASSFlag.BASS_SAMPLE_FLOAT | BASSFlag.BASS_STREAM_PRESCAN;
-            channel = Bass.BASS_StreamCreateFile(Path, 0, 0, flag);
+            channel = Bass.BASS_StreamCreateFile(path, 0, 0, flag);
+            isopened = true;
             if (channel == 0)
             {
-                throw (new FormatException(Bass.BASS_ErrorGetCode().ToString()));
+                //throw (new FormatException(Bass.BASS_ErrorGetCode().ToString()));
+                isopened = false;
             }
         }
         public BASSTimer UpdateTimer
         {
-            get { return Timer; }
+            get { return timer; }
             set { UpdateTimer = value; }
         }
     }

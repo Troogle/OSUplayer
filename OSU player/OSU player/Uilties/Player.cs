@@ -5,13 +5,13 @@ using System.Drawing;
 using System.IO;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
-using OSU_player.Graphic;
-using OSU_player.OSUFiles;
+using OSUplayer.Graphic;
+using OSUplayer.OSUFiles;
 using System.Diagnostics;
 using Device = Microsoft.Xna.Framework.Graphics.GraphicsDevice;
 using Color = Microsoft.Xna.Framework.Graphics.Color;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
-namespace OSU_player.Graphic
+namespace OSUplayer.Graphic
 {
     class Player : IDisposable
     {
@@ -296,7 +296,7 @@ namespace OSU_player.Graphic
             double Tbpm = bpm;
             float volume = Map.Timingpoints[currentT].volume;
             int player = 0;
-            for (int i = 0; i < uni_Audio.durnation * 1000; i++)
+            for (int i = 0; i < uni_Audio.Durnation * 1000; i++)
             {
                 if (currentT + 1 < Map.Timingpoints.Count)
                 {
@@ -423,11 +423,11 @@ namespace OSU_player.Graphic
             cannext = true;
         }
         public double durnation
-        { get { return uni_Audio.durnation; } }
+        { get { return uni_Audio.Durnation; } }
         public double position
-        { get { return uni_Audio.position; } }
+        { get { return uni_Audio.Position; } }
         public bool isplaying
-        { get { return uni_Audio.isplaying; } }
+        { get { return uni_Audio.Isplaying; } }
         public void seek(double time)
         {
             cannext = false;
@@ -435,7 +435,7 @@ namespace OSU_player.Graphic
             fxpos = 0;
             if (playfx)
             {
-                while (fxlist[fxpos].time <= uni_Audio.position * 1000 && fxpos < fxlist.Count)
+                while (fxlist[fxpos].time <= uni_Audio.Position * 1000 && fxpos < fxlist.Count)
                 {
                     fxpos++;
                 }
@@ -444,16 +444,16 @@ namespace OSU_player.Graphic
         }
         private void AVsync(object sender, EventArgs e)
         {
-            if (!uni_Audio.isplaying && cannext)
+            if (!uni_Audio.Isplaying && cannext)
             {
                 willnext = true;
                 return;
             }
             if (fxpos < fxlist.Count)
             {
-                while (fxlist[fxpos].time <= uni_Audio.position * 1000)
+                while (fxlist[fxpos].time <= uni_Audio.Position * 1000)
                 {
-                    while ((fxlist[fxpos + 1].time <= uni_Audio.position * 1000)) { fxpos++; }
+                    while ((fxlist[fxpos + 1].time <= uni_Audio.Position * 1000)) { fxpos++; }
                     PlayFx(fxpos);
                     fxpos++;
                 }

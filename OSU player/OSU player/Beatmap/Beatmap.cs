@@ -2,7 +2,7 @@
 using System.IO;
 using System;
 using System.Security.Cryptography;
-namespace OSU_player.OSUFiles
+namespace OSUplayer.OSUFiles
 {
     [Serializable]
     public class Beatmap : IComparable<Beatmap>

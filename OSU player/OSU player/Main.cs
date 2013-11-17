@@ -9,9 +9,9 @@ using Telerik.WinControls;
 using Telerik.WinControls.UI;
 using System.ComponentModel;
 using System.Threading;
-using OSU_player.OSUFiles;
-using OSU_player.Uilties;
-namespace OSU_player
+using OSUplayer.OSUFiles;
+using OSUplayer.Uilties;
+namespace OSUplayer
 {
     public partial class Main : RadForm
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
-namespace OSU_player.OSUFiles
+namespace OSUplayer.OSUFiles
 {
     /// <summary>
     /// OSU文件内属性

@@ -5,14 +5,14 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 using Telerik.WinControls;
 using System.Drawing;
-using OSU_player.Properties;
+using OSUplayer.Properties;
 using System.Threading;
 using Telerik.WinControls.UI;
 using System.Reflection;
 using System.Diagnostics;
-using OSU_player.OSUFiles;
-using OSU_player.Graphic;
-namespace OSU_player
+using OSUplayer.OSUFiles;
+using OSUplayer.Graphic;
+namespace OSUplayer
 {
     public class Core
     {

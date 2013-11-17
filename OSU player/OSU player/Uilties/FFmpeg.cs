@@ -1,4 +1,4 @@
-﻿namespace OSU_player.Graphic
+﻿namespace OSUplayer.Graphic
 {
     using System;
     using System.Runtime.CompilerServices;

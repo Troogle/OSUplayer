@@ -6,8 +6,8 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
-using OSU_player.Uilties;
-namespace OSU_player
+using OSUplayer.Uilties;
+namespace OSUplayer
 {
     public partial class Mini : Form
     {
@@ -131,36 +131,36 @@ namespace OSU_player
             {
                 Front = false;
                 this.TopMost = false;
-                imageButton5.BackgroundImage = global::OSU_player.Properties.Resources.Pin;
-                imageButton5.BaseImage = global::OSU_player.Properties.Resources.Pin;
-                imageButton5.ClickImage = global::OSU_player.Properties.Resources.Pined;
-                imageButton5.EnterImage = global::OSU_player.Properties.Resources.PinE;
+                imageButton5.BackgroundImage = global::OSUplayer.Properties.Resources.Pin;
+                imageButton5.BaseImage = global::OSUplayer.Properties.Resources.Pin;
+                imageButton5.ClickImage = global::OSUplayer.Properties.Resources.Pined;
+                imageButton5.EnterImage = global::OSUplayer.Properties.Resources.PinE;
             }
             else
             {
                 Front = true;
                 this.TopMost = true;
-                imageButton5.BackgroundImage = global::OSU_player.Properties.Resources.Pined;
-                imageButton5.BaseImage = global::OSU_player.Properties.Resources.Pined;
-                imageButton5.ClickImage = global::OSU_player.Properties.Resources.Pin;
-                imageButton5.EnterImage = global::OSU_player.Properties.Resources.Pined;
+                imageButton5.BackgroundImage = global::OSUplayer.Properties.Resources.Pined;
+                imageButton5.BaseImage = global::OSUplayer.Properties.Resources.Pined;
+                imageButton5.ClickImage = global::OSUplayer.Properties.Resources.Pin;
+                imageButton5.EnterImage = global::OSUplayer.Properties.Resources.Pined;
             }
         }
         private void SetPlay(bool play)
         {
             if (play)
             {
-                PlayButton.BackgroundImage = OSU_player.Properties.Resources.play;
-                PlayButton.BaseImage = OSU_player.Properties.Resources.play;
-                PlayButton.ClickImage = OSU_player.Properties.Resources.PlayC;
-                PlayButton.EnterImage = OSU_player.Properties.Resources.PlayE;
+                PlayButton.BackgroundImage = OSUplayer.Properties.Resources.play;
+                PlayButton.BaseImage = OSUplayer.Properties.Resources.play;
+                PlayButton.ClickImage = OSUplayer.Properties.Resources.PlayC;
+                PlayButton.EnterImage = OSUplayer.Properties.Resources.PlayE;
             }
             else
             {
-                PlayButton.BackgroundImage = OSU_player.Properties.Resources.Pause;
-                PlayButton.BaseImage = OSU_player.Properties.Resources.Pause;
-                PlayButton.ClickImage = OSU_player.Properties.Resources.PauseC;
-                PlayButton.EnterImage = OSU_player.Properties.Resources.PauseE;
+                PlayButton.BackgroundImage = OSUplayer.Properties.Resources.Pause;
+                PlayButton.BaseImage = OSUplayer.Properties.Resources.Pause;
+                PlayButton.ClickImage = OSUplayer.Properties.Resources.PauseC;
+                PlayButton.EnterImage = OSUplayer.Properties.Resources.PauseE;
             }
         }
         private void Stop()

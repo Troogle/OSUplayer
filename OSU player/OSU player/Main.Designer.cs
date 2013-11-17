@@ -1,4 +1,4 @@
-namespace OSU_player
+namespace OSUplayer
 {
     partial class Main
     {

@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Data;
 using System.Text;
 using System.Windows.Forms;
-namespace OSU_player
+namespace OSUplayer
 {
     public partial class ImageButton
     {
