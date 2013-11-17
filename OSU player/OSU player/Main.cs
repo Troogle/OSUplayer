@@ -10,6 +10,7 @@ using Telerik.WinControls.UI;
 using System.ComponentModel;
 using System.Threading;
 using OSU_player.OSUFiles;
+using OSU_player.Uilties;
 namespace OSU_player
 {
     public partial class Main : RadForm
@@ -27,6 +28,7 @@ namespace OSU_player
             if (RadMessageBox.Show("确认退出？", "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 Core.exit();
+                hotkeyHelper.UnregisterHotkeys();
                 this.Dispose();
             }
             else
@@ -71,6 +73,7 @@ namespace OSU_player
         private void Resume()
         {
             Core.Resume();
+            UpdateTimer.Enabled = true;
             PlayButton.Text = "暂停";
         }
         private void PlayNext(bool play = true)
@@ -208,7 +211,7 @@ namespace OSU_player
         #region 工具
         private void 重复歌曲扫描_Click(object sender, EventArgs e)
         {
-            using (Uilties.DelDulp dialog = new Uilties.DelDulp())
+            using (DelDulp dialog = new DelDulp())
             {
                 dialog.ShowDialog();
             }
@@ -244,7 +247,7 @@ namespace OSU_player
         #endregion
         private void 关于_Click(object sender, EventArgs e)
         {
-            using (Uilties.About dialog = new Uilties.About())
+            using (About dialog = new About())
             {
                 dialog.ShowDialog();
             }
@@ -254,7 +257,7 @@ namespace OSU_player
         private void Button2_Click(object sender, EventArgs e)
         {
             this.Visible = false;
-            using (Uilties.ChooseColl dialog = new Uilties.ChooseColl())
+            using (ChooseColl dialog = new ChooseColl())
             {
                 dialog.ShowDialog();
             }
@@ -394,10 +397,13 @@ namespace OSU_player
         {
             this.Visible = false;
             this.UpdateTimer.Enabled = false;
+            hotkeyHelper.UnregisterHotkeys();
             using (Mini dialog = new Mini())
             {
                 dialog.ShowDialog();
             }
+            playKey = hotkeyHelper.RegisterHotkey(Keys.F5, KeyModifiers.Alt);
+            nextKey = hotkeyHelper.RegisterHotkey(Keys.Right, KeyModifiers.Alt);
             if (PlayList.SelectedItems.Count != 0)
             {
                 PlayList.SelectedItems[0].Selected = false;
@@ -490,10 +496,27 @@ namespace OSU_player
             File.SetLastWriteTime(Path.Combine(Core.osupath, "Songs"), DateTime.Now);
             File.SetLastWriteTime(Core.CurrentBeatmap.Path, DateTime.Now);
         }
-
+        HotkeyHelper hotkeyHelper;
+        int playKey;
+        int nextKey;
         private void Main_Shown(object sender, EventArgs e)
         {
             this.VisibleChanged += Main_VisibleChanged;
+            hotkeyHelper = new HotkeyHelper(this.Handle);
+            playKey = hotkeyHelper.RegisterHotkey(Keys.F5, KeyModifiers.Alt);
+            nextKey = hotkeyHelper.RegisterHotkey(Keys.Right, KeyModifiers.Alt);
+            hotkeyHelper.OnHotkey += new HotkeyEventHandler(OnHotkey);
+        }
+        private void OnHotkey(int hotkeyID)
+        {
+            if (hotkeyID == playKey)
+            {
+                PlayButton.PerformClick();
+            }
+            else if (hotkeyID == nextKey)
+            {
+                NextButton.PerformClick();
+            }
         }
     }
 }

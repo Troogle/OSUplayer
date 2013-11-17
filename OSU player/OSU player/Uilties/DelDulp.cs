@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Telerik.WinControls;
 using Telerik.WinControls.UI;
@@ -169,37 +168,6 @@ namespace OSU_player.Uilties
             }
             button2.Enabled = true;
         }
-        private const int FO_DELETE = 0x3;
-        private const ushort FOF_ALLOWUNDO = 0x40;
-        private const ushort FOF_WANTNUKEWARNING = 0x4000;
-        [DllImport("shell32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        private static extern int SHFileOperation([In, Out] _SHFILEOPSTRUCT str);
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-        private class _SHFILEOPSTRUCT
-        {
-            public IntPtr hwnd;
-            public UInt32 wFunc;
-            public string pFrom;
-            public string pTo;
-            public UInt16 fFlags;
-            public Int32 fAnyOperationsAborted;
-            public IntPtr hNameMappings;
-            public string lpszProgressTitle;
-        }
-        private int Delete(List<string> path)
-        {
-            _SHFILEOPSTRUCT pm = new _SHFILEOPSTRUCT();
-            pm.wFunc = FO_DELETE;
-            pm.pFrom = path[0];
-            for (int i = 1; i < path.Count; i++)
-            {
-                pm.pFrom += '\0' + path[i];
-            }
-            pm.pFrom += '\0';
-            pm.pTo = null;
-            pm.fFlags = FOF_ALLOWUNDO | FOF_WANTNUKEWARNING;
-            return SHFileOperation(pm);
-        }
         private void button1_Click(object sender, EventArgs e)
         {
             if (listView1.CheckedItems.Count == 0)
@@ -229,7 +197,7 @@ namespace OSU_player.Uilties
                 {
                     filedelete.Add(item.Text);
                 }
-                Delete(filedelete);
+                Win32.Delete(filedelete);
                 Core.notifyIcon1.ShowBalloonTip(1000, "OSUplayer", string.Format("删除完毕，共删除{0}个", listView1.CheckedItems.Count), System.Windows.Forms.ToolTipIcon.Info);
                 this.Dispose();
             }

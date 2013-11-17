@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using OSU_player.Uilties;
 namespace OSU_player
 {
     public partial class Mini : Form
@@ -75,6 +76,7 @@ namespace OSU_player
         #endregion
         private void imageButton4_Click(object sender, EventArgs e)
         {
+            hotkeyHelper.UnregisterHotkeys();
             this.Dispose();
         }
 
@@ -301,6 +303,27 @@ namespace OSU_player
                 g.DrawString(Title, LabelTitle.Font, brush, pB);
             }
             else { LabelTitle.Text = Title; }
+        }
+        HotkeyHelper hotkeyHelper;
+        int playKey;
+        int nextKey;
+        private void Mini_Shown(object sender, EventArgs e)
+        {
+            hotkeyHelper = new HotkeyHelper(this.Handle);
+            playKey = hotkeyHelper.RegisterHotkey(Keys.F5, KeyModifiers.Alt);
+            nextKey = hotkeyHelper.RegisterHotkey(Keys.Right, KeyModifiers.Alt);
+            hotkeyHelper.OnHotkey += new HotkeyEventHandler(OnHotkey);
+        }
+        private void OnHotkey(int hotkeyID)
+        {
+            if (hotkeyID == playKey)
+            {
+                imageButton1_Click(null, EventArgs.Empty);
+            }
+            else if (hotkeyID == nextKey)
+            {
+                imageButton3_Click(null, EventArgs.Empty);
+            }
         }
     }
 }

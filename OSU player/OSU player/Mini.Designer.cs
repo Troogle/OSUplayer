@@ -243,6 +243,7 @@
             this.Name = "Mini";
             this.Text = "Mini";
             this.Load += new System.EventHandler(this.Mini_Load);
+            this.Shown += new System.EventHandler(this.Mini_Shown);
             this.ResumeLayout(false);
 
         }
