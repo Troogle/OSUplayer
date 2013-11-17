@@ -203,6 +203,44 @@ namespace OSU_player
         {
             Process.Start("notepad.exe", Core.TmpSet.OsbPath);
         }
+        private void 导出BG_Click(object sender, EventArgs e)
+        {
+            if (Core.CurrentBeatmap.Background != null && Core.CurrentBeatmap.Background != "")
+            {
+                SaveFileDialog dialog = new SaveFileDialog();
+                dialog.CheckFileExists = false;
+                dialog.CreatePrompt = false;
+                dialog.AddExtension = true;
+                dialog.AutoUpgradeEnabled = true;
+                dialog.OverwritePrompt = true;
+                dialog.FileName = new FileInfo(Core.CurrentBeatmap.Background).Name;
+                dialog.DefaultExt = new FileInfo(Core.CurrentBeatmap.Background).Extension;
+                dialog.Filter = "All files (*.*)|*.*";
+                dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                if (DialogResult.OK == dialog.ShowDialog())
+                {
+                    File.Copy(Core.CurrentBeatmap.Background, dialog.FileName, true);
+                }
+            }
+        }
+        private void 导出音频文件_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog dialog = new SaveFileDialog();
+            dialog.CheckFileExists = false;
+            dialog.CreatePrompt = false;
+            dialog.AddExtension = true;
+            dialog.AutoUpgradeEnabled = true;
+            dialog.OverwritePrompt = true;
+            dialog.FileName = new FileInfo(Core.CurrentBeatmap.Audio).Name;
+            dialog.DefaultExt = new FileInfo(Core.CurrentBeatmap.Audio).Extension;
+            dialog.Filter = "All files (*.*)|*.*";
+            dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            if (DialogResult.OK == dialog.ShowDialog())
+            {
+                File.Copy(Core.CurrentBeatmap.Audio, dialog.FileName, true);
+            }
+        }
+
         private void 退出_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -460,29 +498,12 @@ namespace OSU_player
                 (int)Core.durnation % 60);
             if (Core.willnext) { Stop(); PlayNext(); }
         }
-
-        private void radMenuItem2_Click(object sender, EventArgs e)
-        {
-            if (Core.CurrentBeatmap.Background != null && Core.CurrentBeatmap.Background != "")
-            {
-                FolderBrowserDialog dialog = new FolderBrowserDialog();
-                dialog.ShowNewFolderButton = false;
-                dialog.RootFolder = Environment.SpecialFolder.DesktopDirectory;
-                dialog.Description = "请选择BG保存目录~";
-                if (DialogResult.OK == dialog.ShowDialog())
-                {
-                    File.Copy(Core.CurrentBeatmap.Background, Path.Combine(dialog.SelectedPath, new FileInfo(Core.CurrentBeatmap.Background).Name), true);
-                }
-            }
-        }
-
         private void NextTimer_Tick(object sender, EventArgs e)
         {
             NextTimer.Enabled = false;
             Stop();
             PlayNext();
         }
-
         private void SearchTimer_Tick(object sender, EventArgs e)
         {
             SearchTimer.Enabled = false;

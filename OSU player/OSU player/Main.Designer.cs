@@ -40,7 +40,7 @@ namespace OSU_player
             this.打开曲目文件夹 = new Telerik.WinControls.UI.RadMenuItem();
             this.打开铺面文件 = new Telerik.WinControls.UI.RadMenuItem();
             this.打开SB文件 = new Telerik.WinControls.UI.RadMenuItem();
-            this.radMenuItem2 = new Telerik.WinControls.UI.RadMenuItem();
+            this.导出BG = new Telerik.WinControls.UI.RadMenuItem();
             this.ToolStripSeparator3 = new Telerik.WinControls.UI.RadMenuSeparatorItem();
             this.退出 = new Telerik.WinControls.UI.RadMenuItem();
             this.ToolStripMenuItem2 = new Telerik.WinControls.UI.RadMenuItem();
@@ -88,6 +88,8 @@ namespace OSU_player
             this.MenuStrip1 = new Telerik.WinControls.UI.RadMenu();
             this.NextTimer = new System.Windows.Forms.Timer(this.components);
             this.SearchTimer = new System.Windows.Forms.Timer(this.components);
+            this.radMenuSeparatorItem1 = new Telerik.WinControls.UI.RadMenuSeparatorItem();
+            this.导出音频文件 = new Telerik.WinControls.UI.RadMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.radMenuComboItem1.ComboBoxElement)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TextBox1)).BeginInit();
@@ -126,9 +128,12 @@ namespace OSU_player
             this.打开曲目文件夹,
             this.打开铺面文件,
             this.打开SB文件,
-            this.radMenuItem2,
+            this.radMenuSeparatorItem1,
+            this.导出音频文件,
+            this.导出BG,
             this.ToolStripSeparator3,
-            this.退出});
+            this.退出,
+            });
             this.ToolStripMenuItem1.Name = "ToolStripMenuItem1";
             this.ToolStripMenuItem1.Text = "文件";
             this.ToolStripMenuItem1.Visibility = Telerik.WinControls.ElementVisibility.Visible;
@@ -206,14 +211,14 @@ namespace OSU_player
             this.打开SB文件.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.打开SB文件.Click += new System.EventHandler(this.打开SB文件_Click);
             // 
-            // radMenuItem2
+            // 导出BG
             // 
-            this.radMenuItem2.AccessibleDescription = "导出BG";
-            this.radMenuItem2.AccessibleName = "导出BG";
-            this.radMenuItem2.Name = "radMenuItem2";
-            this.radMenuItem2.Text = "导出BG";
-            this.radMenuItem2.Visibility = Telerik.WinControls.ElementVisibility.Visible;
-            this.radMenuItem2.Click += new System.EventHandler(this.radMenuItem2_Click);
+            this.导出BG.AccessibleDescription = "导出BG";
+            this.导出BG.AccessibleName = "导出BG";
+            this.导出BG.Name = "导出BG";
+            this.导出BG.Text = "导出BG";
+            this.导出BG.Visibility = Telerik.WinControls.ElementVisibility.Visible;
+            this.导出BG.Click += new System.EventHandler(this.导出BG_Click);
             // 
             // ToolStripSeparator3
             // 
@@ -424,7 +429,7 @@ namespace OSU_player
             // 
             // PlayList
             // 
-            this.PlayList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.PlayList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.PlayList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.ColumnHeader1});
@@ -469,7 +474,7 @@ namespace OSU_player
             // 
             // radPageView1
             // 
-            this.radPageView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.radPageView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.radPageView1.Controls.Add(this.radPageViewPage3);
             this.radPageView1.Controls.Add(this.radPageViewPage1);
@@ -494,7 +499,7 @@ namespace OSU_player
             // 
             // DiffList
             // 
-            this.DiffList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.DiffList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DiffList.FormattingEnabled = true;
             this.DiffList.ItemHeight = 15;
@@ -515,8 +520,8 @@ namespace OSU_player
             // 
             // ListDetail
             // 
-            this.ListDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.ListDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ListDetail.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.ColumnHeader2,
@@ -555,8 +560,8 @@ namespace OSU_player
             this.ScoreBox.AllowColumnResize = false;
             this.ScoreBox.AllowEdit = false;
             this.ScoreBox.AllowRemove = false;
-            this.ScoreBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.ScoreBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ScoreBox.AutoScroll = true;
             this.ScoreBox.ItemSize = new System.Drawing.Size(200, 60);
@@ -599,7 +604,7 @@ namespace OSU_player
             // 
             // TrackVolume
             // 
-            this.TrackVolume.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.TrackVolume.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TrackVolume.Location = new System.Drawing.Point(652, 32);
             this.TrackVolume.Maximum = 100;
@@ -614,7 +619,7 @@ namespace OSU_player
             // 
             // TrackSeek
             // 
-            this.TrackSeek.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.TrackSeek.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TrackSeek.Enabled = false;
             this.TrackSeek.Location = new System.Drawing.Point(181, 522);
@@ -650,7 +655,7 @@ namespace OSU_player
             // 
             // TrackMusic
             // 
-            this.TrackMusic.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.TrackMusic.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TrackMusic.Location = new System.Drawing.Point(162, 7);
             this.TrackMusic.Maximum = 100;
@@ -779,6 +784,23 @@ namespace OSU_player
             this.SearchTimer.Interval = 500;
             this.SearchTimer.Tick += new System.EventHandler(this.SearchTimer_Tick);
             // 
+            // radMenuSeparatorItem1
+            // 
+            this.radMenuSeparatorItem1.AccessibleDescription = "radMenuSeparatorItem1";
+            this.radMenuSeparatorItem1.AccessibleName = "radMenuSeparatorItem1";
+            this.radMenuSeparatorItem1.Name = "radMenuSeparatorItem1";
+            this.radMenuSeparatorItem1.Text = "radMenuSeparatorItem1";
+            this.radMenuSeparatorItem1.Visibility = Telerik.WinControls.ElementVisibility.Visible;
+            // 
+            // 导出音频文件
+            // 
+            this.导出音频文件.AccessibleDescription = "导出音频文件";
+            this.导出音频文件.AccessibleName = "导出音频文件";
+            this.导出音频文件.Name = "导出音频文件";
+            this.导出音频文件.Text = "导出音频文件";
+            this.导出音频文件.Visibility = Telerik.WinControls.ElementVisibility.Visible;
+            this.导出音频文件.Click += new System.EventHandler(this.导出音频文件_Click);
+            // 
             // Main
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -884,9 +906,11 @@ namespace OSU_player
         private Telerik.WinControls.UI.RadMenu MenuStrip1;
         private Telerik.WinControls.UI.RadTrackBar TrackSeek;
         private Telerik.WinControls.UI.RadTrackBar TrackVolume;
-        private Telerik.WinControls.UI.RadMenuItem radMenuItem2;
+        private Telerik.WinControls.UI.RadMenuItem 导出BG;
         private System.Windows.Forms.Timer NextTimer;
         private System.Windows.Forms.Timer SearchTimer;
+        private Telerik.WinControls.UI.RadMenuSeparatorItem radMenuSeparatorItem1;
+        private Telerik.WinControls.UI.RadMenuItem 导出音频文件;
 
     }
 }

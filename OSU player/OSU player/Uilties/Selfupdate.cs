@@ -32,7 +32,7 @@ namespace OSU_player.Uilties
                         Process.Start(UpDateXml.SelectNodes("/Xml/Link")[0].InnerText);
                     }
                 }
-            /*    try
+              /*  try
                 {
                     WebRequest request;
                     request = WebRequest.Create("http://wenwo.at/counter.php?counter=" + Core.Version);
