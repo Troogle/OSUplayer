@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 using System.IO;
-using Microsoft.DirectX;
-using Microsoft.DirectX.Direct3D;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 using OSU_player.Graphic;
 using OSU_player.OSUFiles;
 using System.Diagnostics;
+using Device = Microsoft.Xna.Framework.Graphics.GraphicsDevice;
+using Color = Microsoft.Xna.Framework.Graphics.Color;
+using Rectangle = Microsoft.Xna.Framework.Rectangle;
 namespace OSU_player.Graphic
 {
     class Player : IDisposable
@@ -50,70 +53,65 @@ namespace OSU_player.Graphic
         /// 渲染区域的handle
         /// </summary>
         IntPtr handle;
-        Device device = null;
+        GraphicsDevice device = null;
         VideoDecoder decoder;
-        Texture VideoTexture;
-        Texture BGTexture;
-        Texture Black;
-        PresentParameters presentParams = new PresentParameters();
-        Rectangle video;
-        Matrix transformMatrix = new Matrix();
-        Matrix rotateMatrix = new Matrix();
-        Matrix scaleMatrix = new Matrix();
-        Rectangle bg;
-        Matrix bgtransformMatrix = new Matrix();
-        Matrix bgrotateMatrix = new Matrix();
-        Matrix bgscaleMatrix = new Matrix();
+        Texture2D VideoTexture;
+        Texture2D BGTexture;
+        Texture2D Black;
+        PresentationParameters presentParams = new PresentationParameters();
+        Rectangle sizerect;
+        Vector2 VideoPosition;
+        float VideoScale;
+        Vector2 BGPosition;
+        float BGScale;
         List<TGraphic> SBelements = new List<TGraphic>();
-        GraphicsStream VideoStream;
-        Sprite NormalSprite;
-        Sprite AlphaSprite;
+        SpriteBatch AlphaSprite;
+        SpriteBatch AdditiveSprite;
         bool deviceislost = false;
         public Player(IntPtr Shandle, Size Ssize)
         {
             uni_Audio = new Audiofiles();
             handle = Shandle;
             size = Ssize;
-            presentParams.Windowed = true;
+            sizerect = new Rectangle(0, 0, size.Width, size.Height);
+            /* presentParams.DeviceWindowHandle=handle;
+             presentParams.IsFullScreen=false;
+             device = new GraphicsDevice();
+             device.Reset(presentParams, GraphicsAdapter.DefaultAdapter);*/
+            presentParams.IsFullScreen = false;
             presentParams.SwapEffect = SwapEffect.Discard;
-            device = new Device(0, DeviceType.Hardware, handle, CreateFlags.SoftwareVertexProcessing, presentParams);
-            NormalSprite = new Sprite(device);
-            AlphaSprite = new Sprite(device);
+            device = new GraphicsDevice(GraphicsAdapter.DefaultAdapter,
+                DeviceType.Hardware, handle, CreateOptions.MixedVertexProcessing, presentParams);
+            AlphaSprite = new SpriteBatch(device);
+            AdditiveSprite = new SpriteBatch(device);
             for (int i = 0; i < maxfxplayer; i++)
             {
                 fxplayer[i] = new Audiofiles();
             }
+            /*        Bitmap black = new Bitmap(Properties.Resources.BlackBase, size);
+                    using (MemoryStream s = new MemoryStream())
+                    {
+                        black.Save(s,System.Drawing.Imaging.ImageFormat.Png);
+                        s.Seek(0, SeekOrigin.Begin);
+                        Black = Texture2D.FromFile(device, s);
+                    }*/
         }
         bool CanRender()
         {
-            if (deviceislost == false)
-                return true;
-            int Result;
-            device.CheckCooperativeLevel(out Result);
-            switch ((ResultCode)Result)
+            if (deviceislost == false) { return true; }
+            switch (device.GraphicsDeviceStatus)
             {
-                case ResultCode.Success:
+                case GraphicsDeviceStatus.Lost:
+                    return false;
+                case GraphicsDeviceStatus.Normal:
                     deviceislost = false;
                     return true;
-                case ResultCode.DeviceLost:
-                    return false;
-                case ResultCode.DeviceNotReset:
-                    try
-                    {
-                        device.Reset(device.PresentationParameters);
-                        deviceislost = false;
-                        return true;
-                    }
-                    catch (DirectXException exception)
-                    {
-                        if ((ResultCode)exception.ErrorCode == ResultCode.DeviceLost)
-                            return false;
-                        throw exception;
-                    }
+                case GraphicsDeviceStatus.NotReset:
+                    device.Reset(device.PresentationParameters);
+                    deviceislost = false;
+                    return true;
                 default:
-                    DirectXException DXException = new DirectXException();
-                    DXException.ErrorCode = Result;
-                    throw DXException;
+                    return false;
             }
         }
         public void initvideo()
@@ -121,13 +119,21 @@ namespace OSU_player.Graphic
             //decoder.Dispose();
             decoder = new VideoDecoder(10);
             decoder.Open(Path.Combine(Map.Location, Map.Video));
-            VideoTexture = Texture.FromBitmap(device, new Bitmap(Properties.Resources.BlackBase, decoder.width, decoder.height), 0, Pool.Managed);
-            Black = Texture.FromBitmap(device, new Bitmap(Properties.Resources.BlackBase, size.Width, size.Height), 0, Pool.Managed);
-            float scalef = (float)size.Width / decoder.width < (float)size.Height / decoder.height ? (float)size.Width / decoder.width : (float)size.Height / decoder.height;
-            scaleMatrix.Scale(scalef, scalef, 0.0f);
-            rotateMatrix.RotateZ(0f);
-            transformMatrix.Translate(new Vector3((size.Width - decoder.width * scalef) / 2, (size.Height - decoder.height * scalef) / 2, 0));
-            video = new Rectangle(0, 0, decoder.width, decoder.height);
+            Bitmap black = new Bitmap(Properties.Resources.BlackBase, decoder.width, decoder.height);
+            using (MemoryStream s = new MemoryStream())
+            {
+                black.Save(s, System.Drawing.Imaging.ImageFormat.Png);
+                s.Seek(0, SeekOrigin.Begin);
+                Black = Texture2D.FromFile(device, s);
+            }
+            //VideoTexture = Texture.FromBitmap(device, new Bitmap(Properties.Resources.BlackBase, decoder.width, decoder.height), 0, Pool.Managed);
+            VideoTexture = new Texture2D(device, decoder.width, decoder.height, 1, 0, SurfaceFormat.Bgr32);
+            VideoScale = (float)size.Width / decoder.width < (float)size.Height / decoder.height ? (float)size.Width / decoder.width : (float)size.Height / decoder.height;
+            //scaleMatrix.Scale(scalef, scalef, 0.0f);
+            //rotateMatrix.RotateZ(0f);
+            //transformMatrix.Translate(new Vector3((size.Width - decoder.width * scalef) / 2, (size.Height - decoder.height * scalef) / 2, 0));
+            VideoPosition = new Vector2((size.Width - decoder.width * VideoScale) / 2, (size.Height - decoder.height * VideoScale) / 2);
+            //Videorect = new Rectangle(0, 0, decoder.width, decoder.height);
             videoexist = true;
         }
         public void initBG()
@@ -141,12 +147,19 @@ namespace OSU_player.Graphic
             if (Map.Background == "")
             { CurrentBG = new Bitmap(Core.defaultBG); }
             else { CurrentBG = new Bitmap(Map.Background); }
-            BGTexture = Texture.FromBitmap(device, CurrentBG, 0, Pool.Managed);
-            float scalef = (float)size.Width / CurrentBG.Width < (float)size.Height / CurrentBG.Height ? (float)size.Width / CurrentBG.Width : (float)size.Height / CurrentBG.Height;
-            bgscaleMatrix.Scale(scalef, scalef, 0.0f);
-            bgrotateMatrix.RotateZ(0f);
-            bgtransformMatrix.Translate(new Vector3((size.Width - CurrentBG.Width * scalef) / 2, (size.Height - CurrentBG.Height * scalef) / 2, 0));
-            bg = new Rectangle(0, 0, CurrentBG.Width, CurrentBG.Height);
+            using (MemoryStream s = new MemoryStream())
+            {
+                CurrentBG.Save(s, CurrentBG.RawFormat);
+                s.Seek(0, SeekOrigin.Begin);
+                BGTexture = Texture2D.FromFile(device, s);
+            }
+            // BGTexture = Texture.FromBitmap(device, CurrentBG, 0, Pool.Managed);
+            BGScale = (float)size.Width / CurrentBG.Width < (float)size.Height / CurrentBG.Height ? (float)size.Width / CurrentBG.Width : (float)size.Height / CurrentBG.Height;
+            //bgscaleMatrix.Scale(scalef, scalef, 0.0f);
+            //bgrotateMatrix.RotateZ(0f);
+            //bgtransformMatrix.Translate(new Vector3((size.Width - CurrentBG.Width * scalef) / 2, (size.Height - CurrentBG.Height * scalef) / 2, 0));
+            BGPosition = new Vector2((size.Width - CurrentBG.Width * BGScale) / 2, (size.Height - CurrentBG.Height * BGScale) / 2);
+            //BGrect = new Rectangle(0, 0, CurrentBG.Width, CurrentBG.Height);
 
         }
         public void RenderSB()
@@ -154,10 +167,10 @@ namespace OSU_player.Graphic
             foreach (var element in SBelements)
             {
                 element.Update((int)(position * 1000));
-                if (element.parameter == 3)
-                { element.Draw(AlphaSprite); }
+                if ((element.parameter & 4) == 4)
+                { element.Draw(AdditiveSprite); }
                 else
-                { element.Draw(NormalSprite); }
+                { element.Draw(AlphaSprite); }
             }
         }
         public void initSB()
@@ -175,42 +188,45 @@ namespace OSU_player.Graphic
                     element.SetColorAction(new TSpriteAction(Map.SB.elements[i].C));
                     element.SetXAction(new TSpriteAction(Map.SB.elements[i].X));
                     element.SetYAction(new TSpriteAction(Map.SB.elements[i].Y));
-                    element.SetParameterAction(new TSpriteAction(Map.SB.elements[i].P));
+                    element.SetParameterAction(new TSpriteAction(Map.SB.elements[i].P, false, false));
                     SBelements.Add(element);
                 }
             }
             SBexist = true;
         }
-        public void RenderVideo(Sprite sprite)
+        public void RenderVideo(SpriteBatch sprite)
         {
             if (position - (double)Map.VideoOffset / 1000 < 0) { return; }
-            VideoStream = VideoTexture.LockRectangle(0, LockFlags.None);
-            VideoStream.Write(decoder.GetFrame(Convert.ToInt32(position * 1000 - Map.VideoOffset)), 0, decoder.height * decoder.width * 4);
-            VideoTexture.UnlockRectangle(0);
-            sprite.Transform = Matrix.Scaling(1f, 1f,0);
-            sprite.Draw(Black, new Rectangle(new Point(0, 0), size), Vector3.Empty, Vector3.Empty, Color.White);
-            sprite.Transform = rotateMatrix * scaleMatrix * transformMatrix;
-            sprite.Draw(VideoTexture, video, Vector3.Empty, Vector3.Empty, Color.White);
-
+            VideoTexture.SetData<byte>(decoder.GetFrame(Convert.ToInt32(position * 1000 - Map.VideoOffset)));
+            //VideoStream = VideoTexture.LockRectangle(0, LockFlags.None);
+            //VideoStream.Write(decoder.GetFrame(Convert.ToInt32(position * 1000 - Map.VideoOffset)), 0, decoder.height * decoder.width * 4);
+            //VideoTexture.UnlockRectangle(0);
+            //sprite.Transform = Matrix.Scaling(1f, 1f, 0);
+            sprite.Draw(Black, sizerect, Color.White);
+            //sprite.Draw(Black, new Rectangle(new Point(0, 0), size), Vector3.Empty, Vector3.Empty, Color.White);
+            //sprite.Transform = rotateMatrix * scaleMatrix * transformMatrix;
+            //sprite.Draw(VideoTexture, video, Vector3.Empty, Vector3.Empty, Color.White);
+            sprite.Draw(VideoTexture, VideoPosition, null, Color.White, 0f, Vector2.Zero, VideoScale, SpriteEffects.None, 1f);
         }
-        public void RenderBG(Sprite sprite)
+        public void RenderBG(SpriteBatch sprite)
         {
-            sprite.Transform = bgrotateMatrix * bgscaleMatrix * bgtransformMatrix;
-            sprite.Draw(BGTexture, bg, Vector3.Empty, Vector3.Empty, Color.White);
+            //sprite.Transform = bgrotateMatrix * bgscaleMatrix * bgtransformMatrix;
+            // sprite.Draw(BGTexture, bg, Vector3.Empty, Vector3.Empty, Color.White);
+            sprite.Draw(BGTexture, BGPosition, null, Color.White, 0f, Vector2.Zero, BGScale, SpriteEffects.None, 1f);
         }
         public void Render()
         {
-            if (device == null || device.Disposed || !CanRender()) { return; }
-            device.Clear(ClearFlags.Target, Color.Black, 1.0f, 0);
-            device.BeginScene();
-            NormalSprite.Begin(SpriteFlags.None);
-            AlphaSprite.Begin(SpriteFlags.AlphaBlend);
-            RenderBG(NormalSprite);
-            if (videoexist) { RenderVideo(NormalSprite); }
+            if (device == null || device.IsDisposed || !CanRender()) { return; }
+            device.Clear(Color.Black);
+            //device.BeginScene();
+            AlphaSprite.Begin(SpriteBlendMode.AlphaBlend);
+            RenderBG(AlphaSprite);
+            if (videoexist) { RenderVideo(AlphaSprite); }
+            AdditiveSprite.Begin(SpriteBlendMode.Additive);
             if (SBexist) { RenderSB(); }
-            NormalSprite.End();
+            AdditiveSprite.End();
             AlphaSprite.End();
-            device.EndScene();
+            //device.EndScene();
             try
             {
                 device.Present();

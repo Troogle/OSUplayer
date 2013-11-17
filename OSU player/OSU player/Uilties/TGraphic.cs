@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
-using Microsoft.DirectX;
-using Microsoft.DirectX.Direct3D;
 using OSU_player.OSUFiles.StoryBoard;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
+using Device = Microsoft.Xna.Framework.Graphics.GraphicsDevice;
+using Color = Microsoft.Xna.Framework.Graphics.Color;
+using Rectangle = Microsoft.Xna.Framework.Rectangle;
 namespace OSU_player.Graphic
 {
     /// <summary>
@@ -11,59 +14,49 @@ namespace OSU_player.Graphic
     /// </summary>
     class TStaticGraphic
     {
-        protected Texture texture;
-        protected Matrix scaleMatrix, transformMatrix, rotateMatrix;
-        protected Vector3 center;                                         //旋转中心
-        protected Vector3 position;                                       //显示位置
+        protected Texture2D texture;
+        //protected Matrix scaleMatrix, transformMatrix, rotateMatrix;
+
+        protected Vector2 origin;                                         //坐标轴位置
+        protected Vector2 position;                                       //显示位置
         protected float rotate;                                               //旋转角度
-        protected float scaleX;                                                //缩放比例
-        protected float scaleY;
+        protected Vector2 scale;                                                 //缩放比例
+        protected float layer;
         protected Color color;
         protected byte alpha;
         /// <summary>
-        /// 0=none,1=H,2=V,3=A
+        /// 0x0=none,1=H,2=V,4=A
         /// </summary>
         public byte parameter;
-        protected Rectangle rectangle;
+        //protected Rectangle rectangle;
 
 
-        public TStaticGraphic(Device graphicDevice, Bitmap bitmap, Vector3 position,
+        public TStaticGraphic(Device graphicDevice, string source, Vector2 position,
                                           float rotate, float scale, Color color, byte alpha, byte parameter)
         {
-            this.texture = Texture.FromBitmap(graphicDevice, bitmap, Usage.Dynamic, Pool.Default);
-            this.center = new Vector3(0, 0, 0);
-            this.transformMatrix = new Matrix();
-            this.rotateMatrix = new Matrix();
-            this.scaleMatrix = new Matrix();
+            this.texture = Texture2D.FromFile(graphicDevice, source);
+            this.origin = new Vector2(0, 0);
             this.position = position;
             this.rotate = rotate;
-            this.scaleX = scale;
-            this.scaleY = scale;
+            this.scale = new Vector2(scale, scale);
+            this.layer = 0;
             this.color = color;
             this.alpha = alpha;
             this.parameter = parameter;
-            this.rectangle = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
+            //this.rectangle = new Rectangle(0, 0, texture.Width, texture.Height);
         }
-        public TStaticGraphic(Device graphicDevice)
-        {
-            this.center = new Vector3(0, 0, 0);
-            this.transformMatrix = new Matrix();
-            this.rotateMatrix = new Matrix();
-            this.scaleMatrix = new Matrix();
-        }
+        public TStaticGraphic() { }
 
         /// <summary>
         /// 绘制图像
         /// </summary>
-        public virtual void Draw(Sprite sprite)
+        public virtual void Draw(SpriteBatch sprite)
         {
-            this.rotateMatrix.RotateZ(this.rotate);
-            if (this.parameter == 1) { this.scaleMatrix.Scale(-this.scaleX, this.scaleY, 0); }
-            else if (this.parameter == 2) { this.scaleMatrix.Scale(this.scaleX, -this.scaleY, 0); }
-            else { this.scaleMatrix.Scale(this.scaleX, this.scaleY, 0); }
-            this.transformMatrix.Translate(this.position);
-            sprite.Transform = this.rotateMatrix * this.scaleMatrix * this.transformMatrix;
-            sprite.Draw(this.texture, this.rectangle, this.center, Vector3.Empty, Color.FromArgb(this.alpha, this.color));
+            SpriteEffects tmp = new SpriteEffects();
+            if ((this.parameter & 1) == 1) { tmp = SpriteEffects.FlipHorizontally; }
+            if ((this.parameter & 2) == 2) { tmp = tmp | SpriteEffects.FlipVertically; }
+            this.color = new Color(color.R, color.G, color.B, this.alpha);
+            sprite.Draw(this.texture, this.position, null, this.color, this.rotate, this.origin, this.scale, tmp, this.layer);
         }
     }
 
@@ -86,32 +79,36 @@ namespace OSU_player.Graphic
         protected TSpriteAction alphaAction;
         protected TSpriteAction colorAction;
         protected TSpriteAction parameterAction;
-        protected Texture[] texturearray;
-        protected Rectangle[] rectarray;
+        protected Texture2D[] texturearray;
+        //protected Rectangle[] rectarray;
         protected ElementOrigin Origin;
 
         public TGraphic(Device graphicDevice, SBelement Element, string Location)
-            : base(graphicDevice)
+            : base()
         {
-            Bitmap bitmap;
             switch (Element.Type)
             {
                 case ElementType.Sprite:
                     {
                         if (File.Exists(Path.Combine(Location, Element.path)))
                         {
-                            bitmap = new Bitmap(Path.Combine(Location, Element.path));
+                            using (FileStream s = new FileStream(Path.Combine(Location, Element.path), FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                            {
+                                this.texture = Texture2D.FromFile(graphicDevice, s);
+                            }
                         }
-                        else { bitmap = new Bitmap(Properties.Resources.BlackBase, 1, 1); }
+                        else
+                        {
+                            this.texture = new Texture2D(graphicDevice, 1, 1, 0, 0, SurfaceFormat.Bgr32);
+                        }
                         this.frameCount = 1;
                         this.currentFrameIndex = 0;
                         this.msLastFrame = 0;
                         this.mSPerFrame = 16;
-                        this.Origin = Element.Origin;
-                        this.texture = Texture.FromBitmap(graphicDevice, bitmap, Usage.Dynamic, Pool.Default);
-                        this.rectangle = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
-                        this.position = new Vector3(Element.x, Element.y, 0);
-                        this.center = Getcenter(-1);
+                        //this.texture = Texture.FromBitmap(graphicDevice, bitmap, Usage.Dynamic, Pool.Default);
+                        //this.rectangle = new Rectangle(0, 0, texture.Width, texture.Height);
+                        this.position = new Vector2(Element.x, Element.y);
+                        this.origin = Getorigin(this.texture, Element.Origin);
                         break;
                     }
                 case ElementType.Animation:
@@ -119,94 +116,92 @@ namespace OSU_player.Graphic
                         string prefix = Path.Combine(Location, Element.path);
                         string ext = prefix.Substring(prefix.LastIndexOf(".") + 1);
                         prefix = prefix.Substring(0, prefix.LastIndexOf("."));
-                        texturearray = new Texture[Element.frameCount];
-                        rectarray = new Rectangle[Element.frameCount];
+                        texturearray = new Texture2D[Element.frameCount];
+                        //rectarray = new Rectangle[Element.frameCount];
                         for (int i = 0; i < Element.frameCount; i++)
                         {
                             if (File.Exists(prefix + i.ToString() + "." + ext))
                             {
-                                bitmap = new Bitmap(prefix + i.ToString() + "." + ext);
+                                using (FileStream s = new FileStream(prefix + i.ToString() + "." + ext, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                                {
+                                    this.texturearray[i] = Texture2D.FromFile(graphicDevice, s);
+                                }
                             }
-                            else { bitmap = new Bitmap(Properties.Resources.BlackBase, 1, 1); }
-                            texturearray[i] = Texture.FromBitmap(graphicDevice, bitmap, Usage.Dynamic, Pool.Default);
-                            rectarray[i] = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
+                            else
+                            {
+                                this.texturearray[i] = new Texture2D(graphicDevice, 1, 1, 0, 0, SurfaceFormat.Bgr32);
+                            }
+                            // texturearray[i] = Texture.FromBitmap(graphicDevice, bitmap, Usage.Dynamic, Pool.Default);
+                            //rectarray[i] = new Rectangle(0, 0, texturearray[i].Width, texturearray[i].Height);
                         }
                         this.frameCount = Element.frameCount;
                         this.mSPerFrame = Element.framedelay;
                         this.Loop = Element.Looptype;
                         this.currentFrameIndex = 0;
                         this.msLastFrame = 0;
-                        this.Origin = Element.Origin;
-                        this.position = new Vector3(Element.x, Element.y, 0);
-                        this.rectangle = rectarray[0];
+                        this.position = new Vector2(Element.x, Element.y);
+                        //this.rectangle = rectarray[0];
                         this.texture = texturearray[0];
-                        this.center = Getcenter(0);
+                        this.origin = Getorigin(this.texture, Element.Origin);
                         break;
                     }
                 default:
                     throw (new FormatException("Failed to resolve .osb file"));
             }
+            this.Origin = Element.Origin;
             this.color = Color.White;
             this.alpha = 0;
             this.parameter = 0;
             this.rotate = 0f;
-            this.scaleX = 1f;
-            this.scaleY = 1f;
+            if (Element.Layers == ElementLayer.Background) { this.layer = 1f; }
+            else { this.layer = 0f; }
+            this.scale = new Vector2(1f, 1f);
             //  this.InitSpriteAction();
         }
-        /// <summary>
-        /// 创建一个多帧TGraphic实例
-        /// </summary>
-        /// <param name="graphicDevice">显示设备</param>
-        /// <param name="bitmap">要绘制的图像</param>
-        /// <param name="pPosition">绘制坐标</param>
-        /// <param name="pCenter">旋转中心</param>
-        /// <param name="pFrameCount">总帧数</param>
-        /// <param name="pFPS">FPS</param>
-        public TGraphic(Device graphicDevice, Bitmap bitmap, Vector3 pPosition, Vector3 pCenter,
-                                 int pFrameCount, int pFPS)
-            : base(graphicDevice, bitmap, pPosition, 0f, 1f, Color.White, 255, 0)
-        {
-            this.frameCount = pFrameCount;
-            this.currentFrameIndex = 0;
-            this.mSPerFrame = (int)(1f / pFPS * 1000);
-            this.msLastFrame = 0;
-            this.center = pCenter;
-            this.InitSpriteAction();
-        }
+        /*   /// <summary>
+           /// 创建一个多帧TGraphic实例
+           /// </summary>
+           /// <param name="graphicDevice">显示设备</param>
+           /// <param name="bitmap">要绘制的图像</param>
+           /// <param name="pPosition">绘制坐标</param>
+           /// <param name="pCenter">旋转中心</param>
+           /// <param name="pFrameCount">总帧数</param>
+           /// <param name="pFPS">FPS</param>
+           public TGraphic(Device graphicDevice, Bitmap bitmap, Vector3 pPosition, Vector3 pCenter,
+                                    int pFrameCount, int pFPS)
+               : base(graphicDevice, bitmap, pPosition, 0f, 1f, Color.White, 255, 0)
+           {
+               this.frameCount = pFrameCount;
+               this.currentFrameIndex = 0;
+               this.mSPerFrame = (int)(1f / pFPS * 1000);
+               this.msLastFrame = 0;
+               this.center = pCenter;
+               this.InitSpriteAction();
+           }
 
-        /// <summary>
-        /// 创建一个单帧TGraphic实例
-        /// </summary>
-        /// <param name="graphicDevice">显示设备</param>
-        /// <param name="bitmap">要绘制的图像</param>
-        /// <param name="pPosition">绘制坐标</param>
-        /// <param name="pCenter">旋转中心</param>
-        public TGraphic(Device graphicDevice, Bitmap bitmap, Vector3 pPosition, Vector3 pCenter)
-            : base(graphicDevice, bitmap, pPosition, 0f, 1f, Color.White, 255, 0)
+           /// <summary>
+           /// 创建一个单帧TGraphic实例
+           /// </summary>
+           /// <param name="graphicDevice">显示设备</param>
+           /// <param name="bitmap">要绘制的图像</param>
+           /// <param name="pPosition">绘制坐标</param>
+           /// <param name="pCenter">旋转中心</param>
+           public TGraphic(Device graphicDevice, Bitmap bitmap, Vector3 pPosition, Vector3 pCenter)
+               : base(graphicDevice, bitmap, pPosition, 0f, 1f, Color.White, 255, 0)
+           {
+               this.center = pCenter;
+               this.frameCount = 1;
+               this.currentFrameIndex = 0;
+               this.msLastFrame = 0;
+               this.mSPerFrame = 16;
+               this.InitSpriteAction();
+           }*/
+        private Vector2 Getorigin(Texture2D texture, ElementOrigin Origin)
         {
-            this.center = pCenter;
-            this.frameCount = 1;
-            this.currentFrameIndex = 0;
-            this.msLastFrame = 0;
-            this.mSPerFrame = 16;
-            this.InitSpriteAction();
-        }
-        private Vector3 Getcenter(int count)
-        {
-            Rectangle tmp;
-            if (count == -1)
-            {
-                tmp = this.rectangle;
-            }
-            else
-            {
-                tmp = this.rectarray[count];
-            }
-            int id = (int)this.Origin;
-            float x = (float)(id % 3) / 2 * tmp.Width;
-            float y = (float)(id - id % 3) / 6 * tmp.Height;
-            return new Vector3(x, y, 0);
+            int id = (int)Origin;
+            float x = (float)(id % 3) / 2 * texture.Width;
+            float y = (float)(id - id % 3) / 6 * texture.Height;
+            return new Vector2(x, y);
         }
 
         /// <summary>
@@ -224,7 +219,8 @@ namespace OSU_player.Graphic
             if (this.colorAction.Enable)
             {
                 this.colorAction.Update(CurrentTime);
-                this.color = Color.FromArgb((int)colorAction.CurrentValue);
+                int colorv = (int)colorAction.CurrentValue;
+                this.color = new Color((byte)(colorv >> 0x10), (byte)(colorv >> 8), (byte)colorv);
             }
             if (this.xAction.Enable)
             {
@@ -239,12 +235,12 @@ namespace OSU_player.Graphic
             if (this.scaleXAction.Enable)
             {
                 this.scaleXAction.Update(CurrentTime);
-                this.scaleX = this.scaleXAction.CurrentValue;
+                this.scale.X = this.scaleXAction.CurrentValue;
             }
             if (this.scaleYAction.Enable)
             {
                 this.scaleYAction.Update(CurrentTime);
-                this.scaleY = this.scaleYAction.CurrentValue;
+                this.scale.Y = this.scaleYAction.CurrentValue;
             }
             if (this.rotateAction.Enable)
             {
@@ -265,17 +261,21 @@ namespace OSU_player.Graphic
                 {
                     this.msLastFrame = CurrentTime;
                     this.currentFrameIndex++;
-                    if (this.Loop == ElementLoopType.LoopForever && this.currentFrameIndex == this.frameCount)
+                    if (this.currentFrameIndex == this.frameCount)
                     {
-                        this.currentFrameIndex = 0;
-                    }
-                    else
-                    {
-                        this.currentFrameIndex = this.frameCount - 1;
+                        if (this.Loop == ElementLoopType.LoopForever)
+                        {
+                            this.currentFrameIndex = 0;
+                        }
+                        else
+                        {
+                            this.currentFrameIndex = this.frameCount - 1;
+                        }
                     }
                     this.texture = texturearray[currentFrameIndex];
-                    this.rectangle = rectarray[currentFrameIndex];
-                    this.center = Getcenter(currentFrameIndex);
+                    //this.rectangle = rectarray[currentFrameIndex];
+                    this.origin = Getorigin(this.texture, this.Origin);
+                    //this.center = Getcenter(currentFrameIndex);
                 }
             }
         }

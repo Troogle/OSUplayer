@@ -127,6 +127,7 @@ namespace OSU_player
         /// <param name="Ssize">显示区域的大小</param>
         public static void init(IntPtr Shandle, Size Ssize)
         {
+            player = new Player(Shandle, Ssize);
             notifyIcon1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             notifyIcon1.BalloonTipTitle = "OSUplayer";
             notifyIcon1.BalloonTipText = "正在初始化...";
@@ -138,7 +139,6 @@ namespace OSU_player
             LoadPreference();
             new Thread(new ThreadStart(Uilties.Selfupdate.check_update)).Start();
             initset();
-            player = new Player(Shandle,Ssize);
         }
         /// <summary>
         /// 获取OSU路径
@@ -277,8 +277,8 @@ namespace OSU_player
             Fxvolume = Properties.Settings.Default.Fxvolume;
             Musicvolume = Properties.Settings.Default.Musicvolume;
             playfx = Properties.Settings.Default.PlayFx;
-            //playsb = Properties.Settings.Default.PlaySB;
             playsb = false;
+            //playsb = Properties.Settings.Default.PlaySB;
             playvideo = Properties.Settings.Default.PlayVideo;
             Nextmode = Properties.Settings.Default.NextMode;
             Properties.Settings.Default.Upgraded = true;
