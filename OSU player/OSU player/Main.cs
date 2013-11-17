@@ -442,6 +442,7 @@ namespace OSU_player
             }
             playKey = hotkeyHelper.RegisterHotkey(Keys.F5, KeyModifiers.Alt);
             nextKey = hotkeyHelper.RegisterHotkey(Keys.Right, KeyModifiers.Alt);
+            hotkeyHelper.OnHotkey += new HotkeyEventHandler(OnHotkey);
             if (PlayList.SelectedItems.Count != 0)
             {
                 PlayList.SelectedItems[0].Selected = false;
@@ -538,6 +539,11 @@ namespace OSU_player
             {
                 NextButton.PerformClick();
             }
+        }
+
+        private void saveFileDialog1_FileOk(object sender, CancelEventArgs e)
+        {
+
         }
     }
 }

@@ -84,12 +84,14 @@ namespace OSU_player.Uilties
         }
         public void UnregisterHotkeys()
         {
-            Application.RemoveMessageFilter(this);
+            //Application.RemoveMessageFilter(this);
             foreach (UInt32 key in keyIDs.Values)
             {
                 Win32.UnregisterHotKey(hWnd, key);
                 Win32.GlobalDeleteAtom(key);
             }
+            keyIDs.Clear();
+            OnHotkey = null;
         }
         public bool PreFilterMessage(ref Message m)
         {

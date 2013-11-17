@@ -143,22 +143,30 @@ namespace OSU_player.Graphic
                 Core.notifyIcon1.ShowBalloonTip(1000, "OSUplayer", "没事删什么BG TAT", System.Windows.Forms.ToolTipIcon.Info);
                 Map.Background = "";
             }
-            Bitmap CurrentBG;
+            //Bitmap CurrentBG;
             if (Map.Background == "")
-            { CurrentBG = new Bitmap(Core.defaultBG); }
-            else { CurrentBG = new Bitmap(Map.Background); }
-            using (MemoryStream s = new MemoryStream())
             {
-                CurrentBG.Save(s, CurrentBG.RawFormat);
-                s.Seek(0, SeekOrigin.Begin);
-                BGTexture = Texture2D.FromFile(device, s);
+                using (MemoryStream s = new MemoryStream())
+                {
+                    Core.defaultBG.Save(s, System.Drawing.Imaging.ImageFormat.Png);
+                    s.Seek(0, SeekOrigin.Begin);
+                    BGTexture = Texture2D.FromFile(device, s);
+                }
             }
+            else
+            {
+                using (FileStream s = new FileStream(Map.Background, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                {
+                    BGTexture = Texture2D.FromFile(device, s);
+                }
+            }
+
             // BGTexture = Texture.FromBitmap(device, CurrentBG, 0, Pool.Managed);
-            BGScale = (float)size.Width / CurrentBG.Width < (float)size.Height / CurrentBG.Height ? (float)size.Width / CurrentBG.Width : (float)size.Height / CurrentBG.Height;
+            BGScale = (float)size.Width / BGTexture.Width < (float)size.Height / BGTexture.Height ? (float)size.Width / BGTexture.Width : (float)size.Height / BGTexture.Height;
             //bgscaleMatrix.Scale(scalef, scalef, 0.0f);
             //bgrotateMatrix.RotateZ(0f);
             //bgtransformMatrix.Translate(new Vector3((size.Width - CurrentBG.Width * scalef) / 2, (size.Height - CurrentBG.Height * scalef) / 2, 0));
-            BGPosition = new Vector2((size.Width - CurrentBG.Width * BGScale) / 2, (size.Height - CurrentBG.Height * BGScale) / 2);
+            BGPosition = new Vector2((size.Width - BGTexture.Width * BGScale) / 2, (size.Height - BGTexture.Height * BGScale) / 2);
             //BGrect = new Rectangle(0, 0, CurrentBG.Width, CurrentBG.Height);
 
         }
