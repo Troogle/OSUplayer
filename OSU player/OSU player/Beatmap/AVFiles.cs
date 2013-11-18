@@ -1,7 +1,5 @@
 using System;
-using System.Threading;
 using Un4seen.Bass;
-using System.Windows.Forms;
 namespace OSUplayer
 {
     /// <summary>

@@ -129,8 +129,9 @@ namespace OSUplayer.Graphic
                         this.k = a / b;
                         this.easing = this.actionList[currentIndex].Easing;
                         this.isActive = true;
+                        this.currentValue = this.actionList[currentIndex].SValue;
                     }
-                    else if (CurrentTime >= actionList[currentIndex].ETime)
+                    if (CurrentTime >= actionList[currentIndex].ETime)
                     {
                         if (this.currentIndex < this.actionList.Count - 1)
                         {

@@ -41,8 +41,6 @@ namespace OSUplayer
         /// 是否已经载入过本地成绩
         /// </summary>
         public static bool scoresearched = false;
-        public static Image defaultBG = Properties.Resources.defaultBG;
-        public static string defaultAudio = Application.StartupPath + "\\Default\\" + "blank.wav";
         public static float Allvolume = 1.0f;
         public static float Musicvolume = 0.8f;
         public static float Fxvolume = 0.6f;

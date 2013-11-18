@@ -6,7 +6,6 @@ using System.Net;
 using System.IO;
 using System.Diagnostics;
 using Telerik.WinControls;
-using Telerik.WinControls.Themes;
 namespace OSUplayer
 {
     static class Program

@@ -15,7 +15,7 @@ namespace OSUplayer.Graphic
 {
     class Player : IDisposable
     {
-        public Audiofiles uni_Audio;
+        public Audiofiles uniAudio;
         private struct Fxlist
         {
             public int time;
@@ -70,7 +70,7 @@ namespace OSUplayer.Graphic
         bool deviceislost = false;
         public Player(IntPtr Shandle, Size Ssize)
         {
-            uni_Audio = new Audiofiles();
+            uniAudio = new Audiofiles();
             handle = Shandle;
             size = Ssize;
             sizerect = new Rectangle(0, 0, size.Width, size.Height);
@@ -88,13 +88,12 @@ namespace OSUplayer.Graphic
             {
                 fxplayer[i] = new Audiofiles();
             }
-            /*        Bitmap black = new Bitmap(Properties.Resources.BlackBase, size);
-                    using (MemoryStream s = new MemoryStream())
-                    {
-                        black.Save(s,System.Drawing.Imaging.ImageFormat.Png);
-                        s.Seek(0, SeekOrigin.Begin);
-                        Black = Texture2D.FromFile(device, s);
-                    }*/
+            using (MemoryStream s = new MemoryStream())
+            {
+                OSUplayer.Properties.Resources.defaultBG.Save(s, System.Drawing.Imaging.ImageFormat.Png);
+                s.Seek(0, SeekOrigin.Begin);
+                BGTexture = Texture2D.FromFile(device, s);
+            }
         }
         bool CanRender()
         {
@@ -148,7 +147,7 @@ namespace OSUplayer.Graphic
             {
                 using (MemoryStream s = new MemoryStream())
                 {
-                    Core.defaultBG.Save(s, System.Drawing.Imaging.ImageFormat.Png);
+                    OSUplayer.Properties.Resources.defaultBG.Save(s, System.Drawing.Imaging.ImageFormat.Png);
                     s.Seek(0, SeekOrigin.Begin);
                     BGTexture = Texture2D.FromFile(device, s);
                 }
@@ -245,7 +244,7 @@ namespace OSUplayer.Graphic
         public void Dispose()
         {
             device.Dispose();
-            uni_Audio.Dispose();
+            uniAudio.Dispose();
             for (int j = 0; j < maxfxplayer; j++)
             {
                 fxplayer[j].Dispose();
@@ -296,7 +295,7 @@ namespace OSUplayer.Graphic
             double Tbpm = bpm;
             float volume = Map.Timingpoints[currentT].volume;
             int player = 0;
-            for (int i = 0; i < uni_Audio.Durnation * 1000; i++)
+            for (int i = 0; i < uniAudio.Durnation * 1000; i++)
             {
                 if (currentT + 1 < Map.Timingpoints.Count)
                 {
@@ -384,10 +383,10 @@ namespace OSUplayer.Graphic
             switch (set)
             {
                 case 1:
-                    if (uni_Audio != null) { uni_Audio.Volume = Allvolume * Musicvolume; }
+                    if (uniAudio != null) { uniAudio.Volume = Allvolume * Musicvolume; }
                     break;
                 case 2:
-                    if (uni_Audio != null) { uni_Audio.Volume = Allvolume * Musicvolume; }
+                    if (uniAudio != null) { uniAudio.Volume = Allvolume * Musicvolume; }
                     break;
                 case 3:
                 default:
@@ -399,43 +398,42 @@ namespace OSUplayer.Graphic
             cannext = false;
             if (videoexist) { videoexist = false; VideoTexture.Dispose(); decoder.Dispose(); }
             if (SBexist) { SBexist = false; SBelements.Clear(); }
-            uni_Audio.Stop();
+            uniAudio.Stop();
         }
         public void Play()
         {
             willnext = false; cannext = true; videoexist = false;
-            //initBG();
-            uni_Audio.Open(Map.Audio);
+            uniAudio.Open(Map.Audio);
             if (playfx) { initfx(); fxpos = 0; }
-            uni_Audio.UpdateTimer.Tick += new EventHandler(AVsync);
+            uniAudio.UpdateTimer.Tick += new EventHandler(AVsync);
             if (Map.haveVideo && playvideo && File.Exists(Path.Combine(Map.Location, Map.Video))) { initvideo(); }
             if (Map.haveSB && playsb) { initSB(); }
-            uni_Audio.Play(Allvolume * Musicvolume);
+            uniAudio.Play(Allvolume * Musicvolume);
         }
         public void Pause()
         {
             cannext = false;
-            uni_Audio.Pause();
+            uniAudio.Pause();
         }
         public void Resume()
         {
-            uni_Audio.Pause();
+            uniAudio.Pause();
             cannext = true;
         }
         public double durnation
-        { get { return uni_Audio.Durnation; } }
+        { get { return uniAudio.Durnation; } }
         public double position
-        { get { return uni_Audio.Position; } }
+        { get { return uniAudio.Position; } }
         public bool isplaying
-        { get { return uni_Audio.Isplaying; } }
+        { get { return uniAudio.Isplaying; } }
         public void seek(double time)
         {
             cannext = false;
-            uni_Audio.Seek(time);
+            uniAudio.Seek(time);
             fxpos = 0;
             if (playfx)
             {
-                while (fxlist[fxpos].time <= uni_Audio.Position * 1000 && fxpos < fxlist.Count)
+                while (fxlist[fxpos].time <= uniAudio.Position * 1000 && fxpos < fxlist.Count)
                 {
                     fxpos++;
                 }
@@ -444,16 +442,16 @@ namespace OSUplayer.Graphic
         }
         private void AVsync(object sender, EventArgs e)
         {
-            if (!uni_Audio.Isplaying && cannext)
+            if (!uniAudio.Isplaying && cannext)
             {
                 willnext = true;
                 return;
             }
             if (fxpos < fxlist.Count)
             {
-                while (fxlist[fxpos].time <= uni_Audio.Position * 1000)
+                while (fxlist[fxpos].time <= uniAudio.Position * 1000)
                 {
-                    while ((fxlist[fxpos + 1].time <= uni_Audio.Position * 1000)) { fxpos++; }
+                    while ((fxlist[fxpos + 1].time <= uniAudio.Position * 1000)) { fxpos++; }
                     PlayFx(fxpos);
                     fxpos++;
                 }

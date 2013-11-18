@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -66,8 +65,8 @@ namespace OSUplayer.Uilties
     public class HotkeyHelper : IMessageFilter
     {
 
-        Hashtable keyIDs = new Hashtable();
-        IntPtr hWnd;
+        private Hashtable keyIDs = new Hashtable();
+        private IntPtr hWnd;
         public event HotkeyEventHandler OnHotkey;
 
         public HotkeyHelper(IntPtr hWnd)
@@ -75,10 +74,10 @@ namespace OSUplayer.Uilties
             this.hWnd = hWnd;
             Application.AddMessageFilter(this);
         }
-        public int RegisterHotkey(Keys Key, KeyModifiers keyflags)
+        public int RegisterHotkey(Keys key, KeyModifiers keyflags)
         {
             UInt32 hotkeyid = Win32.GlobalAddAtom(System.Guid.NewGuid().ToString());
-            Win32.RegisterHotKey((IntPtr)hWnd, hotkeyid, (UInt32)keyflags, (UInt32)Key);
+            Win32.RegisterHotKey((IntPtr)hWnd, hotkeyid, (UInt32)keyflags, (UInt32)key);
             keyIDs.Add(hotkeyid, hotkeyid);
             return (int)hotkeyid;
         }
