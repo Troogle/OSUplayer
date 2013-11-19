@@ -61,7 +61,7 @@ namespace OSUplayer
                 TrackSeek.Enabled = true;
                 PlayButton.Text = "暂停";
                 StopButton.Enabled = true;
-                TrackSeek.Maximum = (int)Core.durnation * 1000;
+                TrackSeek.Maximum = (int)Core.Durnation * 1000;
             }
         }
         private void Pause()
@@ -347,7 +347,7 @@ namespace OSUplayer
                     Core.currentmap = Core.tmpmap;
                     SetDetail();
                 }
-                else if (Core.isplaying)
+                else if (Core.Isplaying)
                 {
                     ListDetail.Items.Clear();
                     ListDetail.Items.AddRange(Core.getdetail());
@@ -453,9 +453,9 @@ namespace OSUplayer
             PlayList.EnsureVisible(currentset);
             PlayList.Focus();
             Core.setBG();
-            if (Core.isplaying)
+            if (Core.Isplaying)
             {
-                TrackSeek.Maximum = (int)Core.durnation * 1000;
+                TrackSeek.Maximum = (int)Core.Durnation * 1000;
                 TrackSeek.Enabled = true;
                 UpdateTimer.Enabled = true;
                 PlayButton.Text = "暂停";
@@ -493,11 +493,11 @@ namespace OSUplayer
         }
         private void UpdateTimer_Tick(object sender, EventArgs e)
         {
-            TrackSeek.Value = (int)Core.position * 1000;
-            label1.Text = String.Format("{0}:{1:D2} / {2}:{3:D2}", (int)Core.position / 60,
-                (int)Core.position % 60, (int)Core.durnation / 60,
-                (int)Core.durnation % 60);
-            if (Core.willnext) { Stop(); PlayNext(); }
+            TrackSeek.Value = (int)Core.Position * 1000;
+            label1.Text = String.Format("{0}:{1:D2} / {2}:{3:D2}", (int)Core.Position / 60,
+                (int)Core.Position % 60, (int)Core.Durnation / 60,
+                (int)Core.Durnation % 60);
+            if (Core.Willnext) { Stop(); PlayNext(); }
         }
         private void NextTimer_Tick(object sender, EventArgs e)
         {
@@ -521,29 +521,36 @@ namespace OSUplayer
         HotkeyHelper hotkeyHelper;
         int playKey;
         int nextKey;
+        int playKey1;
+        int playKey2;
+        int nextKey1;
         private void Main_Shown(object sender, EventArgs e)
         {
             this.VisibleChanged += Main_VisibleChanged;
             hotkeyHelper = new HotkeyHelper(this.Handle);
             playKey = hotkeyHelper.RegisterHotkey(Keys.F5, KeyModifiers.Alt);
+            playKey1 = hotkeyHelper.RegisterHotkey(Keys.Play, KeyModifiers.None);
+            playKey2 = hotkeyHelper.RegisterHotkey(Keys.Pause, KeyModifiers.None);
             nextKey = hotkeyHelper.RegisterHotkey(Keys.Right, KeyModifiers.Alt);
+            nextKey1 = hotkeyHelper.RegisterHotkey(Keys.MediaNextTrack, KeyModifiers.None);
             hotkeyHelper.OnHotkey += new HotkeyEventHandler(OnHotkey);
         }
         private void OnHotkey(int hotkeyID)
         {
-            if (hotkeyID == playKey)
+            if (hotkeyID == playKey || hotkeyID == playKey1 || hotkeyID == playKey2)
             {
                 PlayButton.PerformClick();
             }
-            else if (hotkeyID == nextKey)
+            else if (hotkeyID == nextKey || hotkeyID == nextKey1)
             {
                 NextButton.PerformClick();
             }
         }
 
-        private void saveFileDialog1_FileOk(object sender, CancelEventArgs e)
+        private void Main_ResizeEnd(object sender, EventArgs e)
         {
-
+           // Core.Resize(panel2.Size);
         }
+
     }
 }

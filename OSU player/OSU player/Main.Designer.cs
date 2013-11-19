@@ -60,18 +60,6 @@ namespace OSUplayer
             this.TextBox1 = new Telerik.WinControls.UI.RadTextBox();
             this.PlayList = new System.Windows.Forms.ListView();
             this.ColumnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.SearchButton = new Telerik.WinControls.UI.RadButton();
-            this.Button2 = new Telerik.WinControls.UI.RadButton();
-            this.radPageView1 = new Telerik.WinControls.UI.RadPageView();
-            this.radPageViewPage3 = new Telerik.WinControls.UI.RadPageViewPage();
-            this.DiffList = new System.Windows.Forms.ListBox();
-            this.radPageViewPage1 = new Telerik.WinControls.UI.RadPageViewPage();
-            this.ListDetail = new System.Windows.Forms.ListView();
-            this.ColumnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.ColumnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.radPageViewPage2 = new Telerik.WinControls.UI.RadPageViewPage();
-            this.ScoreBox = new Telerik.WinControls.UI.RadListView();
-            this.LabelQQ = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.TrackVolume = new Telerik.WinControls.UI.RadTrackBar();
             this.TrackSeek = new Telerik.WinControls.UI.RadTrackBar();
@@ -86,6 +74,18 @@ namespace OSUplayer
             this.NextButton = new Telerik.WinControls.UI.RadButton();
             this.StopButton = new Telerik.WinControls.UI.RadButton();
             this.PlayButton = new Telerik.WinControls.UI.RadButton();
+            this.SearchButton = new Telerik.WinControls.UI.RadButton();
+            this.Button2 = new Telerik.WinControls.UI.RadButton();
+            this.radPageView1 = new Telerik.WinControls.UI.RadPageView();
+            this.radPageViewPage1 = new Telerik.WinControls.UI.RadPageViewPage();
+            this.ListDetail = new System.Windows.Forms.ListView();
+            this.ColumnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ColumnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.radPageViewPage2 = new Telerik.WinControls.UI.RadPageViewPage();
+            this.ScoreBox = new Telerik.WinControls.UI.RadListView();
+            this.radPageViewPage3 = new Telerik.WinControls.UI.RadPageViewPage();
+            this.DiffList = new System.Windows.Forms.ListBox();
+            this.LabelQQ = new System.Windows.Forms.Label();
             this.UpdateTimer = new System.Windows.Forms.Timer(this.components);
             this.MenuStrip1 = new Telerik.WinControls.UI.RadMenu();
             this.NextTimer = new System.Windows.Forms.Timer(this.components);
@@ -93,14 +93,6 @@ namespace OSUplayer
             ((System.ComponentModel.ISupportInitialize)(this.radMenuComboItem1.ComboBoxElement)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TextBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SearchButton)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Button2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radPageView1)).BeginInit();
-            this.radPageView1.SuspendLayout();
-            this.radPageViewPage3.SuspendLayout();
-            this.radPageViewPage1.SuspendLayout();
-            this.radPageViewPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ScoreBox)).BeginInit();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TrackVolume)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrackSeek)).BeginInit();
@@ -110,6 +102,14 @@ namespace OSUplayer
             ((System.ComponentModel.ISupportInitialize)(this.NextButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.StopButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SearchButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Button2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radPageView1)).BeginInit();
+            this.radPageView1.SuspendLayout();
+            this.radPageViewPage1.SuspendLayout();
+            this.radPageViewPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ScoreBox)).BeginInit();
+            this.radPageViewPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MenuStrip1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
@@ -420,22 +420,26 @@ namespace OSUplayer
             // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.TextBox1);
             this.panel1.Controls.Add(this.PlayList);
+            this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.SearchButton);
             this.panel1.Controls.Add(this.Button2);
             this.panel1.Controls.Add(this.radPageView1);
             this.panel1.Controls.Add(this.LabelQQ);
-            this.panel1.Location = new System.Drawing.Point(4, 34);
+            this.panel1.Location = new System.Drawing.Point(0, 29);
             this.panel1.MinimumSize = new System.Drawing.Size(882, 651);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1043, 788);
+            this.panel1.Size = new System.Drawing.Size(1035, 780);
             this.panel1.TabIndex = 21;
             // 
             // TextBox1
             // 
             this.TextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.TextBox1.Location = new System.Drawing.Point(696, 752);
+            this.TextBox1.Location = new System.Drawing.Point(685, 738);
             this.TextBox1.Name = "TextBox1";
             this.TextBox1.NullText = "Enter Keywords";
             this.TextBox1.Size = new System.Drawing.Size(250, 24);
@@ -453,10 +457,10 @@ namespace OSUplayer
             this.PlayList.GridLines = true;
             this.PlayList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.PlayList.HideSelection = false;
-            this.PlayList.Location = new System.Drawing.Point(696, 32);
+            this.PlayList.Location = new System.Drawing.Point(685, 32);
             this.PlayList.MultiSelect = false;
             this.PlayList.Name = "PlayList";
-            this.PlayList.Size = new System.Drawing.Size(344, 711);
+            this.PlayList.Size = new System.Drawing.Size(344, 700);
             this.PlayList.TabIndex = 24;
             this.PlayList.UseCompatibleStateImageBehavior = false;
             this.PlayList.View = System.Windows.Forms.View.Details;
@@ -468,138 +472,11 @@ namespace OSUplayer
             this.ColumnHeader1.Text = "";
             this.ColumnHeader1.Width = 500;
             // 
-            // SearchButton
-            // 
-            this.SearchButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.SearchButton.Location = new System.Drawing.Point(952, 749);
-            this.SearchButton.Name = "SearchButton";
-            this.SearchButton.Size = new System.Drawing.Size(88, 32);
-            this.SearchButton.TabIndex = 36;
-            this.SearchButton.Text = "搜索";
-            this.SearchButton.Click += new System.EventHandler(this.SearchButton_Click);
-            // 
-            // Button2
-            // 
-            this.Button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Button2.Location = new System.Drawing.Point(696, 3);
-            this.Button2.Name = "Button2";
-            this.Button2.Size = new System.Drawing.Size(131, 27);
-            this.Button2.TabIndex = 32;
-            this.Button2.Text = "导入Collection";
-            this.Button2.Click += new System.EventHandler(this.Button2_Click);
-            // 
-            // radPageView1
-            // 
-            this.radPageView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.radPageView1.Controls.Add(this.radPageViewPage3);
-            this.radPageView1.Controls.Add(this.radPageViewPage1);
-            this.radPageView1.Controls.Add(this.radPageViewPage2);
-            this.radPageView1.Location = new System.Drawing.Point(-3, 547);
-            this.radPageView1.Name = "radPageView1";
-            this.radPageView1.SelectedPage = this.radPageViewPage3;
-            this.radPageView1.Size = new System.Drawing.Size(694, 238);
-            this.radPageView1.TabIndex = 1;
-            this.radPageView1.Text = "radPageView1";
-            this.radPageView1.SelectedPageChanged += new System.EventHandler(this.radPageView1_SelectedPageChanged);
-            ((Telerik.WinControls.UI.RadPageViewStripElement)(this.radPageView1.GetChildAt(0))).StripButtons = Telerik.WinControls.UI.StripViewButtons.None;
-            ((Telerik.WinControls.UI.RadPageViewStripElement)(this.radPageView1.GetChildAt(0))).StripAlignment = Telerik.WinControls.UI.StripViewAlignment.Bottom;
-            // 
-            // radPageViewPage3
-            // 
-            this.radPageViewPage3.Controls.Add(this.DiffList);
-            this.radPageViewPage3.Location = new System.Drawing.Point(10, 10);
-            this.radPageViewPage3.Name = "radPageViewPage3";
-            this.radPageViewPage3.Size = new System.Drawing.Size(673, 186);
-            this.radPageViewPage3.Text = "Diff信息";
-            // 
-            // DiffList
-            // 
-            this.DiffList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.DiffList.FormattingEnabled = true;
-            this.DiffList.ItemHeight = 15;
-            this.DiffList.Location = new System.Drawing.Point(3, 3);
-            this.DiffList.Name = "DiffList";
-            this.DiffList.Size = new System.Drawing.Size(667, 169);
-            this.DiffList.TabIndex = 25;
-            this.DiffList.SelectedIndexChanged += new System.EventHandler(this.DiffList_SelectedIndexChanged);
-            this.DiffList.DoubleClick += new System.EventHandler(this.DiffList_DoubleClick);
-            // 
-            // radPageViewPage1
-            // 
-            this.radPageViewPage1.Controls.Add(this.ListDetail);
-            this.radPageViewPage1.Location = new System.Drawing.Point(10, 10);
-            this.radPageViewPage1.Name = "radPageViewPage1";
-            this.radPageViewPage1.Size = new System.Drawing.Size(512, 186);
-            this.radPageViewPage1.Text = "Map信息";
-            // 
-            // ListDetail
-            // 
-            this.ListDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ListDetail.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.ColumnHeader2,
-            this.ColumnHeader3});
-            this.ListDetail.FullRowSelect = true;
-            this.ListDetail.GridLines = true;
-            this.ListDetail.Location = new System.Drawing.Point(3, 3);
-            this.ListDetail.MultiSelect = false;
-            this.ListDetail.Name = "ListDetail";
-            this.ListDetail.Size = new System.Drawing.Size(506, 169);
-            this.ListDetail.TabIndex = 40;
-            this.ListDetail.UseCompatibleStateImageBehavior = false;
-            this.ListDetail.View = System.Windows.Forms.View.Details;
-            // 
-            // ColumnHeader2
-            // 
-            this.ColumnHeader2.Text = "Key";
-            this.ColumnHeader2.Width = 120;
-            // 
-            // ColumnHeader3
-            // 
-            this.ColumnHeader3.Text = "Value";
-            this.ColumnHeader3.Width = 300;
-            // 
-            // radPageViewPage2
-            // 
-            this.radPageViewPage2.Controls.Add(this.ScoreBox);
-            this.radPageViewPage2.Location = new System.Drawing.Point(10, 10);
-            this.radPageViewPage2.Name = "radPageViewPage2";
-            this.radPageViewPage2.Size = new System.Drawing.Size(673, 186);
-            this.radPageViewPage2.Text = "成绩信息";
-            // 
-            // ScoreBox
-            // 
-            this.ScoreBox.AllowColumnReorder = false;
-            this.ScoreBox.AllowColumnResize = false;
-            this.ScoreBox.AllowEdit = false;
-            this.ScoreBox.AllowRemove = false;
-            this.ScoreBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ScoreBox.AutoScroll = true;
-            this.ScoreBox.ItemSize = new System.Drawing.Size(200, 60);
-            this.ScoreBox.Location = new System.Drawing.Point(3, 3);
-            this.ScoreBox.Name = "ScoreBox";
-            this.ScoreBox.ShowColumnHeaders = false;
-            this.ScoreBox.Size = new System.Drawing.Size(667, 169);
-            this.ScoreBox.TabIndex = 26;
-            this.ScoreBox.Text = "radListView1";
-            // 
-            // LabelQQ
-            // 
-            this.LabelQQ.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.LabelQQ.AutoSize = true;
-            this.LabelQQ.Location = new System.Drawing.Point(833, 8);
-            this.LabelQQ.Name = "LabelQQ";
-            this.LabelQQ.Size = new System.Drawing.Size(90, 19);
-            this.LabelQQ.TabIndex = 30;
-            this.LabelQQ.Text = "当前同步QQ:";
-            // 
             // panel3
             // 
+            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.Controls.Add(this.TrackVolume);
             this.panel3.Controls.Add(this.TrackSeek);
             this.panel3.Controls.Add(this.button3);
@@ -613,21 +490,22 @@ namespace OSUplayer
             this.panel3.Controls.Add(this.NextButton);
             this.panel3.Controls.Add(this.StopButton);
             this.panel3.Controls.Add(this.PlayButton);
-            this.panel3.Location = new System.Drawing.Point(4, 34);
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.MinimumSize = new System.Drawing.Size(365, 310);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(691, 551);
+            this.panel3.Size = new System.Drawing.Size(685, 550);
             this.panel3.TabIndex = 22;
             // 
             // TrackVolume
             // 
             this.TrackVolume.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TrackVolume.Location = new System.Drawing.Point(652, 32);
+            this.TrackVolume.Location = new System.Drawing.Point(649, 32);
             this.TrackVolume.Maximum = 100;
             this.TrackVolume.Name = "TrackVolume";
             this.TrackVolume.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.TrackVolume.ShowTicks = false;
-            this.TrackVolume.Size = new System.Drawing.Size(30, 460);
+            this.TrackVolume.Size = new System.Drawing.Size(28, 460);
             this.TrackVolume.TabIndex = 0;
             this.TrackVolume.Text = "radTrackBar1";
             this.TrackVolume.TickStyle = Telerik.WinControls.Enumerations.TickStyles.None;
@@ -641,7 +519,7 @@ namespace OSUplayer
             this.TrackSeek.Location = new System.Drawing.Point(181, 522);
             this.TrackSeek.Name = "TrackSeek";
             this.TrackSeek.ShowTicks = false;
-            this.TrackSeek.Size = new System.Drawing.Size(466, 17);
+            this.TrackSeek.Size = new System.Drawing.Size(461, 17);
             this.TrackSeek.TabIndex = 0;
             this.TrackSeek.Text = "radTrackBar1";
             this.TrackSeek.TickStyle = Telerik.WinControls.Enumerations.TickStyles.None;
@@ -652,7 +530,7 @@ namespace OSUplayer
             // button3
             // 
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Location = new System.Drawing.Point(652, 3);
+            this.button3.Location = new System.Drawing.Point(649, 3);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(30, 27);
             this.button3.TabIndex = 43;
@@ -677,7 +555,7 @@ namespace OSUplayer
             this.TrackMusic.Maximum = 100;
             this.TrackMusic.Name = "TrackMusic";
             this.TrackMusic.ShowTicks = false;
-            this.TrackMusic.Size = new System.Drawing.Size(197, 17);
+            this.TrackMusic.Size = new System.Drawing.Size(192, 17);
             this.TrackMusic.TabIndex = 54;
             this.TrackMusic.TickStyle = Telerik.WinControls.Enumerations.TickStyles.None;
             this.TrackMusic.Value = 80;
@@ -690,19 +568,24 @@ namespace OSUplayer
             // 
             // panel2
             // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.Location = new System.Drawing.Point(7, 29);
+            this.panel2.MinimumSize = new System.Drawing.Size(320, 240);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(640, 480);
             this.panel2.TabIndex = 45;
             // 
             // TrackFx
             // 
-            this.TrackFx.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.TrackFx.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.TrackFx.Location = new System.Drawing.Point(408, 7);
             this.TrackFx.Maximum = 100;
             this.TrackFx.Name = "TrackFx";
             this.TrackFx.ShowTicks = false;
-            this.TrackFx.Size = new System.Drawing.Size(239, 17);
+            this.TrackFx.Size = new System.Drawing.Size(234, 17);
             this.TrackFx.TabIndex = 51;
             this.TrackFx.TickStyle = Telerik.WinControls.Enumerations.TickStyles.None;
             this.TrackFx.Value = 60;
@@ -717,7 +600,7 @@ namespace OSUplayer
             // 
             this.Label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Label3.AutoSize = true;
-            this.Label3.Location = new System.Drawing.Point(365, 6);
+            this.Label3.Location = new System.Drawing.Point(360, 6);
             this.Label3.Name = "Label3";
             this.Label3.Size = new System.Drawing.Size(37, 19);
             this.Label3.TabIndex = 52;
@@ -736,7 +619,7 @@ namespace OSUplayer
             // 
             this.Label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Label2.AutoSize = true;
-            this.Label2.Location = new System.Drawing.Point(649, 495);
+            this.Label2.Location = new System.Drawing.Point(646, 495);
             this.Label2.Name = "Label2";
             this.Label2.Size = new System.Drawing.Size(37, 19);
             this.Label2.TabIndex = 50;
@@ -773,6 +656,136 @@ namespace OSUplayer
             this.PlayButton.Text = "播放";
             this.PlayButton.Click += new System.EventHandler(this.PlayButton_Click);
             // 
+            // SearchButton
+            // 
+            this.SearchButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.SearchButton.Location = new System.Drawing.Point(941, 738);
+            this.SearchButton.Name = "SearchButton";
+            this.SearchButton.Size = new System.Drawing.Size(88, 32);
+            this.SearchButton.TabIndex = 36;
+            this.SearchButton.Text = "搜索";
+            this.SearchButton.Click += new System.EventHandler(this.SearchButton_Click);
+            // 
+            // Button2
+            // 
+            this.Button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Button2.Location = new System.Drawing.Point(685, 3);
+            this.Button2.Name = "Button2";
+            this.Button2.Size = new System.Drawing.Size(131, 27);
+            this.Button2.TabIndex = 32;
+            this.Button2.Text = "导入Collection";
+            this.Button2.Click += new System.EventHandler(this.Button2_Click);
+            // 
+            // radPageView1
+            // 
+            this.radPageView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.radPageView1.Controls.Add(this.radPageViewPage1);
+            this.radPageView1.Controls.Add(this.radPageViewPage2);
+            this.radPageView1.Controls.Add(this.radPageViewPage3);
+            this.radPageView1.Location = new System.Drawing.Point(0, 547);
+            this.radPageView1.Name = "radPageView1";
+            this.radPageView1.SelectedPage = this.radPageViewPage1;
+            this.radPageView1.Size = new System.Drawing.Size(685, 223);
+            this.radPageView1.TabIndex = 1;
+            this.radPageView1.Text = "radPageView1";
+            this.radPageView1.SelectedPageChanged += new System.EventHandler(this.radPageView1_SelectedPageChanged);
+            ((Telerik.WinControls.UI.RadPageViewStripElement)(this.radPageView1.GetChildAt(0))).StripButtons = Telerik.WinControls.UI.StripViewButtons.None;
+            ((Telerik.WinControls.UI.RadPageViewStripElement)(this.radPageView1.GetChildAt(0))).StripAlignment = Telerik.WinControls.UI.StripViewAlignment.Bottom;
+            // 
+            // radPageViewPage1
+            // 
+            this.radPageViewPage1.Controls.Add(this.ListDetail);
+            this.radPageViewPage1.Location = new System.Drawing.Point(10, 10);
+            this.radPageViewPage1.Name = "radPageViewPage1";
+            this.radPageViewPage1.Size = new System.Drawing.Size(664, 171);
+            this.radPageViewPage1.Text = "Map信息";
+            // 
+            // ListDetail
+            // 
+            this.ListDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ListDetail.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.ColumnHeader2,
+            this.ColumnHeader3});
+            this.ListDetail.FullRowSelect = true;
+            this.ListDetail.GridLines = true;
+            this.ListDetail.Location = new System.Drawing.Point(0, 0);
+            this.ListDetail.MultiSelect = false;
+            this.ListDetail.Name = "ListDetail";
+            this.ListDetail.Size = new System.Drawing.Size(664, 169);
+            this.ListDetail.TabIndex = 40;
+            this.ListDetail.UseCompatibleStateImageBehavior = false;
+            this.ListDetail.View = System.Windows.Forms.View.Details;
+            // 
+            // ColumnHeader2
+            // 
+            this.ColumnHeader2.Text = "Key";
+            this.ColumnHeader2.Width = 120;
+            // 
+            // ColumnHeader3
+            // 
+            this.ColumnHeader3.Text = "Value";
+            this.ColumnHeader3.Width = 300;
+            // 
+            // radPageViewPage2
+            // 
+            this.radPageViewPage2.Controls.Add(this.ScoreBox);
+            this.radPageViewPage2.Location = new System.Drawing.Point(10, 10);
+            this.radPageViewPage2.Name = "radPageViewPage2";
+            this.radPageViewPage2.Size = new System.Drawing.Size(664, 171);
+            this.radPageViewPage2.Text = "成绩信息";
+            // 
+            // ScoreBox
+            // 
+            this.ScoreBox.AllowColumnReorder = false;
+            this.ScoreBox.AllowColumnResize = false;
+            this.ScoreBox.AllowEdit = false;
+            this.ScoreBox.AllowRemove = false;
+            this.ScoreBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ScoreBox.AutoScroll = true;
+            this.ScoreBox.ItemSize = new System.Drawing.Size(200, 60);
+            this.ScoreBox.Location = new System.Drawing.Point(0, 0);
+            this.ScoreBox.Name = "ScoreBox";
+            this.ScoreBox.ShowColumnHeaders = false;
+            this.ScoreBox.Size = new System.Drawing.Size(664, 169);
+            this.ScoreBox.TabIndex = 26;
+            this.ScoreBox.Text = "radListView1";
+            // 
+            // radPageViewPage3
+            // 
+            this.radPageViewPage3.Controls.Add(this.DiffList);
+            this.radPageViewPage3.Location = new System.Drawing.Point(10, 10);
+            this.radPageViewPage3.Name = "radPageViewPage3";
+            this.radPageViewPage3.Size = new System.Drawing.Size(664, 171);
+            this.radPageViewPage3.Text = "Diff信息";
+            // 
+            // DiffList
+            // 
+            this.DiffList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.DiffList.FormattingEnabled = true;
+            this.DiffList.ItemHeight = 15;
+            this.DiffList.Location = new System.Drawing.Point(0, 0);
+            this.DiffList.Name = "DiffList";
+            this.DiffList.Size = new System.Drawing.Size(664, 169);
+            this.DiffList.TabIndex = 25;
+            this.DiffList.SelectedIndexChanged += new System.EventHandler(this.DiffList_SelectedIndexChanged);
+            this.DiffList.DoubleClick += new System.EventHandler(this.DiffList_DoubleClick);
+            // 
+            // LabelQQ
+            // 
+            this.LabelQQ.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.LabelQQ.AutoSize = true;
+            this.LabelQQ.Location = new System.Drawing.Point(821, 7);
+            this.LabelQQ.Name = "LabelQQ";
+            this.LabelQQ.Size = new System.Drawing.Size(90, 19);
+            this.LabelQQ.TabIndex = 30;
+            this.LabelQQ.Text = "当前同步QQ:";
+            // 
             // UpdateTimer
             // 
             this.UpdateTimer.Tick += new System.EventHandler(this.UpdateTimer_Tick);
@@ -786,7 +799,7 @@ namespace OSUplayer
             this.关于});
             this.MenuStrip1.Location = new System.Drawing.Point(4, 4);
             this.MenuStrip1.Name = "MenuStrip1";
-            this.MenuStrip1.Size = new System.Drawing.Size(1039, 24);
+            this.MenuStrip1.Size = new System.Drawing.Size(1032, 24);
             this.MenuStrip1.TabIndex = 2;
             this.MenuStrip1.Text = "MenuStrip1";
             // 
@@ -803,14 +816,11 @@ namespace OSUplayer
             // Main
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(1047, 824);
-            this.Controls.Add(this.panel3);
+            this.ClientSize = new System.Drawing.Size(1040, 815);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.MenuStrip1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(1055, 854);
+            this.MinimumSize = new System.Drawing.Size(888, 710);
             this.Name = "Main";
             this.Padding = new System.Windows.Forms.Padding(4);
             // 
@@ -821,18 +831,11 @@ namespace OSUplayer
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AskForExit);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Shown += new System.EventHandler(this.Main_Shown);
+            this.ResizeEnd += new System.EventHandler(this.Main_ResizeEnd);
             ((System.ComponentModel.ISupportInitialize)(this.radMenuComboItem1.ComboBoxElement)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TextBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SearchButton)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Button2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radPageView1)).EndInit();
-            this.radPageView1.ResumeLayout(false);
-            this.radPageViewPage3.ResumeLayout(false);
-            this.radPageViewPage1.ResumeLayout(false);
-            this.radPageViewPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.ScoreBox)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TrackVolume)).EndInit();
@@ -843,6 +846,14 @@ namespace OSUplayer
             ((System.ComponentModel.ISupportInitialize)(this.NextButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.StopButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SearchButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Button2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radPageView1)).EndInit();
+            this.radPageView1.ResumeLayout(false);
+            this.radPageViewPage1.ResumeLayout(false);
+            this.radPageViewPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ScoreBox)).EndInit();
+            this.radPageViewPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.MenuStrip1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);

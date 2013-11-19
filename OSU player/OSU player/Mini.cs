@@ -86,9 +86,9 @@ namespace OSUplayer
             SetFormRoundRectRgn(this, 12);
             TrackVolume.Value = (int)(100 * Core.Allvolume);
             if (!this.Bounds.Contains(Cursor.Position)) { this.Opacity = 0.5d; }
-            if (Core.isplaying)
+            if (Core.Isplaying)
             {
-                TrackSeek.MaxValue = (int)Core.durnation * 1000;
+                TrackSeek.MaxValue = (int)Core.Durnation * 1000;
                 TrackSeek.Enabled = true;
                 Artist = Core.CurrentBeatmap.Artist;
                 Title = Core.CurrentBeatmap.Title;
@@ -108,7 +108,7 @@ namespace OSUplayer
             if (!StopButton.Enabled) { Play(); }
             else
             {
-                if (!Core.isplaying)
+                if (!Core.Isplaying)
                 {
                     Resume();
                 }
@@ -183,7 +183,7 @@ namespace OSUplayer
                 TrackSeek.Enabled = true;
                 SetPlay(false);
                 StopButton.Enabled = true;
-                TrackSeek.MaxValue = (int)Core.durnation * 1000;
+                TrackSeek.MaxValue = (int)Core.Durnation * 1000;
                 this.LabelArtist.Refresh();
                 this.LabelTitle.Refresh();
                 Artist = Core.CurrentBeatmap.Artist;
@@ -217,11 +217,11 @@ namespace OSUplayer
         private void UpdateTimer_Tick(object sender, EventArgs e)
         {
 
-            TrackSeek.Value = (int)Core.position * 1000;
-            LabelTime.Text = String.Format("{0}:{1:D2} | {2}:{3:D2}", (int)Core.position / 60,
-                (int)Core.position % 60, (int)Core.durnation / 60,
-                (int)Core.durnation % 60);
-            if (Core.willnext) { Stop(); PlayNext(); }
+            TrackSeek.Value = (int)Core.Position * 1000;
+            LabelTime.Text = String.Format("{0}:{1:D2} | {2}:{3:D2}", (int)Core.Position / 60,
+                (int)Core.Position % 60, (int)Core.Durnation / 60,
+                (int)Core.Durnation % 60);
+            if (Core.Willnext) { Stop(); PlayNext(); }
         }
 
         private void TrackVolume_ValueChanged(object sender, EventArgs e)
@@ -307,20 +307,26 @@ namespace OSUplayer
         HotkeyHelper hotkeyHelper;
         int playKey;
         int nextKey;
+        int playKey1;
+        int playKey2;
+        int nextKey1;
         private void Mini_Shown(object sender, EventArgs e)
         {
             hotkeyHelper = new HotkeyHelper(this.Handle);
             playKey = hotkeyHelper.RegisterHotkey(Keys.F5, KeyModifiers.Alt);
+            playKey1 = hotkeyHelper.RegisterHotkey(Keys.Play, KeyModifiers.None);
+            playKey2 = hotkeyHelper.RegisterHotkey(Keys.Pause, KeyModifiers.None);
             nextKey = hotkeyHelper.RegisterHotkey(Keys.Right, KeyModifiers.Alt);
+            nextKey1 = hotkeyHelper.RegisterHotkey(Keys.MediaNextTrack, KeyModifiers.None);
             hotkeyHelper.OnHotkey += new HotkeyEventHandler(OnHotkey);
         }
         private void OnHotkey(int hotkeyID)
         {
-            if (hotkeyID == playKey)
+            if (hotkeyID == playKey || hotkeyID == playKey1 || hotkeyID == playKey2)
             {
                 imageButton1_Click(null, EventArgs.Empty);
             }
-            else if (hotkeyID == nextKey)
+            else if (hotkeyID == nextKey || hotkeyID == nextKey1)
             {
                 imageButton3_Click(null, EventArgs.Empty);
             }

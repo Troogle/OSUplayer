@@ -40,15 +40,16 @@ namespace OSUplayer.Graphic
         float Allvolume { get { return Core.Allvolume; } }
         float Musicvolume { get { return Core.Musicvolume; } }
         float Fxvolume { get { return Core.Fxvolume; } }
-        bool playvideo { get { return Core.playvideo; } }
-        bool playfx { get { return Core.playfx; } }
-        bool playsb { get { return Core.playsb; } }
+        bool Playvideo { get { return Core.playvideo; } }
+        bool Playfx { get { return Core.playfx; } }
+        bool Playsb { get { return Core.playsb; } }
         Beatmap Map { get { return Core.CurrentBeatmap; } }
         BeatmapSet Set { get { return Core.CurrentSet; } }
         /// <summary>
         /// 渲染区域大小
         /// </summary>
-        Size size;
+        Rectangle sizeRect;
+        Rectangle showRect;
         /// <summary>
         /// 渲染区域的handle
         /// </summary>
@@ -59,7 +60,6 @@ namespace OSUplayer.Graphic
         Texture2D BGTexture;
         Texture2D Black;
         PresentationParameters presentParams = new PresentationParameters();
-        Rectangle sizerect;
         Vector2 VideoPosition;
         float VideoScale;
         Vector2 BGPosition;
@@ -72,8 +72,8 @@ namespace OSUplayer.Graphic
         {
             uniAudio = new Audiofiles();
             handle = Shandle;
-            size = Ssize;
-            sizerect = new Rectangle(0, 0, size.Width, size.Height);
+            sizeRect = new Rectangle(0, 0, 640, 480);
+            showRect = new Rectangle(0, 0, Ssize.Width, Ssize.Height);
             /* presentParams.DeviceWindowHandle=handle;
              presentParams.IsFullScreen=false;
              device = new GraphicsDevice();
@@ -94,6 +94,11 @@ namespace OSUplayer.Graphic
                 s.Seek(0, SeekOrigin.Begin);
                 BGTexture = Texture2D.FromFile(device, s);
             }
+        }
+        public void resize(Size size)
+        {
+            sizeRect = new Rectangle(0, 0, size.Width, size.Height);
+
         }
         bool CanRender()
         {
@@ -127,11 +132,11 @@ namespace OSUplayer.Graphic
             }
             //VideoTexture = Texture.FromBitmap(device, new Bitmap(Properties.Resources.BlackBase, decoder.width, decoder.height), 0, Pool.Managed);
             VideoTexture = new Texture2D(device, decoder.width, decoder.height, 1, 0, SurfaceFormat.Bgr32);
-            VideoScale = (float)size.Width / decoder.width < (float)size.Height / decoder.height ? (float)size.Width / decoder.width : (float)size.Height / decoder.height;
+            VideoScale = (float)sizeRect.Width / decoder.width < (float)sizeRect.Height / decoder.height ? (float)sizeRect.Width / decoder.width : (float)sizeRect.Height / decoder.height;
             //scaleMatrix.Scale(scalef, scalef, 0.0f);
             //rotateMatrix.RotateZ(0f);
             //transformMatrix.Translate(new Vector3((size.Width - decoder.width * scalef) / 2, (size.Height - decoder.height * scalef) / 2, 0));
-            VideoPosition = new Vector2((size.Width - decoder.width * VideoScale) / 2, (size.Height - decoder.height * VideoScale) / 2);
+            VideoPosition = new Vector2((sizeRect.Width - decoder.width * VideoScale) / 2, (sizeRect.Height - decoder.height * VideoScale) / 2);
             //Videorect = new Rectangle(0, 0, decoder.width, decoder.height);
             videoexist = true;
         }
@@ -161,11 +166,11 @@ namespace OSUplayer.Graphic
             }
 
             // BGTexture = Texture.FromBitmap(device, CurrentBG, 0, Pool.Managed);
-            BGScale = (float)size.Width / BGTexture.Width < (float)size.Height / BGTexture.Height ? (float)size.Width / BGTexture.Width : (float)size.Height / BGTexture.Height;
+            BGScale = (float)sizeRect.Width / BGTexture.Width < (float)sizeRect.Height / BGTexture.Height ? (float)sizeRect.Width / BGTexture.Width : (float)sizeRect.Height / BGTexture.Height;
             //bgscaleMatrix.Scale(scalef, scalef, 0.0f);
             //bgrotateMatrix.RotateZ(0f);
             //bgtransformMatrix.Translate(new Vector3((size.Width - CurrentBG.Width * scalef) / 2, (size.Height - CurrentBG.Height * scalef) / 2, 0));
-            BGPosition = new Vector2((size.Width - BGTexture.Width * BGScale) / 2, (size.Height - BGTexture.Height * BGScale) / 2);
+            BGPosition = new Vector2((sizeRect.Width - BGTexture.Width * BGScale) / 2, (sizeRect.Height - BGTexture.Height * BGScale) / 2);
             //BGrect = new Rectangle(0, 0, CurrentBG.Width, CurrentBG.Height);
 
         }
@@ -209,7 +214,7 @@ namespace OSUplayer.Graphic
             //VideoStream.Write(decoder.GetFrame(Convert.ToInt32(position * 1000 - Map.VideoOffset)), 0, decoder.height * decoder.width * 4);
             //VideoTexture.UnlockRectangle(0);
             //sprite.Transform = Matrix.Scaling(1f, 1f, 0);
-            sprite.Draw(Black, sizerect, Color.White);
+            sprite.Draw(Black, sizeRect, Color.White);
             //sprite.Draw(Black, new Rectangle(new Point(0, 0), size), Vector3.Empty, Vector3.Empty, Color.White);
             //sprite.Transform = rotateMatrix * scaleMatrix * transformMatrix;
             //sprite.Draw(VideoTexture, video, Vector3.Empty, Vector3.Empty, Color.White);
@@ -372,7 +377,7 @@ namespace OSUplayer.Graphic
         }
         private void PlayFx(int pos)
         {
-            if (!playfx) { return; }
+            if (!Playfx) { return; }
             for (int j = 0; j < fxlist[pos].play.Count; j++)
             {
                 fxplayer[fxlist[pos].play[j]].Play(Allvolume * Fxvolume * fxlist[pos].volume);
@@ -404,10 +409,10 @@ namespace OSUplayer.Graphic
         {
             willnext = false; cannext = true; videoexist = false;
             uniAudio.Open(Map.Audio);
-            if (playfx) { initfx(); fxpos = 0; }
+            if (Playfx) { initfx(); fxpos = 0; }
             uniAudio.UpdateTimer.Tick += new EventHandler(AVsync);
-            if (Map.haveVideo && playvideo && File.Exists(Path.Combine(Map.Location, Map.Video))) { initvideo(); }
-            if (Map.haveSB && playsb) { initSB(); }
+            if (Map.haveVideo && Playvideo && File.Exists(Path.Combine(Map.Location, Map.Video))) { initvideo(); }
+            if (Map.haveSB && Playsb) { initSB(); }
             uniAudio.Play(Allvolume * Musicvolume);
         }
         public void Pause()
@@ -431,7 +436,7 @@ namespace OSUplayer.Graphic
             cannext = false;
             uniAudio.Seek(time);
             fxpos = 0;
-            if (playfx)
+            if (Playfx)
             {
                 while (fxlist[fxpos].time <= uniAudio.Position * 1000 && fxpos < fxlist.Count)
                 {

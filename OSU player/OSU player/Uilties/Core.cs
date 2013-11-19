@@ -449,13 +449,13 @@ namespace OSUplayer
                 }
             }
         }
-        public static double durnation
+        public static double Durnation
         { get { return player.durnation; } }
-        public static double position
+        public static double Position
         { get { return player.position; } }
-        public static bool isplaying
+        public static bool Isplaying
         { get { return player.isplaying; } }
-        public static bool willnext
+        public static bool Willnext
         { get { return player.willnext; } }
         public static ListViewItem[] getdetail()
         {
@@ -497,6 +497,10 @@ namespace OSUplayer
         public static void Render()
         {
             if (MainIsVisible) { player.Render(); }
+        }
+        public static void Resize(Size size)
+        {
+            player.resize(size);
         }
         public static ListViewDataItem[] getscore(Font font)
         {
