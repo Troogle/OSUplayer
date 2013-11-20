@@ -140,10 +140,7 @@ namespace OSUplayer
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            Core.init(this.panel2.Handle, this.panel2.Size);
-            SetForm();
-            refreash.DoWork += refreash_DoWork;
-            RefreshList();
+
         }
 
         void Main_VisibleChanged(object sender, EventArgs e)
@@ -526,7 +523,12 @@ namespace OSUplayer
         int nextKey1;
         private void Main_Shown(object sender, EventArgs e)
         {
+            Core.init(this.panel2.Handle, this.panel2.Size);
+            SetForm();
+            refreash.DoWork += refreash_DoWork;
+            RefreshList();
             this.VisibleChanged += Main_VisibleChanged;
+            this.SizeChanged += Main_SizeChanged;
             hotkeyHelper = new HotkeyHelper(this.Handle);
             playKey = hotkeyHelper.RegisterHotkey(Keys.F5, KeyModifiers.Alt);
             playKey1 = hotkeyHelper.RegisterHotkey(Keys.Play, KeyModifiers.None);
@@ -546,11 +548,12 @@ namespace OSUplayer
                 NextButton.PerformClick();
             }
         }
-
-        private void Main_ResizeEnd(object sender, EventArgs e)
+        private void Main_SizeChanged(object sender, EventArgs e)
         {
-           // Core.Resize(panel2.Size);
+            if (Core.MainIsVisible)
+            {
+                Core.Resize(panel2.Size);
+            }
         }
-
     }
 }

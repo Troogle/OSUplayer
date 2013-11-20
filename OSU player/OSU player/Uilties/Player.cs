@@ -79,7 +79,9 @@ namespace OSUplayer.Graphic
              device = new GraphicsDevice();
              device.Reset(presentParams, GraphicsAdapter.DefaultAdapter);*/
             presentParams.IsFullScreen = false;
-            presentParams.SwapEffect = SwapEffect.Discard;
+            presentParams.SwapEffect = SwapEffect.Copy;
+            presentParams.BackBufferHeight = sizeRect.Height;
+            presentParams.BackBufferWidth = sizeRect.Width;
             device = new GraphicsDevice(GraphicsAdapter.DefaultAdapter,
                 DeviceType.Hardware, handle, CreateOptions.MixedVertexProcessing, presentParams);
             AlphaSprite = new SpriteBatch(device);
@@ -97,7 +99,7 @@ namespace OSUplayer.Graphic
         }
         public void resize(Size size)
         {
-            sizeRect = new Rectangle(0, 0, size.Width, size.Height);
+            showRect = new Rectangle(0, 0, size.Width, size.Height);
 
         }
         bool CanRender()
@@ -241,7 +243,7 @@ namespace OSUplayer.Graphic
             //device.EndScene();
             try
             {
-                device.Present();
+                device.Present(sizeRect,showRect,handle);
             }
             catch { deviceislost = true; }
 
