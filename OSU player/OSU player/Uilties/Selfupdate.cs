@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Net;
 using System.Windows.Forms;
 using System.Xml;
+using System.Net;
 using Telerik.WinControls;
 namespace OSUplayer.Uilties
 {
@@ -32,16 +32,15 @@ namespace OSUplayer.Uilties
                         Process.Start(UpDateXml.SelectNodes("/Xml/Link")[0].InnerText);
                     }
                 }
-               /* try
+                try
                 {
                     WebRequest request;
                     request = WebRequest.Create("http://wenwo.at/counter.php?counter=" + Core.Version);
                     request.Credentials = CredentialCache.DefaultCredentials;
                     request.Timeout = 20000;
-                    WebResponse response;
-                    response = request.GetResponse();
+                    request.GetResponse();
                 }
-                catch { }*/
+                catch { }
             }
             catch (Exception)
             {

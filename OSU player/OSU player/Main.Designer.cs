@@ -818,6 +818,7 @@ namespace OSUplayer
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.MenuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(890, 714);
             this.Name = "Main";
             this.Padding = new System.Windows.Forms.Padding(4);
             // 

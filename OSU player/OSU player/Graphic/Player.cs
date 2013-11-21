@@ -1,33 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Drawing;
 using System.IO;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
-using OSUplayer.Graphic;
 using OSUplayer.OsuFiles;
-using System.Diagnostics;
-using Device = Microsoft.Xna.Framework.Graphics.GraphicsDevice;
 using Color = Microsoft.Xna.Framework.Graphics.Color;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 namespace OSUplayer.Graphic
 {
+    struct Fxlist
+    {
+        public int time;
+        public List<int> play;
+        public float volume;
+        public Fxlist(int time, List<int> play, float volume)
+        {
+            this.time = time;
+            this.play = play;
+            this.volume = volume;
+        }
+    }
     class Player : IDisposable
     {
         public Audiofiles uniAudio;
-        private struct Fxlist
-        {
-            public int time;
-            public List<int> play;
-            public float volume;
-            public Fxlist(int time, List<int> play, float volume)
-            {
-                this.time = time;
-                this.play = play;
-                this.volume = volume;
-            }
-        }
         List<Fxlist> fxlist = new List<Fxlist>();
         const int maxfxplayer = 128;
         Audiofiles[] fxplayer = new Audiofiles[maxfxplayer];

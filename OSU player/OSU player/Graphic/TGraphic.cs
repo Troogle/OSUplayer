@@ -41,7 +41,6 @@ namespace OSUplayer.Graphic
             this.color = color;
             this.alpha = alpha;
             this.parameter = parameter;
-            //this.rectangle = new Rectangle(0, 0, texture.Width, texture.Height);
         }
         public TStaticGraphic() { }
 
@@ -192,6 +191,7 @@ namespace OSUplayer.Graphic
             int id = (int)Origin;
             float x = (float)(id % 3) / 2 * texture.Width;
             float y = (float)(id - id % 3) / 6 * texture.Height;
+
             return new Vector2(x, y);
         }
 

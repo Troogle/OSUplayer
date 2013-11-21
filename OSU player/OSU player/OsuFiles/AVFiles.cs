@@ -1,6 +1,6 @@
 using System;
 using Un4seen.Bass;
-namespace OSUplayer
+namespace OSUplayer.OsuFiles
 {
     /// <summary>
     /// Class for Audio Playback
