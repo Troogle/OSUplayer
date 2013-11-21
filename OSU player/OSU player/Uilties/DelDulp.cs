@@ -6,7 +6,7 @@ using System.IO;
 using System.Windows.Forms;
 using Telerik.WinControls;
 using Telerik.WinControls.UI;
-using OSUplayer.OSUFiles;
+using OSUplayer.OsuFiles;
 namespace OSUplayer.Uilties
 {
     public partial class DelDulp : RadForm
@@ -19,7 +19,7 @@ namespace OSUplayer.Uilties
         private Dictionary<string, List<int>> dul = new Dictionary<string, List<int>>();
         private int ok = 0;
         private int all = 1;
-        private void scanforset(string path)
+        private void Scanforset(string path)
         {
             string[] osufiles = Directory.GetFiles(path, "*.osu");
             if (osufiles.Length != 0)
@@ -29,31 +29,31 @@ namespace OSUplayer.Uilties
                     Beatmap tmp = new Beatmap(osufile, path);
                     tmpbms.Add(tmp);
                 }
-                this.backgroundWorker1.ReportProgress(0);
+                this.BackgroundWorker1.ReportProgress(0);
             }
             else
             {
                 string[] tmpfolder = Directory.GetDirectories(path);
                 all += tmpfolder.Length;
-                this.backgroundWorker1.ReportProgress(0);
+                this.BackgroundWorker1.ReportProgress(0);
                 foreach (string subfolder in tmpfolder)
                 {
-                    scanforset(subfolder);
+                    Scanforset(subfolder);
                 }
             }
             ok++;
         }
-        private void gethashs()
+        private void Gethashs()
         {
             for (int i = 0; i < tmpbms.Count; i++)
             {
                 tmpbms[i].GetHash();
-                this.backgroundWorker2.ReportProgress(i);
+                this.BackgroundWorker2.ReportProgress(i);
             }
         }
-        private void scanfordul(int index)
+        private void Scanfordul(int index)
         {
-            this.backgroundWorker3.ReportProgress(0);
+            this.BackgroundWorker3.ReportProgress(0);
             string hash = tmpbms[index].GetHash();
             List<int> tmp = new List<int>();
             tmp.Add(index);
@@ -73,7 +73,7 @@ namespace OSUplayer.Uilties
                 }
             }
         }
-        private void adddul()
+        private void Adddul()
         {
             int now = 0;
             foreach (var md5 in dul.Keys)
@@ -93,18 +93,18 @@ namespace OSUplayer.Uilties
             button4.Enabled = true;
             button5.Enabled = true;
         }
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        private void BackgroundWorker1DoWork(object sender, DoWorkEventArgs e)
         {
             Label1.Text = "扫描歌曲目录";
-            scanforset(e.Argument.ToString());
+            Scanforset(e.Argument.ToString());
         }
-        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        private void BackgroundWorker1ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             progressBar1.Maximum = all;
             progressBar1.Value1 = ok;
             Label1.Text = String.Format("扫描歌曲目录{0}/{1}", ok, all);
         }
-        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void BackgroundWorker1RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             for (int i = 1; i < tmpbms.Count; i++)
             {
@@ -112,7 +112,7 @@ namespace OSUplayer.Uilties
             }
             progressBar1.Maximum = tmpbms.Count;
             progressBar1.Value1 = 0;
-            this.backgroundWorker2.RunWorkerAsync(0);
+            this.BackgroundWorker2.RunWorkerAsync(0);
         }
         private void button3_Click(object sender, EventArgs e)
         {
@@ -122,7 +122,7 @@ namespace OSUplayer.Uilties
             {
                 if (Directory.Exists(Path.Combine(Core.osupath, "Songs")))
                 {
-                    this.backgroundWorker1.RunWorkerAsync(Path.Combine(Core.osupath, "Songs"));
+                    this.BackgroundWorker1.RunWorkerAsync(Path.Combine(Core.osupath, "Songs"));
                 }
             }
             catch (SystemException ex)
@@ -131,40 +131,40 @@ namespace OSUplayer.Uilties
                 throw (new FormatException("Failed to read song path", ex));
             }
         }
-        private void backgroundWorker2_DoWork(object sender, DoWorkEventArgs e)
+        private void BackgroundWorker2DoWork(object sender, DoWorkEventArgs e)
         {
-            gethashs();
+            Gethashs();
         }
-        private void backgroundWorker2_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        private void BackgroundWorker2ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             progressBar1.Value1++;
             Label1.Text = String.Format("获得歌曲信息{0}/{1}", progressBar1.Value1, tmpbms.Count);
         }
-        private void backgroundWorker2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void BackgroundWorker2RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             progressBar1.Value1 = 0;
-            this.backgroundWorker3.RunWorkerAsync(0);
+            this.BackgroundWorker3.RunWorkerAsync(0);
         }
-        private void backgroundWorker3_DoWork(object sender, DoWorkEventArgs e)
+        private void BackgroundWorker3DoWork(object sender, DoWorkEventArgs e)
         {
             for (int i = 0; i < tmpbms.Count; i++)
             {
-                scanfordul(i);
+                Scanfordul(i);
             }
         }
-        private void backgroundWorker3_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        private void BackgroundWorker3ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             progressBar1.Value1++;
             Label1.Text = String.Format("寻找重复map{0}/{1}", progressBar1.Value1, tmpbms.Count);
         }
-        private void backgroundWorker3_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void BackgroundWorker3RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (dul.Count == 0) { RadMessageBox.Show("没有神马要删除的！><"); this.Dispose(); }
             else
             {
                 Core.notifyIcon1.ShowBalloonTip(1000, "OSUplayer", string.Format("扫描完毕，发现重复曲目{0}个", dul.Count), System.Windows.Forms.ToolTipIcon.Info);
                 Label1.Text = string.Format("扫描完毕，发现重复曲目{0}个", dul.Count);
-                adddul();
+                Adddul();
             }
             button2.Enabled = true;
         }

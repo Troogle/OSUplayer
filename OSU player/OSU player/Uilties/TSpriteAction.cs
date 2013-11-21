@@ -83,18 +83,7 @@ namespace OSUplayer.Graphic
         {
             if (!this.isOver)
             {
-                /*     this.timeCount = CurrentTime;
-                     //如果结点列表只有一个元素，则到达时间点时直接赋值
-                     if (this.actionList.Count == 1)
-                     {
-                         if (timeCount >= actionList[0].Time)
-                         {
-                             this.currentValue = actionList[0].Value;
-                         }
-                     }
-                     else
-                     {*/
-                //否则根据结点设置k和b
+                //根据结点设置k和b
                 if (CurrentTime >= actionList[currentIndex].STime)
                 {
                     if (this.easing == 3)

@@ -116,9 +116,9 @@
     <Compile Include="Uilties\About.Designer.cs">
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
-    <Compile Include="Beatmap\AVFiles.cs" />
-    <Compile Include="Beatmap\Beatmap.cs" />
-    <Compile Include="Beatmap\BeatmapSet.cs" />
+    <Compile Include="OsuFiles\AVFiles.cs" />
+    <Compile Include="OsuFiles\Beatmap.cs" />
+    <Compile Include="OsuFiles\BeatmapSet.cs" />
     <Compile Include="Uilties\ChooseColl.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -144,13 +144,13 @@
     <Compile Include="Uilties\Form2.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Beatmap\OsuDB.cs" />
+    <Compile Include="OsuFiles\OsuDB.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Uilties\Player.cs" />
     <Compile Include="Uilties\QQ.cs" />
     <Compile Include="Uilties\Selfupdate.cs" />
-    <Compile Include="Beatmap\StoryBoard.cs" />
+    <Compile Include="OsuFiles\StoryBoard.cs" />
     <Compile Include="Uilties\VideoDecoder.cs" />
     <Compile Include="Uilties\TGraphic.cs" />
     <Compile Include="Uilties\TSpriteAction.cs" />

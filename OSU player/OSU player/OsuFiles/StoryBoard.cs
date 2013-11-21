@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using OSUplayer.Graphic;
-namespace OSUplayer.OSUFiles.StoryBoard
+namespace OSUplayer.OsuFiles.StoryBoard
 {
     public enum ElementType
     {
@@ -122,14 +122,14 @@ namespace OSUplayer.OSUFiles.StoryBoard
         public ElementType Type;
         public ElementLayer Layers;
         public ElementOrigin Origin; //sample时无
-        public string path;
+        public string Path;
         public int x; //sample时无时无
         public int y;
         //Animation only
-        public int frameCount;
-        public int framedelay;
-        public int lasttime = Int32.MinValue;
-        public int starttime = Int32.MaxValue;
+        public int FrameCount;
+        public int Framedelay;
+        public int Lasttime = Int32.MinValue;
+        public int Starttime = Int32.MaxValue;
         public ElementLoopType Looptype; //默认LoopForever【一直循环】
         //事件触发循环可以被游戏时间事件触发. 虽然叫做循环, 事件触发循环循环时只执行一次
         //触发器循环和普通循环一样是从零计数. 如果两个重叠, 第一个将会被停止且被一个从头开始的循环替代.
@@ -137,12 +137,12 @@ namespace OSUplayer.OSUFiles.StoryBoard
     }
     public class StoryBoard
     {
-        public List<SBelement> elements = new List<SBelement>();
+        public List<SBelement> Elements = new List<SBelement>();
         //TODO:单独抽取trigger并作索引
         public List<SBvar> Variables = new List<SBvar>();
         //public Dictionary<Triggertype, TriggerEvent> trigger = new Dictionary<Triggertype, TriggerEvent>();
         //目录由beatmapfiles.location-->beatmap.location
-        private string picknext(ref string str, bool change = true)
+        private string Picknext(ref string str, bool change = true)
         {
             string ret = "";
             if (!str.Contains(","))
@@ -157,11 +157,11 @@ namespace OSUplayer.OSUFiles.StoryBoard
             }
             return ret;
         }
-        private int color(int r, int g, int b)
+        private int Color(int r, int g, int b)
         {
             return (b << 0x10) | (g << 8) | r;
         }
-        private string dealevents(int element, StreamReader reader)
+        private string Dealevents(int element, StreamReader reader)
         {
             string row = "";
             row = reader.ReadLine();
@@ -180,9 +180,9 @@ namespace OSUplayer.OSUFiles.StoryBoard
                 {
                     //④对于L的处理：直接复制_L,time difference,loopcount
                     row = reader.ReadLine();
-                    picknext(ref row);
-                    int easing = Convert.ToInt32(picknext(ref row));
-                    int loopcount = Convert.ToInt32(picknext(ref row));
+                    Picknext(ref row);
+                    int easing = Convert.ToInt32(Picknext(ref row));
+                    int loopcount = Convert.ToInt32(Picknext(ref row));
                     //tmpe.easing:time difference
                     //time difference : 循环开始的时间和此系列SB事件第一次生效的最初时间之间的时间差, 单位是毫秒
                     //tmpe.startT:loopcount
@@ -233,93 +233,93 @@ namespace OSUplayer.OSUFiles.StoryBoard
             {
                 case EventType.F:
                     //③_M,0,1000,,320,240,320,240-->_M,0,1000,,320,240 (开始结束值相同）
-                    value1f = Convert.ToSingle(picknext(ref values)) * 255;
-                    if (picknext(ref values, false) == "") { value2f = value1f; picknext(ref values); }
-                    else { value2f = Convert.ToSingle(picknext(ref values)) * 255; }
-                    elements[element].F.Add(new TActionNode(time, timeE, value1f, value2f, easing));
+                    value1f = Convert.ToSingle(Picknext(ref values)) * 255;
+                    if (Picknext(ref values, false) == "") { value2f = value1f; Picknext(ref values); }
+                    else { value2f = Convert.ToSingle(Picknext(ref values)) * 255; }
+                    Elements[element].F.Add(new TActionNode(time, timeE, value1f, value2f, easing));
                     break;
                 case EventType.MX:
-                    value1 = Convert.ToInt32(picknext(ref values));
-                    if (picknext(ref values, false) == "") { value2 = value1; picknext(ref values); }
-                    else { value2 = Convert.ToInt32(picknext(ref values)); }
-                    elements[element].X.Add(new TActionNode(time, timeE, value1, value2, easing));
+                    value1 = Convert.ToInt32(Picknext(ref values));
+                    if (Picknext(ref values, false) == "") { value2 = value1; Picknext(ref values); }
+                    else { value2 = Convert.ToInt32(Picknext(ref values)); }
+                    Elements[element].X.Add(new TActionNode(time, timeE, value1, value2, easing));
                     break;
                 case EventType.MY:
-                    value1 = Convert.ToInt32(picknext(ref values));
-                    if (picknext(ref values, false) == "") { value2 = value1; picknext(ref values); }
-                    else { value2 = Convert.ToInt32(picknext(ref values)); }
-                    elements[element].Y.Add(new TActionNode(time, timeE, value1, value2, easing));
+                    value1 = Convert.ToInt32(Picknext(ref values));
+                    if (Picknext(ref values, false) == "") { value2 = value1; Picknext(ref values); }
+                    else { value2 = Convert.ToInt32(Picknext(ref values)); }
+                    Elements[element].Y.Add(new TActionNode(time, timeE, value1, value2, easing));
                     break;
                 case EventType.M:
-                    value1 = Convert.ToInt32(picknext(ref values));
-                    value2 = Convert.ToInt32(picknext(ref values));
-                    if (picknext(ref values, false) == "") { value3 = value1; value4 = value2; picknext(ref values); picknext(ref values); }
-                    else { value3 = Convert.ToInt32(picknext(ref values)); value4 = Convert.ToInt32(picknext(ref values)); }
-                    elements[element].X.Add(new TActionNode(time, timeE, value1, value3, easing));
-                    elements[element].Y.Add(new TActionNode(time, timeE, value2, value4, easing));
+                    value1 = Convert.ToInt32(Picknext(ref values));
+                    value2 = Convert.ToInt32(Picknext(ref values));
+                    if (Picknext(ref values, false) == "") { value3 = value1; value4 = value2; Picknext(ref values); Picknext(ref values); }
+                    else { value3 = Convert.ToInt32(Picknext(ref values)); value4 = Convert.ToInt32(Picknext(ref values)); }
+                    Elements[element].X.Add(new TActionNode(time, timeE, value1, value3, easing));
+                    Elements[element].Y.Add(new TActionNode(time, timeE, value2, value4, easing));
                     break;
                 case EventType.S:
-                    value1f = Convert.ToSingle(picknext(ref values));
-                    if (picknext(ref values, false) == "") { value2f = value1f; picknext(ref values); }
-                    else { value2f = Convert.ToSingle(picknext(ref values)); }
-                    elements[element].SX.Add(new TActionNode(time, timeE, value1f, value2f, easing));
-                    elements[element].SY.Add(new TActionNode(time, timeE, value1f, value2f, easing));
+                    value1f = Convert.ToSingle(Picknext(ref values));
+                    if (Picknext(ref values, false) == "") { value2f = value1f; Picknext(ref values); }
+                    else { value2f = Convert.ToSingle(Picknext(ref values)); }
+                    Elements[element].SX.Add(new TActionNode(time, timeE, value1f, value2f, easing));
+                    Elements[element].SY.Add(new TActionNode(time, timeE, value1f, value2f, easing));
                     break;
                 case EventType.V:
-                    value1f = Convert.ToSingle(picknext(ref values)); value2f = Convert.ToSingle(picknext(ref values));
-                    if (picknext(ref values, false) == "") { value3f = value1f; value4f = value2f; picknext(ref values); picknext(ref values); }
-                    else { value3f = Convert.ToSingle(picknext(ref values)); value4f = Convert.ToSingle(picknext(ref values)); }
-                    elements[element].SX.Add(new TActionNode(time, timeE, value1f, value3f, easing));
-                    elements[element].SY.Add(new TActionNode(time, timeE, value2f, value4f, easing));
+                    value1f = Convert.ToSingle(Picknext(ref values)); value2f = Convert.ToSingle(Picknext(ref values));
+                    if (Picknext(ref values, false) == "") { value3f = value1f; value4f = value2f; Picknext(ref values); Picknext(ref values); }
+                    else { value3f = Convert.ToSingle(Picknext(ref values)); value4f = Convert.ToSingle(Picknext(ref values)); }
+                    Elements[element].SX.Add(new TActionNode(time, timeE, value1f, value3f, easing));
+                    Elements[element].SY.Add(new TActionNode(time, timeE, value2f, value4f, easing));
                     break;
                 case EventType.R:
-                    value1f = Convert.ToSingle(picknext(ref values));
-                    if (picknext(ref values, false) == "") { value2f = value1f; picknext(ref values); }
-                    else { value2f = Convert.ToSingle(picknext(ref values)); }
-                    elements[element].R.Add(new TActionNode(time, timeE, value1f, value2f, easing));
+                    value1f = Convert.ToSingle(Picknext(ref values));
+                    if (Picknext(ref values, false) == "") { value2f = value1f; Picknext(ref values); }
+                    else { value2f = Convert.ToSingle(Picknext(ref values)); }
+                    Elements[element].R.Add(new TActionNode(time, timeE, value1f, value2f, easing));
                     break;
                 case EventType.C:
-                    value1 = Convert.ToInt32(picknext(ref values));
-                    value2 = Convert.ToInt32(picknext(ref values));
-                    value3 = Convert.ToInt32(picknext(ref values));
-                    if (picknext(ref values, false) == "")
-                    { value4 = value1; value5 = value2; value6 = value3; picknext(ref values); picknext(ref values); picknext(ref values); }
+                    value1 = Convert.ToInt32(Picknext(ref values));
+                    value2 = Convert.ToInt32(Picknext(ref values));
+                    value3 = Convert.ToInt32(Picknext(ref values));
+                    if (Picknext(ref values, false) == "")
+                    { value4 = value1; value5 = value2; value6 = value3; Picknext(ref values); Picknext(ref values); Picknext(ref values); }
                     else
-                    { value4 = Convert.ToInt32(picknext(ref values)); value5 = Convert.ToInt32(picknext(ref values)); value6 = Convert.ToInt32(picknext(ref values)); }
-                    elements[element].C.Add(new TActionNode(time, timeE, color(value1, value2, value3), color(value4, value5, value6), easing));
+                    { value4 = Convert.ToInt32(Picknext(ref values)); value5 = Convert.ToInt32(Picknext(ref values)); value6 = Convert.ToInt32(Picknext(ref values)); }
+                    Elements[element].C.Add(new TActionNode(time, timeE, Color(value1, value2, value3), Color(value4, value5, value6), easing));
                     break;
                 default:
                     //throw (new FormatException("Failed to read .osb file"));
                     break;
             }
-            if (elements[element].lasttime < timeE) { elements[element].lasttime = timeE; }
-            if (elements[element].starttime > time) { elements[element].starttime = time; }
+            if (Elements[element].Lasttime < timeE) { Elements[element].Lasttime = timeE; }
+            if (Elements[element].Starttime > time) { Elements[element].Starttime = time; }
         }
         private void dealevent(string str, int element, int delta)
         {
             //SBEvent tmpe = new SBEvent();
             string tmp = "";
-            EventType type = (EventType)Enum.Parse(typeof(EventType), picknext(ref str).Trim());
-            int easing = Convert.ToInt32(picknext(ref str));
-            int startT = Convert.ToInt32(picknext(ref str)) + delta;
+            EventType type = (EventType)Enum.Parse(typeof(EventType), Picknext(ref str).Trim());
+            int easing = Convert.ToInt32(Picknext(ref str));
+            int startT = Convert.ToInt32(Picknext(ref str)) + delta;
             int endT;
             //②_M,0,1000,1000,320,240,320,240-->_M,0,1000,,320,240,320,240(开始结束时间相同）
-            tmp = picknext(ref str);
+            tmp = Picknext(ref str);
             if (tmp == "") { endT = startT; } else { endT = Convert.ToInt32(tmp) + delta; }
             while (str != "")
             {
                 if (type == EventType.P)
                 {
-                    switch (picknext(ref str))
+                    switch (Picknext(ref str))
                     {
                         case "H":
-                            elements[element].P.Add(new TActionNode(startT, endT, 1, 1, 3));
+                            Elements[element].P.Add(new TActionNode(startT, endT, 1, 1, 3));
                             break;
                         case "V":
-                            elements[element].P.Add(new TActionNode(startT, endT, 2, 2, 3));
+                            Elements[element].P.Add(new TActionNode(startT, endT, 2, 2, 3));
                             break;
                         case "A":
-                            elements[element].P.Add(new TActionNode(startT, endT, 4, 4, 3));
+                            Elements[element].P.Add(new TActionNode(startT, endT, 4, 4, 3));
                             break;
                     }
                     continue;
@@ -372,8 +372,8 @@ namespace OSUplayer.OSUFiles.StoryBoard
                             tmpe = new SBelement();
                             tmpe.Type = ElementType.Sample;
                             tmpe.Layers = (ElementLayer)(System.Enum.Parse(typeof(ElementLayer), tmp[2]));
-                            tmpe.path = tmp[3].Substring(1, tmp[3].Length - 2);
-                            elements.Add(tmpe);
+                            tmpe.Path = tmp[3].Substring(1, tmp[3].Length - 2);
+                            Elements.Add(tmpe);
                             element++;
                             SBEvent tmpev = new SBEvent();
                             tmpev.startT = Convert.ToInt32(tmp[1]);
@@ -398,22 +398,22 @@ namespace OSUplayer.OSUFiles.StoryBoard
                             tmpe.Layers = (ElementLayer)(System.Enum.Parse(typeof(ElementLayer), tmp[1]));
                             if (tmpe.Layers == ElementLayer.Fail) { row = reader.ReadLine(); continue; }
                             tmpe.Origin = (ElementOrigin)(System.Enum.Parse(typeof(ElementOrigin), tmp[2]));
-                            tmpe.path = tmp[3].Substring(1, tmp[3].Length - 2);
+                            tmpe.Path = tmp[3].Substring(1, tmp[3].Length - 2);
                             tmpe.x = Convert.ToInt32(tmp[4]);
                             tmpe.y = Convert.ToInt32(tmp[5]);
-                            tmpe.frameCount = Convert.ToInt32(tmp[6]);
-                            tmpe.framedelay = (int)(Convert.ToDouble(tmp[7]));
+                            tmpe.FrameCount = Convert.ToInt32(tmp[6]);
+                            tmpe.Framedelay = (int)(Convert.ToDouble(tmp[7]));
                             tmpe.Looptype = (ElementLoopType)(System.Enum.Parse(typeof(ElementLoopType), tmp[8]));
-                            elements.Add(tmpe);
+                            Elements.Add(tmpe);
                             element++;
-                            row = dealevents(element, reader);
-                            if (elements[element].F.Count != 0 && elements[element].F[0].SValue == 0)
+                            row = Dealevents(element, reader);
+                            if (Elements[element].F.Count != 0 && Elements[element].F[0].SValue == 0)
                             { }
                             else
                             {
-                                elements[element].F.Insert(0, new TActionNode(elements[element].starttime, elements[element].starttime, 255f, 255f, 0));
+                                Elements[element].F.Insert(0, new TActionNode(Elements[element].Starttime, Elements[element].Starttime, 255f, 255f, 0));
                             }
-                            elements[element].F.Add(new TActionNode(elements[element].lasttime, elements[element].lasttime, 0f, 0f, 0));
+                            Elements[element].F.Add(new TActionNode(Elements[element].Lasttime, Elements[element].Lasttime, 0f, 0f, 0));
                         }
                         else if (row.StartsWith("Sprite") || row.StartsWith("4,"))
                         {
@@ -424,19 +424,19 @@ namespace OSUplayer.OSUFiles.StoryBoard
                             tmpe.Layers = (ElementLayer)(System.Enum.Parse(typeof(ElementLayer), tmp[1]));
                             if (tmpe.Layers == ElementLayer.Fail) { row = reader.ReadLine(); continue; }
                             tmpe.Origin = (ElementOrigin)(System.Enum.Parse(typeof(ElementOrigin), tmp[2]));
-                            tmpe.path = tmp[3].Substring(1, tmp[3].Length - 2);
+                            tmpe.Path = tmp[3].Substring(1, tmp[3].Length - 2);
                             tmpe.x = Convert.ToInt32(tmp[4]);
                             tmpe.y = Convert.ToInt32(tmp[5]);
-                            elements.Add(tmpe);
+                            Elements.Add(tmpe);
                             element++;
-                            row = dealevents(element, reader);
-                            if (elements[element].F.Count != 0 && elements[element].F[0].SValue == 0)
+                            row = Dealevents(element, reader);
+                            if (Elements[element].F.Count != 0 && Elements[element].F[0].SValue == 0)
                             { }
                             else
                             {
-                                elements[element].F.Insert(0, new TActionNode(elements[element].starttime, elements[element].starttime, 255f, 255f, 0));
+                                Elements[element].F.Insert(0, new TActionNode(Elements[element].Starttime, Elements[element].Starttime, 255f, 255f, 0));
                             }
-                            elements[element].F.Add(new TActionNode(elements[element].lasttime, elements[element].lasttime, 0f, 0f, 0));
+                            Elements[element].F.Add(new TActionNode(Elements[element].Lasttime, Elements[element].Lasttime, 0f, 0f, 0));
                         }
                         /*    else if (row.StartsWith("0,"))
                             {

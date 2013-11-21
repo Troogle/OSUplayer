@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Drawing;
 using System.IO;
-using OSUplayer.OSUFiles.StoryBoard;
+using OSUplayer.OsuFiles.StoryBoard;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Device = Microsoft.Xna.Framework.Graphics.GraphicsDevice;
 using Color = Microsoft.Xna.Framework.Graphics.Color;
-using Rectangle = Microsoft.Xna.Framework.Rectangle;
 namespace OSUplayer.Graphic
 {
     /// <summary>
@@ -80,19 +78,18 @@ namespace OSUplayer.Graphic
         protected TSpriteAction colorAction;
         protected TSpriteAction parameterAction;
         protected Texture2D[] texturearray;
-        //protected Rectangle[] rectarray;
         protected ElementOrigin Origin;
 
-        public TGraphic(Device graphicDevice, SBelement Element, string Location)
+        public TGraphic(Device graphicDevice, SBelement Element, string Location,int layerdelta)
             : base()
         {
             switch (Element.Type)
             {
                 case ElementType.Sprite:
                     {
-                        if (File.Exists(Path.Combine(Location, Element.path)))
+                        if (File.Exists(Path.Combine(Location, Element.Path)))
                         {
-                            using (FileStream s = new FileStream(Path.Combine(Location, Element.path), FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                            using (FileStream s = new FileStream(Path.Combine(Location, Element.Path), FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                             {
                                 this.texture = Texture2D.FromFile(graphicDevice, s);
                             }
@@ -105,20 +102,17 @@ namespace OSUplayer.Graphic
                         this.currentFrameIndex = 0;
                         this.msLastFrame = 0;
                         this.mSPerFrame = 16;
-                        //this.texture = Texture.FromBitmap(graphicDevice, bitmap, Usage.Dynamic, Pool.Default);
-                        //this.rectangle = new Rectangle(0, 0, texture.Width, texture.Height);
                         this.position = new Vector2(Element.x, Element.y);
                         this.origin = Getorigin(this.texture, Element.Origin);
                         break;
                     }
                 case ElementType.Animation:
                     {
-                        string prefix = Path.Combine(Location, Element.path);
+                        string prefix = Path.Combine(Location, Element.Path);
                         string ext = prefix.Substring(prefix.LastIndexOf(".") + 1);
                         prefix = prefix.Substring(0, prefix.LastIndexOf("."));
-                        texturearray = new Texture2D[Element.frameCount];
-                        //rectarray = new Rectangle[Element.frameCount];
-                        for (int i = 0; i < Element.frameCount; i++)
+                        texturearray = new Texture2D[Element.FrameCount];
+                        for (int i = 0; i < Element.FrameCount; i++)
                         {
                             if (File.Exists(prefix + i.ToString() + "." + ext))
                             {
@@ -131,16 +125,13 @@ namespace OSUplayer.Graphic
                             {
                                 this.texturearray[i] = new Texture2D(graphicDevice, 1, 1, 0, 0, SurfaceFormat.Bgr32);
                             }
-                            // texturearray[i] = Texture.FromBitmap(graphicDevice, bitmap, Usage.Dynamic, Pool.Default);
-                            //rectarray[i] = new Rectangle(0, 0, texturearray[i].Width, texturearray[i].Height);
                         }
-                        this.frameCount = Element.frameCount;
-                        this.mSPerFrame = Element.framedelay;
+                        this.frameCount = Element.FrameCount;
+                        this.mSPerFrame = Element.Framedelay;
                         this.Loop = Element.Looptype;
                         this.currentFrameIndex = 0;
                         this.msLastFrame = 0;
                         this.position = new Vector2(Element.x, Element.y);
-                        //this.rectangle = rectarray[0];
                         this.texture = texturearray[0];
                         this.origin = Getorigin(this.texture, Element.Origin);
                         break;
@@ -153,8 +144,8 @@ namespace OSUplayer.Graphic
             this.alpha = 0;
             this.parameter = 0;
             this.rotate = 0f;
-            if (Element.Layers == ElementLayer.Background) { this.layer = 1f; }
-            else { this.layer = 0f; }
+            if (Element.Layers == ElementLayer.Background) { this.layer = 0.9f - layerdelta*0.001f; }
+            else { this.layer = 0.5f - layerdelta * 0.001f; }
             this.scale = new Vector2(1f, 1f);
             //  this.InitSpriteAction();
         }
@@ -273,9 +264,7 @@ namespace OSUplayer.Graphic
                         }
                     }
                     this.texture = texturearray[currentFrameIndex];
-                    //this.rectangle = rectarray[currentFrameIndex];
                     this.origin = Getorigin(this.texture, this.Origin);
-                    //this.center = Getcenter(currentFrameIndex);
                 }
             }
         }

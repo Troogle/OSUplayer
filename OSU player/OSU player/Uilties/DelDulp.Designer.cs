@@ -31,9 +31,9 @@
             this.button1 = new Telerik.WinControls.UI.RadButton();
             this.button2 = new Telerik.WinControls.UI.RadButton();
             this.button3 = new Telerik.WinControls.UI.RadButton();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
-            this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
+            this.BackgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.BackgroundWorker2 = new System.ComponentModel.BackgroundWorker();
+            this.BackgroundWorker3 = new System.ComponentModel.BackgroundWorker();
             this.button4 = new Telerik.WinControls.UI.RadButton();
             this.button5 = new Telerik.WinControls.UI.RadButton();
             this.radStatusStrip1 = new Telerik.WinControls.UI.RadStatusStrip();
@@ -115,26 +115,26 @@
             this.button3.Text = "开始查找";
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // backgroundWorker1
+            // BackgroundWorker1
             // 
-            this.backgroundWorker1.WorkerReportsProgress = true;
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
-            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+            this.BackgroundWorker1.WorkerReportsProgress = true;
+            this.BackgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker1DoWork);
+            this.BackgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.BackgroundWorker1ProgressChanged);
+            this.BackgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorker1RunWorkerCompleted);
             // 
-            // backgroundWorker2
+            // BackgroundWorker2
             // 
-            this.backgroundWorker2.WorkerReportsProgress = true;
-            this.backgroundWorker2.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker2_DoWork);
-            this.backgroundWorker2.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker2_ProgressChanged);
-            this.backgroundWorker2.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker2_RunWorkerCompleted);
+            this.BackgroundWorker2.WorkerReportsProgress = true;
+            this.BackgroundWorker2.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker2DoWork);
+            this.BackgroundWorker2.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.BackgroundWorker2ProgressChanged);
+            this.BackgroundWorker2.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorker2RunWorkerCompleted);
             // 
-            // backgroundWorker3
+            // BackgroundWorker3
             // 
-            this.backgroundWorker3.WorkerReportsProgress = true;
-            this.backgroundWorker3.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker3_DoWork);
-            this.backgroundWorker3.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker3_ProgressChanged);
-            this.backgroundWorker3.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker3_RunWorkerCompleted);
+            this.BackgroundWorker3.WorkerReportsProgress = true;
+            this.BackgroundWorker3.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker3DoWork);
+            this.BackgroundWorker3.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.BackgroundWorker3ProgressChanged);
+            this.BackgroundWorker3.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorker3RunWorkerCompleted);
             // 
             // button4
             // 
@@ -225,15 +225,16 @@
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
         #endregion
         private System.Windows.Forms.ListView listView1;
         private Telerik.WinControls.UI.RadButton button1;
         private Telerik.WinControls.UI.RadButton button2;
         private Telerik.WinControls.UI.RadButton button3;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private System.ComponentModel.BackgroundWorker backgroundWorker2;
-        private System.ComponentModel.BackgroundWorker backgroundWorker3;
+        private System.ComponentModel.BackgroundWorker BackgroundWorker1;
+        private System.ComponentModel.BackgroundWorker BackgroundWorker2;
+        private System.ComponentModel.BackgroundWorker BackgroundWorker3;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private Telerik.WinControls.UI.RadButton button4;
         private System.Windows.Forms.ColumnHeader columnHeader2;

@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.IO;
 using System.Diagnostics;
 using System.Windows.Forms;
 using Telerik.WinControls;
 using Telerik.WinControls.UI;
 using System.ComponentModel;
-using System.Threading;
-using OSUplayer.OSUFiles;
+using OSUplayer.OsuFiles;
 using OSUplayer.Uilties;
 namespace OSUplayer
 {

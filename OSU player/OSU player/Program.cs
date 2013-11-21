@@ -39,9 +39,9 @@ namespace OSUplayer
                 ThemeResolutionService.ApplicationThemeName = "Light";
                 Un4seen.Bass.BassNet.Registration("sqh1994@163.com", "2X280331512622");
                 Un4seen.Bass.Bass.BASS_Init(-1, 44100, Un4seen.Bass.BASSInit.BASS_DEVICE_DEFAULT, IntPtr.Zero);
-                Main Mainwindow = new Main();
-                Mainwindow.Show();
-                while (Mainwindow.Created)
+                Main mainwindow = new Main();
+                mainwindow.Show();
+                while (mainwindow.Created)
                 {
                     Application.DoEvents();
                     Core.Render();
@@ -53,19 +53,19 @@ namespace OSUplayer
             #region 异常处理
             catch (Exception ex)
             {
-                string str = GetExceptionMsg(ex, "QxQ");
+                GetExceptionMsg(ex, "QxQ");
                 NotifyIcon notifyIcon1 = new NotifyIcon();
                 notifyIcon1.ShowBalloonTip(1000, "发生了一些令人悲伤的事情><", "错误已上报，程序将试图继续运行", System.Windows.Forms.ToolTipIcon.Error);
             }
         }
         static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
-            string str = GetExceptionMsg(e.Exception, e.ToString());
+            GetExceptionMsg(e.Exception, e.ToString());
             Core.notifyIcon1.ShowBalloonTip(1000, "发生了一些令人悲伤的事情><", "错误已上报，程序将试图继续运行", System.Windows.Forms.ToolTipIcon.Error);
         }
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            string str = GetExceptionMsg(e.ExceptionObject as Exception, e.ToString());
+            GetExceptionMsg(e.ExceptionObject as Exception, e.ToString());
             Core.notifyIcon1.ShowBalloonTip(1000, "发生了一些令人悲伤的事情><", "错误已上报，程序将试图继续运行", System.Windows.Forms.ToolTipIcon.Error);
         }
         /// <summary>
@@ -85,8 +85,7 @@ namespace OSUplayer
                     request = WebRequest.Create("http://wenwo.at/counter.php?error=" + ex.GetType().Name + ex.Message + " " + ex.StackTrace.Substring(start, 300 > ex.StackTrace.Length - start - 1 ? ex.StackTrace.Length - start - 1 : 300));
                     request.Credentials = CredentialCache.DefaultCredentials;
                     request.Timeout = 2000;
-                    WebResponse response;
-                    response = request.GetResponse();
+                    request.GetResponse();
                 }
             }
             catch

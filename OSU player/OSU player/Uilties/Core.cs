@@ -10,7 +10,7 @@ using System.Threading;
 using Telerik.WinControls.UI;
 using System.Reflection;
 using System.Diagnostics;
-using OSUplayer.OSUFiles;
+using OSUplayer.OsuFiles;
 using OSUplayer.Graphic;
 namespace OSUplayer
 {

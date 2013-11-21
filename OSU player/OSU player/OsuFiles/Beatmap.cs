@@ -2,7 +2,7 @@
 using System.IO;
 using System;
 using System.Security.Cryptography;
-namespace OSUplayer.OSUFiles
+namespace OSUplayer.OsuFiles
 {
     [Serializable]
     public class Beatmap : IComparable<Beatmap>
@@ -12,7 +12,7 @@ namespace OSUplayer.OSUFiles
         private string backgroundOffset = "";
         //diff-wide storyboard
         [NonSerialized]
-        public OSUFiles.StoryBoard.StoryBoard SB;
+        public OsuFiles.StoryBoard.StoryBoard SB;
         public int offset { get; set; }
         public string Location { get; set; }
         public string Name { get; set; }
@@ -593,7 +593,7 @@ namespace OSUplayer.OSUFiles
         {
             if (haveSB)
             {
-                SB = new OSUFiles.StoryBoard.StoryBoard(Path, osb);
+                SB = new OsuFiles.StoryBoard.StoryBoard(Path, osb);
             }
         }
         public Beatmap()
