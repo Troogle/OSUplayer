@@ -23,6 +23,7 @@ namespace OSUplayer
             Core.Pause();
             if (RadMessageBox.Show("确认退出？", "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
+                Core.MainIsVisible = false;
                 Core.exit();
                 hotkeyHelper.UnregisterHotkeys();
                 this.Dispose();

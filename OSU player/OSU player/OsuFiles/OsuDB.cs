@@ -114,9 +114,9 @@ namespace OSUplayer.OsuFiles
                     tmpbm.hash = reader.ReadString();
                     tmpbm.Name = reader.ReadString();
                     stash = reader.ReadByte(); //4=ranked 5=app 2=Unranked
-                    stash = reader.ReadUInt16(); //circles
-                    stash = reader.ReadUInt16(); //sliders
-                    stash = reader.ReadUInt16(); //spinners
+                    tmpbm.totalhitcount = reader.ReadUInt16(); //circles
+                    tmpbm.totalhitcount += reader.ReadUInt16(); //sliders
+                    tmpbm.totalhitcount += reader.ReadUInt16(); //spinners
                     Int64 stashB = reader.ReadInt64(); //最后编辑
                     stash = reader.ReadByte(); //AR
                     stash = reader.ReadByte(); //CS

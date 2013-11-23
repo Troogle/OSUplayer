@@ -431,6 +431,7 @@ namespace OSUplayer
             this.panel1.Controls.Add(this.radPageView1);
             this.panel1.Controls.Add(this.LabelQQ);
             this.panel1.Location = new System.Drawing.Point(0, 29);
+            this.panel1.Margin = new System.Windows.Forms.Padding(0);
             this.panel1.MinimumSize = new System.Drawing.Size(882, 654);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(882, 654);
@@ -491,6 +492,7 @@ namespace OSUplayer
             this.panel3.Controls.Add(this.StopButton);
             this.panel3.Controls.Add(this.PlayButton);
             this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Margin = new System.Windows.Forms.Padding(0);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(532, 429);
             this.panel3.TabIndex = 22;
@@ -571,6 +573,7 @@ namespace OSUplayer
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.Location = new System.Drawing.Point(7, 29);
+            this.panel2.Margin = new System.Windows.Forms.Padding(0);
             this.panel2.MinimumSize = new System.Drawing.Size(320, 240);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(480, 360);

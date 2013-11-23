@@ -98,7 +98,7 @@ namespace OSUplayer
         #endregion
         public static Uilties.QQ uni_QQ = new Uilties.QQ();
         private static Player player;
-        public static NotifyIcon notifyIcon1 = new NotifyIcon();
+        public static NotifyIcon notifyIcon1;
         public static string Version
         {
             get
@@ -126,6 +126,7 @@ namespace OSUplayer
         public static void init(IntPtr Shandle, Size Ssize)
         {
             player = new Player(Shandle, Ssize);
+            notifyIcon1 = new NotifyIcon();
             notifyIcon1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             notifyIcon1.BalloonTipTitle = "OSUplayer";
             notifyIcon1.BalloonTipText = "正在初始化...";
@@ -331,6 +332,10 @@ namespace OSUplayer
         public static bool SetMap(int vaule, bool p = false)
         {
             tmpmap = vaule;
+            if (!TmpBeatmap.detailed)
+            {
+                TmpBeatmap.GetDetail();
+            }
             if (!File.Exists(TmpBeatmap.Path))
             {
                 Core.notifyIcon1.ShowBalloonTip(1000, "OSUplayer", "没事删什么曲子啊><", System.Windows.Forms.ToolTipIcon.Info);
@@ -375,6 +380,7 @@ namespace OSUplayer
         public static void Play()
         {
             if (!CurrentSet.detailed) { CurrentSet.GetDetail(); }
+            if (!CurrentBeatmap.detailed) { CurrentBeatmap.GetDetail(); }
             if (!File.Exists(CurrentBeatmap.Audio))
             {
                 Core.notifyIcon1.ShowBalloonTip(1000, "OSUplayer", "音频文件你都删！><", System.Windows.Forms.ToolTipIcon.Info);

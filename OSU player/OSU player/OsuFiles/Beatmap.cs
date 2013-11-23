@@ -13,6 +13,7 @@ namespace OSUplayer.OsuFiles
         //diff-wide storyboard
         [NonSerialized]
         public OsuFiles.StoryBoard.StoryBoard SB;
+        public int totalhitcount { get; set; }
         public int offset { get; set; }
         public string Location { get; set; }
         public string Name { get; set; }
@@ -515,9 +516,12 @@ namespace OSUplayer.OsuFiles
             COLOURS,
             HITOBJECTS
         }
-        public void GetDetail(string osb_F)
+        public void setsb(string osb_F)
         {
             osb = osb_F;
+        }
+        public void GetDetail()
+        {
             Path = System.IO.Path.Combine(Location, Name);
             StreamReader reader;
             osuFileScanStatus position = osuFileScanStatus.VERSION_UNKNOWN;
@@ -611,8 +615,8 @@ namespace OSUplayer.OsuFiles
         {
             if (this.Mode < other.Mode) { return -1; }
             if (this.Mode > other.Mode) { return 1; }
-            if (this.HitObjects.Count == other.HitObjects.Count) { return 0; }
-            if (this.HitObjects.Count > other.HitObjects.Count) { return -1; } else { return 1; }
+            if (this.totalhitcount == other.totalhitcount) { return 0; }
+            if (this.totalhitcount > other.totalhitcount) { return -1; } else { return 1; }
         }
         /// <summary>
         /// 判断相等

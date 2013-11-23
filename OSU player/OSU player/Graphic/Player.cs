@@ -56,9 +56,10 @@ namespace OSUplayer.Graphic
         Texture2D BGTexture;
         Texture2D Black;
         PresentationParameters presentParams = new PresentationParameters();
-        Vector2 VideoPosition;
+        Vector2 ScreenCenter;
+        Vector2 VideoCenter;
         float VideoScale;
-        Vector2 BGPosition;
+        Vector2 BGCenter;
         float BGScale;
         List<TGraphic> SBelements = new List<TGraphic>();
         SpriteBatch AlphaSprite;
@@ -70,14 +71,15 @@ namespace OSUplayer.Graphic
             handle = Shandle;
             sizeRect = new Rectangle(0, 0, 640, 480);
             showRect = new Rectangle(0, 0, Ssize.Width, Ssize.Height);
+            ScreenCenter = new Vector2((float)Ssize.Width / 2, (float)Ssize.Height / 2);
             /* presentParams.DeviceWindowHandle=handle;
              presentParams.IsFullScreen=false;
              device = new GraphicsDevice();
              device.Reset(presentParams, GraphicsAdapter.DefaultAdapter);*/
             presentParams.IsFullScreen = false;
-            presentParams.SwapEffect = SwapEffect.Copy;
-            presentParams.BackBufferHeight = sizeRect.Height;
-            presentParams.BackBufferWidth = sizeRect.Width;
+            presentParams.SwapEffect = SwapEffect.Discard;
+            presentParams.BackBufferHeight = showRect.Height;
+            presentParams.BackBufferWidth = showRect.Width;
             device = new GraphicsDevice(GraphicsAdapter.DefaultAdapter,
                 DeviceType.Hardware, handle, CreateOptions.MixedVertexProcessing, presentParams);
             AlphaSprite = new SpriteBatch(device);
@@ -95,7 +97,15 @@ namespace OSUplayer.Graphic
         }
         public void resize(Size size)
         {
+            if (device == null || size.Width == 0 || size.Height == 0)
+                return;
             showRect = new Rectangle(0, 0, size.Width, size.Height);
+            ScreenCenter = new Vector2((float)size.Width / 2, (float)size.Height / 2);
+            device.PresentationParameters.BackBufferWidth = showRect.Width;
+            device.PresentationParameters.BackBufferHeight = showRect.Height;
+            device.Reset();
+            BGScale = (float)showRect.Width / BGTexture.Width < (float)showRect.Height / BGTexture.Height ? (float)showRect.Width / BGTexture.Width : (float)showRect.Height / BGTexture.Height;
+            if (videoexist) { VideoScale = (float)showRect.Width / decoder.width < (float)showRect.Height / decoder.height ? (float)showRect.Width / decoder.width : (float)showRect.Height / decoder.height; }
         }
         bool CanRender()
         {
@@ -127,8 +137,8 @@ namespace OSUplayer.Graphic
                 Black = Texture2D.FromFile(device, s);
             }
             VideoTexture = new Texture2D(device, decoder.width, decoder.height, 1, 0, SurfaceFormat.Bgr32);
-            VideoScale = (float)sizeRect.Width / decoder.width < (float)sizeRect.Height / decoder.height ? (float)sizeRect.Width / decoder.width : (float)sizeRect.Height / decoder.height;
-            VideoPosition = new Vector2((sizeRect.Width - decoder.width * VideoScale) / 2, (sizeRect.Height - decoder.height * VideoScale) / 2);
+            VideoScale = (float)showRect.Width / decoder.width < (float)showRect.Height / decoder.height ? (float)showRect.Width / decoder.width : (float)showRect.Height / decoder.height;
+            VideoCenter = new Vector2(decoder.width  / 2, (float)decoder.height  / 2);
             videoexist = true;
         }
         public void initBG()
@@ -154,8 +164,8 @@ namespace OSUplayer.Graphic
                     BGTexture = Texture2D.FromFile(device, s);
                 }
             }
-            BGScale = (float)sizeRect.Width / BGTexture.Width < (float)sizeRect.Height / BGTexture.Height ? (float)sizeRect.Width / BGTexture.Width : (float)sizeRect.Height / BGTexture.Height;
-            BGPosition = new Vector2((sizeRect.Width - BGTexture.Width * BGScale) / 2, (sizeRect.Height - BGTexture.Height * BGScale) / 2);
+            BGScale = (float)showRect.Width / BGTexture.Width < (float)showRect.Height / BGTexture.Height ? (float)showRect.Width / BGTexture.Width : (float)showRect.Height / BGTexture.Height;
+            BGCenter = new Vector2((float)BGTexture.Width / 2, (float)BGTexture.Height / 2);
         }
         public void RenderSB()
         {
@@ -194,11 +204,11 @@ namespace OSUplayer.Graphic
             if (position - (double)Map.VideoOffset / 1000 < 0) { return; }
             VideoTexture.SetData<byte>(decoder.GetFrame(Convert.ToInt32(position * 1000 - Map.VideoOffset)));
             sprite.Draw(Black, sizeRect, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.95f);
-            sprite.Draw(VideoTexture, VideoPosition, null, Color.White, 0f, Vector2.Zero, VideoScale, SpriteEffects.None, 0.9f);
+            sprite.Draw(VideoTexture, ScreenCenter, null, Color.White, 0f, VideoCenter, VideoScale, SpriteEffects.None, 0.9f);
         }
         public void RenderBG(SpriteBatch sprite)
         {
-            sprite.Draw(BGTexture, BGPosition, null, Color.White, 0f, Vector2.Zero, BGScale, SpriteEffects.None, 1f);
+            sprite.Draw(BGTexture, ScreenCenter, null, Color.White, 0f, BGCenter, BGScale, SpriteEffects.None, 1f);
         }
         public void Render()
         {
@@ -213,7 +223,7 @@ namespace OSUplayer.Graphic
             AlphaSprite.End();
             try
             {
-                device.Present(sizeRect, showRect, handle);
+                device.Present();
             }
             catch { deviceislost = true; }
 

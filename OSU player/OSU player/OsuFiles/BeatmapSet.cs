@@ -299,15 +299,15 @@ namespace OSUplayer.OsuFiles
         }
         public void GetDetail()
         {
-            DirectoryInfo F = new DirectoryInfo(location);
-            FileInfo[] osbfiles = F.GetFiles("*.osb");
+            DirectoryInfo f = new DirectoryInfo(location);
+            FileInfo[] osbfiles = f.GetFiles("*.osb");
             if (osbfiles.Length != 0)
             {
                 OsbPath = osbfiles[0].FullName;
             }
             foreach (Beatmap bm in Diffs)
             {
-                if (!bm.detailed){bm.GetDetail(OsbPath);}
+                bm.setsb(OsbPath);
             }
             Diffs.Sort();
             detailed = true;
