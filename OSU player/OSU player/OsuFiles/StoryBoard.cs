@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using OSUplayer.Graphic;
+using System.Drawing;
 namespace OSUplayer.OsuFiles.StoryBoard
 {
     public enum ElementType
@@ -142,6 +143,7 @@ namespace OSUplayer.OsuFiles.StoryBoard
         public List<SBvar> Variables = new List<SBvar>();
         //public Dictionary<Triggertype, TriggerEvent> trigger = new Dictionary<Triggertype, TriggerEvent>();
         //目录由beatmapfiles.location-->beatmap.location
+        public string location;
         private string Picknext(ref string str, bool change = true)
         {
             string ret = "";
@@ -183,10 +185,11 @@ namespace OSUplayer.OsuFiles.StoryBoard
                     Picknext(ref row);
                     int delta = Convert.ToInt32(Picknext(ref row));
                     int loopcount = Convert.ToInt32(Picknext(ref row));
+                    row = reader.ReadLine();
                     //delta: 循环开始的时间和此系列SB事件第一次生效的最初时间之间的时间差, 单位是毫秒
                     while (!reader.EndOfStream && row.StartsWith("  "))
                     {
-                        for (int i = 0; i <= loopcount; i++)
+                        for (int i = 1; i <= loopcount; i++)
                         {
                             dealevent((row.Substring(1)), element, i * delta);
                         }
@@ -247,6 +250,7 @@ namespace OSUplayer.OsuFiles.StoryBoard
             int time = startT;
             delta = endT - startT;
             if (Elements[element].Starttime > time) { Elements[element].Starttime = time; }
+            if (Elements[element].Lasttime < endT) { Elements[element].Lasttime = endT; }
             while (point < tmp.Length)
             {
                 switch (type)
@@ -259,7 +263,12 @@ namespace OSUplayer.OsuFiles.StoryBoard
                             point++;
                             time += delta;
                         }
-                        else { Elements[element].F.Add(new TActionNode(time, Convert.ToSingle(tmp[point]) * 255, 4)); return; }
+                        else
+                        {
+                            Elements[element].F.Add(new TActionNode(time, Convert.ToSingle(tmp[point]) * 255, 4));
+                            if (time < endT) { Elements[element].F.Add(new TActionNode(endT, Convert.ToSingle(tmp[point]) * 255, 4)); }
+                            return;
+                        }
                         break;
                     case EventType.MX:
                         if (point != tmp.Length - 1)
@@ -268,7 +277,12 @@ namespace OSUplayer.OsuFiles.StoryBoard
                             point++;
                             time += delta;
                         }
-                        else { Elements[element].X.Add(new TActionNode(time, Convert.ToInt32(tmp[point]), 4)); return; }
+                        else
+                        {
+                            Elements[element].X.Add(new TActionNode(time, Convert.ToInt32(tmp[point]), 4));
+                            if (time < endT) { Elements[element].X.Add(new TActionNode(endT, Convert.ToInt32(tmp[point]), 4)); }
+                            return;
+                        }
                         break;
                     case EventType.MY:
                         if (point != tmp.Length - 1)
@@ -277,7 +291,12 @@ namespace OSUplayer.OsuFiles.StoryBoard
                             point++;
                             time += delta;
                         }
-                        else { Elements[element].Y.Add(new TActionNode(time, Convert.ToInt32(tmp[point]), 4)); return; }
+                        else
+                        {
+                            Elements[element].Y.Add(new TActionNode(time, Convert.ToInt32(tmp[point]), 4));
+                            if (time < endT) { Elements[element].Y.Add(new TActionNode(endT, Convert.ToInt32(tmp[point]), 4)); }
+                            return;
+                        }
                         break;
                     case EventType.M:
                         if (point != tmp.Length - 2)
@@ -291,8 +310,10 @@ namespace OSUplayer.OsuFiles.StoryBoard
                         else
                         {
                             Elements[element].X.Add(new TActionNode(time, Convert.ToInt32(tmp[point]), 4));
+                            if (time < endT) { Elements[element].X.Add(new TActionNode(endT, Convert.ToInt32(tmp[point]), 4)); }
                             point++;
                             Elements[element].Y.Add(new TActionNode(time, Convert.ToInt32(tmp[point]), 4));
+                            if (time < endT) { Elements[element].Y.Add(new TActionNode(endT, Convert.ToInt32(tmp[point]), 4)); }
                             point++; return;
                         }
                         break;
@@ -308,6 +329,11 @@ namespace OSUplayer.OsuFiles.StoryBoard
                         {
                             Elements[element].SX.Add(new TActionNode(time, Convert.ToSingle(tmp[point]), 4));
                             Elements[element].SY.Add(new TActionNode(time, Convert.ToSingle(tmp[point]), 4));
+                            if (time < endT)
+                            {
+                                Elements[element].SX.Add(new TActionNode(endT, Convert.ToSingle(tmp[point]), 4));
+                                Elements[element].SY.Add(new TActionNode(endT, Convert.ToSingle(tmp[point]), 4));
+                            }
                             point++;
                             return;
                         }
@@ -324,8 +350,10 @@ namespace OSUplayer.OsuFiles.StoryBoard
                         else
                         {
                             Elements[element].SX.Add(new TActionNode(time, Convert.ToSingle(tmp[point]), 4));
+                            if (time < endT) { Elements[element].SX.Add(new TActionNode(endT, Convert.ToSingle(tmp[point]), 4)); }
                             point++;
                             Elements[element].SY.Add(new TActionNode(time, Convert.ToSingle(tmp[point]), 4));
+                            if (time < endT) { Elements[element].SY.Add(new TActionNode(endT, Convert.ToSingle(tmp[point]), 4)); }
                             point++;
                             return;
                         }
@@ -337,7 +365,12 @@ namespace OSUplayer.OsuFiles.StoryBoard
                             point++;
                             time += delta;
                         }
-                        else { Elements[element].R.Add(new TActionNode(time, Convert.ToSingle(tmp[point]), 4)); return; }
+                        else
+                        {
+                            Elements[element].R.Add(new TActionNode(time, Convert.ToSingle(tmp[point]), 4));
+                            if (time < endT) { Elements[element].R.Add(new TActionNode(endT, Convert.ToSingle(tmp[point]), 4)); }
+                            return;
+                        }
                         break;
                     case EventType.C:
                         if (point != tmp.Length - 3)
@@ -359,6 +392,15 @@ namespace OSUplayer.OsuFiles.StoryBoard
                                       Convert.ToInt32(tmp[point + 1]),
                                       Convert.ToInt32(tmp[point + 2])),
                                 4));
+                            if (time < endT)
+                            {
+                                Elements[element].C.Add(new TActionNode(
+                                    endT,
+                                    Color(Convert.ToInt32(tmp[point]),
+                                    Convert.ToInt32(tmp[point + 1]),
+                                    Convert.ToInt32(tmp[point + 2])),
+                                    4));
+                            }
                             return;
                         }
                         break;
@@ -452,7 +494,7 @@ namespace OSUplayer.OsuFiles.StoryBoard
                             {
                                 Elements[element].F.Insert(0, new TActionNode(Elements[element].Starttime, 255f, 4));
                             }
-                            Elements[element].F.Add(new TActionNode(Elements[element].Lasttime, 0f, 4));
+                            Elements[element].F.Add(new TActionNode(Elements[element].Lasttime + 1, 0f, 4));
                         }
                         else if (row.StartsWith("Sprite") || row.StartsWith("4,"))
                         {
@@ -475,20 +517,28 @@ namespace OSUplayer.OsuFiles.StoryBoard
                             {
                                 Elements[element].F.Insert(0, new TActionNode(Elements[element].Starttime, 255f, 4));
                             }
-                            Elements[element].F.Add(new TActionNode(Elements[element].Lasttime, 0f, 4));
+                            Elements[element].F.Add(new TActionNode(Elements[element].Lasttime + 1, 0f, 4));
                         }
-                        /*    else if (row.StartsWith("0,"))
+                        else if (row.StartsWith("0,"))
+                        {
+                            tmp = row.Split(new char[] { ',' });
+                            tmpe = new SBelement();
+                            tmpe.Type = ElementType.Sprite;
+                            tmpe.Layers = ElementLayer.Background;
+                            tmpe.Origin = ElementOrigin.TopLeft;
+                            tmpe.Path = tmp[2].Substring(1, tmp[2].Length - 2);
+                            if (File.Exists(Path.Combine(location, tmpe.Path)))
                             {
-                                tmp = row.Split(new char[] { ',' });
-                                tmpe = new SBelement();
-                                tmpe.Type = ElementType.Sprite;
-                                tmpe.Layers = ElementLayer.Background;
-                                tmpe.Origin = ElementOrigin.Centre;
-                                tmpe.path = tmp[2].Substring(1, tmp[2].Length - 2);
-                                elements.Add(tmpe);
+                                Bitmap tmpbm = new Bitmap(Path.Combine(location, tmpe.Path));
+                                float BGScale = 640f / tmpbm.Width < 480f / tmpbm.Height ? 640f / tmpbm.Width : 480f / tmpbm.Height;
+                                Elements.Add(tmpe);
                                 element++;
-                                row = dealevents(element, reader);
-                            }*/
+                                row = Dealevents(element, reader);
+                                Elements[element].F.Insert(0, new TActionNode(0, 255f, 4));
+                                Elements[element].SX.Insert(0, new TActionNode(0, BGScale, 4));
+                                Elements[element].SY.Insert(0, new TActionNode(0, BGScale, 4));
+                            }
+                        }
                         else { row = reader.ReadLine(); }
                         break;
                     default:
@@ -497,9 +547,10 @@ namespace OSUplayer.OsuFiles.StoryBoard
                 }
             }
         }
-        public StoryBoard(string osu, string osb)
+        public StoryBoard(string osu, string osb, string location)
         {
             StreamReader reader;
+            this.location = location;
             try
             {
                 int currentelement = -1;

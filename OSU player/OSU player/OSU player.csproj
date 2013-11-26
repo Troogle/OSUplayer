@@ -96,6 +96,12 @@
     <Reference Include="TelerikCommon, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DBListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DBListView.Designer.cs">
+      <DependentUpon>DBListView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Mini.cs">
       <SubType>Form</SubType>
     </Compile>

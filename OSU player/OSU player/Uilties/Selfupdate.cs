@@ -32,15 +32,15 @@ namespace OSUplayer.Uilties
                         Process.Start(UpDateXml.SelectNodes("/Xml/Link")[0].InnerText);
                     }
                 }
-             /*   try
-                {
-                    WebRequest request;
-                    request = WebRequest.Create("http://wenwo.at/counter.php?counter=" + Core.Version);
-                    request.Credentials = CredentialCache.DefaultCredentials;
-                    request.Timeout = 20000;
-                    request.GetResponse();
-                }
-                catch { }*/
+                /*   try
+                   {
+                       WebRequest request;
+                       request = WebRequest.Create("http://wenwo.at/counter.php?counter=" + Core.Version);
+                       request.Credentials = CredentialCache.DefaultCredentials;
+                       request.Timeout = 20000;
+                       request.GetResponse();
+                   }
+                   catch { }*/
             }
             catch (Exception)
             {

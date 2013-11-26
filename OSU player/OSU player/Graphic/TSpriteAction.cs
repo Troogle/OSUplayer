@@ -13,7 +13,7 @@ namespace OSUplayer.Graphic
         private int easing;    //计算类型
         private bool isLoop;  //动作是否循环
         private bool isEnable;  //动作是否激活
-        private bool isActive; //是否是首项
+        public bool isActive; //是否是首项
         private bool isKeepValue;  //非循环动作在结束后是否保持值
         private bool isOver;  //动作是否执行完
 
@@ -52,6 +52,7 @@ namespace OSUplayer.Graphic
             else
             {
                 actionList = pActionList;
+                actionList.Sort();
                 this.isLoop = pIsLoop;
                 this.isKeepValue = pIsKeepValue;
                 this.isActive = false;
@@ -90,6 +91,7 @@ namespace OSUplayer.Graphic
                     {
                         this.currentValue = actionList[0].Value;
                         this.isOver = true;
+                        this.isActive = true;
                         this.isEnable = false;
                     }
                 }
@@ -121,7 +123,6 @@ namespace OSUplayer.Graphic
                                 this.k = a / b;
                                 this.easing = this.actionList[currentIndex].Easing;
                                 this.currentValue = this.actionList[currentIndex].Value;
-                                return;
                             }
                             else
                             {
@@ -180,6 +181,7 @@ namespace OSUplayer.Graphic
                                     + this.actionList[this.currentIndex].Value;
                                 break;
                             case 4:  //endtime之后
+                                this.currentValue = this.actionList[this.currentIndex].Value;
                                 break; //currentvalue不变
                             default:
                                 break;
@@ -231,7 +233,7 @@ namespace OSUplayer.Graphic
     /// <summary>
     /// 动作结点
     /// </summary>
-    public class TActionNode
+    public class TActionNode:IComparable<TActionNode>
     {
         private int time;
         private float value;
@@ -268,5 +270,10 @@ namespace OSUplayer.Graphic
             this.easing = pEasing;
         }
         #endregion
+
+        public int CompareTo(TActionNode other)
+        {
+            return this.time.CompareTo(other.time);
+        }
     }
 }

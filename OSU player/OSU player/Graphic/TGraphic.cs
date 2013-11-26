@@ -79,7 +79,7 @@ namespace OSUplayer.Graphic
         protected Texture2D[] texturearray;
         protected ElementOrigin Origin;
 
-        public TGraphic(Device graphicDevice, SBelement Element, string Location,int layerdelta)
+        public TGraphic(Device graphicDevice, SBelement Element, string Location, int layerdelta)
             : base()
         {
             switch (Element.Type)
@@ -143,8 +143,7 @@ namespace OSUplayer.Graphic
             this.alpha = 0;
             this.parameter = 0;
             this.rotate = 0f;
-            if (Element.Layers == ElementLayer.Background) { this.layer = 0.9f - layerdelta*0.001f; }
-            else { this.layer = 0.5f - layerdelta * 0.001f; }
+            if (Element.Layers == ElementLayer.Background) { this.layer = 0.9f - layerdelta * 0.000001f; } else { this.layer = 0.5f - layerdelta * 0.000001f; }
             this.scale = new Vector2(1f, 1f);
             //  this.InitSpriteAction();
         }
@@ -205,43 +204,46 @@ namespace OSUplayer.Graphic
             if (this.alphaAction.Enable)
             {
                 this.alphaAction.Update(CurrentTime);
-                this.alpha = (byte)alphaAction.CurrentValue;
+                this.alpha = (byte)alphaAction.CurrentValue;//默认就是0,ok~
             }
             if (this.colorAction.Enable)
             {
                 this.colorAction.Update(CurrentTime);
                 int colorv = (int)colorAction.CurrentValue;
-                this.color = new Color((byte)(colorv >> 0x10), (byte)(colorv >> 8), (byte)colorv);
+                if (this.colorAction.isActive)
+                {
+                    this.color = new Color((byte)(colorv >> 0x10), (byte)(colorv >> 8), (byte)colorv);
+                }
             }
             if (this.xAction.Enable)
             {
                 this.xAction.Update(CurrentTime);
-                this.position.X = this.xAction.CurrentValue;
+                if (this.xAction.isActive) { this.position.X = this.xAction.CurrentValue; }
             }
             if (this.yAction.Enable)
             {
                 this.yAction.Update(CurrentTime);
-                this.position.Y = this.yAction.CurrentValue;
+                if (this.yAction.isActive) { this.position.Y = this.yAction.CurrentValue; }
             }
             if (this.scaleXAction.Enable)
             {
                 this.scaleXAction.Update(CurrentTime);
-                this.scale.X = this.scaleXAction.CurrentValue;
+                if (this.scaleXAction.isActive) { this.scale.X = this.scaleXAction.CurrentValue; }
             }
             if (this.scaleYAction.Enable)
             {
                 this.scaleYAction.Update(CurrentTime);
-                this.scale.Y = this.scaleYAction.CurrentValue;
+                if (this.scaleYAction.isActive) { this.scale.Y = this.scaleYAction.CurrentValue; }
             }
             if (this.rotateAction.Enable)
             {
                 this.rotateAction.Update(CurrentTime);
-                this.rotate = this.rotateAction.CurrentValue;
+                this.rotate = this.rotateAction.CurrentValue;//默认就是0,ok~
             }
             if (this.parameterAction.Enable)
             {
                 this.parameterAction.Update(CurrentTime);
-                this.parameter = (byte)this.parameterAction.CurrentValue;
+                this.parameter = (byte)this.parameterAction.CurrentValue;//默认就是0,ok~
             }
 
             // 处理帧更新

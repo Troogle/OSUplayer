@@ -5,6 +5,7 @@ using System.IO;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using OSUplayer.OsuFiles;
+using System.Threading;
 using Color = Microsoft.Xna.Framework.Graphics.Color;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 namespace OSUplayer.Graphic
@@ -44,7 +45,6 @@ namespace OSUplayer.Graphic
         /// <summary>
         /// 渲染区域大小
         /// </summary>
-        Rectangle sizeRect;
         Rectangle showRect;
         /// <summary>
         /// 渲染区域的handle
@@ -61,6 +61,8 @@ namespace OSUplayer.Graphic
         float VideoScale;
         Vector2 BGCenter;
         float BGScale;
+        float SBScale;
+        Matrix SBtramsform;
         List<TGraphic> SBelements = new List<TGraphic>();
         SpriteBatch AlphaSprite;
         SpriteBatch AdditiveSprite;
@@ -69,9 +71,10 @@ namespace OSUplayer.Graphic
         {
             uniAudio = new Audiofiles();
             handle = Shandle;
-            sizeRect = new Rectangle(0, 0, 640, 480);
             showRect = new Rectangle(0, 0, Ssize.Width, Ssize.Height);
             ScreenCenter = new Vector2((float)Ssize.Width / 2, (float)Ssize.Height / 2);
+            SBScale = showRect.Width / 640f < showRect.Height / 480f ? showRect.Width / 640f : showRect.Height / 480f;
+            SBtramsform = Matrix.CreateTranslation(-320, -240, 0) * Matrix.CreateScale(SBScale, SBScale, 1) * Matrix.CreateTranslation(new Vector3(ScreenCenter, 0));
             /* presentParams.DeviceWindowHandle=handle;
              presentParams.IsFullScreen=false;
              device = new GraphicsDevice();
@@ -81,7 +84,7 @@ namespace OSUplayer.Graphic
             presentParams.BackBufferHeight = showRect.Height;
             presentParams.BackBufferWidth = showRect.Width;
             device = new GraphicsDevice(GraphicsAdapter.DefaultAdapter,
-                DeviceType.Hardware, handle, CreateOptions.MixedVertexProcessing, presentParams);
+            DeviceType.Hardware, handle, CreateOptions.MixedVertexProcessing, presentParams);
             AlphaSprite = new SpriteBatch(device);
             AdditiveSprite = new SpriteBatch(device);
             for (int i = 0; i < maxfxplayer; i++)
@@ -106,6 +109,8 @@ namespace OSUplayer.Graphic
             device.Reset();
             BGScale = (float)showRect.Width / BGTexture.Width < (float)showRect.Height / BGTexture.Height ? (float)showRect.Width / BGTexture.Width : (float)showRect.Height / BGTexture.Height;
             if (videoexist) { VideoScale = (float)showRect.Width / decoder.width < (float)showRect.Height / decoder.height ? (float)showRect.Width / decoder.width : (float)showRect.Height / decoder.height; }
+            SBScale = showRect.Width / 640f < showRect.Height / 480f ? showRect.Width / 640f : showRect.Height / 480f;
+            SBtramsform = Matrix.CreateTranslation(-320, -240, 0) * Matrix.CreateScale(SBScale, SBScale, 1) * Matrix.CreateTranslation(new Vector3(ScreenCenter, 0));
         }
         bool CanRender()
         {
@@ -138,7 +143,7 @@ namespace OSUplayer.Graphic
             }
             VideoTexture = new Texture2D(device, decoder.width, decoder.height, 1, 0, SurfaceFormat.Bgr32);
             VideoScale = (float)showRect.Width / decoder.width < (float)showRect.Height / decoder.height ? (float)showRect.Width / decoder.width : (float)showRect.Height / decoder.height;
-            VideoCenter = new Vector2(decoder.width  / 2, (float)decoder.height  / 2);
+            VideoCenter = new Vector2(decoder.width / 2, (float)decoder.height / 2);
             videoexist = true;
         }
         public void initBG()
@@ -203,8 +208,8 @@ namespace OSUplayer.Graphic
         {
             if (position - (double)Map.VideoOffset / 1000 < 0) { return; }
             VideoTexture.SetData<byte>(decoder.GetFrame(Convert.ToInt32(position * 1000 - Map.VideoOffset)));
-            sprite.Draw(Black, sizeRect, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.95f);
-            sprite.Draw(VideoTexture, ScreenCenter, null, Color.White, 0f, VideoCenter, VideoScale, SpriteEffects.None, 0.9f);
+            sprite.Draw(Black, showRect, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 1f);
+            sprite.Draw(VideoTexture, ScreenCenter, null, Color.White, 0f, VideoCenter, VideoScale, SpriteEffects.None, 1f);
         }
         public void RenderBG(SpriteBatch sprite)
         {
@@ -214,13 +219,18 @@ namespace OSUplayer.Graphic
         {
             if (device == null || device.IsDisposed || !CanRender()) { return; }
             device.Clear(Color.Black);
-            AlphaSprite.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None);
+            AlphaSprite.Begin();
             RenderBG(AlphaSprite);
             if (videoexist) { RenderVideo(AlphaSprite); }
-            AdditiveSprite.Begin(SpriteBlendMode.Additive, SpriteSortMode.BackToFront, SaveStateMode.None);
-            if (SBexist) { RenderSB(); }
-            AdditiveSprite.End();
             AlphaSprite.End();
+            if (SBexist)
+            {
+                AlphaSprite.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None, SBtramsform);
+                AdditiveSprite.Begin(SpriteBlendMode.Additive, SpriteSortMode.BackToFront, SaveStateMode.None, SBtramsform);
+                RenderSB();
+                AdditiveSprite.End();
+                AlphaSprite.End();
+            }
             try
             {
                 device.Present();

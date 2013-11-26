@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using Telerik.WinControls;
 using Telerik.WinControls.UI;
 using System.ComponentModel;
+using System.Threading;
 using OSUplayer.OsuFiles;
 using OSUplayer.Uilties;
 namespace OSUplayer
@@ -113,49 +114,35 @@ namespace OSUplayer
             视频开关.IsChecked = Core.playvideo;
             radMenuComboItem1.ComboBoxElement.SelectedIndex = Core.Nextmode - 1;
         }
-        BackgroundWorker refreash = new BackgroundWorker();
-        private void refreshlist(object sender, EventArgs e)
+        private void RefreshList(int select = 0)
         {
             PlayList.Items.Clear();
             DiffList.Items.Clear();
-            PlayList.Enabled = false;
-            DiffList.Enabled = false;
-            //    PlayList.BeginUpdate();
-            for (int i = 0; i < Core.PlayList.Count; i++)
-            {
-                PlayList.Items.Add(Core.allsets[Core.PlayList[i]].ToString());
-            }
-            //     PlayList.EndUpdate();
-            if (PlayList.Items.Count != 0) { PlayList.Items[0].Selected = true; }
-            PlayList.Enabled = true;
-            DiffList.Enabled = true;
+            //PlayList.Enabled = false;
+            //DiffList.Enabled = false;
+            new Thread((ThreadStart)delegate()
+                {
+                    for (int i = 0; i < Core.PlayList.Count; i++)
+                    {
+                        PlayList.Invoke((MethodInvoker)delegate()
+                        {
+                            PlayList.Items.Add(Core.allsets[Core.PlayList[i]].ToString());
+                        });
+                    }
+                    if (PlayList.Items.Count != 0)
+                    {
+                        PlayList.Invoke((MethodInvoker)delegate()
+                        { PlayList.Items[select].Selected = true; });
+                    }
+                    //PlayList.Enabled = true;
+                    //DiffList.Enabled = true;
+                }).Start();
         }
-
-        private void RefreshList()
-        {
-            if (!refreash.IsBusy) { refreash.RunWorkerAsync(); }
-        }
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
         void Main_VisibleChanged(object sender, EventArgs e)
         {
             Core.MainIsVisible = this.Visible;
         }
 
-        private void refreash_DoWork(object sender, DoWorkEventArgs e)
-        {
-            if (this.InvokeRequired)
-            {
-                this.BeginInvoke(new EventHandler(refreshlist));
-            }
-            else
-            {
-                refreshlist(null, null);
-            }
-        }
         #region 菜单栏
         #region 文件
         private void 运行OSU_Click(object sender, EventArgs e)
@@ -314,7 +301,7 @@ namespace OSUplayer
         {
             if (PlayList.SelectedItems.Count == 0) { return; }
             DiffList.Items.Clear();
-            if (Core.SetSet(PlayList.SelectedIndices[0])) { RefreshList(); PlayNext(); }
+            if (Core.SetSet(PlayList.SelectedIndices[0])) { RefreshList(); PlayNext(false); }
             else
             {
                 foreach (Beatmap s in Core.TmpSet.Diffs)
@@ -331,7 +318,7 @@ namespace OSUplayer
         private void DiffList_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (PlayList.SelectedIndices.Count == 0) { return; }
-            if (Core.SetMap(DiffList.SelectedIndex)) { RefreshList(); PlayNext(); }
+            if (Core.SetMap(DiffList.SelectedIndex)) { RefreshList(); PlayNext(false); }
             else
             {
                 if (Core.scoresearched) { setscore(); }
@@ -522,7 +509,6 @@ namespace OSUplayer
         {
             Core.init(this.panel2.Handle, this.panel2.Size);
             SetForm();
-            refreash.DoWork += refreash_DoWork;
             RefreshList();
             this.VisibleChanged += Main_VisibleChanged;
             this.SizeChanged += Main_SizeChanged;
@@ -550,6 +536,26 @@ namespace OSUplayer
             if (Core.MainIsVisible)
             {
                 Core.Resize(panel2.Size);
+            }
+        }
+
+        private void radMenuItem2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RightClick_Opening(object sender, CancelEventArgs e)
+        {
+            if (PlayList.SelectedItems.Count == 0) { e.Cancel = true; return; }
+        }
+
+        private void Delete_Click(object sender, EventArgs e)
+        {
+            int index = PlayList.SelectedIndices[0];
+            Core.remove(index);
+            if (PlayList.Items.Count != 0)
+            {
+                RefreshList(index);
             }
         }
     }

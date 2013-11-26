@@ -597,7 +597,7 @@ namespace OSUplayer.OsuFiles
         {
             if (haveSB)
             {
-                SB = new OsuFiles.StoryBoard.StoryBoard(Path, osb);
+                SB = new OsuFiles.StoryBoard.StoryBoard(Path, osb, Location);
             }
         }
         public Beatmap()
@@ -625,10 +625,9 @@ namespace OSUplayer.OsuFiles
         /// <returns></returns>
         public bool Equals(Beatmap obj)
         {
-            Beatmap b = obj;
-            if ((b.beatmapId == beatmapId) && (beatmapId != 0))
+            if ((obj.beatmapId == beatmapId) && (beatmapId != 0))
             { return true; }
-            return this.ToString().Equals(b.ToString()) && this.Creator.Equals(b.Creator);
+            return this.ToString().Equals(obj.ToString()) && this.Creator.Equals(obj.Creator);
         }
         public override string ToString() { return Version; }
         public string NameToString()

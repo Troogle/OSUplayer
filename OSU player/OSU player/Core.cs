@@ -309,9 +309,9 @@ namespace OSUplayer
         #endregion
         public static void remove(int index)
         {
-            //  Core.allsets.RemoveAt(PlayList[index]);
+            // Core.allsets.RemoveAt(PlayList[index]);
             PlayList.RemoveAt(index);
-            //  needsave = true;
+            needsave = true;
         }
         public static bool SetSet(int vaule, bool p = false)
         {
