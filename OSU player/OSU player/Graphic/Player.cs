@@ -186,23 +186,26 @@ namespace OSUplayer.Graphic
         public void initSB()
         {
             Map.Getsb();
-            for (int i = 0; i < Map.SB.Elements.Count; i++)
+            if (Map.SB.Elements.Count != 1)
             {
-                if (Map.SB.Elements[i].Type != OsuFiles.StoryBoard.ElementType.Sample)
+                for (int i = 0; i < Map.SB.Elements.Count; i++)
                 {
-                    TGraphic element = new TGraphic(device, Map.SB.Elements[i], Map.Location, i);
-                    element.SetAlphaAction(new TSpriteAction(Map.SB.Elements[i].F));
-                    element.SetScaleXAction(new TSpriteAction(Map.SB.Elements[i].SX));
-                    element.SetScaleYAction(new TSpriteAction(Map.SB.Elements[i].SY));
-                    element.SetRotateAction(new TSpriteAction(Map.SB.Elements[i].R));
-                    element.SetColorAction(new TSpriteAction(Map.SB.Elements[i].C));
-                    element.SetXAction(new TSpriteAction(Map.SB.Elements[i].X));
-                    element.SetYAction(new TSpriteAction(Map.SB.Elements[i].Y));
-                    element.SetParameterAction(new TSpriteAction(Map.SB.Elements[i].P, false, false));
-                    SBelements.Add(element);
+                    if (Map.SB.Elements[i].Type != OsuFiles.StoryBoard.ElementType.Sample)
+                    {
+                        TGraphic element = new TGraphic(device, Map.SB.Elements[i], Map.Location, i);
+                        element.SetAlphaAction(new TSpriteAction(Map.SB.Elements[i].F));
+                        element.SetScaleXAction(new TSpriteAction(Map.SB.Elements[i].SX));
+                        element.SetScaleYAction(new TSpriteAction(Map.SB.Elements[i].SY));
+                        element.SetRotateAction(new TSpriteAction(Map.SB.Elements[i].R));
+                        element.SetColorAction(new TSpriteAction(Map.SB.Elements[i].C));
+                        element.SetXAction(new TSpriteAction(Map.SB.Elements[i].X));
+                        element.SetYAction(new TSpriteAction(Map.SB.Elements[i].Y));
+                        element.SetParameterAction(new TSpriteAction(Map.SB.Elements[i].P, false, false));
+                        SBelements.Add(element);
+                    }
                 }
+                SBexist = true;
             }
-            SBexist = true;
         }
         public void RenderVideo(SpriteBatch sprite)
         {
@@ -220,7 +223,7 @@ namespace OSUplayer.Graphic
             if (device == null || device.IsDisposed || !CanRender()) { return; }
             device.Clear(Color.Black);
             AlphaSprite.Begin();
-            RenderBG(AlphaSprite);
+            if (!SBexist) { RenderBG(AlphaSprite); }
             if (videoexist) { RenderVideo(AlphaSprite); }
             AlphaSprite.End();
             if (SBexist)

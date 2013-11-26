@@ -492,7 +492,7 @@ namespace OSUplayer.OsuFiles.StoryBoard
                             { }
                             else
                             {
-                                Elements[element].F.Insert(0, new TActionNode(Elements[element].Starttime, 255f, 4));
+                                Elements[element].F.Insert(0, new TActionNode(Elements[element].Starttime - 1, 255f, 4));
                             }
                             Elements[element].F.Add(new TActionNode(Elements[element].Lasttime + 1, 0f, 4));
                         }
@@ -508,16 +508,20 @@ namespace OSUplayer.OsuFiles.StoryBoard
                             tmpe.Path = tmp[3].Substring(1, tmp[3].Length - 2);
                             tmpe.x = Convert.ToInt32(tmp[4]);
                             tmpe.y = Convert.ToInt32(tmp[5]);
-                            Elements.Add(tmpe);
-                            element++;
-                            row = Dealevents(element, reader);
-                            if (Elements[element].F.Count != 0 && Elements[element].F[0].Value == 0)
-                            { }
-                            else
+                            if (File.Exists(Path.Combine(location, tmpe.Path)))
                             {
-                                Elements[element].F.Insert(0, new TActionNode(Elements[element].Starttime, 255f, 4));
+                                Elements.Add(tmpe);
+                                element++;
+                                row = Dealevents(element, reader);
+                                if (Elements[element].F.Count != 0 && Elements[element].F[0].Value == 0)
+                                { }
+                                else
+                                {
+                                    Elements[element].F.Insert(0, new TActionNode(Elements[element].Starttime - 1, 255f, 4));
+                                }
+                                Elements[element].F.Add(new TActionNode(Elements[element].Lasttime + 1, 0f, 4));
                             }
-                            Elements[element].F.Add(new TActionNode(Elements[element].Lasttime + 1, 0f, 4));
+                            else { row = reader.ReadLine(); }
                         }
                         else if (row.StartsWith("0,"))
                         {
@@ -538,6 +542,7 @@ namespace OSUplayer.OsuFiles.StoryBoard
                                 Elements[element].SX.Insert(0, new TActionNode(0, BGScale, 4));
                                 Elements[element].SY.Insert(0, new TActionNode(0, BGScale, 4));
                             }
+                            else { row = reader.ReadLine(); }
                         }
                         else { row = reader.ReadLine(); }
                         break;
