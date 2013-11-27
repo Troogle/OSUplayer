@@ -192,7 +192,6 @@ namespace OSUplayer
                 dialog.CheckFileExists = false;
                 dialog.CreatePrompt = false;
                 dialog.AddExtension = true;
-                dialog.AutoUpgradeEnabled = true;
                 dialog.OverwritePrompt = true;
                 dialog.FileName = new FileInfo(Core.CurrentBeatmap.Background).Name;
                 dialog.DefaultExt = new FileInfo(Core.CurrentBeatmap.Background).Extension;
@@ -210,7 +209,6 @@ namespace OSUplayer
             dialog.CheckFileExists = false;
             dialog.CreatePrompt = false;
             dialog.AddExtension = true;
-            dialog.AutoUpgradeEnabled = true;
             dialog.OverwritePrompt = true;
             dialog.FileName = new FileInfo(Core.CurrentBeatmap.Audio).Name;
             dialog.DefaultExt = new FileInfo(Core.CurrentBeatmap.Audio).Extension;
@@ -512,6 +510,7 @@ namespace OSUplayer
             RefreshList();
             this.VisibleChanged += Main_VisibleChanged;
             this.SizeChanged += Main_SizeChanged;
+            Core.MainIsVisible = true;
             hotkeyHelper = new HotkeyHelper(this.Handle);
             playKey = hotkeyHelper.RegisterHotkey(Keys.F5, KeyModifiers.Alt);
             playKey1 = hotkeyHelper.RegisterHotkey(Keys.Play, KeyModifiers.None);
@@ -519,6 +518,7 @@ namespace OSUplayer
             nextKey = hotkeyHelper.RegisterHotkey(Keys.Right, KeyModifiers.Alt);
             nextKey1 = hotkeyHelper.RegisterHotkey(Keys.MediaNextTrack, KeyModifiers.None);
             hotkeyHelper.OnHotkey += new HotkeyEventHandler(OnHotkey);
+            this.panel2.ResumeLayout();
         }
         private void OnHotkey(int hotkeyID)
         {

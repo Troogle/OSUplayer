@@ -27,7 +27,7 @@ namespace OSUplayer.Graphic
         public Audiofiles uniAudio;
         List<Fxlist> fxlist = new List<Fxlist>();
         const int maxfxplayer = 128;
-        Audiofiles[] fxplayer = new Audiofiles[maxfxplayer];
+        Audiofiles[] fxplayer;
         string[] fxname = new string[maxfxplayer];
         bool cannext = true;
         public bool willnext = false;
@@ -55,7 +55,7 @@ namespace OSUplayer.Graphic
         Texture2D VideoTexture;
         Texture2D BGTexture;
         Texture2D Black;
-        PresentationParameters presentParams = new PresentationParameters();
+        PresentationParameters presentParams;
         Vector2 ScreenCenter;
         Vector2 VideoCenter;
         float VideoScale;
@@ -73,20 +73,21 @@ namespace OSUplayer.Graphic
             handle = Shandle;
             showRect = new Rectangle(0, 0, Ssize.Width, Ssize.Height);
             ScreenCenter = new Vector2((float)Ssize.Width / 2, (float)Ssize.Height / 2);
-            SBScale = showRect.Width / 640f < showRect.Height / 480f ? showRect.Width / 640f : showRect.Height / 480f;
+            SBScale = Math.Min(showRect.Width / 640f, showRect.Height / 480f);
             SBtramsform = Matrix.CreateTranslation(-320, -240, 0) * Matrix.CreateScale(SBScale, SBScale, 1) * Matrix.CreateTranslation(new Vector3(ScreenCenter, 0));
             /* presentParams.DeviceWindowHandle=handle;
              presentParams.IsFullScreen=false;
              device = new GraphicsDevice();
              device.Reset(presentParams, GraphicsAdapter.DefaultAdapter);*/
+            presentParams = new PresentationParameters();
             presentParams.IsFullScreen = false;
             presentParams.SwapEffect = SwapEffect.Discard;
-            presentParams.BackBufferHeight = showRect.Height;
-            presentParams.BackBufferWidth = showRect.Width;
-            device = new GraphicsDevice(GraphicsAdapter.DefaultAdapter,
-            DeviceType.Hardware, handle, CreateOptions.MixedVertexProcessing, presentParams);
+            presentParams.BackBufferHeight = Math.Max(showRect.Height, 1);
+            presentParams.BackBufferWidth = Math.Max(showRect.Width, 1);
+            device = new GraphicsDevice(GraphicsAdapter.DefaultAdapter, DeviceType.Hardware, handle, CreateOptions.MixedVertexProcessing, presentParams);
             AlphaSprite = new SpriteBatch(device);
             AdditiveSprite = new SpriteBatch(device);
+            fxplayer = new Audiofiles[maxfxplayer];
             for (int i = 0; i < maxfxplayer; i++)
             {
                 fxplayer[i] = new Audiofiles();
@@ -107,9 +108,9 @@ namespace OSUplayer.Graphic
             device.PresentationParameters.BackBufferWidth = showRect.Width;
             device.PresentationParameters.BackBufferHeight = showRect.Height;
             device.Reset();
-            BGScale = (float)showRect.Width / BGTexture.Width < (float)showRect.Height / BGTexture.Height ? (float)showRect.Width / BGTexture.Width : (float)showRect.Height / BGTexture.Height;
-            if (videoexist) { VideoScale = (float)showRect.Width / decoder.width < (float)showRect.Height / decoder.height ? (float)showRect.Width / decoder.width : (float)showRect.Height / decoder.height; }
-            SBScale = showRect.Width / 640f < showRect.Height / 480f ? showRect.Width / 640f : showRect.Height / 480f;
+            BGScale = Math.Min((float)showRect.Width / BGTexture.Width, (float)showRect.Height / BGTexture.Height);
+            if (videoexist) { VideoScale = Math.Min((float)showRect.Width / decoder.width, (float)showRect.Height / decoder.height); }
+            SBScale = Math.Min(showRect.Width / 640f, showRect.Height / 480f);
             SBtramsform = Matrix.CreateTranslation(-320, -240, 0) * Matrix.CreateScale(SBScale, SBScale, 1) * Matrix.CreateTranslation(new Vector3(ScreenCenter, 0));
         }
         bool CanRender()
@@ -142,7 +143,7 @@ namespace OSUplayer.Graphic
                 Black = Texture2D.FromFile(device, s);
             }
             VideoTexture = new Texture2D(device, decoder.width, decoder.height, 1, 0, SurfaceFormat.Bgr32);
-            VideoScale = (float)showRect.Width / decoder.width < (float)showRect.Height / decoder.height ? (float)showRect.Width / decoder.width : (float)showRect.Height / decoder.height;
+            VideoScale = Math.Min((float)showRect.Width / decoder.width, (float)showRect.Height / decoder.height);
             VideoCenter = new Vector2(decoder.width / 2, (float)decoder.height / 2);
             videoexist = true;
         }
@@ -169,7 +170,7 @@ namespace OSUplayer.Graphic
                     BGTexture = Texture2D.FromFile(device, s);
                 }
             }
-            BGScale = (float)showRect.Width / BGTexture.Width < (float)showRect.Height / BGTexture.Height ? (float)showRect.Width / BGTexture.Width : (float)showRect.Height / BGTexture.Height;
+            BGScale = Math.Min((float)showRect.Width / BGTexture.Width, (float)showRect.Height / BGTexture.Height);
             BGCenter = new Vector2((float)BGTexture.Width / 2, (float)BGTexture.Height / 2);
         }
         public void RenderSB()
@@ -406,6 +407,7 @@ namespace OSUplayer.Graphic
             uniAudio.Open(Map.Audio);
             if (Playfx) { initfx(); fxpos = 0; }
             uniAudio.UpdateTimer.Tick += new EventHandler(AVsync);
+            videoexist = false; SBexist = false;
             if (Map.haveVideo && Playvideo && File.Exists(Path.Combine(Map.Location, Map.Video))) { initvideo(); }
             if (Map.haveSB && Playsb) { initSB(); }
             uniAudio.Play(Allvolume * Musicvolume);

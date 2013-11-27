@@ -108,7 +108,7 @@ namespace OSUplayer
                 return fvi.FileVersion;
             }
         }
-        public static bool MainIsVisible = true;
+        public static bool MainIsVisible = false;
         public static void exit()
         {
             uni_QQ.Send2QQ(uin, "");

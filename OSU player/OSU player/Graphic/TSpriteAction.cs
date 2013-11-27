@@ -113,11 +113,16 @@ namespace OSUplayer.Graphic
                     else
                     {
                         //根据结点设置k和b
-                        if (CurrentTime >= actionList[currentIndex + 1].Time)//到了下一个节点，更新abk
+                        if (CurrentTime >= actionList[currentIndex + 1].Time)
                         {
-                            if (this.currentIndex < this.actionList.Count - 2)//不是最后一个
+                            while //跳帧
+                                (this.currentIndex < this.actionList.Count - 2//不是最后一个
+                                && CurrentTime >= actionList[currentIndex + 1].Time)//到了下一个节点，更新abk
                             {
                                 this.currentIndex++;
+                            }
+                            if (this.currentIndex < this.actionList.Count - 2)
+                            {
                                 this.a = this.actionList[currentIndex + 1].Value - this.actionList[currentIndex].Value;
                                 this.b = this.actionList[currentIndex + 1].Time - this.actionList[currentIndex].Time;
                                 this.k = a / b;
@@ -139,32 +144,33 @@ namespace OSUplayer.Graphic
                                     return;
                                 }
                             }
-                            /*   if (this.easing == 3)
-                                {
-                                    if (!isActive)
-                                    {
-                                        this.currentValue = this.actionList[currentIndex].Value;
-                                        this.isActive = true;
-                                        return;
-                                    }
-                                    this.currentValue = (int)this.currentValue | (int)this.actionList[this.currentIndex].Value;
-                                    if (CurrentTime >= actionList[currentIndex].ETime)
-                                    {
-                                        this.currentValue = (int)this.currentValue & (~(int)this.actionList[this.currentIndex].SValue);
-                                        if (this.currentIndex < this.actionList.Count - 1)
-                                        {
-                                            currentIndex++;
-                                            this.currentValue = (int)this.currentValue | (int)this.actionList[this.currentIndex].SValue;
-                                        }
-                                        else
-                                        {
-                                            this.isOver = true;
-                                            this.currentValue = 0;
-                                        }
-                                    }
-                                    return;
-                                }*/
                         }
+                        /*   if (this.easing == 3)
+                            {
+                                if (!isActive)
+                                {
+                                    this.currentValue = this.actionList[currentIndex].Value;
+                                    this.isActive = true;
+                                    return;
+                                }
+                                this.currentValue = (int)this.currentValue | (int)this.actionList[this.currentIndex].Value;
+                                if (CurrentTime >= actionList[currentIndex].ETime)
+                                {
+                                    this.currentValue = (int)this.currentValue & (~(int)this.actionList[this.currentIndex].SValue);
+                                    if (this.currentIndex < this.actionList.Count - 1)
+                                    {
+                                        currentIndex++;
+                                        this.currentValue = (int)this.currentValue | (int)this.actionList[this.currentIndex].SValue;
+                                    }
+                                    else
+                                    {
+                                        this.isOver = true;
+                                        this.currentValue = 0;
+                                    }
+                                }
+                                return;
+                            }*/
+
                         //根据k和b算出值
                         int elapsedTime = CurrentTime - this.actionList[this.currentIndex].Time;
                         switch (this.easing)
@@ -233,7 +239,7 @@ namespace OSUplayer.Graphic
     /// <summary>
     /// 动作结点
     /// </summary>
-    public class TActionNode:IComparable<TActionNode>
+    public class TActionNode : IComparable<TActionNode>
     {
         private int time;
         private float value;
