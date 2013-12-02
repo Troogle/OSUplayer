@@ -32,7 +32,7 @@ namespace OSUplayer
         /// <summary>
         /// 本地成绩，Key是地图MD5,Value是Score
         /// </summary>
-        public static Dictionary<string, List<Score>> Scores = new Dictionary<string, List<Score>>();
+        public static Dictionary<string, List<ScoreRecord>> Scores = new Dictionary<string, List<ScoreRecord>>();
         /// <summary>
         /// 本地Collection，Key是Collection名字,Value是Set的程序内部编号的List
         /// </summary>
@@ -516,15 +516,15 @@ namespace OSUplayer
             {
                 if (Core.Scores.ContainsKey(TmpSet.Diffs[i].GetHash()))
                 {
-                    foreach (Score tmp in Core.Scores[TmpSet.Diffs[i].GetHash()])
+                    foreach (ScoreRecord tmp in Core.Scores[TmpSet.Diffs[i].GetHash()])
                     {
                         ListViewDataItem tmpl = new ListViewDataItem();
                         tmpl.Image = Core.getrank(tmp);
                         tmpl.Text = String.Format(
                             "<html>Player:{0},Date:{1},Score: {2}<br>Diff:{3},Mods:{4},Mode:{5}<br>300:{6},100:{7},50:{8},Miss:{9},Maxcombo:{10}</html>",
-                            tmp.player, tmp.time.ToString(), tmp.score, TmpSet.Diffs[i].Version,
-                            tmp.mod, tmp.mode.ToString(),
-                            tmp.hit300, tmp.hit100, tmp.hit50, tmp.miss, tmp.maxCombo);
+                            tmp.Player, tmp.Time.ToString(), tmp.Score, TmpSet.Diffs[i].Version,
+                            tmp.Mod, tmp.Mode.ToString(),
+                            tmp.Hit300, tmp.Hit100, tmp.Hit50, tmp.Miss, tmp.MaxCombo);
                         tmpl.Font = font;
                         ret[cur] = tmpl;
                         cur++;
@@ -550,102 +550,102 @@ namespace OSUplayer
         }
         #endregion
         #region 通用转换区
-        public static Image getrank(Score S)
+        public static Image getrank(ScoreRecord S)
         {
-            switch (S.mode)
+            switch (S.Mode)
             {
                 case modes.Osu:
-                    if (S.acc == 1)
+                    if (S.Acc == 1)
                     {
-                        if (S.mod.Contains("HD") || S.mod.Contains("FL")) { return Resources.XH; }
+                        if (S.Mod.Contains("HD") || S.Mod.Contains("FL")) { return Resources.XH; }
                         else { return Resources.X; }
                     }
-                    if ((S.hit300) / (double)S.totalhit > 0.9 && S.hit50 / (double)S.totalhit < 0.01 && S.miss == 0)
+                    if ((S.Hit300) / (double)S.Totalhit > 0.9 && S.Hit50 / (double)S.Totalhit < 0.01 && S.Miss == 0)
                     {
-                        if (S.mod.Contains("HD") || S.mod.Contains("FL")) { return Resources.SH; }
+                        if (S.Mod.Contains("HD") || S.Mod.Contains("FL")) { return Resources.SH; }
                         else { return Resources.S; }
                     }
-                    if (((S.hit300) / (double)S.totalhit > 0.9) || ((S.hit300) / (double)S.totalhit > 0.8 && S.miss == 0))
+                    if (((S.Hit300) / (double)S.Totalhit > 0.9) || ((S.Hit300) / (double)S.Totalhit > 0.8 && S.Miss == 0))
                     {
                         return Resources.A;
                     }
-                    if (((S.hit300) / (double)S.totalhit > 0.8) || ((S.hit300) / (double)S.totalhit > 0.7 && S.miss == 0))
+                    if (((S.Hit300) / (double)S.Totalhit > 0.8) || ((S.Hit300) / (double)S.Totalhit > 0.7 && S.Miss == 0))
                     {
                         return Resources.B;
                     }
-                    if ((S.hit300) / (double)S.totalhit > 0.6)
+                    if ((S.Hit300) / (double)S.Totalhit > 0.6)
                     {
                         return Resources.C;
                     }
                     return Resources.D;
                 case modes.Taiko:
-                    if (S.acc == 1)
+                    if (S.Acc == 1)
                     {
-                        if (S.mod.Contains("HD") || S.mod.Contains("FL")) { return Resources.XH; }
+                        if (S.Mod.Contains("HD") || S.Mod.Contains("FL")) { return Resources.XH; }
                         else { return Resources.X; }
                     }
-                    if ((S.hit300) / (double)S.totalhit > 0.9 && S.hit50 / (double)S.totalhit < 0.01 && S.miss == 0)
+                    if ((S.Hit300) / (double)S.Totalhit > 0.9 && S.Hit50 / (double)S.Totalhit < 0.01 && S.Miss == 0)
                     {
-                        if (S.mod.Contains("HD") || S.mod.Contains("FL")) { return Resources.SH; }
+                        if (S.Mod.Contains("HD") || S.Mod.Contains("FL")) { return Resources.SH; }
                         else { return Resources.S; }
                     }
-                    if (((S.hit300) / (double)S.totalhit > 0.9) || ((S.hit300) / (double)S.totalhit > 0.8 && S.miss == 0))
+                    if (((S.Hit300) / (double)S.Totalhit > 0.9) || ((S.Hit300) / (double)S.Totalhit > 0.8 && S.Miss == 0))
                     {
                         return Resources.A;
                     }
-                    if (((S.hit300) / (double)S.totalhit > 0.8) || ((S.hit300) / (double)S.totalhit > 0.7 && S.miss == 0))
+                    if (((S.Hit300) / (double)S.Totalhit > 0.8) || ((S.Hit300) / (double)S.Totalhit > 0.7 && S.Miss == 0))
                     {
                         return Resources.B;
                     }
-                    if ((S.hit300) / (double)S.totalhit > 0.6)
+                    if ((S.Hit300) / (double)S.Totalhit > 0.6)
                     {
                         return Resources.C;
                     }
                     return Resources.D;
                 case modes.CTB:
-                    if (S.acc == 1)
+                    if (S.Acc == 1)
                     {
-                        if (S.mod.Contains("HD") || S.mod.Contains("FL")) { return Resources.XH; }
+                        if (S.Mod.Contains("HD") || S.Mod.Contains("FL")) { return Resources.XH; }
                         else { return Resources.X; }
                     }
-                    if (S.acc >= 0.9801)
+                    if (S.Acc >= 0.9801)
                     {
-                        if (S.mod.Contains("HD") || S.mod.Contains("FL")) { return Resources.SH; }
+                        if (S.Mod.Contains("HD") || S.Mod.Contains("FL")) { return Resources.SH; }
                         else { return Resources.S; }
                     }
-                    if (S.acc >= 0.9401)
+                    if (S.Acc >= 0.9401)
                     {
                         return Resources.A;
                     }
-                    if (S.acc >= 0.9001)
+                    if (S.Acc >= 0.9001)
                     {
                         return Resources.B;
                     }
-                    if (S.acc >= 0.8501)
+                    if (S.Acc >= 0.8501)
                     {
                         return Resources.C;
                     }
                     return Resources.D;
                 case modes.Mania:
-                    if (S.acc == 1)
+                    if (S.Acc == 1)
                     {
-                        if (S.mod.Contains("HD") || S.mod.Contains("FL")) { return Resources.XH; }
+                        if (S.Mod.Contains("HD") || S.Mod.Contains("FL")) { return Resources.XH; }
                         else { return Resources.X; }
                     }
-                    if (S.acc > 0.95)
+                    if (S.Acc > 0.95)
                     {
-                        if (S.mod.Contains("HD") || S.mod.Contains("FL")) { return Resources.SH; }
+                        if (S.Mod.Contains("HD") || S.Mod.Contains("FL")) { return Resources.SH; }
                         else { return Resources.S; }
                     }
-                    if (S.acc > 0.90)
+                    if (S.Acc > 0.90)
                     {
                         return Resources.A;
                     }
-                    if (S.acc > 0.80)
+                    if (S.Acc > 0.80)
                     {
                         return Resources.B;
                     }
-                    if (S.acc > 0.70)
+                    if (S.Acc > 0.70)
                     {
                         return Resources.C;
                     }

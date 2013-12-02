@@ -12,9 +12,9 @@ namespace OSUplayer.OsuFiles
         private string backgroundOffset = "";
         //diff-wide storyboard
         [NonSerialized]
-        public OsuFiles.StoryBoard.StoryBoard SB;
-        public int totalhitcount { get; set; }
-        public int offset { get; set; }
+        public StoryBoard.StoryBoard SB;
+        public int Totalhitcount { get; set; }
+        public int Offset { get; set; }
         public string Location { get; set; }
         public string Name { get; set; }
         public string Path { get; set; }
@@ -29,7 +29,7 @@ namespace OSUplayer.OsuFiles
         public List<Timing> Timingpoints;
         [NonSerialized]
         public List<HitObject> HitObjects;
-        public string hash { get; set; }
+        public string Hash { get; set; }
         #region map属性的获取接口
         public string FileVersion { get { return Rawdata[(int)OSUfile.FileVersion]; } }
         public string Audio
@@ -318,7 +318,7 @@ namespace OSUplayer.OsuFiles
             }
             return ObjectFlag.ColourHax;
         }
-        private HitObject setobject(string row)
+        private HitObject Setobject(string row)
         {
             HitObject NHit = new HitObject();
             string tmpop = "";
@@ -472,7 +472,7 @@ namespace OSUplayer.OsuFiles
             }
             return NHit;
         }
-        private Timing settiming(string row)
+        private Timing Settiming(string row)
         {
             Timing Ntiming = new Timing();
             string tmpop = "";
@@ -503,7 +503,7 @@ namespace OSUplayer.OsuFiles
             }
             return Ntiming;
         }
-        private enum osuFileScanStatus
+        private enum OsuFileScanStatus
         {
             VERSION_UNKNOWN,
             GENERAL,
@@ -516,18 +516,17 @@ namespace OSUplayer.OsuFiles
             COLOURS,
             HITOBJECTS
         }
-        public void setsb(string osb_F)
+        public void Setsb(string osbF)
         {
-            osb = osb_F;
+            osb = osbF;
         }
         public void GetDetail()
         {
             Path = System.IO.Path.Combine(Location, Name);
-            StreamReader reader;
-            osuFileScanStatus position = osuFileScanStatus.VERSION_UNKNOWN;
+            var position = OsuFileScanStatus.VERSION_UNKNOWN;
             try
             {
-                using (reader = new StreamReader(Path))
+                using (var reader = new StreamReader(Path))
                 {
                     Timingpoints = new List<Timing>();
                     HitObjects = new List<HitObject>();
@@ -539,22 +538,22 @@ namespace OSUplayer.OsuFiles
                         if (row.StartsWith("//") || row.Length == 0) { continue; }
                         if (row.StartsWith("["))
                         {
-                            position = (osuFileScanStatus)Enum.Parse(typeof(osuFileScanStatus), (row.Substring(1, row.Length - 2).ToUpper()));
+                            position = (OsuFileScanStatus)Enum.Parse(typeof(OsuFileScanStatus), (row.Substring(1, row.Length - 2).ToUpper()));
                             continue;
                         }
                         switch (position)
                         {
-                            case osuFileScanStatus.VERSION_UNKNOWN:
+                            case OsuFileScanStatus.VERSION_UNKNOWN:
                                 Rawdata[(int)OSUfile.FileVersion] = row.Substring(17);
                                 break;
-                            case osuFileScanStatus.GENERAL:
-                            case osuFileScanStatus.METADATA:
-                            case osuFileScanStatus.DIFFICULTY:
-                                string[] s = row.Split(new char[] { ':' }, 2);
+                            case OsuFileScanStatus.GENERAL:
+                            case OsuFileScanStatus.METADATA:
+                            case OsuFileScanStatus.DIFFICULTY:
+                                var s = row.Split(new char[] { ':' }, 2);
                                 try { Rawdata[(int)(OSUfile)Enum.Parse(typeof(OSUfile), (s[0].Trim()))] = s[1].Trim(); }
                                 catch { }
                                 break;
-                            case osuFileScanStatus.EVENTS:
+                            case OsuFileScanStatus.EVENTS:
                                 if (row.StartsWith("0,0,"))
                                 {
                                     string str = row.Substring(5, row.Length - 6);
@@ -575,11 +574,11 @@ namespace OSUplayer.OsuFiles
                                 else if (row.StartsWith("3,") || row.StartsWith("2,")) { break; }
                                 else { haveSB = true; }
                                 break;
-                            case osuFileScanStatus.TIMINGPOINTS:
-                                Timingpoints.Add(settiming(row));
+                            case OsuFileScanStatus.TIMINGPOINTS:
+                                Timingpoints.Add(Settiming(row));
                                 break;
-                            case osuFileScanStatus.HITOBJECTS:
-                                HitObjects.Add(setobject(row));
+                            case OsuFileScanStatus.HITOBJECTS:
+                                HitObjects.Add(Setobject(row));
                                 break;
                         }
                     }
@@ -597,7 +596,7 @@ namespace OSUplayer.OsuFiles
         {
             if (haveSB)
             {
-                SB = new OsuFiles.StoryBoard.StoryBoard(Path, osb, Location);
+                SB = new StoryBoard.StoryBoard(Path, osb, Location);
             }
         }
         public Beatmap()
@@ -615,8 +614,8 @@ namespace OSUplayer.OsuFiles
         {
             if (this.Mode < other.Mode) { return -1; }
             if (this.Mode > other.Mode) { return 1; }
-            if (this.totalhitcount == other.totalhitcount) { return 0; }
-            if (this.totalhitcount > other.totalhitcount) { return -1; } else { return 1; }
+            if (this.Totalhitcount == other.Totalhitcount) { return 0; }
+            if (this.Totalhitcount > other.Totalhitcount) { return -1; } else { return 1; }
         }
         /// <summary>
         /// 判断相等
@@ -636,20 +635,19 @@ namespace OSUplayer.OsuFiles
         }
         public string GetHash()
         {
-            if (hash != null) { return hash; }
+            if (Hash != null) { return Hash; }
             string strHashData = "";
-            byte[] arrHashValue;
-            using (MD5 md5Hash = MD5.Create())
+            using (var md5Hash = MD5.Create())
             {
-                using (FileStream fs = new FileStream(Path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                using (var fs = new FileStream(Path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                 {
-                    arrHashValue = md5Hash.ComputeHash(fs);
+                    var arrHashValue = md5Hash.ComputeHash(fs);
+                    strHashData = BitConverter.ToString(arrHashValue);
+                    strHashData = strHashData.Replace("-", "");
                 }
-                strHashData = BitConverter.ToString(arrHashValue);
-                strHashData = strHashData.Replace("-", "");
             }
-            hash = strHashData.ToLower();
-            return hash;
+            Hash = strHashData.ToLower();
+            return Hash;
         }
     }
 }

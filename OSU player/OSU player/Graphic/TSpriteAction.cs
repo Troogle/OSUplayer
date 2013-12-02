@@ -47,7 +47,7 @@ namespace OSUplayer.Graphic
             if (pActionList.Count == 0)
             {
                 this.isEnable = false;
-                this.isActive = true;
+                this.isActive = false;
             }
             else
             {
@@ -115,14 +115,15 @@ namespace OSUplayer.Graphic
                         //根据结点设置k和b
                         if (CurrentTime >= actionList[currentIndex + 1].Time)
                         {
-                            while //跳帧
-                                (this.currentIndex < this.actionList.Count - 2//不是最后一个
-                                && CurrentTime >= actionList[currentIndex + 1].Time)//到了下一个节点，更新abk
-                            {
-                                this.currentIndex++;
-                            }
+                           // while //跳帧
+                           //     (this.currentIndex < this.actionList.Count - 2//不是最后一个
+                           //     && CurrentTime >= actionList[currentIndex + 1].Time)//到了下一个节点，更新abk
+                          //  {
+                                
+                         //   }
                             if (this.currentIndex < this.actionList.Count - 2)
                             {
+                                this.currentIndex++;
                                 this.a = this.actionList[currentIndex + 1].Value - this.actionList[currentIndex].Value;
                                 this.b = this.actionList[currentIndex + 1].Time - this.actionList[currentIndex].Time;
                                 this.k = a / b;

@@ -306,10 +306,7 @@ namespace OSUplayer
                 {
                     DiffList.Items.Add(s.Version);
                 }
-                if (!File.Exists(Core.TmpSet.OsbPath))
-                { 打开SB文件.Enabled = false; }
-                else
-                { 打开SB文件.Enabled = true; }
+                打开SB文件.Enabled = File.Exists(Core.TmpSet.OsbPath);
                 DiffList.SelectedIndex = 0;
             }
         }
@@ -375,21 +372,22 @@ namespace OSUplayer
 
         void TextBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == (char)Keys.Escape) { TextBox1.Text = ""; SearchButton.PerformClick(); }
+            if (e.KeyChar == (char)Keys.Escape)
+            {
+                TextBox1.Text = "";
+                Core.search(TextBox1.Text);
+                RefreshList();
+            }
             if (e.KeyChar == (char)13)
-                SearchButton.PerformClick();
+            {
+                Core.search(TextBox1.Text);
+                RefreshList();
+            }
             else
             {
                 SearchTimer.Enabled = false;
                 SearchTimer.Enabled = true;
             }
-        }
-
-        private void SearchButton_Click(object sender, EventArgs e)
-        {
-            // Stop();
-            Core.search(TextBox1.Text);
-            RefreshList();
         }
         private void PlayButton_Click(object sender, EventArgs e)
         {

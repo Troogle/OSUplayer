@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace OSUplayer.Uilties
 {
-    [Flags()]
+    [Flags]
     public enum KeyModifiers
     {
         None = 0,
@@ -76,7 +76,7 @@ namespace OSUplayer.Uilties
         }
         public int RegisterHotkey(Keys key, KeyModifiers keyflags)
         {
-            UInt32 hotkeyid = Win32.GlobalAddAtom(System.Guid.NewGuid().ToString());
+            UInt32 hotkeyid = Win32.GlobalAddAtom(Guid.NewGuid().ToString());
             Win32.RegisterHotKey((IntPtr)hWnd, hotkeyid, (UInt32)keyflags, (UInt32)key);
             keyIDs.Add(hotkeyid, hotkeyid);
             return (int)hotkeyid;

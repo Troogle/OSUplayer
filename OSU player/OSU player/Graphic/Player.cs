@@ -24,10 +24,10 @@ namespace OSUplayer.Graphic
     }
     class Player : IDisposable
     {
-        public Audiofiles uniAudio;
+        public BassAudio uniAudio;
         List<Fxlist> fxlist = new List<Fxlist>();
         const int maxfxplayer = 128;
-        Audiofiles[] fxplayer;
+        BassAudio[] fxplayer;
         string[] fxname = new string[maxfxplayer];
         bool cannext = true;
         public bool willnext = false;
@@ -69,7 +69,7 @@ namespace OSUplayer.Graphic
         bool deviceislost = false;
         public Player(IntPtr Shandle, Size Ssize)
         {
-            uniAudio = new Audiofiles();
+            uniAudio = new BassAudio();
             handle = Shandle;
             showRect = new Rectangle(0, 0, Ssize.Width, Ssize.Height);
             ScreenCenter = new Vector2((float)Ssize.Width / 2, (float)Ssize.Height / 2);
@@ -87,10 +87,10 @@ namespace OSUplayer.Graphic
             device = new GraphicsDevice(GraphicsAdapter.DefaultAdapter, DeviceType.Hardware, handle, CreateOptions.MixedVertexProcessing, presentParams);
             AlphaSprite = new SpriteBatch(device);
             AdditiveSprite = new SpriteBatch(device);
-            fxplayer = new Audiofiles[maxfxplayer];
+            fxplayer = new BassAudio[maxfxplayer];
             for (int i = 0; i < maxfxplayer; i++)
             {
-                fxplayer[i] = new Audiofiles();
+                fxplayer[i] = new BassAudio();
             }
             using (MemoryStream s = new MemoryStream())
             {

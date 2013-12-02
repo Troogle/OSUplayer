@@ -59,6 +59,10 @@ namespace OSUplayer
             this.关于 = new Telerik.WinControls.UI.RadMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.TextBox1 = new Telerik.WinControls.UI.RadTextBox();
+            this.PlayList = new OSUplayer.DBListView();
+            this.ColumnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.RightClick = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.Delete = new System.Windows.Forms.ToolStripMenuItem();
             this.panel3 = new System.Windows.Forms.Panel();
             this.TrackVolume = new Telerik.WinControls.UI.RadTrackBar();
             this.TrackSeek = new Telerik.WinControls.UI.RadTrackBar();
@@ -73,7 +77,6 @@ namespace OSUplayer
             this.NextButton = new Telerik.WinControls.UI.RadButton();
             this.StopButton = new Telerik.WinControls.UI.RadButton();
             this.PlayButton = new Telerik.WinControls.UI.RadButton();
-            this.SearchButton = new Telerik.WinControls.UI.RadButton();
             this.Button2 = new Telerik.WinControls.UI.RadButton();
             this.radPageView1 = new Telerik.WinControls.UI.RadPageView();
             this.radPageViewPage1 = new Telerik.WinControls.UI.RadPageViewPage();
@@ -89,13 +92,10 @@ namespace OSUplayer
             this.MenuStrip1 = new Telerik.WinControls.UI.RadMenu();
             this.NextTimer = new System.Windows.Forms.Timer(this.components);
             this.SearchTimer = new System.Windows.Forms.Timer(this.components);
-            this.RightClick = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.Delete = new System.Windows.Forms.ToolStripMenuItem();
-            this.PlayList = new OSUplayer.DBListView();
-            this.ColumnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.radMenuComboItem1.ComboBoxElement)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TextBox1)).BeginInit();
+            this.RightClick.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TrackVolume)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrackSeek)).BeginInit();
@@ -105,7 +105,6 @@ namespace OSUplayer
             ((System.ComponentModel.ISupportInitialize)(this.NextButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.StopButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayButton)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SearchButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Button2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radPageView1)).BeginInit();
             this.radPageView1.SuspendLayout();
@@ -114,7 +113,7 @@ namespace OSUplayer
             ((System.ComponentModel.ISupportInitialize)(this.ScoreBox)).BeginInit();
             this.radPageViewPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MenuStrip1)).BeginInit();
-            this.RightClick.SuspendLayout();
+            this.MenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -440,10 +439,8 @@ namespace OSUplayer
             this.panel1.Controls.Add(this.TextBox1);
             this.panel1.Controls.Add(this.PlayList);
             this.panel1.Controls.Add(this.panel3);
-            this.panel1.Controls.Add(this.SearchButton);
             this.panel1.Controls.Add(this.Button2);
             this.panel1.Controls.Add(this.radPageView1);
-            this.panel1.Controls.Add(this.LabelQQ);
             this.panel1.Location = new System.Drawing.Point(0, 29);
             this.panel1.Margin = new System.Windows.Forms.Padding(0);
             this.panel1.MinimumSize = new System.Drawing.Size(882, 654);
@@ -454,13 +451,54 @@ namespace OSUplayer
             // TextBox1
             // 
             this.TextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.TextBox1.Location = new System.Drawing.Point(532, 617);
+            this.TextBox1.Location = new System.Drawing.Point(625, 3);
             this.TextBox1.Name = "TextBox1";
             this.TextBox1.NullText = "Enter Keywords";
             this.TextBox1.Size = new System.Drawing.Size(250, 24);
             this.TextBox1.TabIndex = 35;
             this.TextBox1.TabStop = false;
             this.TextBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBox1_KeyPress);
+            // 
+            // PlayList
+            // 
+            this.PlayList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.PlayList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.ColumnHeader1});
+            this.PlayList.ContextMenuStrip = this.RightClick;
+            this.PlayList.FullRowSelect = true;
+            this.PlayList.GridLines = true;
+            this.PlayList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.PlayList.HideSelection = false;
+            this.PlayList.Location = new System.Drawing.Point(532, 32);
+            this.PlayList.MultiSelect = false;
+            this.PlayList.Name = "PlayList";
+            this.PlayList.Size = new System.Drawing.Size(344, 616);
+            this.PlayList.TabIndex = 24;
+            this.PlayList.UseCompatibleStateImageBehavior = false;
+            this.PlayList.View = System.Windows.Forms.View.Details;
+            this.PlayList.SelectedIndexChanged += new System.EventHandler(this.PlayList_SelectedIndexChanged);
+            this.PlayList.DoubleClick += new System.EventHandler(this.PlayList_DoubleClick);
+            // 
+            // ColumnHeader1
+            // 
+            this.ColumnHeader1.Text = "";
+            this.ColumnHeader1.Width = 500;
+            // 
+            // RightClick
+            // 
+            this.RightClick.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Delete});
+            this.RightClick.Name = "RightClick";
+            this.RightClick.Size = new System.Drawing.Size(139, 28);
+            this.RightClick.Opening += new System.ComponentModel.CancelEventHandler(this.RightClick_Opening);
+            // 
+            // Delete
+            // 
+            this.Delete.Name = "Delete";
+            this.Delete.Size = new System.Drawing.Size(138, 24);
+            this.Delete.Text = "删除单首";
+            this.Delete.Click += new System.EventHandler(this.Delete_Click);
             // 
             // panel3
             // 
@@ -646,24 +684,14 @@ namespace OSUplayer
             this.PlayButton.Text = "播放";
             this.PlayButton.Click += new System.EventHandler(this.PlayButton_Click);
             // 
-            // SearchButton
-            // 
-            this.SearchButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.SearchButton.Location = new System.Drawing.Point(788, 617);
-            this.SearchButton.Name = "SearchButton";
-            this.SearchButton.Size = new System.Drawing.Size(88, 32);
-            this.SearchButton.TabIndex = 36;
-            this.SearchButton.Text = "搜索";
-            this.SearchButton.Click += new System.EventHandler(this.SearchButton_Click);
-            // 
             // Button2
             // 
             this.Button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Button2.Location = new System.Drawing.Point(532, 3);
             this.Button2.Name = "Button2";
-            this.Button2.Size = new System.Drawing.Size(131, 27);
+            this.Button2.Size = new System.Drawing.Size(87, 27);
             this.Button2.TabIndex = 32;
-            this.Button2.Text = "导入Collection";
+            this.Button2.Text = "切换收藏";
             this.Button2.Click += new System.EventHandler(this.Button2_Click);
             // 
             // radPageView1
@@ -688,7 +716,7 @@ namespace OSUplayer
             this.radPageViewPage1.Controls.Add(this.ListDetail);
             this.radPageViewPage1.Location = new System.Drawing.Point(10, 10);
             this.radPageViewPage1.Name = "radPageViewPage1";
-            this.radPageViewPage1.Size = new System.Drawing.Size(511, 175);
+            this.radPageViewPage1.Size = new System.Drawing.Size(511, 171);
             this.radPageViewPage1.Text = "Map信息";
             // 
             // ListDetail
@@ -704,7 +732,7 @@ namespace OSUplayer
             this.ListDetail.Location = new System.Drawing.Point(0, 0);
             this.ListDetail.MultiSelect = false;
             this.ListDetail.Name = "ListDetail";
-            this.ListDetail.Size = new System.Drawing.Size(511, 173);
+            this.ListDetail.Size = new System.Drawing.Size(511, 169);
             this.ListDetail.TabIndex = 40;
             this.ListDetail.UseCompatibleStateImageBehavior = false;
             this.ListDetail.View = System.Windows.Forms.View.Details;
@@ -770,7 +798,7 @@ namespace OSUplayer
             // 
             this.LabelQQ.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.LabelQQ.AutoSize = true;
-            this.LabelQQ.Location = new System.Drawing.Point(668, 7);
+            this.LabelQQ.Location = new System.Drawing.Point(323, 0);
             this.LabelQQ.Name = "LabelQQ";
             this.LabelQQ.Size = new System.Drawing.Size(90, 19);
             this.LabelQQ.TabIndex = 30;
@@ -782,6 +810,7 @@ namespace OSUplayer
             // 
             // MenuStrip1
             // 
+            this.MenuStrip1.Controls.Add(this.LabelQQ);
             this.MenuStrip1.Items.AddRange(new Telerik.WinControls.RadItem[] {
             this.ToolStripMenuItem1,
             this.ToolStripMenuItem2,
@@ -802,47 +831,6 @@ namespace OSUplayer
             // 
             this.SearchTimer.Interval = 500;
             this.SearchTimer.Tick += new System.EventHandler(this.SearchTimer_Tick);
-            // 
-            // RightClick
-            // 
-            this.RightClick.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.Delete});
-            this.RightClick.Name = "RightClick";
-            this.RightClick.Size = new System.Drawing.Size(153, 50);
-            this.RightClick.Opening += new System.ComponentModel.CancelEventHandler(this.RightClick_Opening);
-            // 
-            // Delete
-            // 
-            this.Delete.Name = "Delete";
-            this.Delete.Size = new System.Drawing.Size(152, 24);
-            this.Delete.Text = "删除单首";
-            this.Delete.Click += new System.EventHandler(this.Delete_Click);
-            // 
-            // PlayList
-            // 
-            this.PlayList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.PlayList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.ColumnHeader1});
-            this.PlayList.ContextMenuStrip = this.RightClick;
-            this.PlayList.FullRowSelect = true;
-            this.PlayList.GridLines = true;
-            this.PlayList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.PlayList.HideSelection = false;
-            this.PlayList.Location = new System.Drawing.Point(532, 32);
-            this.PlayList.MultiSelect = false;
-            this.PlayList.Name = "PlayList";
-            this.PlayList.Size = new System.Drawing.Size(344, 579);
-            this.PlayList.TabIndex = 24;
-            this.PlayList.UseCompatibleStateImageBehavior = false;
-            this.PlayList.View = System.Windows.Forms.View.Details;
-            this.PlayList.SelectedIndexChanged += new System.EventHandler(this.PlayList_SelectedIndexChanged);
-            this.PlayList.DoubleClick += new System.EventHandler(this.PlayList_DoubleClick);
-            // 
-            // ColumnHeader1
-            // 
-            this.ColumnHeader1.Text = "";
-            this.ColumnHeader1.Width = 500;
             // 
             // Main
             // 
@@ -865,6 +853,7 @@ namespace OSUplayer
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TextBox1)).EndInit();
+            this.RightClick.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TrackVolume)).EndInit();
@@ -875,7 +864,6 @@ namespace OSUplayer
             ((System.ComponentModel.ISupportInitialize)(this.NextButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.StopButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayButton)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SearchButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Button2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radPageView1)).EndInit();
             this.radPageView1.ResumeLayout(false);
@@ -884,7 +872,8 @@ namespace OSUplayer
             ((System.ComponentModel.ISupportInitialize)(this.ScoreBox)).EndInit();
             this.radPageViewPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.MenuStrip1)).EndInit();
-            this.RightClick.ResumeLayout(false);
+            this.MenuStrip1.ResumeLayout(false);
+            this.MenuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -919,7 +908,6 @@ namespace OSUplayer
         private DBListView PlayList;
         private System.Windows.Forms.ColumnHeader ColumnHeader1;
         private System.Windows.Forms.ListBox DiffList;
-        private Telerik.WinControls.UI.RadButton SearchButton;
         private Telerik.WinControls.UI.RadButton Button2;
         private System.Windows.Forms.Label LabelQQ;
         private Telerik.WinControls.UI.RadMenuItem 香蕉分析器ToolStripMenuItem;

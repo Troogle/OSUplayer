@@ -18,25 +18,25 @@ namespace OSUplayer.Uilties
     }
     public class QQ
     {
-        public WebBrowser web = new WebBrowser();
+        private WebBrowser web = new WebBrowser();
         //提前加载浏览器，给浏览器加载的时间
         public QQ()
         {
-            string url = "http://xui.ptlogin2.qq.com/cgi-bin/qlogin";
+            const string url = "http://xui.ptlogin2.qq.com/cgi-bin/qlogin";
             web.Url = new Uri(url);
             web.DocumentCompleted += web_DocumentCompleted;
         }
 
         void web_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
-            HtmlDocument doc = web.Document;
-            HtmlElement uinList = doc.GetElementById("list_uin");
+            var doc = web.Document;
+            var uinList = doc.GetElementById("list_uin");
             if (uinList != null)
             {
                 for (var i = 0; i <= uinList.Children.Count - 1; i++)
                 {
                     string str = uinList.Children[i].InnerText.Trim();
-                    QQInfo NInfo = new QQInfo(str.Substring(str.LastIndexOf("(") + 1, str.LastIndexOf(")") - str.LastIndexOf("(") - 1), str.Substring(0, str.LastIndexOf("(") - 1));
+                    var NInfo = new QQInfo(str.Substring(str.LastIndexOf("(") + 1, str.LastIndexOf(")") - str.LastIndexOf("(") - 1), str.Substring(0, str.LastIndexOf("(") - 1));
                     GetQQList.Add(NInfo);
                 }
             }
@@ -47,25 +47,24 @@ namespace OSUplayer.Uilties
         /// 推送消息给指定ID
         /// </summary>
         /// <param name="id">QQ号</param>
-        /// <param name="Str">推送的内容</param>
-        public void Send2QQ(string id, string Str)
+        /// <param name="str">推送的内容</param>
+        public void Send2QQ(string id, string str)
         {
             try
             {
                 if (!Core.syncQQ) { return; }
-                object objAdmin = null;
-                Type objAdminType = Type.GetTypeFromProgID("QQCPHelper.CPAdder");
-                Object[] args = new object[4];
+                var objAdminType = Type.GetTypeFromProgID("QQCPHelper.CPAdder");
+                var args = new object[4];
                 args[0] = id;
                 args[1] = 65542;
-                args[2] = Str;
+                args[2] = str;
                 args[3] = "";
-                objAdmin = System.Activator.CreateInstance(objAdminType);
+                var objAdmin = Activator.CreateInstance(objAdminType);
                 objAdminType.InvokeMember("PutRSInfo", System.Reflection.BindingFlags.InvokeMethod, null, objAdmin, args);
             }
             catch
             {
-                Core.notifyIcon1.ShowBalloonTip(1000, "OSUplayer", "QQ推送失败！", System.Windows.Forms.ToolTipIcon.Info);
+                Core.notifyIcon1.ShowBalloonTip(1000, "OSUplayer", "QQ推送失败！", ToolTipIcon.Info);
             }
         }
         /// <summary>

@@ -307,7 +307,7 @@ namespace OSUplayer.OsuFiles
             }
             foreach (Beatmap bm in Diffs)
             {
-                bm.setsb(OsbPath);
+                bm.Setsb(OsbPath);
             }
             Diffs.Sort();
             detailed = true;

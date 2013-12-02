@@ -1,125 +1,134 @@
 using System;
 using Un4seen.Bass;
+
 namespace OSUplayer.OsuFiles
 {
-    /// <summary>
-    /// Class for Audio Playback
-    /// </summary>
-    public class Audiofiles : IDisposable
+    public interface IAudiofile
     {
-        private int channel = 0;
-        private string path = "";
-        private int interval = 1;
-        private BASSTimer timer = new BASSTimer();
-        private bool isopened = false;
-        private bool isPaused = false;
-        public Audiofiles()
+        double Durnation { get; }
+        double Position { get; }
+        bool Isplaying { get; }
+        float Volume { get; set; }
+        void Play(float volume);
+        void Pause();
+        void Stop();
+        void Seek(double time);
+        void Open(string path);
+    }
+
+    /// <summary>
+    ///     Class for Audio Playback
+    /// </summary>
+    public class BassAudio : IDisposable, IAudiofile
+    {
+        private const int Interval = 1;
+        private int _channel;
+        private bool _isPaused;
+        private bool _isopened;
+        private BASSTimer _timer = new BASSTimer();
+
+        public BASSTimer UpdateTimer
         {
+            get { return _timer; }
+            //set { UpdateTimer = value; }
         }
+
         public double Durnation
         {
-            get
-            {
-                return Bass.BASS_ChannelBytes2Seconds(channel, Bass.BASS_ChannelGetLength(channel));
-            }
+            get { return Bass.BASS_ChannelBytes2Seconds(_channel, Bass.BASS_ChannelGetLength(_channel)); }
         }
+
         public double Position
         {
-            get
-            {
-                return Bass.BASS_ChannelBytes2Seconds(channel, Bass.BASS_ChannelGetPosition(channel));
-            }
+            get { return Bass.BASS_ChannelBytes2Seconds(_channel, Bass.BASS_ChannelGetPosition(_channel)); }
         }
+
         public bool Isplaying
         {
-            get { return Bass.BASS_ChannelIsActive(channel) == BASSActive.BASS_ACTIVE_PLAYING; }
+            get { return Bass.BASS_ChannelIsActive(_channel) == BASSActive.BASS_ACTIVE_PLAYING; }
         }
+
         public void Play(float volume)
         {
-            timer.Stop();
-            if (isopened)
+            _timer.Stop();
+            if (!_isopened) return;
+            if (_channel != 0 && Bass.BASS_ChannelPlay(_channel, true))
             {
-                if (channel != 0 && Bass.BASS_ChannelPlay(channel, true))
-                {
-                    timer.Start();
-                    isPaused = false;
-                }
-                else
-                {
-                    throw new FormatException(Bass.BASS_ErrorGetCode().ToString());
-                }
-                Volume = volume;
-            }
-        }
-        public void Pause()
-        {
-            if (isPaused)
-            {
-                timer.Start();
-                Bass.BASS_ChannelPlay(channel, false);
+                _timer.Start();
+                _isPaused = false;
             }
             else
             {
-                timer.Stop();
-                Bass.BASS_ChannelPause(channel);
+                throw new FormatException(Bass.BASS_ErrorGetCode().ToString());
             }
-            isPaused = !isPaused;
+            Volume = volume;
         }
+
+        public void Pause()
+        {
+            if (_isPaused)
+            {
+                _timer.Start();
+                Bass.BASS_ChannelPlay(_channel, false);
+            }
+            else
+            {
+                _timer.Stop();
+                Bass.BASS_ChannelPause(_channel);
+            }
+            _isPaused = !_isPaused;
+        }
+
         public void Stop()
         {
-            timer.Stop();
-            isPaused = true;
-            Bass.BASS_ChannelStop(channel);
+            _timer.Stop();
+            _isPaused = true;
+            Bass.BASS_ChannelStop(_channel);
         }
-        protected virtual void Dispose(bool disposing)
+
+        public void Seek(double time)
+        {
+            Bass.BASS_ChannelSetPosition(_channel, Bass.BASS_ChannelSeconds2Bytes(_channel, time));
+        }
+
+        public float Volume
+        {
+            get
+            {
+                float vol = 1.0f;
+                Bass.BASS_ChannelGetAttribute(_channel, BASSAttribute.BASS_ATTRIB_VOL, ref vol);
+                return vol;
+            }
+            set { Bass.BASS_ChannelSetAttribute(_channel, BASSAttribute.BASS_ATTRIB_VOL, value); }
+        }
+
+        public void Open(string path)
+        {
+            _timer = new BASSTimer(Interval);
+            Bass.BASS_StreamFree(_channel);
+            _channel = Bass.BASS_StreamCreateFile(path, 0, 0, BASSFlag.BASS_SAMPLE_FLOAT | BASSFlag.BASS_STREAM_PRESCAN);
+            _isopened = true;
+            if (_channel == 0)
+            {
+                //throw (new FormatException(Bass.BASS_ErrorGetCode().ToString()));
+                _isopened = false;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            _isopened = false;
+        }
+
+        private void Dispose(bool disposing)
         {
             if (disposing)
             {
                 Bass.BASS_Stop();
                 Bass.BASS_Free();
             }
-            timer.Dispose();
-        }
-        public void Dispose()
-        {
-            Dispose(true);
-            isopened = false;
-        }
-        public void Seek(double time)
-        {
-            Bass.BASS_ChannelSetPosition(channel, Bass.BASS_ChannelSeconds2Bytes(channel, time));
-        }
-        public float Volume
-        {
-            get
-            {
-                float vol = 1.0f;
-                Bass.BASS_ChannelGetAttribute(channel, BASSAttribute.BASS_ATTRIB_VOL, ref vol);
-                return vol;
-            }
-            set
-            {
-                Bass.BASS_ChannelSetAttribute(channel, BASSAttribute.BASS_ATTRIB_VOL, value);
-            }
-        }
-        public void Open(string path)
-        {
-            path = path;
-            timer = new BASSTimer(interval);
-            Bass.BASS_StreamFree(channel);
-            BASSFlag flag = BASSFlag.BASS_SAMPLE_FLOAT | BASSFlag.BASS_STREAM_PRESCAN;
-            channel = Bass.BASS_StreamCreateFile(path, 0, 0, flag);
-            isopened = true;
-            if (channel == 0)
-            {
-                //throw (new FormatException(Bass.BASS_ErrorGetCode().ToString()));
-                isopened = false;
-            }
-        }
-        public BASSTimer UpdateTimer
-        {
-            get { return timer; }
-            set { UpdateTimer = value; }
+            _timer.Dispose();
         }
     }
 }

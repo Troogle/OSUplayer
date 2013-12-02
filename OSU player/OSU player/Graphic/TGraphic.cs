@@ -10,9 +10,12 @@ namespace OSUplayer.Graphic
     /// <summary>
     /// MDX静态图像基类
     /// </summary>
-    class TStaticGraphic
+    class StaticGraphic
     {
-        protected Texture2D texture;
+        //protected Texture2D texture;
+        protected Texture2D[] texturearray;
+        protected int currentFrameIndex; //当前材质行索引
+        protected int frameCount;  //材质行总数
         //protected Matrix scaleMatrix, transformMatrix, rotateMatrix;
 
         protected Vector2 origin;                                         //坐标轴位置
@@ -29,10 +32,10 @@ namespace OSUplayer.Graphic
         //protected Rectangle rectangle;
 
 
-        public TStaticGraphic(Device graphicDevice, string source, Vector2 position,
+        public StaticGraphic(Device graphicDevice, string source, Vector2 position,
                                           float rotate, float scale, Color color, byte alpha, byte parameter)
         {
-            this.texture = Texture2D.FromFile(graphicDevice, source);
+            this.texturearray = new Texture2D[] { Texture2D.FromFile(graphicDevice, source) };
             this.origin = new Vector2(0, 0);
             this.position = position;
             this.rotate = rotate;
@@ -41,19 +44,20 @@ namespace OSUplayer.Graphic
             this.color = color;
             this.alpha = alpha;
             this.parameter = parameter;
+            this.currentFrameIndex = 0;
         }
-        public TStaticGraphic() { }
+        protected StaticGraphic() { }
 
         /// <summary>
         /// 绘制图像
         /// </summary>
         public virtual void Draw(SpriteBatch sprite)
         {
-            SpriteEffects tmp = new SpriteEffects();
+            var tmp = new SpriteEffects();
             if ((this.parameter & 1) == 1) { tmp = SpriteEffects.FlipHorizontally; }
             if ((this.parameter & 2) == 2) { tmp = tmp | SpriteEffects.FlipVertically; }
             this.color = new Color(color.R, color.G, color.B, this.alpha);
-            sprite.Draw(this.texture, this.position, null, this.color, this.rotate, this.origin, this.scale, tmp, this.layer);
+            sprite.Draw(this.texturearray[currentFrameIndex], this.position, null, this.color, this.rotate, this.origin, this.scale, tmp, this.layer);
         }
     }
 
@@ -61,10 +65,8 @@ namespace OSUplayer.Graphic
     /// <summary>
     /// MDX带有动作列表的图像基类
     /// </summary>
-    class TGraphic : TStaticGraphic
+    class TGraphic : StaticGraphic
     {
-        protected int frameCount;  //材质行总数
-        protected int currentFrameIndex; //当前材质行索引
         protected int mSPerFrame; // 帧动画的速率
         protected int msLastFrame; //上次记录的时间
         protected ElementLoopType Loop;
@@ -76,7 +78,6 @@ namespace OSUplayer.Graphic
         protected TSpriteAction alphaAction;
         protected TSpriteAction colorAction;
         protected TSpriteAction parameterAction;
-        protected Texture2D[] texturearray;
         protected ElementOrigin Origin;
 
         public TGraphic(Device graphicDevice, SBelement Element, string Location, int layerdelta)
@@ -90,19 +91,19 @@ namespace OSUplayer.Graphic
                         {
                             using (FileStream s = new FileStream(Path.Combine(Location, Element.Path), FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                             {
-                                this.texture = Texture2D.FromFile(graphicDevice, s);
+                                this.texturearray = new Texture2D[1] { Texture2D.FromFile(graphicDevice, s) };
                             }
                         }
                         else
                         {
-                            this.texture = new Texture2D(graphicDevice, 1, 1, 0, 0, SurfaceFormat.Bgr32);
+                            this.texturearray = new Texture2D[1] { new Texture2D(graphicDevice, 1, 1, 0, 0, SurfaceFormat.Bgr32) };
                         }
                         this.frameCount = 1;
                         this.currentFrameIndex = 0;
                         this.msLastFrame = 0;
                         this.mSPerFrame = 16;
                         this.position = new Vector2(Element.x, Element.y);
-                        this.origin = Getorigin(this.texture, Element.Origin);
+                        this.origin = Getorigin(this.texturearray[0], Element.Origin);
                         break;
                     }
                 case ElementType.Animation:
@@ -131,8 +132,8 @@ namespace OSUplayer.Graphic
                         this.currentFrameIndex = 0;
                         this.msLastFrame = 0;
                         this.position = new Vector2(Element.x, Element.y);
-                        this.texture = texturearray[0];
-                        this.origin = Getorigin(this.texture, Element.Origin);
+                        //this.texture = texturearray[0];
+                        this.origin = Getorigin(this.texturearray[0], Element.Origin);
                         break;
                     }
                 default:
@@ -265,8 +266,8 @@ namespace OSUplayer.Graphic
                             this.currentFrameIndex = this.frameCount - 1;
                         }
                     }
-                    this.texture = texturearray[currentFrameIndex];
-                    this.origin = Getorigin(this.texture, this.Origin);
+                    //this.texture = texturearray[currentFrameIndex];
+                    this.origin = Getorigin(this.texturearray[currentFrameIndex], this.Origin);
                 }
             }
         }
