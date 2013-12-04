@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
+using OSUplayer.Uilties;
 using Telerik.WinControls;
 using System.Drawing;
 using OSUplayer.Properties;
@@ -111,7 +112,7 @@ namespace OSUplayer
         public static bool MainIsVisible = false;
         public static void exit()
         {
-            uni_QQ.Send2QQ(uin, "");
+            QQ.Send2QQ(uin, "");
             player.Dispose();
             notifyIcon1.Dispose();
             if (needsave) { SaveList(); }
@@ -388,17 +389,17 @@ namespace OSUplayer
             }
             player.Play();
             Core.notifyIcon1.ShowBalloonTip(1000, "OSUplayer", "正在播放\n" + CurrentBeatmap.NameToString(), System.Windows.Forms.ToolTipIcon.Info);
-            uni_QQ.Send2QQ(uin, CurrentBeatmap.NameToString());
+            QQ.Send2QQ(uin, CurrentBeatmap.NameToString());
         }
         public static void Pause()
         {
             player.Pause();
-            uni_QQ.Send2QQ(uin, "");
+            QQ.Send2QQ(uin, "");
         }
         public static void Resume()
         {
             player.Resume();
-            uni_QQ.Send2QQ(uin, CurrentBeatmap.NameToString());
+            QQ.Send2QQ(uin, CurrentBeatmap.NameToString());
         }
         public static void seek(double time)
         {

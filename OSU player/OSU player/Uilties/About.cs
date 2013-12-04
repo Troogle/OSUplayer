@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
 using System.Diagnostics;
+using System.Windows.Forms;
 using Telerik.WinControls.UI;
 namespace OSUplayer.Uilties
 {
@@ -17,7 +12,7 @@ namespace OSUplayer.Uilties
         }
         private void About_Load(object sender, EventArgs e)
         {
-            label2.Text = "OSU Player Ver " + Core.Version + "\n" + label2.Text;
+            label2.Text = string.Format("OSU Player Ver {0}\n{1}", Core.Version, label2.Text);
             label1.SendToBack();
         }
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

@@ -1,10 +1,8 @@
-﻿using System;
+﻿using OSUplayer.OsuFiles;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Windows.Forms;
-using Telerik.WinControls;
 using Telerik.WinControls.UI;
-using OSUplayer.OsuFiles;
 namespace OSUplayer.Uilties
 {
     public partial class ChooseColl : RadForm

@@ -252,7 +252,7 @@ namespace OSUplayer
         }
         private void QQ状态同步_Click(object sender, EventArgs e)
         {
-            if (Core.syncQQ && Core.uin != "0") { Core.uni_QQ.Send2QQ(Core.uin, ""); }
+            if (Core.syncQQ && Core.uin != "0") { QQ.Send2QQ(Core.uin, ""); }
             Core.syncQQ = QQ状态同步.IsChecked;
             Properties.Settings.Default.SyncQQ = Core.syncQQ;
         }

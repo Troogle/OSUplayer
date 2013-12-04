@@ -1,4 +1,4 @@
-﻿namespace OSUplayer
+﻿namespace OSUplayer.Uilties
 {
     partial class Form2
 	{
