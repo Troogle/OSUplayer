@@ -15,7 +15,7 @@ namespace OSUplayer.OsuFiles
         public int MaxCombo;
         public int Miss;
         public string Mod;
-        public modes Mode;
+        public Modes Mode;
         public string Player;
         public int Score;
         public DateTime Time;
@@ -64,7 +64,7 @@ namespace OSUplayer.OsuFiles
                     for (int j = 0; j < scorecount; j++)
                     {
                         var Tscore = new ScoreRecord();
-                        Tscore.Mode = (modes) reader.ReadByte();
+                        Tscore.Mode = (Modes) reader.ReadByte();
                         reader.ReadInt32(); //version
                         reader.ReadString(); //set md5
                         Tscore.Player = reader.ReadString();
@@ -229,16 +229,16 @@ namespace OSUplayer.OsuFiles
         {
             switch (s.Mode)
             {
-                case modes.Osu:
+                case Modes.Osu:
                     return (s.Hit300*6 + s.Hit100*2 + s.Hit50)
                            /(double) ((s.Hit300 + s.Hit100 + s.Hit50 + s.Miss)*6);
-                case modes.Taiko:
+                case Modes.Taiko:
                     return (s.Hit300*2 + s.Hit100)
                            /(double) ((s.Hit300 + s.Hit100 + s.Miss)*2);
-                case modes.CTB:
+                case Modes.CTB:
                     return (s.Hit300 + s.Hit100 + s.Hit50)
                            /(double) (s.Hit300 + s.Hit100 + s.Hit50 + s.Hit200 + s.Miss);
-                case modes.Mania:
+                case Modes.Mania:
                     return (s.Hit300*6 + s.Hit320*6 + s.Hit200*4 + s.Hit100*2 + s.Hit50)
                            /(double) ((s.Hit300 + s.Hit320 + s.Hit200 + s.Hit100 + s.Hit50 + s.Miss)*6);
                 default:
@@ -254,11 +254,11 @@ namespace OSUplayer.OsuFiles
             }
             else
             {
-                for (int i = 0; i < (int) mods.Random; i++)
+                for (int i = 0; i < (int) Mods.Random; i++)
                 {
                     if ((mod & 1) == 1)
                     {
-                        cmod += " " + Enum.GetName(typeof (mods), i);
+                        cmod += " " + Enum.GetName(typeof (Mods), i);
                     }
                     mod = mod >> 1;
                 }

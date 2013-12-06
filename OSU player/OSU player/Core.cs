@@ -143,14 +143,14 @@ namespace OSUplayer
         /// <summary>
         /// 获取OSU路径
         /// </summary>
-        public static void Getpath()
+        private static void Getpath()
         {
             string str = "";
             try
             {
-                Microsoft.Win32.RegistryKey rk = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey("osu!\\shell\\open\\command");
+                var rk = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey("osu!\\shell\\open\\command");
                 str = rk.GetValue("").ToString();
-                str = str.Substring(1, str.IndexOf("\"", 1) - 9);
+                str = str.Substring(1, str.LastIndexOf(@"\"));
                 osupath = str;
             }
             catch (Exception)
@@ -165,7 +165,7 @@ namespace OSUplayer
         /// <returns>是否选择正常路径</returns>
         public static bool Setpath()
         {
-            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            var dialog = new FolderBrowserDialog();
             dialog.ShowNewFolderButton = false;
             dialog.RootFolder = Environment.SpecialFolder.MyComputer;
             dialog.Description = "请选择与osu!.exe同级的目录~";
@@ -476,7 +476,7 @@ namespace OSUplayer
             Detail[3] = new ListViewItem("来源");
             Detail[3].SubItems.Add(TmpBeatmap.Source);
             Detail[4] = new ListViewItem("模式");
-            Detail[4].SubItems.Add(Enum.GetName(typeof(modes), TmpBeatmap.Mode));
+            Detail[4].SubItems.Add(Enum.GetName(typeof(Modes), TmpBeatmap.Mode));
             Detail[5] = new ListViewItem("SetID");
             Detail[5].SubItems.Add(TmpBeatmap.beatmapsetId.ToString());
             Detail[6] = new ListViewItem("ID");
@@ -555,7 +555,7 @@ namespace OSUplayer
         {
             switch (S.Mode)
             {
-                case modes.Osu:
+                case Modes.Osu:
                     if (S.Acc == 1)
                     {
                         if (S.Mod.Contains("HD") || S.Mod.Contains("FL")) { return Resources.XH; }
@@ -579,7 +579,7 @@ namespace OSUplayer
                         return Resources.C;
                     }
                     return Resources.D;
-                case modes.Taiko:
+                case Modes.Taiko:
                     if (S.Acc == 1)
                     {
                         if (S.Mod.Contains("HD") || S.Mod.Contains("FL")) { return Resources.XH; }
@@ -603,7 +603,7 @@ namespace OSUplayer
                         return Resources.C;
                     }
                     return Resources.D;
-                case modes.CTB:
+                case Modes.CTB:
                     if (S.Acc == 1)
                     {
                         if (S.Mod.Contains("HD") || S.Mod.Contains("FL")) { return Resources.XH; }
@@ -627,7 +627,7 @@ namespace OSUplayer
                         return Resources.C;
                     }
                     return Resources.D;
-                case modes.Mania:
+                case Modes.Mania:
                     if (S.Acc == 1)
                     {
                         if (S.Mod.Contains("HD") || S.Mod.Contains("FL")) { return Resources.XH; }

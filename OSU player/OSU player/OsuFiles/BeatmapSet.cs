@@ -105,14 +105,14 @@ namespace OSUplayer.OsuFiles
             return !(a == b);
         }
     }
-    public enum modes
+    public enum Modes
     {
         Osu = 0,
         Taiko = 1,
         CTB = 2,
         Mania = 3
     }
-    public enum mods
+    public enum Mods
     {
         NF,
         EZ,

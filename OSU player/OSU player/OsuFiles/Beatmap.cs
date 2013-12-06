@@ -69,17 +69,17 @@ namespace OSUplayer.OsuFiles
         {
             set { Rawdata[(int)OSUfile.Mode] = value.ToString(); }
         }
-        public modes Mode
+        public Modes Mode
         {
             get
             {
                 if (Rawdata[(int)OSUfile.Mode] != null)
                 {
-                    return (modes)Enum.Parse(typeof(modes), Rawdata[(int)OSUfile.Mode]);
+                    return (Modes)Enum.Parse(typeof(Modes), Rawdata[(int)OSUfile.Mode]);
                 }
                 else
                 {
-                    return modes.Osu;
+                    return Modes.Osu;
                 }
             }
         }
@@ -286,7 +286,7 @@ namespace OSUplayer.OsuFiles
             }
         }
         #endregion
-        private string picknext(ref string str)
+        private static string Picknext(ref string str)
         {
             string ret = "";
             if (!str.Contains(","))
@@ -301,7 +301,7 @@ namespace OSUplayer.OsuFiles
             }
             return ret;
         }
-        private ObjectFlag check(string op)
+        private static ObjectFlag Check(string op)
         {
             int tmp = Convert.ToInt32(op);
             if (((tmp >> 0) & 1) == 1)
@@ -318,19 +318,19 @@ namespace OSUplayer.OsuFiles
             }
             return ObjectFlag.ColourHax;
         }
-        private HitObject Setobject(string row)
+        private static HitObject Setobject(string row)
         {
             HitObject NHit = new HitObject();
             string tmpop = "";
-            NHit.x = Convert.ToInt32(picknext(ref row));
-            NHit.y = Convert.ToInt32(picknext(ref row));
-            NHit.starttime = Convert.ToInt32(picknext(ref row));
-            NHit.type = check(picknext(ref row));
+            NHit.x = Convert.ToInt32(Picknext(ref row));
+            NHit.y = Convert.ToInt32(Picknext(ref row));
+            NHit.starttime = Convert.ToInt32(Picknext(ref row));
+            NHit.type = Check(Picknext(ref row));
             switch (NHit.type)
             {
                 case ObjectFlag.Normal:
-                    NHit.allhitsound = Convert.ToInt32(picknext(ref row));
-                    tmpop = picknext(ref row);
+                    NHit.allhitsound = Convert.ToInt32(Picknext(ref row));
+                    tmpop = Picknext(ref row);
                     if (tmpop != "")
                     {
                         if (tmpop.Length > 3)
@@ -358,9 +358,9 @@ namespace OSUplayer.OsuFiles
                     }
                     break;
                 case ObjectFlag.Spinner:
-                    NHit.allhitsound = Convert.ToInt32(picknext(ref row));
-                    NHit.EndTime = Convert.ToInt32(picknext(ref row));
-                    tmpop = picknext(ref row);
+                    NHit.allhitsound = Convert.ToInt32(Picknext(ref row));
+                    NHit.EndTime = Convert.ToInt32(Picknext(ref row));
+                    tmpop = Picknext(ref row);
                     if (tmpop != "")
                     {
                         if (tmpop.Length > 3)
@@ -388,16 +388,16 @@ namespace OSUplayer.OsuFiles
                     }
                     break;
                 case ObjectFlag.Slider:
-                    NHit.allhitsound = Convert.ToInt32(picknext(ref row));
-                    tmpop = picknext(ref row);
+                    NHit.allhitsound = Convert.ToInt32(Picknext(ref row));
+                    tmpop = Picknext(ref row);
                     //ignore all anthor
-                    tmpop = picknext(ref row);
+                    tmpop = Picknext(ref row);
                     if (tmpop != "") { NHit.repeatcount = Convert.ToInt32(tmpop); }
                     else { NHit.repeatcount = 1; }
-                    tmpop = picknext(ref row);
+                    tmpop = Picknext(ref row);
                     if (tmpop != "") { NHit.length = Convert.ToDouble(tmpop); }
                     else { NHit.length = 0; }
-                    tmpop = picknext(ref row);
+                    tmpop = Picknext(ref row);
                     NHit.Hitsounds = new int[NHit.repeatcount + 1];
                     NHit.samples = new CSample[NHit.repeatcount + 1];
                     string[] split = tmpop.Split(new char[] { '|' });
@@ -415,7 +415,7 @@ namespace OSUplayer.OsuFiles
                             NHit.Hitsounds[i] = 1;
                         }
                     }
-                    tmpop = picknext(ref row);
+                    tmpop = Picknext(ref row);
                     split = tmpop.Split(new char[] { '|' });
                     if (split.Length != 1)
                     {
@@ -432,7 +432,7 @@ namespace OSUplayer.OsuFiles
                             NHit.samples[i] = new CSample(0, 0);
                         }
                     }
-                    tmpop = picknext(ref row);
+                    tmpop = Picknext(ref row);
                     if (tmpop != "")
                     {
                         if (tmpop.Length > 3)
@@ -472,25 +472,25 @@ namespace OSUplayer.OsuFiles
             }
             return NHit;
         }
-        private Timing Settiming(string row)
+        private static Timing Settiming(string row)
         {
             Timing Ntiming = new Timing();
             string tmpop = "";
-            Ntiming.offset = (int)(Convert.ToDouble(picknext(ref row)));
-            Ntiming.bpm = Convert.ToDouble(picknext(ref row));
-            tmpop = picknext(ref row);
+            Ntiming.offset = (int)(Convert.ToDouble(Picknext(ref row)));
+            Ntiming.bpm = Convert.ToDouble(Picknext(ref row));
+            tmpop = Picknext(ref row);
             if (tmpop == "") { Ntiming.meter = 4; }
             else { Ntiming.meter = Convert.ToInt32(tmpop); }
-            tmpop = picknext(ref row);
+            tmpop = Picknext(ref row);
             if (tmpop == "") { Ntiming.sample = new CSample((int)TSample.Normal, 0); }
-            else { Ntiming.sample = new CSample(Convert.ToInt32(tmpop), Convert.ToInt32(picknext(ref row))); }
-            tmpop = picknext(ref row);
+            else { Ntiming.sample = new CSample(Convert.ToInt32(tmpop), Convert.ToInt32(Picknext(ref row))); }
+            tmpop = Picknext(ref row);
             if (tmpop == "") { Ntiming.volume = 1.0f; }
             else { Ntiming.volume = Convert.ToSingle(tmpop) / 100; }
-            tmpop = picknext(ref row);
+            tmpop = Picknext(ref row);
             if (tmpop == "") { Ntiming.type = 1; }
             else { Ntiming.type = Convert.ToInt32(tmpop); }
-            tmpop = picknext(ref row);
+            tmpop = Picknext(ref row);
             if (tmpop == "") { Ntiming.kiai = 0; }
             else { Ntiming.kiai = Convert.ToInt32(tmpop); }
             if (Ntiming.type == 1)
@@ -523,6 +523,12 @@ namespace OSUplayer.OsuFiles
         public void GetDetail()
         {
             Path = System.IO.Path.Combine(Location, Name);
+            if (!File.Exists(Path))
+            {
+                
+                detailed = true;
+                return;
+            }
             var position = OsuFileScanStatus.VERSION_UNKNOWN;
             try
             {
@@ -636,6 +642,7 @@ namespace OSUplayer.OsuFiles
         public string GetHash()
         {
             if (Hash != null) { return Hash; }
+            if (Path == ""||!File.Exists(Path)){return "";}
             string strHashData = "";
             using (var md5Hash = MD5.Create())
             {
