@@ -117,19 +117,867 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="RightClick.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>440, 17</value>
-  </metadata>
-  <metadata name="UpdateTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <metadata name="NextTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>166, 17</value>
-  </metadata>
-  <metadata name="SearchTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>296, 17</value>
-  </metadata>
+  <data name="ToolStripMenuItem1.AccessibleDescription" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="panel2.TabIndex" type="System.Int32, mscorlib">
+    <value>45</value>
+  </data>
+  <data name="&gt;&gt;视频开关.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadMenuItem, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;RightClick.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MenuStrip1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;NextButton.Parent" xml:space="preserve">
+    <value>panel3</value>
+  </data>
+  <data name="退出.AccessibleDescription" xml:space="preserve">
+    <value>退出</value>
+  </data>
+  <data name="TrackSeek.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="radPageView1.Text" xml:space="preserve">
+    <value>radPageView1</value>
+  </data>
+  <data name="radMenuSeparatorItem1.AccessibleName" xml:space="preserve">
+    <value>radMenuSeparatorItem1</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="TrackFx.RootElement.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="TrackFx.RootElement.FlipText" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="radListDataItem6.TextWrap" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="radPageViewPage1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>511, 171</value>
+  </data>
+  <data name="&gt;&gt;Delete.Name" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="&gt;&gt;打开铺面文件.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadMenuItem, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="TrackMusic.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;Label4.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="radMenuItem1.AccessibleDescription" xml:space="preserve">
+    <value>选择QQ</value>
+  </data>
+  <data name="SB开关.AccessibleDescription" xml:space="preserve">
+    <value>SB开关</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="button3.RootElement.AccessibleName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Button2.RootElement.Text" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="&gt;&gt;LabelQQ.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="PlayButton.RootElement.AngleTransform" type="System.Single, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;运行OSU.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadMenuItem, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;TrackSeek.Parent" xml:space="preserve">
+    <value>panel3</value>
+  </data>
+  <data name="ColumnHeader1.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="button3.RootElement.AccessibleDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="StopButton.RootElement.FlipText" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;TrackVolume.Parent" xml:space="preserve">
+    <value>panel3</value>
+  </data>
+  <data name="&gt;&gt;Label3.Parent" xml:space="preserve">
+    <value>panel3</value>
+  </data>
+  <data name="TrackVolume.RootElement.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="打开曲目文件夹.Text" xml:space="preserve">
+    <value>打开曲目文件夹</value>
+  </data>
+  <data name="NextButton.RootElement.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="&gt;&gt;ToolStripMenuItem3.Name" xml:space="preserve">
+    <value>ToolStripMenuItem3</value>
+  </data>
+  <data name="&gt;&gt;视频开关.Name" xml:space="preserve">
+    <value>视频开关</value>
+  </data>
+  <data name="TrackVolume.RootElement.TextOrientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
+    <value>Horizontal</value>
+  </data>
+  <data name="&gt;&gt;TrackFx.Name" xml:space="preserve">
+    <value>TrackFx</value>
+  </data>
+  <data name="&gt;&gt;radPageView1.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;香蕉分析器ToolStripMenuItem.Name" xml:space="preserve">
+    <value>香蕉分析器ToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;MenuStrip1.Name" xml:space="preserve">
+    <value>MenuStrip1</value>
+  </data>
+  <data name="SB开关.Text" xml:space="preserve">
+    <value>SB开关</value>
+  </data>
+  <data name="&gt;&gt;ListDetail.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="TrackVolume.RootElement.ToolTipText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="radMenuComboItem1.ComboBoxElement.AccessibleName" xml:space="preserve">
+    <value>随机播放</value>
+  </data>
+  <data name="radPageView1.RootElement.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="导出音频文件.Text" xml:space="preserve">
+    <value>导出音频文件</value>
+  </data>
+  <data name="ToolStripMenuItem2.Text" xml:space="preserve">
+    <value>工具</value>
+  </data>
+  <data name="&gt;&gt;radMenuItem2.Name" xml:space="preserve">
+    <value>radMenuItem2</value>
+  </data>
+  <data name="ScoreBox.RootElement.AngleTransform" type="System.Single, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="ScoreBox.RootElement.Text" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="&gt;&gt;导出BG.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadMenuItem, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;radPageViewPage3.Parent" xml:space="preserve">
+    <value>radPageView1</value>
+  </data>
+  <data name="TrackSeek.RootElement.AccessibleDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ColumnHeader1.Width" type="System.Int32, mscorlib">
+    <value>500</value>
+  </data>
+  <data name="打开SB文件.AccessibleName" xml:space="preserve">
+    <value>打开SB文件</value>
+  </data>
+  <data name="PlayButton.RootElement.ToolTipText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TrackFx.RootElement.AngleTransform" type="System.Single, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="TrackSeek.Text" xml:space="preserve">
+    <value>radTrackBar1</value>
+  </data>
+  <data name="&gt;&gt;导出音频文件.Name" xml:space="preserve">
+    <value>导出音频文件</value>
+  </data>
+  <data name="radPageView1.RootElement.TextOrientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
+    <value>Horizontal</value>
+  </data>
+  <data name="&gt;&gt;TextBox1.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadTextBox, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="ToolStripMenuItem3.Text" xml:space="preserve">
+    <value>选项</value>
+  </data>
+  <data name="button3.Text" xml:space="preserve">
+    <value>↓</value>
+  </data>
+  <data name="&gt;&gt;QQ状态同步.Name" xml:space="preserve">
+    <value>QQ状态同步</value>
+  </data>
+  <data name="Delete.Size" type="System.Drawing.Size, System.Drawing">
+    <value>138, 24</value>
+  </data>
+  <data name="ListDetail.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="Main.RootElement.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>OSUplayer</value>
+  </data>
+  <data name="Label3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="TextBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>625, 3</value>
+  </data>
+  <data name="ScoreBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="PlayButton.RootElement.AccessibleDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TextBox1.RootElement.FlipText" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;radPageViewPage1.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadPageViewPage, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="ListDetail.TabIndex" type="System.Int32, mscorlib">
+    <value>40</value>
+  </data>
+  <data name="TrackMusic.RootElement.AccessibleDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="button3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>30, 27</value>
+  </data>
+  <data name="MenuStrip1.RootElement.FlipText" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="PlayButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="radPageView1.RootElement.FlipText" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;TrackVolume.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadTrackBar, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;Button2.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="radMenuItem2.AccessibleDescription" xml:space="preserve">
+    <value>导入文件夹内歌曲</value>
+  </data>
+  <data name="&gt;&gt;Label4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="PlayList.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Right</value>
+  </data>
+  <data name="Label4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>119, 6</value>
+  </data>
+  <data name="&gt;&gt;ToolStripSeparator2.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadMenuSeparatorItem, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="StopButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="&gt;&gt;ToolStripMenuItem1.Name" xml:space="preserve">
+    <value>ToolStripMenuItem1</value>
+  </data>
+  <data name="&gt;&gt;panel3.Name" xml:space="preserve">
+    <value>panel3</value>
+  </data>
+  <data name="TrackFx.RootElement.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="&gt;&gt;radPageViewPage1.Name" xml:space="preserve">
+    <value>radPageViewPage1</value>
+  </data>
+  <data name="&gt;&gt;ToolStripMenuItem2.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadMenuItem, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="ScoreBox.RootElement.TextOrientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
+    <value>Horizontal</value>
+  </data>
+  <data name="TrackVolume.Size" type="System.Drawing.Size, System.Drawing">
+    <value>28, 339</value>
+  </data>
+  <data name="&gt;&gt;SearchTimer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ToolStripMenuItem1.Text" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="MenuStrip1.RootElement.TextOrientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
+    <value>Horizontal</value>
+  </data>
+  <data name="&gt;&gt;radMenuItem1.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadMenuItem, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="TrackSeek.RootElement.FlipText" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="Delete.Text" xml:space="preserve">
+    <value>删除单首</value>
+  </data>
+  <data name="button3.RootElement.AngleTransform" type="System.Single, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="TrackFx.RootElement.Alignment" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopLeft</value>
+  </data>
+  <data name="PlayButton.RootElement.KeyTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;ToolStripSeparator3.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadMenuSeparatorItem, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="ToolStripMenuItem1.AccessibleName" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="&gt;&gt;DiffList.Parent" xml:space="preserve">
+    <value>radPageViewPage3</value>
+  </data>
+  <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>480, 360</value>
+  </data>
+  <data name="TextBox1.RootElement.AccessibleName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;重新导入scores.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadMenuItem, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="打开铺面文件.Text" xml:space="preserve">
+    <value>打开铺面文件</value>
+  </data>
+  <data name="TrackMusic.RootElement.Text" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;Label4.Name" xml:space="preserve">
+    <value>Label4</value>
+  </data>
+  <data name="&gt;&gt;DiffList.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="ScoreBox.Text" xml:space="preserve">
+    <value>radListView1</value>
+  </data>
+  <data name="&gt;&gt;ToolStripMenuItem1.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadMenuItem, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="TrackVolume.RootElement.AccessibleDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panel3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="手动指定OSU目录.AccessibleDescription" xml:space="preserve">
+    <value>手动指定OSU目录</value>
+  </data>
+  <data name="音效.AccessibleName" xml:space="preserve">
+    <value>音效开关</value>
+  </data>
+  <data name="radMenuComboItem1.AccessibleName" xml:space="preserve">
+    <value>radMenuComboItem1</value>
+  </data>
+  <data name="panel2.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>320, 240</value>
+  </data>
+  <data name="ScoreBox.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="&gt;&gt;打开曲目文件夹.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadMenuItem, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="PlayList.TabIndex" type="System.Int32, mscorlib">
+    <value>24</value>
+  </data>
+  <data name="&gt;&gt;radPageViewPage2.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadPageViewPage, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;重复歌曲扫描.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadMenuItem, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="Label3.Text" xml:space="preserve">
+    <value>音效</value>
+  </data>
+  <data name="radMenuComboItem1.ComboBoxElement.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="&gt;&gt;RightClick.Name" xml:space="preserve">
+    <value>RightClick</value>
+  </data>
+  <data name="Main.RootElement.FlipText" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="PlayList.Location" type="System.Drawing.Point, System.Drawing">
+    <value>532, 32</value>
+  </data>
+  <data name="StopButton.RootElement.ToolTipText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="radMenuComboItem1.ComboBoxElement.AngleTransform1" type="System.Single, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;重新导入scores.Name" xml:space="preserve">
+    <value>重新导入scores</value>
+  </data>
+  <data name="&gt;&gt;Label3.Name" xml:space="preserve">
+    <value>Label3</value>
+  </data>
+  <data name="TrackFx.RootElement.Text" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="button3.RootElement.KeyTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadForm, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>55</value>
+  </data>
+  <data name="&gt;&gt;radPageView1.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="Main.RootElement.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="StopButton.RootElement.KeyTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NextButton.TabIndex" type="System.Int32, mscorlib">
+    <value>48</value>
+  </data>
+  <data name="Button2.RootElement.AngleTransform" type="System.Single, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;Button2.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;LabelQQ.Name" xml:space="preserve">
+    <value>LabelQQ</value>
+  </data>
+  <data name="&gt;&gt;radPageViewPage2.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;Button2.Name" xml:space="preserve">
+    <value>Button2</value>
+  </data>
+  <data name="Label4.TabIndex" type="System.Int32, mscorlib">
+    <value>53</value>
+  </data>
+  <data name="ColumnHeader2.Width" type="System.Int32, mscorlib">
+    <value>120</value>
+  </data>
+  <data name="PlayButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 396</value>
+  </data>
+  <data name="StopButton.RootElement.AngleTransform" type="System.Single, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;Label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="QQ状态同步.Text" xml:space="preserve">
+    <value>QQ状态同步</value>
+  </data>
+  <data name="TrackSeek.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="导出音频文件.AccessibleDescription" xml:space="preserve">
+    <value>导出音频文件</value>
+  </data>
+  <data name="香蕉分析器ToolStripMenuItem.AccessibleDescription" xml:space="preserve">
+    <value>香蕉分析器</value>
+  </data>
+  <data name="&gt;&gt;重新导入osu.Name" xml:space="preserve">
+    <value>重新导入osu</value>
+  </data>
+  <data name="ToolStripMenuItem2.AccessibleName" xml:space="preserve">
+    <value>工具</value>
+  </data>
+  <data name="&gt;&gt;StopButton.Name" xml:space="preserve">
+    <value>StopButton</value>
+  </data>
+  <data name="&gt;&gt;radPageViewPage2.Parent" xml:space="preserve">
+    <value>radPageView1</value>
+  </data>
+  <data name="TrackFx.RootElement.ToolTipText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Main.RootElement.AngleTransform" type="System.Single, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;Label3.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="TrackVolume.RootElement.Alignment" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopLeft</value>
+  </data>
+  <data name="&gt;&gt;Label2.Parent" xml:space="preserve">
+    <value>panel3</value>
+  </data>
+  <data name="&gt;&gt;PlayButton.Parent" xml:space="preserve">
+    <value>panel3</value>
+  </data>
+  <data name="运行OSU.AccessibleDescription" xml:space="preserve">
+    <value>运行OSU!</value>
+  </data>
+  <data name="panel3.TabIndex" type="System.Int32, mscorlib">
+    <value>22</value>
+  </data>
+  <data name="radPageView1.RootElement.AccessibleName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PlayButton.Text" xml:space="preserve">
+    <value>播放</value>
+  </data>
+  <data name="&gt;&gt;QQ状态同步.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadMenuItem, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;PlayButton.Name" xml:space="preserve">
+    <value>PlayButton</value>
+  </data>
+  <data name="Button2.RootElement.KeyTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;TrackVolume.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="重新导入osu.AccessibleDescription" xml:space="preserve">
+    <value>重新初始化</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>panel3</value>
+  </data>
+  <data name="button3.RootElement.FlipText" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="radMenuComboItem1.ComboBoxElement.Alignment1" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopLeft</value>
+  </data>
+  <data name="&gt;&gt;PlayList.Type" xml:space="preserve">
+    <value>OSUplayer.DBListView, OSU player, Version=4.50.5090.3768, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="ScoreBox.RootElement.Alignment" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopLeft</value>
+  </data>
+  <data name="&gt;&gt;导出音频文件.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadMenuItem, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;PlayButton.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="关于.Text" xml:space="preserve">
+    <value>关于</value>
+  </data>
+  <data name="ToolStripMenuItem3.AccessibleName" xml:space="preserve">
+    <value>选项</value>
+  </data>
+  <data name="&gt;&gt;打开曲目文件夹.Name" xml:space="preserve">
+    <value>打开曲目文件夹</value>
+  </data>
+  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>890, 714</value>
+  </data>
+  <data name="&gt;&gt;TrackSeek.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="DiffList.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="ScoreBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="&gt;&gt;StopButton.Parent" xml:space="preserve">
+    <value>panel3</value>
+  </data>
+  <data name="Label3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>288, 6</value>
+  </data>
+  <data name="MenuStrip1.RootElement.AngleTransform" type="System.Single, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="radMenuComboItem1.ComboBoxElement.AngleTransform" type="System.Single, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="MenuStrip1.Text" xml:space="preserve">
+    <value>MenuStrip1</value>
+  </data>
+  <data name="导出BG.AccessibleName" xml:space="preserve">
+    <value>导出BG</value>
+  </data>
+  <data name="&gt;&gt;LabelQQ.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;MenuStrip1.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;TrackSeek.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadTrackBar, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;ToolStripSeparator1.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadMenuSeparatorItem, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="Label2.TabIndex" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
+  <data name="NextButton.RootElement.ToolTipText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TrackMusic.RootElement.Alignment" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopLeft</value>
+  </data>
+  <data name="Button2.RootElement.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="button3.RootElement.ToolTipText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="button3.RootElement.Alignment" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopLeft</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="Button2.RootElement.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="&gt;&gt;退出.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadMenuItem, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;ColumnHeader2.Name" xml:space="preserve">
+    <value>ColumnHeader2</value>
+  </data>
+  <data name="TextBox1.NullText" xml:space="preserve">
+    <value>Enter Keywords</value>
+  </data>
+  <data name="&gt;&gt;DiffList.Name" xml:space="preserve">
+    <value>DiffList</value>
+  </data>
+  <data name="TextBox1.RootElement.Text" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="TextBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="&gt;&gt;Label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="MenuStrip1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>874, 24</value>
+  </data>
+  <data name="radListDataItem5.TextWrap" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="NextButton.RootElement.AccessibleName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panel3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="关于.AccessibleDescription" xml:space="preserve">
+    <value>关于</value>
+  </data>
+  <data name="&gt;&gt;DiffList.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel3.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="radMenuItem1.AccessibleName" xml:space="preserve">
+    <value>选择QQ</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>00:00/00:00</value>
+  </data>
+  <data name="button3.RootElement.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="radPageViewPage3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 10</value>
+  </data>
+  <data name="Button2.RootElement.Alignment" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopLeft</value>
+  </data>
+  <data name="TrackMusic.RootElement.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="Button2.RootElement.AccessibleName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;TrackMusic.Name" xml:space="preserve">
+    <value>TrackMusic</value>
+  </data>
+  <data name="TrackSeek.RootElement.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="panel2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="&gt;&gt;TrackMusic.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="ListDetail.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="Main.RootElement.AccessibleDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MenuStrip1.RootElement.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="radMenuComboItem1.AccessibleDescription" xml:space="preserve">
+    <value>radMenuComboItem1</value>
+  </data>
+  <data name="&gt;&gt;导出BG.Name" xml:space="preserve">
+    <value>导出BG</value>
+  </data>
+  <data name="运行OSU.Text" xml:space="preserve">
+    <value>运行OSU!</value>
+  </data>
+  <data name="&gt;&gt;StopButton.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="PlayButton.RootElement.Alignment" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopLeft</value>
+  </data>
+  <data name="ScoreBox.RootElement.KeyTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TrackFx.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="&gt;&gt;radMenuItem1.Name" xml:space="preserve">
+    <value>radMenuItem1</value>
+  </data>
+  <data name="视频开关.Text" xml:space="preserve">
+    <value>视频开关</value>
+  </data>
+  <data name="Main.RootElement.Text" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="radMenuComboItem1.ComboBoxElement.RightToLeft1" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="NextButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>43, 26</value>
+  </data>
+  <data name="TextBox1.RootElement.ToolTipText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;radMenuItem2.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadMenuItem, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="panel2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="button3.RootElement.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="&gt;&gt;Delete.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radPageView1.Name" xml:space="preserve">
+    <value>radPageView1</value>
+  </data>
+  <data name="TextBox1.RootElement.KeyTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;音效.Name" xml:space="preserve">
+    <value>音效</value>
+  </data>
+  <data name="TrackMusic.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 17</value>
+  </data>
+  <data name="ScoreBox.RootElement.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="重新导入scores.AccessibleDescription" xml:space="preserve">
+    <value>重新导入scores.db</value>
+  </data>
+  <data name="&gt;&gt;香蕉分析器ToolStripMenuItem.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadMenuItem, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;NextButton.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="导出BG.Text" xml:space="preserve">
+    <value>导出BG</value>
+  </data>
+  <data name="&gt;&gt;ToolStripMenuItem3.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadMenuItem, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="打开铺面文件.AccessibleDescription" xml:space="preserve">
+    <value>打开铺面文件</value>
+  </data>
+  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="panel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="&gt;&gt;PlayList.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="StopButton.RootElement.AccessibleDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="radPageView1.RootElement.Text" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="radPageView1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 426</value>
+  </data>
+  <data name="radMenuItem1.Text" xml:space="preserve">
+    <value>选择QQ</value>
+  </data>
+  <data name="视频开关.AccessibleDescription" xml:space="preserve">
+    <value>视频开关</value>
+  </data>
+  <data name="&gt;&gt;radMenuSeparatorItem1.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadMenuSeparatorItem, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="Button2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>532, 3</value>
+  </data>
+  <data name="&gt;&gt;radPageViewPage3.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadPageViewPage, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;ToolStripSeparator1.Name" xml:space="preserve">
+    <value>ToolStripSeparator1</value>
+  </data>
+  <data name="TrackFx.Size" type="System.Drawing.Size, System.Drawing">
+    <value>156, 17</value>
+  </data>
+  <data name="radMenuComboItem1.ComboBoxElement.Alignment" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopLeft</value>
+  </data>
+  <data name="Label3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 19</value>
+  </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAMAEBAAAAAAIABoBAAANgAAACAgAAAAACAAqBAAAJ4EAAAwMAAAAAAgAKglAABGFQAAKAAAABAA
@@ -386,4 +1234,889 @@
         //8AAAAAAAD//wAAAAAAAP//AAAAAAAA//8=
 </value>
   </data>
+  <data name="ScoreBox.AutoScroll" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radPageView1.RootElement.Alignment" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopLeft</value>
+  </data>
+  <data name="TrackVolume.RootElement.Text" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="&gt;&gt;button3.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="ToolStripMenuItem2.AccessibleDescription" xml:space="preserve">
+    <value>工具</value>
+  </data>
+  <data name="Label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>489, 374</value>
+  </data>
+  <data name="&gt;&gt;TrackSeek.Name" xml:space="preserve">
+    <value>TrackSeek</value>
+  </data>
+  <data name="&gt;&gt;TrackMusic.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadTrackBar, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="Button2.RootElement.ToolTipText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RightClick.Size" type="System.Drawing.Size, System.Drawing">
+    <value>139, 28</value>
+  </data>
+  <data name="&gt;&gt;StopButton.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadButton, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="Button2.RootElement.AccessibleDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;panel3.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="重新导入scores.Text" xml:space="preserve">
+    <value>导入scores.db</value>
+  </data>
+  <data name="LabelQQ.Text" xml:space="preserve">
+    <value>当前同步QQ:</value>
+  </data>
+  <data name="&gt;&gt;退出.Name" xml:space="preserve">
+    <value>退出</value>
+  </data>
+  <data name="TrackVolume.Text" xml:space="preserve">
+    <value>radTrackBar1</value>
+  </data>
+  <data name="ListDetail.Size" type="System.Drawing.Size, System.Drawing">
+    <value>511, 169</value>
+  </data>
+  <data name="radPageView1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="Button2.RootElement.TextOrientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
+    <value>Horizontal</value>
+  </data>
+  <data name="TrackSeek.RootElement.AccessibleName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;radPageViewPage3.Name" xml:space="preserve">
+    <value>radPageViewPage3</value>
+  </data>
+  <data name="QQ状态同步.AccessibleDescription" xml:space="preserve">
+    <value>QQ状态同步</value>
+  </data>
+  <data name="radPageView1.RootElement.ToolTipText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;TrackFx.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadTrackBar, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="ScoreBox.RootElement.AccessibleName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="radMenuSeparatorItem1.AccessibleDescription" xml:space="preserve">
+    <value>radMenuSeparatorItem1</value>
+  </data>
+  <data name="&gt;&gt;Label2.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="TrackMusic.RootElement.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="TrackFx.TabIndex" type="System.Int32, mscorlib">
+    <value>51</value>
+  </data>
+  <data name="&gt;&gt;LabelQQ.Parent" xml:space="preserve">
+    <value>MenuStrip1</value>
+  </data>
+  <data name="TrackSeek.RootElement.ToolTipText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MenuStrip1.RootElement.AccessibleDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MenuStrip1.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="TrackVolume.RootElement.FlipText" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="NextButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>132, 396</value>
+  </data>
+  <data name="StopButton.RootElement.TextOrientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
+    <value>Horizontal</value>
+  </data>
+  <data name="Label4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 19</value>
+  </data>
+  <data name="TrackVolume.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Right</value>
+  </data>
+  <data name="NextButton.RootElement.TextOrientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
+    <value>Horizontal</value>
+  </data>
+  <data name="NextButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="LabelQQ.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="TrackVolume.RootElement.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="TextBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>35</value>
+  </data>
+  <data name="&gt;&gt;radPageViewPage1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="TrackMusic.RootElement.FlipText" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;radPageView1.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadPageView, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>882, 654</value>
+  </data>
+  <data name="button3.TabIndex" type="System.Int32, mscorlib">
+    <value>43</value>
+  </data>
+  <data name="Button2.RootElement.FlipText" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;关于.Name" xml:space="preserve">
+    <value>关于</value>
+  </data>
+  <data name="TrackFx.RootElement.AccessibleName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 8</value>
+  </data>
+  <data name="&gt;&gt;button3.Name" xml:space="preserve">
+    <value>button3</value>
+  </data>
+  <data name="TrackSeek.RootElement.Text" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="TrackMusic.RootElement.TextOrientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
+    <value>Horizontal</value>
+  </data>
+  <data name="radPageView1.RootElement.AccessibleDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Button2.TabIndex" type="System.Int32, mscorlib">
+    <value>32</value>
+  </data>
+  <data name="&gt;&gt;重复歌曲扫描.Name" xml:space="preserve">
+    <value>重复歌曲扫描</value>
+  </data>
+  <data name="Main.RootElement.AccessibleName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>106, 15</value>
+  </data>
+  <data name="NextButton.RootElement.FlipText" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;UpdateTimer.Name" xml:space="preserve">
+    <value>UpdateTimer</value>
+  </data>
+  <data name="PlayList.Size" type="System.Drawing.Size, System.Drawing">
+    <value>344, 616</value>
+  </data>
+  <data name="&gt;&gt;MenuStrip1.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadMenu, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="TrackMusic.Location" type="System.Drawing.Point, System.Drawing">
+    <value>162, 7</value>
+  </data>
+  <data name="TrackMusic.RootElement.KeyTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TrackVolume.RootElement.KeyTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="手动指定OSU目录.Text" xml:space="preserve">
+    <value>手动指定OSU目录</value>
+  </data>
+  <data name="radPageViewPage3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>664, 171</value>
+  </data>
+  <data name="Label4.Text" xml:space="preserve">
+    <value>音乐</value>
+  </data>
+  <data name="radMenuComboItem1.ComboBoxElement.ToolTipText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;button3.Parent" xml:space="preserve">
+    <value>panel3</value>
+  </data>
+  <data name="radMenuComboItem1.ComboBoxElement.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="NextButton.Text" xml:space="preserve">
+    <value>→</value>
+  </data>
+  <data name="TrackVolume.Location" type="System.Drawing.Point, System.Drawing">
+    <value>494, 32</value>
+  </data>
+  <data name="radPageViewPage1.Text" xml:space="preserve">
+    <value>Map信息</value>
+  </data>
+  <data name="QQ状态同步.AccessibleName" xml:space="preserve">
+    <value>QQ状态同步</value>
+  </data>
+  <data name="TrackFx.Location" type="System.Drawing.Point, System.Drawing">
+    <value>331, 7</value>
+  </data>
+  <data name="香蕉分析器ToolStripMenuItem.AccessibleName" xml:space="preserve">
+    <value>香蕉分析器</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>Main</value>
+  </data>
+  <data name="&gt;&gt;ToolStripMenuItem2.Name" xml:space="preserve">
+    <value>ToolStripMenuItem2</value>
+  </data>
+  <data name="MenuStrip1.RootElement.ToolTipText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;Button2.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadButton, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="radListDataItem4.TextWrap" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;PlayList.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="label1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>宋体, 9pt, style=Bold</value>
+  </data>
+  <data name="DiffList.ItemHeight" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="&gt;&gt;TrackMusic.Parent" xml:space="preserve">
+    <value>panel3</value>
+  </data>
+  <data name="&gt;&gt;panel2.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="radMenuComboItem1.ComboBoxElement.TextOrientation1" type="System.Windows.Forms.Orientation, System.Windows.Forms">
+    <value>Horizontal</value>
+  </data>
+  <data name="StopButton.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="MenuStrip1.RootElement.KeyTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="重新导入scores.AccessibleName" xml:space="preserve">
+    <value>重新导入scores.db</value>
+  </data>
+  <data name="radPageView1.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="radMenuSeparatorItem1.Text" xml:space="preserve">
+    <value>radMenuSeparatorItem1</value>
+  </data>
+  <data name="TrackMusic.TabIndex" type="System.Int32, mscorlib">
+    <value>54</value>
+  </data>
+  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
+    <value>21</value>
+  </data>
+  <data name="&gt;&gt;ScoreBox.Parent" xml:space="preserve">
+    <value>radPageViewPage2</value>
+  </data>
+  <data name="&gt;&gt;radMenuSeparatorItem1.Name" xml:space="preserve">
+    <value>radMenuSeparatorItem1</value>
+  </data>
+  <data name="打开曲目文件夹.AccessibleDescription" xml:space="preserve">
+    <value>打开曲目文件夹</value>
+  </data>
+  <data name="重复歌曲扫描.Text" xml:space="preserve">
+    <value>重复歌曲扫描</value>
+  </data>
+  <data name="PlayButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>57, 26</value>
+  </data>
+  <data name="radMenuComboItem1.ComboBoxElement.NullText" xml:space="preserve">
+    <value>播放模式</value>
+  </data>
+  <data name="&gt;&gt;ColumnHeader1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="导出音频文件.AccessibleName" xml:space="preserve">
+    <value>导出音频文件</value>
+  </data>
+  <data name="打开铺面文件.AccessibleName" xml:space="preserve">
+    <value>打开铺面文件</value>
+  </data>
+  <data name="重新导入osu.AccessibleName" xml:space="preserve">
+    <value>重新初始化</value>
+  </data>
+  <data name="$this.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
+  </data>
+  <data name="&gt;&gt;ListDetail.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="重复歌曲扫描.AccessibleName" xml:space="preserve">
+    <value>重复歌曲扫描</value>
+  </data>
+  <data name="LabelQQ.Size" type="System.Drawing.Size, System.Drawing">
+    <value>90, 19</value>
+  </data>
+  <data name="PlayButton.RootElement.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="&gt;&gt;ScoreBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="ScoreBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>664, 169</value>
+  </data>
+  <data name="TrackFx.RootElement.AccessibleDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TrackSeek.RootElement.TextOrientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
+    <value>Horizontal</value>
+  </data>
+  <data name="TrackMusic.RootElement.AccessibleName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TextBox1.RootElement.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="button3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>494, 3</value>
+  </data>
+  <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 29</value>
+  </data>
+  <data name="&gt;&gt;ScoreBox.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadListView, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="音效.AccessibleDescription" xml:space="preserve">
+    <value>音效开关</value>
+  </data>
+  <data name="&gt;&gt;TextBox1.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="SB开关.AccessibleName" xml:space="preserve">
+    <value>SB开关</value>
+  </data>
+  <data name="退出.Text" xml:space="preserve">
+    <value>退出</value>
+  </data>
+  <data name="LabelQQ.TabIndex" type="System.Int32, mscorlib">
+    <value>30</value>
+  </data>
+  <data name="StopButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>69, 396</value>
+  </data>
+  <data name="panel3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>532, 429</value>
+  </data>
+  <data name="StopButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>57, 26</value>
+  </data>
+  <data name="&gt;&gt;ToolStripSeparator2.Name" xml:space="preserve">
+    <value>ToolStripSeparator2</value>
+  </data>
+  <data name="&gt;&gt;手动指定OSU目录.Name" xml:space="preserve">
+    <value>手动指定OSU目录</value>
+  </data>
+  <data name="DiffList.Size" type="System.Drawing.Size, System.Drawing">
+    <value>664, 169</value>
+  </data>
+  <data name="radPageView1.RootElement.AngleTransform" type="System.Single, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;TrackVolume.Name" xml:space="preserve">
+    <value>TrackVolume</value>
+  </data>
+  <data name="ColumnHeader2.Text" xml:space="preserve">
+    <value>Key</value>
+  </data>
+  <data name="Button2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>87, 27</value>
+  </data>
+  <data name="StopButton.RootElement.Alignment" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopLeft</value>
+  </data>
+  <data name="&gt;&gt;panel2.Name" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="radMenuItem2.AccessibleName" xml:space="preserve">
+    <value>导入文件夹内歌曲</value>
+  </data>
+  <data name="&gt;&gt;NextTimer.Name" xml:space="preserve">
+    <value>NextTimer</value>
+  </data>
+  <data name="&gt;&gt;打开SB文件.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadMenuItem, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="音效.Text" xml:space="preserve">
+    <value>音效开关</value>
+  </data>
+  <data name="&gt;&gt;radMenuComboItem1.Name" xml:space="preserve">
+    <value>radMenuComboItem1</value>
+  </data>
+  <data name="radPageViewPage2.Text" xml:space="preserve">
+    <value>成绩信息</value>
+  </data>
+  <data name="radMenuComboItem1.ComboBoxElement.Text" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="ScoreBox.RootElement.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="MenuStrip1.RootElement.Text" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="TrackFx.RootElement.TextOrientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
+    <value>Horizontal</value>
+  </data>
+  <data name="&gt;&gt;SearchTimer.Name" xml:space="preserve">
+    <value>SearchTimer</value>
+  </data>
+  <data name="重新导入osu.Text" xml:space="preserve">
+    <value>与OSU数据库同步</value>
+  </data>
+  <data name="PlayButton.RootElement.AccessibleName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;手动指定OSU目录.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadMenuItem, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;panel3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ToolStripMenuItem3.AccessibleDescription" xml:space="preserve">
+    <value>选项</value>
+  </data>
+  <data name="radPageViewPage1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 10</value>
+  </data>
+  <data name="&gt;&gt;ToolStripSeparator3.Name" xml:space="preserve">
+    <value>ToolStripSeparator3</value>
+  </data>
+  <data name="radMenuItem2.Text" xml:space="preserve">
+    <value>导入文件夹内歌曲</value>
+  </data>
+  <data name="radMenuComboItem1.ComboBoxElement.RightToLeft" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="Main.RootElement.TextOrientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
+    <value>Horizontal</value>
+  </data>
+  <data name="radPageViewPage2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>664, 171</value>
+  </data>
+  <data name="&gt;&gt;SB开关.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadMenuItem, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;Label4.Parent" xml:space="preserve">
+    <value>panel3</value>
+  </data>
+  <data name="&gt;&gt;panel2.Parent" xml:space="preserve">
+    <value>panel3</value>
+  </data>
+  <data name="Main.RootElement.KeyTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;ColumnHeader3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="导出BG.AccessibleDescription" xml:space="preserve">
+    <value>导出BG</value>
+  </data>
+  <data name="TrackMusic.RootElement.ToolTipText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ScoreBox.RootElement.FlipText" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="radPageView1.RootElement.KeyTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PlayButton.RootElement.Text" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="TrackSeek.RootElement.KeyTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TrackSeek.Location" type="System.Drawing.Point, System.Drawing">
+    <value>181, 401</value>
+  </data>
+  <data name="PlayButton.RootElement.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Label3.TabIndex" type="System.Int32, mscorlib">
+    <value>52</value>
+  </data>
+  <data name="&gt;&gt;运行OSU.Name" xml:space="preserve">
+    <value>运行OSU</value>
+  </data>
+  <data name="&gt;&gt;ColumnHeader3.Name" xml:space="preserve">
+    <value>ColumnHeader3</value>
+  </data>
+  <data name="button3.RootElement.TextOrientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
+    <value>Horizontal</value>
+  </data>
+  <data name="NextButton.RootElement.AccessibleDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LabelQQ.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="TextBox1.RootElement.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="退出.AccessibleName" xml:space="preserve">
+    <value>退出</value>
+  </data>
+  <data name="Label2.Text" xml:space="preserve">
+    <value>音量</value>
+  </data>
+  <data name="Main.RootElement.ToolTipText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MenuStrip1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 4</value>
+  </data>
+  <data name="&gt;&gt;Label2.Name" xml:space="preserve">
+    <value>Label2</value>
+  </data>
+  <data name="StopButton.RootElement.Text" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="香蕉分析器ToolStripMenuItem.Text" xml:space="preserve">
+    <value>香蕉分析器</value>
+  </data>
+  <data name="Label2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="打开SB文件.AccessibleDescription" xml:space="preserve">
+    <value>打开SB文件</value>
+  </data>
+  <data name="Label4.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="button3.RootElement.Text" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="TextBox1.RootElement.Alignment" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopLeft</value>
+  </data>
+  <data name="DiffList.TabIndex" type="System.Int32, mscorlib">
+    <value>25</value>
+  </data>
+  <data name="&gt;&gt;音效.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadMenuItem, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="Button2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="手动指定OSU目录.AccessibleName" xml:space="preserve">
+    <value>手动指定OSU目录</value>
+  </data>
+  <data name="NextButton.RootElement.AngleTransform" type="System.Single, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="运行OSU.AccessibleName" xml:space="preserve">
+    <value>运行OSU!</value>
+  </data>
+  <data name="TextBox1.RootElement.AccessibleDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;radPageViewPage3.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="StopButton.Text" xml:space="preserve">
+    <value>停止</value>
+  </data>
+  <data name="ColumnHeader3.Text" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="ScoreBox.RootElement.AccessibleDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;TrackFx.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;打开SB文件.Name" xml:space="preserve">
+    <value>打开SB文件</value>
+  </data>
+  <data name="&gt;&gt;PlayButton.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadButton, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="TextBox1.RootElement.TextOrientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
+    <value>Horizontal</value>
+  </data>
+  <data name="TrackFx.RootElement.KeyTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>882, 684</value>
+  </data>
+  <data name="Label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 19</value>
+  </data>
+  <data name="TextBox1.RootElement.AngleTransform" type="System.Single, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="DiffList.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="Main.RootElement.Alignment" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopLeft</value>
+  </data>
+  <data name="TrackMusic.RootElement.AngleTransform" type="System.Single, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="PlayButton.RootElement.TextOrientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
+    <value>Horizontal</value>
+  </data>
+  <data name="&gt;&gt;TextBox1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;ScoreBox.Name" xml:space="preserve">
+    <value>ScoreBox</value>
+  </data>
+  <data name="ScoreBox.RootElement.ToolTipText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="radMenuComboItem1.ComboBoxElement.Margin1" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="radPageViewPage2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 10</value>
+  </data>
+  <data name="LabelQQ.Location" type="System.Drawing.Point, System.Drawing">
+    <value>323, 0</value>
+  </data>
+  <data name="&gt;&gt;NextButton.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadButton, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="ColumnHeader3.Width" type="System.Int32, mscorlib">
+    <value>300</value>
+  </data>
+  <data name="MenuStrip1.RootElement.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="StopButton.TabIndex" type="System.Int32, mscorlib">
+    <value>47</value>
+  </data>
+  <data name="PlayButton.TabIndex" type="System.Int32, mscorlib">
+    <value>46</value>
+  </data>
+  <data name="StopButton.RootElement.AccessibleName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;ListDetail.Parent" xml:space="preserve">
+    <value>radPageViewPage1</value>
+  </data>
+  <data name="重复歌曲扫描.AccessibleDescription" xml:space="preserve">
+    <value>重复歌曲扫描</value>
+  </data>
+  <data name="TrackVolume.RootElement.AngleTransform" type="System.Single, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="NextButton.RootElement.Alignment" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopLeft</value>
+  </data>
+  <data name="&gt;&gt;radMenuComboItem1.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadMenuComboItem, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="MenuStrip1.RootElement.AccessibleName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;radPageViewPage2.Name" xml:space="preserve">
+    <value>radPageViewPage2</value>
+  </data>
+  <data name="panel1.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>882, 654</value>
+  </data>
+  <data name="&gt;&gt;button3.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadButton, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;panel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Button2.Text" xml:space="preserve">
+    <value>切换收藏</value>
+  </data>
+  <data name="radMenuComboItem1.ComboBoxElement.KeyTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;SB开关.Name" xml:space="preserve">
+    <value>SB开关</value>
+  </data>
+  <data name="&gt;&gt;PlayList.Name" xml:space="preserve">
+    <value>PlayList</value>
+  </data>
+  <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;打开铺面文件.Name" xml:space="preserve">
+    <value>打开铺面文件</value>
+  </data>
+  <data name="TrackSeek.RootElement.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="打开曲目文件夹.AccessibleName" xml:space="preserve">
+    <value>打开曲目文件夹</value>
+  </data>
+  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 29</value>
+  </data>
+  <data name="&gt;&gt;NextButton.Name" xml:space="preserve">
+    <value>NextButton</value>
+  </data>
+  <data name="&gt;&gt;radPageViewPage1.Parent" xml:space="preserve">
+    <value>radPageView1</value>
+  </data>
+  <data name="TrackSeek.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="radPageViewPage3.Text" xml:space="preserve">
+    <value>Diff信息</value>
+  </data>
+  <data name="radPageView1.RootElement.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="radMenuComboItem1.ComboBoxElement.AccessibleDescription" xml:space="preserve">
+    <value>随机播放</value>
+  </data>
+  <data name="TrackSeek.Size" type="System.Drawing.Size, System.Drawing">
+    <value>308, 17</value>
+  </data>
+  <data name="TrackVolume.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="NextButton.RootElement.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="&gt;&gt;重新导入osu.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadMenuItem, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;NextTimer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="TrackVolume.RootElement.AccessibleName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="button3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="MenuStrip1.RootElement.Alignment" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopLeft</value>
+  </data>
+  <data name="&gt;&gt;TextBox1.Name" xml:space="preserve">
+    <value>TextBox1</value>
+  </data>
+  <data name="Label2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="&gt;&gt;ColumnHeader1.Name" xml:space="preserve">
+    <value>ColumnHeader1</value>
+  </data>
+  <data name="&gt;&gt;UpdateTimer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="radMenuComboItem1.ComboBoxElement.Padding1" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="&gt;&gt;TrackFx.Parent" xml:space="preserve">
+    <value>panel3</value>
+  </data>
+  <data name="PlayButton.RootElement.FlipText" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="NextButton.RootElement.KeyTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="radMenuComboItem1.Text" xml:space="preserve">
+    <value>radMenuComboItem1</value>
+  </data>
+  <data name="radMenuComboItem1.ComboBoxElement.FlipText1" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="panel3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="radMenuComboItem1.ComboBoxElement.FlipText" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;ListDetail.Name" xml:space="preserve">
+    <value>ListDetail</value>
+  </data>
+  <data name="StopButton.RootElement.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="StopButton.RootElement.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="NextButton.RootElement.Text" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="TrackSeek.RootElement.Alignment" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopLeft</value>
+  </data>
+  <data name="&gt;&gt;ColumnHeader2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="打开SB文件.Text" xml:space="preserve">
+    <value>打开SB文件</value>
+  </data>
+  <data name="&gt;&gt;关于.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadMenuItem, Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="radPageView1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>532, 223</value>
+  </data>
+  <data name="TextBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>250, 24</value>
+  </data>
+  <data name="TrackSeek.RootElement.AngleTransform" type="System.Single, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="radMenuComboItem1.ComboBoxElement.TextOrientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
+    <value>Horizontal</value>
+  </data>
+  <data name="关于.AccessibleName" xml:space="preserve">
+    <value>关于</value>
+  </data>
+  <data name="视频开关.AccessibleName" xml:space="preserve">
+    <value>视频开关</value>
+  </data>
+  <metadata name="RightClick.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>440, 17</value>
+  </metadata>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>zh-Hans</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="SearchTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>296, 17</value>
+  </metadata>
+  <metadata name="UpdateTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="NextTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>166, 17</value>
+  </metadata>
 </root>

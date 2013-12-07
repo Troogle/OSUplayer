@@ -26,10 +26,10 @@ namespace OSUplayer
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Telerik.WinControls.UI.RadListDataItem radListDataItem1 = new Telerik.WinControls.UI.RadListDataItem();
-            Telerik.WinControls.UI.RadListDataItem radListDataItem2 = new Telerik.WinControls.UI.RadListDataItem();
-            Telerik.WinControls.UI.RadListDataItem radListDataItem3 = new Telerik.WinControls.UI.RadListDataItem();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
+            Telerik.WinControls.UI.RadListDataItem radListDataItem4 = new Telerik.WinControls.UI.RadListDataItem();
+            Telerik.WinControls.UI.RadListDataItem radListDataItem5 = new Telerik.WinControls.UI.RadListDataItem();
+            Telerik.WinControls.UI.RadListDataItem radListDataItem6 = new Telerik.WinControls.UI.RadListDataItem();
             this.ToolStripMenuItem1 = new Telerik.WinControls.UI.RadMenuItem();
             this.运行OSU = new Telerik.WinControls.UI.RadMenuItem();
             this.手动指定OSU目录 = new Telerik.WinControls.UI.RadMenuItem();
@@ -119,8 +119,7 @@ namespace OSUplayer
             // 
             // ToolStripMenuItem1
             // 
-            this.ToolStripMenuItem1.AccessibleDescription = "文件";
-            this.ToolStripMenuItem1.AccessibleName = "文件";
+            resources.ApplyResources(this.ToolStripMenuItem1, "ToolStripMenuItem1");
             this.ToolStripMenuItem1.Items.AddRange(new Telerik.WinControls.RadItem[] {
             this.运行OSU,
             this.手动指定OSU目录,
@@ -138,164 +137,135 @@ namespace OSUplayer
             this.ToolStripSeparator3,
             this.退出});
             this.ToolStripMenuItem1.Name = "ToolStripMenuItem1";
-            this.ToolStripMenuItem1.Text = "文件";
             this.ToolStripMenuItem1.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             // 
             // 运行OSU
             // 
-            this.运行OSU.AccessibleDescription = "运行OSU!";
-            this.运行OSU.AccessibleName = "运行OSU!";
+            resources.ApplyResources(this.运行OSU, "运行OSU");
             this.运行OSU.Name = "运行OSU";
-            this.运行OSU.Text = "运行OSU!";
             this.运行OSU.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.运行OSU.Click += new System.EventHandler(this.运行OSU_Click);
             // 
             // 手动指定OSU目录
             // 
-            this.手动指定OSU目录.AccessibleDescription = "手动指定OSU目录";
-            this.手动指定OSU目录.AccessibleName = "手动指定OSU目录";
+            resources.ApplyResources(this.手动指定OSU目录, "手动指定OSU目录");
             this.手动指定OSU目录.Name = "手动指定OSU目录";
-            this.手动指定OSU目录.Text = "手动指定OSU目录";
             this.手动指定OSU目录.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.手动指定OSU目录.Click += new System.EventHandler(this.手动指定OSU目录_Click);
             // 
             // ToolStripSeparator1
             // 
+            resources.ApplyResources(this.ToolStripSeparator1, "ToolStripSeparator1");
             this.ToolStripSeparator1.Name = "ToolStripSeparator1";
             this.ToolStripSeparator1.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             // 
             // radMenuItem2
             // 
-            this.radMenuItem2.AccessibleDescription = "导入文件夹内歌曲";
-            this.radMenuItem2.AccessibleName = "导入文件夹内歌曲";
+            resources.ApplyResources(this.radMenuItem2, "radMenuItem2");
             this.radMenuItem2.Name = "radMenuItem2";
-            this.radMenuItem2.Text = "导入文件夹内歌曲";
             this.radMenuItem2.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.radMenuItem2.Click += new System.EventHandler(this.radMenuItem2_Click);
             // 
             // 重新导入osu
             // 
-            this.重新导入osu.AccessibleDescription = "重新初始化";
-            this.重新导入osu.AccessibleName = "重新初始化";
+            resources.ApplyResources(this.重新导入osu, "重新导入osu");
             this.重新导入osu.Name = "重新导入osu";
-            this.重新导入osu.Text = "与OSU数据库同步";
             this.重新导入osu.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.重新导入osu.Click += new System.EventHandler(this.重新导入osu_Click);
             // 
             // 重新导入scores
             // 
-            this.重新导入scores.AccessibleDescription = "重新导入scores.db";
-            this.重新导入scores.AccessibleName = "重新导入scores.db";
+            resources.ApplyResources(this.重新导入scores, "重新导入scores");
             this.重新导入scores.Name = "重新导入scores";
-            this.重新导入scores.Text = "导入scores.db";
             this.重新导入scores.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.重新导入scores.Click += new System.EventHandler(this.重新导入scores_Click);
             // 
             // ToolStripSeparator2
             // 
+            resources.ApplyResources(this.ToolStripSeparator2, "ToolStripSeparator2");
             this.ToolStripSeparator2.Name = "ToolStripSeparator2";
             this.ToolStripSeparator2.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             // 
             // 打开曲目文件夹
             // 
-            this.打开曲目文件夹.AccessibleDescription = "打开曲目文件夹";
-            this.打开曲目文件夹.AccessibleName = "打开曲目文件夹";
+            resources.ApplyResources(this.打开曲目文件夹, "打开曲目文件夹");
             this.打开曲目文件夹.Name = "打开曲目文件夹";
-            this.打开曲目文件夹.Text = "打开曲目文件夹";
             this.打开曲目文件夹.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.打开曲目文件夹.Click += new System.EventHandler(this.打开曲目文件夹_Click);
             // 
             // 打开铺面文件
             // 
-            this.打开铺面文件.AccessibleDescription = "打开铺面文件";
-            this.打开铺面文件.AccessibleName = "打开铺面文件";
+            resources.ApplyResources(this.打开铺面文件, "打开铺面文件");
             this.打开铺面文件.Name = "打开铺面文件";
-            this.打开铺面文件.Text = "打开铺面文件";
             this.打开铺面文件.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.打开铺面文件.Click += new System.EventHandler(this.打开铺面文件_Click);
             // 
             // 打开SB文件
             // 
-            this.打开SB文件.AccessibleDescription = "打开SB文件";
-            this.打开SB文件.AccessibleName = "打开SB文件";
+            resources.ApplyResources(this.打开SB文件, "打开SB文件");
             this.打开SB文件.Name = "打开SB文件";
-            this.打开SB文件.Text = "打开SB文件";
             this.打开SB文件.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.打开SB文件.Click += new System.EventHandler(this.打开SB文件_Click);
             // 
             // radMenuSeparatorItem1
             // 
-            this.radMenuSeparatorItem1.AccessibleDescription = "radMenuSeparatorItem1";
-            this.radMenuSeparatorItem1.AccessibleName = "radMenuSeparatorItem1";
+            resources.ApplyResources(this.radMenuSeparatorItem1, "radMenuSeparatorItem1");
             this.radMenuSeparatorItem1.Name = "radMenuSeparatorItem1";
-            this.radMenuSeparatorItem1.Text = "radMenuSeparatorItem1";
             this.radMenuSeparatorItem1.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             // 
             // 导出音频文件
             // 
-            this.导出音频文件.AccessibleDescription = "导出音频文件";
-            this.导出音频文件.AccessibleName = "导出音频文件";
+            resources.ApplyResources(this.导出音频文件, "导出音频文件");
             this.导出音频文件.Name = "导出音频文件";
-            this.导出音频文件.Text = "导出音频文件";
             this.导出音频文件.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.导出音频文件.Click += new System.EventHandler(this.导出音频文件_Click);
             // 
             // 导出BG
             // 
-            this.导出BG.AccessibleDescription = "导出BG";
-            this.导出BG.AccessibleName = "导出BG";
+            resources.ApplyResources(this.导出BG, "导出BG");
             this.导出BG.Name = "导出BG";
-            this.导出BG.Text = "导出BG";
             this.导出BG.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.导出BG.Click += new System.EventHandler(this.导出BG_Click);
             // 
             // ToolStripSeparator3
             // 
+            resources.ApplyResources(this.ToolStripSeparator3, "ToolStripSeparator3");
             this.ToolStripSeparator3.Name = "ToolStripSeparator3";
             this.ToolStripSeparator3.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             // 
             // 退出
             // 
-            this.退出.AccessibleDescription = "退出";
-            this.退出.AccessibleName = "退出";
+            resources.ApplyResources(this.退出, "退出");
             this.退出.Name = "退出";
-            this.退出.Text = "退出";
             this.退出.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.退出.Click += new System.EventHandler(this.退出_Click);
             // 
             // ToolStripMenuItem2
             // 
-            this.ToolStripMenuItem2.AccessibleDescription = "工具";
-            this.ToolStripMenuItem2.AccessibleName = "工具";
+            resources.ApplyResources(this.ToolStripMenuItem2, "ToolStripMenuItem2");
             this.ToolStripMenuItem2.Items.AddRange(new Telerik.WinControls.RadItem[] {
             this.重复歌曲扫描,
             this.香蕉分析器ToolStripMenuItem});
             this.ToolStripMenuItem2.Name = "ToolStripMenuItem2";
-            this.ToolStripMenuItem2.Text = "工具";
             this.ToolStripMenuItem2.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             // 
             // 重复歌曲扫描
             // 
-            this.重复歌曲扫描.AccessibleDescription = "重复歌曲扫描";
-            this.重复歌曲扫描.AccessibleName = "重复歌曲扫描";
+            resources.ApplyResources(this.重复歌曲扫描, "重复歌曲扫描");
             this.重复歌曲扫描.Name = "重复歌曲扫描";
-            this.重复歌曲扫描.Text = "重复歌曲扫描";
             this.重复歌曲扫描.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.重复歌曲扫描.Click += new System.EventHandler(this.重复歌曲扫描_Click);
             // 
             // 香蕉分析器ToolStripMenuItem
             // 
-            this.香蕉分析器ToolStripMenuItem.AccessibleDescription = "香蕉分析器";
-            this.香蕉分析器ToolStripMenuItem.AccessibleName = "香蕉分析器";
+            resources.ApplyResources(this.香蕉分析器ToolStripMenuItem, "香蕉分析器ToolStripMenuItem");
             this.香蕉分析器ToolStripMenuItem.Enabled = false;
             this.香蕉分析器ToolStripMenuItem.Name = "香蕉分析器ToolStripMenuItem";
-            this.香蕉分析器ToolStripMenuItem.Text = "香蕉分析器";
             this.香蕉分析器ToolStripMenuItem.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             // 
             // ToolStripMenuItem3
             // 
-            this.ToolStripMenuItem3.AccessibleDescription = "选项";
-            this.ToolStripMenuItem3.AccessibleName = "选项";
+            resources.ApplyResources(this.ToolStripMenuItem3, "ToolStripMenuItem3");
             this.ToolStripMenuItem3.Items.AddRange(new Telerik.WinControls.RadItem[] {
             this.音效,
             this.视频开关,
@@ -304,42 +274,38 @@ namespace OSUplayer
             this.QQ状态同步,
             this.SB开关});
             this.ToolStripMenuItem3.Name = "ToolStripMenuItem3";
-            this.ToolStripMenuItem3.Text = "选项";
             this.ToolStripMenuItem3.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             // 
             // 音效
             // 
-            this.音效.AccessibleDescription = "音效开关";
-            this.音效.AccessibleName = "音效开关";
+            resources.ApplyResources(this.音效, "音效");
             this.音效.CheckOnClick = true;
             this.音效.IsChecked = true;
             this.音效.Name = "音效";
-            this.音效.Text = "音效开关";
             this.音效.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
             this.音效.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.音效.Click += new System.EventHandler(this.音效_Click);
             // 
             // 视频开关
             // 
-            this.视频开关.AccessibleDescription = "视频开关";
-            this.视频开关.AccessibleName = "视频开关";
+            resources.ApplyResources(this.视频开关, "视频开关");
             this.视频开关.CheckOnClick = true;
             this.视频开关.IsChecked = true;
             this.视频开关.Name = "视频开关";
-            this.视频开关.Text = "视频开关";
             this.视频开关.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
             this.视频开关.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.视频开关.Click += new System.EventHandler(this.视频开关_Click);
             // 
             // radMenuComboItem1
             // 
-            this.radMenuComboItem1.AccessibleDescription = "radMenuComboItem1";
-            this.radMenuComboItem1.AccessibleName = "radMenuComboItem1";
+            resources.ApplyResources(this.radMenuComboItem1, "radMenuComboItem1");
             // 
             // 
             // 
-            this.radMenuComboItem1.ComboBoxElement.AccessibleDescription = "随机播放";
-            this.radMenuComboItem1.ComboBoxElement.AccessibleName = "随机播放";
+            this.radMenuComboItem1.ComboBoxElement.AccessibleDescription = resources.GetString("radMenuComboItem1.ComboBoxElement.AccessibleDescription");
+            this.radMenuComboItem1.ComboBoxElement.AccessibleName = resources.GetString("radMenuComboItem1.ComboBoxElement.AccessibleName");
+            this.radMenuComboItem1.ComboBoxElement.Alignment = ((System.Drawing.ContentAlignment)(resources.GetObject("radMenuComboItem1.ComboBoxElement.Alignment")));
+            this.radMenuComboItem1.ComboBoxElement.AngleTransform = ((float)(resources.GetObject("radMenuComboItem1.ComboBoxElement.AngleTransform")));
             this.radMenuComboItem1.ComboBoxElement.ArrowButtonMinWidth = 17;
             this.radMenuComboItem1.ComboBoxElement.AutoCompleteAppend = null;
             this.radMenuComboItem1.ComboBoxElement.AutoCompleteDataSource = null;
@@ -354,115 +320,122 @@ namespace OSUplayer
             this.radMenuComboItem1.ComboBoxElement.DropDownAnimationEasing = Telerik.WinControls.RadEasingType.InQuad;
             this.radMenuComboItem1.ComboBoxElement.DropDownAnimationEnabled = true;
             this.radMenuComboItem1.ComboBoxElement.DropDownStyle = Telerik.WinControls.RadDropDownStyle.DropDownList;
-            this.radMenuComboItem1.ComboBoxElement.EditableElementText = "随机播放";
+            this.radMenuComboItem1.ComboBoxElement.EditableElementText = "";
             this.radMenuComboItem1.ComboBoxElement.EditorElement = this.radMenuComboItem1.ComboBoxElement;
             this.radMenuComboItem1.ComboBoxElement.EditorManager = null;
             this.radMenuComboItem1.ComboBoxElement.Filter = null;
             this.radMenuComboItem1.ComboBoxElement.FilterExpression = "";
+            this.radMenuComboItem1.ComboBoxElement.FlipText = ((bool)(resources.GetObject("radMenuComboItem1.ComboBoxElement.FlipText")));
             this.radMenuComboItem1.ComboBoxElement.Focusable = true;
             this.radMenuComboItem1.ComboBoxElement.FormatString = "";
             this.radMenuComboItem1.ComboBoxElement.FormattingEnabled = true;
             this.radMenuComboItem1.ComboBoxElement.ItemHeight = 18;
-            radListDataItem1.Text = "顺序播放";
-            radListDataItem1.TextWrap = true;
-            radListDataItem2.Text = "单曲循环";
-            radListDataItem2.TextWrap = true;
-            radListDataItem3.Selected = true;
-            radListDataItem3.Text = "随机播放";
-            radListDataItem3.TextWrap = true;
-            this.radMenuComboItem1.ComboBoxElement.Items.Add(radListDataItem1);
-            this.radMenuComboItem1.ComboBoxElement.Items.Add(radListDataItem2);
-            this.radMenuComboItem1.ComboBoxElement.Items.Add(radListDataItem3);
+            radListDataItem4.Text = "Next";
+            resources.ApplyResources(radListDataItem4, "radListDataItem4");
+            radListDataItem5.Text = "Repeat";
+            resources.ApplyResources(radListDataItem5, "radListDataItem5");
+            radListDataItem6.Text = "Random";
+            resources.ApplyResources(radListDataItem6, "radListDataItem6");
+            this.radMenuComboItem1.ComboBoxElement.Items.Add(radListDataItem4);
+            this.radMenuComboItem1.ComboBoxElement.Items.Add(radListDataItem5);
+            this.radMenuComboItem1.ComboBoxElement.Items.Add(radListDataItem6);
+            this.radMenuComboItem1.ComboBoxElement.KeyTip = resources.GetString("radMenuComboItem1.ComboBoxElement.KeyTip");
+            this.radMenuComboItem1.ComboBoxElement.Margin = ((System.Windows.Forms.Padding)(resources.GetObject("radMenuComboItem1.ComboBoxElement.Margin")));
             this.radMenuComboItem1.ComboBoxElement.MaxDropDownItems = 0;
             this.radMenuComboItem1.ComboBoxElement.MaxLength = 32767;
             this.radMenuComboItem1.ComboBoxElement.MaxValue = null;
             this.radMenuComboItem1.ComboBoxElement.MinValue = null;
-            this.radMenuComboItem1.ComboBoxElement.NullText = "播放模式";
+            this.radMenuComboItem1.ComboBoxElement.NullText = resources.GetString("radMenuComboItem1.ComboBoxElement.NullText");
             this.radMenuComboItem1.ComboBoxElement.NullValue = null;
             this.radMenuComboItem1.ComboBoxElement.Owner = null;
             this.radMenuComboItem1.ComboBoxElement.OwnerOffset = 0;
+            this.radMenuComboItem1.ComboBoxElement.Padding = ((System.Windows.Forms.Padding)(resources.GetObject("radMenuComboItem1.ComboBoxElement.Padding")));
+            this.radMenuComboItem1.ComboBoxElement.RightToLeft = ((bool)(resources.GetObject("radMenuComboItem1.ComboBoxElement.RightToLeft")));
             this.radMenuComboItem1.ComboBoxElement.ShowImageInEditorArea = true;
             this.radMenuComboItem1.ComboBoxElement.SortStyle = Telerik.WinControls.Enumerations.SortStyle.None;
+            this.radMenuComboItem1.ComboBoxElement.Text = resources.GetString("radMenuComboItem1.ComboBoxElement.Text");
+            this.radMenuComboItem1.ComboBoxElement.TextOrientation = ((System.Windows.Forms.Orientation)(resources.GetObject("radMenuComboItem1.ComboBoxElement.TextOrientation")));
+            this.radMenuComboItem1.ComboBoxElement.ToolTipText = resources.GetString("radMenuComboItem1.ComboBoxElement.ToolTipText");
             this.radMenuComboItem1.ComboBoxElement.Value = null;
             this.radMenuComboItem1.ComboBoxElement.ValueMember = "";
             this.radMenuComboItem1.ComboBoxElement.SelectedIndexChanged += new Telerik.WinControls.UI.Data.PositionChangedEventHandler(this.radMenuComboItem1_ComboBoxElement_SelectedIndexChanged);
             this.radMenuComboItem1.Name = "radMenuComboItem1";
-            this.radMenuComboItem1.Text = "radMenuComboItem1";
             this.radMenuComboItem1.Visibility = Telerik.WinControls.ElementVisibility.Visible;
+            ((Telerik.WinControls.UI.RadDropDownListElement)(this.radMenuComboItem1.GetChildAt(3))).RightToLeft = ((bool)(resources.GetObject("radMenuComboItem1.ComboBoxElement.RightToLeft1")));
             ((Telerik.WinControls.UI.RadDropDownListElement)(this.radMenuComboItem1.GetChildAt(3))).DropDownStyle = Telerik.WinControls.RadDropDownStyle.DropDownList;
+            ((Telerik.WinControls.UI.RadDropDownListElement)(this.radMenuComboItem1.GetChildAt(3))).TextOrientation = ((System.Windows.Forms.Orientation)(resources.GetObject("radMenuComboItem1.ComboBoxElement.TextOrientation1")));
+            ((Telerik.WinControls.UI.RadDropDownListElement)(this.radMenuComboItem1.GetChildAt(3))).FlipText = ((bool)(resources.GetObject("radMenuComboItem1.ComboBoxElement.FlipText1")));
+            ((Telerik.WinControls.UI.RadDropDownListElement)(this.radMenuComboItem1.GetChildAt(3))).Padding = ((System.Windows.Forms.Padding)(resources.GetObject("radMenuComboItem1.ComboBoxElement.Padding1")));
+            ((Telerik.WinControls.UI.RadDropDownListElement)(this.radMenuComboItem1.GetChildAt(3))).Margin = ((System.Windows.Forms.Padding)(resources.GetObject("radMenuComboItem1.ComboBoxElement.Margin1")));
+            ((Telerik.WinControls.UI.RadDropDownListElement)(this.radMenuComboItem1.GetChildAt(3))).Alignment = ((System.Drawing.ContentAlignment)(resources.GetObject("radMenuComboItem1.ComboBoxElement.Alignment1")));
+            ((Telerik.WinControls.UI.RadDropDownListElement)(this.radMenuComboItem1.GetChildAt(3))).AngleTransform = ((float)(resources.GetObject("radMenuComboItem1.ComboBoxElement.AngleTransform1")));
             // 
             // radMenuItem1
             // 
-            this.radMenuItem1.AccessibleDescription = "选择QQ";
-            this.radMenuItem1.AccessibleName = "选择QQ";
+            resources.ApplyResources(this.radMenuItem1, "radMenuItem1");
             this.radMenuItem1.Name = "radMenuItem1";
-            this.radMenuItem1.Text = "选择QQ";
             this.radMenuItem1.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.radMenuItem1.Click += new System.EventHandler(this.radMenuItem1_Click);
             // 
             // QQ状态同步
             // 
-            this.QQ状态同步.AccessibleDescription = "QQ状态同步";
-            this.QQ状态同步.AccessibleName = "QQ状态同步";
+            resources.ApplyResources(this.QQ状态同步, "QQ状态同步");
             this.QQ状态同步.CheckOnClick = true;
             this.QQ状态同步.IsChecked = true;
             this.QQ状态同步.Name = "QQ状态同步";
-            this.QQ状态同步.Text = "QQ状态同步";
             this.QQ状态同步.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
             this.QQ状态同步.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.QQ状态同步.Click += new System.EventHandler(this.QQ状态同步_Click);
             // 
             // SB开关
             // 
-            this.SB开关.AccessibleDescription = "SB开关";
-            this.SB开关.AccessibleName = "SB开关";
+            resources.ApplyResources(this.SB开关, "SB开关");
             this.SB开关.CheckOnClick = true;
             this.SB开关.Name = "SB开关";
-            this.SB开关.Text = "SB开关";
             this.SB开关.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.SB开关.Click += new System.EventHandler(this.SB开关_Click);
             // 
             // 关于
             // 
-            this.关于.AccessibleDescription = "关于";
-            this.关于.AccessibleName = "关于";
+            resources.ApplyResources(this.关于, "关于");
             this.关于.Name = "关于";
-            this.关于.Text = "关于";
             this.关于.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.关于.Click += new System.EventHandler(this.关于_Click);
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Controls.Add(this.TextBox1);
             this.panel1.Controls.Add(this.PlayList);
             this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.Button2);
             this.panel1.Controls.Add(this.radPageView1);
-            this.panel1.Location = new System.Drawing.Point(0, 29);
-            this.panel1.Margin = new System.Windows.Forms.Padding(0);
-            this.panel1.MinimumSize = new System.Drawing.Size(882, 654);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(882, 654);
-            this.panel1.TabIndex = 21;
             // 
             // TextBox1
             // 
-            this.TextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.TextBox1.Location = new System.Drawing.Point(625, 3);
+            resources.ApplyResources(this.TextBox1, "TextBox1");
             this.TextBox1.Name = "TextBox1";
-            this.TextBox1.NullText = "Enter Keywords";
-            this.TextBox1.Size = new System.Drawing.Size(250, 24);
-            this.TextBox1.TabIndex = 35;
+            // 
+            // 
+            // 
+            this.TextBox1.RootElement.AccessibleDescription = resources.GetString("TextBox1.RootElement.AccessibleDescription");
+            this.TextBox1.RootElement.AccessibleName = resources.GetString("TextBox1.RootElement.AccessibleName");
+            this.TextBox1.RootElement.Alignment = ((System.Drawing.ContentAlignment)(resources.GetObject("TextBox1.RootElement.Alignment")));
+            this.TextBox1.RootElement.AngleTransform = ((float)(resources.GetObject("TextBox1.RootElement.AngleTransform")));
+            this.TextBox1.RootElement.FlipText = ((bool)(resources.GetObject("TextBox1.RootElement.FlipText")));
+            this.TextBox1.RootElement.KeyTip = resources.GetString("TextBox1.RootElement.KeyTip");
+            this.TextBox1.RootElement.Margin = ((System.Windows.Forms.Padding)(resources.GetObject("TextBox1.RootElement.Margin")));
+            this.TextBox1.RootElement.Padding = ((System.Windows.Forms.Padding)(resources.GetObject("TextBox1.RootElement.Padding")));
+            this.TextBox1.RootElement.Text = resources.GetString("TextBox1.RootElement.Text");
+            this.TextBox1.RootElement.TextOrientation = ((System.Windows.Forms.Orientation)(resources.GetObject("TextBox1.RootElement.TextOrientation")));
+            this.TextBox1.RootElement.ToolTipText = resources.GetString("TextBox1.RootElement.ToolTipText");
             this.TextBox1.TabStop = false;
             this.TextBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBox1_KeyPress);
             // 
             // PlayList
             // 
-            this.PlayList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.PlayList, "PlayList");
             this.PlayList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.ColumnHeader1});
             this.PlayList.ContextMenuStrip = this.RightClick;
@@ -470,11 +443,8 @@ namespace OSUplayer
             this.PlayList.GridLines = true;
             this.PlayList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.PlayList.HideSelection = false;
-            this.PlayList.Location = new System.Drawing.Point(532, 32);
             this.PlayList.MultiSelect = false;
             this.PlayList.Name = "PlayList";
-            this.PlayList.Size = new System.Drawing.Size(344, 616);
-            this.PlayList.TabIndex = 24;
             this.PlayList.UseCompatibleStateImageBehavior = false;
             this.PlayList.View = System.Windows.Forms.View.Details;
             this.PlayList.SelectedIndexChanged += new System.EventHandler(this.PlayList_SelectedIndexChanged);
@@ -482,29 +452,25 @@ namespace OSUplayer
             // 
             // ColumnHeader1
             // 
-            this.ColumnHeader1.Text = "";
-            this.ColumnHeader1.Width = 500;
+            resources.ApplyResources(this.ColumnHeader1, "ColumnHeader1");
             // 
             // RightClick
             // 
+            resources.ApplyResources(this.RightClick, "RightClick");
             this.RightClick.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Delete});
             this.RightClick.Name = "RightClick";
-            this.RightClick.Size = new System.Drawing.Size(139, 28);
             this.RightClick.Opening += new System.ComponentModel.CancelEventHandler(this.RightClick_Opening);
             // 
             // Delete
             // 
+            resources.ApplyResources(this.Delete, "Delete");
             this.Delete.Name = "Delete";
-            this.Delete.Size = new System.Drawing.Size(138, 24);
-            this.Delete.Text = "删除单首";
             this.Delete.Click += new System.EventHandler(this.Delete_Click);
             // 
             // panel3
             // 
-            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.panel3, "panel3");
             this.panel3.Controls.Add(this.TrackVolume);
             this.panel3.Controls.Add(this.TrackSeek);
             this.panel3.Controls.Add(this.button3);
@@ -518,38 +484,51 @@ namespace OSUplayer
             this.panel3.Controls.Add(this.NextButton);
             this.panel3.Controls.Add(this.StopButton);
             this.panel3.Controls.Add(this.PlayButton);
-            this.panel3.Location = new System.Drawing.Point(0, 0);
-            this.panel3.Margin = new System.Windows.Forms.Padding(0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(532, 429);
-            this.panel3.TabIndex = 22;
             // 
             // TrackVolume
             // 
-            this.TrackVolume.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.TrackVolume.Location = new System.Drawing.Point(494, 32);
+            resources.ApplyResources(this.TrackVolume, "TrackVolume");
             this.TrackVolume.Maximum = 100;
             this.TrackVolume.Name = "TrackVolume";
             this.TrackVolume.Orientation = System.Windows.Forms.Orientation.Vertical;
+            // 
+            // 
+            // 
+            this.TrackVolume.RootElement.AccessibleDescription = resources.GetString("TrackVolume.RootElement.AccessibleDescription");
+            this.TrackVolume.RootElement.AccessibleName = resources.GetString("TrackVolume.RootElement.AccessibleName");
+            this.TrackVolume.RootElement.Alignment = ((System.Drawing.ContentAlignment)(resources.GetObject("TrackVolume.RootElement.Alignment")));
+            this.TrackVolume.RootElement.AngleTransform = ((float)(resources.GetObject("TrackVolume.RootElement.AngleTransform")));
+            this.TrackVolume.RootElement.FlipText = ((bool)(resources.GetObject("TrackVolume.RootElement.FlipText")));
+            this.TrackVolume.RootElement.KeyTip = resources.GetString("TrackVolume.RootElement.KeyTip");
+            this.TrackVolume.RootElement.Margin = ((System.Windows.Forms.Padding)(resources.GetObject("TrackVolume.RootElement.Margin")));
+            this.TrackVolume.RootElement.Padding = ((System.Windows.Forms.Padding)(resources.GetObject("TrackVolume.RootElement.Padding")));
+            this.TrackVolume.RootElement.Text = resources.GetString("TrackVolume.RootElement.Text");
+            this.TrackVolume.RootElement.TextOrientation = ((System.Windows.Forms.Orientation)(resources.GetObject("TrackVolume.RootElement.TextOrientation")));
+            this.TrackVolume.RootElement.ToolTipText = resources.GetString("TrackVolume.RootElement.ToolTipText");
             this.TrackVolume.ShowTicks = false;
-            this.TrackVolume.Size = new System.Drawing.Size(28, 339);
-            this.TrackVolume.TabIndex = 0;
-            this.TrackVolume.Text = "radTrackBar1";
             this.TrackVolume.TickStyle = Telerik.WinControls.Enumerations.TickStyles.None;
             this.TrackVolume.Scroll += new System.Windows.Forms.ScrollEventHandler(this.TrackVolume_Scroll);
             // 
             // TrackSeek
             // 
-            this.TrackSeek.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.TrackSeek.Enabled = false;
-            this.TrackSeek.Location = new System.Drawing.Point(181, 401);
+            resources.ApplyResources(this.TrackSeek, "TrackSeek");
             this.TrackSeek.Name = "TrackSeek";
+            // 
+            // 
+            // 
+            this.TrackSeek.RootElement.AccessibleDescription = resources.GetString("TrackSeek.RootElement.AccessibleDescription");
+            this.TrackSeek.RootElement.AccessibleName = resources.GetString("TrackSeek.RootElement.AccessibleName");
+            this.TrackSeek.RootElement.Alignment = ((System.Drawing.ContentAlignment)(resources.GetObject("TrackSeek.RootElement.Alignment")));
+            this.TrackSeek.RootElement.AngleTransform = ((float)(resources.GetObject("TrackSeek.RootElement.AngleTransform")));
+            this.TrackSeek.RootElement.FlipText = ((bool)(resources.GetObject("TrackSeek.RootElement.FlipText")));
+            this.TrackSeek.RootElement.KeyTip = resources.GetString("TrackSeek.RootElement.KeyTip");
+            this.TrackSeek.RootElement.Margin = ((System.Windows.Forms.Padding)(resources.GetObject("TrackSeek.RootElement.Margin")));
+            this.TrackSeek.RootElement.Padding = ((System.Windows.Forms.Padding)(resources.GetObject("TrackSeek.RootElement.Padding")));
+            this.TrackSeek.RootElement.Text = resources.GetString("TrackSeek.RootElement.Text");
+            this.TrackSeek.RootElement.TextOrientation = ((System.Windows.Forms.Orientation)(resources.GetObject("TrackSeek.RootElement.TextOrientation")));
+            this.TrackSeek.RootElement.ToolTipText = resources.GetString("TrackSeek.RootElement.ToolTipText");
             this.TrackSeek.ShowTicks = false;
-            this.TrackSeek.Size = new System.Drawing.Size(308, 17);
-            this.TrackSeek.TabIndex = 0;
-            this.TrackSeek.Text = "radTrackBar1";
             this.TrackSeek.TickStyle = Telerik.WinControls.Enumerations.TickStyles.None;
             this.TrackSeek.Scroll += new System.Windows.Forms.ScrollEventHandler(this.TrackSeek_Scroll);
             ((Telerik.WinControls.UI.RadTrackBarElement)(this.TrackSeek.GetChildAt(0))).ShowTicks = false;
@@ -557,34 +536,49 @@ namespace OSUplayer
             // 
             // button3
             // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Location = new System.Drawing.Point(494, 3);
+            resources.ApplyResources(this.button3, "button3");
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(30, 27);
-            this.button3.TabIndex = 43;
-            this.button3.Text = "↓";
+            // 
+            // 
+            // 
+            this.button3.RootElement.AccessibleDescription = resources.GetString("button3.RootElement.AccessibleDescription");
+            this.button3.RootElement.AccessibleName = resources.GetString("button3.RootElement.AccessibleName");
+            this.button3.RootElement.Alignment = ((System.Drawing.ContentAlignment)(resources.GetObject("button3.RootElement.Alignment")));
+            this.button3.RootElement.AngleTransform = ((float)(resources.GetObject("button3.RootElement.AngleTransform")));
+            this.button3.RootElement.FlipText = ((bool)(resources.GetObject("button3.RootElement.FlipText")));
+            this.button3.RootElement.KeyTip = resources.GetString("button3.RootElement.KeyTip");
+            this.button3.RootElement.Margin = ((System.Windows.Forms.Padding)(resources.GetObject("button3.RootElement.Margin")));
+            this.button3.RootElement.Padding = ((System.Windows.Forms.Padding)(resources.GetObject("button3.RootElement.Padding")));
+            this.button3.RootElement.Text = resources.GetString("button3.RootElement.Text");
+            this.button3.RootElement.TextOrientation = ((System.Windows.Forms.Orientation)(resources.GetObject("button3.RootElement.TextOrientation")));
+            this.button3.RootElement.ToolTipText = resources.GetString("button3.RootElement.ToolTipText");
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(7, 8);
+            resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(106, 15);
-            this.label1.TabIndex = 55;
-            this.label1.Text = "00:00/00:00";
             // 
             // TrackMusic
             // 
-            this.TrackMusic.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.TrackMusic.Location = new System.Drawing.Point(162, 7);
+            resources.ApplyResources(this.TrackMusic, "TrackMusic");
             this.TrackMusic.Maximum = 100;
             this.TrackMusic.Name = "TrackMusic";
+            // 
+            // 
+            // 
+            this.TrackMusic.RootElement.AccessibleDescription = resources.GetString("TrackMusic.RootElement.AccessibleDescription");
+            this.TrackMusic.RootElement.AccessibleName = resources.GetString("TrackMusic.RootElement.AccessibleName");
+            this.TrackMusic.RootElement.Alignment = ((System.Drawing.ContentAlignment)(resources.GetObject("TrackMusic.RootElement.Alignment")));
+            this.TrackMusic.RootElement.AngleTransform = ((float)(resources.GetObject("TrackMusic.RootElement.AngleTransform")));
+            this.TrackMusic.RootElement.FlipText = ((bool)(resources.GetObject("TrackMusic.RootElement.FlipText")));
+            this.TrackMusic.RootElement.KeyTip = resources.GetString("TrackMusic.RootElement.KeyTip");
+            this.TrackMusic.RootElement.Margin = ((System.Windows.Forms.Padding)(resources.GetObject("TrackMusic.RootElement.Margin")));
+            this.TrackMusic.RootElement.Padding = ((System.Windows.Forms.Padding)(resources.GetObject("TrackMusic.RootElement.Padding")));
+            this.TrackMusic.RootElement.Text = resources.GetString("TrackMusic.RootElement.Text");
+            this.TrackMusic.RootElement.TextOrientation = ((System.Windows.Forms.Orientation)(resources.GetObject("TrackMusic.RootElement.TextOrientation")));
+            this.TrackMusic.RootElement.ToolTipText = resources.GetString("TrackMusic.RootElement.ToolTipText");
             this.TrackMusic.ShowTicks = false;
-            this.TrackMusic.Size = new System.Drawing.Size(120, 17);
-            this.TrackMusic.TabIndex = 54;
             this.TrackMusic.TickStyle = Telerik.WinControls.Enumerations.TickStyles.None;
             this.TrackMusic.Value = 80;
             this.TrackMusic.Scroll += new System.Windows.Forms.ScrollEventHandler(this.TrackMusic_Scroll);
@@ -596,25 +590,29 @@ namespace OSUplayer
             // 
             // panel2
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.Location = new System.Drawing.Point(7, 29);
-            this.panel2.Margin = new System.Windows.Forms.Padding(0);
-            this.panel2.MinimumSize = new System.Drawing.Size(320, 240);
+            resources.ApplyResources(this.panel2, "panel2");
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(480, 360);
-            this.panel2.TabIndex = 45;
             // 
             // TrackFx
             // 
-            this.TrackFx.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.TrackFx.Location = new System.Drawing.Point(331, 7);
+            resources.ApplyResources(this.TrackFx, "TrackFx");
             this.TrackFx.Maximum = 100;
             this.TrackFx.Name = "TrackFx";
+            // 
+            // 
+            // 
+            this.TrackFx.RootElement.AccessibleDescription = resources.GetString("TrackFx.RootElement.AccessibleDescription");
+            this.TrackFx.RootElement.AccessibleName = resources.GetString("TrackFx.RootElement.AccessibleName");
+            this.TrackFx.RootElement.Alignment = ((System.Drawing.ContentAlignment)(resources.GetObject("TrackFx.RootElement.Alignment")));
+            this.TrackFx.RootElement.AngleTransform = ((float)(resources.GetObject("TrackFx.RootElement.AngleTransform")));
+            this.TrackFx.RootElement.FlipText = ((bool)(resources.GetObject("TrackFx.RootElement.FlipText")));
+            this.TrackFx.RootElement.KeyTip = resources.GetString("TrackFx.RootElement.KeyTip");
+            this.TrackFx.RootElement.Margin = ((System.Windows.Forms.Padding)(resources.GetObject("TrackFx.RootElement.Margin")));
+            this.TrackFx.RootElement.Padding = ((System.Windows.Forms.Padding)(resources.GetObject("TrackFx.RootElement.Padding")));
+            this.TrackFx.RootElement.Text = resources.GetString("TrackFx.RootElement.Text");
+            this.TrackFx.RootElement.TextOrientation = ((System.Windows.Forms.Orientation)(resources.GetObject("TrackFx.RootElement.TextOrientation")));
+            this.TrackFx.RootElement.ToolTipText = resources.GetString("TrackFx.RootElement.ToolTipText");
             this.TrackFx.ShowTicks = false;
-            this.TrackFx.Size = new System.Drawing.Size(156, 17);
-            this.TrackFx.TabIndex = 51;
             this.TrackFx.TickStyle = Telerik.WinControls.Enumerations.TickStyles.None;
             this.TrackFx.Value = 60;
             this.TrackFx.Scroll += new System.Windows.Forms.ScrollEventHandler(this.TrackFx_Scroll);
@@ -626,183 +624,201 @@ namespace OSUplayer
             // 
             // Label3
             // 
-            this.Label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Label3.AutoSize = true;
-            this.Label3.Location = new System.Drawing.Point(288, 6);
+            resources.ApplyResources(this.Label3, "Label3");
             this.Label3.Name = "Label3";
-            this.Label3.Size = new System.Drawing.Size(37, 19);
-            this.Label3.TabIndex = 52;
-            this.Label3.Text = "音效";
             // 
             // Label4
             // 
-            this.Label4.AutoSize = true;
-            this.Label4.Location = new System.Drawing.Point(119, 6);
+            resources.ApplyResources(this.Label4, "Label4");
             this.Label4.Name = "Label4";
-            this.Label4.Size = new System.Drawing.Size(37, 19);
-            this.Label4.TabIndex = 53;
-            this.Label4.Text = "音乐";
             // 
             // Label2
             // 
-            this.Label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Label2.AutoSize = true;
-            this.Label2.Location = new System.Drawing.Point(489, 374);
+            resources.ApplyResources(this.Label2, "Label2");
             this.Label2.Name = "Label2";
-            this.Label2.Size = new System.Drawing.Size(37, 19);
-            this.Label2.TabIndex = 50;
-            this.Label2.Text = "音量";
             // 
             // NextButton
             // 
-            this.NextButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.NextButton.Location = new System.Drawing.Point(132, 396);
+            resources.ApplyResources(this.NextButton, "NextButton");
             this.NextButton.Name = "NextButton";
-            this.NextButton.Size = new System.Drawing.Size(43, 26);
-            this.NextButton.TabIndex = 48;
-            this.NextButton.Text = "→";
+            // 
+            // 
+            // 
+            this.NextButton.RootElement.AccessibleDescription = resources.GetString("NextButton.RootElement.AccessibleDescription");
+            this.NextButton.RootElement.AccessibleName = resources.GetString("NextButton.RootElement.AccessibleName");
+            this.NextButton.RootElement.Alignment = ((System.Drawing.ContentAlignment)(resources.GetObject("NextButton.RootElement.Alignment")));
+            this.NextButton.RootElement.AngleTransform = ((float)(resources.GetObject("NextButton.RootElement.AngleTransform")));
+            this.NextButton.RootElement.FlipText = ((bool)(resources.GetObject("NextButton.RootElement.FlipText")));
+            this.NextButton.RootElement.KeyTip = resources.GetString("NextButton.RootElement.KeyTip");
+            this.NextButton.RootElement.Margin = ((System.Windows.Forms.Padding)(resources.GetObject("NextButton.RootElement.Margin")));
+            this.NextButton.RootElement.Padding = ((System.Windows.Forms.Padding)(resources.GetObject("NextButton.RootElement.Padding")));
+            this.NextButton.RootElement.Text = resources.GetString("NextButton.RootElement.Text");
+            this.NextButton.RootElement.TextOrientation = ((System.Windows.Forms.Orientation)(resources.GetObject("NextButton.RootElement.TextOrientation")));
+            this.NextButton.RootElement.ToolTipText = resources.GetString("NextButton.RootElement.ToolTipText");
             this.NextButton.Click += new System.EventHandler(this.NextButton_Click);
             // 
             // StopButton
             // 
-            this.StopButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.StopButton.Enabled = false;
-            this.StopButton.Location = new System.Drawing.Point(69, 396);
+            resources.ApplyResources(this.StopButton, "StopButton");
             this.StopButton.Name = "StopButton";
-            this.StopButton.Size = new System.Drawing.Size(57, 26);
-            this.StopButton.TabIndex = 47;
-            this.StopButton.Text = "停止";
+            // 
+            // 
+            // 
+            this.StopButton.RootElement.AccessibleDescription = resources.GetString("StopButton.RootElement.AccessibleDescription");
+            this.StopButton.RootElement.AccessibleName = resources.GetString("StopButton.RootElement.AccessibleName");
+            this.StopButton.RootElement.Alignment = ((System.Drawing.ContentAlignment)(resources.GetObject("StopButton.RootElement.Alignment")));
+            this.StopButton.RootElement.AngleTransform = ((float)(resources.GetObject("StopButton.RootElement.AngleTransform")));
+            this.StopButton.RootElement.FlipText = ((bool)(resources.GetObject("StopButton.RootElement.FlipText")));
+            this.StopButton.RootElement.KeyTip = resources.GetString("StopButton.RootElement.KeyTip");
+            this.StopButton.RootElement.Margin = ((System.Windows.Forms.Padding)(resources.GetObject("StopButton.RootElement.Margin")));
+            this.StopButton.RootElement.Padding = ((System.Windows.Forms.Padding)(resources.GetObject("StopButton.RootElement.Padding")));
+            this.StopButton.RootElement.Text = resources.GetString("StopButton.RootElement.Text");
+            this.StopButton.RootElement.TextOrientation = ((System.Windows.Forms.Orientation)(resources.GetObject("StopButton.RootElement.TextOrientation")));
+            this.StopButton.RootElement.ToolTipText = resources.GetString("StopButton.RootElement.ToolTipText");
             this.StopButton.Click += new System.EventHandler(this.StopButton_Click);
             // 
             // PlayButton
             // 
-            this.PlayButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.PlayButton.Location = new System.Drawing.Point(7, 396);
+            resources.ApplyResources(this.PlayButton, "PlayButton");
             this.PlayButton.Name = "PlayButton";
-            this.PlayButton.Size = new System.Drawing.Size(57, 26);
-            this.PlayButton.TabIndex = 46;
-            this.PlayButton.Text = "播放";
+            // 
+            // 
+            // 
+            this.PlayButton.RootElement.AccessibleDescription = resources.GetString("PlayButton.RootElement.AccessibleDescription");
+            this.PlayButton.RootElement.AccessibleName = resources.GetString("PlayButton.RootElement.AccessibleName");
+            this.PlayButton.RootElement.Alignment = ((System.Drawing.ContentAlignment)(resources.GetObject("PlayButton.RootElement.Alignment")));
+            this.PlayButton.RootElement.AngleTransform = ((float)(resources.GetObject("PlayButton.RootElement.AngleTransform")));
+            this.PlayButton.RootElement.FlipText = ((bool)(resources.GetObject("PlayButton.RootElement.FlipText")));
+            this.PlayButton.RootElement.KeyTip = resources.GetString("PlayButton.RootElement.KeyTip");
+            this.PlayButton.RootElement.Margin = ((System.Windows.Forms.Padding)(resources.GetObject("PlayButton.RootElement.Margin")));
+            this.PlayButton.RootElement.Padding = ((System.Windows.Forms.Padding)(resources.GetObject("PlayButton.RootElement.Padding")));
+            this.PlayButton.RootElement.Text = resources.GetString("PlayButton.RootElement.Text");
+            this.PlayButton.RootElement.TextOrientation = ((System.Windows.Forms.Orientation)(resources.GetObject("PlayButton.RootElement.TextOrientation")));
+            this.PlayButton.RootElement.ToolTipText = resources.GetString("PlayButton.RootElement.ToolTipText");
             this.PlayButton.Click += new System.EventHandler(this.PlayButton_Click);
             // 
             // Button2
             // 
-            this.Button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Button2.Location = new System.Drawing.Point(532, 3);
+            resources.ApplyResources(this.Button2, "Button2");
             this.Button2.Name = "Button2";
-            this.Button2.Size = new System.Drawing.Size(87, 27);
-            this.Button2.TabIndex = 32;
-            this.Button2.Text = "切换收藏";
+            // 
+            // 
+            // 
+            this.Button2.RootElement.AccessibleDescription = resources.GetString("Button2.RootElement.AccessibleDescription");
+            this.Button2.RootElement.AccessibleName = resources.GetString("Button2.RootElement.AccessibleName");
+            this.Button2.RootElement.Alignment = ((System.Drawing.ContentAlignment)(resources.GetObject("Button2.RootElement.Alignment")));
+            this.Button2.RootElement.AngleTransform = ((float)(resources.GetObject("Button2.RootElement.AngleTransform")));
+            this.Button2.RootElement.FlipText = ((bool)(resources.GetObject("Button2.RootElement.FlipText")));
+            this.Button2.RootElement.KeyTip = resources.GetString("Button2.RootElement.KeyTip");
+            this.Button2.RootElement.Margin = ((System.Windows.Forms.Padding)(resources.GetObject("Button2.RootElement.Margin")));
+            this.Button2.RootElement.Padding = ((System.Windows.Forms.Padding)(resources.GetObject("Button2.RootElement.Padding")));
+            this.Button2.RootElement.Text = resources.GetString("Button2.RootElement.Text");
+            this.Button2.RootElement.TextOrientation = ((System.Windows.Forms.Orientation)(resources.GetObject("Button2.RootElement.TextOrientation")));
+            this.Button2.RootElement.ToolTipText = resources.GetString("Button2.RootElement.ToolTipText");
             this.Button2.Click += new System.EventHandler(this.Button2_Click);
             // 
             // radPageView1
             // 
-            this.radPageView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.radPageView1, "radPageView1");
             this.radPageView1.Controls.Add(this.radPageViewPage1);
             this.radPageView1.Controls.Add(this.radPageViewPage2);
             this.radPageView1.Controls.Add(this.radPageViewPage3);
-            this.radPageView1.Location = new System.Drawing.Point(0, 426);
             this.radPageView1.Name = "radPageView1";
+            // 
+            // 
+            // 
+            this.radPageView1.RootElement.AccessibleDescription = resources.GetString("radPageView1.RootElement.AccessibleDescription");
+            this.radPageView1.RootElement.AccessibleName = resources.GetString("radPageView1.RootElement.AccessibleName");
+            this.radPageView1.RootElement.Alignment = ((System.Drawing.ContentAlignment)(resources.GetObject("radPageView1.RootElement.Alignment")));
+            this.radPageView1.RootElement.AngleTransform = ((float)(resources.GetObject("radPageView1.RootElement.AngleTransform")));
+            this.radPageView1.RootElement.FlipText = ((bool)(resources.GetObject("radPageView1.RootElement.FlipText")));
+            this.radPageView1.RootElement.KeyTip = resources.GetString("radPageView1.RootElement.KeyTip");
+            this.radPageView1.RootElement.Margin = ((System.Windows.Forms.Padding)(resources.GetObject("radPageView1.RootElement.Margin")));
+            this.radPageView1.RootElement.Padding = ((System.Windows.Forms.Padding)(resources.GetObject("radPageView1.RootElement.Padding")));
+            this.radPageView1.RootElement.Text = resources.GetString("radPageView1.RootElement.Text");
+            this.radPageView1.RootElement.TextOrientation = ((System.Windows.Forms.Orientation)(resources.GetObject("radPageView1.RootElement.TextOrientation")));
+            this.radPageView1.RootElement.ToolTipText = resources.GetString("radPageView1.RootElement.ToolTipText");
             this.radPageView1.SelectedPage = this.radPageViewPage1;
-            this.radPageView1.Size = new System.Drawing.Size(532, 223);
-            this.radPageView1.TabIndex = 1;
-            this.radPageView1.Text = "radPageView1";
             this.radPageView1.SelectedPageChanged += new System.EventHandler(this.radPageView1_SelectedPageChanged);
             ((Telerik.WinControls.UI.RadPageViewStripElement)(this.radPageView1.GetChildAt(0))).StripButtons = Telerik.WinControls.UI.StripViewButtons.None;
             ((Telerik.WinControls.UI.RadPageViewStripElement)(this.radPageView1.GetChildAt(0))).StripAlignment = Telerik.WinControls.UI.StripViewAlignment.Bottom;
             // 
             // radPageViewPage1
             // 
+            resources.ApplyResources(this.radPageViewPage1, "radPageViewPage1");
             this.radPageViewPage1.Controls.Add(this.ListDetail);
-            this.radPageViewPage1.Location = new System.Drawing.Point(10, 10);
             this.radPageViewPage1.Name = "radPageViewPage1";
-            this.radPageViewPage1.Size = new System.Drawing.Size(511, 171);
-            this.radPageViewPage1.Text = "Map信息";
             // 
             // ListDetail
             // 
-            this.ListDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.ListDetail, "ListDetail");
             this.ListDetail.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.ColumnHeader2,
             this.ColumnHeader3});
             this.ListDetail.FullRowSelect = true;
             this.ListDetail.GridLines = true;
-            this.ListDetail.Location = new System.Drawing.Point(0, 0);
             this.ListDetail.MultiSelect = false;
             this.ListDetail.Name = "ListDetail";
-            this.ListDetail.Size = new System.Drawing.Size(511, 169);
-            this.ListDetail.TabIndex = 40;
             this.ListDetail.UseCompatibleStateImageBehavior = false;
             this.ListDetail.View = System.Windows.Forms.View.Details;
             // 
             // ColumnHeader2
             // 
-            this.ColumnHeader2.Text = "Key";
-            this.ColumnHeader2.Width = 120;
+            resources.ApplyResources(this.ColumnHeader2, "ColumnHeader2");
             // 
             // ColumnHeader3
             // 
-            this.ColumnHeader3.Text = "Value";
-            this.ColumnHeader3.Width = 300;
+            resources.ApplyResources(this.ColumnHeader3, "ColumnHeader3");
             // 
             // radPageViewPage2
             // 
+            resources.ApplyResources(this.radPageViewPage2, "radPageViewPage2");
             this.radPageViewPage2.Controls.Add(this.ScoreBox);
-            this.radPageViewPage2.Location = new System.Drawing.Point(10, 10);
             this.radPageViewPage2.Name = "radPageViewPage2";
-            this.radPageViewPage2.Size = new System.Drawing.Size(664, 171);
-            this.radPageViewPage2.Text = "成绩信息";
             // 
             // ScoreBox
             // 
+            resources.ApplyResources(this.ScoreBox, "ScoreBox");
             this.ScoreBox.AllowColumnReorder = false;
             this.ScoreBox.AllowColumnResize = false;
             this.ScoreBox.AllowEdit = false;
             this.ScoreBox.AllowRemove = false;
-            this.ScoreBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ScoreBox.AutoScroll = true;
             this.ScoreBox.ItemSize = new System.Drawing.Size(200, 60);
-            this.ScoreBox.Location = new System.Drawing.Point(0, 0);
             this.ScoreBox.Name = "ScoreBox";
+            // 
+            // 
+            // 
+            this.ScoreBox.RootElement.AccessibleDescription = resources.GetString("ScoreBox.RootElement.AccessibleDescription");
+            this.ScoreBox.RootElement.AccessibleName = resources.GetString("ScoreBox.RootElement.AccessibleName");
+            this.ScoreBox.RootElement.Alignment = ((System.Drawing.ContentAlignment)(resources.GetObject("ScoreBox.RootElement.Alignment")));
+            this.ScoreBox.RootElement.AngleTransform = ((float)(resources.GetObject("ScoreBox.RootElement.AngleTransform")));
+            this.ScoreBox.RootElement.FlipText = ((bool)(resources.GetObject("ScoreBox.RootElement.FlipText")));
+            this.ScoreBox.RootElement.KeyTip = resources.GetString("ScoreBox.RootElement.KeyTip");
+            this.ScoreBox.RootElement.Margin = ((System.Windows.Forms.Padding)(resources.GetObject("ScoreBox.RootElement.Margin")));
+            this.ScoreBox.RootElement.Padding = ((System.Windows.Forms.Padding)(resources.GetObject("ScoreBox.RootElement.Padding")));
+            this.ScoreBox.RootElement.Text = resources.GetString("ScoreBox.RootElement.Text");
+            this.ScoreBox.RootElement.TextOrientation = ((System.Windows.Forms.Orientation)(resources.GetObject("ScoreBox.RootElement.TextOrientation")));
+            this.ScoreBox.RootElement.ToolTipText = resources.GetString("ScoreBox.RootElement.ToolTipText");
             this.ScoreBox.ShowColumnHeaders = false;
-            this.ScoreBox.Size = new System.Drawing.Size(664, 169);
-            this.ScoreBox.TabIndex = 26;
-            this.ScoreBox.Text = "radListView1";
             // 
             // radPageViewPage3
             // 
+            resources.ApplyResources(this.radPageViewPage3, "radPageViewPage3");
             this.radPageViewPage3.Controls.Add(this.DiffList);
-            this.radPageViewPage3.Location = new System.Drawing.Point(10, 10);
             this.radPageViewPage3.Name = "radPageViewPage3";
-            this.radPageViewPage3.Size = new System.Drawing.Size(664, 171);
-            this.radPageViewPage3.Text = "Diff信息";
             // 
             // DiffList
             // 
-            this.DiffList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.DiffList, "DiffList");
             this.DiffList.FormattingEnabled = true;
-            this.DiffList.ItemHeight = 15;
-            this.DiffList.Location = new System.Drawing.Point(0, 0);
             this.DiffList.Name = "DiffList";
-            this.DiffList.Size = new System.Drawing.Size(664, 169);
-            this.DiffList.TabIndex = 25;
             this.DiffList.SelectedIndexChanged += new System.EventHandler(this.DiffList_SelectedIndexChanged);
             this.DiffList.DoubleClick += new System.EventHandler(this.DiffList_DoubleClick);
             // 
             // LabelQQ
             // 
-            this.LabelQQ.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.LabelQQ.AutoSize = true;
-            this.LabelQQ.Location = new System.Drawing.Point(323, 0);
+            resources.ApplyResources(this.LabelQQ, "LabelQQ");
             this.LabelQQ.Name = "LabelQQ";
-            this.LabelQQ.Size = new System.Drawing.Size(90, 19);
-            this.LabelQQ.TabIndex = 30;
-            this.LabelQQ.Text = "当前同步QQ:";
             // 
             // UpdateTimer
             // 
@@ -810,17 +826,28 @@ namespace OSUplayer
             // 
             // MenuStrip1
             // 
+            resources.ApplyResources(this.MenuStrip1, "MenuStrip1");
             this.MenuStrip1.Controls.Add(this.LabelQQ);
             this.MenuStrip1.Items.AddRange(new Telerik.WinControls.RadItem[] {
             this.ToolStripMenuItem1,
             this.ToolStripMenuItem2,
             this.ToolStripMenuItem3,
             this.关于});
-            this.MenuStrip1.Location = new System.Drawing.Point(4, 4);
             this.MenuStrip1.Name = "MenuStrip1";
-            this.MenuStrip1.Size = new System.Drawing.Size(874, 24);
-            this.MenuStrip1.TabIndex = 2;
-            this.MenuStrip1.Text = "MenuStrip1";
+            // 
+            // 
+            // 
+            this.MenuStrip1.RootElement.AccessibleDescription = resources.GetString("MenuStrip1.RootElement.AccessibleDescription");
+            this.MenuStrip1.RootElement.AccessibleName = resources.GetString("MenuStrip1.RootElement.AccessibleName");
+            this.MenuStrip1.RootElement.Alignment = ((System.Drawing.ContentAlignment)(resources.GetObject("MenuStrip1.RootElement.Alignment")));
+            this.MenuStrip1.RootElement.AngleTransform = ((float)(resources.GetObject("MenuStrip1.RootElement.AngleTransform")));
+            this.MenuStrip1.RootElement.FlipText = ((bool)(resources.GetObject("MenuStrip1.RootElement.FlipText")));
+            this.MenuStrip1.RootElement.KeyTip = resources.GetString("MenuStrip1.RootElement.KeyTip");
+            this.MenuStrip1.RootElement.Margin = ((System.Windows.Forms.Padding)(resources.GetObject("MenuStrip1.RootElement.Margin")));
+            this.MenuStrip1.RootElement.Padding = ((System.Windows.Forms.Padding)(resources.GetObject("MenuStrip1.RootElement.Padding")));
+            this.MenuStrip1.RootElement.Text = resources.GetString("MenuStrip1.RootElement.Text");
+            this.MenuStrip1.RootElement.TextOrientation = ((System.Windows.Forms.Orientation)(resources.GetObject("MenuStrip1.RootElement.TextOrientation")));
+            this.MenuStrip1.RootElement.ToolTipText = resources.GetString("MenuStrip1.RootElement.ToolTipText");
             // 
             // NextTimer
             // 
@@ -834,19 +861,26 @@ namespace OSUplayer
             // 
             // Main
             // 
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(882, 684);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.MenuStrip1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(890, 714);
             this.Name = "Main";
-            this.Padding = new System.Windows.Forms.Padding(4);
             // 
             // 
             // 
+            this.RootElement.AccessibleDescription = resources.GetString("Main.RootElement.AccessibleDescription");
+            this.RootElement.AccessibleName = resources.GetString("Main.RootElement.AccessibleName");
+            this.RootElement.Alignment = ((System.Drawing.ContentAlignment)(resources.GetObject("Main.RootElement.Alignment")));
+            this.RootElement.AngleTransform = ((float)(resources.GetObject("Main.RootElement.AngleTransform")));
             this.RootElement.ApplyShapeToControl = true;
-            this.Text = "OSUplayer";
+            this.RootElement.FlipText = ((bool)(resources.GetObject("Main.RootElement.FlipText")));
+            this.RootElement.KeyTip = resources.GetString("Main.RootElement.KeyTip");
+            this.RootElement.Margin = ((System.Windows.Forms.Padding)(resources.GetObject("Main.RootElement.Margin")));
+            this.RootElement.Padding = ((System.Windows.Forms.Padding)(resources.GetObject("Main.RootElement.Padding")));
+            this.RootElement.Text = resources.GetString("Main.RootElement.Text");
+            this.RootElement.TextOrientation = ((System.Windows.Forms.Orientation)(resources.GetObject("Main.RootElement.TextOrientation")));
+            this.RootElement.ToolTipText = resources.GetString("Main.RootElement.ToolTipText");
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AskForExit);
             this.Shown += new System.EventHandler(this.Main_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.radMenuComboItem1.ComboBoxElement)).EndInit();
