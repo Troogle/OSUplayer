@@ -404,6 +404,7 @@ namespace OSUplayer.Graphic
         public void Play()
         {
             willnext = false; cannext = true; videoexist = false;
+            BassAudio.init();
             uniAudio.Open(Map.Audio);
             if (Playfx) { initfx(); fxpos = 0; }
             uniAudio.UpdateTimer.Tick += new EventHandler(AVsync);

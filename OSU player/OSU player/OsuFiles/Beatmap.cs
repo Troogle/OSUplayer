@@ -525,7 +525,8 @@ namespace OSUplayer.OsuFiles
             Path = System.IO.Path.Combine(Location, Name);
             if (!File.Exists(Path))
             {
-                
+                Timingpoints = new List<Timing>();
+                HitObjects = new List<HitObject>();
                 detailed = true;
                 return;
             }

@@ -97,7 +97,7 @@ namespace OSUplayer
         /// </summary>
         public static Beatmap TmpBeatmap { get { return TmpSet.Diffs[tmpmap]; } }
         #endregion
-        public static Uilties.QQ uni_QQ = new Uilties.QQ();
+        public static QQ uni_QQ = new QQ();
         private static Player player;
         public static NotifyIcon notifyIcon1;
         public static string Version
@@ -137,7 +137,7 @@ namespace OSUplayer
             notifyIcon1.ShowBalloonTip(1000);
             Getpath();
             LoadPreference();
-            new Thread(new ThreadStart(Uilties.Selfupdate.check_update)).Start();
+            new Thread(Selfupdate.check_update).Start();
             initset();
         }
         /// <summary>
@@ -337,7 +337,7 @@ namespace OSUplayer
             {
                 TmpBeatmap.GetDetail();
             }
-            if (!File.Exists(TmpBeatmap.Path))
+            if (!File.Exists(TmpBeatmap.Audio))
             {
                 Core.notifyIcon1.ShowBalloonTip(1000, "OSUplayer", "没事删什么曲子啊><", System.Windows.Forms.ToolTipIcon.Info);
                 remove(tmpset);

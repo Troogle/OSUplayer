@@ -27,6 +27,10 @@ namespace OSUplayer.OsuFiles
         private bool _isopened;
         private BASSTimer _timer = new BASSTimer();
 
+        public static void init()
+        {
+            Bass.BASS_Init(-1, 44100, BASSInit.BASS_DEVICE_DEFAULT, IntPtr.Zero);
+        }
         public BASSTimer UpdateTimer
         {
             get { return _timer; }
