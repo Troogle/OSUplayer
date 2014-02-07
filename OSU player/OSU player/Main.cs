@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Diagnostics;
+using System.Security.Cryptography;
+using System.Text;
 using System.Windows.Forms;
 using Telerik.WinControls;
 using Telerik.WinControls.UI;
@@ -8,6 +10,8 @@ using System.ComponentModel;
 using System.Threading;
 using OSUplayer.OsuFiles;
 using OSUplayer.Uilties;
+using BinaryReader = OSUplayer.OsuFiles.BinaryReader;
+
 namespace OSUplayer
 {
     public partial class Main : RadForm
@@ -555,6 +559,46 @@ namespace OSUplayer
             {
                 RefreshList(index);
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            using (var outStream = new FileStream("tmp.osr", FileMode.Create))
+            {
+                using (var Wr = new BinaryWriter(outStream))
+                {
+                    
+                    Wr.Write((byte)0);
+                    Wr.Write((int)20140127);
+                    Wr.Write((byte)0x0b);
+                    Wr.Write(Core.CurrentBeatmap.Hash);
+                    Wr.Write((byte)0x0b);
+                    Wr.Write("osu!");
+                    var res = MD5.Create().ComputeHash(
+                        Encoding.UTF8.GetBytes(string.Format(
+                        PrivateConfig.ScoreHash, Core.CurrentBeatmap.Hash)));
+                    var sb = new StringBuilder();
+                    foreach (byte b in res)
+                    {
+                        sb.Append(b.ToString("x2"));
+                    }
+                    Wr.Write((byte)0x0b);
+                    Wr.Write(sb.ToString());
+                    Wr.Write((UInt16)1);
+                    Wr.Write((UInt64)0);
+                    Wr.Write((UInt16)0);
+                    Wr.Write((UInt32)0);
+                    Wr.Write((UInt16)1);
+                    Wr.Write((byte)1);
+                    Wr.Write((UInt32)2048);
+                    Wr.Write((byte)0x0b);
+                    Wr.Write("");
+                    Wr.Write(new DateTime(2014,1,1).Ticks);
+                    Wr.Write(0);
+                    Wr.Write((UInt32)0);
+                }
+            }
+            Process.Start("tmp.osr");
         }
     }
 }

@@ -35,7 +35,7 @@ namespace OSUplayer
                     Application.ExitThread();
                     return;
                 }
-                Un4seen.Bass.BassNet.Registration("sqh1994@163.com", "2X280331512622");
+                Un4seen.Bass.BassNet.Registration(PrivateConfig.BassEmail, PrivateConfig.BassReg);
                 ThemeResolutionService.LoadPackageResource("OSUplayer.Res.Light.tssp");
                 ThemeResolutionService.ApplicationThemeName = "Light";
                 Main mainwindow = new Main();

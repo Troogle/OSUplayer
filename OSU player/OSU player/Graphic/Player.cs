@@ -340,6 +340,7 @@ namespace OSUplayer.Graphic
                     case ObjectFlag.Slider:
                     case ObjectFlag.SliderNewCombo:
                         //TODO:每个节点的sampleset
+                        //TODO:滑条tick
                         if (tmpH.sample != olddefault) { tmpSample = tmpH.sample; }
                         double deltatime = (600.0 * tmpH.length / bpm / Map.SliderMultiplier);
                         if (tmpH.S_Volume != 0) { volumeH = tmpH.S_Volume / 100; }

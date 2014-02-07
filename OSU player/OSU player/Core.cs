@@ -393,8 +393,11 @@ namespace OSUplayer
         }
         public static void Pause()
         {
-            player.Pause();
-            QQ.Send2QQ(uin, "");
+            if (player.isplaying)
+            {
+                player.Pause();
+                QQ.Send2QQ(uin, "");
+            }
         }
         public static void Resume()
         {

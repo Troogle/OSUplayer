@@ -115,6 +115,7 @@
     <Compile Include="ImageButton.Designer.cs">
       <DependentUpon>ImageButton.cs</DependentUpon>
     </Compile>
+    <Compile Include="PrivateConfig.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Uilties\About.cs">
       <SubType>Form</SubType>

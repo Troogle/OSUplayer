@@ -576,7 +576,7 @@ namespace OSUplayer.OsuFiles
                                     haveVideo = true;
                                     string[] vdata = row.Split(new char[] { ',' });
                                     VideoOffset = Convert.ToInt32(vdata[1]);
-                                    Video = vdata[2].Substring(1, System.Convert.ToInt32(vdata[2].Length - 2));
+                                    Video = vdata[2].Substring(1, vdata[2].Length - 2);
                                 }
                                 else if (row.StartsWith("3,") || row.StartsWith("2,")) { break; }
                                 else { haveSB = true; }

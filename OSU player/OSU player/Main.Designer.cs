@@ -92,6 +92,7 @@ namespace OSUplayer
             this.MenuStrip1 = new Telerik.WinControls.UI.RadMenu();
             this.NextTimer = new System.Windows.Forms.Timer(this.components);
             this.SearchTimer = new System.Windows.Forms.Timer(this.components);
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.radMenuComboItem1.ComboBoxElement)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TextBox1)).BeginInit();
@@ -505,6 +506,7 @@ namespace OSUplayer
             this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel3.Controls.Add(this.button1);
             this.panel3.Controls.Add(this.TrackVolume);
             this.panel3.Controls.Add(this.TrackSeek);
             this.panel3.Controls.Add(this.button3);
@@ -832,6 +834,16 @@ namespace OSUplayer
             this.SearchTimer.Interval = 500;
             this.SearchTimer.Tick += new System.EventHandler(this.SearchTimer_Tick);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(493, 395);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(33, 23);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Main
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -942,6 +954,7 @@ namespace OSUplayer
         private Telerik.WinControls.UI.RadMenuItem radMenuItem2;
         private System.Windows.Forms.ContextMenuStrip RightClick;
         private System.Windows.Forms.ToolStripMenuItem Delete;
+        private System.Windows.Forms.Button button1;
 
     }
 }
