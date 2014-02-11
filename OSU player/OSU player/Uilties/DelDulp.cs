@@ -120,9 +120,9 @@ namespace OSUplayer.Uilties
             button2.Enabled = false;
             try
             {
-                if (Directory.Exists(Path.Combine(Core.osupath, "Songs")))
+                if (Directory.Exists(Path.Combine(Core.Osupath, "Songs")))
                 {
-                    this.BackgroundWorker1.RunWorkerAsync(Path.Combine(Core.osupath, "Songs"));
+                    this.BackgroundWorker1.RunWorkerAsync(Path.Combine(Core.Osupath, "Songs"));
                 }
             }
             catch (SystemException ex)
@@ -162,7 +162,7 @@ namespace OSUplayer.Uilties
             if (dul.Count == 0) { RadMessageBox.Show("没有神马要删除的！><"); this.Dispose(); }
             else
             {
-                Core.notifyIcon1.ShowBalloonTip(1000, "OSUplayer", string.Format("扫描完毕，发现重复曲目{0}个", dul.Count), System.Windows.Forms.ToolTipIcon.Info);
+                NotifySystem.Showtip(1000, "OSUplayer", string.Format("扫描完毕，发现重复曲目{0}个", dul.Count), System.Windows.Forms.ToolTipIcon.Info);
                 Label1.Text = string.Format("扫描完毕，发现重复曲目{0}个", dul.Count);
                 Adddul();
             }
@@ -198,7 +198,7 @@ namespace OSUplayer.Uilties
                     filedelete.Add(item.Text);
                 }
                 Win32.Delete(filedelete);
-                Core.notifyIcon1.ShowBalloonTip(1000, "OSUplayer", string.Format("删除完毕，共删除{0}个", listView1.CheckedItems.Count), System.Windows.Forms.ToolTipIcon.Info);
+                NotifySystem.Showtip(1000, "OSUplayer", string.Format("删除完毕，共删除{0}个", listView1.CheckedItems.Count), System.Windows.Forms.ToolTipIcon.Info);
                 this.Dispose();
             }
         }

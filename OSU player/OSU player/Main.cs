@@ -43,7 +43,7 @@ namespace OSUplayer
         {
             ListDetail.Items.Clear();
             ListDetail.Items.AddRange(Core.getdetail());
-            Core.setBG();
+            Core.SetBG();
         }
         private void Stop()
         {
@@ -151,7 +151,7 @@ namespace OSUplayer
         #region 文件
         private void 运行OSU_Click(object sender, EventArgs e)
         {
-            Process.Start(Path.Combine(Core.osupath, "osu!.exe"));
+            Process.Start(Path.Combine(Core.Osupath, "osu!.exe"));
         }
         private void 手动指定OSU目录_Click(object sender, EventArgs e)
         {
@@ -173,8 +173,8 @@ namespace OSUplayer
         private void 重新导入scores_Click(object sender, EventArgs e)
         {
             Core.Scores.Clear();
-            string scorepath = Path.Combine(Core.osupath, "scores.db");
-            if (File.Exists(scorepath)) { OsuDB.ReadScore(scorepath); Core.scoresearched = true; 重新导入scores.Text = "重新导入scores.db"; }
+            string scorepath = Path.Combine(Core.Osupath, "scores.db");
+            if (File.Exists(scorepath)) { OsuDB.ReadScore(scorepath); Core.Scoresearched = true; 重新导入scores.Text = "重新导入scores.db"; }
         }
         private void 打开曲目文件夹_Click(object sender, EventArgs e)
         {
@@ -320,7 +320,7 @@ namespace OSUplayer
             if (Core.SetMap(DiffList.SelectedIndex)) { RefreshList(); PlayNext(false); }
             else
             {
-                if (Core.scoresearched) { setscore(); }
+                if (Core.Scoresearched) { setscore(); }
                 if (!StopButton.Enabled)
                 {
                     Core.currentset = Core.PlayList[Core.tmpset];
@@ -433,7 +433,7 @@ namespace OSUplayer
             PlayList.Items[currentset].Selected = true;
             PlayList.EnsureVisible(currentset);
             PlayList.Focus();
-            Core.setBG();
+            Core.SetBG();
             if (Core.Isplaying)
             {
                 TrackSeek.Maximum = (int)Core.Durnation * 1000;
@@ -458,10 +458,10 @@ namespace OSUplayer
         {
             if (radPageView1.SelectedPage == radPageViewPage2)
             {
-                if (!Core.scoresearched)
+                if (!Core.Scoresearched)
                 {
-                    string scorepath = Path.Combine(Core.osupath, "scores.db");
-                    if (File.Exists(scorepath)) { OsuDB.ReadScore(scorepath); Core.scoresearched = true; 重新导入scores.Text = "重新导入scores.db"; }
+                    string scorepath = Path.Combine(Core.Osupath, "scores.db");
+                    if (File.Exists(scorepath)) { OsuDB.ReadScore(scorepath); Core.Scoresearched = true; 重新导入scores.Text = "重新导入scores.db"; }
                 }
                 setscore();
             }
@@ -496,7 +496,7 @@ namespace OSUplayer
         private void radButton1_Click(object sender, EventArgs e)
         {
             Core.Stop();
-            File.SetLastWriteTime(Path.Combine(Core.osupath, "Songs"), DateTime.Now);
+            File.SetLastWriteTime(Path.Combine(Core.Osupath, "Songs"), DateTime.Now);
             File.SetLastWriteTime(Core.CurrentBeatmap.Path, DateTime.Now);
         }
         HotkeyHelper hotkeyHelper;
@@ -554,7 +554,7 @@ namespace OSUplayer
         private void Delete_Click(object sender, EventArgs e)
         {
             int index = PlayList.SelectedIndices[0];
-            Core.remove(index);
+            Core.Remove(index);
             if (PlayList.Items.Count != 0)
             {
                 RefreshList(index);

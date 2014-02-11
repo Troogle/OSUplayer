@@ -21,7 +21,7 @@ namespace OSUplayer
         /// <summary>
         /// OSU的路径
         /// </summary>
-        public static string osupath;
+        public static string Osupath;
         /// <summary>
         /// 程序中的所有set
         /// </summary>
@@ -41,7 +41,7 @@ namespace OSUplayer
         /// <summary>
         /// 是否已经载入过本地成绩
         /// </summary>
-        public static bool scoresearched = false;
+        public static bool Scoresearched = false;
         public static float Allvolume = 1.0f;
         public static float Musicvolume = 0.8f;
         public static float Fxvolume = 0.6f;
@@ -97,9 +97,8 @@ namespace OSUplayer
         /// </summary>
         public static Beatmap TmpBeatmap { get { return TmpSet.Diffs[tmpmap]; } }
         #endregion
-        public static QQ uni_QQ = new QQ();
         private static Player player;
-        public static NotifyIcon notifyIcon1;
+
         public static string Version
         {
             get
@@ -114,8 +113,7 @@ namespace OSUplayer
         {
             QQ.Send2QQ(uin, "");
             player.Dispose();
-            notifyIcon1.Dispose();
-            if (needsave) { SaveList(); }
+            if (needsave) { DBSupporter.SaveList(); }
         }
         #region 方法区
         #region 初始化有关
@@ -127,18 +125,11 @@ namespace OSUplayer
         public static void init(IntPtr Shandle, Size Ssize)
         {
             player = new Player(Shandle, Ssize);
-            notifyIcon1 = new NotifyIcon();
-            notifyIcon1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
-            notifyIcon1.BalloonTipTitle = "OSUplayer";
-            notifyIcon1.BalloonTipText = "正在初始化...";
-            notifyIcon1.Icon = ((System.Drawing.Icon)(Resources.icon));
-            notifyIcon1.Text = "OSUplayer";
-            notifyIcon1.Visible = true;
-            notifyIcon1.ShowBalloonTip(1000);
+            NotifySystem.Showtip(1000, "OSUplayer", "正在初始化...", System.Windows.Forms.ToolTipIcon.Info);
             Getpath();
             LoadPreference();
             new Thread(Selfupdate.check_update).Start();
-            initset();
+            Initset();
         }
         /// <summary>
         /// 获取OSU路径
@@ -151,7 +142,7 @@ namespace OSUplayer
                 var rk = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey("osu!\\shell\\open\\command");
                 str = rk.GetValue("").ToString();
                 str = str.Substring(1, str.LastIndexOf(@"\"));
-                osupath = str;
+                Osupath = str;
             }
             catch (Exception)
             {
@@ -175,7 +166,7 @@ namespace OSUplayer
                 {
                     if (File.Exists(dialog.SelectedPath + "\\osu!.exe"))
                     {
-                        osupath = dialog.SelectedPath;
+                        Osupath = dialog.SelectedPath;
                         return true;
                     }
                     else
@@ -190,38 +181,7 @@ namespace OSUplayer
             }
             return false;
         }
-        /// <summary>
-        /// 从文件读取Set(allset)
-        /// </summary>
-        /// <returns>是否正常读取</returns>
-        public static bool LoadList()
-        {
-            try
-            {
-                using (FileStream fs = new FileStream("list.db", FileMode.Open))
-                {
-                    BinaryFormatter formatter = new BinaryFormatter();
-                    allsets = (List<BeatmapSet>)formatter.Deserialize(fs);
-                }
-                return true;
-            }
-            catch
-            {
-                File.Delete("list.db");
-                return false;
-            }
-        }
-        /// <summary>
-        /// 保存全局Set(allset)到文件
-        /// </summary>
-        public static void SaveList()
-        {
-            using (FileStream fs = new FileStream("list.db", FileMode.Create))
-            {
-                BinaryFormatter formatter = new BinaryFormatter();
-                formatter.Serialize(fs, allsets);
-            }
-        }
+
         /// <summary>
         /// 设置QQ
         /// </summary>
@@ -286,20 +246,20 @@ namespace OSUplayer
         /// <summary>
         /// 初始化Set的总方法，从文件读取或从osu!.db读取
         /// </summary>
-        public static void initset()
+        public static void Initset()
         {
-            if (File.Exists("list.db") && LoadList())
+            if (File.Exists("list.db") && DBSupporter.LoadList())
             {
                 initplaylist();
             }
             else
             {
-                if (File.Exists(Path.Combine(Core.osupath, "osu!.db")))
+                if (File.Exists(Path.Combine(Core.Osupath, "osu!.db")))
                 {
-                    OsuDB.ReadDb(Path.Combine(Core.osupath, "osu!.db"));
+                    OsuDB.ReadDb(Path.Combine(Core.Osupath, "osu!.db"));
                 }
                 initplaylist();
-                notifyIcon1.ShowBalloonTip(1000, "OSUplayer", string.Format("初始化完毕，发现曲目{0}个", allsets.Count), ToolTipIcon.Info);
+                NotifySystem.Showtip(1000, "OSUplayer", string.Format("初始化完毕，发现曲目{0}个", allsets.Count), ToolTipIcon.Info);
                 needsave = true;
             }
             currentset = 0;
@@ -308,7 +268,7 @@ namespace OSUplayer
             tmpmap = 0;
         }
         #endregion
-        public static void remove(int index)
+        public static void Remove(int index)
         {
             // Core.allsets.RemoveAt(PlayList[index]);
             PlayList.RemoveAt(index);
@@ -319,8 +279,8 @@ namespace OSUplayer
             tmpset = vaule;
             if (!TmpSet.check())
             {
-                Core.notifyIcon1.ShowBalloonTip(1000, "OSUplayer", "没事删什么曲子啊><", System.Windows.Forms.ToolTipIcon.Info);
-                remove(tmpset);
+                NotifySystem.Showtip(1000, "OSUplayer", "没事删什么曲子啊><", System.Windows.Forms.ToolTipIcon.Info);
+                Remove(tmpset);
                 return true;
             }
             if (!TmpSet.detailed)
@@ -339,8 +299,8 @@ namespace OSUplayer
             }
             if (!File.Exists(TmpBeatmap.Audio))
             {
-                Core.notifyIcon1.ShowBalloonTip(1000, "OSUplayer", "没事删什么曲子啊><", System.Windows.Forms.ToolTipIcon.Info);
-                remove(tmpset);
+                NotifySystem.Showtip(1000, "OSUplayer", "没事删什么曲子啊><", System.Windows.Forms.ToolTipIcon.Info);
+                Remove(tmpset);
                 return true;
             }
             if (p) { currentmap = tmpmap; }
@@ -372,7 +332,7 @@ namespace OSUplayer
             File.Delete("list.db");
             Stop();
             allsets.Clear();
-            initset();
+            Initset();
         }
         public static void Stop()
         {
@@ -384,11 +344,11 @@ namespace OSUplayer
             if (!CurrentBeatmap.detailed) { CurrentBeatmap.GetDetail(); }
             if (!File.Exists(CurrentBeatmap.Audio))
             {
-                Core.notifyIcon1.ShowBalloonTip(1000, "OSUplayer", "音频文件你都删！><", System.Windows.Forms.ToolTipIcon.Info);
+                NotifySystem.Showtip(1000, "OSUplayer", "音频文件你都删！><", System.Windows.Forms.ToolTipIcon.Info);
                 return;
             }
             player.Play();
-            Core.notifyIcon1.ShowBalloonTip(1000, "OSUplayer", "正在播放\n" + CurrentBeatmap.NameToString(), System.Windows.Forms.ToolTipIcon.Info);
+            NotifySystem.Showtip(1000, "OSUplayer", "正在播放\n" + CurrentBeatmap.NameToString(), System.Windows.Forms.ToolTipIcon.Info);
             QQ.Send2QQ(uin, CurrentBeatmap.NameToString());
         }
         public static void Pause()
@@ -512,32 +472,33 @@ namespace OSUplayer
         {
             player.resize(size);
         }
-        public static ListViewDataItem[] getscore(Font font)
+        public static IEnumerable<ListViewDataItem> getscore(Font font)
         {
-            ListViewDataItem[] ret = new ListViewDataItem[255];
+            var ret = new ListViewDataItem[255];
             int cur = 0;
             for (int i = 0; i < TmpSet.count; i++)
             {
                 if (Core.Scores.ContainsKey(TmpSet.Diffs[i].GetHash()))
                 {
-                    foreach (ScoreRecord tmp in Core.Scores[TmpSet.Diffs[i].GetHash()])
+                    foreach (var tmp in Core.Scores[TmpSet.Diffs[i].GetHash()])
                     {
-                        ListViewDataItem tmpl = new ListViewDataItem();
-                        tmpl.Image = Core.getrank(tmp);
-                        tmpl.Text = String.Format(
-                            "<html>Player:{0},Date:{1},Score: {2}<br>Diff:{3},Mods:{4},Mode:{5}<br>300:{6},100:{7},50:{8},Miss:{9},Maxcombo:{10}</html>",
-                            tmp.Player, tmp.Time.ToString(), tmp.Score, TmpSet.Diffs[i].Version,
-                            tmp.Mod, tmp.Mode.ToString(),
-                            tmp.Hit300, tmp.Hit100, tmp.Hit50, tmp.Miss, tmp.MaxCombo);
-                        tmpl.Font = font;
-                        ret[cur] = tmpl;
+                        ret[cur] = new ListViewDataItem
+                        {
+                            Image = Core.Getrank(tmp),
+                            Text = String.Format(
+                                "<html>Player:{0},Date:{1},Score: {2}<br>Diff:{3},Mods:{4},Mode:{5}<br>300:{6},100:{7},50:{8},Miss:{9},Maxcombo:{10}</html>",
+                                tmp.Player, tmp.Time.ToString(), tmp.Score, TmpSet.Diffs[i].Version,
+                                tmp.Mod, tmp.Mode.ToString(),
+                                tmp.Hit300, tmp.Hit100, tmp.Hit50, tmp.Miss, tmp.MaxCombo),
+                            Font = font
+                        }; ;
                         cur++;
                     }
                 }
             }
             return ret;
         }
-        public static void AddRangeSet(List<int> sets)
+        public static void AddRangeSet(IEnumerable<int> sets)
         {
             foreach (var set in sets)
             {
@@ -548,13 +509,13 @@ namespace OSUplayer
         {
             if (!PlayList.Contains(setno)) { PlayList.Add(setno); }
         }
-        public static void setBG()
+        public static void SetBG()
         {
             player.initBG();
         }
         #endregion
         #region 通用转换区
-        public static Image getrank(ScoreRecord S)
+        public static Image Getrank(ScoreRecord S)
         {
             switch (S.Mode)
             {

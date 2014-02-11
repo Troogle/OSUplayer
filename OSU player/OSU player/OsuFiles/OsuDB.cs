@@ -169,7 +169,7 @@ namespace OSUplayer.OsuFiles
                     reader.ReadBoolean(); //unplayed
                     reader.ReadInt64(); //last_play
                     reader.ReadBoolean(); //osz2
-                    tmpbm.Location = Path.Combine(Core.osupath, reader.ReadString());
+                    tmpbm.Location = Path.Combine(Core.Osupath, reader.ReadString());
                     reader.ReadInt64(); //最后同步
                     reader.ReadBoolean(); //忽略音效
                     reader.ReadBoolean(); //忽略皮肤

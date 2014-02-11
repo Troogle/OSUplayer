@@ -127,6 +127,8 @@
     <Compile Include="ImageButton.Designer.cs">
       <DependentUpon>ImageButton.cs</DependentUpon>
     </Compile>
+    <Compile Include="Uilties\NotifySystem.cs" />
+    <Compile Include="Uilties\PlayerDbSupporter.cs" />
     <Compile Include="PrivateConfig.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Uilties\About.cs">

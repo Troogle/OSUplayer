@@ -142,5 +142,29 @@ namespace OSUplayer.Properties {
                 this["Upgraded"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowPopup {
+            get {
+                return ((bool)(this["ShowPopup"]));
+            }
+            set {
+                this["ShowPopup"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string OSUpath {
+            get {
+                return ((string)(this["OSUpath"]));
+            }
+            set {
+                this["OSUpath"] = value;
+            }
+        }
     }
 }

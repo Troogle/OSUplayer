@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using System.Net;
 using System.IO;
 using System.Diagnostics;
+using OSUplayer.Uilties;
 using Telerik.WinControls;
 namespace OSUplayer
 {
@@ -53,19 +54,18 @@ namespace OSUplayer
             catch (Exception ex)
             {
                 GetExceptionMsg(ex, "QxQ");
-                NotifyIcon notifyIcon1 = new NotifyIcon();
-                notifyIcon1.ShowBalloonTip(1000, "发生了一些令人悲伤的事情><", "错误已上报，程序将试图继续运行", System.Windows.Forms.ToolTipIcon.Error);
+                NotifySystem.Showtip(1000, "发生了一些令人悲伤的事情><", "错误已上报，程序将试图继续运行", System.Windows.Forms.ToolTipIcon.Error);
             }
         }
         static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
             GetExceptionMsg(e.Exception, e.ToString());
-            Core.notifyIcon1.ShowBalloonTip(1000, "发生了一些令人悲伤的事情><", "错误已上报，程序将试图继续运行", System.Windows.Forms.ToolTipIcon.Error);
+            NotifySystem.Showtip(1000, "发生了一些令人悲伤的事情><", "错误已上报，程序将试图继续运行", System.Windows.Forms.ToolTipIcon.Error);
         }
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             GetExceptionMsg(e.ExceptionObject as Exception, e.ToString());
-            Core.notifyIcon1.ShowBalloonTip(1000, "发生了一些令人悲伤的事情><", "错误已上报，程序将试图继续运行", System.Windows.Forms.ToolTipIcon.Error);
+            NotifySystem.Showtip(1000, "发生了一些令人悲伤的事情><", "错误已上报，程序将试图继续运行", System.Windows.Forms.ToolTipIcon.Error);
         }
         /// <summary>
         /// 生成自定义异常消息

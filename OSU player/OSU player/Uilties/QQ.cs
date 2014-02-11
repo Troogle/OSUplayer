@@ -78,7 +78,7 @@ namespace OSUplayer.Uilties
             }
             catch
             {
-                Core.notifyIcon1.ShowBalloonTip(1000, "OSUplayer", "QQ推送失败！", ToolTipIcon.Info);
+                NotifySystem.Showtip(1000, "OSUplayer", "QQ推送失败！", ToolTipIcon.Info);
             }
         }
     }

@@ -14,7 +14,7 @@ namespace OSUplayer.Uilties
         private List<int> tmpindex = new List<int>();
         private void button1_Click(object sender, EventArgs e)
         {
-            string collectpath = Path.Combine(Core.osupath, "collection.db");
+            string collectpath = Path.Combine(Core.Osupath, "collection.db");
             if (File.Exists(collectpath)) { OsuDB.ReadCollect(collectpath); }
             listBox1.Items.Clear();
             foreach (string key in Core.Collections.Keys)
@@ -22,7 +22,7 @@ namespace OSUplayer.Uilties
                 listBox1.Items.Add(key);
             }
             if (listBox1.Items.Count != 0) { listBox1.SelectedIndex = 0; }
-            Core.notifyIcon1.ShowBalloonTip(1000, "OSUplayer", "刷新完毕！", System.Windows.Forms.ToolTipIcon.Info);
+            NotifySystem.Showtip(1000, "OSUplayer", "刷新完毕！", System.Windows.Forms.ToolTipIcon.Info);
         }
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -40,14 +40,14 @@ namespace OSUplayer.Uilties
         {
             if (listBox2.SelectedItems.Count == 0) { return; }
             Core.AddSet(tmpindex[listBox2.SelectedIndex]);
-            Core.notifyIcon1.ShowBalloonTip(1000, "OSUplayer", String.Format("成功导入{0}", listBox2.SelectedItem.ToString()), System.Windows.Forms.ToolTipIcon.Info);
+            NotifySystem.Showtip(1000, "OSUplayer", String.Format("成功导入{0}", listBox2.SelectedItem.ToString()), System.Windows.Forms.ToolTipIcon.Info);
             label2.Text = "当前播放列表曲目数:" + Core.PlayList.Count;
         }
         private void listBox1_MouseDoubleClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             if (listBox1.SelectedItems.Count == 0) { return; }
             Core.AddRangeSet(tmpindex);
-            Core.notifyIcon1.ShowBalloonTip(1000, "OSUplayer", String.Format("成功导入{0}首曲目", tmpindex.Count.ToString()), System.Windows.Forms.ToolTipIcon.Info);
+            NotifySystem.Showtip(1000, "OSUplayer", String.Format("成功导入{0}首曲目", tmpindex.Count.ToString()), System.Windows.Forms.ToolTipIcon.Info);
             label2.Text = "当前播放列表曲目数:" + Core.PlayList.Count;
         }
         private void button2_Click(object sender, EventArgs e)

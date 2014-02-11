@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using OSUplayer.OsuFiles;
 using System.Threading;
+using OSUplayer.Uilties;
 using Color = Microsoft.Xna.Framework.Graphics.Color;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 namespace OSUplayer.Graphic
@@ -151,7 +152,7 @@ namespace OSUplayer.Graphic
         {
             if (Map.Background != "" && !File.Exists(Map.Background))
             {
-                Core.notifyIcon1.ShowBalloonTip(1000, "OSUplayer", "没事删什么BG TAT", System.Windows.Forms.ToolTipIcon.Info);
+                NotifySystem.Showtip(1000, "OSUplayer", "没事删什么BG TAT", System.Windows.Forms.ToolTipIcon.Info);
                 Map.Background = "";
             }
             if (Map.Background == "")
