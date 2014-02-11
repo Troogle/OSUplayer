@@ -29,7 +29,8 @@ namespace OSUplayer.Uilties
                         Process.Start(UpDateXml.SelectNodes("/Xml/Link")[0].InnerText);
                     }
                 }
-                /*try
+#if (!DEBUG)
+                try
                 {
                     WebRequest request = WebRequest.Create("http://wenwo.at/counter.php?counter=" + Core.Version);
                     request.Credentials = CredentialCache.DefaultCredentials;
@@ -38,7 +39,8 @@ namespace OSUplayer.Uilties
                 }
                 catch
                 {
-                }*/
+                }
+#endif
             }
             catch (Exception)
             {

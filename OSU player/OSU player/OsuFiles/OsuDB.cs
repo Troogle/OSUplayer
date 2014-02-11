@@ -24,7 +24,8 @@ namespace OSUplayer.OsuFiles
 
     public class BinaryReader : System.IO.BinaryReader
     {
-        public BinaryReader(Stream stream) : base(stream)
+        public BinaryReader(Stream stream)
+            : base(stream)
         {
         }
 
@@ -64,7 +65,7 @@ namespace OSUplayer.OsuFiles
                     for (int j = 0; j < scorecount; j++)
                     {
                         var Tscore = new ScoreRecord();
-                        Tscore.Mode = (Modes) reader.ReadByte();
+                        Tscore.Mode = (Modes)reader.ReadByte();
                         reader.ReadInt32(); //version
                         reader.ReadString(); //set md5
                         Tscore.Player = reader.ReadString();
@@ -97,7 +98,7 @@ namespace OSUplayer.OsuFiles
             using (var fs = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {
                 var reader = new BinaryReader(fs);
-                reader.ReadInt32(); //version
+                reader.ReadInt32();  //version
                 reader.ReadInt32(); //folders
                 reader.ReadInt32();
                 reader.ReadInt32();
@@ -230,17 +231,17 @@ namespace OSUplayer.OsuFiles
             switch (s.Mode)
             {
                 case Modes.Osu:
-                    return (s.Hit300*6 + s.Hit100*2 + s.Hit50)
-                           /(double) ((s.Hit300 + s.Hit100 + s.Hit50 + s.Miss)*6);
+                    return (s.Hit300 * 6 + s.Hit100 * 2 + s.Hit50)
+                           / (double)((s.Hit300 + s.Hit100 + s.Hit50 + s.Miss) * 6);
                 case Modes.Taiko:
-                    return (s.Hit300*2 + s.Hit100)
-                           /(double) ((s.Hit300 + s.Hit100 + s.Miss)*2);
+                    return (s.Hit300 * 2 + s.Hit100)
+                           / (double)((s.Hit300 + s.Hit100 + s.Miss) * 2);
                 case Modes.CTB:
                     return (s.Hit300 + s.Hit100 + s.Hit50)
-                           /(double) (s.Hit300 + s.Hit100 + s.Hit50 + s.Hit200 + s.Miss);
+                           / (double)(s.Hit300 + s.Hit100 + s.Hit50 + s.Hit200 + s.Miss);
                 case Modes.Mania:
-                    return (s.Hit300*6 + s.Hit320*6 + s.Hit200*4 + s.Hit100*2 + s.Hit50)
-                           /(double) ((s.Hit300 + s.Hit320 + s.Hit200 + s.Hit100 + s.Hit50 + s.Miss)*6);
+                    return (s.Hit300 * 6 + s.Hit320 * 6 + s.Hit200 * 4 + s.Hit100 * 2 + s.Hit50)
+                           / (double)((s.Hit300 + s.Hit320 + s.Hit200 + s.Hit100 + s.Hit50 + s.Miss) * 6);
                 default:
                     return 0;
             }
@@ -254,11 +255,11 @@ namespace OSUplayer.OsuFiles
             }
             else
             {
-                for (int i = 0; i < (int) Mods.Random; i++)
+                for (int i = 0; i < (int)Mods.Random; i++)
                 {
                     if ((mod & 1) == 1)
                     {
-                        cmod += " " + Enum.GetName(typeof (Mods), i);
+                        cmod += " " + Enum.GetName(typeof(Mods), i);
                     }
                     mod = mod >> 1;
                 }
