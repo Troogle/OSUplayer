@@ -9,7 +9,15 @@ namespace OSUplayer.Uilties
             Icon=Resources.icon,
             Text="OSUplayer",
             Visible=true,
+            
         };
+        private static System.EventHandler _clickEvent;
+        public static void RegisterClick(System.EventHandler clicktodo)
+        {
+            TaskbarIcon.Click -= _clickEvent;
+            _clickEvent = clicktodo;
+            TaskbarIcon.Click += _clickEvent;
+        }
         public static void Showtip(int time,string title,string content,ToolTipIcon icon,bool force=false)
         {
             if (Settings.Default.ShowPopup||force)

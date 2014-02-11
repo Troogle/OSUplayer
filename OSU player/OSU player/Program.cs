@@ -60,12 +60,12 @@ namespace OSUplayer
         }
         static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
-            GetExceptionMsg(e.Exception, e.ToString());
+            GetExceptionMsg(e.Exception);
             NotifySystem.Showtip(1000, "发生了一些令人悲伤的事情><", "错误已上报，程序将试图继续运行", System.Windows.Forms.ToolTipIcon.Error);
         }
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            GetExceptionMsg(e.ExceptionObject as Exception, e.ToString());
+            GetExceptionMsg(e.ExceptionObject as Exception);
             NotifySystem.Showtip(1000, "发生了一些令人悲伤的事情><", "错误已上报，程序将试图继续运行", System.Windows.Forms.ToolTipIcon.Error);
         }
 

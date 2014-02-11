@@ -64,6 +64,7 @@ namespace OSUplayer
             this.RightClick = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.Delete = new System.Windows.Forms.ToolStripMenuItem();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.TrackVolume = new Telerik.WinControls.UI.RadTrackBar();
             this.TrackSeek = new Telerik.WinControls.UI.RadTrackBar();
             this.button3 = new Telerik.WinControls.UI.RadButton();
@@ -92,7 +93,6 @@ namespace OSUplayer
             this.MenuStrip1 = new Telerik.WinControls.UI.RadMenu();
             this.NextTimer = new System.Windows.Forms.Timer(this.components);
             this.SearchTimer = new System.Windows.Forms.Timer(this.components);
-            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.radMenuComboItem1.ComboBoxElement)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TextBox1)).BeginInit();
@@ -526,6 +526,16 @@ namespace OSUplayer
             this.panel3.Size = new System.Drawing.Size(532, 429);
             this.panel3.TabIndex = 22;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(493, 395);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(33, 23);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // TrackVolume
             // 
             this.TrackVolume.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -834,16 +844,6 @@ namespace OSUplayer
             this.SearchTimer.Interval = 500;
             this.SearchTimer.Tick += new System.EventHandler(this.SearchTimer_Tick);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(493, 395);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(33, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // Main
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -861,6 +861,7 @@ namespace OSUplayer
             this.Text = "OSUplayer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AskForExit);
             this.Shown += new System.EventHandler(this.Main_Shown);
+            this.SizeChanged += new System.EventHandler(this.Main_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.radMenuComboItem1.ComboBoxElement)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

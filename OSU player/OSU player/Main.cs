@@ -10,7 +10,6 @@ using System.ComponentModel;
 using System.Threading;
 using OSUplayer.OsuFiles;
 using OSUplayer.Uilties;
-using BinaryReader = OSUplayer.OsuFiles.BinaryReader;
 
 namespace OSUplayer
 {
@@ -20,6 +19,7 @@ namespace OSUplayer
         {
             InitializeComponent();
             Initlang();
+            NotifySystem.RegisterClick(TaskbarIconClickHandler);
         }
 
         #region 各种方法
@@ -39,8 +39,22 @@ namespace OSUplayer
         }
         private void UpdateFormLanguage()
         {
-            
+
         }
+
+        private void TaskbarIconClickHandler(object sender, EventArgs e)
+        {
+            if (this.Visible)
+            {
+                this.Visible = false;
+            }
+            else
+            {
+                this.Visible = true;
+                this.WindowState = FormWindowState.Normal;
+            }
+        }
+
         private void AskForExit(object sender, System.Windows.Forms.FormClosingEventArgs e)
         {
             Core.Pause();
@@ -112,7 +126,7 @@ namespace OSUplayer
                 if (play) { Play(); }
             }
         }
-        private void setscore()
+        private void Setscore()
         {
             ScoreBox.Items.Clear();
             foreach (var item in Core.getscore(ScoreBox.Font))
@@ -208,7 +222,7 @@ namespace OSUplayer
         }
         private void 导出BG_Click(object sender, EventArgs e)
         {
-            if (Core.CurrentBeatmap.Background != null && Core.CurrentBeatmap.Background != "")
+            if (!string.IsNullOrEmpty(Core.CurrentBeatmap.Background))
             {
                 SaveFileDialog dialog = new SaveFileDialog();
                 dialog.CheckFileExists = false;
@@ -227,7 +241,7 @@ namespace OSUplayer
         }
         private void 导出音频文件_Click(object sender, EventArgs e)
         {
-            SaveFileDialog dialog = new SaveFileDialog();
+            var dialog = new SaveFileDialog();
             dialog.CheckFileExists = false;
             dialog.CreatePrompt = false;
             dialog.AddExtension = true;
@@ -296,7 +310,7 @@ namespace OSUplayer
         private void Button2_Click(object sender, EventArgs e)
         {
             this.Visible = false;
-            using (ChooseColl dialog = new ChooseColl())
+            using (var dialog = new ChooseColl())
             {
                 dialog.ShowDialog();
             }
@@ -324,7 +338,7 @@ namespace OSUplayer
             if (Core.SetSet(PlayList.SelectedIndices[0])) { RefreshList(); PlayNext(false); }
             else
             {
-                foreach (Beatmap s in Core.TmpSet.Diffs)
+                foreach (var s in Core.TmpSet.Diffs)
                 {
                     DiffList.Items.Add(s.Version);
                 }
@@ -338,7 +352,7 @@ namespace OSUplayer
             if (Core.SetMap(DiffList.SelectedIndex)) { RefreshList(); PlayNext(false); }
             else
             {
-                if (Core.Scoresearched) { setscore(); }
+                if (Core.Scoresearched) { Setscore(); }
                 if (!StopButton.Enabled)
                 {
                     Core.currentset = Core.PlayList[Core.tmpset];
@@ -435,13 +449,15 @@ namespace OSUplayer
             this.Visible = false;
             this.UpdateTimer.Enabled = false;
             hotkeyHelper.UnregisterHotkeys();
-            using (Mini dialog = new Mini())
+            NotifySystem.RegisterClick(null);
+            using (var dialog = new Mini())
             {
                 dialog.ShowDialog();
             }
+            NotifySystem.RegisterClick(TaskbarIconClickHandler);
             playKey = hotkeyHelper.RegisterHotkey(Keys.F5, KeyModifiers.Alt);
             nextKey = hotkeyHelper.RegisterHotkey(Keys.Right, KeyModifiers.Alt);
-            hotkeyHelper.OnHotkey += new HotkeyEventHandler(OnHotkey);
+            hotkeyHelper.OnHotkey += OnHotkey;
             if (PlayList.SelectedItems.Count != 0)
             {
                 PlayList.SelectedItems[0].Selected = false;
@@ -481,7 +497,7 @@ namespace OSUplayer
                     string scorepath = Path.Combine(Core.Osupath, "scores.db");
                     if (File.Exists(scorepath)) { OsuDB.ReadScore(scorepath); Core.Scoresearched = true; 重新导入scores.Text = "重新导入scores.db"; }
                 }
-                setscore();
+                Setscore();
             }
         }
         private void radMenuItem1_Click(object sender, EventArgs e)
@@ -510,13 +526,6 @@ namespace OSUplayer
             Core.search(TextBox1.Text);
             RefreshList();
         }
-
-        private void radButton1_Click(object sender, EventArgs e)
-        {
-            Core.Stop();
-            File.SetLastWriteTime(Path.Combine(Core.Osupath, "Songs"), DateTime.Now);
-            File.SetLastWriteTime(Core.CurrentBeatmap.Path, DateTime.Now);
-        }
         HotkeyHelper hotkeyHelper;
         int playKey;
         int nextKey;
@@ -537,7 +546,7 @@ namespace OSUplayer
             playKey2 = hotkeyHelper.RegisterHotkey(Keys.Pause, KeyModifiers.None);
             nextKey = hotkeyHelper.RegisterHotkey(Keys.Right, KeyModifiers.Alt);
             nextKey1 = hotkeyHelper.RegisterHotkey(Keys.MediaNextTrack, KeyModifiers.None);
-            hotkeyHelper.OnHotkey += new HotkeyEventHandler(OnHotkey);
+            hotkeyHelper.OnHotkey += OnHotkey;
             this.panel2.ResumeLayout();
         }
         private void OnHotkey(int hotkeyID)
@@ -556,6 +565,10 @@ namespace OSUplayer
             if (Core.MainIsVisible)
             {
                 Core.Resize(panel2.Size);
+            }
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+                this.Visible = false;
             }
         }
 
@@ -581,11 +594,12 @@ namespace OSUplayer
 
         private void button1_Click(object sender, EventArgs e)
         {
+            Core.Stop();
             using (var outStream = new FileStream("tmp.osr", FileMode.Create))
             {
                 using (var Wr = new BinaryWriter(outStream))
                 {
-                    
+
                     Wr.Write((byte)0);
                     Wr.Write((int)20140127);
                     Wr.Write((byte)0x0b);
@@ -611,7 +625,7 @@ namespace OSUplayer
                     Wr.Write((UInt32)2048);
                     Wr.Write((byte)0x0b);
                     Wr.Write("");
-                    Wr.Write(new DateTime(2014,1,1).Ticks);
+                    Wr.Write(new DateTime(2014, 1, 1).Ticks);
                     Wr.Write(0);
                     Wr.Write((UInt32)0);
                 }
