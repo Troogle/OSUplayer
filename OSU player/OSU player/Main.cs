@@ -19,10 +19,28 @@ namespace OSUplayer
         public Main()
         {
             InitializeComponent();
-
+            Initlang();
         }
 
         #region 各种方法
+        private void Initlang()
+        {
+
+            foreach (var lang in LanguageManager.LanguageList)
+            {
+                var item = new ToolStripMenuItem(lang);
+                item.Click += delegate
+                {
+                    LanguageManager.Current = item.Text;
+                    UpdateFormLanguage();
+                };
+                //Menubar_Language.DropDownItems.Add(item);
+            }
+        }
+        private void UpdateFormLanguage()
+        {
+            
+        }
         private void AskForExit(object sender, System.Windows.Forms.FormClosingEventArgs e)
         {
             Core.Pause();

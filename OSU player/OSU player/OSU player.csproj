@@ -114,6 +114,7 @@
     <Compile Include="DBListView.Designer.cs">
       <DependentUpon>DBListView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Language.cs" />
     <Compile Include="Mini.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -277,6 +278,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Res\BlackBase.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Lang\en.txt" />
+    <EmbeddedResource Include="Lang\zh-CN.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
