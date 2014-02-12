@@ -429,40 +429,52 @@ namespace OSUplayer
         { get { return player.willnext; } }
         public static ListViewItem[] getdetail()
         {
-            ListViewItem[] Detail = new ListViewItem[16];
-            Detail[0] = new ListViewItem("歌曲名称");
-            Detail[0].SubItems.Add(TmpBeatmap.Title);
-            Detail[1] = new ListViewItem("歌手");
-            Detail[1].SubItems.Add(TmpBeatmap.Artist);
-            Detail[2] = new ListViewItem("作者");
-            Detail[2].SubItems.Add(TmpBeatmap.Creator);
-            Detail[3] = new ListViewItem("来源");
-            Detail[3].SubItems.Add(TmpBeatmap.Source);
-            Detail[4] = new ListViewItem("模式");
-            Detail[4].SubItems.Add(Enum.GetName(typeof(Modes), TmpBeatmap.Mode));
-            Detail[5] = new ListViewItem("SetID");
-            Detail[5].SubItems.Add(TmpBeatmap.beatmapsetId.ToString());
-            Detail[6] = new ListViewItem("ID");
-            Detail[6].SubItems.Add(TmpBeatmap.beatmapId.ToString());
-            Detail[7] = new ListViewItem("音频文件名称");
-            Detail[7].SubItems.Add(TmpBeatmap.Audio);
-            Detail[8] = new ListViewItem("背景文件名称");
-            Detail[8].SubItems.Add(TmpBeatmap.Background);
-            Detail[9] = new ListViewItem("视频文件名称");
-            Detail[9].SubItems.Add(TmpBeatmap.Video);
-            Detail[10] = new ListViewItem("OSU文件版本");
-            Detail[10].SubItems.Add(TmpBeatmap.FileVersion);
-            Detail[11] = new ListViewItem("HP");
-            Detail[11].SubItems.Add(TmpBeatmap.HPDrainRate.ToString());
-            Detail[12] = new ListViewItem("CS");
-            Detail[12].SubItems.Add(TmpBeatmap.CircleSize.ToString());
-            Detail[13] = new ListViewItem("OD");
-            Detail[13].SubItems.Add(TmpBeatmap.OverallDifficulty.ToString());
-            Detail[14] = new ListViewItem("AR");
-            Detail[14].SubItems.Add(TmpBeatmap.ApproachRate.ToString());
-            Detail[15] = new ListViewItem("md5");
-            Detail[15].SubItems.Add(TmpBeatmap.GetHash());
-            return Detail;
+            var detail = new ListViewItem[16];
+            detail[0] = new ListViewItem("歌曲名称");
+            detail[0].SubItems.Add(TmpBeatmap.Title);
+            detail[1] = new ListViewItem("歌手");
+            detail[1].SubItems.Add(TmpBeatmap.Artist);
+            detail[2] = new ListViewItem("作者");
+            detail[2].SubItems.Add(TmpBeatmap.Creator);
+            detail[3] = new ListViewItem("来源");
+            detail[3].SubItems.Add(TmpBeatmap.Source);
+            detail[4] = new ListViewItem("模式");
+            detail[4].SubItems.Add(Enum.GetName(typeof(Modes), TmpBeatmap.Mode));
+            detail[5] = new ListViewItem("SetID");
+            detail[5].SubItems.Add(TmpBeatmap.beatmapsetId.ToString());
+            detail[6] = new ListViewItem("ID");
+            detail[6].SubItems.Add(TmpBeatmap.beatmapId.ToString());
+            detail[7] = new ListViewItem("音频文件名称");
+            detail[7].SubItems.Add(TmpBeatmap.Audio);
+            if (!File.Exists(TmpBeatmap.Audio))
+            {
+                detail[7].ForeColor = Color.Red;
+            }
+            detail[8] = new ListViewItem("背景文件名称");
+            detail[8].SubItems.Add(TmpBeatmap.Background);
+            if (!File.Exists(TmpBeatmap.Background))
+            {
+                detail[8].ForeColor = Color.Red;
+            }
+            detail[9] = new ListViewItem("视频文件名称");
+            detail[9].SubItems.Add(TmpBeatmap.Video);
+            if (!File.Exists(TmpBeatmap.Video))
+            {
+                detail[9].ForeColor = Color.Red;
+            }
+            detail[10] = new ListViewItem("OSU文件版本");
+            detail[10].SubItems.Add(TmpBeatmap.FileVersion);
+            detail[11] = new ListViewItem("HP");
+            detail[11].SubItems.Add(TmpBeatmap.HPDrainRate.ToString());
+            detail[12] = new ListViewItem("CS");
+            detail[12].SubItems.Add(TmpBeatmap.CircleSize.ToString());
+            detail[13] = new ListViewItem("OD");
+            detail[13].SubItems.Add(TmpBeatmap.OverallDifficulty.ToString());
+            detail[14] = new ListViewItem("AR");
+            detail[14].SubItems.Add(TmpBeatmap.ApproachRate.ToString());
+            detail[15] = new ListViewItem("md5");
+            detail[15].SubItems.Add(TmpBeatmap.GetHash());
+            return detail;
         }
         public static void Render()
         {
