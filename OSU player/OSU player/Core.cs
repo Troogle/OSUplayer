@@ -19,10 +19,6 @@ namespace OSUplayer
     {
         #region 数据区
         /// <summary>
-        /// OSU的路径
-        /// </summary>
-        public static string Osupath;
-        /// <summary>
         /// 程序中的所有set
         /// </summary>
         public static List<BeatmapSet> allsets = new List<BeatmapSet>();
@@ -42,24 +38,6 @@ namespace OSUplayer
         /// 是否已经载入过本地成绩
         /// </summary>
         public static bool Scoresearched = false;
-        public static float Allvolume = 1.0f;
-        public static float Musicvolume = 0.8f;
-        public static float Fxvolume = 0.6f;
-        public static int Nextmode = 3;
-        /// <summary>
-        /// 选定的QQ号
-        /// </summary>
-        public static string uin;
-        /// <summary>
-        /// 是否同步QQ
-        /// </summary>
-        public static bool syncQQ = true;
-        public static bool playvideo = true;
-        /// <summary>
-        /// 是否播放音效
-        /// </summary>
-        public static bool playfx = true;
-        public static bool playsb = true;
         /// <summary>
         /// Set有变化，需要保存
         /// </summary>
@@ -111,7 +89,7 @@ namespace OSUplayer
         public static bool MainIsVisible = false;
         public static void exit()
         {
-            QQ.Send2QQ(uin, "");
+            QQ.Send2QQ(Settings.Default.QQuin, "");
             player.Dispose();
             if (needsave) { DBSupporter.SaveList(); }
         }
@@ -142,7 +120,7 @@ namespace OSUplayer
                 var rk = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey("osu!\\shell\\open\\command");
                 str = rk.GetValue("").ToString();
                 str = str.Substring(1, str.LastIndexOf(@"\"));
-                Osupath = str;
+                Settings.Default.OSUpath = str;
             }
             catch (Exception)
             {
@@ -166,7 +144,7 @@ namespace OSUplayer
                 {
                     if (File.Exists(dialog.SelectedPath + "\\osu!.exe"))
                     {
-                        Osupath = dialog.SelectedPath;
+                        Settings.Default.OSUpath = dialog.SelectedPath;
                         return true;
                     }
                     else
@@ -189,17 +167,17 @@ namespace OSUplayer
         public static void SetQQ(bool show = true)
         {
             if (show) { using (SetQQ dialog = new SetQQ()) { dialog.ShowDialog(); } }
-            if (uin == "0")
+            if (Settings.Default.QQuin == "0")
             {
-                Properties.Settings.Default.QQuin = "0";
-                syncQQ = false;
-                Properties.Settings.Default.SyncQQ = false;
+                Settings.Default.QQuin = "0";
+                Settings.Default.SyncQQ = false;
+                Settings.Default.SyncQQ = false;
             }
             else
             {
-                Properties.Settings.Default.QQuin = uin;
-                syncQQ = true;
-                Properties.Settings.Default.SyncQQ = true;
+                Settings.Default.QQuin = Settings.Default.QQuin;
+                Settings.Default.SyncQQ = true;
+                Settings.Default.SyncQQ = true;
             }
         }
         /// <summary>
@@ -218,14 +196,14 @@ namespace OSUplayer
         /// </summary>
         public static void LoadPreference()
         {
-            if (!Properties.Settings.Default.Upgraded)
+            if (!Settings.Default.Upgraded)
             {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.Save();
+                Settings.Default.Upgrade();
+                Settings.Default.Save();
             }
-            uin = Properties.Settings.Default.QQuin;
-            syncQQ = Properties.Settings.Default.SyncQQ;
-            if (uin == "0")
+            Settings.Default.QQuin = Settings.Default.QQuin;
+            Settings.Default.SyncQQ = Settings.Default.SyncQQ;
+            if (Settings.Default.QQuin == "0")
             {
                 /* if (
                      RadMessageBox.Show("木有设置过QQ号，需要现在设置么？", "提示", MessageBoxButtons.YesNo)
@@ -233,15 +211,15 @@ namespace OSUplayer
                  else { SetQQ(false); }*/
                 SetQQ();
             }
-            Allvolume = Properties.Settings.Default.Allvolume;
-            Fxvolume = Properties.Settings.Default.Fxvolume;
-            Musicvolume = Properties.Settings.Default.Musicvolume;
-            playfx = Properties.Settings.Default.PlayFx;
-            playsb = false;
-            //playsb = Properties.Settings.Default.PlaySB;
-            playvideo = Properties.Settings.Default.PlayVideo;
-            Nextmode = Properties.Settings.Default.NextMode;
-            Properties.Settings.Default.Upgraded = true;
+            Settings.Default.Allvolume = Settings.Default.Allvolume;
+            Settings.Default.Fxvolume = Settings.Default.Fxvolume;
+            Settings.Default.Musicvolume = Settings.Default.Musicvolume;
+            Settings.Default.PlayFx = Settings.Default.PlayFx;
+            Settings.Default.PlaySB = false;
+            //playsb = Settings.Default.PlaySB;
+            Settings.Default.PlayVideo = Settings.Default.PlayVideo;
+            Settings.Default.NextMode = Settings.Default.NextMode;
+            Settings.Default.Upgraded = true;
         }
         /// <summary>
         /// 初始化Set的总方法，从文件读取或从osu!.db读取
@@ -254,9 +232,9 @@ namespace OSUplayer
             }
             else
             {
-                if (File.Exists(Path.Combine(Core.Osupath, "osu!.db")))
+                if (File.Exists(Path.Combine(Settings.Default.OSUpath, "osu!.db")))
                 {
-                    OsuDB.ReadDb(Path.Combine(Core.Osupath, "osu!.db"));
+                    OsuDB.ReadDb(Path.Combine(Settings.Default.OSUpath, "osu!.db"));
                 }
                 initplaylist();
                 NotifySystem.Showtip(1000, "OSUplayer", string.Format("初始化完毕，发现曲目{0}个", allsets.Count), ToolTipIcon.Info);
@@ -311,16 +289,13 @@ namespace OSUplayer
             switch (set)
             {
                 case 1:
-                    Allvolume = volume;
-                    Properties.Settings.Default.Allvolume = Allvolume;
+                    Settings.Default.Allvolume = volume;
                     break;
                 case 2:
-                    Musicvolume = volume;
-                    Properties.Settings.Default.Musicvolume = Musicvolume;
+                    Settings.Default.Musicvolume = volume;
                     break;
                 case 3:
-                    Fxvolume = volume;
-                    Properties.Settings.Default.Fxvolume = Fxvolume;
+                    Settings.Default.Fxvolume = volume;
                     break;
                 default:
                     break;
@@ -349,20 +324,20 @@ namespace OSUplayer
             }
             player.Play();
             NotifySystem.Showtip(1000, "OSUplayer", "正在播放\n" + CurrentBeatmap.NameToString(), System.Windows.Forms.ToolTipIcon.Info);
-            QQ.Send2QQ(uin, CurrentBeatmap.NameToString());
+            QQ.Send2QQ(Settings.Default.QQuin, CurrentBeatmap.NameToString());
         }
         public static void Pause()
         {
             if (player.isplaying)
             {
                 player.Pause();
-                QQ.Send2QQ(uin, "");
+                QQ.Send2QQ(Settings.Default.QQuin, "");
             }
         }
         public static void Resume()
         {
             player.Resume();
-            QQ.Send2QQ(uin, CurrentBeatmap.NameToString());
+            QQ.Send2QQ(Settings.Default.QQuin, CurrentBeatmap.NameToString());
         }
         public static void seek(double time)
         {
@@ -380,7 +355,7 @@ namespace OSUplayer
             int next;
             int now = PlayList.IndexOf(currentset, 0);
             if (currentset == -1) { currentset = 0; }
-            switch (Nextmode)
+            switch (Settings.Default.NextMode)
             {
                 case 1: next = (now + 1) % PlayList.Count;
                     break;

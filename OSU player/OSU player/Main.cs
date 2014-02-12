@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
+using OSUplayer.Properties;
 using Telerik.WinControls;
 using Telerik.WinControls.UI;
 using System.ComponentModel;
@@ -112,19 +113,17 @@ namespace OSUplayer
         }
         private void PlayNext(bool play = true)
         {
-            if (Core.PlayList.Count != 0)
+            if (Core.PlayList.Count == 0) return;
+            int nextSongId = Core.GetNext();
+            if (Main_PlayList.SelectedItems.Count != 0)
             {
-                int nextSongId = Core.GetNext();
-                if (Main_PlayList.SelectedItems.Count != 0)
-                {
-                    Main_PlayList.SelectedItems[0].Selected = false;
-                }
-                Main_PlayList.Items[nextSongId].Selected = true;
-                Main_PlayList.EnsureVisible(nextSongId);
-                Main_PlayList.Focus();
-                SetDetail();
-                if (play) { Play(); }
+                Main_PlayList.SelectedItems[0].Selected = false;
             }
+            Main_PlayList.Items[nextSongId].Selected = true;
+            Main_PlayList.EnsureVisible(nextSongId);
+            Main_PlayList.Focus();
+            SetDetail();
+            if (play) { Play(); }
         }
         private void Setscore()
         {
@@ -140,15 +139,15 @@ namespace OSUplayer
         #endregion
         private void SetForm()
         {
-            Main_QQ_Hint_Label.Text = "当前同步QQ：" + Core.uin;
-            Main_Option_Sync_QQ.IsChecked = Core.syncQQ;
-            Main_Volume_TrackBar.Value = 100 - (int)(Core.Allvolume * Main_Volume_TrackBar.Maximum);
-            Main_Volume_Fx_TrackBar.Value = (int)(Core.Fxvolume * Main_Volume_Fx_TrackBar.Maximum);
-            Main_Volume_Music_TrackBar.Value = (int)(Core.Musicvolume * Main_Volume_Music_TrackBar.Maximum);
-            Main_Option_Play_Fx.IsChecked = Core.playfx;
-            Main_Option_Play_SB.IsChecked = Core.playsb;
-            Main_Option_Play_Video.IsChecked = Core.playvideo;
-            radMenuComboItem1.ComboBoxElement.SelectedIndex = Core.Nextmode - 1;
+            Main_QQ_Hint_Label.Text = "当前同步QQ：" + Settings.Default.QQuin;
+            Main_Option_Sync_QQ.IsChecked = Settings.Default.SyncQQ;
+            Main_Volume_TrackBar.Value = 100 - (int)(Settings.Default.Allvolume * Main_Volume_TrackBar.Maximum);
+            Main_Volume_Fx_TrackBar.Value = (int)(Settings.Default.Fxvolume * Main_Volume_Fx_TrackBar.Maximum);
+            Main_Volume_Music_TrackBar.Value = (int)(Settings.Default.Musicvolume * Main_Volume_Music_TrackBar.Maximum);
+            Main_Option_Play_Fx.IsChecked = Settings.Default.PlayFx;
+            Main_Option_Play_SB.IsChecked = Settings.Default.PlaySB;
+            Main_Option_Play_Video.IsChecked = Settings.Default.PlayVideo;
+            radMenuComboItem1.ComboBoxElement.SelectedIndex = Settings.Default.NextMode - 1;
         }
         private void RefreshList(int select = 0)
         {
@@ -156,23 +155,20 @@ namespace OSUplayer
             Main_DiffList.Items.Clear();
             //PlayList.Enabled = false;
             //DiffList.Enabled = false;
-            new Thread((ThreadStart)delegate()
+            new Thread(delegate()
+            {
+                foreach (int t in Core.PlayList)
                 {
-                    for (int i = 0; i < Core.PlayList.Count; i++)
-                    {
-                        Main_PlayList.Invoke((MethodInvoker)delegate()
-                        {
-                            Main_PlayList.Items.Add(Core.allsets[Core.PlayList[i]].ToString());
-                        });
-                    }
-                    if (Main_PlayList.Items.Count != 0)
-                    {
-                        Main_PlayList.Invoke((MethodInvoker)delegate()
-                        { Main_PlayList.Items[select].Selected = true; });
-                    }
-                    //PlayList.Enabled = true;
-                    //DiffList.Enabled = true;
-                }).Start();
+                    Main_PlayList.Invoke((MethodInvoker)(() =>
+                        Main_PlayList.Items.Add(Core.allsets[t].ToString())));
+                }
+                if (Main_PlayList.Items.Count != 0)
+                {
+                    Main_PlayList.Invoke((MethodInvoker)(() => Main_PlayList.Items[@select].Selected = true));
+                }
+                //PlayList.Enabled = true;
+                //DiffList.Enabled = true;
+            }).Start();
         }
         void Main_VisibleChanged(object sender, EventArgs e)
         {
@@ -183,7 +179,7 @@ namespace OSUplayer
         #region 文件
         private void 运行OSU_Click(object sender, EventArgs e)
         {
-            Process.Start(Path.Combine(Core.Osupath, "osu!.exe"));
+            Process.Start(Path.Combine(Settings.Default.OSUpath, "osu!.exe"));
         }
         private void 手动指定OSU目录_Click(object sender, EventArgs e)
         {
@@ -205,7 +201,7 @@ namespace OSUplayer
         private void 重新导入scores_Click(object sender, EventArgs e)
         {
             Core.Scores.Clear();
-            string scorepath = Path.Combine(Core.Osupath, "scores.db");
+            string scorepath = Path.Combine(Settings.Default.OSUpath, "scores.db");
             if (File.Exists(scorepath)) { OsuDB.ReadScore(scorepath); Core.Scoresearched = true; Main_File_Import_Scores.Text = "重新导入scores.db"; }
         }
         private void 打开曲目文件夹_Click(object sender, EventArgs e)
@@ -273,29 +269,28 @@ namespace OSUplayer
         #region 选项
         private void 音效_Click(object sender, EventArgs e)
         {
-            Core.playfx = Main_Option_Play_Fx.IsChecked;
-            Properties.Settings.Default.PlayFx = Core.playfx;
+            Settings.Default.PlayFx = Main_Option_Play_Fx.IsChecked;
         }
         private void 视频开关_Click(object sender, EventArgs e)
         {
-            Core.playvideo = Main_Option_Play_Video.IsChecked;
-            Properties.Settings.Default.PlayVideo = Core.playvideo;
+            Settings.Default.PlayVideo = Main_Option_Play_Video.IsChecked;
         }
         private void radMenuComboItem1_ComboBoxElement_SelectedIndexChanged(object sender, Telerik.WinControls.UI.Data.PositionChangedEventArgs e)
         {
-            Core.Nextmode = radMenuComboItem1.ComboBoxElement.SelectedIndex + 1;
-            Properties.Settings.Default.NextMode = Core.Nextmode;
+            Settings.Default.NextMode = radMenuComboItem1.ComboBoxElement.SelectedIndex + 1;
         }
         private void QQ状态同步_Click(object sender, EventArgs e)
         {
-            if (Core.syncQQ && Core.uin != "0") { QQ.Send2QQ(Core.uin, ""); }
-            Core.syncQQ = Main_Option_Sync_QQ.IsChecked;
-            Properties.Settings.Default.SyncQQ = Core.syncQQ;
+            if (Settings.Default.SyncQQ && Settings.Default.QQuin != "0") { QQ.Send2QQ(Settings.Default.QQuin, ""); }
+            Settings.Default.SyncQQ = Main_Option_Sync_QQ.IsChecked;
         }
         private void SB开关_Click(object sender, EventArgs e)
         {
-            Core.playsb = Main_Option_Play_SB.IsChecked;
-            Properties.Settings.Default.PlaySB = Core.playsb;
+            Settings.Default.PlaySB = Main_Option_Play_SB.IsChecked;
+        }
+        private void Main_Option_Show_Popup_Click(object sender, EventArgs e)
+        {
+            Settings.Default.ShowPopup = Main_Option_Show_Popup.IsChecked;
         }
         #endregion
         private void 关于_Click(object sender, EventArgs e)
@@ -494,7 +489,7 @@ namespace OSUplayer
             {
                 if (!Core.Scoresearched)
                 {
-                    string scorepath = Path.Combine(Core.Osupath, "scores.db");
+                    string scorepath = Path.Combine(Settings.Default.OSUpath, "scores.db");
                     if (File.Exists(scorepath)) { OsuDB.ReadScore(scorepath); Core.Scoresearched = true; Main_File_Import_Scores.Text = "重新导入scores.db"; }
                 }
                 Setscore();
@@ -503,8 +498,8 @@ namespace OSUplayer
         private void radMenuItem1_Click(object sender, EventArgs e)
         {
             Core.SetQQ(true);
-            Main_QQ_Hint_Label.Text = "当前同步QQ：" + Core.uin;
-            Main_Option_Sync_QQ.IsChecked = Core.syncQQ;
+            Main_QQ_Hint_Label.Text = "当前同步QQ：" + Settings.Default.QQuin;
+            Main_Option_Sync_QQ.IsChecked = Settings.Default.SyncQQ;
         }
         private void UpdateTimer_Tick(object sender, EventArgs e)
         {

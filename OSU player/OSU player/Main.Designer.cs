@@ -93,6 +93,7 @@ namespace OSUplayer
             this.Main_MenuStrip = new Telerik.WinControls.UI.RadMenu();
             this.NextTimer = new System.Windows.Forms.Timer(this.components);
             this.SearchTimer = new System.Windows.Forms.Timer(this.components);
+            this.Main_Option_Show_Popup = new Telerik.WinControls.UI.RadMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.radMenuComboItem1.ComboBoxElement)).BeginInit();
             this.Main_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Main_Search_Box)).BeginInit();
@@ -303,7 +304,8 @@ namespace OSUplayer
             this.radMenuComboItem1,
             this.Main_Option_Select_QQ,
             this.Main_Option_Sync_QQ,
-            this.Main_Option_Play_SB});
+            this.Main_Option_Play_SB,
+            this.Main_Option_Show_Popup});
             this.Main_Option_Menu.Name = "Main_Option_Menu";
             this.Main_Option_Menu.Text = "选项";
             this.Main_Option_Menu.Visibility = Telerik.WinControls.ElementVisibility.Visible;
@@ -481,7 +483,7 @@ namespace OSUplayer
             this.Main_PlayList.SelectedIndexChanged += new System.EventHandler(this.PlayList_SelectedIndexChanged);
             this.Main_PlayList.DoubleClick += new System.EventHandler(this.PlayList_DoubleClick);
             // 
-            // ColumnHeader1
+            // Main_PlayList_Name
             // 
             this.Main_PlayList_Name.Text = "";
             this.Main_PlayList_Name.Width = 500;
@@ -731,7 +733,7 @@ namespace OSUplayer
             this.Main_PageView_Page1.Size = new System.Drawing.Size(511, 171);
             this.Main_PageView_Page1.Text = "Map信息";
             // 
-            // ListDetail
+            // Main_ListDetail
             // 
             this.Main_ListDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
@@ -743,18 +745,18 @@ namespace OSUplayer
             this.Main_ListDetail.GridLines = true;
             this.Main_ListDetail.Location = new System.Drawing.Point(0, 0);
             this.Main_ListDetail.MultiSelect = false;
-            this.Main_ListDetail.Name = "ListDetail";
+            this.Main_ListDetail.Name = "Main_ListDetail";
             this.Main_ListDetail.Size = new System.Drawing.Size(511, 169);
             this.Main_ListDetail.TabIndex = 40;
             this.Main_ListDetail.UseCompatibleStateImageBehavior = false;
             this.Main_ListDetail.View = System.Windows.Forms.View.Details;
             // 
-            // ColumnHeader2
+            // Main_ListDetail_Key
             // 
             this.Main_ListDetail_Key.Text = "Key";
             this.Main_ListDetail_Key.Width = 120;
             // 
-            // ColumnHeader3
+            // Main_ListDetail_Value
             // 
             this.Main_ListDetail_Value.Text = "Value";
             this.Main_ListDetail_Value.Width = 300;
@@ -767,7 +769,7 @@ namespace OSUplayer
             this.Main_PageView_Page2.Size = new System.Drawing.Size(511, 171);
             this.Main_PageView_Page2.Text = "成绩信息";
             // 
-            // ScoreBox
+            // Main_ScoreBox
             // 
             this.Main_ScoreBox.AllowColumnReorder = false;
             this.Main_ScoreBox.AllowColumnResize = false;
@@ -779,7 +781,7 @@ namespace OSUplayer
             this.Main_ScoreBox.AutoScroll = true;
             this.Main_ScoreBox.ItemSize = new System.Drawing.Size(200, 60);
             this.Main_ScoreBox.Location = new System.Drawing.Point(0, 0);
-            this.Main_ScoreBox.Name = "ScoreBox";
+            this.Main_ScoreBox.Name = "Main_ScoreBox";
             this.Main_ScoreBox.ShowColumnHeaders = false;
             this.Main_ScoreBox.Size = new System.Drawing.Size(511, 169);
             this.Main_ScoreBox.TabIndex = 26;
@@ -793,25 +795,25 @@ namespace OSUplayer
             this.Main_PageView_Page3.Size = new System.Drawing.Size(511, 171);
             this.Main_PageView_Page3.Text = "Diff信息";
             // 
-            // DiffList
+            // Main_DiffList
             // 
             this.Main_DiffList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Main_DiffList.FormattingEnabled = true;
             this.Main_DiffList.ItemHeight = 15;
             this.Main_DiffList.Location = new System.Drawing.Point(0, 0);
-            this.Main_DiffList.Name = "DiffList";
+            this.Main_DiffList.Name = "Main_DiffList";
             this.Main_DiffList.Size = new System.Drawing.Size(511, 169);
             this.Main_DiffList.TabIndex = 25;
             this.Main_DiffList.SelectedIndexChanged += new System.EventHandler(this.DiffList_SelectedIndexChanged);
             this.Main_DiffList.DoubleClick += new System.EventHandler(this.DiffList_DoubleClick);
             // 
-            // LabelQQ
+            // Main_QQ_Hint_Label
             // 
             this.Main_QQ_Hint_Label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Main_QQ_Hint_Label.AutoSize = true;
             this.Main_QQ_Hint_Label.Location = new System.Drawing.Point(323, 0);
-            this.Main_QQ_Hint_Label.Name = "LabelQQ";
+            this.Main_QQ_Hint_Label.Name = "Main_QQ_Hint_Label";
             this.Main_QQ_Hint_Label.Size = new System.Drawing.Size(90, 19);
             this.Main_QQ_Hint_Label.TabIndex = 30;
             this.Main_QQ_Hint_Label.Text = "当前同步QQ:";
@@ -820,7 +822,7 @@ namespace OSUplayer
             // 
             this.UpdateTimer.Tick += new System.EventHandler(this.UpdateTimer_Tick);
             // 
-            // MenuStrip1
+            // Main_MenuStrip
             // 
             this.Main_MenuStrip.Controls.Add(this.Main_QQ_Hint_Label);
             this.Main_MenuStrip.Items.AddRange(new Telerik.WinControls.RadItem[] {
@@ -829,7 +831,7 @@ namespace OSUplayer
             this.Main_Option_Menu,
             this.Main_About});
             this.Main_MenuStrip.Location = new System.Drawing.Point(4, 4);
-            this.Main_MenuStrip.Name = "MenuStrip1";
+            this.Main_MenuStrip.Name = "Main_MenuStrip";
             this.Main_MenuStrip.Size = new System.Drawing.Size(874, 24);
             this.Main_MenuStrip.TabIndex = 2;
             this.Main_MenuStrip.Text = "MenuStrip1";
@@ -843,6 +845,18 @@ namespace OSUplayer
             // 
             this.SearchTimer.Interval = 500;
             this.SearchTimer.Tick += new System.EventHandler(this.SearchTimer_Tick);
+            // 
+            // Main_Option_Show_Popup
+            // 
+            this.Main_Option_Show_Popup.AccessibleDescription = "显示气泡";
+            this.Main_Option_Show_Popup.AccessibleName = "显示气泡";
+            this.Main_Option_Show_Popup.CheckOnClick = true;
+            this.Main_Option_Show_Popup.IsChecked = true;
+            this.Main_Option_Show_Popup.Name = "Main_Option_Show_Popup";
+            this.Main_Option_Show_Popup.Text = "显示气泡";
+            this.Main_Option_Show_Popup.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
+            this.Main_Option_Show_Popup.Visibility = Telerik.WinControls.ElementVisibility.Visible;
+            this.Main_Option_Show_Popup.Click += new System.EventHandler(this.Main_Option_Show_Popup_Click);
             // 
             // Main
             // 
@@ -956,6 +970,7 @@ namespace OSUplayer
         private System.Windows.Forms.ContextMenuStrip Main_PlayList_RightClick_Menu;
         private System.Windows.Forms.ToolStripMenuItem Main_PlayList_RightClick_Delete_One;
         private System.Windows.Forms.Button Main_Jump_OSU;
+        private Telerik.WinControls.UI.RadMenuItem Main_Option_Show_Popup;
 
     }
 }

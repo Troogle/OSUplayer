@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Windows.Forms;
+using OSUplayer.Properties;
 
 namespace OSUplayer.Uilties
 {
@@ -63,7 +64,7 @@ namespace OSUplayer.Uilties
         {
             try
             {
-                if (!Core.syncQQ)
+                if (!Settings.Default.SyncQQ)
                 {
                     return;
                 }

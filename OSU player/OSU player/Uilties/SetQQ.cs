@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using OSUplayer.Properties;
 using Telerik.WinControls;
 using Telerik.WinControls.UI;
 
@@ -26,10 +27,10 @@ namespace OSUplayer.Uilties
             {
                 try
                 {
-                    Core.uin = SetQQ_MainView.SelectedItems[0].Text;
-                    if (Core.uin == "清空QQ号")
+                    Settings.Default.QQuin = SetQQ_MainView.SelectedItems[0].Text;
+                    if (Settings.Default.QQuin == "清空QQ号")
                     {
-                        Core.uin = "0";
+                        Settings.Default.QQuin = "0";
                     }
                     Dispose();
                 }
@@ -41,8 +42,8 @@ namespace OSUplayer.Uilties
                     }
                     else
                     {
-                        Core.uin = "0";
-                        Core.syncQQ = false;
+                        Settings.Default.QQuin = "0";
+                        Settings.Default.SyncQQ = false;
                         Dispose();
                     }
                 }
@@ -56,8 +57,8 @@ namespace OSUplayer.Uilties
                 }
                 else
                 {
-                    Core.uin = SetQQ_Manual.Text;
-                    Core.syncQQ = Core.uin != "0";
+                    Settings.Default.QQuin = SetQQ_Manual.Text;
+                    Settings.Default.SyncQQ = Settings.Default.QQuin != "0";
                     Dispose();
                 }
             }

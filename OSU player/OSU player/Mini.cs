@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using OSUplayer.Properties;
 using OSUplayer.Uilties;
 namespace OSUplayer
 {
@@ -80,7 +81,7 @@ namespace OSUplayer
         {
             Front = false;
             SetFormRoundRectRgn(this, 12);
-            TrackVolume.Value = (int)(100 * Core.Allvolume);
+            TrackVolume.Value = (int)(100 * Settings.Default.Allvolume);
             if (!this.Bounds.Contains(Cursor.Position)) { this.Opacity = 0.5d; }
             if (Core.Isplaying)
             {

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using OSUplayer.Properties;
 using Telerik.WinControls.UI;
 namespace OSUplayer.Uilties
 {
@@ -14,7 +15,7 @@ namespace OSUplayer.Uilties
         private List<int> tmpindex = new List<int>();
         private void button1_Click(object sender, EventArgs e)
         {
-            string collectpath = Path.Combine(Core.Osupath, "collection.db");
+            string collectpath = Path.Combine(Settings.Default.OSUpath, "collection.db");
             if (File.Exists(collectpath)) { OsuDB.ReadCollect(collectpath); }
             ChooseColl_CollectionTitle_List.Items.Clear();
             foreach (string key in Core.Collections.Keys)

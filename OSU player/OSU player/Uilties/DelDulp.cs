@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using OSUplayer.Properties;
 using Telerik.WinControls;
 using Telerik.WinControls.UI;
 using OSUplayer.OsuFiles;
@@ -120,9 +121,9 @@ namespace OSUplayer.Uilties
             DelDulp_Cancel.Enabled = false;
             try
             {
-                if (Directory.Exists(Path.Combine(Core.Osupath, "Songs")))
+                if (Directory.Exists(Path.Combine(Settings.Default.OSUpath, "Songs")))
                 {
-                    this.BackgroundWorker1.RunWorkerAsync(Path.Combine(Core.Osupath, "Songs"));
+                    this.BackgroundWorker1.RunWorkerAsync(Path.Combine(Settings.Default.OSUpath, "Songs"));
                 }
             }
             catch (SystemException ex)

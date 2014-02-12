@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using OSUplayer.OsuFiles;
 using System.Threading;
+using OSUplayer.Properties;
 using OSUplayer.Uilties;
 using Color = Microsoft.Xna.Framework.Graphics.Color;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
@@ -35,12 +36,12 @@ namespace OSUplayer.Graphic
         bool videoexist = false;
         bool SBexist = false;
         int fxpos = 0;
-        float Allvolume { get { return Core.Allvolume; } }
-        float Musicvolume { get { return Core.Musicvolume; } }
-        float Fxvolume { get { return Core.Fxvolume; } }
-        bool Playvideo { get { return Core.playvideo; } }
-        bool Playfx { get { return Core.playfx; } }
-        bool Playsb { get { return Core.playsb; } }
+        static float Allvolume { get { return Settings.Default.Allvolume; } }
+        static float Musicvolume { get { return Settings.Default.Musicvolume; } }
+        static float Fxvolume { get { return Settings.Default.Fxvolume; } }
+        static bool Playvideo { get { return Settings.Default.PlayVideo; } }
+        static bool Playfx { get { return Settings.Default.PlayFx; } }
+        static bool Playsb { get { return Settings.Default.PlaySB; } }
         Beatmap Map { get { return Core.CurrentBeatmap; } }
         BeatmapSet Set { get { return Core.CurrentSet; } }
         /// <summary>
