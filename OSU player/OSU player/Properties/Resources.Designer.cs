@@ -73,16 +73,6 @@ namespace OSUplayer.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap avatar_big {
-            get {
-                object obj = ResourceManager.GetObject("avatar_big", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
         internal static System.Drawing.Bitmap B {
             get {
                 object obj = ResourceManager.GetObject("B", resourceCulture);
@@ -336,6 +326,16 @@ namespace OSUplayer.Properties {
         internal static System.Drawing.Bitmap trackBase {
             get {
                 object obj = ResourceManager.GetObject("trackBase", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap Troogle {
+            get {
+                object obj = ResourceManager.GetObject("Troogle", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

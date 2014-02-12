@@ -228,7 +228,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Res\avatar_big.jpg" />
     <None Include="Res\defaultBG.png" />
     <None Include="Res\A.png" />
     <None Include="Res\B.png" />
@@ -282,6 +281,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Lang\en.txt" />
     <EmbeddedResource Include="Lang\zh-CN.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Res\Troogle.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

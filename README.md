@@ -1,5 +1,4 @@
-OSUplayer
-A Music Player 4 All Osuers!
+OSUplayer---A Music Player 4 All Osuers!
 ===========
 Written in C# with .Net Freamwork 3.5
 

@@ -12,8 +12,8 @@ namespace OSUplayer.Uilties
         }
         private void About_Load(object sender, EventArgs e)
         {
-            label2.Text = string.Format("OSU Player Ver {0}\n{1}", Core.Version, label2.Text);
-            label1.SendToBack();
+            About_Content.Text = string.Format(About_Content.Text, Core.Version);
+            About_Profile_Hint.SendToBack();
         }
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {

@@ -188,7 +188,7 @@ namespace OSUplayer
         /// <param name="show">是否显示设置窗口</param>
         public static void SetQQ(bool show = true)
         {
-            if (show) { using (Form2 dialog = new Form2()) { dialog.ShowDialog(); } }
+            if (show) { using (SetQQ dialog = new SetQQ()) { dialog.ShowDialog(); } }
             if (uin == "0")
             {
                 Properties.Settings.Default.QQuin = "0";

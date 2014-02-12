@@ -16,39 +16,39 @@ namespace OSUplayer.Uilties
         {
             string collectpath = Path.Combine(Core.Osupath, "collection.db");
             if (File.Exists(collectpath)) { OsuDB.ReadCollect(collectpath); }
-            listBox1.Items.Clear();
+            ChooseColl_CollectionTitle_List.Items.Clear();
             foreach (string key in Core.Collections.Keys)
             {
-                listBox1.Items.Add(key);
+                ChooseColl_CollectionTitle_List.Items.Add(key);
             }
-            if (listBox1.Items.Count != 0) { listBox1.SelectedIndex = 0; }
+            if (ChooseColl_CollectionTitle_List.Items.Count != 0) { ChooseColl_CollectionTitle_List.SelectedIndex = 0; }
             NotifySystem.Showtip(1000, "OSUplayer", "刷新完毕！", System.Windows.Forms.ToolTipIcon.Info);
         }
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listBox1.SelectedItems.Count == 0) { return; }
-            List<int> CollectionMaps = Core.Collections[listBox1.SelectedItem.ToString()];
-            listBox2.Items.Clear();
+            if (ChooseColl_CollectionTitle_List.SelectedItems.Count == 0) { return; }
+            List<int> CollectionMaps = Core.Collections[ChooseColl_CollectionTitle_List.SelectedItem.ToString()];
+            ChooseColl_CollectionContent_List.Items.Clear();
             tmpindex.Clear();
             foreach (int mapindex in CollectionMaps)
             {
-                listBox2.Items.Add(Core.allsets[mapindex].ToString());
+                ChooseColl_CollectionContent_List.Items.Add(Core.allsets[mapindex].ToString());
                 tmpindex.Add(mapindex);
             }
         }
         private void listBox2_MouseDoubleClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            if (listBox2.SelectedItems.Count == 0) { return; }
-            Core.AddSet(tmpindex[listBox2.SelectedIndex]);
-            NotifySystem.Showtip(1000, "OSUplayer", String.Format("成功导入{0}", listBox2.SelectedItem.ToString()), System.Windows.Forms.ToolTipIcon.Info);
-            label2.Text = "当前播放列表曲目数:" + Core.PlayList.Count;
+            if (ChooseColl_CollectionContent_List.SelectedItems.Count == 0) { return; }
+            Core.AddSet(tmpindex[ChooseColl_CollectionContent_List.SelectedIndex]);
+            NotifySystem.Showtip(1000, "OSUplayer", String.Format("成功导入{0}", ChooseColl_CollectionContent_List.SelectedItem.ToString()), System.Windows.Forms.ToolTipIcon.Info);
+            ChooseColl_PlayListCurrentCount.Text = "当前播放列表曲目数:" + Core.PlayList.Count;
         }
         private void listBox1_MouseDoubleClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            if (listBox1.SelectedItems.Count == 0) { return; }
+            if (ChooseColl_CollectionTitle_List.SelectedItems.Count == 0) { return; }
             Core.AddRangeSet(tmpindex);
             NotifySystem.Showtip(1000, "OSUplayer", String.Format("成功导入{0}首曲目", tmpindex.Count.ToString()), System.Windows.Forms.ToolTipIcon.Info);
-            label2.Text = "当前播放列表曲目数:" + Core.PlayList.Count;
+            ChooseColl_PlayListCurrentCount.Text = "当前播放列表曲目数:" + Core.PlayList.Count;
         }
         private void button2_Click(object sender, EventArgs e)
         {
@@ -62,13 +62,13 @@ namespace OSUplayer.Uilties
         private void ClearButton_Click(object sender, EventArgs e)
         {
             Core.PlayList.Clear();
-            label2.Text = "当前播放列表曲目数:0";
+            ChooseColl_PlayListCurrentCount.Text = "当前播放列表曲目数:0";
         }
 
         private void ChooseColl_Load(object sender, EventArgs e)
         {
-            label2.Text = "当前播放列表曲目数:"+Core.PlayList.Count;
-            button1.PerformClick();
+            ChooseColl_PlayListCurrentCount.Text = "当前播放列表曲目数:"+Core.PlayList.Count;
+            ChooseColl_GetCollections.PerformClick();
         }
     }
 }

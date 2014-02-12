@@ -25,97 +25,99 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.listBox2 = new System.Windows.Forms.ListBox();
-            this.button1 = new Telerik.WinControls.UI.RadButton();
-            this.button2 = new Telerik.WinControls.UI.RadButton();
-            this.label1 = new System.Windows.Forms.Label();
-            this.ClearButton = new Telerik.WinControls.UI.RadButton();
-            this.label2 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.button1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.button2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ClearButton)).BeginInit();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChooseColl));
+            this.ChooseColl_CollectionTitle_List = new System.Windows.Forms.ListBox();
+            this.ChooseColl_CollectionContent_List = new System.Windows.Forms.ListBox();
+            this.ChooseColl_GetCollections = new Telerik.WinControls.UI.RadButton();
+            this.ChooseColl_OK = new Telerik.WinControls.UI.RadButton();
+            this.ChooseColl_Hint_Label = new System.Windows.Forms.Label();
+            this.ChooseColl_ClearPlayList = new Telerik.WinControls.UI.RadButton();
+            this.ChooseColl_PlayListCurrentCount = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.ChooseColl_GetCollections)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ChooseColl_OK)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ChooseColl_ClearPlayList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
-            // listBox1
+            // ChooseColl_CollectionTitle_List
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 15;
-            this.listBox1.Location = new System.Drawing.Point(12, 36);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(90, 259);
-            this.listBox1.TabIndex = 0;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
-            this.listBox1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBox1_MouseDoubleClick);
+            this.ChooseColl_CollectionTitle_List.FormattingEnabled = true;
+            this.ChooseColl_CollectionTitle_List.ItemHeight = 15;
+            this.ChooseColl_CollectionTitle_List.Location = new System.Drawing.Point(12, 36);
+            this.ChooseColl_CollectionTitle_List.Name = "ChooseColl_CollectionTitle_List";
+            this.ChooseColl_CollectionTitle_List.Size = new System.Drawing.Size(90, 259);
+            this.ChooseColl_CollectionTitle_List.TabIndex = 0;
+            this.ChooseColl_CollectionTitle_List.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            this.ChooseColl_CollectionTitle_List.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBox1_MouseDoubleClick);
             // 
-            // listBox2
+            // ChooseColl_CollectionContent_List
             // 
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.ItemHeight = 15;
-            this.listBox2.Location = new System.Drawing.Point(108, 36);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(366, 259);
-            this.listBox2.TabIndex = 1;
-            this.listBox2.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBox2_MouseDoubleClick);
+            this.ChooseColl_CollectionContent_List.FormattingEnabled = true;
+            this.ChooseColl_CollectionContent_List.ItemHeight = 15;
+            this.ChooseColl_CollectionContent_List.Location = new System.Drawing.Point(108, 36);
+            this.ChooseColl_CollectionContent_List.Name = "ChooseColl_CollectionContent_List";
+            this.ChooseColl_CollectionContent_List.Size = new System.Drawing.Size(366, 259);
+            this.ChooseColl_CollectionContent_List.TabIndex = 1;
+            this.ChooseColl_CollectionContent_List.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBox2_MouseDoubleClick);
             // 
-            // button1
+            // ChooseColl_GetCollections
             // 
-            this.button1.Location = new System.Drawing.Point(483, 78);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(81, 29);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "扫描";
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.ChooseColl_GetCollections.Location = new System.Drawing.Point(483, 78);
+            this.ChooseColl_GetCollections.Name = "ChooseColl_GetCollections";
+            this.ChooseColl_GetCollections.Size = new System.Drawing.Size(81, 29);
+            this.ChooseColl_GetCollections.TabIndex = 2;
+            this.ChooseColl_GetCollections.Text = "扫描";
+            this.ChooseColl_GetCollections.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button2
+            // ChooseColl_OK
             // 
-            this.button2.Location = new System.Drawing.Point(483, 210);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(81, 31);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "确定";
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.ChooseColl_OK.Location = new System.Drawing.Point(483, 210);
+            this.ChooseColl_OK.Name = "ChooseColl_OK";
+            this.ChooseColl_OK.Size = new System.Drawing.Size(81, 31);
+            this.ChooseColl_OK.TabIndex = 3;
+            this.ChooseColl_OK.Text = "确定";
+            this.ChooseColl_OK.Click += new System.EventHandler(this.button2_Click);
             // 
-            // label1
+            // ChooseColl_Hint_Label
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(251, 19);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "双击Collection名称或单独曲目名称导入";
+            this.ChooseColl_Hint_Label.AutoSize = true;
+            this.ChooseColl_Hint_Label.Location = new System.Drawing.Point(12, 9);
+            this.ChooseColl_Hint_Label.Name = "ChooseColl_Hint_Label";
+            this.ChooseColl_Hint_Label.Size = new System.Drawing.Size(251, 19);
+            this.ChooseColl_Hint_Label.TabIndex = 0;
+            this.ChooseColl_Hint_Label.Text = "双击Collection名称或单独曲目名称导入";
             // 
-            // ClearButton
+            // ChooseColl_ClearPlayList
             // 
-            this.ClearButton.Location = new System.Drawing.Point(483, 144);
-            this.ClearButton.Name = "ClearButton";
-            this.ClearButton.Size = new System.Drawing.Size(81, 29);
-            this.ClearButton.TabIndex = 3;
-            this.ClearButton.Text = "清空列表";
-            this.ClearButton.Click += new System.EventHandler(this.ClearButton_Click);
+            this.ChooseColl_ClearPlayList.Location = new System.Drawing.Point(483, 144);
+            this.ChooseColl_ClearPlayList.Name = "ChooseColl_ClearPlayList";
+            this.ChooseColl_ClearPlayList.Size = new System.Drawing.Size(81, 29);
+            this.ChooseColl_ClearPlayList.TabIndex = 3;
+            this.ChooseColl_ClearPlayList.Text = "清空列表";
+            this.ChooseColl_ClearPlayList.Click += new System.EventHandler(this.ClearButton_Click);
             // 
-            // label2
+            // ChooseColl_PlayListCurrentCount
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(284, 9);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(149, 19);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "当前播放列表曲目数：";
+            this.ChooseColl_PlayListCurrentCount.AutoSize = true;
+            this.ChooseColl_PlayListCurrentCount.Location = new System.Drawing.Point(284, 9);
+            this.ChooseColl_PlayListCurrentCount.Name = "ChooseColl_PlayListCurrentCount";
+            this.ChooseColl_PlayListCurrentCount.Size = new System.Drawing.Size(149, 19);
+            this.ChooseColl_PlayListCurrentCount.TabIndex = 4;
+            this.ChooseColl_PlayListCurrentCount.Text = "当前播放列表曲目数：";
             // 
             // ChooseColl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(572, 301);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.ClearButton);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.listBox2);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.ChooseColl_PlayListCurrentCount);
+            this.Controls.Add(this.ChooseColl_ClearPlayList);
+            this.Controls.Add(this.ChooseColl_Hint_Label);
+            this.Controls.Add(this.ChooseColl_OK);
+            this.Controls.Add(this.ChooseColl_GetCollections);
+            this.Controls.Add(this.ChooseColl_CollectionContent_List);
+            this.Controls.Add(this.ChooseColl_CollectionTitle_List);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ChooseColl";
             // 
             // 
@@ -123,21 +125,21 @@
             this.RootElement.ApplyShapeToControl = true;
             this.Text = "ChooseColl";
             this.Load += new System.EventHandler(this.ChooseColl_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.button1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.button2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ClearButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ChooseColl_GetCollections)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ChooseColl_OK)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ChooseColl_ClearPlayList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
         #endregion
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.ListBox listBox2;
-        private Telerik.WinControls.UI.RadButton button1;
-        private Telerik.WinControls.UI.RadButton button2;
-        private System.Windows.Forms.Label label1;
-        private Telerik.WinControls.UI.RadButton ClearButton;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ListBox ChooseColl_CollectionTitle_List;
+        private System.Windows.Forms.ListBox ChooseColl_CollectionContent_List;
+        private Telerik.WinControls.UI.RadButton ChooseColl_GetCollections;
+        private Telerik.WinControls.UI.RadButton ChooseColl_OK;
+        private System.Windows.Forms.Label ChooseColl_Hint_Label;
+        private Telerik.WinControls.UI.RadButton ChooseColl_ClearPlayList;
+        private System.Windows.Forms.Label ChooseColl_PlayListCurrentCount;
     }
 }

@@ -8,13 +8,13 @@ using Telerik.WinControls.UI;
 
 namespace OSUplayer.Uilties
 {
-    public partial class Form2 : RadForm
+    public partial class SetQQ : RadForm
     {
         private readonly BackgroundWorker refreash = new BackgroundWorker();
         private QQ qq = new QQ();
         private List<QQInfo> QQInfos = new List<QQInfo>();
 
-        public Form2()
+        public SetQQ()
         {
             InitializeComponent();
             refreash.DoWork += refreash_DoWork;
@@ -22,11 +22,11 @@ namespace OSUplayer.Uilties
 
         private void Button2_Click(object sender, EventArgs e)
         {
-            if (ListView1.Visible)
+            if (SetQQ_MainView.Visible)
             {
                 try
                 {
-                    Core.uin = ListView1.SelectedItems[0].Text;
+                    Core.uin = SetQQ_MainView.SelectedItems[0].Text;
                     if (Core.uin == "清空QQ号")
                     {
                         Core.uin = "0";
@@ -35,7 +35,7 @@ namespace OSUplayer.Uilties
                 }
                 catch (Exception)
                 {
-                    if (ListView1.SelectedItems.Count == 0)
+                    if (SetQQ_MainView.SelectedItems.Count == 0)
                     {
                         RadMessageBox.Show("别卖萌不选啊-0-");
                     }
@@ -50,13 +50,13 @@ namespace OSUplayer.Uilties
             else
             {
                 var isNumeric = new Regex(@"^\d+$");             
-                if ((!isNumeric.IsMatch(textBox1.Text)) || (textBox1.Text.Trim() == ""))
+                if ((!isNumeric.IsMatch(SetQQ_Manual.Text)) || (SetQQ_Manual.Text.Trim() == ""))
                 {
                     RadMessageBox.Show("亲正常点~请输入QQ号~~");
                 }
                 else
                 {
-                    Core.uin = textBox1.Text;
+                    Core.uin = SetQQ_Manual.Text;
                     Core.syncQQ = Core.uin != "0";
                     Dispose();
                 }
@@ -66,9 +66,9 @@ namespace OSUplayer.Uilties
         private void RefreshQQ(object sender, EventArgs e)
         {
             Focus();
-            ListView1.Clear();
-            ListView1.Columns.Add("ID", 100);
-            ListView1.Columns.Add("昵称", 100);
+            SetQQ_MainView.Clear();
+            SetQQ_MainView.Columns.Add("ID", 100);
+            SetQQ_MainView.Columns.Add("昵称", 100);
             QQInfos = qq.GetQQList;
             try
             {
@@ -77,11 +77,11 @@ namespace OSUplayer.Uilties
                 {
                     tmpl = new ListViewItem (t.uin);
                     tmpl.SubItems.Add(t.nick);
-                    ListView1.Items.Add(tmpl);
+                    SetQQ_MainView.Items.Add(tmpl);
                 }
                 tmpl = new ListViewItem("清空QQ号");
                 tmpl.SubItems.Add("");
-                ListView1.Items.Add(tmpl);
+                SetQQ_MainView.Items.Add(tmpl);
             }
             catch (Exception)
             {
@@ -103,17 +103,17 @@ namespace OSUplayer.Uilties
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            if (ListView1.Visible)
+            if (SetQQ_MainView.Visible)
             {
-                Button1.Text = "自动获取";
-                ListView1.Visible = false;
-                textBox1.Visible = true;
+                SetQQ_GetQQ.Text = "自动获取";
+                SetQQ_MainView.Visible = false;
+                SetQQ_Manual.Visible = true;
             }
             else
             {
-                Button1.Text = "手动获取";
-                ListView1.Visible = true;
-                textBox1.Visible = false;
+                SetQQ_GetQQ.Text = "手动获取";
+                SetQQ_MainView.Visible = true;
+                SetQQ_Manual.Visible = false;
             }
         }
 
