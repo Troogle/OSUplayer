@@ -638,12 +638,13 @@ namespace OSUplayer.OsuFiles
         public override string ToString() { return Version; }
         public string NameToString()
         {
-            return (Name.Substring(0, Name.LastIndexOf('.')));
+            //return (Name.Substring(0, Name.LastIndexOf('.')));
+            return (String.Format("{0} - {1} ({2}) [{3}]", Artist, Title, Version, Creator));
         }
         public string GetHash()
         {
             if (Hash != null) { return Hash; }
-            if (Path == ""||!File.Exists(Path)){return "";}
+            if (Path == "" || !File.Exists(Path)) { return ""; }
             string strHashData = "";
             using (var md5Hash = MD5.Create())
             {

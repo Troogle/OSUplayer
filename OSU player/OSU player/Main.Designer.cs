@@ -56,6 +56,7 @@ namespace OSUplayer
             this.Main_Option_Select_QQ = new Telerik.WinControls.UI.RadMenuItem();
             this.Main_Option_Sync_QQ = new Telerik.WinControls.UI.RadMenuItem();
             this.Main_Option_Play_SB = new Telerik.WinControls.UI.RadMenuItem();
+            this.Main_Option_Show_Popup = new Telerik.WinControls.UI.RadMenuItem();
             this.Main_About = new Telerik.WinControls.UI.RadMenuItem();
             this.Main_Panel = new System.Windows.Forms.Panel();
             this.Main_Search_Box = new Telerik.WinControls.UI.RadTextBox();
@@ -64,7 +65,7 @@ namespace OSUplayer
             this.Main_PlayList_RightClick_Menu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.Main_PlayList_RightClick_Delete_One = new System.Windows.Forms.ToolStripMenuItem();
             this.Main_Core_Panel = new System.Windows.Forms.Panel();
-            this.Main_Jump_OSU = new System.Windows.Forms.Button();
+            this.Main_Jump_OSU = new Telerik.WinControls.UI.RadButton();
             this.Main_Volume_TrackBar = new Telerik.WinControls.UI.RadTrackBar();
             this.Main_Time_Trackbar = new Telerik.WinControls.UI.RadTrackBar();
             this.Main_Mini_Switcher = new Telerik.WinControls.UI.RadButton();
@@ -93,12 +94,12 @@ namespace OSUplayer
             this.Main_MenuStrip = new Telerik.WinControls.UI.RadMenu();
             this.NextTimer = new System.Windows.Forms.Timer(this.components);
             this.SearchTimer = new System.Windows.Forms.Timer(this.components);
-            this.Main_Option_Show_Popup = new Telerik.WinControls.UI.RadMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.radMenuComboItem1.ComboBoxElement)).BeginInit();
             this.Main_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Main_Search_Box)).BeginInit();
             this.Main_PlayList_RightClick_Menu.SuspendLayout();
             this.Main_Core_Panel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Main_Jump_OSU)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Main_Volume_TrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Main_Time_Trackbar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Main_Mini_Switcher)).BeginInit();
@@ -425,6 +426,18 @@ namespace OSUplayer
             this.Main_Option_Play_SB.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.Main_Option_Play_SB.Click += new System.EventHandler(this.SB开关_Click);
             // 
+            // Main_Option_Show_Popup
+            // 
+            this.Main_Option_Show_Popup.AccessibleDescription = "显示气泡";
+            this.Main_Option_Show_Popup.AccessibleName = "显示气泡";
+            this.Main_Option_Show_Popup.CheckOnClick = true;
+            this.Main_Option_Show_Popup.IsChecked = true;
+            this.Main_Option_Show_Popup.Name = "Main_Option_Show_Popup";
+            this.Main_Option_Show_Popup.Text = "显示气泡";
+            this.Main_Option_Show_Popup.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
+            this.Main_Option_Show_Popup.Visibility = Telerik.WinControls.ElementVisibility.Visible;
+            this.Main_Option_Show_Popup.Click += new System.EventHandler(this.Main_Option_Show_Popup_Click);
+            // 
             // Main_About
             // 
             this.Main_About.AccessibleDescription = "关于";
@@ -532,10 +545,9 @@ namespace OSUplayer
             // 
             this.Main_Jump_OSU.Location = new System.Drawing.Point(493, 395);
             this.Main_Jump_OSU.Name = "Main_Jump_OSU";
-            this.Main_Jump_OSU.Size = new System.Drawing.Size(33, 23);
+            this.Main_Jump_OSU.Size = new System.Drawing.Size(33, 27);
             this.Main_Jump_OSU.TabIndex = 0;
-            this.Main_Jump_OSU.Text = "button1";
-            this.Main_Jump_OSU.UseVisualStyleBackColor = true;
+            this.Main_Jump_OSU.Text = "O";
             this.Main_Jump_OSU.Click += new System.EventHandler(this.button1_Click);
             // 
             // Main_Volume_TrackBar
@@ -846,18 +858,6 @@ namespace OSUplayer
             this.SearchTimer.Interval = 500;
             this.SearchTimer.Tick += new System.EventHandler(this.SearchTimer_Tick);
             // 
-            // Main_Option_Show_Popup
-            // 
-            this.Main_Option_Show_Popup.AccessibleDescription = "显示气泡";
-            this.Main_Option_Show_Popup.AccessibleName = "显示气泡";
-            this.Main_Option_Show_Popup.CheckOnClick = true;
-            this.Main_Option_Show_Popup.IsChecked = true;
-            this.Main_Option_Show_Popup.Name = "Main_Option_Show_Popup";
-            this.Main_Option_Show_Popup.Text = "显示气泡";
-            this.Main_Option_Show_Popup.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
-            this.Main_Option_Show_Popup.Visibility = Telerik.WinControls.ElementVisibility.Visible;
-            this.Main_Option_Show_Popup.Click += new System.EventHandler(this.Main_Option_Show_Popup_Click);
-            // 
             // Main
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -883,6 +883,7 @@ namespace OSUplayer
             this.Main_PlayList_RightClick_Menu.ResumeLayout(false);
             this.Main_Core_Panel.ResumeLayout(false);
             this.Main_Core_Panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Main_Jump_OSU)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Main_Volume_TrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Main_Time_Trackbar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Main_Mini_Switcher)).EndInit();
@@ -969,8 +970,9 @@ namespace OSUplayer
         private Telerik.WinControls.UI.RadMenuItem Main_File_Import_Folder;
         private System.Windows.Forms.ContextMenuStrip Main_PlayList_RightClick_Menu;
         private System.Windows.Forms.ToolStripMenuItem Main_PlayList_RightClick_Delete_One;
-        private System.Windows.Forms.Button Main_Jump_OSU;
+        private Telerik.WinControls.UI.RadButton Main_Jump_OSU;
         private Telerik.WinControls.UI.RadMenuItem Main_Option_Show_Popup;
+
 
     }
 }

@@ -89,7 +89,7 @@ namespace OSUplayer
         public static bool MainIsVisible = false;
         public static void exit()
         {
-            QQ.Send2QQ(Settings.Default.QQuin, "");
+            NotifySystem.ClearText();
             player.Dispose();
             if (needsave) { DBSupporter.SaveList(); }
         }
@@ -201,8 +201,6 @@ namespace OSUplayer
                 Settings.Default.Upgrade();
                 Settings.Default.Save();
             }
-            Settings.Default.QQuin = Settings.Default.QQuin;
-            Settings.Default.SyncQQ = Settings.Default.SyncQQ;
             if (Settings.Default.QQuin == "0")
             {
                 /* if (
@@ -211,14 +209,8 @@ namespace OSUplayer
                  else { SetQQ(false); }*/
                 SetQQ();
             }
-            Settings.Default.Allvolume = Settings.Default.Allvolume;
-            Settings.Default.Fxvolume = Settings.Default.Fxvolume;
-            Settings.Default.Musicvolume = Settings.Default.Musicvolume;
-            Settings.Default.PlayFx = Settings.Default.PlayFx;
             Settings.Default.PlaySB = false;
             //playsb = Settings.Default.PlaySB;
-            Settings.Default.PlayVideo = Settings.Default.PlayVideo;
-            Settings.Default.NextMode = Settings.Default.NextMode;
             Settings.Default.Upgraded = true;
         }
         /// <summary>
@@ -324,20 +316,20 @@ namespace OSUplayer
             }
             player.Play();
             NotifySystem.Showtip(1000, "OSUplayer", "正在播放\n" + CurrentBeatmap.NameToString(), System.Windows.Forms.ToolTipIcon.Info);
-            QQ.Send2QQ(Settings.Default.QQuin, CurrentBeatmap.NameToString());
+            NotifySystem.SetText(CurrentBeatmap.NameToString());
         }
-        public static void Pause()
+        public static void PauseOrResume()
         {
             if (player.isplaying)
             {
                 player.Pause();
-                QQ.Send2QQ(Settings.Default.QQuin, "");
+                NotifySystem.ClearText();
             }
-        }
-        public static void Resume()
-        {
-            player.Resume();
-            QQ.Send2QQ(Settings.Default.QQuin, CurrentBeatmap.NameToString());
+            else
+            {
+                player.Resume();
+                NotifySystem.SetText(CurrentBeatmap.NameToString());
+            }
         }
         public static void seek(double time)
         {

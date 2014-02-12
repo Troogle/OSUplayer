@@ -60,7 +60,7 @@ namespace OSUplayer.Uilties
         /// </summary>
         /// <param name="id">QQ号</param>
         /// <param name="str">推送的内容</param>
-        public static void Send2QQ(string id, string str)
+        public static void Send2QQ(string str)
         {
             try
             {
@@ -68,9 +68,9 @@ namespace OSUplayer.Uilties
                 {
                     return;
                 }
-                Type objAdminType = Type.GetTypeFromProgID("QQCPHelper.CPAdder");
+                var objAdminType = Type.GetTypeFromProgID("QQCPHelper.CPAdder");
                 var args = new object[4];
-                args[0] = id;
+                args[0] = Settings.Default.QQuin;
                 args[1] = 65542;
                 args[2] = str;
                 args[3] = "";

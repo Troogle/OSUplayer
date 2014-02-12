@@ -173,30 +173,27 @@ namespace OSUplayer
         }
         private void Play()
         {
-            if (Core.PlayList.Count != 0)
-            {
-                UpdateTimer.Enabled = true;
-                Core.Play();
-                TrackSeek.Enabled = true;
-                SetPlay(false);
-                StopButton.Enabled = true;
-                TrackSeek.MaxValue = (int)Core.Durnation * 1000;
-                this.LabelArtist.Refresh();
-                this.LabelTitle.Refresh();
-                Artist = Core.CurrentBeatmap.Artist;
-                Title = Core.CurrentBeatmap.Title;
-            }
-
+            if (Core.PlayList.Count == 0) return;
+            UpdateTimer.Enabled = true;
+            Core.Play();
+            TrackSeek.Enabled = true;
+            SetPlay(false);
+            StopButton.Enabled = true;
+            TrackSeek.MaxValue = (int)Core.Durnation * 1000;
+            this.LabelArtist.Refresh();
+            this.LabelTitle.Refresh();
+            Artist = Core.CurrentBeatmap.Artist;
+            Title = Core.CurrentBeatmap.Title;
         }
         private void Pause()
         {
             UpdateTimer.Enabled = false;
-            Core.Pause();
+            Core.PauseOrResume();
             SetPlay(true);
         }
         private void Resume()
         {
-            Core.Resume();
+            Core.PauseOrResume();
             SetPlay(false);
         }
         private void PlayNext()

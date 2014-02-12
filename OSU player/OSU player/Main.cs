@@ -20,7 +20,6 @@ namespace OSUplayer
         {
             InitializeComponent();
             Initlang();
-            NotifySystem.RegisterClick(TaskbarIconClickHandler);
         }
 
         #region 各种方法
@@ -45,6 +44,7 @@ namespace OSUplayer
 
         private void TaskbarIconClickHandler(object sender, EventArgs e)
         {
+            if (((MouseEventArgs) e).Button != MouseButtons.Left) return;
             if (this.Visible)
             {
                 this.Visible = false;
@@ -56,9 +56,9 @@ namespace OSUplayer
             }
         }
 
-        private void AskForExit(object sender, System.Windows.Forms.FormClosingEventArgs e)
+        private void AskForExit(object sender, FormClosingEventArgs e)
         {
-            Core.Pause();
+            Core.PauseOrResume();
             if (RadMessageBox.Show("确认退出？", "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 Core.MainIsVisible = false;
@@ -69,7 +69,7 @@ namespace OSUplayer
             else
             {
                 e.Cancel = true;
-                Core.Resume();
+                Core.PauseOrResume();
             }
         }
         private void SetDetail()
@@ -102,12 +102,12 @@ namespace OSUplayer
         private void Pause()
         {
             UpdateTimer.Enabled = false;
-            Core.Pause();
+            Core.PauseOrResume();
             Main_Play.Text = "播放";
         }
         private void Resume()
         {
-            Core.Resume();
+            Core.PauseOrResume();
             UpdateTimer.Enabled = true;
             Main_Play.Text = "暂停";
         }
@@ -220,7 +220,7 @@ namespace OSUplayer
         {
             if (!string.IsNullOrEmpty(Core.CurrentBeatmap.Background))
             {
-                SaveFileDialog dialog = new SaveFileDialog();
+                var dialog = new SaveFileDialog();
                 dialog.CheckFileExists = false;
                 dialog.CreatePrompt = false;
                 dialog.AddExtension = true;
@@ -281,7 +281,7 @@ namespace OSUplayer
         }
         private void QQ状态同步_Click(object sender, EventArgs e)
         {
-            if (Settings.Default.SyncQQ && Settings.Default.QQuin != "0") { QQ.Send2QQ(Settings.Default.QQuin, ""); }
+            if (Settings.Default.SyncQQ && Settings.Default.QQuin != "0") { NotifySystem.ClearText(); }
             Settings.Default.SyncQQ = Main_Option_Sync_QQ.IsChecked;
         }
         private void SB开关_Click(object sender, EventArgs e)
@@ -534,6 +534,7 @@ namespace OSUplayer
             RefreshList();
             this.VisibleChanged += Main_VisibleChanged;
             this.SizeChanged += Main_SizeChanged;
+            NotifySystem.RegisterClick(TaskbarIconClickHandler);
             Core.MainIsVisible = true;
             hotkeyHelper = new HotkeyHelper(this.Handle);
             playKey = hotkeyHelper.RegisterHotkey(Keys.F5, KeyModifiers.Alt);
@@ -542,6 +543,7 @@ namespace OSUplayer
             nextKey = hotkeyHelper.RegisterHotkey(Keys.Right, KeyModifiers.Alt);
             nextKey1 = hotkeyHelper.RegisterHotkey(Keys.MediaNextTrack, KeyModifiers.None);
             hotkeyHelper.OnHotkey += OnHotkey;
+
             this.Main_Main_Display.ResumeLayout();
         }
         private void OnHotkey(int hotkeyID)
