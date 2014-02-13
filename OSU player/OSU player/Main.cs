@@ -69,7 +69,7 @@ namespace OSUplayer
             else
             {
                 e.Cancel = true;
-                Core.PauseOrResume();
+                //Core.PauseOrResume();
             }
         }
         private void SetDetail()
@@ -147,6 +147,7 @@ namespace OSUplayer
             Main_Option_Play_Fx.IsChecked = Settings.Default.PlayFx;
             Main_Option_Play_SB.IsChecked = Settings.Default.PlaySB;
             Main_Option_Play_Video.IsChecked = Settings.Default.PlayVideo;
+            Main_Option_Show_Popup.IsChecked = Settings.Default.ShowPopup;
             radMenuComboItem1.ComboBoxElement.SelectedIndex = Settings.Default.NextMode - 1;
         }
         private void RefreshList(int select = 0)

@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 using System.Windows.Forms;
 using OSUplayer.Properties;
 using System.Runtime.InteropServices;
@@ -42,9 +43,19 @@ namespace OSUplayer.Uilties
             QQ.Send2QQ("");
             TaskbarIcon.Text = "OSUPlayer";
         }
+        private static void SetNotifyIconText(NotifyIcon ni, string text)
+        {
+            if (text.Length >= 128)
+                text = text.Substring(0, 127);//throw new ArgumentOutOfRangeException("Text limited to 127 characters");
+            var t = typeof(NotifyIcon);
+            const BindingFlags hidden = BindingFlags.NonPublic | BindingFlags.Instance;
+            t.GetField("text", hidden).SetValue(ni, text);
+            if ((bool)t.GetField("added", hidden).GetValue(ni))
+                t.GetMethod("UpdateIcon", hidden).Invoke(ni, new object[] { true });
+        }
         public static void SetText(string content)
         {
-            TaskbarIcon.Text = String.Format("OSUPlayer\n{0}", content);
+            SetNotifyIconText(TaskbarIcon, String.Format("OSUPlayer\n{0}", content));
             QQ.Send2QQ(content);
             TrayIcon_MenuClass.RefreashMenu();
         }
@@ -138,14 +149,16 @@ namespace OSUplayer.Uilties
         );
         void TrayIcon_PlayNext_Click(object sender, EventArgs e)
         {
-            keybd_event(176, 0, 0, 0);
-            keybd_event(176, 0, 2, 0);
+            System.Windows.Forms.SendKeys.Send("%{RIGHT}");
+            //keybd_event(176, 0, 0, 0);
+            //keybd_event(176, 0, 2, 0);
         }
 
         void TrayIcon_Play_Click(object sender, EventArgs e)
         {
-            keybd_event(179, 0, 0, 0);
-            keybd_event(179, 0, 2, 0);
+            System.Windows.Forms.SendKeys.Send("%{F5}");
+            //keybd_event(179, 0, 0, 0);
+            //keybd_event(179, 0, 2, 0);
         }
         public void RefreashMenu()
         {

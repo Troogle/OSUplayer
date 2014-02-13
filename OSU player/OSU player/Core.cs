@@ -327,6 +327,7 @@ namespace OSUplayer
             }
             else
             {
+                if (player.position == -1.0) return;
                 player.Resume();
                 NotifySystem.SetText(CurrentBeatmap.NameToString());
             }
