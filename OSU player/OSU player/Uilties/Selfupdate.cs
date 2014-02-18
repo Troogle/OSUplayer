@@ -39,6 +39,8 @@ namespace OSUplayer.Uilties
                             Process.Start(UpDateXml.SelectNodes("/Xml/Link")[0].InnerText);
                             return;
                         }
+                        NotifySystem.Showtip(1000, "提示", "下载更新ing");
+                        RadMessageBox.Show("程序将在后台下载更新", "提示", MessageBoxButtons.OK, RadMessageIcon.Info);
                         Update();
                     }
                 }
@@ -81,6 +83,7 @@ namespace OSUplayer.Uilties
                 }
             }
             string filename = Assembly.GetExecutingAssembly().Location;
+            if (File.Exists(filename + ".detele")) File.Delete(filename + ".delete");
             File.Move(filename, filename + ".delete");
             using (var sourceFile = new ZipFile("OSUplayer.zip"))
             {
@@ -88,6 +91,7 @@ namespace OSUplayer.Uilties
             }
             File.Move("OSUplayer.exe", filename);
             File.Delete("OSUplayer.zip");
+            RadMessageBox.Show("程序将重启完成升级", "提示", MessageBoxButtons.OK, RadMessageIcon.Info);
             var proc = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().Location));
             var p = new Process { StartInfo = { FileName = filename } };
             p.Start();

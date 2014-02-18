@@ -1,6 +1,6 @@
 ﻿<Xml>
-<Url>https://raw.github.com/Troogle/OSUplayer/master/</Url>
-<Version>4.10</Version>
-<Text>Ver 4.10\n支持窗口切换大小\n修正可能的开始就崩溃的错误\n修正0kb的音频文件会报错\n修正可能的BG错误\n支持媒体快捷键\nVer 4.00\n支持SB播放(Beta,卡卡TAT)(默认关闭,在选项-播放sb中开启)\n支持后台快捷键(Alt+F5暂停继续，Alt+右下一首)\n支持导出Map音频文件，优化了导出BG文件的处理方式\n修正了暂停再播放之后进度条不动的问题\n修正了内存泄露问题\n修正了默认BG无法显示的问题\n增加了更详细的OSU文件读取错误的报错信息\n增大了显示框（下一版可以调节大小）\n试图修正开启就报错的问题</Text>
-<Link><![CDATA[http://pan.baidu.com/share/link?shareid=206361132&uk=2804632131]]></Link>
+<Version>5.00</Version>
+<Text>Ver 5.00\n界面调整及代码重构\n增加删除单曲功能\n增加最小化到任务栏的功能\n增加跳转osu游戏的按钮\n增加去除气泡提示的功能\n托盘图标功能加强\n优化自动更新\n其他错误修正</Text>
+<Full>0</Full>
+<Link><![CDATA[http://pan.baidu.com/share/link?shareid=2653872019&uk=2804632131]]></Link>
 </Xml>

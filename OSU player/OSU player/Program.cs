@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
@@ -36,6 +37,8 @@ namespace OSUplayer
                     Application.ExitThread();
                     return;
                 }
+                string filename = Assembly.GetExecutingAssembly().Location;
+                if (File.Exists(filename + ".detele")) File.Delete(filename + ".delete");
                 Un4seen.Bass.BassNet.Registration(PrivateConfig.BassEmail, PrivateConfig.BassReg);
                 ThemeResolutionService.LoadPackageResource("OSUplayer.Res.Light.tssp");
                 ThemeResolutionService.ApplicationThemeName = "Light";

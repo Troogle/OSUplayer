@@ -30,7 +30,7 @@ namespace OSUplayer.Uilties
         {
             TaskbarIcon.ContextMenuStrip = menu;
         }
-        public static void Showtip(int time, string title, string content, ToolTipIcon icon, bool force = false)
+        public static void Showtip(int time, string title, string content, ToolTipIcon icon = ToolTipIcon.Info, bool force = false)
         {
             if (Settings.Default.ShowPopup || force)
             {
