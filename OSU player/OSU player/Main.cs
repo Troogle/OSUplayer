@@ -44,7 +44,7 @@ namespace OSUplayer
 
         private void TaskbarIconClickHandler(object sender, EventArgs e)
         {
-            if (((MouseEventArgs) e).Button != MouseButtons.Left) return;
+            if (((MouseEventArgs)e).Button != MouseButtons.Left) return;
             if (this.Visible)
             {
                 this.Visible = false;
@@ -148,7 +148,8 @@ namespace OSUplayer
             Main_Option_Play_SB.IsChecked = Settings.Default.PlaySB;
             Main_Option_Play_Video.IsChecked = Settings.Default.PlayVideo;
             Main_Option_Show_Popup.IsChecked = Settings.Default.ShowPopup;
-            radMenuComboItem1.ComboBoxElement.SelectedIndex = Settings.Default.NextMode - 1;
+            ((Telerik.WinControls.UI.RadMenuItem) Main_Option_PlayMode.Items[Settings.Default.NextMode - 1]).IsChecked =
+                true;
         }
         private void RefreshList(int select = 0)
         {
@@ -178,11 +179,11 @@ namespace OSUplayer
 
         #region 菜单栏
         #region 文件
-        private void 运行OSU_Click(object sender, EventArgs e)
+        private void Main_File_Run_OSU_Click(object sender, EventArgs e)
         {
             Process.Start(Path.Combine(Settings.Default.OSUpath, "osu!.exe"));
         }
-        private void 手动指定OSU目录_Click(object sender, EventArgs e)
+        private void Main_File_Set_OSUPath_Click(object sender, EventArgs e)
         {
             if (Core.Setpath())
             {
@@ -192,14 +193,14 @@ namespace OSUplayer
                 RefreshList();
             }
         }
-        private void 重新导入osu_Click(object sender, EventArgs e)
+        private void Main_File_Import_OSU_Click(object sender, EventArgs e)
         {
             Main_PlayList.Items.Clear();
             Main_DiffList.Items.Clear();
             Core.RefreashSet();
             RefreshList();
         }
-        private void 重新导入scores_Click(object sender, EventArgs e)
+        private void Main_File_Import_Scores_Click(object sender, EventArgs e)
         {
             Core.Scores.Clear();
             string scorepath = Path.Combine(Settings.Default.OSUpath, "scores.db");
@@ -275,10 +276,6 @@ namespace OSUplayer
         private void 视频开关_Click(object sender, EventArgs e)
         {
             Settings.Default.PlayVideo = Main_Option_Play_Video.IsChecked;
-        }
-        private void radMenuComboItem1_ComboBoxElement_SelectedIndexChanged(object sender, Telerik.WinControls.UI.Data.PositionChangedEventArgs e)
-        {
-            Settings.Default.NextMode = radMenuComboItem1.ComboBoxElement.SelectedIndex + 1;
         }
         private void QQ状态同步_Click(object sender, EventArgs e)
         {
@@ -570,7 +567,7 @@ namespace OSUplayer
             }
         }
 
-        private void radMenuItem2_Click(object sender, EventArgs e)
+        private void Main_File_Import_Folder_Click(object sender, EventArgs e)
         {
 
         }
@@ -629,6 +626,23 @@ namespace OSUplayer
                 }
             }
             Process.Start("tmp.osr");
+        }
+        public enum NextMode
+        {
+            Main_Option_PlayMode_Normal = 1,
+            Main_Option_PlayMode_Repeat = 2,
+            Main_Option_PlayMode_Random = 3
+        }
+        private void Main_Option_PlayMode_Click(object sender, EventArgs e)
+        {
+            var menu = (Telerik.WinControls.UI.RadMenuItem)sender;
+            if (menu.IsChecked) return;
+            foreach (var child in menu.Parent.Children)
+            {
+                ((Telerik.WinControls.UI.RadMenuItem)child).IsChecked = false;
+            }
+            menu.IsChecked = true;
+            Settings.Default.NextMode = (int)(NextMode)Enum.Parse(typeof(NextMode), menu.Name);
         }
     }
 }

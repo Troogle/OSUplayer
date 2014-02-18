@@ -26,9 +26,6 @@ namespace OSUplayer
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Telerik.WinControls.UI.RadListDataItem radListDataItem1 = new Telerik.WinControls.UI.RadListDataItem();
-            Telerik.WinControls.UI.RadListDataItem radListDataItem2 = new Telerik.WinControls.UI.RadListDataItem();
-            Telerik.WinControls.UI.RadListDataItem radListDataItem3 = new Telerik.WinControls.UI.RadListDataItem();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.Main_File_Menu = new Telerik.WinControls.UI.RadMenuItem();
             this.Main_File_Run_OSU = new Telerik.WinControls.UI.RadMenuItem();
@@ -52,7 +49,10 @@ namespace OSUplayer
             this.Main_Option_Menu = new Telerik.WinControls.UI.RadMenuItem();
             this.Main_Option_Play_Fx = new Telerik.WinControls.UI.RadMenuItem();
             this.Main_Option_Play_Video = new Telerik.WinControls.UI.RadMenuItem();
-            this.radMenuComboItem1 = new Telerik.WinControls.UI.RadMenuComboItem();
+            this.Main_Option_PlayMode = new Telerik.WinControls.UI.RadMenuItem();
+            this.Main_Option_PlayMode_Normal = new Telerik.WinControls.UI.RadMenuItem();
+            this.Main_Option_PlayMode_Repeat = new Telerik.WinControls.UI.RadMenuItem();
+            this.Main_Option_PlayMode_Random = new Telerik.WinControls.UI.RadMenuItem();
             this.Main_Option_Select_QQ = new Telerik.WinControls.UI.RadMenuItem();
             this.Main_Option_Sync_QQ = new Telerik.WinControls.UI.RadMenuItem();
             this.Main_Option_Play_SB = new Telerik.WinControls.UI.RadMenuItem();
@@ -60,6 +60,8 @@ namespace OSUplayer
             this.Main_About = new Telerik.WinControls.UI.RadMenuItem();
             this.Main_Panel = new System.Windows.Forms.Panel();
             this.Main_Search_Box = new Telerik.WinControls.UI.RadTextBox();
+            this.Main_PlayList = new OSUplayer.DBListView();
+            this.Main_PlayList_Name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Main_PlayList_RightClick_Menu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.Main_PlayList_RightClick_Delete_One = new System.Windows.Forms.ToolStripMenuItem();
             this.Main_Core_Panel = new System.Windows.Forms.Panel();
@@ -89,12 +91,9 @@ namespace OSUplayer
             this.Main_DiffList = new System.Windows.Forms.ListBox();
             this.Main_QQ_Hint_Label = new System.Windows.Forms.Label();
             this.UpdateTimer = new System.Windows.Forms.Timer(this.components);
-            this.Main_MenuStrip = new Telerik.WinControls.UI.RadMenu();
             this.NextTimer = new System.Windows.Forms.Timer(this.components);
             this.SearchTimer = new System.Windows.Forms.Timer(this.components);
-            this.Main_PlayList = new OSUplayer.DBListView();
-            this.Main_PlayList_Name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            ((System.ComponentModel.ISupportInitialize)(this.radMenuComboItem1.ComboBoxElement)).BeginInit();
+            this.Main_MenuStrip = new Telerik.WinControls.UI.RadMenu();
             this.Main_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Main_Search_Box)).BeginInit();
             this.Main_PlayList_RightClick_Menu.SuspendLayout();
@@ -151,7 +150,7 @@ namespace OSUplayer
             this.Main_File_Run_OSU.Name = "Main_File_Run_OSU";
             this.Main_File_Run_OSU.Text = "运行OSU!";
             this.Main_File_Run_OSU.Visibility = Telerik.WinControls.ElementVisibility.Visible;
-            this.Main_File_Run_OSU.Click += new System.EventHandler(this.运行OSU_Click);
+            this.Main_File_Run_OSU.Click += new System.EventHandler(this.Main_File_Run_OSU_Click);
             // 
             // Main_File_Set_OSUPath
             // 
@@ -160,7 +159,7 @@ namespace OSUplayer
             this.Main_File_Set_OSUPath.Name = "Main_File_Set_OSUPath";
             this.Main_File_Set_OSUPath.Text = "手动指定OSU目录";
             this.Main_File_Set_OSUPath.Visibility = Telerik.WinControls.ElementVisibility.Visible;
-            this.Main_File_Set_OSUPath.Click += new System.EventHandler(this.手动指定OSU目录_Click);
+            this.Main_File_Set_OSUPath.Click += new System.EventHandler(this.Main_File_Set_OSUPath_Click);
             // 
             // Main_File_Separator1
             // 
@@ -174,7 +173,7 @@ namespace OSUplayer
             this.Main_File_Import_Folder.Name = "Main_File_Import_Folder";
             this.Main_File_Import_Folder.Text = "导入文件夹内歌曲";
             this.Main_File_Import_Folder.Visibility = Telerik.WinControls.ElementVisibility.Visible;
-            this.Main_File_Import_Folder.Click += new System.EventHandler(this.radMenuItem2_Click);
+            this.Main_File_Import_Folder.Click += new System.EventHandler(this.Main_File_Import_Folder_Click);
             // 
             // Main_File_Import_OSU
             // 
@@ -183,7 +182,7 @@ namespace OSUplayer
             this.Main_File_Import_OSU.Name = "Main_File_Import_OSU";
             this.Main_File_Import_OSU.Text = "与OSU数据库同步";
             this.Main_File_Import_OSU.Visibility = Telerik.WinControls.ElementVisibility.Visible;
-            this.Main_File_Import_OSU.Click += new System.EventHandler(this.重新导入osu_Click);
+            this.Main_File_Import_OSU.Click += new System.EventHandler(this.Main_File_Import_OSU_Click);
             // 
             // Main_File_Import_Scores
             // 
@@ -192,7 +191,7 @@ namespace OSUplayer
             this.Main_File_Import_Scores.Name = "Main_File_Import_Scores";
             this.Main_File_Import_Scores.Text = "导入scores.db";
             this.Main_File_Import_Scores.Visibility = Telerik.WinControls.ElementVisibility.Visible;
-            this.Main_File_Import_Scores.Click += new System.EventHandler(this.重新导入scores_Click);
+            this.Main_File_Import_Scores.Click += new System.EventHandler(this.Main_File_Import_Scores_Click);
             // 
             // Main_File_Separator2
             // 
@@ -302,7 +301,7 @@ namespace OSUplayer
             this.Main_Option_Menu.Items.AddRange(new Telerik.WinControls.RadItem[] {
             this.Main_Option_Play_Fx,
             this.Main_Option_Play_Video,
-            this.radMenuComboItem1,
+            this.Main_Option_PlayMode,
             this.Main_Option_Select_QQ,
             this.Main_Option_Sync_QQ,
             this.Main_Option_Play_SB,
@@ -335,65 +334,44 @@ namespace OSUplayer
             this.Main_Option_Play_Video.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.Main_Option_Play_Video.Click += new System.EventHandler(this.视频开关_Click);
             // 
-            // radMenuComboItem1
+            // Main_Option_PlayMode
             // 
-            this.radMenuComboItem1.AccessibleDescription = "radMenuComboItem1";
-            this.radMenuComboItem1.AccessibleName = "radMenuComboItem1";
+            this.Main_Option_PlayMode.AccessibleDescription = "播放模式";
+            this.Main_Option_PlayMode.AccessibleName = "播放模式";
+            this.Main_Option_PlayMode.Items.AddRange(new Telerik.WinControls.RadItem[] {
+            this.Main_Option_PlayMode_Normal,
+            this.Main_Option_PlayMode_Repeat,
+            this.Main_Option_PlayMode_Random});
+            this.Main_Option_PlayMode.Name = "Main_Option_PlayMode";
+            this.Main_Option_PlayMode.Text = "播放模式";
+            this.Main_Option_PlayMode.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             // 
+            // Main_Option_PlayMode_Normal
             // 
+            this.Main_Option_PlayMode_Normal.AccessibleDescription = "顺序播放";
+            this.Main_Option_PlayMode_Normal.AccessibleName = "顺序播放";
+            this.Main_Option_PlayMode_Normal.Name = "Main_Option_PlayMode_Normal";
+            this.Main_Option_PlayMode_Normal.Text = "顺序播放";
+            this.Main_Option_PlayMode_Normal.Visibility = Telerik.WinControls.ElementVisibility.Visible;
+            this.Main_Option_PlayMode_Normal.Click += new System.EventHandler(this.Main_Option_PlayMode_Click);
             // 
-            this.radMenuComboItem1.ComboBoxElement.AccessibleDescription = "随机播放";
-            this.radMenuComboItem1.ComboBoxElement.AccessibleName = "随机播放";
-            this.radMenuComboItem1.ComboBoxElement.ArrowButtonMinWidth = 17;
-            this.radMenuComboItem1.ComboBoxElement.AutoCompleteAppend = null;
-            this.radMenuComboItem1.ComboBoxElement.AutoCompleteDataSource = null;
-            this.radMenuComboItem1.ComboBoxElement.AutoCompleteDisplayMember = null;
-            this.radMenuComboItem1.ComboBoxElement.AutoCompleteSuggest = null;
-            this.radMenuComboItem1.ComboBoxElement.AutoCompleteValueMember = null;
-            this.radMenuComboItem1.ComboBoxElement.DataMember = "";
-            this.radMenuComboItem1.ComboBoxElement.DataSource = null;
-            this.radMenuComboItem1.ComboBoxElement.DefaultItemsCountInDropDown = 6;
-            this.radMenuComboItem1.ComboBoxElement.DefaultValue = null;
-            this.radMenuComboItem1.ComboBoxElement.DisplayMember = "";
-            this.radMenuComboItem1.ComboBoxElement.DropDownAnimationEasing = Telerik.WinControls.RadEasingType.InQuad;
-            this.radMenuComboItem1.ComboBoxElement.DropDownAnimationEnabled = true;
-            this.radMenuComboItem1.ComboBoxElement.DropDownStyle = Telerik.WinControls.RadDropDownStyle.DropDownList;
-            this.radMenuComboItem1.ComboBoxElement.EditableElementText = "随机播放";
-            this.radMenuComboItem1.ComboBoxElement.EditorElement = this.radMenuComboItem1.ComboBoxElement;
-            this.radMenuComboItem1.ComboBoxElement.EditorManager = null;
-            this.radMenuComboItem1.ComboBoxElement.Filter = null;
-            this.radMenuComboItem1.ComboBoxElement.FilterExpression = "";
-            this.radMenuComboItem1.ComboBoxElement.Focusable = true;
-            this.radMenuComboItem1.ComboBoxElement.FormatString = "";
-            this.radMenuComboItem1.ComboBoxElement.FormattingEnabled = true;
-            this.radMenuComboItem1.ComboBoxElement.ItemHeight = 18;
-            radListDataItem1.Text = "顺序播放";
-            radListDataItem1.TextWrap = true;
-            radListDataItem2.Text = "单曲循环";
-            radListDataItem2.TextWrap = true;
-            radListDataItem3.Selected = true;
-            radListDataItem3.Text = "随机播放";
-            radListDataItem3.TextWrap = true;
-            this.radMenuComboItem1.ComboBoxElement.Items.Add(radListDataItem1);
-            this.radMenuComboItem1.ComboBoxElement.Items.Add(radListDataItem2);
-            this.radMenuComboItem1.ComboBoxElement.Items.Add(radListDataItem3);
-            this.radMenuComboItem1.ComboBoxElement.MaxDropDownItems = 0;
-            this.radMenuComboItem1.ComboBoxElement.MaxLength = 32767;
-            this.radMenuComboItem1.ComboBoxElement.MaxValue = null;
-            this.radMenuComboItem1.ComboBoxElement.MinValue = null;
-            this.radMenuComboItem1.ComboBoxElement.NullText = "播放模式";
-            this.radMenuComboItem1.ComboBoxElement.NullValue = null;
-            this.radMenuComboItem1.ComboBoxElement.Owner = null;
-            this.radMenuComboItem1.ComboBoxElement.OwnerOffset = 0;
-            this.radMenuComboItem1.ComboBoxElement.ShowImageInEditorArea = true;
-            this.radMenuComboItem1.ComboBoxElement.SortStyle = Telerik.WinControls.Enumerations.SortStyle.None;
-            this.radMenuComboItem1.ComboBoxElement.Value = null;
-            this.radMenuComboItem1.ComboBoxElement.ValueMember = "";
-            this.radMenuComboItem1.ComboBoxElement.SelectedIndexChanged += new Telerik.WinControls.UI.Data.PositionChangedEventHandler(this.radMenuComboItem1_ComboBoxElement_SelectedIndexChanged);
-            this.radMenuComboItem1.Name = "radMenuComboItem1";
-            this.radMenuComboItem1.Text = "radMenuComboItem1";
-            this.radMenuComboItem1.Visibility = Telerik.WinControls.ElementVisibility.Visible;
-            ((Telerik.WinControls.UI.RadDropDownListElement)(this.radMenuComboItem1.GetChildAt(3))).DropDownStyle = Telerik.WinControls.RadDropDownStyle.DropDownList;
+            // Main_Option_PlayMode_Repeat
+            // 
+            this.Main_Option_PlayMode_Repeat.AccessibleDescription = "单曲循环";
+            this.Main_Option_PlayMode_Repeat.AccessibleName = "单曲循环";
+            this.Main_Option_PlayMode_Repeat.Name = "Main_Option_PlayMode_Repeat";
+            this.Main_Option_PlayMode_Repeat.Text = "单曲循环";
+            this.Main_Option_PlayMode_Repeat.Visibility = Telerik.WinControls.ElementVisibility.Visible;
+            this.Main_Option_PlayMode_Repeat.Click += new System.EventHandler(this.Main_Option_PlayMode_Click);
+            // 
+            // Main_Option_PlayMode_Random
+            // 
+            this.Main_Option_PlayMode_Random.AccessibleDescription = "随机播放";
+            this.Main_Option_PlayMode_Random.AccessibleName = "随机播放";
+            this.Main_Option_PlayMode_Random.Name = "Main_Option_PlayMode_Random";
+            this.Main_Option_PlayMode_Random.Text = "随机播放";
+            this.Main_Option_PlayMode_Random.Visibility = Telerik.WinControls.ElementVisibility.Visible;
+            this.Main_Option_PlayMode_Random.Click += new System.EventHandler(this.Main_Option_PlayMode_Click);
             // 
             // Main_Option_Select_QQ
             // 
@@ -474,6 +452,32 @@ namespace OSUplayer
             this.Main_Search_Box.TabIndex = 35;
             this.Main_Search_Box.TabStop = false;
             this.Main_Search_Box.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBox1_KeyPress);
+            // 
+            // Main_PlayList
+            // 
+            this.Main_PlayList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Main_PlayList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.Main_PlayList_Name});
+            this.Main_PlayList.ContextMenuStrip = this.Main_PlayList_RightClick_Menu;
+            this.Main_PlayList.FullRowSelect = true;
+            this.Main_PlayList.GridLines = true;
+            this.Main_PlayList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.Main_PlayList.HideSelection = false;
+            this.Main_PlayList.Location = new System.Drawing.Point(532, 32);
+            this.Main_PlayList.MultiSelect = false;
+            this.Main_PlayList.Name = "Main_PlayList";
+            this.Main_PlayList.Size = new System.Drawing.Size(344, 616);
+            this.Main_PlayList.TabIndex = 24;
+            this.Main_PlayList.UseCompatibleStateImageBehavior = false;
+            this.Main_PlayList.View = System.Windows.Forms.View.Details;
+            this.Main_PlayList.SelectedIndexChanged += new System.EventHandler(this.PlayList_SelectedIndexChanged);
+            this.Main_PlayList.DoubleClick += new System.EventHandler(this.PlayList_DoubleClick);
+            // 
+            // Main_PlayList_Name
+            // 
+            this.Main_PlayList_Name.Text = "";
+            this.Main_PlayList_Name.Width = 500;
             // 
             // Main_PlayList_RightClick_Menu
             // 
@@ -716,7 +720,7 @@ namespace OSUplayer
             this.Main_PageView_Page1.Controls.Add(this.Main_ListDetail);
             this.Main_PageView_Page1.Location = new System.Drawing.Point(10, 10);
             this.Main_PageView_Page1.Name = "Main_PageView_Page1";
-            this.Main_PageView_Page1.Size = new System.Drawing.Size(511, 175);
+            this.Main_PageView_Page1.Size = new System.Drawing.Size(511, 171);
             this.Main_PageView_Page1.Text = "Map信息";
             // 
             // Main_ListDetail
@@ -732,7 +736,7 @@ namespace OSUplayer
             this.Main_ListDetail.Location = new System.Drawing.Point(0, 0);
             this.Main_ListDetail.MultiSelect = false;
             this.Main_ListDetail.Name = "Main_ListDetail";
-            this.Main_ListDetail.Size = new System.Drawing.Size(511, 173);
+            this.Main_ListDetail.Size = new System.Drawing.Size(511, 169);
             this.Main_ListDetail.TabIndex = 40;
             this.Main_ListDetail.UseCompatibleStateImageBehavior = false;
             this.Main_ListDetail.View = System.Windows.Forms.View.Details;
@@ -808,6 +812,16 @@ namespace OSUplayer
             // 
             this.UpdateTimer.Tick += new System.EventHandler(this.UpdateTimer_Tick);
             // 
+            // NextTimer
+            // 
+            this.NextTimer.Interval = 200;
+            this.NextTimer.Tick += new System.EventHandler(this.NextTimer_Tick);
+            // 
+            // SearchTimer
+            // 
+            this.SearchTimer.Interval = 500;
+            this.SearchTimer.Tick += new System.EventHandler(this.SearchTimer_Tick);
+            // 
             // Main_MenuStrip
             // 
             this.Main_MenuStrip.Controls.Add(this.Main_QQ_Hint_Label);
@@ -821,42 +835,6 @@ namespace OSUplayer
             this.Main_MenuStrip.Size = new System.Drawing.Size(874, 24);
             this.Main_MenuStrip.TabIndex = 2;
             this.Main_MenuStrip.Text = "MenuStrip1";
-            // 
-            // NextTimer
-            // 
-            this.NextTimer.Interval = 200;
-            this.NextTimer.Tick += new System.EventHandler(this.NextTimer_Tick);
-            // 
-            // SearchTimer
-            // 
-            this.SearchTimer.Interval = 500;
-            this.SearchTimer.Tick += new System.EventHandler(this.SearchTimer_Tick);
-            // 
-            // Main_PlayList
-            // 
-            this.Main_PlayList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Main_PlayList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.Main_PlayList_Name});
-            this.Main_PlayList.ContextMenuStrip = this.Main_PlayList_RightClick_Menu;
-            this.Main_PlayList.FullRowSelect = true;
-            this.Main_PlayList.GridLines = true;
-            this.Main_PlayList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.Main_PlayList.HideSelection = false;
-            this.Main_PlayList.Location = new System.Drawing.Point(532, 32);
-            this.Main_PlayList.MultiSelect = false;
-            this.Main_PlayList.Name = "Main_PlayList";
-            this.Main_PlayList.Size = new System.Drawing.Size(344, 616);
-            this.Main_PlayList.TabIndex = 24;
-            this.Main_PlayList.UseCompatibleStateImageBehavior = false;
-            this.Main_PlayList.View = System.Windows.Forms.View.Details;
-            this.Main_PlayList.SelectedIndexChanged += new System.EventHandler(this.PlayList_SelectedIndexChanged);
-            this.Main_PlayList.DoubleClick += new System.EventHandler(this.PlayList_DoubleClick);
-            // 
-            // Main_PlayList_Name
-            // 
-            this.Main_PlayList_Name.Text = "";
-            this.Main_PlayList_Name.Width = 500;
             // 
             // Main
             // 
@@ -876,7 +854,6 @@ namespace OSUplayer
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AskForExit);
             this.Shown += new System.EventHandler(this.Main_Shown);
             this.SizeChanged += new System.EventHandler(this.Main_SizeChanged);
-            ((System.ComponentModel.ISupportInitialize)(this.radMenuComboItem1.ComboBoxElement)).EndInit();
             this.Main_Panel.ResumeLayout(false);
             this.Main_Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Main_Search_Box)).EndInit();
@@ -942,7 +919,6 @@ namespace OSUplayer
         private Telerik.WinControls.UI.RadPageView Main_PageView;
         private Telerik.WinControls.UI.RadPageViewPage Main_PageView_Page1;
         private Telerik.WinControls.UI.RadPageViewPage Main_PageView_Page2;
-        private Telerik.WinControls.UI.RadMenuComboItem radMenuComboItem1;
         private Telerik.WinControls.UI.RadMenuItem Main_Option_Select_QQ;
         private System.Windows.Forms.Panel Main_Core_Panel;
         private Telerik.WinControls.UI.RadPageViewPage Main_PageView_Page3;
@@ -959,7 +935,6 @@ namespace OSUplayer
         private Telerik.WinControls.UI.RadButton Main_Play;
         private Telerik.WinControls.UI.RadListView Main_ScoreBox;
         private System.Windows.Forms.Timer UpdateTimer;
-        private Telerik.WinControls.UI.RadMenu Main_MenuStrip;
         private Telerik.WinControls.UI.RadTrackBar Main_Time_Trackbar;
         private Telerik.WinControls.UI.RadTrackBar Main_Volume_TrackBar;
         private Telerik.WinControls.UI.RadMenuItem Main_File_Export_Background;
@@ -972,6 +947,11 @@ namespace OSUplayer
         private System.Windows.Forms.ToolStripMenuItem Main_PlayList_RightClick_Delete_One;
         private Telerik.WinControls.UI.RadButton Main_Jump_OSU;
         private Telerik.WinControls.UI.RadMenuItem Main_Option_Show_Popup;
+        private Telerik.WinControls.UI.RadMenuItem Main_Option_PlayMode;
+        private Telerik.WinControls.UI.RadMenuItem Main_Option_PlayMode_Normal;
+        private Telerik.WinControls.UI.RadMenuItem Main_Option_PlayMode_Repeat;
+        private Telerik.WinControls.UI.RadMenuItem Main_Option_PlayMode_Random;
+        private Telerik.WinControls.UI.RadMenu Main_MenuStrip;
 
 
     }

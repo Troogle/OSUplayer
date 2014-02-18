@@ -76,7 +76,6 @@ namespace OSUplayer
         public static Beatmap TmpBeatmap { get { return TmpSet.Diffs[tmpmap]; } }
         #endregion
         private static Player player;
-
         public static string Version
         {
             get
