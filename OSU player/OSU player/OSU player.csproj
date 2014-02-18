@@ -82,6 +82,9 @@
     <Reference Include="gTrackBar">
       <HintPath>Res\gTrackBar.dll</HintPath>
     </Reference>
+    <Reference Include="Ionic.Zip.Reduced">
+      <HintPath>..\..\ipch\Ionic.Zip.Reduced.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\ipch\log4net.dll</HintPath>
