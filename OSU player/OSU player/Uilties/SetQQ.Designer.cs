@@ -70,7 +70,7 @@
             this.SetQQ_GetQQ.Size = new System.Drawing.Size(86, 30);
             this.SetQQ_GetQQ.TabIndex = 2;
             this.SetQQ_GetQQ.Text = "手动获取";
-            this.SetQQ_GetQQ.Click += new System.EventHandler(this.Button1_Click);
+            this.SetQQ_GetQQ.Click += new System.EventHandler(this.SetQQ_GetQQ_Click);
             // 
             // Button2
             // 
@@ -79,7 +79,7 @@
             this.SetQQ_OK.Size = new System.Drawing.Size(86, 27);
             this.SetQQ_OK.TabIndex = 3;
             this.SetQQ_OK.Text = "确定";
-            this.SetQQ_OK.Click += new System.EventHandler(this.Button2_Click);
+            this.SetQQ_OK.Click += new System.EventHandler(this.SetQQ_OK_Click);
             // 
             // textBox1
             // 

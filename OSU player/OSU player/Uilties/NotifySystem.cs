@@ -8,13 +8,13 @@ namespace OSUplayer.Uilties
 {
     static internal class NotifySystem
     {
-        private static readonly TaskBarIconMenu TrayIcon_MenuClass = new TaskBarIconMenu();
+        private static readonly TaskBarIconMenu TrayIconMenuClass = new TaskBarIconMenu();
         private static readonly NotifyIcon TaskbarIcon = new NotifyIcon
         {
             Icon = Resources.icon,
             Text = "OSUplayer",
             Visible = true,
-            ContextMenuStrip = TrayIcon_MenuClass.TrayIcon_Menu
+            ContextMenuStrip = TrayIconMenuClass.TrayIcon_Menu
         };
         private static System.EventHandler _clickEvent;
         public static void RegisterClick(System.EventHandler clicktodo)
@@ -25,7 +25,6 @@ namespace OSUplayer.Uilties
             TaskbarIcon.Click += _clickEvent;
             TaskbarIcon.DoubleClick += _clickEvent;
         }
-
         public static void RegisterMenu(ContextMenuStrip menu)
         {
             TaskbarIcon.ContextMenuStrip = menu;
@@ -57,7 +56,7 @@ namespace OSUplayer.Uilties
         {
             SetNotifyIconText(TaskbarIcon, String.Format("OSUPlayer\n{0}", content));
             QQ.Send2QQ(content);
-            TrayIcon_MenuClass.RefreashMenu();
+            TrayIconMenuClass.RefreashMenu();
         }
     }
 
@@ -98,7 +97,7 @@ namespace OSUplayer.Uilties
             this.TrayIcon_Artist.Enabled = false;
             this.TrayIcon_Artist.Name = "TrayIcon_Artist";
             this.TrayIcon_Artist.Size = new System.Drawing.Size(175, 24);
-            this.TrayIcon_Artist.Text = "当前Aritst";
+            this.TrayIcon_Artist.Text = "Current Aritst:";
             this.TrayIcon_Artist.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             // 
             // TrayIcon_Title
@@ -106,7 +105,7 @@ namespace OSUplayer.Uilties
             this.TrayIcon_Title.Enabled = false;
             this.TrayIcon_Title.Name = "TrayIcon_Title";
             this.TrayIcon_Title.Size = new System.Drawing.Size(175, 24);
-            this.TrayIcon_Title.Text = "当前Title";
+            this.TrayIcon_Title.Text = "Current Title:";
             this.TrayIcon_Title.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             // 
             // TrayIcon_Diff
@@ -114,7 +113,7 @@ namespace OSUplayer.Uilties
             this.TrayIcon_Diff.Enabled = false;
             this.TrayIcon_Diff.Name = "TrayIcon_Diff";
             this.TrayIcon_Diff.Size = new System.Drawing.Size(175, 24);
-            this.TrayIcon_Diff.Text = "当前Diff";
+            this.TrayIcon_Diff.Text = "Current Diff:";
             this.TrayIcon_Diff.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             // 
             // TrayIcon_Play
@@ -163,9 +162,9 @@ namespace OSUplayer.Uilties
         public void RefreashMenu()
         {
             if (Core.CurrentBeatmap == null) return;
-            this.TrayIcon_Artist.Text = "Artist:" + Core.CurrentBeatmap.Artist;
-            this.TrayIcon_Title.Text = "Title:" + Core.CurrentBeatmap.Title;
-            this.TrayIcon_Diff.Text = "Diff:" + Core.CurrentBeatmap.Version;
+            this.TrayIcon_Artist.Text = "Current Aritst:" + Core.CurrentBeatmap.Artist;
+            this.TrayIcon_Title.Text = "Current Title:" + Core.CurrentBeatmap.Title;
+            this.TrayIcon_Diff.Text = "Current Diff:" + Core.CurrentBeatmap.Version;
         }
     }
 }

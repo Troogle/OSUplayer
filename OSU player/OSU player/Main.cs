@@ -1,21 +1,36 @@
 ﻿using System;
-using System.IO;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
+using Meebey.SmartIrc4net;
+using OSUplayer.OsuFiles;
 using OSUplayer.Properties;
+using OSUplayer.Uilties;
 using Telerik.WinControls;
 using Telerik.WinControls.UI;
-using System.ComponentModel;
-using System.Threading;
-using OSUplayer.OsuFiles;
-using OSUplayer.Uilties;
 
 namespace OSUplayer
 {
     public partial class Main : RadForm
     {
+        private enum NextMode
+        {
+            Main_Option_PlayMode_Normal = 1,
+            Main_Option_PlayMode_Repeat = 2,
+            Main_Option_PlayMode_Random = 3
+        }
+
+        private HotkeyHelper _hotkeyHelper;
+        private int _nextKey;
+        private int _nextKey1;
+        private int _playKey;
+        private int _playKey1;
+        private int _playKey2;
+
         public Main()
         {
             InitializeComponent();
@@ -23,10 +38,10 @@ namespace OSUplayer
         }
 
         #region 各种方法
+
         private void Initlang()
         {
-
-            foreach (var lang in LanguageManager.LanguageList)
+            foreach (string lang in LanguageManager.LanguageList)
             {
                 var item = new ToolStripMenuItem(lang);
                 item.Click += delegate
@@ -36,35 +51,37 @@ namespace OSUplayer
                 };
                 //Menubar_Language.DropDownItems.Add(item);
             }
+            UpdateFormLanguage();
         }
+
         private void UpdateFormLanguage()
         {
-
+            LanguageManager.ApplyLanguage(this);
         }
 
         private void TaskbarIconClickHandler(object sender, EventArgs e)
         {
             if (((MouseEventArgs)e).Button != MouseButtons.Left) return;
-            if (this.Visible)
+            if (Visible)
             {
-                this.Visible = false;
+                Visible = false;
             }
             else
             {
-                this.Visible = true;
-                this.WindowState = FormWindowState.Normal;
+                Visible = true;
+                WindowState = FormWindowState.Normal;
             }
         }
 
         private void AskForExit(object sender, FormClosingEventArgs e)
         {
             Core.PauseOrResume();
-            if (RadMessageBox.Show("确认退出？", "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (RadMessageBox.Show(LanguageManager.Get("Comfirm_Exit_Text"), LanguageManager.Get("Tip_Text"), MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 Core.MainIsVisible = false;
                 Core.exit();
-                hotkeyHelper.UnregisterHotkeys();
-                this.Dispose();
+                _hotkeyHelper.UnregisterHotkeys();
+                Dispose();
             }
             else
             {
@@ -72,12 +89,14 @@ namespace OSUplayer
                 //Core.PauseOrResume();
             }
         }
+
         private void SetDetail()
         {
             Main_ListDetail.Items.Clear();
             Main_ListDetail.Items.AddRange(Core.getdetail());
             Core.SetBG();
         }
+
         private void Stop()
         {
             UpdateTimer.Enabled = false;
@@ -85,8 +104,9 @@ namespace OSUplayer
             Main_Time_Trackbar.Enabled = false;
             Main_Time_Trackbar.Value = 0;
             Main_Stop.Enabled = false;
-            Main_Play.Text = "播放";
+            Main_Play.Text = LanguageManager.Get("Main_Play_Text");
         }
+
         private void Play()
         {
             if (Core.PlayList.Count != 0)
@@ -94,27 +114,30 @@ namespace OSUplayer
                 UpdateTimer.Enabled = true;
                 Core.Play();
                 Main_Time_Trackbar.Enabled = true;
-                Main_Play.Text = "暂停";
+                Main_Play.Text = LanguageManager.Get("Main_Pause_Text");
                 Main_Stop.Enabled = true;
                 Main_Time_Trackbar.Maximum = (int)Core.Durnation * 1000;
             }
         }
+
         private void Pause()
         {
             UpdateTimer.Enabled = false;
             Core.PauseOrResume();
-            Main_Play.Text = "播放";
+            Main_Play.Text = LanguageManager.Get("Main_Play_Text");
         }
+
         private void Resume()
         {
             Core.PauseOrResume();
             UpdateTimer.Enabled = true;
-            Main_Play.Text = "暂停";
+            Main_Play.Text = LanguageManager.Get("Main_Pause_Text");
         }
+
         private void PlayNext(bool play = true)
         {
             if (Core.PlayList.Count == 0) return;
-            int nextSongId = Core.GetNext();
+            var nextSongId = Core.GetNext();
             if (Main_PlayList.SelectedItems.Count != 0)
             {
                 Main_PlayList.SelectedItems[0].Selected = false;
@@ -123,12 +146,16 @@ namespace OSUplayer
             Main_PlayList.EnsureVisible(nextSongId);
             Main_PlayList.Focus();
             SetDetail();
-            if (play) { Play(); }
+            if (play)
+            {
+                Play();
+            }
         }
+
         private void Setscore()
         {
             Main_ScoreBox.Items.Clear();
-            foreach (var item in Core.getscore(Main_ScoreBox.Font))
+            foreach (ListViewDataItem item in Core.getscore(Main_ScoreBox.Font))
             {
                 if (item != null)
                 {
@@ -136,10 +163,12 @@ namespace OSUplayer
                 }
             }
         }
+
         #endregion
+
         private void SetForm()
         {
-            Main_QQ_Hint_Label.Text = "当前同步QQ：" + Settings.Default.QQuin;
+            Main_QQ_Hint_Label.Text += Settings.Default.QQuin;
             Main_Option_Sync_QQ.IsChecked = Settings.Default.SyncQQ;
             Main_Volume_TrackBar.Value = 100 - (int)(Settings.Default.Allvolume * Main_Volume_TrackBar.Maximum);
             Main_Volume_Fx_TrackBar.Value = (int)(Settings.Default.Fxvolume * Main_Volume_Fx_TrackBar.Maximum);
@@ -148,9 +177,10 @@ namespace OSUplayer
             Main_Option_Play_SB.IsChecked = Settings.Default.PlaySB;
             Main_Option_Play_Video.IsChecked = Settings.Default.PlayVideo;
             Main_Option_Show_Popup.IsChecked = Settings.Default.ShowPopup;
-            ((Telerik.WinControls.UI.RadMenuItem) Main_Option_PlayMode.Items[Settings.Default.NextMode - 1]).IsChecked =
+            ((RadMenuItem)Main_Option_PlayMode.Items[Settings.Default.NextMode - 1]).IsChecked =
                 true;
         }
+
         private void RefreshList(int select = 0)
         {
             Main_PlayList.Items.Clear();
@@ -172,291 +202,35 @@ namespace OSUplayer
                 //DiffList.Enabled = true;
             }).Start();
         }
-        void Main_VisibleChanged(object sender, EventArgs e)
+
+        private void Main_VisibleChanged(object sender, EventArgs e)
         {
-            Core.MainIsVisible = this.Visible;
+            Core.MainIsVisible = Visible;
         }
 
-        #region 菜单栏
-        #region 文件
-        private void Main_File_Run_OSU_Click(object sender, EventArgs e)
+        private void Main_Mini_Switcher_Click(object sender, EventArgs e)
         {
-            Process.Start(Path.Combine(Settings.Default.OSUpath, "osu!.exe"));
-        }
-        private void Main_File_Set_OSUPath_Click(object sender, EventArgs e)
-        {
-            if (Core.Setpath())
-            {
-                Main_PlayList.Items.Clear();
-                Main_DiffList.Items.Clear();
-                Core.RefreashSet();
-                RefreshList();
-            }
-        }
-        private void Main_File_Import_OSU_Click(object sender, EventArgs e)
-        {
-            Main_PlayList.Items.Clear();
-            Main_DiffList.Items.Clear();
-            Core.RefreashSet();
-            RefreshList();
-        }
-        private void Main_File_Import_Scores_Click(object sender, EventArgs e)
-        {
-            Core.Scores.Clear();
-            string scorepath = Path.Combine(Settings.Default.OSUpath, "scores.db");
-            if (File.Exists(scorepath)) { OsuDB.ReadScore(scorepath); Core.Scoresearched = true; Main_File_Import_Scores.Text = "重新导入scores.db"; }
-        }
-        private void 打开曲目文件夹_Click(object sender, EventArgs e)
-        {
-            Process.Start(Core.TmpSet.location);
-        }
-        private void 打开铺面文件_Click(object sender, EventArgs e)
-        {
-            Process.Start("notepad.exe", Core.TmpBeatmap.Path);
-        }
-        private void 打开SB文件_Click(object sender, EventArgs e)
-        {
-            Process.Start("notepad.exe", Core.TmpSet.OsbPath);
-        }
-        private void 导出BG_Click(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(Core.CurrentBeatmap.Background))
-            {
-                var dialog = new SaveFileDialog();
-                dialog.CheckFileExists = false;
-                dialog.CreatePrompt = false;
-                dialog.AddExtension = true;
-                dialog.OverwritePrompt = true;
-                dialog.FileName = new FileInfo(Core.CurrentBeatmap.Background).Name;
-                dialog.DefaultExt = new FileInfo(Core.CurrentBeatmap.Background).Extension;
-                dialog.Filter = "All files (*.*)|*.*";
-                dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                if (DialogResult.OK == dialog.ShowDialog())
-                {
-                    File.Copy(Core.CurrentBeatmap.Background, dialog.FileName, true);
-                }
-            }
-        }
-        private void 导出音频文件_Click(object sender, EventArgs e)
-        {
-            var dialog = new SaveFileDialog();
-            dialog.CheckFileExists = false;
-            dialog.CreatePrompt = false;
-            dialog.AddExtension = true;
-            dialog.OverwritePrompt = true;
-            dialog.FileName = new FileInfo(Core.CurrentBeatmap.Audio).Name;
-            dialog.DefaultExt = new FileInfo(Core.CurrentBeatmap.Audio).Extension;
-            dialog.Filter = "All files (*.*)|*.*";
-            dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            if (DialogResult.OK == dialog.ShowDialog())
-            {
-                File.Copy(Core.CurrentBeatmap.Audio, dialog.FileName, true);
-            }
-        }
-
-        private void 退出_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-        #endregion
-        #region 工具
-        private void 重复歌曲扫描_Click(object sender, EventArgs e)
-        {
-            using (DelDulp dialog = new DelDulp())
-            {
-                dialog.ShowDialog();
-            }
-        }
-        #endregion
-        #region 选项
-        private void 音效_Click(object sender, EventArgs e)
-        {
-            Settings.Default.PlayFx = Main_Option_Play_Fx.IsChecked;
-        }
-        private void 视频开关_Click(object sender, EventArgs e)
-        {
-            Settings.Default.PlayVideo = Main_Option_Play_Video.IsChecked;
-        }
-        private void QQ状态同步_Click(object sender, EventArgs e)
-        {
-            if (Settings.Default.SyncQQ && Settings.Default.QQuin != "0") { NotifySystem.ClearText(); }
-            Settings.Default.SyncQQ = Main_Option_Sync_QQ.IsChecked;
-        }
-        private void SB开关_Click(object sender, EventArgs e)
-        {
-            Settings.Default.PlaySB = Main_Option_Play_SB.IsChecked;
-        }
-        private void Main_Option_Show_Popup_Click(object sender, EventArgs e)
-        {
-            Settings.Default.ShowPopup = Main_Option_Show_Popup.IsChecked;
-        }
-        #endregion
-        private void 关于_Click(object sender, EventArgs e)
-        {
-            using (About dialog = new About())
-            {
-                dialog.ShowDialog();
-            }
-        }
-        #endregion
-        #region 第一排
-        private void Button2_Click(object sender, EventArgs e)
-        {
-            this.Visible = false;
-            using (var dialog = new ChooseColl())
-            {
-                dialog.ShowDialog();
-            }
-            this.Visible = true;
-            RefreshList();
-        }
-        private void TrackFx_Scroll(object sender, ScrollEventArgs e)
-        {
-            Core.SetVolume(3, (float)Main_Volume_Fx_TrackBar.Value / (float)Main_Volume_Fx_TrackBar.Maximum);
-        }
-        private void TrackMusic_Scroll(object sender, ScrollEventArgs e)
-        {
-            Core.SetVolume(2, (float)Main_Volume_Music_TrackBar.Value / (float)Main_Volume_Music_TrackBar.Maximum);
-        }
-        private void TrackVolume_Scroll(object sender, ScrollEventArgs e)
-        {
-            Core.SetVolume(1, 1.0f - (float)Main_Volume_TrackBar.Value / (float)Main_Volume_TrackBar.Maximum);
-        }
-        #endregion
-        #region 第二排
-        private void PlayList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (Main_PlayList.SelectedItems.Count == 0) { return; }
-            Main_DiffList.Items.Clear();
-            if (Core.SetSet(Main_PlayList.SelectedIndices[0])) { RefreshList(); PlayNext(false); }
-            else
-            {
-                foreach (var s in Core.TmpSet.Diffs)
-                {
-                    Main_DiffList.Items.Add(s.Version);
-                }
-                Main_File_Open_SBFile.Enabled = File.Exists(Core.TmpSet.OsbPath);
-                Main_DiffList.SelectedIndex = 0;
-            }
-        }
-        private void DiffList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (Main_PlayList.SelectedIndices.Count == 0) { return; }
-            if (Core.SetMap(Main_DiffList.SelectedIndex)) { RefreshList(); PlayNext(false); }
-            else
-            {
-                if (Core.Scoresearched) { Setscore(); }
-                if (!Main_Stop.Enabled)
-                {
-                    Core.currentset = Core.PlayList[Core.tmpset];
-                    Core.currentmap = Core.tmpmap;
-                    SetDetail();
-                }
-                else if (Core.Isplaying)
-                {
-                    Main_ListDetail.Items.Clear();
-                    Main_ListDetail.Items.AddRange(Core.getdetail());
-                }
-                else
-                {
-                    Stop();
-                    SetDetail();
-                }
-            }
-        }
-        private void PlayList_DoubleClick(object sender, EventArgs e)
-        {
-            if (Core.SetSet(Main_PlayList.SelectedIndices[0], true)) { RefreshList(); PlayNext(); }
-            else
-            {
-                Core.SetMap(0, true);
-                Stop();
-                SetDetail();
-                Play();
-            }
-        }
-        private void DiffList_DoubleClick(object sender, EventArgs e)
-        {
-            if (Core.SetMap(Main_DiffList.SelectedIndex, true)) { RefreshList(); PlayNext(); }
-            else
-            {
-                Stop();
-                SetDetail();
-                Play();
-            }
-        }
-        private void StopButton_Click(object sender, EventArgs e)
-        {
-            Stop();
-        }
-        private void NextButton_Click(object sender, EventArgs e)
-        {
-            NextTimer.Enabled = false;
-            NextTimer.Enabled = true;
-        }
-        private void TrackSeek_Scroll(object sender, ScrollEventArgs e)
-        {
-            Core.seek((double)Main_Time_Trackbar.Value / 1000);
-        }
-
-        void TextBox1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)Keys.Escape)
-            {
-                Main_Search_Box.Text = "";
-                Core.search(Main_Search_Box.Text);
-                RefreshList();
-            }
-            if (e.KeyChar == (char)13)
-            {
-                Core.search(Main_Search_Box.Text);
-                RefreshList();
-            }
-            else
-            {
-                SearchTimer.Enabled = false;
-                SearchTimer.Enabled = true;
-            }
-        }
-        private void PlayButton_Click(object sender, EventArgs e)
-        {
-            if (!Main_Stop.Enabled)
-            {
-                Play();
-            }
-            else
-            {
-                if (Main_Play.Text == "播放")
-                {
-                    Resume();
-                }
-                else
-                {
-                    Pause();
-                }
-            }
-        }
-        #endregion
-        private void button3_Click(object sender, EventArgs e)
-        {
-            this.Visible = false;
-            this.UpdateTimer.Enabled = false;
-            hotkeyHelper.UnregisterHotkeys();
+            Visible = false;
+            UpdateTimer.Enabled = false;
+            _hotkeyHelper.UnregisterHotkeys();
             NotifySystem.RegisterClick(null);
             using (var dialog = new Mini())
             {
                 dialog.ShowDialog();
             }
             NotifySystem.RegisterClick(TaskbarIconClickHandler);
-            playKey = hotkeyHelper.RegisterHotkey(Keys.F5, KeyModifiers.Alt);
-            nextKey = hotkeyHelper.RegisterHotkey(Keys.Right, KeyModifiers.Alt);
-            hotkeyHelper.OnHotkey += OnHotkey;
+            _playKey = _hotkeyHelper.RegisterHotkey(Keys.F5, KeyModifiers.Alt);
+            _nextKey = _hotkeyHelper.RegisterHotkey(Keys.Right, KeyModifiers.Alt);
+            _hotkeyHelper.OnHotkey += OnHotkey;
             if (Main_PlayList.SelectedItems.Count != 0)
             {
                 Main_PlayList.SelectedItems[0].Selected = false;
             }
             int currentset = Core.PlayList.IndexOf(Core.currentset, 0);
-            if (currentset == -1) { currentset = 0; }
+            if (currentset == -1)
+            {
+                currentset = 0;
+            }
             Main_PlayList.Items[currentset].Selected = true;
             Main_PlayList.EnsureVisible(currentset);
             Main_PlayList.Focus();
@@ -466,118 +240,128 @@ namespace OSUplayer
                 Main_Time_Trackbar.Maximum = (int)Core.Durnation * 1000;
                 Main_Time_Trackbar.Enabled = true;
                 UpdateTimer.Enabled = true;
-                Main_Play.Text = "暂停";
+                Main_Play.Text = LanguageManager.Get("Main_Pause_Text");
                 Main_Stop.Enabled = true;
-
             }
             else
             {
                 Main_Time_Trackbar.Enabled = false;
                 UpdateTimer.Enabled = false;
-                Main_Play.Text = "播放";
+                Main_Play.Text = LanguageManager.Get("Main_Play_Text");
                 Main_Stop.Enabled = false;
             }
-            this.Visible = true;
-
-
+            Visible = true;
         }
-        private void radPageView1_SelectedPageChanged(object sender, EventArgs e)
+
+        private void Main_PageView_SelectedPageChanged(object sender, EventArgs e)
         {
             if (Main_PageView.SelectedPage == Main_PageView_Page2)
             {
                 if (!Core.Scoresearched)
                 {
                     string scorepath = Path.Combine(Settings.Default.OSUpath, "scores.db");
-                    if (File.Exists(scorepath)) { OsuDB.ReadScore(scorepath); Core.Scoresearched = true; Main_File_Import_Scores.Text = "重新导入scores.db"; }
+                    if (File.Exists(scorepath))
+                    {
+                        OsuDB.ReadScore(scorepath);
+                        Core.Scoresearched = true;
+                        Main_File_Import_Scores.Text = "重新导入scores.db";
+                    }
                 }
                 Setscore();
             }
         }
-        private void radMenuItem1_Click(object sender, EventArgs e)
+
+        private void Main_Option_Select_QQ_Click(object sender, EventArgs e)
         {
             Core.SetQQ(true);
-            Main_QQ_Hint_Label.Text = "当前同步QQ：" + Settings.Default.QQuin;
+            Main_QQ_Hint_Label.Text = LanguageManager.Get("Main_QQ_Hint_Label_Text") + Settings.Default.QQuin;
             Main_Option_Sync_QQ.IsChecked = Settings.Default.SyncQQ;
         }
+
         private void UpdateTimer_Tick(object sender, EventArgs e)
         {
             Main_Time_Trackbar.Value = (int)Core.Position * 1000;
             Main_Time_Display.Text = String.Format("{0}:{1:D2} / {2}:{3:D2}", (int)Core.Position / 60,
                 (int)Core.Position % 60, (int)Core.Durnation / 60,
                 (int)Core.Durnation % 60);
-            if (Core.Willnext) { Stop(); PlayNext(); }
+            if (Core.Willnext)
+            {
+                Stop();
+                PlayNext();
+            }
         }
+
         private void NextTimer_Tick(object sender, EventArgs e)
         {
             NextTimer.Enabled = false;
             Stop();
             PlayNext();
         }
+
         private void SearchTimer_Tick(object sender, EventArgs e)
         {
             SearchTimer.Enabled = false;
             Core.search(Main_Search_Box.Text);
             RefreshList();
         }
-        HotkeyHelper hotkeyHelper;
-        int playKey;
-        int nextKey;
-        int playKey1;
-        int playKey2;
-        int nextKey1;
+
         private void Main_Shown(object sender, EventArgs e)
         {
-            Core.init(this.Main_Main_Display.Handle, this.Main_Main_Display.Size);
+            Core.init(Main_Main_Display.Handle, Main_Main_Display.Size);
             SetForm();
             RefreshList();
-            this.VisibleChanged += Main_VisibleChanged;
-            this.SizeChanged += Main_SizeChanged;
+            VisibleChanged += Main_VisibleChanged;
+            SizeChanged += Main_SizeChanged;
             NotifySystem.RegisterClick(TaskbarIconClickHandler);
             Core.MainIsVisible = true;
-            hotkeyHelper = new HotkeyHelper(this.Handle);
-            playKey = hotkeyHelper.RegisterHotkey(Keys.F5, KeyModifiers.Alt);
-            playKey1 = hotkeyHelper.RegisterHotkey(Keys.Play, KeyModifiers.None);
-            playKey2 = hotkeyHelper.RegisterHotkey(Keys.Pause, KeyModifiers.None);
-            nextKey = hotkeyHelper.RegisterHotkey(Keys.Right, KeyModifiers.Alt);
-            nextKey1 = hotkeyHelper.RegisterHotkey(Keys.MediaNextTrack, KeyModifiers.None);
-            hotkeyHelper.OnHotkey += OnHotkey;
+            _hotkeyHelper = new HotkeyHelper(Handle);
+            _playKey = _hotkeyHelper.RegisterHotkey(Keys.F5, KeyModifiers.Alt);
+            _playKey1 = _hotkeyHelper.RegisterHotkey(Keys.Play, KeyModifiers.None);
+            _playKey2 = _hotkeyHelper.RegisterHotkey(Keys.Pause, KeyModifiers.None);
+            _nextKey = _hotkeyHelper.RegisterHotkey(Keys.Right, KeyModifiers.Alt);
+            _nextKey1 = _hotkeyHelper.RegisterHotkey(Keys.MediaNextTrack, KeyModifiers.None);
+            _hotkeyHelper.OnHotkey += OnHotkey;
 
-            this.Main_Main_Display.ResumeLayout();
+            Main_Main_Display.ResumeLayout();
         }
+
         private void OnHotkey(int hotkeyID)
         {
-            if (hotkeyID == playKey || hotkeyID == playKey1 || hotkeyID == playKey2)
+            if (hotkeyID == _playKey || hotkeyID == _playKey1 || hotkeyID == _playKey2)
             {
                 Main_Play.PerformClick();
             }
-            else if (hotkeyID == nextKey || hotkeyID == nextKey1)
+            else if (hotkeyID == _nextKey || hotkeyID == _nextKey1)
             {
                 Main_PlayNext.PerformClick();
             }
         }
+
         private void Main_SizeChanged(object sender, EventArgs e)
         {
             if (Core.MainIsVisible)
             {
                 Core.Resize(Main_Main_Display.Size);
             }
-            if (this.WindowState == FormWindowState.Minimized)
+            if (WindowState == FormWindowState.Minimized)
             {
-                this.Visible = false;
+                Visible = false;
             }
         }
 
         private void Main_File_Import_Folder_Click(object sender, EventArgs e)
         {
-
         }
 
-        private void RightClick_Opening(object sender, CancelEventArgs e)
+        private void Main_PlayList_RightClick_Menu_Opening(object sender, CancelEventArgs e)
         {
-            if (Main_PlayList.SelectedItems.Count == 0) { e.Cancel = true; return; }
+            if (Main_PlayList.SelectedItems.Count == 0)
+            {
+                e.Cancel = true;
+            }
         }
 
-        private void Delete_Click(object sender, EventArgs e)
+        private void Main_PlayList_RightClick_Delete_One_Click(object sender, EventArgs e)
         {
             int index = Main_PlayList.SelectedIndices[0];
             Core.Remove(index);
@@ -587,23 +371,22 @@ namespace OSUplayer
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Main_Jump_OSU_Click(object sender, EventArgs e)
         {
             Core.Stop();
             using (var outStream = new FileStream("tmp.osr", FileMode.Create))
             {
                 using (var Wr = new BinaryWriter(outStream))
                 {
-
                     Wr.Write((byte)0);
-                    Wr.Write((int)20140127);
+                    Wr.Write(20140127);
                     Wr.Write((byte)0x0b);
                     Wr.Write(Core.CurrentBeatmap.Hash);
                     Wr.Write((byte)0x0b);
                     Wr.Write("osu!");
-                    var res = MD5.Create().ComputeHash(
+                    byte[] res = MD5.Create().ComputeHash(
                         Encoding.UTF8.GetBytes(string.Format(
-                        PrivateConfig.ScoreHash, Core.CurrentBeatmap.Hash)));
+                            PrivateConfig.ScoreHash, Core.CurrentBeatmap.Hash)));
                     var sb = new StringBuilder();
                     foreach (byte b in res)
                     {
@@ -627,22 +410,350 @@ namespace OSUplayer
             }
             Process.Start("tmp.osr");
         }
-        public enum NextMode
-        {
-            Main_Option_PlayMode_Normal = 1,
-            Main_Option_PlayMode_Repeat = 2,
-            Main_Option_PlayMode_Random = 3
-        }
+
         private void Main_Option_PlayMode_Click(object sender, EventArgs e)
         {
-            var menu = (Telerik.WinControls.UI.RadMenuItem)sender;
+            var menu = (RadMenuItem)sender;
             if (menu.IsChecked) return;
-            foreach (var child in menu.Parent.Children)
+            foreach (RadElement child in menu.Parent.Children)
             {
-                ((Telerik.WinControls.UI.RadMenuItem)child).IsChecked = false;
+                ((RadMenuItem)child).IsChecked = false;
             }
             menu.IsChecked = true;
             Settings.Default.NextMode = (int)(NextMode)Enum.Parse(typeof(NextMode), menu.Name);
         }
+
+        #region 菜单栏
+
+        #region 文件
+
+        private void Main_File_Run_OSU_Click(object sender, EventArgs e)
+        {
+            Process.Start(Path.Combine(Settings.Default.OSUpath, "osu!.exe"));
+        }
+
+        private void Main_File_Set_OSUPath_Click(object sender, EventArgs e)
+        {
+            if (Core.Setpath())
+            {
+                Main_PlayList.Items.Clear();
+                Main_DiffList.Items.Clear();
+                Core.RefreashSet();
+                RefreshList();
+            }
+        }
+
+        private void Main_File_Import_OSU_Click(object sender, EventArgs e)
+        {
+            Main_PlayList.Items.Clear();
+            Main_DiffList.Items.Clear();
+            Core.RefreashSet();
+            RefreshList();
+        }
+
+        private void Main_File_Import_Scores_Click(object sender, EventArgs e)
+        {
+            Core.Scores.Clear();
+            var scorepath = Path.Combine(Settings.Default.OSUpath, "scores.db");
+            if (!File.Exists(scorepath)) return;
+            OsuDB.ReadScore(scorepath);
+            Core.Scoresearched = true;
+            Main_File_Import_Scores.Text = LanguageManager.Get("Main_File_Re_Import_Scores_Text");
+        }
+
+        private void Main_File_Open_Folder_Click(object sender, EventArgs e)
+        {
+            Process.Start(Core.TmpSet.location);
+        }
+
+        private void Main_File_Open_MapFile_Click(object sender, EventArgs e)
+        {
+            Process.Start("notepad.exe", Core.TmpBeatmap.Path);
+        }
+
+        private void Main_File_Open_SBFile_Click(object sender, EventArgs e)
+        {
+            Process.Start("notepad.exe", Core.TmpSet.OsbPath);
+        }
+
+        private void Main_File_Export_Background_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(Core.CurrentBeatmap.Background)) return;
+            var dialog = new SaveFileDialog
+            {
+                CheckFileExists = false,
+                CreatePrompt = false,
+                AddExtension = true,
+                OverwritePrompt = true,
+                FileName = new FileInfo(Core.CurrentBeatmap.Background).Name,
+                DefaultExt = new FileInfo(Core.CurrentBeatmap.Background).Extension,
+                Filter = @"All files (*.*)|*.*",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+            };
+            if (DialogResult.OK == dialog.ShowDialog())
+            {
+                File.Copy(Core.CurrentBeatmap.Background, dialog.FileName, true);
+            }
+        }
+
+        private void Main_File_Export_MP3_Click(object sender, EventArgs e)
+        {
+            var dialog = new SaveFileDialog
+            {
+                CheckFileExists = false,
+                CreatePrompt = false,
+                AddExtension = true,
+                OverwritePrompt = true,
+                FileName = new FileInfo(Core.CurrentBeatmap.Audio).Name,
+                DefaultExt = new FileInfo(Core.CurrentBeatmap.Audio).Extension,
+                Filter = @"All files (*.*)|*.*",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+            };
+            if (DialogResult.OK == dialog.ShowDialog())
+            {
+                File.Copy(Core.CurrentBeatmap.Audio, dialog.FileName, true);
+            }
+        }
+
+        private void Main_File_Exit_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        #endregion
+
+        #region 工具
+
+        private void Main_Tool_Search_Dulplate_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new DelDulp())
+            {
+                dialog.ShowDialog();
+            }
+        }
+
+        #endregion
+
+        #region 选项
+
+        private void Main_Option_Play_Fx_Click(object sender, EventArgs e)
+        {
+            Settings.Default.PlayFx = Main_Option_Play_Fx.IsChecked;
+        }
+
+        private void Main_Option_Play_Video_Click(object sender, EventArgs e)
+        {
+            Settings.Default.PlayVideo = Main_Option_Play_Video.IsChecked;
+        }
+
+        private void Main_Option_Sync_QQ_Click(object sender, EventArgs e)
+        {
+            if (Settings.Default.SyncQQ && Settings.Default.QQuin != "0")
+            {
+                NotifySystem.ClearText();
+            }
+            Settings.Default.SyncQQ = Main_Option_Sync_QQ.IsChecked;
+        }
+
+        private void Main_Option_Play_SB_Click(object sender, EventArgs e)
+        {
+            Settings.Default.PlaySB = Main_Option_Play_SB.IsChecked;
+        }
+
+        private void Main_Option_Show_Popup_Click(object sender, EventArgs e)
+        {
+            Settings.Default.ShowPopup = Main_Option_Show_Popup.IsChecked;
+        }
+
+        #endregion
+
+        private void Main_About_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new About())
+            {
+                dialog.ShowDialog();
+            }
+        }
+
+        #endregion
+
+        #region 第一排
+
+        private void Main_Collections_Click(object sender, EventArgs e)
+        {
+            Visible = false;
+            using (var dialog = new ChooseColl())
+            {
+                dialog.ShowDialog();
+            }
+            Visible = true;
+            RefreshList();
+        }
+
+        private void Main_Volume_Fx_TrackBar_Scroll(object sender, ScrollEventArgs e)
+        {
+            Core.SetVolume(3, Main_Volume_Fx_TrackBar.Value / (float)Main_Volume_Fx_TrackBar.Maximum);
+        }
+
+        private void Main_Volume_Music_TrackBar_Scroll(object sender, ScrollEventArgs e)
+        {
+            Core.SetVolume(2, Main_Volume_Music_TrackBar.Value / (float)Main_Volume_Music_TrackBar.Maximum);
+        }
+
+        private void Main_Volume_TrackBar_Scroll(object sender, ScrollEventArgs e)
+        {
+            Core.SetVolume(1, 1.0f - Main_Volume_TrackBar.Value / (float)Main_Volume_TrackBar.Maximum);
+        }
+
+        #endregion
+
+        #region 第二排
+
+        private void Main_PlayList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (Main_PlayList.SelectedItems.Count == 0)
+            {
+                return;
+            }
+            Main_DiffList.Items.Clear();
+            if (Core.SetSet(Main_PlayList.SelectedIndices[0]))
+            {
+                RefreshList();
+                PlayNext(false);
+            }
+            else
+            {
+                foreach (Beatmap s in Core.TmpSet.Diffs)
+                {
+                    Main_DiffList.Items.Add(s.Version);
+                }
+                Main_File_Open_SBFile.Enabled = File.Exists(Core.TmpSet.OsbPath);
+                Main_DiffList.SelectedIndex = 0;
+            }
+        }
+
+        private void Main_DiffList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (Main_PlayList.SelectedIndices.Count == 0)
+            {
+                return;
+            }
+            if (Core.SetMap(Main_DiffList.SelectedIndex))
+            {
+                RefreshList();
+                PlayNext(false);
+            }
+            else
+            {
+                if (Core.Scoresearched)
+                {
+                    Setscore();
+                }
+                if (!Main_Stop.Enabled)
+                {
+                    Core.currentset = Core.PlayList[Core.tmpset];
+                    Core.currentmap = Core.tmpmap;
+                    SetDetail();
+                }
+                else if (Core.Isplaying)
+                {
+                    Main_ListDetail.Items.Clear();
+                    Main_ListDetail.Items.AddRange(Core.getdetail());
+                }
+                else
+                {
+                    Stop();
+                    SetDetail();
+                }
+            }
+        }
+
+        private void Main_PlayList_DoubleClick(object sender, EventArgs e)
+        {
+            if (Core.SetSet(Main_PlayList.SelectedIndices[0], true))
+            {
+                RefreshList();
+                PlayNext();
+            }
+            else
+            {
+                Core.SetMap(0, true);
+                Stop();
+                SetDetail();
+                Play();
+            }
+        }
+
+        private void Main_DiffList_DoubleClick(object sender, EventArgs e)
+        {
+            if (Core.SetMap(Main_DiffList.SelectedIndex, true))
+            {
+                RefreshList();
+                PlayNext();
+            }
+            else
+            {
+                Stop();
+                SetDetail();
+                Play();
+            }
+        }
+
+        private void Main_Stop_Click(object sender, EventArgs e)
+        {
+            Stop();
+        }
+
+        private void Main_PlayNext_Click(object sender, EventArgs e)
+        {
+            NextTimer.Enabled = false;
+            NextTimer.Enabled = true;
+        }
+
+        private void Main_Time_Trackbar_Scroll(object sender, ScrollEventArgs e)
+        {
+            Core.seek((double)Main_Time_Trackbar.Value / 1000);
+        }
+
+        private void Main_Search_Box_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Escape)
+            {
+                Main_Search_Box.Text = "";
+                Core.search(Main_Search_Box.Text);
+                RefreshList();
+            }
+            if (e.KeyChar == (char)13)
+            {
+                Core.search(Main_Search_Box.Text);
+                RefreshList();
+            }
+            else
+            {
+                SearchTimer.Enabled = false;
+                SearchTimer.Enabled = true;
+            }
+        }
+
+        private void Main_Play_Click(object sender, EventArgs e)
+        {
+            if (!Main_Stop.Enabled)
+            {
+                Play();
+            }
+            else
+            {
+                if (Main_Play.Text == "播放")
+                {
+                    Resume();
+                }
+                else
+                {
+                    Pause();
+                }
+            }
+        }
+
+        #endregion
     }
 }

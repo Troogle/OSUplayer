@@ -21,7 +21,7 @@ namespace OSUplayer.Uilties
             refreash.DoWork += refreash_DoWork;
         }
 
-        private void Button2_Click(object sender, EventArgs e)
+        private void SetQQ_OK_Click(object sender, EventArgs e)
         {
             if (SetQQ_MainView.Visible)
             {
@@ -102,7 +102,7 @@ namespace OSUplayer.Uilties
             }
         }
 
-        private void Button1_Click(object sender, EventArgs e)
+        private void SetQQ_GetQQ_Click(object sender, EventArgs e)
         {
             if (SetQQ_MainView.Visible)
             {

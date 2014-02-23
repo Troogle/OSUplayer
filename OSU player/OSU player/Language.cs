@@ -55,6 +55,23 @@ namespace OSUplayer
             var ret = _language[Current].Get(name);
             return ret != "" ? ret : _language["English"].Get(name);
         }
+        public static void ApplyLanguage(System.Windows.Forms.Form oriForm)
+        {
+            foreach (var controlbase in (oriForm.GetType().GetFields(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.NonPublic)))
+            {
+                var control = controlbase.GetValue(oriForm);
+                if (control == null) continue;
+                var name = control.GetType().GetProperty("Name");
+                if (name == null) continue;
+                string nameValue = controlbase.Name;
+                //name.GetValue(control, null).ToString();
+                var text = control.GetType().GetProperty("Text");
+                if (text == null) continue;
+                var totext = Get(nameValue + "_Text");
+                if (totext == "") continue;
+                text.SetValue(control, totext, null);
+            }
+        }
         public static void InitLanguage(string name)
         {
             _language = new Dictionary<string, Language>();
@@ -64,9 +81,9 @@ namespace OSUplayer
             rawlanguage = new Language(assembly.GetManifestResourceStream("OSUplayer.Lang.zh-CN.txt"));
             _language.Add(rawlanguage.Get("Language_name"), rawlanguage);
             var alllange = assembly.GetManifestResourceNames();
-            if (alllange.Contains(string.Format("OsuReplayListener.Lang.{0}.txt", name)))
+            if (alllange.Contains(string.Format("OSUplayer.Lang.{0}.txt", name)))
             {
-                rawlanguage = new Language(assembly.GetManifestResourceStream(string.Format("OsuReplayListener.Lang.{0}.txt", name)));
+                rawlanguage = new Language(assembly.GetManifestResourceStream(string.Format("OSUplayer.Lang.{0}.txt", name)));
                 Current = rawlanguage.Get("Language_name");
             }
             else

@@ -71,8 +71,8 @@
             this.DelDulp_MainView.TabIndex = 0;
             this.DelDulp_MainView.UseCompatibleStateImageBehavior = false;
             this.DelDulp_MainView.View = System.Windows.Forms.View.Details;
-            this.DelDulp_MainView.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
-            this.DelDulp_MainView.SizeChanged += new System.EventHandler(this.listView1_SizeChanged);
+            this.DelDulp_MainView.SelectedIndexChanged += new System.EventHandler(this.DelDulp_MainView_SelectedIndexChanged);
+            this.DelDulp_MainView.SizeChanged += new System.EventHandler(this.DelDulp_MainView_SizeChanged);
             // 
             // columnHeader1
             // 
@@ -94,7 +94,7 @@
             this.DelDulp_DeleteSelected.Size = new System.Drawing.Size(75, 26);
             this.DelDulp_DeleteSelected.TabIndex = 1;
             this.DelDulp_DeleteSelected.Text = "删除选中";
-            this.DelDulp_DeleteSelected.Click += new System.EventHandler(this.button1_Click);
+            this.DelDulp_DeleteSelected.Click += new System.EventHandler(this.DelDulp_DeleteSelected_Click);
             // 
             // button2
             // 
@@ -104,7 +104,7 @@
             this.DelDulp_Cancel.Size = new System.Drawing.Size(75, 27);
             this.DelDulp_Cancel.TabIndex = 2;
             this.DelDulp_Cancel.Text = "取消";
-            this.DelDulp_Cancel.Click += new System.EventHandler(this.button2_Click);
+            this.DelDulp_Cancel.Click += new System.EventHandler(this.DelDulp_Cancel_Click);
             // 
             // button3
             // 
@@ -114,7 +114,7 @@
             this.DelDulp_StartSearch.Size = new System.Drawing.Size(75, 31);
             this.DelDulp_StartSearch.TabIndex = 3;
             this.DelDulp_StartSearch.Text = "开始查找";
-            this.DelDulp_StartSearch.Click += new System.EventHandler(this.button3_Click);
+            this.DelDulp_StartSearch.Click += new System.EventHandler(this.DelDulp_StartSearch_Click);
             // 
             // BackgroundWorker1
             // 
@@ -146,7 +146,7 @@
             this.DelDulp_AutoSelect.Size = new System.Drawing.Size(75, 26);
             this.DelDulp_AutoSelect.TabIndex = 5;
             this.DelDulp_AutoSelect.Text = "自动选择";
-            this.DelDulp_AutoSelect.Click += new System.EventHandler(this.button4_Click);
+            this.DelDulp_AutoSelect.Click += new System.EventHandler(this.DelDulp_AutoSelect_Click);
             // 
             // button5
             // 
@@ -157,7 +157,7 @@
             this.DelDulp_ClearSelected.Size = new System.Drawing.Size(75, 26);
             this.DelDulp_ClearSelected.TabIndex = 6;
             this.DelDulp_ClearSelected.Text = "清除选中";
-            this.DelDulp_ClearSelected.Click += new System.EventHandler(this.button5_Click);
+            this.DelDulp_ClearSelected.Click += new System.EventHandler(this.DelDulp_ClearSelected_Click);
             // 
             // radStatusStrip1
             // 

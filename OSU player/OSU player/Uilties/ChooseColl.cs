@@ -13,7 +13,7 @@ namespace OSUplayer.Uilties
             InitializeComponent();
         }
         private List<int> tmpindex = new List<int>();
-        private void button1_Click(object sender, EventArgs e)
+        private void ChooseColl_GetCollections_Click(object sender, EventArgs e)
         {
             string collectpath = Path.Combine(Settings.Default.OSUpath, "collection.db");
             if (File.Exists(collectpath)) { OsuDB.ReadCollect(collectpath); }
@@ -37,21 +37,21 @@ namespace OSUplayer.Uilties
                 tmpindex.Add(mapindex);
             }
         }
-        private void listBox2_MouseDoubleClick(object sender, System.Windows.Forms.MouseEventArgs e)
+        private void ChooseColl_CollectionContent_List_MouseDoubleClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             if (ChooseColl_CollectionContent_List.SelectedItems.Count == 0) { return; }
             Core.AddSet(tmpindex[ChooseColl_CollectionContent_List.SelectedIndex]);
             NotifySystem.Showtip(1000, "OSUplayer", String.Format("成功导入{0}", ChooseColl_CollectionContent_List.SelectedItem.ToString()), System.Windows.Forms.ToolTipIcon.Info);
             ChooseColl_PlayListCurrentCount.Text = "当前播放列表曲目数:" + Core.PlayList.Count;
         }
-        private void listBox1_MouseDoubleClick(object sender, System.Windows.Forms.MouseEventArgs e)
+        private void ChooseColl_CollectionTitle_List_MouseDoubleClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             if (ChooseColl_CollectionTitle_List.SelectedItems.Count == 0) { return; }
             Core.AddRangeSet(tmpindex);
             NotifySystem.Showtip(1000, "OSUplayer", String.Format("成功导入{0}首曲目", tmpindex.Count.ToString()), System.Windows.Forms.ToolTipIcon.Info);
             ChooseColl_PlayListCurrentCount.Text = "当前播放列表曲目数:" + Core.PlayList.Count;
         }
-        private void button2_Click(object sender, EventArgs e)
+        private void ChooseColl_OK_Click(object sender, EventArgs e)
         {
             if (Core.PlayList.Count == 0)
             {
@@ -60,7 +60,7 @@ namespace OSUplayer.Uilties
             this.Dispose();
         }
 
-        private void ClearButton_Click(object sender, EventArgs e)
+        private void ChooseColl_ClearPlayList_Click(object sender, EventArgs e)
         {
             Core.PlayList.Clear();
             ChooseColl_PlayListCurrentCount.Text = "当前播放列表曲目数:0";

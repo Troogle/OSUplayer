@@ -44,7 +44,7 @@
             this.About_Program_Link.TabIndex = 1;
             this.About_Program_Link.TabStop = true;
             this.About_Program_Link.Text = "https://github.com/Troogle/OSUplayer/";
-            this.About_Program_Link.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            this.About_Program_Link.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.About_Program_Link_LinkClicked);
             // 
             // About_Profile_Hint
             // 
@@ -67,7 +67,7 @@
             this.About_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.About_PictureBox.TabIndex = 0;
             this.About_PictureBox.TabStop = false;
-            this.About_PictureBox.Click += new System.EventHandler(this.pictureBox1_Click);
+            this.About_PictureBox.Click += new System.EventHandler(this.About_PictureBox_Click);
             // 
             // About_Content
             // 

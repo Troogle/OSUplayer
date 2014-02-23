@@ -115,7 +115,7 @@ namespace OSUplayer.Uilties
             DelDulp_ProgressBar.Value1 = 0;
             this.BackgroundWorker2.RunWorkerAsync(0);
         }
-        private void button3_Click(object sender, EventArgs e)
+        private void DelDulp_StartSearch_Click(object sender, EventArgs e)
         {
             DelDulp_StartSearch.Enabled = false;
             DelDulp_Cancel.Enabled = false;
@@ -169,7 +169,7 @@ namespace OSUplayer.Uilties
             }
             DelDulp_Cancel.Enabled = true;
         }
-        private void button1_Click(object sender, EventArgs e)
+        private void DelDulp_DeleteSelected_Click(object sender, EventArgs e)
         {
             if (DelDulp_MainView.CheckedItems.Count == 0)
             {
@@ -203,12 +203,12 @@ namespace OSUplayer.Uilties
                 this.Dispose();
             }
         }
-        private void listView1_SizeChanged(object sender, EventArgs e)
+        private void DelDulp_MainView_SizeChanged(object sender, EventArgs e)
         {
             if (DelDulp_MainView.Width > DelDulp_MainView.Columns[0].Width)
             { DelDulp_MainView.Columns[0].Width = DelDulp_MainView.Width - 10; }
         }
-        private void button4_Click(object sender, EventArgs e)
+        private void DelDulp_AutoSelect_Click(object sender, EventArgs e)
         {
             DelDulp_MainView.Select();
             DelDulp_MainView.SelectedItems.Clear();
@@ -228,18 +228,18 @@ namespace OSUplayer.Uilties
                 DelDulp_MainView.Items[i].Checked = false;
             }
         }
-        private void button2_Click(object sender, EventArgs e)
+        private void DelDulp_Cancel_Click(object sender, EventArgs e)
         {
             this.Dispose();
         }
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        private void DelDulp_MainView_SelectedIndexChanged(object sender, EventArgs e)
         {
             foreach (ListViewItem tmp in DelDulp_MainView.SelectedItems)
             {
                 tmp.Checked = true;
             }
         }
-        private void button5_Click(object sender, EventArgs e)
+        private void DelDulp_ClearSelected_Click(object sender, EventArgs e)
         {
             DelDulp_MainView.SelectedItems.Clear();
             foreach (ListViewItem tmp in DelDulp_MainView.CheckedItems)

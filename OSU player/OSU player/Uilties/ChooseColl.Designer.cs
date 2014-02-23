@@ -48,7 +48,7 @@
             this.ChooseColl_CollectionTitle_List.Size = new System.Drawing.Size(90, 259);
             this.ChooseColl_CollectionTitle_List.TabIndex = 0;
             this.ChooseColl_CollectionTitle_List.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
-            this.ChooseColl_CollectionTitle_List.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBox1_MouseDoubleClick);
+            this.ChooseColl_CollectionTitle_List.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ChooseColl_CollectionTitle_List_MouseDoubleClick);
             // 
             // ChooseColl_CollectionContent_List
             // 
@@ -58,7 +58,7 @@
             this.ChooseColl_CollectionContent_List.Name = "ChooseColl_CollectionContent_List";
             this.ChooseColl_CollectionContent_List.Size = new System.Drawing.Size(366, 259);
             this.ChooseColl_CollectionContent_List.TabIndex = 1;
-            this.ChooseColl_CollectionContent_List.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBox2_MouseDoubleClick);
+            this.ChooseColl_CollectionContent_List.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ChooseColl_CollectionContent_List_MouseDoubleClick);
             // 
             // ChooseColl_GetCollections
             // 
@@ -67,7 +67,7 @@
             this.ChooseColl_GetCollections.Size = new System.Drawing.Size(81, 29);
             this.ChooseColl_GetCollections.TabIndex = 2;
             this.ChooseColl_GetCollections.Text = "扫描";
-            this.ChooseColl_GetCollections.Click += new System.EventHandler(this.button1_Click);
+            this.ChooseColl_GetCollections.Click += new System.EventHandler(this.ChooseColl_GetCollections_Click);
             // 
             // ChooseColl_OK
             // 
@@ -76,7 +76,7 @@
             this.ChooseColl_OK.Size = new System.Drawing.Size(81, 31);
             this.ChooseColl_OK.TabIndex = 3;
             this.ChooseColl_OK.Text = "确定";
-            this.ChooseColl_OK.Click += new System.EventHandler(this.button2_Click);
+            this.ChooseColl_OK.Click += new System.EventHandler(this.ChooseColl_OK_Click);
             // 
             // ChooseColl_Hint_Label
             // 
@@ -94,7 +94,7 @@
             this.ChooseColl_ClearPlayList.Size = new System.Drawing.Size(81, 29);
             this.ChooseColl_ClearPlayList.TabIndex = 3;
             this.ChooseColl_ClearPlayList.Text = "清空列表";
-            this.ChooseColl_ClearPlayList.Click += new System.EventHandler(this.ClearButton_Click);
+            this.ChooseColl_ClearPlayList.Click += new System.EventHandler(this.ChooseColl_ClearPlayList_Click);
             // 
             // ChooseColl_PlayListCurrentCount
             // 

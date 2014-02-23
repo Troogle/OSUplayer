@@ -81,17 +81,17 @@ namespace OSUplayer
         {
             Front = false;
             SetFormRoundRectRgn(this, 12);
-            TrackVolume.Value = (int)(100 * Settings.Default.Allvolume);
+            Mini_Volume_TrackBar.Value = (int)(100 * Settings.Default.Allvolume);
             if (!this.Bounds.Contains(Cursor.Position)) { this.Opacity = 0.5d; }
             if (Core.Isplaying)
             {
-                TrackSeek.MaxValue = (int)Core.Durnation * 1000;
-                TrackSeek.Enabled = true;
+                Mini_Seek_TrackBar.MaxValue = (int)Core.Durnation * 1000;
+                Mini_Seek_TrackBar.Enabled = true;
                 Artist = Core.CurrentBeatmap.Artist;
                 Title = Core.CurrentBeatmap.Title;
-                UpdateTimer.Enabled = true;
+                Mini_UpdateTimer.Enabled = true;
                 SetPlay(false);
-                StopButton.Enabled = true;
+                Mini_Stop.Enabled = true;
             }
         }
 
@@ -102,7 +102,7 @@ namespace OSUplayer
 
         private void imageButton1_Click(object sender, EventArgs e)
         {
-            if (!StopButton.Enabled) { Play(); }
+            if (!Mini_Stop.Enabled) { Play(); }
             else
             {
                 if (!Core.Isplaying)
@@ -128,45 +128,45 @@ namespace OSUplayer
             {
                 Front = false;
                 this.TopMost = false;
-                imageButton5.BackgroundImage = global::OSUplayer.Properties.Resources.Pin;
-                imageButton5.BaseImage = global::OSUplayer.Properties.Resources.Pin;
-                imageButton5.ClickImage = global::OSUplayer.Properties.Resources.Pined;
-                imageButton5.EnterImage = global::OSUplayer.Properties.Resources.PinE;
+                Mini_Pin.BackgroundImage = global::OSUplayer.Properties.Resources.Pin;
+                Mini_Pin.BaseImage = global::OSUplayer.Properties.Resources.Pin;
+                Mini_Pin.ClickImage = global::OSUplayer.Properties.Resources.Pined;
+                Mini_Pin.EnterImage = global::OSUplayer.Properties.Resources.PinE;
             }
             else
             {
                 Front = true;
                 this.TopMost = true;
-                imageButton5.BackgroundImage = global::OSUplayer.Properties.Resources.Pined;
-                imageButton5.BaseImage = global::OSUplayer.Properties.Resources.Pined;
-                imageButton5.ClickImage = global::OSUplayer.Properties.Resources.Pin;
-                imageButton5.EnterImage = global::OSUplayer.Properties.Resources.Pined;
+                Mini_Pin.BackgroundImage = global::OSUplayer.Properties.Resources.Pined;
+                Mini_Pin.BaseImage = global::OSUplayer.Properties.Resources.Pined;
+                Mini_Pin.ClickImage = global::OSUplayer.Properties.Resources.Pin;
+                Mini_Pin.EnterImage = global::OSUplayer.Properties.Resources.Pined;
             }
         }
         private void SetPlay(bool play)
         {
             if (play)
             {
-                PlayButton.BackgroundImage = OSUplayer.Properties.Resources.play;
-                PlayButton.BaseImage = OSUplayer.Properties.Resources.play;
-                PlayButton.ClickImage = OSUplayer.Properties.Resources.PlayC;
-                PlayButton.EnterImage = OSUplayer.Properties.Resources.PlayE;
+                Mini_Play.BackgroundImage = OSUplayer.Properties.Resources.play;
+                Mini_Play.BaseImage = OSUplayer.Properties.Resources.play;
+                Mini_Play.ClickImage = OSUplayer.Properties.Resources.PlayC;
+                Mini_Play.EnterImage = OSUplayer.Properties.Resources.PlayE;
             }
             else
             {
-                PlayButton.BackgroundImage = OSUplayer.Properties.Resources.Pause;
-                PlayButton.BaseImage = OSUplayer.Properties.Resources.Pause;
-                PlayButton.ClickImage = OSUplayer.Properties.Resources.PauseC;
-                PlayButton.EnterImage = OSUplayer.Properties.Resources.PauseE;
+                Mini_Play.BackgroundImage = OSUplayer.Properties.Resources.Pause;
+                Mini_Play.BaseImage = OSUplayer.Properties.Resources.Pause;
+                Mini_Play.ClickImage = OSUplayer.Properties.Resources.PauseC;
+                Mini_Play.EnterImage = OSUplayer.Properties.Resources.PauseE;
             }
         }
         private void Stop()
         {
-            UpdateTimer.Enabled = false;
+            Mini_UpdateTimer.Enabled = false;
             Core.Stop();
-            TrackSeek.Enabled = false;
-            TrackSeek.Value = 0;
-            StopButton.Enabled = false;
+            Mini_Seek_TrackBar.Enabled = false;
+            Mini_Seek_TrackBar.Value = 0;
+            Mini_Stop.Enabled = false;
             SetPlay(true);
             Artist = "";
             Title = "";
@@ -174,20 +174,20 @@ namespace OSUplayer
         private void Play()
         {
             if (Core.PlayList.Count == 0) return;
-            UpdateTimer.Enabled = true;
+            Mini_UpdateTimer.Enabled = true;
             Core.Play();
-            TrackSeek.Enabled = true;
+            Mini_Seek_TrackBar.Enabled = true;
             SetPlay(false);
-            StopButton.Enabled = true;
-            TrackSeek.MaxValue = (int)Core.Durnation * 1000;
-            this.LabelArtist.Refresh();
-            this.LabelTitle.Refresh();
+            Mini_Stop.Enabled = true;
+            Mini_Seek_TrackBar.MaxValue = (int)Core.Durnation * 1000;
+            this.Mini_Artist_Label.Refresh();
+            this.Mini_Title_Label.Refresh();
             Artist = Core.CurrentBeatmap.Artist;
             Title = Core.CurrentBeatmap.Title;
         }
         private void Pause()
         {
-            UpdateTimer.Enabled = false;
+            Mini_UpdateTimer.Enabled = false;
             Core.PauseOrResume();
             SetPlay(true);
         }
@@ -198,7 +198,7 @@ namespace OSUplayer
         }
         private void PlayNext()
         {
-            UpdateTimer.Enabled = false;
+            Mini_UpdateTimer.Enabled = false;
             Artist = "";
             Title = "";
             if (Core.PlayList.Count != 0)
@@ -211,8 +211,8 @@ namespace OSUplayer
         private void UpdateTimer_Tick(object sender, EventArgs e)
         {
 
-            TrackSeek.Value = (int)Core.Position * 1000;
-            LabelTime.Text = String.Format("{0}:{1:D2} | {2}:{3:D2}", (int)Core.Position / 60,
+            Mini_Seek_TrackBar.Value = (int)Core.Position * 1000;
+            Mini_Time_Label.Text = String.Format("{0}:{1:D2} | {2}:{3:D2}", (int)Core.Position / 60,
                 (int)Core.Position % 60, (int)Core.Durnation / 60,
                 (int)Core.Durnation % 60);
             if (Core.Willnext) { Stop(); PlayNext(); }
@@ -220,14 +220,14 @@ namespace OSUplayer
 
         private void TrackVolume_ValueChanged(object sender, EventArgs e)
         {
-            Core.SetVolume(1, (float)TrackVolume.Value / (float)TrackVolume.MaxValue);
+            Core.SetVolume(1, (float)Mini_Volume_TrackBar.Value / (float)Mini_Volume_TrackBar.MaxValue);
         }
 
         private void TrackSeek_ValueChanged(object sender, EventArgs e)
         {
             if (seeking)
             {
-                Core.seek((double)TrackSeek.Value / 1000);
+                Core.seek((double)Mini_Seek_TrackBar.Value / 1000);
             }
         }
 
@@ -263,40 +263,40 @@ namespace OSUplayer
                     this.Top = 2 - this.Height;
                 }
             }
-            g = this.LabelArtist.CreateGraphics();
-            if (g.MeasureString(Artist, LabelArtist.Font).Width > LabelArtist.Width)
+            g = this.Mini_Artist_Label.CreateGraphics();
+            if (g.MeasureString(Artist, Mini_Artist_Label.Font).Width > Mini_Artist_Label.Width)
             {
-                this.LabelArtist.Refresh();
-                s = g.MeasureString(Artist, LabelArtist.Font);//测量文字长度  
+                this.Mini_Artist_Label.Refresh();
+                s = g.MeasureString(Artist, Mini_Artist_Label.Font);//测量文字长度  
                 if (tempA != Artist)//文字改变时,重新显示  
                 {
-                    pA = new PointF(this.LabelArtist.Size.Width, 0);
+                    pA = new PointF(this.Mini_Artist_Label.Size.Width, 0);
                     tempA = Artist;
                 }
                 else
                     pA = new PointF(pA.X - 10, 0);//每次偏移10  
                 if (pA.X <= -s.Width)
-                    pA = new PointF(this.LabelArtist.Size.Width, 0);
-                g.DrawString(Artist, LabelArtist.Font, brush, pA);
+                    pA = new PointF(this.Mini_Artist_Label.Size.Width, 0);
+                g.DrawString(Artist, Mini_Artist_Label.Font, brush, pA);
             }
-            else { LabelArtist.Text = Artist; }
-            g = this.LabelTitle.CreateGraphics();
-            if (g.MeasureString(Title, LabelTitle.Font).Width > LabelTitle.Width)
+            else { Mini_Artist_Label.Text = Artist; }
+            g = this.Mini_Title_Label.CreateGraphics();
+            if (g.MeasureString(Title, Mini_Title_Label.Font).Width > Mini_Title_Label.Width)
             {
-                this.LabelTitle.Refresh();
-                s = g.MeasureString(Title, LabelTitle.Font);//测量文字长度  
+                this.Mini_Title_Label.Refresh();
+                s = g.MeasureString(Title, Mini_Title_Label.Font);//测量文字长度  
                 if (tempB != Title)//文字改变时,重新显示  
                 {
-                    pB = new PointF(this.LabelTitle.Size.Width, 0);
+                    pB = new PointF(this.Mini_Title_Label.Size.Width, 0);
                     tempB = Title;
                 }
                 else
                     pB = new PointF(pB.X - 10, 0);//每次偏移10  
                 if (pB.X <= -s.Width)
-                    pB = new PointF(this.LabelTitle.Size.Width, 0);
-                g.DrawString(Title, LabelTitle.Font, brush, pB);
+                    pB = new PointF(this.Mini_Title_Label.Size.Width, 0);
+                g.DrawString(Title, Mini_Title_Label.Font, brush, pB);
             }
-            else { LabelTitle.Text = Title; }
+            else { Mini_Title_Label.Text = Title; }
         }
         HotkeyHelper hotkeyHelper;
         int playKey;
