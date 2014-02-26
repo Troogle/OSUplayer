@@ -23,7 +23,7 @@ namespace OSUplayer
         /// <summary>
         ///     程序中的所有set
         /// </summary>
-        public static List<BeatmapSet> allsets = new List<BeatmapSet>();
+        public static List<BeatmapSet> Allsets = new List<BeatmapSet>();
 
         /// <summary>
         ///     播放列表，和显示的一一对应，int中是Set的程序内部编号
@@ -48,7 +48,7 @@ namespace OSUplayer
         /// <summary>
         ///     Set有变化，需要保存
         /// </summary>
-        public static bool needsave = false;
+        private static bool _needsave = false;
 
         /// <summary>
         ///     目前正在播放的Set程序内部编号
@@ -75,7 +75,7 @@ namespace OSUplayer
         /// </summary>
         public static BeatmapSet CurrentSet
         {
-            get { return allsets[currentset]; }
+            get { return Allsets[currentset]; }
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace OSUplayer
         /// </summary>
         public static BeatmapSet TmpSet
         {
-            get { return allsets[PlayList[tmpset]]; }
+            get { return Allsets[PlayList[tmpset]]; }
         }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace OSUplayer
 
         #endregion
 
-        private static Player player;
+        private static Player _player;
 
         public static bool MainIsVisible = false;
 
@@ -112,17 +112,17 @@ namespace OSUplayer
         {
             get
             {
-                Assembly asm = Assembly.GetExecutingAssembly();
-                FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(asm.Location);
+                var asm = Assembly.GetExecutingAssembly();
+                var fvi = FileVersionInfo.GetVersionInfo(asm.Location);
                 return fvi.FileVersion;
             }
         }
 
-        public static void exit()
+        public static void Exit()
         {
             NotifySystem.ClearText();
-            player.Dispose();
-            if (needsave)
+            _player.Dispose();
+            if (_needsave)
             {
                 DBSupporter.SaveList();
             }
@@ -135,12 +135,12 @@ namespace OSUplayer
         /// <summary>
         ///     全局初始化
         /// </summary>
-        /// <param name="Shandle">显示区域的handle</param>
-        /// <param name="Ssize">显示区域的大小</param>
-        public static void init(IntPtr Shandle, Size Ssize)
+        /// <param name="shandle">显示区域的handle</param>
+        /// <param name="ssize">显示区域的大小</param>
+        public static void Init(IntPtr shandle, Size ssize)
         {
-            player = new Player(Shandle, Ssize);
-            NotifySystem.Showtip(1000, "OSUplayer", "正在初始化...", ToolTipIcon.Info);
+            _player = new Player(shandle, ssize);
+            NotifySystem.Showtip(1000, LanguageManager.Get("OSUplayer"), LanguageManager.Get("Core_Init_Text"));
             Getpath();
             LoadPreference();
             new Thread(Selfupdate.check_update).Start();
@@ -163,7 +163,7 @@ namespace OSUplayer
             }
             catch (Exception)
             {
-                RadMessageBox.Show("读取游戏目录出错! 请手动指定", "错误", MessageBoxButtons.OK, RadMessageIcon.Error);
+                RadMessageBox.Show(LanguageManager.Get("Core_Error_Osupath_Text"), LanguageManager.Get("Error_Text"), MessageBoxButtons.OK, RadMessageIcon.Error);
                 while (!Setpath())
                 {
                 }
@@ -177,10 +177,12 @@ namespace OSUplayer
         /// <returns>是否选择正常路径</returns>
         public static bool Setpath()
         {
-            var dialog = new FolderBrowserDialog();
-            dialog.ShowNewFolderButton = false;
-            dialog.RootFolder = Environment.SpecialFolder.MyComputer;
-            dialog.Description = "请选择与osu!.exe同级的目录~";
+            var dialog = new FolderBrowserDialog
+            {
+                ShowNewFolderButton = false,
+                RootFolder = Environment.SpecialFolder.MyComputer,
+                Description = LanguageManager.Get("Core_Osupath_Tip_Text")
+            };
             try
             {
                 if (DialogResult.OK == dialog.ShowDialog())
@@ -190,12 +192,12 @@ namespace OSUplayer
                         Settings.Default.OSUpath = dialog.SelectedPath;
                         return true;
                     }
-                    RadMessageBox.Show("为什么你总是想卖萌OAO", "错误", MessageBoxButtons.OK, RadMessageIcon.Error);
+                    RadMessageBox.Show(LanguageManager.Get("Core_Osupath_Tip_Text"), LanguageManager.Get("Error_Text"), MessageBoxButtons.OK, RadMessageIcon.Error);
                 }
             }
             catch (Exception)
             {
-                RadMessageBox.Show("为什么你总是想卖萌OxO", "错误", MessageBoxButtons.OK, RadMessageIcon.Error);
+                RadMessageBox.Show(LanguageManager.Get("Core_Osupath_Tip_Text"), LanguageManager.Get("Error_Text"), MessageBoxButtons.OK, RadMessageIcon.Error);
             }
             return false;
         }
@@ -230,9 +232,9 @@ namespace OSUplayer
         /// <summary>
         ///     初始化播放列表，初始时与Set一一对应
         /// </summary>
-        public static void initplaylist()
+        public static void Initplaylist()
         {
-            for (int i = 0; i < allsets.Count; i++)
+            for (int i = 0; i < Allsets.Count; i++)
             {
                 PlayList.Add(i);
                 //allsets[i].GetDetail();
@@ -242,7 +244,7 @@ namespace OSUplayer
         /// <summary>
         ///     载入设置
         /// </summary>
-        public static void LoadPreference()
+        private static void LoadPreference()
         {
             if (!Settings.Default.Upgraded)
             {
@@ -265,11 +267,11 @@ namespace OSUplayer
         /// <summary>
         ///     初始化Set的总方法，从文件读取或从osu!.db读取
         /// </summary>
-        public static void Initset()
+        private static void Initset()
         {
-            if (File.Exists("list.db") && DBSupporter.LoadList())
+            if (DBSupporter.LoadList())
             {
-                initplaylist();
+                Initplaylist();
             }
             else
             {
@@ -277,9 +279,9 @@ namespace OSUplayer
                 {
                     OsuDB.ReadDb(Path.Combine(Settings.Default.OSUpath, "osu!.db"));
                 }
-                initplaylist();
-                NotifySystem.Showtip(1000, "OSUplayer", string.Format("初始化完毕，发现曲目{0}个", allsets.Count), ToolTipIcon.Info);
-                needsave = true;
+                Initplaylist();
+                NotifySystem.Showtip(1000, LanguageManager.Get("OSUplayer"), string.Format(LanguageManager.Get("Core_Init_Finish_Text"), Allsets.Count));
+                _needsave = true;
             }
             currentset = 0;
             currentmap = 0;
@@ -291,41 +293,41 @@ namespace OSUplayer
 
         public static double Durnation
         {
-            get { return player.durnation; }
+            get { return _player.Durnation; }
         }
 
         public static double Position
         {
-            get { return player.position; }
+            get { return _player.Position; }
         }
 
         public static bool Isplaying
         {
-            get { return player.isplaying; }
+            get { return _player.Isplaying; }
         }
 
         public static bool Willnext
         {
-            get { return player.willnext; }
+            get { return _player.Willnext; }
         }
 
         public static void Remove(int index)
         {
             // Core.allsets.RemoveAt(PlayList[index]);
             PlayList.RemoveAt(index);
-            needsave = true;
+            _needsave = true;
         }
 
         public static bool SetSet(int vaule, bool p = false)
         {
             tmpset = vaule;
-            if (!TmpSet.check())
+            if (!TmpSet.Check())
             {
-                NotifySystem.Showtip(1000, "OSUplayer", "没事删什么曲子啊><", ToolTipIcon.Info);
+                NotifySystem.Showtip(1000, LanguageManager.Get("OSUplayer"), LanguageManager.Get("Core_Missing_Song_Text"));
                 Remove(tmpset);
                 return true;
             }
-            if (!TmpSet.detailed)
+            if (!TmpSet.Detailed)
             {
                 TmpSet.GetDetail();
             }
@@ -345,7 +347,7 @@ namespace OSUplayer
             }
             if (!File.Exists(TmpBeatmap.Audio))
             {
-                NotifySystem.Showtip(1000, "OSUplayer", "没事删什么曲子啊><", ToolTipIcon.Info);
+                NotifySystem.Showtip(1000, LanguageManager.Get("OSUplayer"), LanguageManager.Get("Core_Missing_Song_Text"));
                 Remove(tmpset);
                 return true;
             }
@@ -369,28 +371,26 @@ namespace OSUplayer
                 case 3:
                     Settings.Default.Fxvolume = volume;
                     break;
-                default:
-                    break;
             }
-            player.SetVolume(set, volume);
+            _player.SetVolume(set, volume);
         }
 
         public static void RefreashSet()
         {
             File.Delete("list.db");
             Stop();
-            allsets.Clear();
+            Allsets.Clear();
             Initset();
         }
 
         public static void Stop()
         {
-            player.Stop();
+            _player.Stop();
         }
 
         public static void Play()
         {
-            if (!CurrentSet.detailed)
+            if (!CurrentSet.Detailed)
             {
                 CurrentSet.GetDetail();
             }
@@ -400,34 +400,34 @@ namespace OSUplayer
             }
             if (!File.Exists(CurrentBeatmap.Audio))
             {
-                NotifySystem.Showtip(1000, "OSUplayer", "音频文件你都删！><", ToolTipIcon.Info);
+                NotifySystem.Showtip(1000, LanguageManager.Get("OSUplayer"), LanguageManager.Get("Core_Missing_MP3_Text"));
                 return;
             }
-            player.Play();
-            NotifySystem.Showtip(1000, "OSUplayer", "正在播放\n" + CurrentBeatmap.NameToString(), ToolTipIcon.Info);
+            _player.Play();
+            NotifySystem.Showtip(1000, LanguageManager.Get("OSUplayer"), LanguageManager.Get("Core_Current_Playing_Text") + CurrentBeatmap.NameToString());
             NotifySystem.SetText(CurrentBeatmap.NameToString());
         }
 
         public static void PauseOrResume()
         {
-            if (player.isplaying)
+            if (_player.Isplaying)
             {
-                player.Pause();
+                _player.Pause();
                 NotifySystem.ClearText();
             }
             else
             {
-                if (player.position == -1.0) return;
-                player.Resume();
+                if (_player.Position == -1.0) return;
+                _player.Resume();
                 NotifySystem.SetText(CurrentBeatmap.NameToString());
             }
         }
 
-        public static void seek(double time)
+        public static void Seek(double time)
         {
-            if (player.durnation - 10 > time)
+            if (_player.Durnation - 10 > time)
             {
-                player.seek(time);
+                _player.Seek(time);
             }
         }
 
@@ -446,13 +446,13 @@ namespace OSUplayer
             switch (Settings.Default.NextMode)
             {
                 case 1:
-                    next = (now + 1)%PlayList.Count;
+                    next = (now + 1) % PlayList.Count;
                     break;
                 case 2:
                     next = now;
                     break;
                 case 3:
-                    next = new Random().Next()%PlayList.Count;
+                    next = new Random().Next() % PlayList.Count;
                     break;
                 default:
                     next = 0;
@@ -463,21 +463,21 @@ namespace OSUplayer
             return next;
         }
 
-        public static void search(string k)
+        public static void Search(string k)
         {
             var searchedMaps = new List<int>();
             string keyword = k.Trim().ToLower();
             if (keyword.Length == 0)
             {
                 PlayList.Clear();
-                initplaylist();
+                Initplaylist();
             }
             else
             {
                 //PlayList.Clear();
-                for (int i = 0; i < allsets.Count; i++)
+                for (int i = 0; i < Allsets.Count; i++)
                 {
-                    if (allsets[i].tags.ToLower().Contains(keyword))
+                    if (Allsets[i].tags.ToLower().Contains(keyword))
                     {
                         searchedMaps.Add(i);
                     }
@@ -497,7 +497,7 @@ namespace OSUplayer
             }
         }
 
-        public static ListViewItem[] getdetail()
+        public static ListViewItem[] Getdetail()
         {
             var detail = new ListViewItem[16];
             detail[0] = new ListViewItem("歌曲名称");
@@ -509,7 +509,7 @@ namespace OSUplayer
             detail[3] = new ListViewItem("来源");
             detail[3].SubItems.Add(TmpBeatmap.Source);
             detail[4] = new ListViewItem("模式");
-            detail[4].SubItems.Add(Enum.GetName(typeof (Modes), TmpBeatmap.Mode));
+            detail[4].SubItems.Add(Enum.GetName(typeof(Modes), TmpBeatmap.Mode));
             detail[5] = new ListViewItem("SetID");
             detail[5].SubItems.Add(TmpBeatmap.beatmapsetId.ToString());
             detail[6] = new ListViewItem("ID");
@@ -528,7 +528,7 @@ namespace OSUplayer
             }
             detail[9] = new ListViewItem("视频文件名称");
             detail[9].SubItems.Add(TmpBeatmap.Video);
-            if (!File.Exists(TmpBeatmap.Video))
+            if (!String.IsNullOrEmpty(TmpBeatmap.Video)&& !File.Exists(TmpBeatmap.Video))
             {
                 detail[9].ForeColor = Color.Red;
             }
@@ -551,16 +551,16 @@ namespace OSUplayer
         {
             if (MainIsVisible)
             {
-                player.Render();
+                _player.Render();
             }
         }
 
         public static void Resize(Size size)
         {
-            player.resize(size);
+            _player.Resize(size);
         }
 
-        public static IEnumerable<ListViewDataItem> getscore(Font font)
+        public static IEnumerable<ListViewDataItem> Getscore(Font font)
         {
             var ret = new ListViewDataItem[255];
             int cur = 0;
@@ -606,133 +606,133 @@ namespace OSUplayer
 
         public static void SetBG()
         {
-            player.initBG();
+            _player.InitBG();
         }
 
         #endregion
 
         #region 通用转换区
 
-        public static Image Getrank(ScoreRecord S)
+        private static Image Getrank(ScoreRecord s)
         {
-            switch (S.Mode)
+            switch (s.Mode)
             {
                 case Modes.Osu:
-                    if (S.Acc == 1)
+                    if (s.Acc == 1)
                     {
-                        if (S.Mod.Contains("HD") || S.Mod.Contains("FL"))
+                        if (s.Mod.Contains("HD") || s.Mod.Contains("FL"))
                         {
                             return Resources.XH;
                         }
                         return Resources.X;
                     }
-                    if ((S.Hit300)/(double) S.Totalhit > 0.9 && S.Hit50/(double) S.Totalhit < 0.01 && S.Miss == 0)
+                    if ((s.Hit300) / (double)s.Totalhit > 0.9 && s.Hit50 / (double)s.Totalhit < 0.01 && s.Miss == 0)
                     {
-                        if (S.Mod.Contains("HD") || S.Mod.Contains("FL"))
+                        if (s.Mod.Contains("HD") || s.Mod.Contains("FL"))
                         {
                             return Resources.SH;
                         }
                         return Resources.S;
                     }
-                    if (((S.Hit300)/(double) S.Totalhit > 0.9) || ((S.Hit300)/(double) S.Totalhit > 0.8 && S.Miss == 0))
+                    if (((s.Hit300) / (double)s.Totalhit > 0.9) || ((s.Hit300) / (double)s.Totalhit > 0.8 && s.Miss == 0))
                     {
                         return Resources.A;
                     }
-                    if (((S.Hit300)/(double) S.Totalhit > 0.8) || ((S.Hit300)/(double) S.Totalhit > 0.7 && S.Miss == 0))
+                    if (((s.Hit300) / (double)s.Totalhit > 0.8) || ((s.Hit300) / (double)s.Totalhit > 0.7 && s.Miss == 0))
                     {
                         return Resources.B;
                     }
-                    if ((S.Hit300)/(double) S.Totalhit > 0.6)
+                    if ((s.Hit300) / (double)s.Totalhit > 0.6)
                     {
                         return Resources.C;
                     }
                     return Resources.D;
                 case Modes.Taiko:
-                    if (S.Acc == 1)
+                    if (s.Acc == 1)
                     {
-                        if (S.Mod.Contains("HD") || S.Mod.Contains("FL"))
+                        if (s.Mod.Contains("HD") || s.Mod.Contains("FL"))
                         {
                             return Resources.XH;
                         }
                         return Resources.X;
                     }
-                    if ((S.Hit300)/(double) S.Totalhit > 0.9 && S.Hit50/(double) S.Totalhit < 0.01 && S.Miss == 0)
+                    if ((s.Hit300) / (double)s.Totalhit > 0.9 && s.Hit50 / (double)s.Totalhit < 0.01 && s.Miss == 0)
                     {
-                        if (S.Mod.Contains("HD") || S.Mod.Contains("FL"))
+                        if (s.Mod.Contains("HD") || s.Mod.Contains("FL"))
                         {
                             return Resources.SH;
                         }
                         return Resources.S;
                     }
-                    if (((S.Hit300)/(double) S.Totalhit > 0.9) || ((S.Hit300)/(double) S.Totalhit > 0.8 && S.Miss == 0))
+                    if (((s.Hit300) / (double)s.Totalhit > 0.9) || ((s.Hit300) / (double)s.Totalhit > 0.8 && s.Miss == 0))
                     {
                         return Resources.A;
                     }
-                    if (((S.Hit300)/(double) S.Totalhit > 0.8) || ((S.Hit300)/(double) S.Totalhit > 0.7 && S.Miss == 0))
+                    if (((s.Hit300) / (double)s.Totalhit > 0.8) || ((s.Hit300) / (double)s.Totalhit > 0.7 && s.Miss == 0))
                     {
                         return Resources.B;
                     }
-                    if ((S.Hit300)/(double) S.Totalhit > 0.6)
+                    if ((s.Hit300) / (double)s.Totalhit > 0.6)
                     {
                         return Resources.C;
                     }
                     return Resources.D;
                 case Modes.CTB:
-                    if (S.Acc == 1)
+                    if (s.Acc == 1)
                     {
-                        if (S.Mod.Contains("HD") || S.Mod.Contains("FL"))
+                        if (s.Mod.Contains("HD") || s.Mod.Contains("FL"))
                         {
                             return Resources.XH;
                         }
                         return Resources.X;
                     }
-                    if (S.Acc >= 0.9801)
+                    if (s.Acc >= 0.9801)
                     {
-                        if (S.Mod.Contains("HD") || S.Mod.Contains("FL"))
+                        if (s.Mod.Contains("HD") || s.Mod.Contains("FL"))
                         {
                             return Resources.SH;
                         }
                         return Resources.S;
                     }
-                    if (S.Acc >= 0.9401)
+                    if (s.Acc >= 0.9401)
                     {
                         return Resources.A;
                     }
-                    if (S.Acc >= 0.9001)
+                    if (s.Acc >= 0.9001)
                     {
                         return Resources.B;
                     }
-                    if (S.Acc >= 0.8501)
+                    if (s.Acc >= 0.8501)
                     {
                         return Resources.C;
                     }
                     return Resources.D;
                 case Modes.Mania:
-                    if (S.Acc == 1)
+                    if (s.Acc == 1)
                     {
-                        if (S.Mod.Contains("HD") || S.Mod.Contains("FL"))
+                        if (s.Mod.Contains("HD") || s.Mod.Contains("FL"))
                         {
                             return Resources.XH;
                         }
                         return Resources.X;
                     }
-                    if (S.Acc > 0.95)
+                    if (s.Acc > 0.95)
                     {
-                        if (S.Mod.Contains("HD") || S.Mod.Contains("FL"))
+                        if (s.Mod.Contains("HD") || s.Mod.Contains("FL"))
                         {
                             return Resources.SH;
                         }
                         return Resources.S;
                     }
-                    if (S.Acc > 0.90)
+                    if (s.Acc > 0.90)
                     {
                         return Resources.A;
                     }
-                    if (S.Acc > 0.80)
+                    if (s.Acc > 0.80)
                     {
                         return Resources.B;
                     }
-                    if (S.Acc > 0.70)
+                    if (s.Acc > 0.70)
                     {
                         return Resources.C;
                     }

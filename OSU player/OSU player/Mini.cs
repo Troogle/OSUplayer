@@ -62,19 +62,19 @@ namespace OSUplayer
         protected override void OnMouseEnter(EventArgs e)
         {
             base.OnMouseEnter(e);
-            this.Opacity = 1d;
+            Opacity = 1d;
         }
         protected override void OnMouseLeave(EventArgs e)
         {
             base.OnMouseLeave(e);
-            if (this.Bounds.Contains(Cursor.Position)) { return; }
-            this.Opacity = 0.5d;
+            if (Bounds.Contains(Cursor.Position)) { return; }
+            Opacity = 0.5d;
         }
         #endregion
         private void imageButton4_Click(object sender, EventArgs e)
         {
             hotkeyHelper.UnregisterHotkeys();
-            this.Dispose();
+            Dispose();
         }
 
         private void Mini_Load(object sender, EventArgs e)
@@ -82,7 +82,7 @@ namespace OSUplayer
             Front = false;
             SetFormRoundRectRgn(this, 12);
             Mini_Volume_TrackBar.Value = (int)(100 * Settings.Default.Allvolume);
-            if (!this.Bounds.Contains(Cursor.Position)) { this.Opacity = 0.5d; }
+            if (!Bounds.Contains(Cursor.Position)) { Opacity = 0.5d; }
             if (Core.Isplaying)
             {
                 Mini_Seek_TrackBar.MaxValue = (int)Core.Durnation * 1000;
@@ -127,37 +127,37 @@ namespace OSUplayer
             if (Front)
             {
                 Front = false;
-                this.TopMost = false;
-                Mini_Pin.BackgroundImage = global::OSUplayer.Properties.Resources.Pin;
-                Mini_Pin.BaseImage = global::OSUplayer.Properties.Resources.Pin;
-                Mini_Pin.ClickImage = global::OSUplayer.Properties.Resources.Pined;
-                Mini_Pin.EnterImage = global::OSUplayer.Properties.Resources.PinE;
+                TopMost = false;
+                Mini_Pin.BackgroundImage = Resources.Pin;
+                Mini_Pin.BaseImage = Resources.Pin;
+                Mini_Pin.ClickImage = Resources.Pined;
+                Mini_Pin.EnterImage = Resources.PinE;
             }
             else
             {
                 Front = true;
-                this.TopMost = true;
-                Mini_Pin.BackgroundImage = global::OSUplayer.Properties.Resources.Pined;
-                Mini_Pin.BaseImage = global::OSUplayer.Properties.Resources.Pined;
-                Mini_Pin.ClickImage = global::OSUplayer.Properties.Resources.Pin;
-                Mini_Pin.EnterImage = global::OSUplayer.Properties.Resources.Pined;
+                TopMost = true;
+                Mini_Pin.BackgroundImage = Resources.Pined;
+                Mini_Pin.BaseImage = Resources.Pined;
+                Mini_Pin.ClickImage = Resources.Pin;
+                Mini_Pin.EnterImage = Resources.Pined;
             }
         }
         private void SetPlay(bool play)
         {
             if (play)
             {
-                Mini_Play.BackgroundImage = OSUplayer.Properties.Resources.play;
-                Mini_Play.BaseImage = OSUplayer.Properties.Resources.play;
-                Mini_Play.ClickImage = OSUplayer.Properties.Resources.PlayC;
-                Mini_Play.EnterImage = OSUplayer.Properties.Resources.PlayE;
+                Mini_Play.BackgroundImage = Resources.play;
+                Mini_Play.BaseImage = Resources.play;
+                Mini_Play.ClickImage = Resources.PlayC;
+                Mini_Play.EnterImage = Resources.PlayE;
             }
             else
             {
-                Mini_Play.BackgroundImage = OSUplayer.Properties.Resources.Pause;
-                Mini_Play.BaseImage = OSUplayer.Properties.Resources.Pause;
-                Mini_Play.ClickImage = OSUplayer.Properties.Resources.PauseC;
-                Mini_Play.EnterImage = OSUplayer.Properties.Resources.PauseE;
+                Mini_Play.BackgroundImage = Resources.Pause;
+                Mini_Play.BaseImage = Resources.Pause;
+                Mini_Play.ClickImage = Resources.PauseC;
+                Mini_Play.EnterImage = Resources.PauseE;
             }
         }
         private void Stop()
@@ -180,8 +180,8 @@ namespace OSUplayer
             SetPlay(false);
             Mini_Stop.Enabled = true;
             Mini_Seek_TrackBar.MaxValue = (int)Core.Durnation * 1000;
-            this.Mini_Artist_Label.Refresh();
-            this.Mini_Title_Label.Refresh();
+            Mini_Artist_Label.Refresh();
+            Mini_Title_Label.Refresh();
             Artist = Core.CurrentBeatmap.Artist;
             Title = Core.CurrentBeatmap.Title;
         }
@@ -201,11 +201,9 @@ namespace OSUplayer
             Mini_UpdateTimer.Enabled = false;
             Artist = "";
             Title = "";
-            if (Core.PlayList.Count != 0)
-            {
-                int next = Core.GetNext();
-                Play();
-            }
+            if (Core.PlayList.Count == 0) return;
+            int next = Core.GetNext();
+            Play();
         }
 
         private void UpdateTimer_Tick(object sender, EventArgs e)
@@ -227,7 +225,7 @@ namespace OSUplayer
         {
             if (seeking)
             {
-                Core.seek((double)Mini_Seek_TrackBar.Value / 1000);
+                Core.Seek((double)Mini_Seek_TrackBar.Value / 1000);
             }
         }
 
@@ -251,49 +249,49 @@ namespace OSUplayer
         private Graphics g;
         private void GUITimer_Tick(object sender, EventArgs e)
         {
-            Rectangle Rects = new Rectangle(this.Left, this.Top, this.Left + this.Width, this.Top + this.Height);
-            if ((this.Top < 0 && PtInRect(ref Rects, Cursor.Position)))
+            var Rects = new Rectangle(Left, Top, Left + Width, Top + Height);
+            if ((Top < 0 && PtInRect(ref Rects, Cursor.Position)))
             {
-                this.Top = 0;
+                Top = 0;
             }
             else
             {
-                if (this.Top > -5 && this.Top < 5 && !(PtInRect(ref Rects, Cursor.Position)))
+                if (Top > -5 && Top < 5 && !(PtInRect(ref Rects, Cursor.Position)))
                 {
-                    this.Top = 2 - this.Height;
+                    Top = 2 - Height;
                 }
             }
-            g = this.Mini_Artist_Label.CreateGraphics();
+            g = Mini_Artist_Label.CreateGraphics();
             if (g.MeasureString(Artist, Mini_Artist_Label.Font).Width > Mini_Artist_Label.Width)
             {
-                this.Mini_Artist_Label.Refresh();
+                Mini_Artist_Label.Refresh();
                 s = g.MeasureString(Artist, Mini_Artist_Label.Font);//测量文字长度  
                 if (tempA != Artist)//文字改变时,重新显示  
                 {
-                    pA = new PointF(this.Mini_Artist_Label.Size.Width, 0);
+                    pA = new PointF(Mini_Artist_Label.Size.Width, 0);
                     tempA = Artist;
                 }
                 else
                     pA = new PointF(pA.X - 10, 0);//每次偏移10  
                 if (pA.X <= -s.Width)
-                    pA = new PointF(this.Mini_Artist_Label.Size.Width, 0);
+                    pA = new PointF(Mini_Artist_Label.Size.Width, 0);
                 g.DrawString(Artist, Mini_Artist_Label.Font, brush, pA);
             }
             else { Mini_Artist_Label.Text = Artist; }
-            g = this.Mini_Title_Label.CreateGraphics();
+            g = Mini_Title_Label.CreateGraphics();
             if (g.MeasureString(Title, Mini_Title_Label.Font).Width > Mini_Title_Label.Width)
             {
-                this.Mini_Title_Label.Refresh();
+                Mini_Title_Label.Refresh();
                 s = g.MeasureString(Title, Mini_Title_Label.Font);//测量文字长度  
                 if (tempB != Title)//文字改变时,重新显示  
                 {
-                    pB = new PointF(this.Mini_Title_Label.Size.Width, 0);
+                    pB = new PointF(Mini_Title_Label.Size.Width, 0);
                     tempB = Title;
                 }
                 else
                     pB = new PointF(pB.X - 10, 0);//每次偏移10  
                 if (pB.X <= -s.Width)
-                    pB = new PointF(this.Mini_Title_Label.Size.Width, 0);
+                    pB = new PointF(Mini_Title_Label.Size.Width, 0);
                 g.DrawString(Title, Mini_Title_Label.Font, brush, pB);
             }
             else { Mini_Title_Label.Text = Title; }
@@ -306,13 +304,13 @@ namespace OSUplayer
         int nextKey1;
         private void Mini_Shown(object sender, EventArgs e)
         {
-            hotkeyHelper = new HotkeyHelper(this.Handle);
+            hotkeyHelper = new HotkeyHelper(Handle);
             playKey = hotkeyHelper.RegisterHotkey(Keys.F5, KeyModifiers.Alt);
             playKey1 = hotkeyHelper.RegisterHotkey(Keys.Play, KeyModifiers.None);
             playKey2 = hotkeyHelper.RegisterHotkey(Keys.Pause, KeyModifiers.None);
             nextKey = hotkeyHelper.RegisterHotkey(Keys.Right, KeyModifiers.Alt);
             nextKey1 = hotkeyHelper.RegisterHotkey(Keys.MediaNextTrack, KeyModifiers.None);
-            hotkeyHelper.OnHotkey += new HotkeyEventHandler(OnHotkey);
+            hotkeyHelper.OnHotkey += OnHotkey;
         }
         private void OnHotkey(int hotkeyID)
         {

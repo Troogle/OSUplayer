@@ -94,19 +94,13 @@ namespace OSUplayer.Uilties
         }
         public bool PreFilterMessage(ref Message m)
         {
-            if (m.Msg == 0x312)
+            if (m.Msg != 0x312) return false;
+            if (OnHotkey == null) return false;
+            foreach (UInt32 key in keyIDs.Values)
             {
-                if (OnHotkey != null)
-                {
-                    foreach (UInt32 key in keyIDs.Values)
-                    {
-                        if ((UInt32)m.WParam == key)
-                        {
-                            OnHotkey((int)m.WParam);
-                            return true;
-                        }
-                    }
-                }
+                if ((UInt32) m.WParam != key) continue;
+                OnHotkey((int)m.WParam);
+                return true;
             }
             return false;
         }

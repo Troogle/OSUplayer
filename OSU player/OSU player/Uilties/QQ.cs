@@ -39,8 +39,8 @@ namespace OSUplayer.Uilties
 
         private void web_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
-            HtmlDocument doc = web.Document;
-            HtmlElement uinList = doc.GetElementById("list_uin");
+            var doc = web.Document;
+            var uinList = doc.GetElementById("list_uin");
             if (uinList != null)
             {
                 for (int i = 0; i <= uinList.Children.Count - 1; i++)
@@ -74,12 +74,12 @@ namespace OSUplayer.Uilties
                 args[1] = 65542;
                 args[2] = str;
                 args[3] = "";
-                object objAdmin = Activator.CreateInstance(objAdminType);
+                var objAdmin = Activator.CreateInstance(objAdminType);
                 objAdminType.InvokeMember("PutRSInfo", BindingFlags.InvokeMethod, null, objAdmin, args);
             }
             catch
             {
-                NotifySystem.Showtip(1000, "OSUplayer", "QQ推送失败！", ToolTipIcon.Info);
+                NotifySystem.Showtip(1000, LanguageManager.Get("OSUplayer"), LanguageManager.Get("QQ_Push_Fail_Text"));
             }
         }
     }

@@ -1,8 +1,8 @@
 using System;
+using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
 using OSUplayer.Properties;
-using System.Runtime.InteropServices;
 
 namespace OSUplayer.Uilties
 {
@@ -12,12 +12,12 @@ namespace OSUplayer.Uilties
         private static readonly NotifyIcon TaskbarIcon = new NotifyIcon
         {
             Icon = Resources.icon,
-            Text = "OSUplayer",
+            Text = LanguageManager.Get("OSUplayer"),
             Visible = true,
             ContextMenuStrip = TrayIconMenuClass.TrayIcon_Menu
         };
-        private static System.EventHandler _clickEvent;
-        public static void RegisterClick(System.EventHandler clicktodo)
+        private static EventHandler _clickEvent;
+        public static void RegisterClick(EventHandler clicktodo)
         {
             TaskbarIcon.Click -= _clickEvent;
             TaskbarIcon.DoubleClick -= _clickEvent;
@@ -40,7 +40,7 @@ namespace OSUplayer.Uilties
         public static void ClearText()
         {
             QQ.Send2QQ("");
-            TaskbarIcon.Text = "OSUPlayer";
+            TaskbarIcon.Text = LanguageManager.Get("OSUplayer");
         }
         private static void SetNotifyIconText(NotifyIcon ni, string text)
         {
@@ -64,107 +64,96 @@ namespace OSUplayer.Uilties
     class TaskBarIconMenu
     {
 
-        public System.Windows.Forms.ContextMenuStrip TrayIcon_Menu;
-        private System.Windows.Forms.ToolStripMenuItem TrayIcon_Artist;
-        private System.Windows.Forms.ToolStripMenuItem TrayIcon_Title;
-        private System.Windows.Forms.ToolStripMenuItem TrayIcon_Diff;
-        private System.Windows.Forms.ToolStripMenuItem TrayIcon_Play;
-        private System.Windows.Forms.ToolStripMenuItem TrayIcon_PlayNext;
-        private System.Windows.Forms.ToolStripMenuItem TrayIcon_Exit;
+        public ContextMenuStrip TrayIcon_Menu;
+        private ToolStripMenuItem TrayIcon_Artist;
+        private ToolStripMenuItem TrayIcon_Title;
+        private ToolStripMenuItem TrayIcon_Diff;
+        private ToolStripMenuItem TrayIcon_Play;
+        private ToolStripMenuItem TrayIcon_PlayNext;
+        private ToolStripMenuItem TrayIcon_Exit;
         public TaskBarIconMenu()
         {
-            this.TrayIcon_Menu = new System.Windows.Forms.ContextMenuStrip();
-            this.TrayIcon_Artist = new System.Windows.Forms.ToolStripMenuItem();
-            this.TrayIcon_Title = new System.Windows.Forms.ToolStripMenuItem();
-            this.TrayIcon_Diff = new System.Windows.Forms.ToolStripMenuItem();
-            this.TrayIcon_Play = new System.Windows.Forms.ToolStripMenuItem();
-            this.TrayIcon_PlayNext = new System.Windows.Forms.ToolStripMenuItem();
-            this.TrayIcon_Exit = new System.Windows.Forms.ToolStripMenuItem();
-            this.TrayIcon_Menu.SuspendLayout();
+            TrayIcon_Menu = new ContextMenuStrip();
+            TrayIcon_Artist = new ToolStripMenuItem();
+            TrayIcon_Title = new ToolStripMenuItem();
+            TrayIcon_Diff = new ToolStripMenuItem();
+            TrayIcon_Play = new ToolStripMenuItem();
+            TrayIcon_PlayNext = new ToolStripMenuItem();
+            TrayIcon_Exit = new ToolStripMenuItem();
+            TrayIcon_Menu.SuspendLayout();
 
-            this.TrayIcon_Menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.TrayIcon_Artist,
-            this.TrayIcon_Title,
-            this.TrayIcon_Diff,
-            this.TrayIcon_Play,
-            this.TrayIcon_PlayNext,
-            this.TrayIcon_Exit});
-            this.TrayIcon_Menu.Name = "TrayIcon_Menu";
-            this.TrayIcon_Menu.Size = new System.Drawing.Size(176, 176);
+            TrayIcon_Menu.Items.AddRange(new ToolStripItem[] {
+            TrayIcon_Artist,
+            TrayIcon_Title,
+            TrayIcon_Diff,
+            TrayIcon_Play,
+            TrayIcon_PlayNext,
+            TrayIcon_Exit});
+            TrayIcon_Menu.Name = "TrayIcon_Menu";
+            TrayIcon_Menu.Size = new Size(176, 176);
             // 
             // TrayIcon_Artist
             // 
-            this.TrayIcon_Artist.Enabled = false;
-            this.TrayIcon_Artist.Name = "TrayIcon_Artist";
-            this.TrayIcon_Artist.Size = new System.Drawing.Size(175, 24);
-            this.TrayIcon_Artist.Text = "Current Aritst:";
-            this.TrayIcon_Artist.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            TrayIcon_Artist.Enabled = false;
+            TrayIcon_Artist.Name = "TrayIcon_Artist";
+            TrayIcon_Artist.Size = new Size(175, 24);
+            TrayIcon_Artist.Text = LanguageManager.Get("TrayIcon_Aritst_Text");
+            TrayIcon_Artist.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(134)));
             // 
             // TrayIcon_Title
             // 
-            this.TrayIcon_Title.Enabled = false;
-            this.TrayIcon_Title.Name = "TrayIcon_Title";
-            this.TrayIcon_Title.Size = new System.Drawing.Size(175, 24);
-            this.TrayIcon_Title.Text = "Current Title:";
-            this.TrayIcon_Title.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            TrayIcon_Title.Enabled = false;
+            TrayIcon_Title.Name = "TrayIcon_Title";
+            TrayIcon_Title.Size = new Size(175, 24);
+            TrayIcon_Title.Text = LanguageManager.Get("TrayIcon_Title_Text");
+            TrayIcon_Title.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(134)));
             // 
             // TrayIcon_Diff
             // 
-            this.TrayIcon_Diff.Enabled = false;
-            this.TrayIcon_Diff.Name = "TrayIcon_Diff";
-            this.TrayIcon_Diff.Size = new System.Drawing.Size(175, 24);
-            this.TrayIcon_Diff.Text = "Current Diff:";
-            this.TrayIcon_Diff.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            TrayIcon_Diff.Enabled = false;
+            TrayIcon_Diff.Name = "TrayIcon_Diff";
+            TrayIcon_Diff.Size = new Size(175, 24);
+            TrayIcon_Diff.Text = LanguageManager.Get("TrayIcon_Diff_Text");
+            TrayIcon_Diff.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(134)));
             // 
             // TrayIcon_Play
             // 
-            this.TrayIcon_Play.Name = "TrayIcon_Play";
-            this.TrayIcon_Play.Size = new System.Drawing.Size(175, 24);
-            this.TrayIcon_Play.Text = "播放/暂停";
-            this.TrayIcon_Play.Click += TrayIcon_Play_Click;
+            TrayIcon_Play.Name = "TrayIcon_Play";
+            TrayIcon_Play.Size = new Size(175, 24);
+            TrayIcon_Play.Text = LanguageManager.Get("TrayIcon_Play_Pause_Text");
+            TrayIcon_Play.Click += TrayIcon_Play_Click;
             // 
             // TrayIcon_PlayNext
             // 
-            this.TrayIcon_PlayNext.Name = "TrayIcon_PlayNext";
-            this.TrayIcon_PlayNext.Size = new System.Drawing.Size(175, 24);
-            this.TrayIcon_PlayNext.Text = "下一首";
-            this.TrayIcon_PlayNext.Click += TrayIcon_PlayNext_Click;
+            TrayIcon_PlayNext.Name = "TrayIcon_PlayNext";
+            TrayIcon_PlayNext.Size = new Size(175, 24);
+            TrayIcon_PlayNext.Text = LanguageManager.Get("TrayIcon_PlayNext_Text");
+            TrayIcon_PlayNext.Click += TrayIcon_PlayNext_Click;
             // 
             // TrayIcon_Exit
             // 
-            this.TrayIcon_Exit.Enabled = false;
-            this.TrayIcon_Exit.Name = "TrayIcon_Exit";
-            this.TrayIcon_Exit.Size = new System.Drawing.Size(175, 24);
-            this.TrayIcon_Exit.Text = "退出";
-
-            this.TrayIcon_Menu.ResumeLayout(false);
-        }
-        [DllImport("user32.dll", EntryPoint = "keybd_event")]
-        private static extern void keybd_event(
-        byte bVk, //虚拟键值  
-        byte bScan,// 一般为0  
-        int dwFlags, //这里是整数类型 0 为按下，2为释放  
-        int dwExtraInfo //这里是整数类型 一般情况下设成为0  
-        );
-        void TrayIcon_PlayNext_Click(object sender, EventArgs e)
-        {
-            System.Windows.Forms.SendKeys.Send("%{RIGHT}");
-            //keybd_event(176, 0, 0, 0);
-            //keybd_event(176, 0, 2, 0);
+            TrayIcon_Exit.Enabled = false;
+            TrayIcon_Exit.Name = "TrayIcon_Exit";
+            TrayIcon_Exit.Size = new Size(175, 24);
+            TrayIcon_Exit.Text = LanguageManager.Get("TrayIcon_Exit_Text");
+            TrayIcon_Menu.ResumeLayout(false);
         }
 
-        void TrayIcon_Play_Click(object sender, EventArgs e)
+        static void TrayIcon_PlayNext_Click(object sender, EventArgs e)
         {
-            System.Windows.Forms.SendKeys.Send("%{F5}");
-            //keybd_event(179, 0, 0, 0);
-            //keybd_event(179, 0, 2, 0);
+            SendKeys.Send("%{RIGHT}");
+        }
+
+        static void TrayIcon_Play_Click(object sender, EventArgs e)
+        {
+            SendKeys.Send("%{F5}");
         }
         public void RefreashMenu()
         {
             if (Core.CurrentBeatmap == null) return;
-            this.TrayIcon_Artist.Text = "Current Aritst:" + Core.CurrentBeatmap.Artist;
-            this.TrayIcon_Title.Text = "Current Title:" + Core.CurrentBeatmap.Title;
-            this.TrayIcon_Diff.Text = "Current Diff:" + Core.CurrentBeatmap.Version;
+            TrayIcon_Artist.Text = LanguageManager.Get("TrayIcon_Aritst_Text") + Core.CurrentBeatmap.Artist;
+            TrayIcon_Title.Text = LanguageManager.Get("TrayIcon_Title_Text") + Core.CurrentBeatmap.Title;
+            TrayIcon_Diff.Text = LanguageManager.Get("TrayIcon_Diff_Text") + Core.CurrentBeatmap.Version;
         }
     }
 }

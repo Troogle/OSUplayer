@@ -30,7 +30,7 @@ namespace OSUplayer.Uilties
                 }
                 if (newver.CompareTo(Core.Version) > 0)
                 {
-                    var res = RadMessageBox.Show(String.Format("新版本 {0} 发布了~\n更新内容:\n{1}", newver, text), "提醒",
+                    var res = RadMessageBox.Show(String.Format(LanguageManager.Get("Update_Normal_Text"), newver, text), LanguageManager.Get("Tip_Text"),
                         MessageBoxButtons.OKCancel, RadMessageIcon.Info);
                     if (res == DialogResult.OK)
                     {
@@ -39,8 +39,8 @@ namespace OSUplayer.Uilties
                             Process.Start(UpDateXml.SelectNodes("/Xml/Link")[0].InnerText);
                             return;
                         }
-                        NotifySystem.Showtip(1000, "提示", "下载更新ing");
-                        RadMessageBox.Show("程序将在后台下载更新", "提示", MessageBoxButtons.OK, RadMessageIcon.Info);
+                        NotifySystem.Showtip(1000, LanguageManager.Get("Tip_Text"), LanguageManager.Get("Update_Downloading_Text"));
+                        RadMessageBox.Show(LanguageManager.Get("Update_Backgrounddownload_Text"), LanguageManager.Get("Tip_Text"), MessageBoxButtons.OK, RadMessageIcon.Info);
                         Update();
                     }
                 }
@@ -60,7 +60,7 @@ namespace OSUplayer.Uilties
             }
             catch (Exception)
             {
-                RadMessageBox.Show("更新配置文件出错!", "错误", MessageBoxButtons.OK, RadMessageIcon.Error);
+                RadMessageBox.Show(LanguageManager.Get("Error_Update_Text"), LanguageManager.Get("Error_Text"), MessageBoxButtons.OK, RadMessageIcon.Error);
             }
         }
         private static void Update()
@@ -91,7 +91,7 @@ namespace OSUplayer.Uilties
             }
             File.Move("OSUplayer.exe", filename);
             File.Delete("OSUplayer.zip");
-            RadMessageBox.Show("程序将重启完成升级", "提示", MessageBoxButtons.OK, RadMessageIcon.Info);
+            RadMessageBox.Show(LanguageManager.Get("Update_Restart_Text"), LanguageManager.Get("Tip_Text"), MessageBoxButtons.OK, RadMessageIcon.Info);
             var proc = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().Location));
             var p = new Process { StartInfo = { FileName = filename } };
             p.Start();

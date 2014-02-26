@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using OSUplayer.Properties;
 using Telerik.WinControls;
@@ -18,8 +19,8 @@ namespace OSUplayer.Uilties
         }
         private List<Beatmap> tmpbms = new List<Beatmap>();
         private Dictionary<string, List<int>> dul = new Dictionary<string, List<int>>();
-        private int ok = 0;
-        private int all = 1;
+        private int _ok = 0;
+        private int _all = 1;
         private void Scanforset(string path)
         {
             string[] osufiles = Directory.GetFiles(path, "*.osu");
@@ -27,7 +28,7 @@ namespace OSUplayer.Uilties
             {
                 foreach (var osufile in osufiles)
                 {
-                    Beatmap tmp = new Beatmap(osufile, path);
+                    var tmp = new Beatmap(osufile, path);
                     tmpbms.Add(tmp);
                 }
                 this.BackgroundWorker1.ReportProgress(0);
@@ -35,14 +36,14 @@ namespace OSUplayer.Uilties
             else
             {
                 string[] tmpfolder = Directory.GetDirectories(path);
-                all += tmpfolder.Length;
+                _all += tmpfolder.Length;
                 this.BackgroundWorker1.ReportProgress(0);
                 foreach (string subfolder in tmpfolder)
                 {
                     Scanforset(subfolder);
                 }
             }
-            ok++;
+            _ok++;
         }
         private void Gethashs()
         {
@@ -56,7 +57,7 @@ namespace OSUplayer.Uilties
         {
             this.BackgroundWorker3.ReportProgress(0);
             string hash = tmpbms[index].GetHash();
-            List<int> tmp = new List<int>();
+            var tmp = new List<int>();
             tmp.Add(index);
             for (int i = index + 1; i < tmpbms.Count; i++)
             {
@@ -82,8 +83,7 @@ namespace OSUplayer.Uilties
                 Color nowcolor = (now % 2 == 0) ? Color.White : Color.WhiteSmoke;
                 foreach (var mapcount in dul[md5])
                 {
-                    ListViewItem tmp = new ListViewItem(tmpbms[mapcount].Location);
-                    tmp.BackColor = nowcolor;
+                    var tmp = new ListViewItem(tmpbms[mapcount].Location) { BackColor = nowcolor };
                     tmp.SubItems.Add(md5);
                     DelDulp_MainView.Items.Add(tmp);
                 }
@@ -96,14 +96,14 @@ namespace OSUplayer.Uilties
         }
         private void BackgroundWorker1DoWork(object sender, DoWorkEventArgs e)
         {
-            DelDulp_Status_Label.Text = "扫描歌曲目录";
+            DelDulp_Status_Label.Text = String.Format(LanguageManager.Get("Scan_Folder_Text"), 0, 0);
             Scanforset(e.Argument.ToString());
         }
         private void BackgroundWorker1ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            DelDulp_ProgressBar.Maximum = all;
-            DelDulp_ProgressBar.Value1 = ok;
-            DelDulp_Status_Label.Text = String.Format("扫描歌曲目录{0}/{1}", ok, all);
+            DelDulp_ProgressBar.Maximum = _all;
+            DelDulp_ProgressBar.Value1 = _ok;
+            DelDulp_Status_Label.Text = String.Format(LanguageManager.Get("Scan_Folder_Text"), _ok, _all);
         }
         private void BackgroundWorker1RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -139,7 +139,7 @@ namespace OSUplayer.Uilties
         private void BackgroundWorker2ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             DelDulp_ProgressBar.Value1++;
-            DelDulp_Status_Label.Text = String.Format("获得歌曲信息{0}/{1}", DelDulp_ProgressBar.Value1, tmpbms.Count);
+            DelDulp_Status_Label.Text = String.Format(LanguageManager.Get("Get_Song_Info_Text"), DelDulp_ProgressBar.Value1, tmpbms.Count);
         }
         private void BackgroundWorker2RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -156,15 +156,15 @@ namespace OSUplayer.Uilties
         private void BackgroundWorker3ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             DelDulp_ProgressBar.Value1++;
-            DelDulp_Status_Label.Text = String.Format("寻找重复map{0}/{1}", DelDulp_ProgressBar.Value1, tmpbms.Count);
+            DelDulp_Status_Label.Text = String.Format(LanguageManager.Get("Scan_Duplicate_Text"), DelDulp_ProgressBar.Value1, tmpbms.Count);
         }
         private void BackgroundWorker3RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (dul.Count == 0) { RadMessageBox.Show("没有神马要删除的！><"); this.Dispose(); }
+            if (dul.Count == 0) { RadMessageBox.Show(LanguageManager.Get("Scan_Zero_Text")); this.Dispose(); }
             else
             {
-                NotifySystem.Showtip(1000, "OSUplayer", string.Format("扫描完毕，发现重复曲目{0}个", dul.Count), System.Windows.Forms.ToolTipIcon.Info);
-                DelDulp_Status_Label.Text = string.Format("扫描完毕，发现重复曲目{0}个", dul.Count);
+                NotifySystem.Showtip(1000, "OSUplayer", string.Format(LanguageManager.Get("Scan_Complete_Text"), dul.Count));
+                DelDulp_Status_Label.Text = string.Format(LanguageManager.Get("Scan_Complete_Text"), dul.Count);
                 Adddul();
             }
             DelDulp_Cancel.Enabled = true;
@@ -173,7 +173,7 @@ namespace OSUplayer.Uilties
         {
             if (DelDulp_MainView.CheckedItems.Count == 0)
             {
-                RadMessageBox.Show("没有神马要删除的！><");
+                RadMessageBox.Show(LanguageManager.Get("Scan_Zero_Text"));
                 return;
             }
             int count = 0;
@@ -189,19 +189,15 @@ namespace OSUplayer.Uilties
             }
             if (count != 0)
             {
-                if (RadMessageBox.Show(string.Format("有{0}组被全部选中，确定继续？", count), "提示", MessageBoxButtons.YesNo) != DialogResult.Yes) { return; }
+                if (RadMessageBox.Show(string.Format(LanguageManager.Get("Delete_All_Text"), count), LanguageManager.Get("Tip_Text"), MessageBoxButtons.YesNo) != DialogResult.Yes) { return; }
             }
-            if (RadMessageBox.Show(string.Format("将删除{0}个，确定继续？", DelDulp_MainView.CheckedItems.Count), "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                List<string> filedelete = new List<string>();
-                foreach (ListViewItem item in DelDulp_MainView.CheckedItems)
-                {
-                    filedelete.Add(item.Text);
-                }
-                Win32.Delete(filedelete);
-                NotifySystem.Showtip(1000, "OSUplayer", string.Format("删除完毕，共删除{0}个", DelDulp_MainView.CheckedItems.Count), System.Windows.Forms.ToolTipIcon.Info);
-                this.Dispose();
-            }
+            if (
+                RadMessageBox.Show(string.Format(LanguageManager.Get("Delete_Comfirm_Text"), DelDulp_MainView.CheckedItems.Count),
+                    LanguageManager.Get("Tip_Text"), MessageBoxButtons.YesNo) != DialogResult.Yes) return;
+            var filedelete = (from ListViewItem item in DelDulp_MainView.CheckedItems select item.Text).ToList();
+            Win32.Delete(filedelete);
+            NotifySystem.Showtip(1000, LanguageManager.Get("OSUplayer"), string.Format(LanguageManager.Get("Delete_Complete_Text"), DelDulp_MainView.CheckedItems.Count));
+            this.Dispose();
         }
         private void DelDulp_MainView_SizeChanged(object sender, EventArgs e)
         {

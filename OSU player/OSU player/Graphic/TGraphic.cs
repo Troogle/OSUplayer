@@ -89,7 +89,7 @@ namespace OSUplayer.Graphic
                     {
                         if (File.Exists(Path.Combine(Location, Element.Path)))
                         {
-                            using (FileStream s = new FileStream(Path.Combine(Location, Element.Path), FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                            using (var s = new FileStream(Path.Combine(Location, Element.Path), FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                             {
                                 this.texturearray = new Texture2D[1] { Texture2D.FromFile(graphicDevice, s) };
                             }
@@ -186,7 +186,7 @@ namespace OSUplayer.Graphic
                this.mSPerFrame = 16;
                this.InitSpriteAction();
            }*/
-        private Vector2 Getorigin(Texture2D texture, ElementOrigin Origin)
+        private static Vector2 Getorigin(Texture2D texture, ElementOrigin Origin)
         {
             int id = (int)Origin;
             float x = (float)(id % 3) / 2 * texture.Width;
@@ -198,18 +198,18 @@ namespace OSUplayer.Graphic
         /// <summary>
         /// 更新图像
         /// </summary>
-        public virtual void Update(int CurrentTime)
+        public virtual void Update(int currentTime)
         {
             //处理动作更新
             //
             if (this.alphaAction.Enable)
             {
-                this.alphaAction.Update(CurrentTime);
+                this.alphaAction.Update(currentTime);
                 this.alpha = (byte)alphaAction.CurrentValue;//默认就是0,ok~
             }
             if (this.colorAction.Enable)
             {
-                this.colorAction.Update(CurrentTime);
+                this.colorAction.Update(currentTime);
                 int colorv = (int)colorAction.CurrentValue;
                 if (this.colorAction.isActive)
                 {
@@ -218,58 +218,54 @@ namespace OSUplayer.Graphic
             }
             if (this.xAction.Enable)
             {
-                this.xAction.Update(CurrentTime);
+                this.xAction.Update(currentTime);
                 if (this.xAction.isActive) { this.position.X = this.xAction.CurrentValue; }
             }
             if (this.yAction.Enable)
             {
-                this.yAction.Update(CurrentTime);
+                this.yAction.Update(currentTime);
                 if (this.yAction.isActive) { this.position.Y = this.yAction.CurrentValue; }
             }
             if (this.scaleXAction.Enable)
             {
-                this.scaleXAction.Update(CurrentTime);
+                this.scaleXAction.Update(currentTime);
                 if (this.scaleXAction.isActive) { this.scale.X = this.scaleXAction.CurrentValue; }
             }
             if (this.scaleYAction.Enable)
             {
-                this.scaleYAction.Update(CurrentTime);
+                this.scaleYAction.Update(currentTime);
                 if (this.scaleYAction.isActive) { this.scale.Y = this.scaleYAction.CurrentValue; }
             }
             if (this.rotateAction.Enable)
             {
-                this.rotateAction.Update(CurrentTime);
+                this.rotateAction.Update(currentTime);
                 this.rotate = this.rotateAction.CurrentValue;//默认就是0,ok~
             }
             if (this.parameterAction.Enable)
             {
-                this.parameterAction.Update(CurrentTime);
+                this.parameterAction.Update(currentTime);
                 this.parameter = (byte)this.parameterAction.CurrentValue;//默认就是0,ok~
             }
 
             // 处理帧更新
             //
-            if (this.frameCount > 1)
+            if (this.frameCount <= 1) return;
+            if (currentTime - this.msLastFrame < this.mSPerFrame) return;
+            this.msLastFrame = currentTime;
+            this.currentFrameIndex++;
+            if (this.currentFrameIndex == this.frameCount)
             {
-                if (CurrentTime - this.msLastFrame >= this.mSPerFrame)
+                if (this.Loop == ElementLoopType.LoopForever)
                 {
-                    this.msLastFrame = CurrentTime;
-                    this.currentFrameIndex++;
-                    if (this.currentFrameIndex == this.frameCount)
-                    {
-                        if (this.Loop == ElementLoopType.LoopForever)
-                        {
-                            this.currentFrameIndex = 0;
-                        }
-                        else
-                        {
-                            this.currentFrameIndex = this.frameCount - 1;
-                        }
-                    }
-                    //this.texture = texturearray[currentFrameIndex];
-                    this.origin = Getorigin(this.texturearray[currentFrameIndex], this.Origin);
+                    this.currentFrameIndex = 0;
+                }
+                else
+                {
+                    this.currentFrameIndex = this.frameCount - 1;
                 }
             }
+            //this.texture = texturearray[currentFrameIndex];
+            this.origin = Getorigin(this.texturearray[currentFrameIndex], this.Origin);
         }
 
 

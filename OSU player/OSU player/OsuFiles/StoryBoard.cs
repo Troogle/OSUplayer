@@ -143,8 +143,8 @@ namespace OSUplayer.OsuFiles.StoryBoard
         public List<SBvar> Variables = new List<SBvar>();
         //public Dictionary<Triggertype, TriggerEvent> trigger = new Dictionary<Triggertype, TriggerEvent>();
         //目录由beatmapfiles.location-->beatmap.location
-        public string location;
-        private string Picknext(ref string str, bool change = true)
+        private string location;
+        private static string Picknext(ref string str, bool change = true)
         {
             string ret = "";
             if (!str.Contains(","))
@@ -191,7 +191,7 @@ namespace OSUplayer.OsuFiles.StoryBoard
                     {
                         for (int i = 1; i <= loopcount; i++)
                         {
-                            dealevent((row.Substring(1)), element, i * delta);
+                            Dealevent((row.Substring(1)), element, i * delta);
                         }
                         row = reader.ReadLine();
                     }
@@ -212,13 +212,13 @@ namespace OSUplayer.OsuFiles.StoryBoard
                 }
                 else
                 {
-                    dealevent(row, element, 0);
+                    Dealevent(row, element, 0);
                     row = reader.ReadLine();
                 }
             }
             return ("");
         }
-        private void dealevent(string str, int element, int delta)
+        private void Dealevent(string str, int element, int delta)
         {
             string[] tmp = str.Split(new char[] { ',' });
             EventType type = (EventType)Enum.Parse(typeof(EventType), tmp[0].Trim());
@@ -412,7 +412,7 @@ namespace OSUplayer.OsuFiles.StoryBoard
                 if (Elements[element].Lasttime < time) { Elements[element].Lasttime = time; }
             }
         }
-        private void dealfile(StreamReader reader, ref int element)
+        private void Dealfile(StreamReader reader, ref int element)
         {
             string row;
             string[] tmp = null;
@@ -456,7 +456,7 @@ namespace OSUplayer.OsuFiles.StoryBoard
                             tmpe.Path = tmp[3].Substring(1, tmp[3].Length - 2);
                             Elements.Add(tmpe);
                             element++;
-                            SBEvent tmpev = new SBEvent();
+                            var tmpev = new SBEvent();
                             tmpev.startT = Convert.ToInt32(tmp[1]);
                             tmpev.Type = EventType.Play;
                             if (tmp.Length < 5)
@@ -526,21 +526,23 @@ namespace OSUplayer.OsuFiles.StoryBoard
                         else if (row.StartsWith("0,"))
                         {
                             tmp = row.Split(new char[] { ',' });
-                            tmpe = new SBelement();
-                            tmpe.Type = ElementType.Sprite;
-                            tmpe.Layers = ElementLayer.Background;
-                            tmpe.Origin = ElementOrigin.TopLeft;
-                            tmpe.Path = tmp[2].Substring(1, tmp[2].Length - 2);
+                            tmpe = new SBelement
+                            {
+                                Type = ElementType.Sprite,
+                                Layers = ElementLayer.Background,
+                                Origin = ElementOrigin.TopLeft,
+                                Path = tmp[2].Substring(1, tmp[2].Length - 2)
+                            };
                             if (File.Exists(Path.Combine(location, tmpe.Path)))
                             {
-                                Bitmap tmpbm = new Bitmap(Path.Combine(location, tmpe.Path));
-                                float BGScale = 640f / tmpbm.Width < 480f / tmpbm.Height ? 640f / tmpbm.Width : 480f / tmpbm.Height;
+                                var tmpbm = new Bitmap(Path.Combine(location, tmpe.Path));
+                                float bgScale = 640f / tmpbm.Width < 480f / tmpbm.Height ? 640f / tmpbm.Width : 480f / tmpbm.Height;
                                 Elements.Add(tmpe);
                                 element++;
                                 row = Dealevents(element, reader);
                                 Elements[element].F.Insert(0, new TActionNode(0, 255f, 4));
-                                Elements[element].SX.Insert(0, new TActionNode(0, BGScale, 4));
-                                Elements[element].SY.Insert(0, new TActionNode(0, BGScale, 4));
+                                Elements[element].SX.Insert(0, new TActionNode(0, bgScale, 4));
+                                Elements[element].SY.Insert(0, new TActionNode(0, bgScale, 4));
                             }
                             else { row = reader.ReadLine(); }
                         }
@@ -554,13 +556,14 @@ namespace OSUplayer.OsuFiles.StoryBoard
         }
         public StoryBoard(string osu, string osb, string location)
         {
-            StreamReader reader;
             this.location = location;
             try
             {
                 int currentelement = -1;
-                using (reader = new StreamReader(osu)) { dealfile(reader, ref currentelement); }
-                if (osb != null) { using (reader = new StreamReader(osb)) { dealfile(reader, ref currentelement); } }
+                StreamReader reader;
+                using (reader = new StreamReader(osu)) { Dealfile(reader, ref currentelement); }
+                if (osb == null) return;
+                using (reader = new StreamReader(osb)) { Dealfile(reader, ref currentelement); }
             }
             catch (SystemException e)
             {

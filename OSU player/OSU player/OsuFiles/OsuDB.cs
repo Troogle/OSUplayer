@@ -62,34 +62,34 @@ namespace OSUplayer.OsuFiles
                 {
                     string songmd5 = reader.ReadString();
                     int scorecount = reader.ReadInt32();
-                    var Nscore = new List<ScoreRecord>();
+                    var nscore = new List<ScoreRecord>();
                     for (int j = 0; j < scorecount; j++)
                     {
-                        var Tscore = new ScoreRecord();
-                        Tscore.Mode = (Modes)reader.ReadByte();
+                        var tscore = new ScoreRecord();
+                        tscore.Mode = (Modes)reader.ReadByte();
                         reader.ReadInt32(); //version
                         reader.ReadString(); //set md5
-                        Tscore.Player = reader.ReadString();
+                        tscore.Player = reader.ReadString();
                         reader.ReadString(); //diff md5
-                        Tscore.Hit300 = reader.ReadInt16();
-                        Tscore.Hit100 = reader.ReadInt16();
-                        Tscore.Hit50 = reader.ReadInt16();
-                        Tscore.Hit320 = reader.ReadInt16();
-                        Tscore.Hit200 = reader.ReadInt16();
-                        Tscore.Miss = reader.ReadInt16();
-                        Tscore.Score = reader.ReadInt32();
-                        Tscore.MaxCombo = reader.ReadInt16();
+                        tscore.Hit300 = reader.ReadInt16();
+                        tscore.Hit100 = reader.ReadInt16();
+                        tscore.Hit50 = reader.ReadInt16();
+                        tscore.Hit320 = reader.ReadInt16();
+                        tscore.Hit200 = reader.ReadInt16();
+                        tscore.Miss = reader.ReadInt16();
+                        tscore.Score = reader.ReadInt32();
+                        tscore.MaxCombo = reader.ReadInt16();
                         reader.ReadBoolean(); //isperfect
-                        Tscore.Mod = Modconverter(reader.ReadUInt32() + reader.ReadByte() << 32);
-                        Tscore.Time = new DateTime(reader.ReadInt64());
+                        tscore.Mod = Modconverter(reader.ReadUInt32() + reader.ReadByte() << 32);
+                        tscore.Time = new DateTime(reader.ReadInt64());
                         reader.ReadInt32();
                         reader.ReadInt32();
-                        Tscore.Acc = Getacc(Tscore);
-                        Tscore.Totalhit = Tscore.Hit300 + Tscore.Hit100 + Tscore.Hit50 + Tscore.Miss;
-                        Nscore.Add(Tscore);
+                        tscore.Acc = Getacc(tscore);
+                        tscore.Totalhit = tscore.Hit300 + tscore.Hit100 + tscore.Hit50 + tscore.Miss;
+                        nscore.Add(tscore);
                     }
-                    Nscore.Sort(Scorecompare);
-                    Core.Scores.Add(songmd5, Nscore);
+                    nscore.Sort(Scorecompare);
+                    Core.Scores.Add(songmd5, nscore);
                 }
             }
         }
@@ -179,19 +179,19 @@ namespace OSUplayer.OsuFiles
                     reader.ReadInt64();
                     if (tmpset.count == 0)
                     {
-                        tmpset.add(tmpbm);
+                        tmpset.Add(tmpbm);
                     }
                     else
                     {
                         if (tmpset.Contains(tmpbm))
                         {
-                            tmpset.add(tmpbm);
+                            tmpset.Add(tmpbm);
                         }
                         else
                         {
-                            Core.allsets.Add(tmpset);
+                            Core.Allsets.Add(tmpset);
                             tmpset = new BeatmapSet();
-                            tmpset.add(tmpbm);
+                            tmpset.Add(tmpbm);
                         }
                     }
                     tmpbm = new Beatmap();
@@ -211,19 +211,19 @@ namespace OSUplayer.OsuFiles
                 {
                     string title = reader.ReadString();
                     int itemcount = reader.ReadInt32();
-                    var Nset = new List<int>();
+                    var nset = new List<int>();
                     for (int j = 0; j < itemcount; j++)
                     {
                         string md5 = reader.ReadString();
-                        for (int k = 0; k < Core.allsets.Count; k++)
+                        for (int k = 0; k < Core.Allsets.Count; k++)
                         {
-                            if (Core.allsets[k].md5.Contains(md5) && (!Nset.Contains(k)))
+                            if (Core.Allsets[k].md5.Contains(md5) && (!nset.Contains(k)))
                             {
-                                Nset.Add(k);
+                                nset.Add(k);
                             }
                         }
                     }
-                    Core.Collections.Add(title, Nset);
+                    Core.Collections.Add(title, nset);
                 }
             }
         }

@@ -28,7 +28,7 @@ namespace OSUplayer.Uilties
                 try
                 {
                     Settings.Default.QQuin = SetQQ_MainView.SelectedItems[0].Text;
-                    if (Settings.Default.QQuin == "清空QQ号")
+                    if (Settings.Default.QQuin == LanguageManager.Get("SetQQ_ClearQQ_Text"))
                     {
                         Settings.Default.QQuin = "0";
                     }
@@ -38,7 +38,7 @@ namespace OSUplayer.Uilties
                 {
                     if (SetQQ_MainView.SelectedItems.Count == 0)
                     {
-                        RadMessageBox.Show("别卖萌不选啊-0-");
+                        RadMessageBox.Show(LanguageManager.Get("SetQQ_NoQQ_Text"), LanguageManager.Get("Tip_Text"));
                     }
                     else
                     {
@@ -50,10 +50,10 @@ namespace OSUplayer.Uilties
             }
             else
             {
-                var isNumeric = new Regex(@"^\d+$");             
+                var isNumeric = new Regex(@"^\d+$");
                 if ((!isNumeric.IsMatch(SetQQ_Manual.Text)) || (SetQQ_Manual.Text.Trim() == ""))
                 {
-                    RadMessageBox.Show("亲正常点~请输入QQ号~~");
+                    RadMessageBox.Show(LanguageManager.Get("SetQQ_NoInput_Text"), LanguageManager.Get("Tip_Text"));
                 }
                 else
                 {
@@ -67,26 +67,24 @@ namespace OSUplayer.Uilties
         private void RefreshQQ(object sender, EventArgs e)
         {
             Focus();
-            SetQQ_MainView.Clear();
-            SetQQ_MainView.Columns.Add("ID", 100);
-            SetQQ_MainView.Columns.Add("昵称", 100);
+            SetQQ_MainView.Items.Clear();
             QQInfos = qq.GetQQList;
             try
             {
                 ListViewItem tmpl;
                 foreach (var t in QQInfos)
                 {
-                    tmpl = new ListViewItem (t.uin);
+                    tmpl = new ListViewItem(t.uin);
                     tmpl.SubItems.Add(t.nick);
                     SetQQ_MainView.Items.Add(tmpl);
                 }
-                tmpl = new ListViewItem("清空QQ号");
+                tmpl = new ListViewItem(LanguageManager.Get("SetQQ_ClearQQ_Text"));
                 tmpl.SubItems.Add("");
                 SetQQ_MainView.Items.Add(tmpl);
             }
             catch (Exception)
             {
-                RadMessageBox.Show("获取当前在线QQ出错！");
+                RadMessageBox.Show(LanguageManager.Get("SetQQ_Error_Text"), LanguageManager.Get("Error_Text"));
             }
         }
 
@@ -106,13 +104,13 @@ namespace OSUplayer.Uilties
         {
             if (SetQQ_MainView.Visible)
             {
-                SetQQ_GetQQ.Text = "自动获取";
+                SetQQ_GetQQ.Text = LanguageManager.Get("SetQQ_AutoQQ_Text");
                 SetQQ_MainView.Visible = false;
                 SetQQ_Manual.Visible = true;
             }
             else
             {
-                SetQQ_GetQQ.Text = "手动获取";
+                SetQQ_GetQQ.Text = LanguageManager.Get("SetQQ_GetQQ_Text");
                 SetQQ_MainView.Visible = true;
                 SetQQ_Manual.Visible = false;
             }

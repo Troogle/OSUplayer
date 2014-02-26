@@ -75,11 +75,12 @@ namespace OSUplayer
 
         private void AskForExit(object sender, FormClosingEventArgs e)
         {
-            Core.PauseOrResume();
+            //Core.PauseOrResume();
+            Core.Stop();
             if (RadMessageBox.Show(LanguageManager.Get("Comfirm_Exit_Text"), LanguageManager.Get("Tip_Text"), MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 Core.MainIsVisible = false;
-                Core.exit();
+                Core.Exit();
                 _hotkeyHelper.UnregisterHotkeys();
                 Dispose();
             }
@@ -93,7 +94,7 @@ namespace OSUplayer
         private void SetDetail()
         {
             Main_ListDetail.Items.Clear();
-            Main_ListDetail.Items.AddRange(Core.getdetail());
+            Main_ListDetail.Items.AddRange(Core.Getdetail());
             Core.SetBG();
         }
 
@@ -155,7 +156,7 @@ namespace OSUplayer
         private void Setscore()
         {
             Main_ScoreBox.Items.Clear();
-            foreach (ListViewDataItem item in Core.getscore(Main_ScoreBox.Font))
+            foreach (ListViewDataItem item in Core.Getscore(Main_ScoreBox.Font))
             {
                 if (item != null)
                 {
@@ -192,7 +193,7 @@ namespace OSUplayer
                 foreach (int t in Core.PlayList)
                 {
                     Main_PlayList.Invoke((MethodInvoker)(() =>
-                        Main_PlayList.Items.Add(Core.allsets[t].ToString())));
+                        Main_PlayList.Items.Add(Core.Allsets[t].ToString())));
                 }
                 if (Main_PlayList.Items.Count != 0)
                 {
@@ -264,7 +265,7 @@ namespace OSUplayer
                     {
                         OsuDB.ReadScore(scorepath);
                         Core.Scoresearched = true;
-                        Main_File_Import_Scores.Text = "重新导入scores.db";
+                        Main_File_Import_Scores.Text = LanguageManager.Get("Main_File_Re_Import_Scores_Text");
                     }
                 }
                 Setscore();
@@ -273,7 +274,7 @@ namespace OSUplayer
 
         private void Main_Option_Select_QQ_Click(object sender, EventArgs e)
         {
-            Core.SetQQ(true);
+            Core.SetQQ();
             Main_QQ_Hint_Label.Text = LanguageManager.Get("Main_QQ_Hint_Label_Text") + Settings.Default.QQuin;
             Main_Option_Sync_QQ.IsChecked = Settings.Default.SyncQQ;
         }
@@ -301,13 +302,13 @@ namespace OSUplayer
         private void SearchTimer_Tick(object sender, EventArgs e)
         {
             SearchTimer.Enabled = false;
-            Core.search(Main_Search_Box.Text);
+            Core.Search(Main_Search_Box.Text);
             RefreshList();
         }
 
         private void Main_Shown(object sender, EventArgs e)
         {
-            Core.init(Main_Main_Display.Handle, Main_Main_Display.Size);
+            Core.Init(Main_Main_Display.Handle, Main_Main_Display.Size);
             SetForm();
             RefreshList();
             VisibleChanged += Main_VisibleChanged;
@@ -376,14 +377,14 @@ namespace OSUplayer
             Core.Stop();
             using (var outStream = new FileStream("tmp.osr", FileMode.Create))
             {
-                using (var Wr = new BinaryWriter(outStream))
+                using (var wr = new BinaryWriter(outStream))
                 {
-                    Wr.Write((byte)0);
-                    Wr.Write(20140127);
-                    Wr.Write((byte)0x0b);
-                    Wr.Write(Core.CurrentBeatmap.Hash);
-                    Wr.Write((byte)0x0b);
-                    Wr.Write("osu!");
+                    wr.Write((byte)0);
+                    wr.Write(20140127);
+                    wr.Write((byte)0x0b);
+                    wr.Write(Core.CurrentBeatmap.Hash);
+                    wr.Write((byte)0x0b);
+                    wr.Write("osu!");
                     byte[] res = MD5.Create().ComputeHash(
                         Encoding.UTF8.GetBytes(string.Format(
                             PrivateConfig.ScoreHash, Core.CurrentBeatmap.Hash)));
@@ -392,20 +393,20 @@ namespace OSUplayer
                     {
                         sb.Append(b.ToString("x2"));
                     }
-                    Wr.Write((byte)0x0b);
-                    Wr.Write(sb.ToString());
-                    Wr.Write((UInt16)1);
-                    Wr.Write((UInt64)0);
-                    Wr.Write((UInt16)0);
-                    Wr.Write((UInt32)0);
-                    Wr.Write((UInt16)1);
-                    Wr.Write((byte)1);
-                    Wr.Write((UInt32)2048);
-                    Wr.Write((byte)0x0b);
-                    Wr.Write("");
-                    Wr.Write(new DateTime(2014, 1, 1).Ticks);
-                    Wr.Write(0);
-                    Wr.Write((UInt32)0);
+                    wr.Write((byte)0x0b);
+                    wr.Write(sb.ToString());
+                    wr.Write((UInt16)1);
+                    wr.Write((UInt64)0);
+                    wr.Write((UInt16)0);
+                    wr.Write((UInt32)0);
+                    wr.Write((UInt16)1);
+                    wr.Write((byte)1);
+                    wr.Write((UInt32)2048);
+                    wr.Write((byte)0x0b);
+                    wr.Write("");
+                    wr.Write(new DateTime(2014, 1, 1).Ticks);
+                    wr.Write(0);
+                    wr.Write((UInt32)0);
                 }
             }
             Process.Start("tmp.osr");
@@ -434,13 +435,11 @@ namespace OSUplayer
 
         private void Main_File_Set_OSUPath_Click(object sender, EventArgs e)
         {
-            if (Core.Setpath())
-            {
-                Main_PlayList.Items.Clear();
-                Main_DiffList.Items.Clear();
-                Core.RefreashSet();
-                RefreshList();
-            }
+            if (!Core.Setpath()) return;
+            Main_PlayList.Items.Clear();
+            Main_DiffList.Items.Clear();
+            Core.RefreashSet();
+            RefreshList();
         }
 
         private void Main_File_Import_OSU_Click(object sender, EventArgs e)
@@ -658,7 +657,7 @@ namespace OSUplayer
                 else if (Core.Isplaying)
                 {
                     Main_ListDetail.Items.Clear();
-                    Main_ListDetail.Items.AddRange(Core.getdetail());
+                    Main_ListDetail.Items.AddRange(Core.Getdetail());
                 }
                 else
                 {
@@ -712,7 +711,7 @@ namespace OSUplayer
 
         private void Main_Time_Trackbar_Scroll(object sender, ScrollEventArgs e)
         {
-            Core.seek((double)Main_Time_Trackbar.Value / 1000);
+            Core.Seek((double)Main_Time_Trackbar.Value / 1000);
         }
 
         private void Main_Search_Box_KeyPress(object sender, KeyPressEventArgs e)
@@ -720,12 +719,12 @@ namespace OSUplayer
             if (e.KeyChar == (char)Keys.Escape)
             {
                 Main_Search_Box.Text = "";
-                Core.search(Main_Search_Box.Text);
+                Core.Search(Main_Search_Box.Text);
                 RefreshList();
             }
             if (e.KeyChar == (char)13)
             {
-                Core.search(Main_Search_Box.Text);
+                Core.Search(Main_Search_Box.Text);
                 RefreshList();
             }
             else
@@ -743,7 +742,7 @@ namespace OSUplayer
             }
             else
             {
-                if (Main_Play.Text == "播放")
+                if (Main_Play.Text == LanguageManager.Get("Main_Play_Text"))
                 {
                     Resume();
                 }

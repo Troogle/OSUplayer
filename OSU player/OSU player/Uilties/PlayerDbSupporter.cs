@@ -13,12 +13,13 @@ namespace OSUplayer.Uilties
         /// <returns>是否正常读取</returns>
         public static bool LoadList()
         {
+            if (!File.Exists("list.db")) return false;
             try
             {
                 using (var fs = new FileStream("list.db", FileMode.Open))
                 {
                     var formatter = new BinaryFormatter();
-                    Core.allsets = (List<BeatmapSet>)formatter.Deserialize(fs);
+                    Core.Allsets = (List<BeatmapSet>)formatter.Deserialize(fs);
                 }
                 return true;
             }
@@ -37,7 +38,7 @@ namespace OSUplayer.Uilties
             using (var fs = new FileStream("list.db", FileMode.Create))
             {
                 var formatter = new BinaryFormatter();
-                formatter.Serialize(fs, Core.allsets);
+                formatter.Serialize(fs, Core.Allsets);
             }
         }
     }
