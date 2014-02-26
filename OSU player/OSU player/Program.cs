@@ -43,16 +43,15 @@ namespace OSUplayer
                 ThemeResolutionService.LoadPackageResource("OSUplayer.Res.Light.tssp");
                 ThemeResolutionService.ApplicationThemeName = "Light";
                 LanguageManager.InitLanguage(System.Globalization.CultureInfo.CurrentCulture.Name);
-                var mainwindow = new Main();
-                mainwindow.Show();
-                while (mainwindow.Created)
-                {
-                    Application.DoEvents();
-                    Core.Render();
-                    Thread.Sleep(5);
-                }
-
-                //   Application.Run(new Main());
+                /*var mainwindow = new Main();
+                 mainwindow.Show();
+                 while (mainwindow.Created)
+                 {
+                     Application.DoEvents();
+                     Core.Render();
+                     Thread.Sleep(5);
+                 }*/
+                Application.Run(new Main());
             }
             #region 异常处理
             catch (Exception ex)

@@ -105,7 +105,6 @@ namespace OSUplayer
         #endregion
 
         private static Player _player;
-
         public static bool MainIsVisible = false;
 
         public static string Version
@@ -145,10 +144,11 @@ namespace OSUplayer
             LoadPreference();
             new Thread(Selfupdate.check_update).Start();
             Initset();
+            new Thread(Render).Start();
         }
 
         /// <summary>
-        ///     获取OSU路径
+        /// 获取OSU路径
         /// </summary>
         private static void Getpath()
         {
@@ -528,7 +528,7 @@ namespace OSUplayer
             }
             detail[9] = new ListViewItem("视频文件名称");
             detail[9].SubItems.Add(TmpBeatmap.Video);
-            if (!String.IsNullOrEmpty(TmpBeatmap.Video)&& !File.Exists(TmpBeatmap.Video))
+            if (!String.IsNullOrEmpty(TmpBeatmap.Video) && !File.Exists(TmpBeatmap.Video))
             {
                 detail[9].ForeColor = Color.Red;
             }
@@ -547,17 +547,23 @@ namespace OSUplayer
             return detail;
         }
 
-        public static void Render()
+        private static void Render(object sender)
         {
-            if (MainIsVisible)
+            while (true)
             {
-                _player.Render();
+                if (MainIsVisible)
+                {
+                    _player.Render();
+                }
             }
         }
 
         public static void Resize(Size size)
         {
+            MainIsVisible = false;
+            Thread.Sleep(100);
             _player.Resize(size);
+            MainIsVisible = true;
         }
 
         public static IEnumerable<ListViewDataItem> Getscore(Font font)
@@ -568,7 +574,7 @@ namespace OSUplayer
             {
                 if (Scores.ContainsKey(TmpSet.Diffs[i].GetHash()))
                 {
-                    foreach (ScoreRecord tmp in Scores[TmpSet.Diffs[i].GetHash()])
+                    foreach (var tmp in Scores[TmpSet.Diffs[i].GetHash()])
                     {
                         ret[cur] = new ListViewDataItem
                         {
