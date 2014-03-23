@@ -60,6 +60,8 @@ namespace OSUplayer
             this.Main_About = new Telerik.WinControls.UI.RadMenuItem();
             this.Main_Panel = new System.Windows.Forms.Panel();
             this.Main_Search_Box = new Telerik.WinControls.UI.RadTextBox();
+            this.Main_PlayList = new OSUplayer.DBListView();
+            this.Main_PlayList_Name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Main_PlayList_RightClick_Menu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.Main_PlayList_RightClick_Delete_One = new System.Windows.Forms.ToolStripMenuItem();
             this.Main_Core_Panel = new System.Windows.Forms.Panel();
@@ -92,8 +94,7 @@ namespace OSUplayer
             this.NextTimer = new System.Windows.Forms.Timer(this.components);
             this.SearchTimer = new System.Windows.Forms.Timer(this.components);
             this.Main_MenuStrip = new Telerik.WinControls.UI.RadMenu();
-            this.Main_PlayList = new OSUplayer.DBListView();
-            this.Main_PlayList_Name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Main_LanguageSelect = new Telerik.WinControls.UI.RadMenuItem();
             this.Main_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Main_Search_Box)).BeginInit();
             this.Main_PlayList_RightClick_Menu.SuspendLayout();
@@ -427,8 +428,8 @@ namespace OSUplayer
             // 
             // Main_Panel
             // 
-            this.Main_Panel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.Main_Panel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Main_Panel.Controls.Add(this.Main_Search_Box);
             this.Main_Panel.Controls.Add(this.Main_PlayList);
@@ -453,6 +454,34 @@ namespace OSUplayer
             this.Main_Search_Box.TabStop = false;
             this.Main_Search_Box.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Main_Search_Box_KeyPress);
             // 
+            // Main_PlayList
+            // 
+            this.Main_PlayList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Main_PlayList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.Main_PlayList_Name});
+            this.Main_PlayList.ContextMenuStrip = this.Main_PlayList_RightClick_Menu;
+            this.Main_PlayList.FullRowSelect = true;
+            this.Main_PlayList.GridLines = true;
+            this.Main_PlayList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.Main_PlayList.HideSelection = false;
+            this.Main_PlayList.Location = new System.Drawing.Point(532, 32);
+            this.Main_PlayList.MultiSelect = false;
+            this.Main_PlayList.Name = "Main_PlayList";
+            this.Main_PlayList.Size = new System.Drawing.Size(344, 616);
+            this.Main_PlayList.TabIndex = 24;
+            this.Main_PlayList.UseCompatibleStateImageBehavior = false;
+            this.Main_PlayList.View = System.Windows.Forms.View.Details;
+            this.Main_PlayList.VirtualMode = true;
+            this.Main_PlayList.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.Main_PlayList_RetrieveVirtualItem);
+            this.Main_PlayList.SelectedIndexChanged += new System.EventHandler(this.Main_PlayList_SelectedIndexChanged);
+            this.Main_PlayList.DoubleClick += new System.EventHandler(this.Main_PlayList_DoubleClick);
+            // 
+            // Main_PlayList_Name
+            // 
+            this.Main_PlayList_Name.Text = "";
+            this.Main_PlayList_Name.Width = 500;
+            // 
             // Main_PlayList_RightClick_Menu
             // 
             this.Main_PlayList_RightClick_Menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -470,8 +499,8 @@ namespace OSUplayer
             // 
             // Main_Core_Panel
             // 
-            this.Main_Core_Panel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.Main_Core_Panel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Main_Core_Panel.Controls.Add(this.Main_Jump_OSU);
             this.Main_Core_Panel.Controls.Add(this.Main_Volume_TrackBar);
@@ -505,7 +534,7 @@ namespace OSUplayer
             // 
             // Main_Volume_TrackBar
             // 
-            this.Main_Volume_TrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.Main_Volume_TrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Main_Volume_TrackBar.Location = new System.Drawing.Point(494, 32);
             this.Main_Volume_TrackBar.Maximum = 100;
@@ -520,7 +549,7 @@ namespace OSUplayer
             // 
             // Main_Time_Trackbar
             // 
-            this.Main_Time_Trackbar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            this.Main_Time_Trackbar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Main_Time_Trackbar.Enabled = false;
             this.Main_Time_Trackbar.Location = new System.Drawing.Point(181, 401);
@@ -556,7 +585,7 @@ namespace OSUplayer
             // 
             // Main_Volume_Music_TrackBar
             // 
-            this.Main_Volume_Music_TrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.Main_Volume_Music_TrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Main_Volume_Music_TrackBar.Location = new System.Drawing.Point(162, 7);
             this.Main_Volume_Music_TrackBar.Maximum = 100;
@@ -575,8 +604,8 @@ namespace OSUplayer
             // 
             // Main_Main_Display
             // 
-            this.Main_Main_Display.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.Main_Main_Display.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Main_Main_Display.Location = new System.Drawing.Point(7, 29);
             this.Main_Main_Display.Margin = new System.Windows.Forms.Padding(0);
@@ -675,7 +704,7 @@ namespace OSUplayer
             // 
             // Main_PageView
             // 
-            this.Main_PageView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            this.Main_PageView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Main_PageView.Controls.Add(this.Main_PageView_Page1);
             this.Main_PageView.Controls.Add(this.Main_PageView_Page2);
@@ -695,13 +724,13 @@ namespace OSUplayer
             this.Main_PageView_Page1.Controls.Add(this.Main_ListDetail);
             this.Main_PageView_Page1.Location = new System.Drawing.Point(10, 10);
             this.Main_PageView_Page1.Name = "Main_PageView_Page1";
-            this.Main_PageView_Page1.Size = new System.Drawing.Size(511, 175);
+            this.Main_PageView_Page1.Size = new System.Drawing.Size(511, 171);
             this.Main_PageView_Page1.Text = "Map信息";
             // 
             // Main_ListDetail
             // 
-            this.Main_ListDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.Main_ListDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Main_ListDetail.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Main_ListDetail_Key,
@@ -711,13 +740,13 @@ namespace OSUplayer
             this.Main_ListDetail.Location = new System.Drawing.Point(0, 0);
             this.Main_ListDetail.MultiSelect = false;
             this.Main_ListDetail.Name = "Main_ListDetail";
-            this.Main_ListDetail.Size = new System.Drawing.Size(511, 173);
+            this.Main_ListDetail.Size = new System.Drawing.Size(511, 169);
             this.Main_ListDetail.TabIndex = 40;
             this.Main_ListDetail.UseCompatibleStateImageBehavior = false;
             this.Main_ListDetail.View = System.Windows.Forms.View.Details;
             // 
             // Main_ListDetail_Key
-            //
+            // 
             this.Main_ListDetail_Key.Name = "Main_ListDetail_Key";
             this.Main_ListDetail_Key.Text = "Key";
             this.Main_ListDetail_Key.Width = 120;
@@ -742,8 +771,8 @@ namespace OSUplayer
             this.Main_ScoreBox.AllowColumnResize = false;
             this.Main_ScoreBox.AllowEdit = false;
             this.Main_ScoreBox.AllowRemove = false;
-            this.Main_ScoreBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.Main_ScoreBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Main_ScoreBox.AutoScroll = true;
             this.Main_ScoreBox.ItemSize = new System.Drawing.Size(200, 60);
@@ -764,7 +793,7 @@ namespace OSUplayer
             // 
             // Main_DiffList
             // 
-            this.Main_DiffList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            this.Main_DiffList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Main_DiffList.FormattingEnabled = true;
             this.Main_DiffList.ItemHeight = 15;
@@ -779,7 +808,7 @@ namespace OSUplayer
             // 
             this.Main_QQ_Hint_Label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Main_QQ_Hint_Label.AutoSize = true;
-            this.Main_QQ_Hint_Label.Location = new System.Drawing.Point(323, 0);
+            this.Main_QQ_Hint_Label.Location = new System.Drawing.Point(438, 0);
             this.Main_QQ_Hint_Label.Name = "Main_QQ_Hint_Label";
             this.Main_QQ_Hint_Label.Size = new System.Drawing.Size(90, 19);
             this.Main_QQ_Hint_Label.TabIndex = 30;
@@ -806,38 +835,21 @@ namespace OSUplayer
             this.Main_File_Menu,
             this.Main_Tool_Menu,
             this.Main_Option_Menu,
-            this.Main_About});
+            this.Main_About,
+            this.Main_LanguageSelect});
             this.Main_MenuStrip.Location = new System.Drawing.Point(4, 4);
             this.Main_MenuStrip.Name = "Main_MenuStrip";
             this.Main_MenuStrip.Size = new System.Drawing.Size(874, 24);
             this.Main_MenuStrip.TabIndex = 2;
             this.Main_MenuStrip.Text = "MenuStrip1";
             // 
-            // Main_PlayList
+            // Main_LanguageSelect
             // 
-            this.Main_PlayList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Main_PlayList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.Main_PlayList_Name});
-            this.Main_PlayList.ContextMenuStrip = this.Main_PlayList_RightClick_Menu;
-            this.Main_PlayList.FullRowSelect = true;
-            this.Main_PlayList.GridLines = true;
-            this.Main_PlayList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.Main_PlayList.HideSelection = false;
-            this.Main_PlayList.Location = new System.Drawing.Point(532, 32);
-            this.Main_PlayList.MultiSelect = false;
-            this.Main_PlayList.Name = "Main_PlayList";
-            this.Main_PlayList.Size = new System.Drawing.Size(344, 616);
-            this.Main_PlayList.TabIndex = 24;
-            this.Main_PlayList.UseCompatibleStateImageBehavior = false;
-            this.Main_PlayList.View = System.Windows.Forms.View.Details;
-            this.Main_PlayList.SelectedIndexChanged += new System.EventHandler(this.Main_PlayList_SelectedIndexChanged);
-            this.Main_PlayList.DoubleClick += new System.EventHandler(this.Main_PlayList_DoubleClick);
-            // 
-            // Main_PlayList_Name
-            // 
-            this.Main_PlayList_Name.Text = "";
-            this.Main_PlayList_Name.Width = 500;
+            this.Main_LanguageSelect.AccessibleDescription = "语言(&L)";
+            this.Main_LanguageSelect.AccessibleName = "语言(&L)";
+            this.Main_LanguageSelect.Name = "Main_LanguageSelect";
+            this.Main_LanguageSelect.Text = "语言(&L)";
+            this.Main_LanguageSelect.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             // 
             // Main
             // 
@@ -955,6 +967,7 @@ namespace OSUplayer
         private Telerik.WinControls.UI.RadMenuItem Main_Option_PlayMode_Repeat;
         private Telerik.WinControls.UI.RadMenuItem Main_Option_PlayMode_Random;
         private Telerik.WinControls.UI.RadMenu Main_MenuStrip;
+        private Telerik.WinControls.UI.RadMenuItem Main_LanguageSelect;
 
 
     }

@@ -60,7 +60,7 @@ namespace OSUplayer.Uilties
             }
             catch (Exception)
             {
-                RadMessageBox.Show(LanguageManager.Get("Error_Update_Text"), LanguageManager.Get("Error_Text"), MessageBoxButtons.OK, RadMessageIcon.Error);
+                RadMessageBox.Show(LanguageManager.Get("Update_Error_Text"), LanguageManager.Get("Error_Text"), MessageBoxButtons.OK, RadMessageIcon.Error);
             }
         }
         private static void Update()

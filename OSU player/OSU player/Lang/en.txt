@@ -1,2 +1,2 @@
-Language_name=English
+﻿Language_name=English
 LanguageText=Language

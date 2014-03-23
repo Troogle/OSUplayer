@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
@@ -43,13 +44,13 @@ namespace OSUplayer
         {
             foreach (string lang in LanguageManager.LanguageList)
             {
-                var item = new ToolStripMenuItem(lang);
+                var item = new RadMenuItem { Text = lang };
                 item.Click += delegate
                 {
                     LanguageManager.Current = item.Text;
                     UpdateFormLanguage();
                 };
-                //Menubar_Language.DropDownItems.Add(item);
+                Main_LanguageSelect.Items.Add(item);
             }
             UpdateFormLanguage();
         }
@@ -139,11 +140,8 @@ namespace OSUplayer
         {
             if (Core.PlayList.Count == 0) return;
             var nextSongId = Core.GetNext();
-            if (Main_PlayList.SelectedItems.Count != 0)
-            {
-                Main_PlayList.SelectedItems[0].Selected = false;
-            }
-            Main_PlayList.Items[nextSongId].Selected = true;
+            Main_PlayList.SelectedIndices.Clear();
+            Main_PlayList.SelectedIndices.Add(nextSongId);
             Main_PlayList.EnsureVisible(nextSongId);
             Main_PlayList.Focus();
             SetDetail();
@@ -184,11 +182,15 @@ namespace OSUplayer
 
         private void RefreshList(int select = 0)
         {
-            Main_PlayList.Items.Clear();
+            //Main_PlayList.Items.Clear();
             Main_DiffList.Items.Clear();
             //PlayList.Enabled = false;
             //DiffList.Enabled = false;
-            new Thread(delegate()
+            Main_PlayList.SelectedIndices.Clear();
+            Main_PlayList.VirtualListSize = Core.Allsets.Count;
+            Main_PlayList.Refresh();
+            Main_PlayList.SelectedIndices.Add(select);
+            /* new Thread(delegate()
             {
                 foreach (int t in Core.PlayList)
                 {
@@ -201,7 +203,7 @@ namespace OSUplayer
                 }
                 //PlayList.Enabled = true;
                 //DiffList.Enabled = true;
-            }).Start();
+            }).Start();*/
         }
 
         private void Main_VisibleChanged(object sender, EventArgs e)
@@ -223,16 +225,14 @@ namespace OSUplayer
             _playKey = _hotkeyHelper.RegisterHotkey(Keys.F5, KeyModifiers.Alt);
             _nextKey = _hotkeyHelper.RegisterHotkey(Keys.Right, KeyModifiers.Alt);
             _hotkeyHelper.OnHotkey += OnHotkey;
-            if (Main_PlayList.SelectedItems.Count != 0)
-            {
-                Main_PlayList.SelectedItems[0].Selected = false;
-            }
+            Main_PlayList.SelectedIndices.Clear();
             int currentset = Core.PlayList.IndexOf(Core.currentset, 0);
             if (currentset == -1)
             {
                 currentset = 0;
             }
-            Main_PlayList.Items[currentset].Selected = true;
+            Main_PlayList.SelectedIndices.Add(currentset);
+            //Main_PlayList.Items[currentset].Selected = true;
             Main_PlayList.EnsureVisible(currentset);
             Main_PlayList.Focus();
             Core.SetBG();
@@ -356,7 +356,7 @@ namespace OSUplayer
 
         private void Main_PlayList_RightClick_Menu_Opening(object sender, CancelEventArgs e)
         {
-            if (Main_PlayList.SelectedItems.Count == 0)
+            if (Main_PlayList.SelectedIndices.Count == 0)
             {
                 e.Cancel = true;
             }
@@ -366,7 +366,7 @@ namespace OSUplayer
         {
             int index = Main_PlayList.SelectedIndices[0];
             Core.Remove(index);
-            if (Main_PlayList.Items.Count != 0)
+            if (Main_PlayList.SelectedIndices.Count != 0)
             {
                 RefreshList(index);
             }
@@ -436,7 +436,7 @@ namespace OSUplayer
         private void Main_File_Set_OSUPath_Click(object sender, EventArgs e)
         {
             if (!Core.Setpath()) return;
-            Main_PlayList.Items.Clear();
+            //Main_PlayList.Items.Clear();
             Main_DiffList.Items.Clear();
             Core.RefreashSet();
             RefreshList();
@@ -444,7 +444,7 @@ namespace OSUplayer
 
         private void Main_File_Import_OSU_Click(object sender, EventArgs e)
         {
-            Main_PlayList.Items.Clear();
+            //Main_PlayList.Items.Clear();
             Main_DiffList.Items.Clear();
             Core.RefreashSet();
             RefreshList();
@@ -610,7 +610,7 @@ namespace OSUplayer
 
         private void Main_PlayList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (Main_PlayList.SelectedItems.Count == 0)
+            if (Main_PlayList.SelectedIndices.Count == 0)
             {
                 return;
             }
@@ -622,7 +622,7 @@ namespace OSUplayer
             }
             else
             {
-                foreach (Beatmap s in Core.TmpSet.Diffs)
+                foreach (var s in Core.TmpSet.Diffs)
                 {
                     Main_DiffList.Items.Add(s.Version);
                 }
@@ -754,5 +754,32 @@ namespace OSUplayer
         }
 
         #endregion
+
+        private void Main_PlayList_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
+        {
+            if (Core.Allsets == null || Core.Allsets.Count == 0)
+            {
+                return;
+            }
+
+            if (e.ItemIndex < Core.Allsets.Count)
+            {
+                var item = new ListViewItem(Core.Allsets[e.ItemIndex].ToString())
+                {
+                    BackColor = e.ItemIndex % 2 == 0 ? Color.White : Color.WhiteSmoke
+                };
+                /*if (Core.Allsets[e.ItemIndex].isPlaying)
+				{
+					item.ForeColor = Color.White;
+					item.BackColor = Color.FromArgb(0, 122, 204);
+					item.Font = new Font("宋体", 9, FontStyle.Bold);
+				}*/
+                e.Item = item;
+            }
+            else
+            {
+                e.Item = null;
+            }
+        }
     }
 }

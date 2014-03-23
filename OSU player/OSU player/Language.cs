@@ -80,6 +80,8 @@ namespace OSUplayer
             _language.Add(rawlanguage.Get("Language_name"), rawlanguage);
             rawlanguage = new Language(assembly.GetManifestResourceStream("OSUplayer.Lang.zh-CN.txt"));
             _language.Add(rawlanguage.Get("Language_name"), rawlanguage);
+            rawlanguage = new Language(assembly.GetManifestResourceStream("OSUplayer.Lang.zh-TW.txt"));
+            _language.Add(rawlanguage.Get("Language_name"), rawlanguage);
             var alllange = assembly.GetManifestResourceNames();
             if (alllange.Contains(string.Format("OSUplayer.Lang.{0}.txt", name)))
             {
