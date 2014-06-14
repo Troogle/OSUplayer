@@ -122,7 +122,7 @@ namespace OSUplayer
         {
             NotifySystem.ClearText();
             _player.Dispose();
-            if (_renderThread != null) { _renderThread.Interrupt(); }
+            if (_renderThread != null) { _renderThread.Abort(); }
             if (_needsave)
             {
                 DBSupporter.SaveList();

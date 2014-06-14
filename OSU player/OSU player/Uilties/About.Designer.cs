@@ -76,9 +76,9 @@
             this.About_Content.Name = "About_Content";
             this.About_Content.Size = new System.Drawing.Size(300, 220);
             this.About_Content.TabIndex = 3;
-            this.About_Content.Text = "OSU Player Ver {0}\r\nDeveloped By Troogle(Google)\r\n\r\nThanks for testing:\r\ntony8128" +
-    ",[-Crystal-],[-AZUSA-]\r\n[-Baidu-],ts8zs,-N a n a m i-\r\nSpecial Thanks:\r\nWei♂ren," +
-    "Muscipular\r\n\r\nAND YOU!\r\nThx for using~";
+            this.About_Content.Text = "OSU Player Ver {0}\r\nDeveloped By Troogle\r\n\r\nThanks for inital testing:\r\n[-Lucario" +
+    "-],[-Crystal-],[-AZUSA-]\r\n[-Baidu-],ts8zs,N a n a m i\r\nSpecial Thanks:\r\nWeiren,M" +
+    "uscipular\r\n\r\nAND YOU!\r\nThx for using~";
             // 
             // About
             // 
