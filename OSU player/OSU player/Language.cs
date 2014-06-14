@@ -43,7 +43,7 @@ namespace OSUplayer
             }
             set
             {
-                _current = _language.ContainsKey(value) ? value : "English";
+                _current = _language.ContainsKey(value) ? value : "简体中文";
             }
         }
         public static IEnumerable<string> LanguageList
@@ -53,7 +53,7 @@ namespace OSUplayer
         public static string Get(string name)
         {
             var ret = _language[Current].Get(name);
-            return ret != "" ? ret : _language["English"].Get(name);
+            return ret != "" ? ret : _language["简体中文"].Get(name);
         }
         public static void ApplyLanguage(System.Windows.Forms.Form oriForm)
         {
@@ -76,9 +76,9 @@ namespace OSUplayer
         {
             _language = new Dictionary<string, Language>();
             var assembly = Assembly.GetExecutingAssembly();
-            var rawlanguage = new Language(assembly.GetManifestResourceStream("OSUplayer.Lang.en.txt"));
-            _language.Add(rawlanguage.Get("Language_name"), rawlanguage);
-            rawlanguage = new Language(assembly.GetManifestResourceStream("OSUplayer.Lang.zh-CN.txt"));
+            //var rawlanguage = new Language(assembly.GetManifestResourceStream("OSUplayer.Lang.en.txt"));
+            //_language.Add(rawlanguage.Get("Language_name"), rawlanguage);
+            var rawlanguage = new Language(assembly.GetManifestResourceStream("OSUplayer.Lang.zh-CN.txt"));
             _language.Add(rawlanguage.Get("Language_name"), rawlanguage);
             rawlanguage = new Language(assembly.GetManifestResourceStream("OSUplayer.Lang.zh-TW.txt"));
             _language.Add(rawlanguage.Get("Language_name"), rawlanguage);

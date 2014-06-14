@@ -186,10 +186,10 @@ namespace OSUplayer
             Main_DiffList.Items.Clear();
             //PlayList.Enabled = false;
             //DiffList.Enabled = false;
+            Main_PlayList.VirtualListSize = Core.PlayList.Count;
             Main_PlayList.SelectedIndices.Clear();
-            Main_PlayList.VirtualListSize = Core.Allsets.Count;
             Main_PlayList.Refresh();
-            Main_PlayList.SelectedIndices.Add(select);
+            if(Core.PlayList.Count!=0) Main_PlayList.SelectedIndices.Add(select);
             /* new Thread(delegate()
             {
                 foreach (int t in Core.PlayList)
@@ -757,14 +757,14 @@ namespace OSUplayer
 
         private void Main_PlayList_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
         {
-            if (Core.Allsets == null || Core.Allsets.Count == 0)
+            if (Core.PlayList == null || Core.PlayList.Count == 0)
             {
                 return;
             }
 
-            if (e.ItemIndex < Core.Allsets.Count)
+            if (e.ItemIndex < Core.PlayList.Count)
             {
-                var item = new ListViewItem(Core.Allsets[e.ItemIndex].ToString())
+                var item = new ListViewItem(Core.Allsets[Core.PlayList[e.ItemIndex]].ToString())
                 {
                     BackColor = e.ItemIndex % 2 == 0 ? Color.White : Color.WhiteSmoke
                 };

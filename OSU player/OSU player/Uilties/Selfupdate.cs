@@ -45,7 +45,7 @@ namespace OSUplayer.Uilties
                     }
                 }
 
-#if (!DEBUG)
+#if (DEBUG)
                 try
                 {
                     WebRequest request = WebRequest.Create("http://wenwo.at/counter.php?counter=" + Core.Version);

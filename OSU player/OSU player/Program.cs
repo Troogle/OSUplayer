@@ -78,7 +78,7 @@ namespace OSUplayer
         /// <param name="backStr">备用异常消息：当ex为null时有效</param>
         static void GetExceptionMsg(Exception ex)
         {
-#if (!DEBUG)
+#if (DEBUG)
             try
             {
                 WebRequest request;
