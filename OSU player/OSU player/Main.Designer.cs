@@ -445,7 +445,7 @@ namespace OSUplayer
             // 
             // Main_Search_Box
             // 
-            this.Main_Search_Box.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Main_Search_Box.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Main_Search_Box.Location = new System.Drawing.Point(625, 3);
             this.Main_Search_Box.Name = "Main_Search_Box";
             this.Main_Search_Box.NullText = "Enter Keywords";

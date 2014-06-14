@@ -34,6 +34,90 @@ namespace OSUplayer.OsuFiles
         {
             return ReadByte() == 0x0b ? base.ReadString() : "";
         }
+
+        public DateTime ReadDateTime()//method_2
+        {
+            return new DateTime(ReadInt64());
+        }
+
+        public byte[] ReadBytes()//method_0
+        {
+            var count = ReadInt32();
+            if (count > 0)
+            {
+                return ReadBytes(count);
+            }
+            return count < 0 ? null : new byte[0];
+        }
+
+        public char[] ReadChars()//method_1
+        {
+            var count = this.ReadInt32();
+            if (count > 0)
+            {
+                return this.ReadChars(count);
+            }
+            return count < 0 ? null : new char[0];
+        }
+        public object ReadVar()
+        {
+            switch (ReadByte())
+            {
+                case 1:
+                    return this.ReadBoolean();
+
+                case 2:
+                    return this.ReadByte();
+
+                case 3:
+                    return this.ReadUInt16();
+
+                case 4:
+                    return this.ReadUInt32();
+
+                case 5:
+                    return this.ReadUInt64();
+
+                case 6:
+                    return this.ReadSByte();
+
+                case 7:
+                    return this.ReadInt16();
+
+                case 8:
+                    return this.ReadInt32();
+
+                case 9:
+                    return this.ReadInt64();
+
+                case 10:
+                    return this.ReadChar();
+
+                case 11:
+                    return base.ReadString();
+
+                case 12:
+                    return this.ReadSingle();
+
+                case 13:
+                    return this.ReadDouble();
+
+                case 14:
+                    return this.ReadDecimal();
+
+                case 15:
+                    return this.ReadDateTime();
+
+                case 0x10:
+                    return this.ReadBytes();
+
+                case 0x11:
+                    return this.ReadChars();
+            }
+            //case 0x12:
+            //    return Class27.smethod_0(this.BaseStream);
+            return null;
+        }
     }
 
     internal static class OsuDB
@@ -81,7 +165,7 @@ namespace OSUplayer.OsuFiles
                         tscore.MaxCombo = reader.ReadInt16();
                         reader.ReadBoolean(); //isperfect
                         tscore.Mod = Modconverter(reader.ReadUInt32() + reader.ReadByte() << 32);
-                        tscore.Time = new DateTime(reader.ReadInt64());
+                        tscore.Time = reader.ReadDateTime();
                         reader.ReadInt32();
                         reader.ReadInt32();
                         tscore.Acc = Getacc(tscore);
@@ -99,7 +183,7 @@ namespace OSUplayer.OsuFiles
             using (var fs = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {
                 var reader = new BinaryReader(fs);
-                reader.ReadInt32();  //version
+                var version = reader.ReadInt32();  //version
                 reader.ReadInt32(); //folders
                 reader.ReadInt32();
                 reader.ReadInt32();
@@ -134,11 +218,36 @@ namespace OSUplayer.OsuFiles
                     tmpbm.Totalhitcount += reader.ReadUInt16(); //sliders
                     tmpbm.Totalhitcount += reader.ReadUInt16(); //spinners
                     reader.ReadInt64(); //最后编辑
-                    reader.ReadByte(); //AR
-                    reader.ReadByte(); //CS
-                    reader.ReadByte(); //HP
-                    reader.ReadByte(); //OD
+                    if (version >= 20140612)
+                    {
+                        reader.ReadSingle();
+                        reader.ReadSingle();
+                        reader.ReadSingle();
+                        reader.ReadSingle();
+                    }
+                    else
+                    {
+                        reader.ReadByte(); //AR
+                        reader.ReadByte(); //CS
+                        reader.ReadByte(); //HP
+                        reader.ReadByte(); //OD
+                    }
                     reader.ReadDouble(); //SV
+                    if (version >= 20140609)
+                    {
+                        for (int k = 0; k < 4; k++)
+                        {
+                            var num = reader.ReadInt32();
+                            if (num >= 0)
+                            {
+                                for (int xxoo = 0; xxoo < num; xxoo++)
+                                {
+                                    reader.ReadVar();
+                                    reader.ReadVar();
+                                }
+                            }
+                        }
+                    }
                     reader.ReadInt32(); //playtime
                     reader.ReadInt32(); //totaltime
                     reader.ReadInt32(); //preview
@@ -175,8 +284,14 @@ namespace OSUplayer.OsuFiles
                     reader.ReadBoolean(); //忽略音效
                     reader.ReadBoolean(); //忽略皮肤
                     reader.ReadBoolean(); //禁用sb
-                    reader.ReadByte(); //背景淡化
-                    reader.ReadInt64();
+                    reader.ReadBoolean(); //背景淡化 0x1332b40
+                    reader.ReadBoolean();//??? 0x1332c61
+                    if (version < 20140608)
+                    {
+                        reader.ReadInt16();//背景淡化
+                    }
+                    reader.ReadInt32();
+                    reader.ReadByte();
                     if (tmpset.count == 0)
                     {
                         tmpset.Add(tmpbm);

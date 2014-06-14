@@ -102,8 +102,9 @@ namespace OSUplayer
             get { return TmpSet.Diffs[tmpmap]; }
         }
 
-        #endregion
 
+        #endregion
+        private static Thread _renderThread;
         private static Player _player;
         public static bool MainIsVisible = false;
 
@@ -121,6 +122,7 @@ namespace OSUplayer
         {
             NotifySystem.ClearText();
             _player.Dispose();
+            if (_renderThread != null) { _renderThread.Interrupt(); }
             if (_needsave)
             {
                 DBSupporter.SaveList();
@@ -144,7 +146,8 @@ namespace OSUplayer
             LoadPreference();
             new Thread(Selfupdate.check_update).Start();
             Initset();
-            new Thread(Render).Start();
+            _renderThread = new Thread(Render);
+            _renderThread.Start();
         }
 
         /// <summary>
@@ -380,6 +383,7 @@ namespace OSUplayer
             File.Delete("list.db");
             Stop();
             Allsets.Clear();
+            PlayList.Clear();
             Initset();
         }
 
