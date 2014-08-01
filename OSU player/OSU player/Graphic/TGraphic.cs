@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
-using OSUplayer.OsuFiles.StoryBoard;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using OSUplayer.OsuFiles.StoryBoard;
 using Device = Microsoft.Xna.Framework.Graphics.GraphicsDevice;
 using Color = Microsoft.Xna.Framework.Graphics.Color;
 namespace OSUplayer.Graphic
@@ -67,71 +67,44 @@ namespace OSUplayer.Graphic
     /// </summary>
     class TGraphic : StaticGraphic
     {
-        protected int mSPerFrame; // 帧动画的速率
-        protected int msLastFrame; //上次记录的时间
-        protected ElementLoopType Loop;
-        protected TSpriteAction xAction;
-        protected TSpriteAction yAction;
-        protected TSpriteAction scaleXAction;
-        protected TSpriteAction scaleYAction;
-        protected TSpriteAction rotateAction;
-        protected TSpriteAction alphaAction;
-        protected TSpriteAction colorAction;
-        protected TSpriteAction parameterAction;
-        protected ElementOrigin Origin;
+        private int mSPerFrame; // 帧动画的速率
+        private int msLastFrame; //上次记录的时间
+        private ElementLoopType Loop;
+        private TSpriteAction xAction;
+        private TSpriteAction yAction;
+        private TSpriteAction scaleXAction;
+        private TSpriteAction scaleYAction;
+        private TSpriteAction rotateAction;
+        private TSpriteAction alphaAction;
+        private TSpriteAction colorAction;
+        private TSpriteAction parameterAction;
+        private ElementOrigin Origin;
 
-        public TGraphic(Device graphicDevice, SBelement Element, string Location, int layerdelta)
+        public TGraphic(Device graphicDevice, SBelement Element, Texture2D[] File)
             : base()
         {
             switch (Element.Type)
             {
                 case ElementType.Sprite:
                     {
-                        if (File.Exists(Path.Combine(Location, Element.Path)))
-                        {
-                            using (var s = new FileStream(Path.Combine(Location, Element.Path), FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                            {
-                                this.texturearray = new Texture2D[1] { Texture2D.FromFile(graphicDevice, s) };
-                            }
-                        }
-                        else
-                        {
-                            this.texturearray = new Texture2D[1] { new Texture2D(graphicDevice, 1, 1, 0, 0, SurfaceFormat.Bgr32) };
-                        }
+                        this.texturearray = File;
                         this.frameCount = 1;
                         this.currentFrameIndex = 0;
                         this.msLastFrame = 0;
                         this.mSPerFrame = 16;
-                        this.position = new Vector2(Element.x, Element.y);
+                        this.position = new Vector2(Element.X0, Element.Y0);
                         this.origin = Getorigin(this.texturearray[0], Element.Origin);
                         break;
                     }
                 case ElementType.Animation:
                     {
-                        string prefix = Path.Combine(Location, Element.Path);
-                        var ext = prefix.Substring(prefix.LastIndexOf(".") + 1);
-                        prefix = prefix.Substring(0, prefix.LastIndexOf("."));
-                        texturearray = new Texture2D[Element.FrameCount];
-                        for (int i = 0; i < Element.FrameCount; i++)
-                        {
-                            if (File.Exists(prefix + i.ToString() + "." + ext))
-                            {
-                                using (var s = new FileStream(prefix + i.ToString() + "." + ext, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                                {
-                                    this.texturearray[i] = Texture2D.FromFile(graphicDevice, s);
-                                }
-                            }
-                            else
-                            {
-                                this.texturearray[i] = new Texture2D(graphicDevice, 1, 1, 0, 0, SurfaceFormat.Bgr32);
-                            }
-                        }
+                        this.texturearray = File;
                         this.frameCount = Element.FrameCount;
                         this.mSPerFrame = Element.Framedelay;
                         this.Loop = Element.Looptype;
                         this.currentFrameIndex = 0;
                         this.msLastFrame = 0;
-                        this.position = new Vector2(Element.x, Element.y);
+                        this.position = new Vector2(Element.X0, Element.Y0);
                         //this.texture = texturearray[0];
                         this.origin = Getorigin(this.texturearray[0], Element.Origin);
                         break;
@@ -144,7 +117,7 @@ namespace OSUplayer.Graphic
             this.alpha = 0;
             this.parameter = 0;
             this.rotate = 0f;
-            if (Element.Layers == ElementLayer.Background) { this.layer = 0.9f - layerdelta * 0.000001f; } else { this.layer = 0.5f - layerdelta * 0.000001f; }
+            if (Element.Layers == ElementLayer.Background) { this.layer = 0.9f - Element.Z * 0.000001f; } else { this.layer = 0.5f - Element.Z * 0.000001f; }
             this.scale = new Vector2(1f, 1f);
             //  this.InitSpriteAction();
         }
@@ -188,10 +161,9 @@ namespace OSUplayer.Graphic
            }*/
         private static Vector2 Getorigin(Texture2D texture, ElementOrigin Origin)
         {
-            int id = (int)Origin;
-            float x = (float)(id % 3) / 2 * texture.Width;
-            float y = (float)(id - id % 3) / 6 * texture.Height;
-
+            var id = (int)Origin;
+            var x = (float)(id % 3) / 2 * texture.Width;
+            var y = (float)(id - id % 3) / 6 * texture.Height;
             return new Vector2(x, y);
         }
 

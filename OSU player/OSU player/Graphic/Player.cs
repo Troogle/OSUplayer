@@ -5,6 +5,7 @@ using System.IO;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using OSUplayer.OsuFiles;
+using OSUplayer.OsuFiles.StoryBoard;
 using OSUplayer.Properties;
 using OSUplayer.Uilties;
 using Color = Microsoft.Xna.Framework.Graphics.Color;
@@ -186,19 +187,68 @@ namespace OSUplayer.Graphic
         {
             Map.Getsb();
             if (Map.SB.Elements.Count == 1) return;
-            for (var i = 0; i < Map.SB.Elements.Count; i++)
+            foreach (var sbFile in Map.SB.Elements)
             {
-                if (Map.SB.Elements[i].Type == OsuFiles.StoryBoard.ElementType.Sample) continue;
-                var element = new TGraphic(device, Map.SB.Elements[i], Map.Location, i);
-                element.SetAlphaAction(new TSpriteAction(Map.SB.Elements[i].F));
-                element.SetScaleXAction(new TSpriteAction(Map.SB.Elements[i].SX));
-                element.SetScaleYAction(new TSpriteAction(Map.SB.Elements[i].SY));
-                element.SetRotateAction(new TSpriteAction(Map.SB.Elements[i].R));
-                element.SetColorAction(new TSpriteAction(Map.SB.Elements[i].C));
-                element.SetXAction(new TSpriteAction(Map.SB.Elements[i].X));
-                element.SetYAction(new TSpriteAction(Map.SB.Elements[i].Y));
-                element.SetParameterAction(new TSpriteAction(Map.SB.Elements[i].P, false, false));
-                SBelements.Add(element);
+                //if (Map.SB.Elements[i].Type == OsuFiles.StoryBoard.ElementType.Sample) continue;
+                if (sbFile.Value.Element.Count == 0) continue;
+                Texture2D[] tmpTexture = null;
+                foreach (var sbelement in sbFile.Value.Element)
+                {
+
+                    switch (sbelement.Type)
+                    {
+                        case ElementType.Sprite:
+                            if (tmpTexture == null || tmpTexture.Length != 1)
+                            {
+                                if (File.Exists(Path.Combine(Map.Location, sbFile.Key)))
+                                {
+                                    using (
+                                        var s = new FileStream(Path.Combine(Map.Location, sbFile.Key), FileMode.Open,
+                                            FileAccess.Read, FileShare.ReadWrite))
+                                    {
+                                        tmpTexture = new[] { Texture2D.FromFile(device, s) };
+                                    }
+                                }
+                                else
+                                {
+                                    tmpTexture = new[] { new Texture2D(device, 1, 1, 0, 0, SurfaceFormat.Bgr32) };
+                                }
+                            }
+                            break;
+                        case ElementType.Animation:
+                            var prefix = Path.Combine(Map.Location, sbFile.Key);
+                            var ext = prefix.Substring(prefix.LastIndexOf(".") + 1);
+                            prefix = prefix.Substring(0, prefix.LastIndexOf("."));
+                            tmpTexture = new Texture2D[sbelement.FrameCount];
+                            for (var i = 0; i < sbelement.FrameCount; i++)
+                            {
+                                if (File.Exists(prefix + i + "." + ext))
+                                {
+                                    using (
+                                        var s = new FileStream(prefix + i + "." + ext, FileMode.Open, FileAccess.Read,
+                                            FileShare.ReadWrite))
+                                    {
+                                        tmpTexture[i] = Texture2D.FromFile(device, s);
+                                    }
+                                }
+                                else
+                                {
+                                    tmpTexture[i] = new Texture2D(device, 1, 1, 0, 0, SurfaceFormat.Bgr32);
+                                }
+                            }
+                            break;
+                    }
+                    var element = new TGraphic(device, sbelement, tmpTexture);
+                    element.SetAlphaAction(new TSpriteAction(sbelement.F));
+                    element.SetScaleXAction(new TSpriteAction(sbelement.SX));
+                    element.SetScaleYAction(new TSpriteAction(sbelement.SY));
+                    element.SetRotateAction(new TSpriteAction(sbelement.R));
+                    element.SetColorAction(new TSpriteAction(sbelement.C));
+                    element.SetXAction(new TSpriteAction(sbelement.X));
+                    element.SetYAction(new TSpriteAction(sbelement.Y));
+                    element.SetParameterAction(new TSpriteAction(sbelement.P, false, false));
+                    SBelements.Add(element);
+                }
             }
             _sbExist = true;
         }
