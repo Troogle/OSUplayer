@@ -140,7 +140,7 @@ namespace OSUplayer.OsuFiles.StoryBoard
     {
         public List<SBelement> Elements = new List<SBelement>();
         //TODO:单独抽取trigger并作索引
-        public List<SBvar> Variables = new List<SBvar>();
+        private List<SBvar> _variables = new List<SBvar>();
         //public Dictionary<Triggertype, TriggerEvent> trigger = new Dictionary<Triggertype, TriggerEvent>();
         //目录由beatmapfiles.location-->beatmap.location
         private string location;
@@ -159,7 +159,7 @@ namespace OSUplayer.OsuFiles.StoryBoard
             }
             return ret;
         }
-        private int Color(int r, int g, int b)
+        private static int Color(int r, int g, int b)
         {
             return (b << 0x10) | (g << 8) | r;
         }
@@ -174,7 +174,7 @@ namespace OSUplayer.OsuFiles.StoryBoard
                 if (row.StartsWith("[")) { return (row); }
                 if (!row.StartsWith(" ")) { return (row); }
                 //do variables change first
-                foreach (SBvar tmpvar in Variables)
+                foreach (SBvar tmpvar in _variables)
                 {
                     if (row.Contains(tmpvar.name)) { row.Replace(tmpvar.name, tmpvar.replace); }
                 }
@@ -436,13 +436,13 @@ namespace OSUplayer.OsuFiles.StoryBoard
                             tmpvar.name = row.Split(new char[] { '=' }, 2)[0];
                             tmpvar.replace = row.Split(new char[] { '=' }, 2)[1];
                             tmpvar.name.Substring(1, tmpvar.name.Length - 1);
-                            Variables.Add(tmpvar);
+                            _variables.Add(tmpvar);
                             row = reader.ReadLine();
                             break;
                         }
                     case "Events":
                         //do variables change first
-                        foreach (SBvar tmpvar in Variables)
+                        foreach (SBvar tmpvar in _variables)
                         {
                             if (row.Contains(tmpvar.name)) { row.Replace(tmpvar.name, tmpvar.replace); }
                         }

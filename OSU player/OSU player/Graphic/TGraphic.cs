@@ -109,14 +109,14 @@ namespace OSUplayer.Graphic
                 case ElementType.Animation:
                     {
                         string prefix = Path.Combine(Location, Element.Path);
-                        string ext = prefix.Substring(prefix.LastIndexOf(".") + 1);
+                        var ext = prefix.Substring(prefix.LastIndexOf(".") + 1);
                         prefix = prefix.Substring(0, prefix.LastIndexOf("."));
                         texturearray = new Texture2D[Element.FrameCount];
                         for (int i = 0; i < Element.FrameCount; i++)
                         {
                             if (File.Exists(prefix + i.ToString() + "." + ext))
                             {
-                                using (FileStream s = new FileStream(prefix + i.ToString() + "." + ext, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                                using (var s = new FileStream(prefix + i.ToString() + "." + ext, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                                 {
                                     this.texturearray[i] = Texture2D.FromFile(graphicDevice, s);
                                 }

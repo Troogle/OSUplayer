@@ -156,12 +156,13 @@ namespace OSUplayer
         private static void Getpath()
         {
             if (Settings.Default.OSUpath != "" && File.Exists(Settings.Default.OSUpath + "\\osu!.exe")) return;
-            string str = "";
+            var str = "";
             try
             {
-                RegistryKey rk = Registry.ClassesRoot.OpenSubKey("osu!\\shell\\open\\command");
+                var rk = Registry.ClassesRoot.OpenSubKey("osu!\\shell\\open\\command");
+                if (rk == null) throw new Exception("OSU not installed(?");
                 str = rk.GetValue("").ToString();
-                str = str.Substring(1, str.LastIndexOf(@"\"));
+                str = str.Substring(1, str.LastIndexOf(@"\", StringComparison.Ordinal));
                 Settings.Default.OSUpath = str;
             }
             catch (Exception)
@@ -237,7 +238,7 @@ namespace OSUplayer
         /// </summary>
         public static void Initplaylist()
         {
-            for (int i = 0; i < Allsets.Count; i++)
+            for (var i = 0; i < Allsets.Count; i++)
             {
                 PlayList.Add(i);
                 //allsets[i].GetDetail();
@@ -442,7 +443,7 @@ namespace OSUplayer
         public static int GetNext()
         {
             int next;
-            int now = PlayList.IndexOf(currentset, 0);
+            var now = PlayList.IndexOf(currentset, 0);
             if (currentset == -1)
             {
                 currentset = 0;
@@ -470,7 +471,7 @@ namespace OSUplayer
         public static void Search(string k)
         {
             var searchedMaps = new List<int>();
-            string keyword = k.Trim().ToLower();
+            var keyword = k.Trim().ToLower();
             if (keyword.Length == 0)
             {
                 PlayList.Clear();
@@ -479,7 +480,7 @@ namespace OSUplayer
             else
             {
                 //PlayList.Clear();
-                for (int i = 0; i < Allsets.Count; i++)
+                for (var i = 0; i < Allsets.Count; i++)
                 {
                     if (Allsets[i].tags.ToLower().Contains(keyword))
                     {
