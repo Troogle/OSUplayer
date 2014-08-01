@@ -389,7 +389,7 @@ namespace OSUplayer
 
         public static void Stop()
         {
-            _player.Stop();
+            if (_player != null) _player.Stop();
         }
 
         public static void Play()
@@ -493,10 +493,7 @@ namespace OSUplayer
                 else
                 {
                     PlayList.Clear();
-                    for (int i = 0; i < searchedMaps.Count; i++)
-                    {
-                        PlayList.Add(searchedMaps[i]);
-                    }
+                    AddRangeSet(searchedMaps);
                 }
             }
         }
@@ -515,9 +512,9 @@ namespace OSUplayer
             detail[4] = new ListViewItem("模式");
             detail[4].SubItems.Add(Enum.GetName(typeof(Modes), TmpBeatmap.Mode));
             detail[5] = new ListViewItem("SetID");
-            detail[5].SubItems.Add(TmpBeatmap.beatmapsetId.ToString());
+            detail[5].SubItems.Add(TmpBeatmap.BeatmapsetID.ToString());
             detail[6] = new ListViewItem("ID");
-            detail[6].SubItems.Add(TmpBeatmap.beatmapId.ToString());
+            detail[6].SubItems.Add(TmpBeatmap.BeatmapID.ToString());
             detail[7] = new ListViewItem("音频文件名称");
             detail[7].SubItems.Add(TmpBeatmap.Audio);
             if (!File.Exists(TmpBeatmap.Audio))
@@ -600,7 +597,7 @@ namespace OSUplayer
 
         public static void AddRangeSet(IEnumerable<int> sets)
         {
-            foreach (int set in sets)
+            foreach (var set in sets)
             {
                 AddSet(set);
             }

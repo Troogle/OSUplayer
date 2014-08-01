@@ -258,8 +258,8 @@ namespace OSUplayer.OsuFiles
                         reader.ReadDouble(); //offset
                         reader.ReadBoolean(); //红线
                     }
-                    tmpbm.beatmapId = reader.ReadInt32();
-                    tmpbm.beatmapsetId = reader.ReadInt32();
+                    tmpbm.BeatmapID = reader.ReadInt32();
+                    tmpbm.BeatmapsetID = reader.ReadInt32();
                     reader.ReadInt32(); //threadid 
                     reader.ReadByte(); //Ranking osu
                     reader.ReadByte(); //Ranking taiko

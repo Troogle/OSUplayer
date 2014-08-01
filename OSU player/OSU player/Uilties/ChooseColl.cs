@@ -71,5 +71,10 @@ namespace OSUplayer.Uilties
             ChooseColl_PlayListCurrentCount.Text = LanguageManager.Get("Current_Count_Text") + Core.PlayList.Count;
             ChooseColl_GetCollections.PerformClick();
         }
+
+        private void ChooseColl_CollectionContent_List_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

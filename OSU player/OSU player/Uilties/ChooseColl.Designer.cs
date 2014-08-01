@@ -58,6 +58,7 @@
             this.ChooseColl_CollectionContent_List.Name = "ChooseColl_CollectionContent_List";
             this.ChooseColl_CollectionContent_List.Size = new System.Drawing.Size(366, 259);
             this.ChooseColl_CollectionContent_List.TabIndex = 1;
+            this.ChooseColl_CollectionContent_List.SelectedIndexChanged += new System.EventHandler(this.ChooseColl_CollectionContent_List_SelectedIndexChanged);
             this.ChooseColl_CollectionContent_List.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ChooseColl_CollectionContent_List_MouseDoubleClick);
             // 
             // ChooseColl_GetCollections

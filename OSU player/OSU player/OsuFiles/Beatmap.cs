@@ -171,7 +171,7 @@ namespace OSUplayer.OsuFiles
             }
             set { Rawdata[(int)OSUfile.Source] = value; }
         }
-        public int beatmapId
+        public int BeatmapID
         {
             get
             {
@@ -186,7 +186,7 @@ namespace OSUplayer.OsuFiles
             }
             set { Rawdata[(int)OSUfile.BeatmapID] = value.ToString(); }
         }
-        public int beatmapsetId
+        public int BeatmapsetID
         {
             get
             {
@@ -201,88 +201,40 @@ namespace OSUplayer.OsuFiles
             }
             set { Rawdata[(int)OSUfile.BeatmapSetID] = value.ToString(); }
         }
-        public int HPDrainRate
+        public double HPDrainRate
         {
-            get
-            {
-                if (Rawdata[(int)OSUfile.HPDrainRate] != null)
-                {
-                    return Convert.ToInt32(Rawdata[(int)OSUfile.HPDrainRate]);
-                }
-                else
-                {
-                    return 5;
-                }
+            get {
+                return Rawdata[(int)OSUfile.HPDrainRate] != null ? Convert.ToDouble(Rawdata[(int)OSUfile.HPDrainRate]) : 5;
             }
         }
-        public int CircleSize
+        public double CircleSize
         {
-            get
-            {
-                if (Rawdata[(int)OSUfile.CircleSize] != null)
-                {
-                    return Convert.ToInt32(Rawdata[(int)OSUfile.CircleSize]);
-                }
-                else
-                {
-                    return 5;
-                }
+            get {
+                return Rawdata[(int)OSUfile.CircleSize] != null ? Convert.ToDouble(Rawdata[(int)OSUfile.CircleSize]) : 5;
             }
         }
-        public int OverallDifficulty
+        public double OverallDifficulty
         {
-            get
-            {
-                if (Rawdata[(int)OSUfile.OverallDifficulty] != null)
-                {
-                    return Convert.ToInt32(Rawdata[(int)OSUfile.OverallDifficulty]);
-                }
-                else
-                {
-                    return 5;
-                }
+            get {
+                return Rawdata[(int)OSUfile.OverallDifficulty] != null ? Convert.ToDouble(Rawdata[(int)OSUfile.OverallDifficulty]) : 5;
             }
         }
-        public int ApproachRate
+        public double ApproachRate
         {
-            get
-            {
-                if (Rawdata[(int)OSUfile.ApproachRate] != null)
-                {
-                    return Convert.ToInt32(Rawdata[(int)OSUfile.ApproachRate]);
-                }
-                else
-                {
-                    return Convert.ToInt32(Rawdata[(int)OSUfile.OverallDifficulty]);
-                }
+            get {
+                return Rawdata[(int)OSUfile.ApproachRate] != null ? Convert.ToDouble(Rawdata[(int)OSUfile.ApproachRate]) : OverallDifficulty;
             }
         }
         public double SliderMultiplier
         {
-            get
-            {
-                if (Rawdata[(int)OSUfile.SliderMultiplier] != null)
-                {
-                    return Convert.ToDouble(Rawdata[(int)OSUfile.SliderMultiplier]);
-                }
-                else
-                {
-                    return 1;
-                }
+            get {
+                return Rawdata[(int)OSUfile.SliderMultiplier] != null ? Convert.ToDouble(Rawdata[(int)OSUfile.SliderMultiplier]) : 1;
             }
         }
         public double SliderTickRate
         {
-            get
-            {
-                if (Rawdata[(int)OSUfile.SliderTickRate] != null)
-                {
-                    return Convert.ToDouble(Rawdata[(int)OSUfile.SliderTickRate]);
-                }
-                else
-                {
-                    return 1;
-                }
+            get {
+                return Rawdata[(int)OSUfile.SliderTickRate] != null ? Convert.ToDouble(Rawdata[(int)OSUfile.SliderTickRate]) : 1;
             }
         }
         #endregion
@@ -631,7 +583,7 @@ namespace OSUplayer.OsuFiles
         /// <returns></returns>
         public bool Equals(Beatmap obj)
         {
-            if ((obj.beatmapId == beatmapId) && (beatmapId != 0))
+            if ((obj.BeatmapID == BeatmapID) && (BeatmapID != 0))
             { return true; }
             return this.ToString().Equals(obj.ToString()) && this.Creator.Equals(obj.Creator);
         }

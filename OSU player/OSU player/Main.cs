@@ -189,7 +189,7 @@ namespace OSUplayer
             Main_PlayList.VirtualListSize = Core.PlayList.Count;
             Main_PlayList.SelectedIndices.Clear();
             Main_PlayList.Refresh();
-            if(Core.PlayList.Count!=0) Main_PlayList.SelectedIndices.Add(select);
+            if (Core.PlayList.Count != 0) Main_PlayList.SelectedIndices.Add(select);
             /* new Thread(delegate()
             {
                 foreach (int t in Core.PlayList)
@@ -759,6 +759,7 @@ namespace OSUplayer
         {
             if (Core.PlayList == null || Core.PlayList.Count == 0)
             {
+                e.Item = new ListViewItem();
                 return;
             }
 
@@ -766,7 +767,8 @@ namespace OSUplayer
             {
                 var item = new ListViewItem(Core.Allsets[Core.PlayList[e.ItemIndex]].ToString())
                 {
-                    BackColor = e.ItemIndex % 2 == 0 ? Color.White : Color.WhiteSmoke
+                    BackColor = e.ItemIndex % 2 == 0 ? Color.White : Color.WhiteSmoke,
+                    ForeColor = e.ItemIndex == Core.currentset ? Color.Green : Color.Black
                 };
                 /*if (Core.Allsets[e.ItemIndex].isPlaying)
 				{
@@ -778,7 +780,7 @@ namespace OSUplayer
             }
             else
             {
-                e.Item = null;
+                e.Item = new ListViewItem();
             }
         }
     }

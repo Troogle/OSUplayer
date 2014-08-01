@@ -269,7 +269,7 @@ namespace OSUplayer.OsuFiles
             {
                 location = tmpbm.Location;
                 name = tmpbm.Artist + " - " + tmpbm.Title;
-                setid = tmpbm.beatmapsetId;
+                setid = tmpbm.BeatmapsetID;
                 tags = tmpbm.tags;
                 tags += " " + tmpbm.ArtistRomanized;
                 tags += " " + tmpbm.TitleRomanized;
