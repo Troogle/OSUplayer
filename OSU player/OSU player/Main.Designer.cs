@@ -95,6 +95,7 @@ namespace OSUplayer
             this.SearchTimer = new System.Windows.Forms.Timer(this.components);
             this.Main_MenuStrip = new Telerik.WinControls.UI.RadMenu();
             this.Main_LanguageSelect = new Telerik.WinControls.UI.RadMenuItem();
+            this.Main_CurrentList = new System.Windows.Forms.Label();
             this.Main_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Main_Search_Box)).BeginInit();
             this.Main_PlayList_RightClick_Menu.SuspendLayout();
@@ -431,6 +432,7 @@ namespace OSUplayer
             this.Main_Panel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.Main_Panel.Controls.Add(this.Main_CurrentList);
             this.Main_Panel.Controls.Add(this.Main_Search_Box);
             this.Main_Panel.Controls.Add(this.Main_PlayList);
             this.Main_Panel.Controls.Add(this.Main_Core_Panel);
@@ -465,10 +467,10 @@ namespace OSUplayer
             this.Main_PlayList.GridLines = true;
             this.Main_PlayList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.Main_PlayList.HideSelection = false;
-            this.Main_PlayList.Location = new System.Drawing.Point(532, 32);
+            this.Main_PlayList.Location = new System.Drawing.Point(532, 55);
             this.Main_PlayList.MultiSelect = false;
             this.Main_PlayList.Name = "Main_PlayList";
-            this.Main_PlayList.Size = new System.Drawing.Size(344, 616);
+            this.Main_PlayList.Size = new System.Drawing.Size(344, 593);
             this.Main_PlayList.TabIndex = 24;
             this.Main_PlayList.UseCompatibleStateImageBehavior = false;
             this.Main_PlayList.View = System.Windows.Forms.View.Details;
@@ -851,6 +853,16 @@ namespace OSUplayer
             this.Main_LanguageSelect.Text = "语言(&L)";
             this.Main_LanguageSelect.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             // 
+            // Main_CurrentList
+            // 
+            this.Main_CurrentList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Main_CurrentList.AutoSize = true;
+            this.Main_CurrentList.Location = new System.Drawing.Point(535, 33);
+            this.Main_CurrentList.Name = "Main_CurrentList";
+            this.Main_CurrentList.Size = new System.Drawing.Size(103, 19);
+            this.Main_CurrentList.TabIndex = 30;
+            this.Main_CurrentList.Text = "当前列表: FULL";
+            // 
             // Main
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -968,6 +980,7 @@ namespace OSUplayer
         private Telerik.WinControls.UI.RadMenuItem Main_Option_PlayMode_Random;
         private Telerik.WinControls.UI.RadMenu Main_MenuStrip;
         private Telerik.WinControls.UI.RadMenuItem Main_LanguageSelect;
+        private System.Windows.Forms.Label Main_CurrentList;
 
 
     }

@@ -1,6 +1,6 @@
 ﻿<Xml>
-<Version>5.30</Version>
-<Text>Ver 5.30\n修正搜索使用不能\nVer 5.20\n修正OSU数据库格式升级带来的问题\n基本的语言切换(繁体中文only)</Text>
+<Version>5.40</Version>
+<Text>Ver 5.40\n修正Osu v13带来的闪退问题（最近忙于学习orz）\nVer 5.30\n修正搜索使用不能\nVer 5.20\n修正OSU数据库格式升级带来的问题\n基本的语言切换(繁体中文only)</Text>
 <Full>0</Full>
 <Link><![CDATA[http://pan.baidu.com/s/1hqj5FnQ]]></Link>
 </Xml>

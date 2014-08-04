@@ -115,6 +115,7 @@ namespace OSUplayer
             {
                 UpdateTimer.Enabled = true;
                 Core.Play();
+                Main_PlayList.Refresh();
                 Main_Time_Trackbar.Enabled = true;
                 Main_Play.Text = LanguageManager.Get("Main_Pause_Text");
                 Main_Stop.Enabled = true;
