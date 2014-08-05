@@ -27,8 +27,7 @@ namespace OSUplayer.OsuFiles
     {
         public BinaryReader(Stream stream)
             : base(stream)
-        {
-        }
+        { }
 
         public override string ReadString()
         {
@@ -50,7 +49,7 @@ namespace OSUplayer.OsuFiles
             return count < 0 ? null : new byte[0];
         }
 
-        public char[] ReadChars()//method_1
+        private char[] ReadChars()//method_1
         {
             var count = this.ReadInt32();
             if (count > 0)
@@ -65,57 +64,41 @@ namespace OSUplayer.OsuFiles
             {
                 case 1:
                     return this.ReadBoolean();
-
                 case 2:
                     return this.ReadByte();
-
                 case 3:
                     return this.ReadUInt16();
-
                 case 4:
                     return this.ReadUInt32();
-
                 case 5:
                     return this.ReadUInt64();
-
                 case 6:
                     return this.ReadSByte();
-
                 case 7:
                     return this.ReadInt16();
-
                 case 8:
                     return this.ReadInt32();
-
                 case 9:
                     return this.ReadInt64();
-
                 case 10:
                     return this.ReadChar();
-
                 case 11:
                     return base.ReadString();
-
                 case 12:
                     return this.ReadSingle();
-
                 case 13:
                     return this.ReadDouble();
-
                 case 14:
                     return this.ReadDecimal();
-
                 case 15:
                     return this.ReadDateTime();
-
                 case 0x10:
                     return this.ReadBytes();
-
                 case 0x11:
                     return this.ReadChars();
+                case 0x12:
+                    return Deserializer.Deserialize(BaseStream);
             }
-            //case 0x12:
-            //    return Class27.smethod_0(this.BaseStream);
             return null;
         }
     }
@@ -134,7 +117,6 @@ namespace OSUplayer.OsuFiles
             }
             return -1;
         }
-
         public static void ReadScore(string file)
         {
             using (var fs = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
@@ -151,23 +133,31 @@ namespace OSUplayer.OsuFiles
                     {
                         var tscore = new ScoreRecord();
                         tscore.Mode = (Modes)reader.ReadByte();
-                        reader.ReadInt32(); //version
-                        reader.ReadString(); //set md5
-                        tscore.Player = reader.ReadString();
+                        var version=reader.ReadInt32(); //version
                         reader.ReadString(); //diff md5
-                        tscore.Hit300 = reader.ReadInt16();
-                        tscore.Hit100 = reader.ReadInt16();
-                        tscore.Hit50 = reader.ReadInt16();
-                        tscore.Hit320 = reader.ReadInt16();
-                        tscore.Hit200 = reader.ReadInt16();
-                        tscore.Miss = reader.ReadInt16();
+                        tscore.Player = reader.ReadString();
+                        reader.ReadString(); //replay md5
+                        tscore.Hit300 = reader.ReadUInt16();
+                        tscore.Hit100 = reader.ReadUInt16();
+                        tscore.Hit50 = reader.ReadUInt16();
+                        tscore.Hit320 = reader.ReadUInt16();
+                        tscore.Hit200 = reader.ReadUInt16();
+                        tscore.Miss = reader.ReadUInt16();
                         tscore.Score = reader.ReadInt32();
-                        tscore.MaxCombo = reader.ReadInt16();
+                        tscore.MaxCombo = reader.ReadUInt16();
                         reader.ReadBoolean(); //isperfect
-                        tscore.Mod = Modconverter(reader.ReadUInt32() + reader.ReadByte() << 32);
+                        tscore.Mod = Modconverter(reader.ReadInt32());
+                        reader.ReadString();//??? 应该是Online ID
                         tscore.Time = reader.ReadDateTime();
-                        reader.ReadInt32();
-                        reader.ReadInt32();
+                        reader.ReadBytes();//??? 应该是血条曲线
+                        if (version >= 20140721)
+                        {
+                            reader.ReadInt64();
+                        }
+                        else
+                        {
+                            reader.ReadInt32();
+                        }
                         tscore.Acc = Getacc(tscore);
                         tscore.Totalhit = tscore.Hit300 + tscore.Hit100 + tscore.Hit50 + tscore.Miss;
                         nscore.Add(tscore);
@@ -177,7 +167,6 @@ namespace OSUplayer.OsuFiles
                 }
             }
         }
-
         public static void ReadDb(string file)
         {
             using (var fs = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
@@ -284,14 +273,14 @@ namespace OSUplayer.OsuFiles
                     reader.ReadBoolean(); //忽略音效
                     reader.ReadBoolean(); //忽略皮肤
                     reader.ReadBoolean(); //禁用sb
-                    reader.ReadBoolean(); //背景淡化 0x1332b40
-                    reader.ReadBoolean();//??? 0x1332c61
+                    reader.ReadBoolean(); //禁用视频
+                    reader.ReadBoolean();//VisualSettingsOverride
                     if (version < 20140608)
                     {
                         reader.ReadInt16();//背景淡化
                     }
-                    reader.ReadInt32();
-                    reader.ReadByte();
+                    reader.ReadInt32();//LastEditTime
+                    reader.ReadByte();//ManiaSpeed
                     if (tmpset.count == 0)
                     {
                         tmpset.Add(tmpbm);
@@ -313,7 +302,6 @@ namespace OSUplayer.OsuFiles
                 }
             }
         }
-
         public static void ReadCollect(string file)
         {
             Core.Collections.Clear();
@@ -371,7 +359,7 @@ namespace OSUplayer.OsuFiles
             }
             else
             {
-                for (int i = 0; i < (int)Mods.Random; i++)
+                for (int i = 0; i < (int)Mods.LastMod; i++)
                 {
                     if ((mod & 1) == 1)
                     {

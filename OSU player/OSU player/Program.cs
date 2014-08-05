@@ -34,8 +34,8 @@ namespace OSUplayer
                 if (!ret)
                 {
                     MessageBox.Show("The Program is already running!", "Tips", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    Application.ExitThread();
-                    return;
+                    //Application.ExitThread();
+                    //return;
                 }
                 var filename = Assembly.GetExecutingAssembly().Location;
                 if (File.Exists(filename + ".detele")) File.Delete(filename + ".delete");

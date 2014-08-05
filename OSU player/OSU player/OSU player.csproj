@@ -131,6 +131,7 @@
     <Compile Include="ImageButton.Designer.cs">
       <DependentUpon>ImageButton.cs</DependentUpon>
     </Compile>
+    <Compile Include="OsuFiles\Deserializer.cs" />
     <Compile Include="OsuFiles\StoryBoard\SBenum.cs" />
     <Compile Include="OsuFiles\StoryBoard\StoryBoard.cs" />
     <Compile Include="Uilties\NotifySystem.cs" />

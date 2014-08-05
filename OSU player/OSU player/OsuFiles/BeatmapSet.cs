@@ -135,7 +135,10 @@ namespace OSUplayer.OsuFiles
         Key7,
         Key8,
         Fadein,
-        Random
+        Random,
+        Cinema,
+        Target,
+        LastMod
     }
     /// <summary>
     /// Timing Points
