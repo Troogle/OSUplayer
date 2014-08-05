@@ -244,17 +244,18 @@ namespace OSUplayer
         /// <summary>
         ///     初始化播放列表，初始时与Set一一对应
         /// </summary>
-        public static void Initplaylist()
+        private static void Initplaylist()
         {
-            var collectpath = Path.Combine(Settings.Default.OSUpath, "collection.db");
-            if (File.Exists(collectpath)) { OsuDB.ReadCollect(collectpath); }
-            var fullList=new List<int>();
+            Collections.Clear();
+            var fullList = new List<int>();
             for (var i = 0; i < Allsets.Count; i++)
             {
                 fullList.Add(i);
                 //allsets[i].GetDetail();
             }
-            Collections.Add("Full",fullList);
+            Collections.Add("Full", fullList);
+            var collectpath = Path.Combine(Settings.Default.OSUpath, "collection.db");
+            if (File.Exists(collectpath)) { OsuDB.ReadCollect(collectpath); }
         }
 
         /// <summary>

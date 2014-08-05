@@ -304,7 +304,6 @@ namespace OSUplayer.OsuFiles
         }
         public static void ReadCollect(string file)
         {
-            Core.Collections.Clear();
             using (var fs = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {
                 var reader = new BinaryReader(fs);
