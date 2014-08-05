@@ -768,15 +768,13 @@ namespace OSUplayer
             {
                 var item = new ListViewItem(Core.Allsets[Core.PlayList[e.ItemIndex]].ToString())
                 {
-                    BackColor = e.ItemIndex % 2 == 0 ? Color.White : Color.WhiteSmoke,
-                    ForeColor = e.ItemIndex == Core.currentset ? Color.Green : Color.Black
+                    ForeColor = e.ItemIndex == Core.currentset ? Color.White : Color.Black,
+                    Font = e.ItemIndex == Core.currentset ? new Font("宋体", 9, FontStyle.Bold) : new Font("宋体", 9),
+                    BackColor =
+                        e.ItemIndex % 2 == 0
+                            ? (e.ItemIndex == Core.currentset ? Color.LightSkyBlue : Color.White)
+                            : (e.ItemIndex == Core.currentset ? Color.DeepSkyBlue : Color.WhiteSmoke)
                 };
-                /*if (Core.Allsets[e.ItemIndex].isPlaying)
-				{
-					item.ForeColor = Color.White;
-					item.BackColor = Color.FromArgb(0, 122, 204);
-					item.Font = new Font("宋体", 9, FontStyle.Bold);
-				}*/
                 e.Item = item;
             }
             else

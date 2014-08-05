@@ -37,7 +37,7 @@ namespace OSUplayer
                     Application.ExitThread();
                     return;
                 }
-                string filename = Assembly.GetExecutingAssembly().Location;
+                var filename = Assembly.GetExecutingAssembly().Location;
                 if (File.Exists(filename + ".detele")) File.Delete(filename + ".delete");
                 Un4seen.Bass.BassNet.Registration(PrivateConfig.BassEmail, PrivateConfig.BassReg);
                 ThemeResolutionService.LoadPackageResource("OSUplayer.Res.Light.tssp");
@@ -75,7 +75,6 @@ namespace OSUplayer
         /// 记录自定义异常消息
         /// </summary>
         /// <param name="ex">异常对象</param>
-        /// <param name="backStr">备用异常消息：当ex为null时有效</param>
         static void GetExceptionMsg(Exception ex)
         {
 #if (DEBUG)
