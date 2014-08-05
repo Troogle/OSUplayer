@@ -16,7 +16,7 @@ using Telerik.WinControls.UI;
 
 namespace OSUplayer
 {
-    public class Core
+    public static class Core
     {
         #region 数据区
 
@@ -25,20 +25,28 @@ namespace OSUplayer
         /// </summary>
         public static List<BeatmapSet> Allsets = new List<BeatmapSet>();
 
+        public static string CurrentListName = "Full";
+
+        /// <summary>
+        ///     本地Collection，Key是Collection名字,Value是Set的程序内部编号的List
+        /// </summary>
+        public static Dictionary<string, List<int>> Collections = new Dictionary<string, List<int>>();
+
         /// <summary>
         ///     播放列表，和显示的一一对应，int中是Set的程序内部编号
         /// </summary>
-        public static List<int> PlayList = new List<int>();
+        public static List<int> PlayList
+        {
+            get { return Collections[CurrentListName]; }
+        }
+
 
         /// <summary>
         ///     本地成绩，Key是地图MD5,Value是Score
         /// </summary>
         public static Dictionary<string, List<ScoreRecord>> Scores = new Dictionary<string, List<ScoreRecord>>();
 
-        /// <summary>
-        ///     本地Collection，Key是Collection名字,Value是Set的程序内部编号的List
-        /// </summary>
-        public static Dictionary<string, List<int>> Collections = new Dictionary<string, List<int>>();
+
 
         /// <summary>
         ///     是否已经载入过本地成绩
@@ -238,11 +246,15 @@ namespace OSUplayer
         /// </summary>
         public static void Initplaylist()
         {
+            var collectpath = Path.Combine(Settings.Default.OSUpath, "collection.db");
+            if (File.Exists(collectpath)) { OsuDB.ReadCollect(collectpath); }
+            var fullList=new List<int>();
             for (var i = 0; i < Allsets.Count; i++)
             {
-                PlayList.Add(i);
+                fullList.Add(i);
                 //allsets[i].GetDetail();
             }
+            Collections.Add("Full",fullList);
         }
 
         /// <summary>

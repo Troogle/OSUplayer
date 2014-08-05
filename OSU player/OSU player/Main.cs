@@ -179,6 +179,7 @@ namespace OSUplayer
             Main_Option_Show_Popup.IsChecked = Settings.Default.ShowPopup;
             ((RadMenuItem)Main_Option_PlayMode.Items[Settings.Default.NextMode - 1]).IsChecked =
                 true;
+            Main_CurrentList.Text = "Current:" + Core.CurrentListName;
         }
 
         private void RefreshList(int select = 0)
@@ -309,6 +310,7 @@ namespace OSUplayer
 
         private void Main_Shown(object sender, EventArgs e)
         {
+            this.CenterToScreen();
             Core.Init(Main_Main_Display.Handle, Main_Main_Display.Size);
             SetForm();
             RefreshList();
@@ -581,13 +583,19 @@ namespace OSUplayer
 
         private void Main_Collections_Click(object sender, EventArgs e)
         {
-            Visible = false;
+            //Visible = false;
             using (var dialog = new ChooseColl())
             {
+                var center = this.Location;
+                center.X = center.X+this.Width/2-dialog.Width/2;
+                center.Y = center.Y+this.Height/2-dialog.Height/2;
+                dialog.StartPosition = FormStartPosition.Manual;
+                dialog.Location = center;
                 dialog.ShowDialog();
             }
-            Visible = true;
+            //Visible = true;
             RefreshList();
+            Main_CurrentList.Text = "Current:" + Core.CurrentListName;
         }
 
         private void Main_Volume_Fx_TrackBar_Scroll(object sender, ScrollEventArgs e)
