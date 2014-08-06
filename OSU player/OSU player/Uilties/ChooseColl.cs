@@ -1,8 +1,5 @@
-﻿using OSUplayer.OsuFiles;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using OSUplayer.Properties;
 using Telerik.WinControls.UI;
 namespace OSUplayer.Uilties
 {

@@ -181,6 +181,7 @@
     <Compile Include="Graphic\VideoDecoder.cs" />
     <Compile Include="Graphic\TGraphic.cs" />
     <Compile Include="Graphic\TSpriteAction.cs" />
+    <Compile Include="Uilties\TaskBarIconMenu.cs" />
     <Compile Include="Uilties\Win32.cs" />
     <EmbeddedResource Include="Mini.resx">
       <DependentUpon>Mini.cs</DependentUpon>
