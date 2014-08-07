@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Threading;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using OSUplayer.OsuFiles;
@@ -123,7 +124,16 @@ namespace OSUplayer.Graphic
                     _deviceislost = false;
                     return true;
                 case GraphicsDeviceStatus.NotReset:
-                    device.Reset(device.PresentationParameters);
+                    //AlphaSprite.Dispose();
+                   // AdditiveSprite.Dispose();
+                    //_bgTexture.Dispose();
+                    //if (_black!=null) _black.Dispose();
+                    //if (_videoTexture != null) _videoTexture.Dispose();
+                    //Thread.Sleep(10000);
+                    //TODO:Fix Invalid Method Call
+                    device.Reset();
+                    //AlphaSprite = new SpriteBatch(device);
+                    //AdditiveSprite = new SpriteBatch(device);
                     _deviceislost = false;
                     return true;
                 default:
@@ -256,7 +266,7 @@ namespace OSUplayer.Graphic
         private void RenderVideo(SpriteBatch sprite)
         {
             if (Position - (double)Map.VideoOffset / 1000 < 0) { return; }
-            _videoTexture.SetData<byte>(_decoder.GetFrame(Convert.ToInt32(Position * 1000 - Map.VideoOffset)));
+            _videoTexture.SetData(_decoder.GetFrame(Convert.ToInt32(Position * 1000 - Map.VideoOffset)));
             sprite.Draw(_black, _showRect, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 1f);
             sprite.Draw(_videoTexture, _screenCenter, null, Color.White, 0f, _videoCenter, _videoScale, SpriteEffects.None, 1f);
         }
