@@ -18,14 +18,12 @@ namespace OSUplayer
         {
             using (var raw = new StreamReader(rawstream))
             {
-                var line = "";
-                var pos = 0;
                 while (!raw.EndOfStream)
                 {
-                    line = raw.ReadLine();
-                    Debug.Assert(line != null, "languageline != null");
+                    var line = raw.ReadLine();
+                    if (line == ""||line.StartsWith("##")) continue;
                     line = line.Replace(@"\n", "\n");
-                    pos = line.IndexOf("=");
+                    var pos = line.IndexOf("=");
                     content.Add(line.Substring(0, pos), line.Substring(pos + 1));
                 }
             }
@@ -63,7 +61,7 @@ namespace OSUplayer
                 if (control == null) continue;
                 var name = control.GetType().GetProperty("Name");
                 if (name == null) continue;
-                string nameValue = controlbase.Name;
+                var nameValue = controlbase.Name;
                 //name.GetValue(control, null).ToString();
                 var text = control.GetType().GetProperty("Text");
                 if (text == null) continue;

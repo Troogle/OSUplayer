@@ -31,7 +31,6 @@ namespace OSUplayer
             this.Main_File_Run_OSU = new Telerik.WinControls.UI.RadMenuItem();
             this.Main_File_Set_OSUPath = new Telerik.WinControls.UI.RadMenuItem();
             this.Main_File_Separator1 = new Telerik.WinControls.UI.RadMenuSeparatorItem();
-            this.Main_File_Import_Folder = new Telerik.WinControls.UI.RadMenuItem();
             this.Main_File_Import_OSU = new Telerik.WinControls.UI.RadMenuItem();
             this.Main_File_Import_Scores = new Telerik.WinControls.UI.RadMenuItem();
             this.Main_File_Separator2 = new Telerik.WinControls.UI.RadMenuSeparatorItem();
@@ -66,6 +65,8 @@ namespace OSUplayer
             this.Main_PlayList_Name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Main_PlayList_RightClick_Menu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.Main_PlayList_RightClick_Delete_One = new System.Windows.Forms.ToolStripMenuItem();
+            this.Main_PlayList_RightClick_Export_MP3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.Main_PlayList_RightClick_Open_In_OSU = new System.Windows.Forms.ToolStripMenuItem();
             this.Main_Core_Panel = new System.Windows.Forms.Panel();
             this.Main_Jump_OSU = new Telerik.WinControls.UI.RadButton();
             this.Main_Volume_TrackBar = new Telerik.WinControls.UI.RadTrackBar();
@@ -97,8 +98,7 @@ namespace OSUplayer
             this.SearchTimer = new System.Windows.Forms.Timer(this.components);
             this.Main_MenuStrip = new Telerik.WinControls.UI.RadMenu();
             this.Main_LanguageSelect = new Telerik.WinControls.UI.RadMenuItem();
-            this.Main_PlayList_RightClick_Export_MP3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.Main_PlayList_RightClick_Open_In_OSU = new System.Windows.Forms.ToolStripMenuItem();
+            this.Main_PlayList_RightClick_Copy_Current_Name = new System.Windows.Forms.ToolStripMenuItem();
             this.Main_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Main_Search_Box)).BeginInit();
             this.Main_PlayList_RightClick_Menu.SuspendLayout();
@@ -132,7 +132,6 @@ namespace OSUplayer
             this.Main_File_Run_OSU,
             this.Main_File_Set_OSUPath,
             this.Main_File_Separator1,
-            this.Main_File_Import_Folder,
             this.Main_File_Import_OSU,
             this.Main_File_Import_Scores,
             this.Main_File_Separator2,
@@ -170,15 +169,6 @@ namespace OSUplayer
             // 
             this.Main_File_Separator1.Name = "Main_File_Separator1";
             this.Main_File_Separator1.Visibility = Telerik.WinControls.ElementVisibility.Visible;
-            // 
-            // Main_File_Import_Folder
-            // 
-            this.Main_File_Import_Folder.AccessibleDescription = "导入文件夹内歌曲";
-            this.Main_File_Import_Folder.AccessibleName = "导入文件夹内歌曲";
-            this.Main_File_Import_Folder.Name = "Main_File_Import_Folder";
-            this.Main_File_Import_Folder.Text = "导入文件夹内歌曲";
-            this.Main_File_Import_Folder.Visibility = Telerik.WinControls.ElementVisibility.Visible;
-            this.Main_File_Import_Folder.Click += new System.EventHandler(this.Main_File_Import_Folder_Click);
             // 
             // Main_File_Import_OSU
             // 
@@ -293,9 +283,8 @@ namespace OSUplayer
             // 
             // Main_Tool_Export_Playlist
             // 
-            this.Main_Tool_Export_Playlist.AccessibleDescription = "香蕉分析器";
-            this.Main_Tool_Export_Playlist.AccessibleName = "香蕉分析器";
-            this.Main_Tool_Export_Playlist.Enabled = false;
+            this.Main_Tool_Export_Playlist.AccessibleDescription = "导出当前播放列表(html)";
+            this.Main_Tool_Export_Playlist.AccessibleName = "导出当前播放列表(html)";
             this.Main_Tool_Export_Playlist.Name = "Main_Tool_Export_Playlist";
             this.Main_Tool_Export_Playlist.Text = "导出当前播放列表(html)";
             this.Main_Tool_Export_Playlist.Visibility = Telerik.WinControls.ElementVisibility.Visible;
@@ -511,19 +500,34 @@ namespace OSUplayer
             // Main_PlayList_RightClick_Menu
             // 
             this.Main_PlayList_RightClick_Menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Main_PlayList_RightClick_Copy_Current_Name,
             this.Main_PlayList_RightClick_Delete_One,
             this.Main_PlayList_RightClick_Export_MP3,
             this.Main_PlayList_RightClick_Open_In_OSU});
             this.Main_PlayList_RightClick_Menu.Name = "RightClick";
-            this.Main_PlayList_RightClick_Menu.Size = new System.Drawing.Size(176, 104);
+            this.Main_PlayList_RightClick_Menu.Size = new System.Drawing.Size(199, 128);
             this.Main_PlayList_RightClick_Menu.Opening += new System.ComponentModel.CancelEventHandler(this.Main_PlayList_RightClick_Menu_Opening);
             // 
             // Main_PlayList_RightClick_Delete_One
             // 
             this.Main_PlayList_RightClick_Delete_One.Name = "Main_PlayList_RightClick_Delete_One";
-            this.Main_PlayList_RightClick_Delete_One.Size = new System.Drawing.Size(175, 24);
+            this.Main_PlayList_RightClick_Delete_One.Size = new System.Drawing.Size(198, 24);
             this.Main_PlayList_RightClick_Delete_One.Text = "删除单首";
             this.Main_PlayList_RightClick_Delete_One.Click += new System.EventHandler(this.Main_PlayList_RightClick_Delete_One_Click);
+            // 
+            // Main_PlayList_RightClick_Export_MP3
+            // 
+            this.Main_PlayList_RightClick_Export_MP3.Name = "Main_PlayList_RightClick_Export_MP3";
+            this.Main_PlayList_RightClick_Export_MP3.Size = new System.Drawing.Size(198, 24);
+            this.Main_PlayList_RightClick_Export_MP3.Text = "导出当前MP3";
+            this.Main_PlayList_RightClick_Export_MP3.Click += new System.EventHandler(this.Main_File_Export_MP3_Click);
+            // 
+            // Main_PlayList_RightClick_Open_In_OSU
+            // 
+            this.Main_PlayList_RightClick_Open_In_OSU.Name = "Main_PlayList_RightClick_Open_In_OSU";
+            this.Main_PlayList_RightClick_Open_In_OSU.Size = new System.Drawing.Size(198, 24);
+            this.Main_PlayList_RightClick_Open_In_OSU.Text = "在OSU中打开";
+            this.Main_PlayList_RightClick_Open_In_OSU.Click += new System.EventHandler(this.Main_Jump_OSU_Click);
             // 
             // Main_Core_Panel
             // 
@@ -879,19 +883,12 @@ namespace OSUplayer
             this.Main_LanguageSelect.Text = "语言(&L)";
             this.Main_LanguageSelect.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             // 
-            // Main_PlayList_RightClick_Export_MP3
+            // Main_PlayList_RightClick_Copy_Current_Name
             // 
-            this.Main_PlayList_RightClick_Export_MP3.Name = "Main_PlayList_RightClick_Export_MP3";
-            this.Main_PlayList_RightClick_Export_MP3.Size = new System.Drawing.Size(175, 24);
-            this.Main_PlayList_RightClick_Export_MP3.Text = "导出当前MP3";
-            this.Main_PlayList_RightClick_Export_MP3.Click += new System.EventHandler(this.Main_File_Export_MP3_Click);
-            // 
-            // Main_PlayList_RightClick_Open_In_OSU
-            // 
-            this.Main_PlayList_RightClick_Open_In_OSU.Name = "Main_PlayList_RightClick_Open_In_OSU";
-            this.Main_PlayList_RightClick_Open_In_OSU.Size = new System.Drawing.Size(175, 24);
-            this.Main_PlayList_RightClick_Open_In_OSU.Text = "在OSU中打开";
-            this.Main_PlayList_RightClick_Open_In_OSU.Click += new System.EventHandler(this.Main_Jump_OSU_Click);
+            this.Main_PlayList_RightClick_Copy_Current_Name.Name = "Main_PlayList_RightClick_Copy_Current_Name";
+            this.Main_PlayList_RightClick_Copy_Current_Name.Size = new System.Drawing.Size(198, 24);
+            this.Main_PlayList_RightClick_Copy_Current_Name.Text = "复制当前歌曲名称";
+            this.Main_PlayList_RightClick_Copy_Current_Name.Click += new System.EventHandler(this.Main_PlayList_RightClick_Copy_Current_Name_Click);
             // 
             // Main
             // 
@@ -999,7 +996,6 @@ namespace OSUplayer
         private System.Windows.Forms.Timer SearchTimer;
         private Telerik.WinControls.UI.RadMenuSeparatorItem Main_File_SeparatorItem3;
         private Telerik.WinControls.UI.RadMenuItem Main_File_Export_MP3;
-        private Telerik.WinControls.UI.RadMenuItem Main_File_Import_Folder;
         private System.Windows.Forms.ContextMenuStrip Main_PlayList_RightClick_Menu;
         private System.Windows.Forms.ToolStripMenuItem Main_PlayList_RightClick_Delete_One;
         private Telerik.WinControls.UI.RadButton Main_Jump_OSU;
@@ -1014,6 +1010,7 @@ namespace OSUplayer
         private Telerik.WinControls.UI.RadMenuItem Main_Tool_Export_Playlist_MP3;
         private System.Windows.Forms.ToolStripMenuItem Main_PlayList_RightClick_Export_MP3;
         private System.Windows.Forms.ToolStripMenuItem Main_PlayList_RightClick_Open_In_OSU;
+        private System.Windows.Forms.ToolStripMenuItem Main_PlayList_RightClick_Copy_Current_Name;
 
 
     }

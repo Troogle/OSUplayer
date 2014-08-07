@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
@@ -58,6 +59,8 @@ namespace OSUplayer
         private void UpdateFormLanguage()
         {
             LanguageManager.ApplyLanguage(this);
+            Main_QQ_Hint_Label.Text = LanguageManager.Get("Main_QQ_Hint_Label_Text") + Settings.Default.QQuin;
+            Main_CurrentList.Text = LanguageManager.Get("Main_CurrentList_Text") + Core.CurrentListName;
         }
 
         private void TaskbarIconClickHandler(object sender, EventArgs e)
@@ -155,12 +158,9 @@ namespace OSUplayer
         private void Setscore()
         {
             Main_ScoreBox.Items.Clear();
-            foreach (ListViewDataItem item in Core.Getscore(Main_ScoreBox.Font))
+            foreach (var item in Core.Getscore(Main_ScoreBox.Font).Where(item => item != null))
             {
-                if (item != null)
-                {
-                    Main_ScoreBox.Items.Add(item);
-                }
+                Main_ScoreBox.Items.Add(item);
             }
         }
 
@@ -179,7 +179,6 @@ namespace OSUplayer
             Main_Option_Show_Popup.IsChecked = Settings.Default.ShowPopup;
             ((RadMenuItem)Main_Option_PlayMode.Items[Settings.Default.NextMode - 1]).IsChecked =
                 true;
-            Main_CurrentList.Text = "Current:" + Core.CurrentListName;
         }
 
         private void RefreshList(int select = 0)
@@ -351,10 +350,6 @@ namespace OSUplayer
             {
                 Visible = false;
             }
-        }
-
-        private void Main_File_Import_Folder_Click(object sender, EventArgs e)
-        {
         }
 
         private void Main_PlayList_RightClick_Menu_Opening(object sender, CancelEventArgs e)
@@ -595,7 +590,7 @@ namespace OSUplayer
             }
             //Visible = true;
             RefreshList();
-            Main_CurrentList.Text = "Current:" + Core.CurrentListName;
+            Main_CurrentList.Text = LanguageManager.Get("Main_CurrentList_Text") + Core.CurrentListName;
         }
 
         private void Main_Volume_Fx_TrackBar_Scroll(object sender, ScrollEventArgs e)
@@ -804,6 +799,12 @@ namespace OSUplayer
             {
                 Core.Allsets[song].SaveAudios(dialog.SelectedPath);
             }
+            NotifySystem.Showtip(1000, LanguageManager.Get("OSUplayer"), LanguageManager.Get("Save_Complete"));
+        }
+
+        private void Main_PlayList_RightClick_Copy_Current_Name_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetDataObject(Core.TmpSet.ToString());
         }
     }
 }
