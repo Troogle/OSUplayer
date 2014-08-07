@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Windows.Forms;
 namespace OSUplayer.OsuFiles
 {
@@ -273,7 +275,7 @@ namespace OSUplayer.OsuFiles
                 location = tmpbm.Location;
                 name = String.Format("{0} - {1}", tmpbm.Artist, tmpbm.Title);
                 setid = tmpbm.BeatmapsetID;
-                tags = tmpbm.tags;
+                tags = tmpbm.Tags;
                 tags += " " + tmpbm.ArtistRomanized;
                 tags += " " + tmpbm.TitleRomanized;
                 tags += " " + tmpbm.Creator;
@@ -321,6 +323,28 @@ namespace OSUplayer.OsuFiles
             }
             if (tmpbm.beatmapsetId == setid) { return true; }
             return false;*/
+        }
+
+        public void SaveAudios(string toLocation)
+        {
+            foreach (var map in Diffs.Distinct(new MapAudioComparer()))
+            {
+                map.SaveAudio(toLocation);
+            }
+        }
+    }
+    public class MapAudioComparer : IEqualityComparer<Beatmap>
+    {
+        public bool Equals(Beatmap x, Beatmap y)
+        {
+            if (x == null)
+                return y == null;
+            return x.Audio == y.Audio;
+        }
+
+        public int GetHashCode(Beatmap obj)
+        {
+            return obj.Audio.GetHashCode();
         }
     }
 }

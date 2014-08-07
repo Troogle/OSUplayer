@@ -358,7 +358,7 @@ namespace OSUplayer
         public static bool SetMap(int vaule, bool p = false)
         {
             tmpmap = vaule;
-            if (!TmpBeatmap.detailed)
+            if (!TmpBeatmap.Detailed)
             {
                 TmpBeatmap.GetDetail();
             }
@@ -412,7 +412,7 @@ namespace OSUplayer
             {
                 CurrentSet.GetDetail();
             }
-            if (!CurrentBeatmap.detailed)
+            if (!CurrentBeatmap.Detailed)
             {
                 CurrentBeatmap.GetDetail();
             }

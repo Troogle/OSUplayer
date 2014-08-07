@@ -7,9 +7,8 @@ namespace OSUplayer.OsuFiles
     [Serializable]
     public class Beatmap : IComparable<Beatmap>
     {
-        private string osb;
+        private string _osb;
         private string[] Rawdata = new string[(int)OSUfile.OSUfilecount];
-        private string backgroundOffset = "";
         //diff-wide storyboard
         [NonSerialized]
         public StoryBoard.StoryBoard SB;
@@ -17,14 +16,14 @@ namespace OSUplayer.OsuFiles
         public int Offset { get; set; }
         public string Location { get; set; }
         public string Name { get; set; }
-        public string Path { get; set; }
-        public bool haveSB { get; private set; }
-        public bool haveVideo { get; private set; }
+        public string Path { get; private set; }
+        public bool HaveSB { get; private set; }
+        public bool HaveVideo { get; private set; }
         public string Background { get; set; }
         public string Video { get; private set; }
         public int VideoOffset { get; private set; }
         [NonSerialized]
-        public bool detailed = false;
+        public bool Detailed = false;
         [NonSerialized]
         public List<Timing> Timingpoints;
         [NonSerialized]
@@ -41,33 +40,15 @@ namespace OSUplayer.OsuFiles
         {
             get
             {
-                if (Rawdata[(int)OSUfile.PreviewTime] != null)
-                {
-                    return Convert.ToInt32(Rawdata[(int)OSUfile.PreviewTime]);
-                }
-                else
-                {
-                    return 0;
-                }
+                return Rawdata[(int)OSUfile.PreviewTime] != null ? Convert.ToInt32(Rawdata[(int)OSUfile.PreviewTime]) : 0;
             }
         }
         public string SampleSet
         {
             get
             {
-                if (Rawdata[(int)OSUfile.SampleSet] != null)
-                {
-                    return Rawdata[(int)OSUfile.SampleSet];
-                }
-                else
-                {
-                    return "Normal";
-                }
+                return Rawdata[(int)OSUfile.SampleSet] ?? "Normal";
             }
-        }
-        public int mode
-        {
-            set { Rawdata[(int)OSUfile.Mode] = value.ToString(); }
         }
         public Modes Mode
         {
@@ -82,19 +63,16 @@ namespace OSUplayer.OsuFiles
                     return Modes.Osu;
                 }
             }
+            set
+            {
+                Rawdata[(int)OSUfile.Mode] = value.ToString();
+            }
         }
         public string Artist
         {
             get
             {
-                if (Rawdata[(int)OSUfile.ArtistUnicode] != null)
-                {
-                    return Rawdata[(int)OSUfile.ArtistUnicode];
-                }
-                else
-                {
-                    return (Rawdata[(int)OSUfile.Artist]);
-                }
+                return Rawdata[(int)OSUfile.ArtistUnicode] ?? (Rawdata[(int)OSUfile.Artist]);
             }
             set
             { Rawdata[(int)OSUfile.ArtistUnicode] = value; }
@@ -103,14 +81,7 @@ namespace OSUplayer.OsuFiles
         {
             get
             {
-                if (Rawdata[(int)OSUfile.Artist] != null)
-                {
-                    return Rawdata[(int)OSUfile.Artist];
-                }
-                else
-                {
-                    return "<unknown artist>";
-                }
+                return Rawdata[(int)OSUfile.Artist] ?? "<unknown artist>";
             }
             set
             {
@@ -121,14 +92,7 @@ namespace OSUplayer.OsuFiles
         {
             get
             {
-                if (Rawdata[(int)OSUfile.TitleUnicode] != null)
-                {
-                    return Rawdata[(int)OSUfile.TitleUnicode];
-                }
-                else
-                {
-                    return (TitleRomanized);
-                }
+                return Rawdata[(int)OSUfile.TitleUnicode] ?? (TitleRomanized);
             }
             set
             {
@@ -139,14 +103,7 @@ namespace OSUplayer.OsuFiles
         {
             get
             {
-                if (Rawdata[(int)OSUfile.Title] != null)
-                {
-                    return Rawdata[(int)OSUfile.Title];
-                }
-                else
-                {
-                    return "<unknown title>";
-                }
+                return Rawdata[(int)OSUfile.Title] ?? "<unknown title>";
             }
             set
             {
@@ -154,20 +111,13 @@ namespace OSUplayer.OsuFiles
             }
         }
         public string Creator { get { return Rawdata[(int)OSUfile.Creator]; } set { Rawdata[(int)OSUfile.Creator] = value; } }
-        public string tags { get { return Rawdata[(int)OSUfile.Tags]; } set { Rawdata[(int)OSUfile.Tags] = value; } }
+        public string Tags { get { return Rawdata[(int)OSUfile.Tags]; } set { Rawdata[(int)OSUfile.Tags] = value; } }
         public string Version { get { return Rawdata[(int)OSUfile.Version]; } set { Rawdata[(int)OSUfile.Version] = value; } }
         public string Source
         {
             get
             {
-                if (Rawdata[(int)OSUfile.Source] != null)
-                {
-                    return Rawdata[(int)OSUfile.Source];
-                }
-                else
-                {
-                    return "<unknown source>";
-                }
+                return Rawdata[(int)OSUfile.Source] ?? "<unknown source>";
             }
             set { Rawdata[(int)OSUfile.Source] = value; }
         }
@@ -175,14 +125,7 @@ namespace OSUplayer.OsuFiles
         {
             get
             {
-                if (Rawdata[(int)OSUfile.BeatmapID] != null)
-                {
-                    return Convert.ToInt32(Rawdata[(int)OSUfile.BeatmapID]);
-                }
-                else
-                {
-                    return 0;
-                }
+                return Rawdata[(int)OSUfile.BeatmapID] != null ? Convert.ToInt32(Rawdata[(int)OSUfile.BeatmapID]) : 0;
             }
             set { Rawdata[(int)OSUfile.BeatmapID] = value.ToString(); }
         }
@@ -190,50 +133,51 @@ namespace OSUplayer.OsuFiles
         {
             get
             {
-                if (Rawdata[(int)OSUfile.BeatmapSetID] != null)
-                {
-                    return Convert.ToInt32(Rawdata[(int)OSUfile.BeatmapSetID]);
-                }
-                else
-                {
-                    return -1;
-                }
+                return Rawdata[(int)OSUfile.BeatmapSetID] != null
+                    ? Convert.ToInt32(Rawdata[(int)OSUfile.BeatmapSetID])
+                    : -1;
             }
             set { Rawdata[(int)OSUfile.BeatmapSetID] = value.ToString(); }
         }
         public double HPDrainRate
         {
-            get {
+            get
+            {
                 return Rawdata[(int)OSUfile.HPDrainRate] != null ? Convert.ToDouble(Rawdata[(int)OSUfile.HPDrainRate]) : 5;
             }
         }
         public double CircleSize
         {
-            get {
+            get
+            {
                 return Rawdata[(int)OSUfile.CircleSize] != null ? Convert.ToDouble(Rawdata[(int)OSUfile.CircleSize]) : 5;
             }
         }
         public double OverallDifficulty
         {
-            get {
+            get
+            {
                 return Rawdata[(int)OSUfile.OverallDifficulty] != null ? Convert.ToDouble(Rawdata[(int)OSUfile.OverallDifficulty]) : 5;
             }
         }
         public double ApproachRate
         {
-            get {
+            get
+            {
                 return Rawdata[(int)OSUfile.ApproachRate] != null ? Convert.ToDouble(Rawdata[(int)OSUfile.ApproachRate]) : OverallDifficulty;
             }
         }
         public double SliderMultiplier
         {
-            get {
+            get
+            {
                 return Rawdata[(int)OSUfile.SliderMultiplier] != null ? Convert.ToDouble(Rawdata[(int)OSUfile.SliderMultiplier]) : 1;
             }
         }
         public double SliderTickRate
         {
-            get {
+            get
+            {
                 return Rawdata[(int)OSUfile.SliderTickRate] != null ? Convert.ToDouble(Rawdata[(int)OSUfile.SliderTickRate]) : 1;
             }
         }
@@ -255,7 +199,7 @@ namespace OSUplayer.OsuFiles
         }
         private static ObjectFlag Check(string op)
         {
-            int tmp = Convert.ToInt32(op);
+            var tmp = Convert.ToInt32(op);
             if (((tmp >> 0) & 1) == 1)
             {
                 return ObjectFlag.Normal;
@@ -272,7 +216,7 @@ namespace OSUplayer.OsuFiles
         }
         private static HitObject Setobject(string row)
         {
-            HitObject NHit = new HitObject();
+            var NHit = new HitObject();
             string tmpop = "";
             NHit.x = Convert.ToInt32(Picknext(ref row));
             NHit.y = Convert.ToInt32(Picknext(ref row));
@@ -426,7 +370,7 @@ namespace OSUplayer.OsuFiles
         }
         private static Timing Settiming(string row)
         {
-            Timing Ntiming = new Timing();
+            var Ntiming = new Timing();
             string tmpop = "";
             Ntiming.offset = (int)(Convert.ToDouble(Picknext(ref row)));
             Ntiming.bpm = Convert.ToDouble(Picknext(ref row));
@@ -470,7 +414,7 @@ namespace OSUplayer.OsuFiles
         }
         public void Setsb(string osbF)
         {
-            osb = osbF;
+            _osb = osbF;
         }
         public void GetDetail()
         {
@@ -479,7 +423,7 @@ namespace OSUplayer.OsuFiles
             {
                 Timingpoints = new List<Timing>();
                 HitObjects = new List<HitObject>();
-                detailed = true;
+                Detailed = true;
                 return;
             }
             var position = OsuFileScanStatus.VERSION_UNKNOWN;
@@ -518,20 +462,19 @@ namespace OSUplayer.OsuFiles
                                     string str = row.Substring(5, row.Length - 6);
                                     if (str.Contains("\""))
                                     {
-                                        backgroundOffset = str.Substring(str.IndexOf("\"") + 2);
                                         str = str.Substring(0, str.IndexOf("\""));
                                     }
                                     Background = System.IO.Path.Combine(Location, str);
                                 }
                                 else if (row.StartsWith("1,") || row.StartsWith("Video"))
                                 {
-                                    haveVideo = true;
+                                    HaveVideo = true;
                                     string[] vdata = row.Split(new char[] { ',' });
                                     VideoOffset = Convert.ToInt32(vdata[1]);
                                     Video = System.IO.Path.Combine(Location, vdata[2].Substring(1, vdata[2].Length - 2));
                                 }
                                 else if (row.StartsWith("3,") || row.StartsWith("2,")) { break; }
-                                else { haveSB = true; }
+                                else { HaveSB = true; }
                                 break;
                             case OsuFileScanStatus.TIMINGPOINTS:
                                 Timingpoints.Add(Settiming(row));
@@ -542,8 +485,8 @@ namespace OSUplayer.OsuFiles
                         }
                     }
                 }
-                if (osb != null) { haveSB = true; }
-                detailed = true;
+                if (_osb != null) { HaveSB = true; }
+                Detailed = true;
             }
             catch (SystemException e)
             {
@@ -553,16 +496,16 @@ namespace OSUplayer.OsuFiles
         }
         public void Getsb()
         {
-            if (haveSB)
+            if (HaveSB)
             {
-                SB = new StoryBoard.StoryBoard(Path, osb, Location);
+                SB = new StoryBoard.StoryBoard(Path, _osb, Location);
             }
         }
         public Beatmap()
         {
             Background = "";
-            haveSB = false;
-            haveVideo = false;
+            HaveSB = false;
+            HaveVideo = false;
         }
         public Beatmap(string path, string location)
         {
@@ -609,6 +552,12 @@ namespace OSUplayer.OsuFiles
             }
             Hash = strHashData.ToLower();
             return Hash;
+        }
+
+        public void SaveAudio(string toLocation)
+        {
+            var ext = System.IO.Path.GetExtension(Rawdata[(int)OSUfile.AudioFilename]);
+            File.Copy(Audio, System.IO.Path.Combine(toLocation, Title + ext), true);
         }
     }
 }

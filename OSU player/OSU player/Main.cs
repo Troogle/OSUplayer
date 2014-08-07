@@ -490,7 +490,7 @@ namespace OSUplayer
                 FileName = new FileInfo(Core.CurrentBeatmap.Background).Name,
                 DefaultExt = new FileInfo(Core.CurrentBeatmap.Background).Extension,
                 Filter = @"All files (*.*)|*.*",
-                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+                //InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
             };
             if (DialogResult.OK == dialog.ShowDialog())
             {
@@ -506,10 +506,10 @@ namespace OSUplayer
                 CreatePrompt = false,
                 AddExtension = true,
                 OverwritePrompt = true,
-                FileName = new FileInfo(Core.CurrentBeatmap.Audio).Name,
+                FileName = Core.CurrentBeatmap.Title,
                 DefaultExt = new FileInfo(Core.CurrentBeatmap.Audio).Extension,
                 Filter = @"All files (*.*)|*.*",
-                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+               // InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
             };
             if (DialogResult.OK == dialog.ShowDialog())
             {
@@ -587,8 +587,8 @@ namespace OSUplayer
             using (var dialog = new ChooseColl())
             {
                 var center = this.Location;
-                center.X = center.X+this.Width/2-dialog.Width/2;
-                center.Y = center.Y+this.Height/2-dialog.Height/2;
+                center.X = center.X + this.Width / 2 - dialog.Width / 2;
+                center.Y = center.Y + this.Height / 2 - dialog.Height / 2;
                 dialog.StartPosition = FormStartPosition.Manual;
                 dialog.Location = center;
                 dialog.ShowDialog();
@@ -788,6 +788,21 @@ namespace OSUplayer
             else
             {
                 e.Item = new ListViewItem();
+            }
+        }
+
+        private void Main_Tool_Export_Playlist_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Main_Tool_Export_Playlist_MP3_Click(object sender, EventArgs e)
+        {
+            var dialog = new FolderBrowserDialog();
+            if (DialogResult.OK != dialog.ShowDialog()) return;
+            foreach (var song in Core.PlayList)
+            {
+                Core.Allsets[song].SaveAudios(dialog.SelectedPath);
             }
         }
     }

@@ -445,8 +445,8 @@ namespace OSUplayer.Graphic
             if (Playfx) { Initfx(); _fxpos = 0; }
             uniAudio.UpdateTimer.Tick += AVsync;
             _videoExist = false; _sbExist = false;
-            if (Map.haveVideo && Playvideo && File.Exists(Map.Video)) { Initvideo(); }
-            if (Map.haveSB && Playsb) { InitSB(); }
+            if (Map.HaveVideo && Playvideo && File.Exists(Map.Video)) { Initvideo(); }
+            if (Map.HaveSB && Playsb) { InitSB(); }
             uniAudio.Play(Allvolume * Musicvolume);
         }
         public void Pause()

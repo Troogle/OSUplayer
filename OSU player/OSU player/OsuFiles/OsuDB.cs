@@ -256,9 +256,9 @@ namespace OSUplayer.OsuFiles
                     reader.ReadByte(); //Ranking mania
                     tmpbm.Offset = reader.ReadInt16();
                     reader.ReadSingle(); //stack
-                    tmpbm.mode = reader.ReadByte();
+                    tmpbm.Mode = (Modes)reader.ReadByte();
                     tmpbm.Source = reader.ReadString();
-                    tmpbm.tags = reader.ReadString();
+                    tmpbm.Tags = reader.ReadString();
                     stash = reader.ReadInt16(); //online-offset
                     if (tmpbm.Offset == 0 && stash != 0)
                     {
