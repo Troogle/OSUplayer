@@ -286,16 +286,14 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Lang\en.txt" />
-    <EmbeddedResource Include="Lang\zh-CN.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Res\Troogle.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Lang\zh-TW.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Lang\Template.txt" />
+    <EmbeddedResource Include="Lang\zh-CHS.txt" />
+    <EmbeddedResource Include="Lang\zh-CHT.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
