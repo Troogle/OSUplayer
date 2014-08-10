@@ -51,6 +51,15 @@ Main_Volume_Hint_Label_Text=音量
 Main_PageView_Page1_Text=Map信息
 Main_ListDetail_Key_Text=Key
 Main_ListDetail_Value_Text=Value
+Main_ListDetail_Title=歌曲名称
+Main_ListDetail_Artist=歌手
+Main_ListDetail_Mapper=作者
+Main_ListDetail_Source=来源
+Main_ListDetail_Mode=模式
+Main_ListDetail_WAVPath=音频文件名称
+Main_ListDetail_BGPath=背景文件名称
+Main_ListDetail_VideoPath=视频文件名称
+Main_ListDetail_FileVersion=OSU文件版本
 Main_PageView_Page2_Text=成绩信息
 Main_PageView_Page3_Text=Diff信息
 

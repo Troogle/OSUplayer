@@ -8,6 +8,7 @@ namespace OSUplayer.Uilties
         public ChooseColl()
         {
             InitializeComponent();
+            LanguageManager.ApplyLanguage(this);
         }
         private void ChooseColl_CollectionTitle_List_SelectedIndexChanged(object sender, EventArgs e)
         {

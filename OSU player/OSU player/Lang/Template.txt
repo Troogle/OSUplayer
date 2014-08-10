@@ -51,6 +51,15 @@ Main_Volume_Hint_Label_Text=
 Main_PageView_Page1_Text=
 Main_ListDetail_Key_Text=
 Main_ListDetail_Value_Text=
+Main_ListDetail_Title=
+Main_ListDetail_Artist=
+Main_ListDetail_Mapper=
+Main_ListDetail_Source=
+Main_ListDetail_Mode=
+Main_ListDetail_WAVPath=
+Main_ListDetail_BGPath=
+Main_ListDetail_VideoPath=
+Main_ListDetail_FileVersion=
 Main_PageView_Page2_Text=
 Main_PageView_Page3_Text=
 

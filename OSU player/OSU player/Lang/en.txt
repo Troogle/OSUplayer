@@ -51,6 +51,15 @@ Main_Volume_Hint_Label_Text=Vol
 Main_PageView_Page1_Text=Info
 Main_ListDetail_Key_Text=Key
 Main_ListDetail_Value_Text=Value
+Main_ListDetail_Title=Title
+Main_ListDetail_Artist=Artist
+Main_ListDetail_Mapper=Mapper
+Main_ListDetail_Source=Source
+Main_ListDetail_Mode=Mode
+Main_ListDetail_WAVPath=WAVPath
+Main_ListDetail_BGPath=BGPath
+Main_ListDetail_VideoPath=VideoPath
+Main_ListDetail_FileVersion=OSUFileVersion
 Main_PageView_Page2_Text=Result
 Main_PageView_Page3_Text=Difficulty
 

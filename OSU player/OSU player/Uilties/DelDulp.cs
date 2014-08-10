@@ -16,6 +16,7 @@ namespace OSUplayer.Uilties
         public DelDulp()
         {
             InitializeComponent();
+            LanguageManager.ApplyLanguage(this);
         }
         private List<Beatmap> tmpbms = new List<Beatmap>();
         private Dictionary<string, List<int>> dul = new Dictionary<string, List<int>>();

@@ -65,7 +65,7 @@
             // ChooseColl_PlayListCurrentCount
             // 
             this.ChooseColl_PlayListCurrentCount.AutoSize = true;
-            this.ChooseColl_PlayListCurrentCount.Location = new System.Drawing.Point(207, 9);
+            this.ChooseColl_PlayListCurrentCount.Location = new System.Drawing.Point(187, 9);
             this.ChooseColl_PlayListCurrentCount.Name = "ChooseColl_PlayListCurrentCount";
             this.ChooseColl_PlayListCurrentCount.Size = new System.Drawing.Size(149, 19);
             this.ChooseColl_PlayListCurrentCount.TabIndex = 4;

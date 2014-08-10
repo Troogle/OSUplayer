@@ -515,39 +515,39 @@ namespace OSUplayer
         public static ListViewItem[] Getdetail()
         {
             var detail = new ListViewItem[16];
-            detail[0] = new ListViewItem("歌曲名称");
+            detail[0] = new ListViewItem(LanguageManager.Get("Main_ListDetail_Title"));
             detail[0].SubItems.Add(TmpBeatmap.Title);
-            detail[1] = new ListViewItem("歌手");
+            detail[1] = new ListViewItem(LanguageManager.Get("Main_ListDetail_Artist"));
             detail[1].SubItems.Add(TmpBeatmap.Artist);
-            detail[2] = new ListViewItem("作者");
+            detail[2] = new ListViewItem(LanguageManager.Get("Main_ListDetail_Mapper"));
             detail[2].SubItems.Add(TmpBeatmap.Creator);
-            detail[3] = new ListViewItem("来源");
+            detail[3] = new ListViewItem(LanguageManager.Get("Main_ListDetail_Source"));
             detail[3].SubItems.Add(TmpBeatmap.Source);
-            detail[4] = new ListViewItem("模式");
+            detail[4] = new ListViewItem(LanguageManager.Get("Main_ListDetail_Mode"));
             detail[4].SubItems.Add(Enum.GetName(typeof(Modes), TmpBeatmap.Mode));
             detail[5] = new ListViewItem("SetID");
             detail[5].SubItems.Add(TmpBeatmap.BeatmapsetID.ToString());
             detail[6] = new ListViewItem("ID");
             detail[6].SubItems.Add(TmpBeatmap.BeatmapID.ToString());
-            detail[7] = new ListViewItem("音频文件名称");
+            detail[7] = new ListViewItem(LanguageManager.Get("Main_ListDetail_WAVPath"));
             detail[7].SubItems.Add(TmpBeatmap.Audio);
             if (!File.Exists(TmpBeatmap.Audio))
             {
                 detail[7].ForeColor = Color.Red;
             }
-            detail[8] = new ListViewItem("背景文件名称");
+            detail[8] = new ListViewItem(LanguageManager.Get("Main_ListDetail_BGPath"));
             detail[8].SubItems.Add(TmpBeatmap.Background);
             if (!File.Exists(TmpBeatmap.Background))
             {
                 detail[8].ForeColor = Color.Red;
             }
-            detail[9] = new ListViewItem("视频文件名称");
+            detail[9] = new ListViewItem(LanguageManager.Get("Main_ListDetail_VideoPath"));
             detail[9].SubItems.Add(TmpBeatmap.Video);
             if (!String.IsNullOrEmpty(TmpBeatmap.Video) && !File.Exists(TmpBeatmap.Video))
             {
                 detail[9].ForeColor = Color.Red;
             }
-            detail[10] = new ListViewItem("OSU文件版本");
+            detail[10] = new ListViewItem(LanguageManager.Get("Main_ListDetail_FileVersion"));
             detail[10].SubItems.Add(TmpBeatmap.FileVersion);
             detail[11] = new ListViewItem("HP");
             detail[11].SubItems.Add(TmpBeatmap.HPDrainRate.ToString());
@@ -557,7 +557,7 @@ namespace OSUplayer
             detail[13].SubItems.Add(TmpBeatmap.OverallDifficulty.ToString());
             detail[14] = new ListViewItem("AR");
             detail[14].SubItems.Add(TmpBeatmap.ApproachRate.ToString());
-            detail[15] = new ListViewItem("md5");
+            detail[15] = new ListViewItem("MD5");
             detail[15].SubItems.Add(TmpBeatmap.GetHash());
             return detail;
         }
