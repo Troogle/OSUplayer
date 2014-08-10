@@ -74,11 +74,10 @@
             this.About_Content.Font = new System.Drawing.Font("微软雅黑", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.About_Content.Location = new System.Drawing.Point(216, 4);
             this.About_Content.Name = "About_Content";
-            this.About_Content.Size = new System.Drawing.Size(300, 220);
+            this.About_Content.Size = new System.Drawing.Size(300, 208);
             this.About_Content.TabIndex = 3;
-            this.About_Content.Text = "OSU Player Ver {0}\r\nDeveloped By Troogle\r\n\r\nThanks for initial testing:\r\n[-Lucario" +
-    "-],[-Crystal-],[-AZUSA-]\r\n[-Baidu-],ts8zs,N a n a m i\r\nSpecial Thanks:\r\nWeiren,M" +
-    "uscipular\r\n\r\nAND YOU!\r\nThx for using~";
+            this.About_Content.Text = "OSU Player Ver {0}\r\nDeveloped By Troogle\r\n\r\nThanks for bugs fixing and develpoing" +
+    ":\r\nchrisyan,JiXun\r\n\r\nSpecial Thanks:\r\nWeiren,Muscipular\r\n\r\nThx for using~";
             // 
             // About
             // 
@@ -89,6 +88,7 @@
             this.Controls.Add(this.About_Profile_Hint);
             this.Controls.Add(this.About_Program_Link);
             this.Controls.Add(this.About_PictureBox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "About";
             // 
