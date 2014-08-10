@@ -26,6 +26,11 @@ namespace OSUplayer
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            gTrackBar.ColorPack colorPack1 = new gTrackBar.ColorPack();
+            gTrackBar.ColorPack colorPack2 = new gTrackBar.ColorPack();
+            gTrackBar.ColorPack colorPack3 = new gTrackBar.ColorPack();
+            gTrackBar.ColorLinearGradient colorLinearGradient1 = new gTrackBar.ColorLinearGradient();
+            gTrackBar.ColorLinearGradient colorLinearGradient2 = new gTrackBar.ColorLinearGradient();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.Main_File_Menu = new Telerik.WinControls.UI.RadMenuItem();
             this.Main_File_Run_OSU = new Telerik.WinControls.UI.RadMenuItem();
@@ -61,6 +66,8 @@ namespace OSUplayer
             this.Main_Panel = new System.Windows.Forms.Panel();
             this.Main_CurrentList = new System.Windows.Forms.Label();
             this.Main_Search_Box = new Telerik.WinControls.UI.RadTextBox();
+            this.Main_PlayList = new OSUplayer.DBListView();
+            this.Main_PlayList_Name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Main_PlayList_RightClick_Menu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.Main_PlayList_RightClick_Copy_Current_Name = new System.Windows.Forms.ToolStripMenuItem();
             this.Main_PlayList_RightClick_Delete_One = new System.Windows.Forms.ToolStripMenuItem();
@@ -68,13 +75,13 @@ namespace OSUplayer
             this.Main_PlayList_RightClick_Open_In_OSU = new System.Windows.Forms.ToolStripMenuItem();
             this.Main_Core_Panel = new System.Windows.Forms.Panel();
             this.Main_Jump_OSU = new Telerik.WinControls.UI.RadButton();
-            this.Main_Volume_TrackBar = new Telerik.WinControls.UI.RadTrackBar();
-            this.Main_Time_Trackbar = new Telerik.WinControls.UI.RadTrackBar();
+            this.Main_Volume_TrackBar = new gTrackBar.gTrackBar();
+            this.Main_Time_Trackbar = new gTrackBar.gTrackBar();
             this.Main_Mini_Switcher = new Telerik.WinControls.UI.RadButton();
             this.Main_Time_Display = new System.Windows.Forms.Label();
-            this.Main_Volume_Music_TrackBar = new Telerik.WinControls.UI.RadTrackBar();
+            this.Main_Volume_Music_TrackBar = new gTrackBar.gTrackBar();
             this.Main_Main_Display = new System.Windows.Forms.Panel();
-            this.Main_Volume_Fx_TrackBar = new Telerik.WinControls.UI.RadTrackBar();
+            this.Main_Volume_Fx_TrackBar = new gTrackBar.gTrackBar();
             this.Main_Fx_Hint_Label = new System.Windows.Forms.Label();
             this.Main_Music_Hint_Label = new System.Windows.Forms.Label();
             this.Main_Volume_Hint_Label = new System.Windows.Forms.Label();
@@ -97,18 +104,12 @@ namespace OSUplayer
             this.SearchTimer = new System.Windows.Forms.Timer(this.components);
             this.Main_MenuStrip = new Telerik.WinControls.UI.RadMenu();
             this.Main_LanguageSelect = new Telerik.WinControls.UI.RadMenuItem();
-            this.Main_PlayList = new OSUplayer.DBListView();
-            this.Main_PlayList_Name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Main_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Main_Search_Box)).BeginInit();
             this.Main_PlayList_RightClick_Menu.SuspendLayout();
             this.Main_Core_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Main_Jump_OSU)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Main_Volume_TrackBar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Main_Time_Trackbar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Main_Mini_Switcher)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Main_Volume_Music_TrackBar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Main_Volume_Fx_TrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Main_PlayNext)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Main_Stop)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Main_Play)).BeginInit();
@@ -469,6 +470,34 @@ namespace OSUplayer
             this.Main_Search_Box.TabStop = false;
             this.Main_Search_Box.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Main_Search_Box_KeyPress);
             // 
+            // Main_PlayList
+            // 
+            this.Main_PlayList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Main_PlayList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.Main_PlayList_Name});
+            this.Main_PlayList.ContextMenuStrip = this.Main_PlayList_RightClick_Menu;
+            this.Main_PlayList.FullRowSelect = true;
+            this.Main_PlayList.GridLines = true;
+            this.Main_PlayList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.Main_PlayList.HideSelection = false;
+            this.Main_PlayList.Location = new System.Drawing.Point(532, 55);
+            this.Main_PlayList.MultiSelect = false;
+            this.Main_PlayList.Name = "Main_PlayList";
+            this.Main_PlayList.Size = new System.Drawing.Size(344, 593);
+            this.Main_PlayList.TabIndex = 24;
+            this.Main_PlayList.UseCompatibleStateImageBehavior = false;
+            this.Main_PlayList.View = System.Windows.Forms.View.Details;
+            this.Main_PlayList.VirtualMode = true;
+            this.Main_PlayList.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.Main_PlayList_RetrieveVirtualItem);
+            this.Main_PlayList.SelectedIndexChanged += new System.EventHandler(this.Main_PlayList_SelectedIndexChanged);
+            this.Main_PlayList.DoubleClick += new System.EventHandler(this.Main_PlayList_DoubleClick);
+            // 
+            // Main_PlayList_Name
+            // 
+            this.Main_PlayList_Name.Text = "";
+            this.Main_PlayList_Name.Width = 500;
+            // 
             // Main_PlayList_RightClick_Menu
             // 
             this.Main_PlayList_RightClick_Menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -547,32 +576,77 @@ namespace OSUplayer
             // 
             this.Main_Volume_TrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.Main_Volume_TrackBar.BackColor = System.Drawing.Color.Transparent;
+            colorPack1.Border = System.Drawing.Color.SlateGray;
+            colorPack1.Face = System.Drawing.Color.LightSteelBlue;
+            colorPack1.Highlight = System.Drawing.Color.AliceBlue;
+            this.Main_Volume_TrackBar.ColorDown = colorPack1;
+            colorPack2.Border = System.Drawing.Color.SlateGray;
+            colorPack2.Face = System.Drawing.Color.GhostWhite;
+            colorPack2.Highlight = System.Drawing.Color.White;
+            this.Main_Volume_TrackBar.ColorHover = colorPack2;
+            colorPack3.Border = System.Drawing.Color.SlateGray;
+            colorPack3.Face = System.Drawing.Color.Lavender;
+            colorPack3.Highlight = System.Drawing.Color.AliceBlue;
+            this.Main_Volume_TrackBar.ColorUp = colorPack3;
+            this.Main_Volume_TrackBar.FloatValue = false;
+            this.Main_Volume_TrackBar.JumpToMouse = true;
+            this.Main_Volume_TrackBar.Label = null;
             this.Main_Volume_TrackBar.Location = new System.Drawing.Point(494, 32);
-            this.Main_Volume_TrackBar.Maximum = 100;
+            this.Main_Volume_TrackBar.MaxValue = 100;
             this.Main_Volume_TrackBar.Name = "Main_Volume_TrackBar";
             this.Main_Volume_TrackBar.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.Main_Volume_TrackBar.ShowTicks = false;
             this.Main_Volume_TrackBar.Size = new System.Drawing.Size(28, 339);
+            colorLinearGradient1.ColorA = System.Drawing.Color.LightGray;
+            colorLinearGradient1.ColorB = System.Drawing.Color.LightGray;
+            this.Main_Volume_TrackBar.SliderColorHigh = colorLinearGradient1;
+            colorLinearGradient2.ColorA = System.Drawing.Color.DimGray;
+            colorLinearGradient2.ColorB = System.Drawing.Color.DimGray;
+            this.Main_Volume_TrackBar.SliderColorLow = colorLinearGradient2;
+            this.Main_Volume_TrackBar.SliderShape = gTrackBar.gTrackBar.eShape.ArrowRight;
+            this.Main_Volume_TrackBar.SliderSize = new System.Drawing.Size(10, 20);
+            this.Main_Volume_TrackBar.SliderWidthHigh = 2F;
+            this.Main_Volume_TrackBar.SliderWidthLow = 2F;
             this.Main_Volume_TrackBar.TabIndex = 0;
-            this.Main_Volume_TrackBar.Text = "radTrackBar1";
-            this.Main_Volume_TrackBar.TickStyle = Telerik.WinControls.Enumerations.TickStyles.None;
-            this.Main_Volume_TrackBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.Main_Volume_TrackBar_Scroll);
+            this.Main_Volume_TrackBar.TickThickness = 1F;
+            this.Main_Volume_TrackBar.UpDownShow = false;
+            this.Main_Volume_TrackBar.Value = 0;
+            this.Main_Volume_TrackBar.ValueAdjusted = 0F;
+            this.Main_Volume_TrackBar.ValueDivisor = gTrackBar.gTrackBar.eValueDivisor.e1;
+            this.Main_Volume_TrackBar.ValueStrFormat = null;
+            this.Main_Volume_TrackBar.ValueChanged += new gTrackBar.gTrackBar.ValueChangedEventHandler(this.Main_Volume_TrackBar_ValueChanged);
             // 
             // Main_Time_Trackbar
             // 
             this.Main_Time_Trackbar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.Main_Time_Trackbar.BackColor = System.Drawing.Color.Transparent;
+            this.Main_Time_Trackbar.ColorDown = colorPack1;
+            this.Main_Time_Trackbar.ColorHover = colorPack2;
+            this.Main_Time_Trackbar.ColorUp = colorPack3;
             this.Main_Time_Trackbar.Enabled = false;
+            this.Main_Time_Trackbar.FloatValue = false;
+            this.Main_Time_Trackbar.JumpToMouse = true;
+            this.Main_Time_Trackbar.Label = null;
             this.Main_Time_Trackbar.Location = new System.Drawing.Point(181, 401);
             this.Main_Time_Trackbar.Name = "Main_Time_Trackbar";
-            this.Main_Time_Trackbar.ShowTicks = false;
             this.Main_Time_Trackbar.Size = new System.Drawing.Size(308, 17);
+            this.Main_Time_Trackbar.SliderColorHigh = colorLinearGradient1;
+            this.Main_Time_Trackbar.SliderColorLow = colorLinearGradient2;
+            this.Main_Time_Trackbar.SliderShape = gTrackBar.gTrackBar.eShape.ArrowDown;
+            this.Main_Time_Trackbar.SliderWidthHigh = 3F;
+            this.Main_Time_Trackbar.SliderWidthLow = 3F;
             this.Main_Time_Trackbar.TabIndex = 0;
-            this.Main_Time_Trackbar.Text = "radTrackBar1";
-            this.Main_Time_Trackbar.TickStyle = Telerik.WinControls.Enumerations.TickStyles.None;
-            this.Main_Time_Trackbar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.Main_Time_Trackbar_Scroll);
-            ((Telerik.WinControls.UI.RadTrackBarElement)(this.Main_Time_Trackbar.GetChildAt(0))).ShowTicks = false;
-            ((Telerik.WinControls.UI.RadTrackBarElement)(this.Main_Time_Trackbar.GetChildAt(0))).TickStyle = Telerik.WinControls.Enumerations.TickStyles.None;
+            this.Main_Time_Trackbar.TickThickness = 1F;
+            this.Main_Time_Trackbar.UpDownShow = false;
+            this.Main_Time_Trackbar.Value = 0;
+            this.Main_Time_Trackbar.ValueAdjusted = 0F;
+            this.Main_Time_Trackbar.ValueDivisor = gTrackBar.gTrackBar.eValueDivisor.e1;
+            this.Main_Time_Trackbar.ValueStrFormat = null;
+            this.Main_Time_Trackbar.ValueChanged += new gTrackBar.gTrackBar.ValueChangedEventHandler(this.Main_Time_Trackbar_ValueChanged);
+            this.Main_Time_Trackbar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Main_Time_Trackbar_MouseClick);
+            this.Main_Time_Trackbar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Main_Time_Trackbar_MouseDown);
+            this.Main_Time_Trackbar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Main_Time_Trackbar_MouseUp);
             // 
             // Main_Mini_Switcher
             // 
@@ -598,20 +672,30 @@ namespace OSUplayer
             // 
             this.Main_Volume_Music_TrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.Main_Volume_Music_TrackBar.BackColor = System.Drawing.Color.Transparent;
+            this.Main_Volume_Music_TrackBar.ColorDown = colorPack1;
+            this.Main_Volume_Music_TrackBar.ColorHover = colorPack2;
+            this.Main_Volume_Music_TrackBar.ColorUp = colorPack3;
+            this.Main_Volume_Music_TrackBar.FloatValue = false;
+            this.Main_Volume_Music_TrackBar.JumpToMouse = true;
+            this.Main_Volume_Music_TrackBar.Label = null;
             this.Main_Volume_Music_TrackBar.Location = new System.Drawing.Point(162, 7);
-            this.Main_Volume_Music_TrackBar.Maximum = 100;
+            this.Main_Volume_Music_TrackBar.MaxValue = 100;
             this.Main_Volume_Music_TrackBar.Name = "Main_Volume_Music_TrackBar";
-            this.Main_Volume_Music_TrackBar.ShowTicks = false;
             this.Main_Volume_Music_TrackBar.Size = new System.Drawing.Size(120, 17);
+            this.Main_Volume_Music_TrackBar.SliderColorHigh = colorLinearGradient1;
+            this.Main_Volume_Music_TrackBar.SliderColorLow = colorLinearGradient2;
+            this.Main_Volume_Music_TrackBar.SliderShape = gTrackBar.gTrackBar.eShape.ArrowDown;
+            this.Main_Volume_Music_TrackBar.SliderWidthHigh = 3F;
+            this.Main_Volume_Music_TrackBar.SliderWidthLow = 3F;
             this.Main_Volume_Music_TrackBar.TabIndex = 54;
-            this.Main_Volume_Music_TrackBar.TickStyle = Telerik.WinControls.Enumerations.TickStyles.None;
+            this.Main_Volume_Music_TrackBar.TickThickness = 1F;
+            this.Main_Volume_Music_TrackBar.UpDownShow = false;
             this.Main_Volume_Music_TrackBar.Value = 80;
-            this.Main_Volume_Music_TrackBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.Main_Volume_Music_TrackBar_Scroll);
-            ((Telerik.WinControls.UI.RadTrackBarElement)(this.Main_Volume_Music_TrackBar.GetChildAt(0))).Minimum = 0;
-            ((Telerik.WinControls.UI.RadTrackBarElement)(this.Main_Volume_Music_TrackBar.GetChildAt(0))).Maximum = 100;
-            ((Telerik.WinControls.UI.RadTrackBarElement)(this.Main_Volume_Music_TrackBar.GetChildAt(0))).Value = 80;
-            ((Telerik.WinControls.UI.RadTrackBarElement)(this.Main_Volume_Music_TrackBar.GetChildAt(0))).ShowTicks = false;
-            ((Telerik.WinControls.UI.RadTrackBarElement)(this.Main_Volume_Music_TrackBar.GetChildAt(0))).TickStyle = Telerik.WinControls.Enumerations.TickStyles.None;
+            this.Main_Volume_Music_TrackBar.ValueAdjusted = 80F;
+            this.Main_Volume_Music_TrackBar.ValueDivisor = gTrackBar.gTrackBar.eValueDivisor.e1;
+            this.Main_Volume_Music_TrackBar.ValueStrFormat = null;
+            this.Main_Volume_Music_TrackBar.ValueChanged += new gTrackBar.gTrackBar.ValueChangedEventHandler(this.Main_Volume_Music_TrackBar_ValueChanged);
             // 
             // Main_Main_Display
             // 
@@ -628,20 +712,30 @@ namespace OSUplayer
             // Main_Volume_Fx_TrackBar
             // 
             this.Main_Volume_Fx_TrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Main_Volume_Fx_TrackBar.BackColor = System.Drawing.Color.Transparent;
+            this.Main_Volume_Fx_TrackBar.ColorDown = colorPack1;
+            this.Main_Volume_Fx_TrackBar.ColorHover = colorPack2;
+            this.Main_Volume_Fx_TrackBar.ColorUp = colorPack3;
+            this.Main_Volume_Fx_TrackBar.FloatValue = false;
+            this.Main_Volume_Fx_TrackBar.JumpToMouse = true;
+            this.Main_Volume_Fx_TrackBar.Label = null;
             this.Main_Volume_Fx_TrackBar.Location = new System.Drawing.Point(331, 7);
-            this.Main_Volume_Fx_TrackBar.Maximum = 100;
+            this.Main_Volume_Fx_TrackBar.MaxValue = 100;
             this.Main_Volume_Fx_TrackBar.Name = "Main_Volume_Fx_TrackBar";
-            this.Main_Volume_Fx_TrackBar.ShowTicks = false;
             this.Main_Volume_Fx_TrackBar.Size = new System.Drawing.Size(156, 17);
+            this.Main_Volume_Fx_TrackBar.SliderColorHigh = colorLinearGradient1;
+            this.Main_Volume_Fx_TrackBar.SliderColorLow = colorLinearGradient2;
+            this.Main_Volume_Fx_TrackBar.SliderShape = gTrackBar.gTrackBar.eShape.ArrowDown;
+            this.Main_Volume_Fx_TrackBar.SliderWidthHigh = 3F;
+            this.Main_Volume_Fx_TrackBar.SliderWidthLow = 3F;
             this.Main_Volume_Fx_TrackBar.TabIndex = 51;
-            this.Main_Volume_Fx_TrackBar.TickStyle = Telerik.WinControls.Enumerations.TickStyles.None;
+            this.Main_Volume_Fx_TrackBar.TickThickness = 1F;
+            this.Main_Volume_Fx_TrackBar.UpDownShow = false;
             this.Main_Volume_Fx_TrackBar.Value = 60;
-            this.Main_Volume_Fx_TrackBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.Main_Volume_Fx_TrackBar_Scroll);
-            ((Telerik.WinControls.UI.RadTrackBarElement)(this.Main_Volume_Fx_TrackBar.GetChildAt(0))).Minimum = 0;
-            ((Telerik.WinControls.UI.RadTrackBarElement)(this.Main_Volume_Fx_TrackBar.GetChildAt(0))).Maximum = 100;
-            ((Telerik.WinControls.UI.RadTrackBarElement)(this.Main_Volume_Fx_TrackBar.GetChildAt(0))).Value = 60;
-            ((Telerik.WinControls.UI.RadTrackBarElement)(this.Main_Volume_Fx_TrackBar.GetChildAt(0))).ShowTicks = false;
-            ((Telerik.WinControls.UI.RadTrackBarElement)(this.Main_Volume_Fx_TrackBar.GetChildAt(0))).TickStyle = Telerik.WinControls.Enumerations.TickStyles.None;
+            this.Main_Volume_Fx_TrackBar.ValueAdjusted = 60F;
+            this.Main_Volume_Fx_TrackBar.ValueDivisor = gTrackBar.gTrackBar.eValueDivisor.e1;
+            this.Main_Volume_Fx_TrackBar.ValueStrFormat = null;
+            this.Main_Volume_Fx_TrackBar.ValueChanged += new gTrackBar.gTrackBar.ValueChangedEventHandler(this.Main_Volume_Fx_TrackBar_ValueChanged);
             // 
             // Main_Fx_Hint_Label
             // 
@@ -735,7 +829,7 @@ namespace OSUplayer
             this.Main_PageView_Page1.Controls.Add(this.Main_ListDetail);
             this.Main_PageView_Page1.Location = new System.Drawing.Point(10, 10);
             this.Main_PageView_Page1.Name = "Main_PageView_Page1";
-            this.Main_PageView_Page1.Size = new System.Drawing.Size(511, 175);
+            this.Main_PageView_Page1.Size = new System.Drawing.Size(511, 171);
             this.Main_PageView_Page1.Text = "Map信息";
             // 
             // Main_ListDetail
@@ -751,7 +845,7 @@ namespace OSUplayer
             this.Main_ListDetail.Location = new System.Drawing.Point(0, 0);
             this.Main_ListDetail.MultiSelect = false;
             this.Main_ListDetail.Name = "Main_ListDetail";
-            this.Main_ListDetail.Size = new System.Drawing.Size(511, 173);
+            this.Main_ListDetail.Size = new System.Drawing.Size(511, 169);
             this.Main_ListDetail.TabIndex = 40;
             this.Main_ListDetail.UseCompatibleStateImageBehavior = false;
             this.Main_ListDetail.View = System.Windows.Forms.View.Details;
@@ -862,37 +956,10 @@ namespace OSUplayer
             this.Main_LanguageSelect.Text = "语言(&L)";
             this.Main_LanguageSelect.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             // 
-            // Main_PlayList
-            // 
-            this.Main_PlayList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Main_PlayList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.Main_PlayList_Name});
-            this.Main_PlayList.ContextMenuStrip = this.Main_PlayList_RightClick_Menu;
-            this.Main_PlayList.FullRowSelect = true;
-            this.Main_PlayList.GridLines = true;
-            this.Main_PlayList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.Main_PlayList.HideSelection = false;
-            this.Main_PlayList.Location = new System.Drawing.Point(532, 55);
-            this.Main_PlayList.MultiSelect = false;
-            this.Main_PlayList.Name = "Main_PlayList";
-            this.Main_PlayList.Size = new System.Drawing.Size(344, 593);
-            this.Main_PlayList.TabIndex = 24;
-            this.Main_PlayList.UseCompatibleStateImageBehavior = false;
-            this.Main_PlayList.View = System.Windows.Forms.View.Details;
-            this.Main_PlayList.VirtualMode = true;
-            this.Main_PlayList.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.Main_PlayList_RetrieveVirtualItem);
-            this.Main_PlayList.SelectedIndexChanged += new System.EventHandler(this.Main_PlayList_SelectedIndexChanged);
-            this.Main_PlayList.DoubleClick += new System.EventHandler(this.Main_PlayList_DoubleClick);
-            // 
-            // Main_PlayList_Name
-            // 
-            this.Main_PlayList_Name.Text = "";
-            this.Main_PlayList_Name.Width = 500;
-            // 
             // Main
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ClientSize = new System.Drawing.Size(882, 684);
             this.Controls.Add(this.Main_Panel);
             this.Controls.Add(this.Main_MenuStrip);
@@ -915,11 +982,7 @@ namespace OSUplayer
             this.Main_Core_Panel.ResumeLayout(false);
             this.Main_Core_Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Main_Jump_OSU)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Main_Volume_TrackBar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Main_Time_Trackbar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Main_Mini_Switcher)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Main_Volume_Music_TrackBar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Main_Volume_Fx_TrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Main_PlayNext)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Main_Stop)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Main_Play)).EndInit();
@@ -978,9 +1041,9 @@ namespace OSUplayer
         private Telerik.WinControls.UI.RadPageViewPage Main_PageView_Page3;
         private Telerik.WinControls.UI.RadButton Main_Mini_Switcher;
         private System.Windows.Forms.Label Main_Time_Display;
-        private Telerik.WinControls.UI.RadTrackBar Main_Volume_Music_TrackBar;
+        private gTrackBar.gTrackBar Main_Volume_Music_TrackBar;
         private System.Windows.Forms.Panel Main_Main_Display;
-        private Telerik.WinControls.UI.RadTrackBar Main_Volume_Fx_TrackBar;
+        private gTrackBar.gTrackBar Main_Volume_Fx_TrackBar;
         private System.Windows.Forms.Label Main_Fx_Hint_Label;
         private System.Windows.Forms.Label Main_Music_Hint_Label;
         private System.Windows.Forms.Label Main_Volume_Hint_Label;
@@ -989,8 +1052,8 @@ namespace OSUplayer
         private Telerik.WinControls.UI.RadButton Main_Play;
         private Telerik.WinControls.UI.RadListView Main_ScoreBox;
         private System.Windows.Forms.Timer UpdateTimer;
-        private Telerik.WinControls.UI.RadTrackBar Main_Time_Trackbar;
-        private Telerik.WinControls.UI.RadTrackBar Main_Volume_TrackBar;
+        private gTrackBar.gTrackBar Main_Time_Trackbar;
+        private gTrackBar.gTrackBar Main_Volume_TrackBar;
         private Telerik.WinControls.UI.RadMenuItem Main_File_Export_Background;
         private System.Windows.Forms.Timer NextTimer;
         private System.Windows.Forms.Timer SearchTimer;

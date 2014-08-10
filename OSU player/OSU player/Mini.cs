@@ -1,9 +1,8 @@
-﻿using System;
+﻿using OSUplayer.Properties;
+using OSUplayer.Uilties;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Runtime.InteropServices;
-using OSUplayer.Properties;
-using OSUplayer.Uilties;
 namespace OSUplayer
 {
     public partial class Mini : Form
@@ -16,47 +15,12 @@ namespace OSUplayer
         private bool Front;
         private bool seeking = false;
         #region 有关窗体的设置
-        [DllImport("gdi32.dll")]
-        public static extern int CreateRoundRectRgn(int x1, int y1, int x2, int y2, int x3, int y3);
-
-        [DllImport("user32.dll")]
-        public static extern int SetWindowRgn(IntPtr hwnd, int hRgn, Boolean bRedraw);
-
-        [DllImport("gdi32.dll", EntryPoint = "DeleteObject", CharSet = CharSet.Ansi)]
-        public static extern int DeleteObject(int hObject);
-
-        [DllImport("user32.dll")]
-        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
-
-        [DllImport("user32.dll")]
-        public static extern bool ReleaseCapture();
-        public const int WM_NCLBUTTONDOWN = 0x00A1;
-        public const int HTCAPTION = 2;
-        [DllImport("User32.dll")]
-        public static extern bool PtInRect(ref Rectangle r, Point p);
-        /// <summary>
-        /// 设置窗体的圆角矩形
-        /// </summary>
-        /// <param name="form">需要设置的窗体</param>
-        /// <param name="rgnRadius">圆角矩形的半径</param>
-        public static void SetFormRoundRectRgn(Form form, int rgnRadius)
-        {
-            int hRgn = 0;
-            hRgn = CreateRoundRectRgn(0, 0, form.Width + 1, form.Height + 1, rgnRadius, rgnRadius);
-            SetWindowRgn(form.Handle, hRgn, true);
-            DeleteObject(hRgn);
-        }
-        public static void MoveWindow(Form form)
-        {
-            ReleaseCapture();
-            SendMessage(form.Handle, WM_NCLBUTTONDOWN, HTCAPTION, 0);
-        }
         protected override void OnMouseDown(MouseEventArgs e)
         {
             base.OnMouseDown(e);
             if (e.Button == MouseButtons.Left)
             {
-                MoveWindow(this);
+                Win32.MoveWindow(this);
             }
         }
         protected override void OnMouseEnter(EventArgs e)
@@ -80,7 +44,7 @@ namespace OSUplayer
         private void Mini_Load(object sender, EventArgs e)
         {
             Front = false;
-            SetFormRoundRectRgn(this, 12);
+            Win32.SetFormRoundRectRgn(this, 12);
             Mini_Volume_TrackBar.Value = (int)(100 * Settings.Default.Allvolume);
             if (!Bounds.Contains(Cursor.Position)) { Opacity = 0.5d; }
             if (Core.Isplaying)
@@ -250,13 +214,13 @@ namespace OSUplayer
         private void GUITimer_Tick(object sender, EventArgs e)
         {
             var Rects = new Rectangle(Left, Top, Left + Width, Top + Height);
-            if ((Top < 0 && PtInRect(ref Rects, Cursor.Position)))
+            if ((Top < 0 && Win32.PtInRect(ref Rects, Cursor.Position)))
             {
                 Top = 0;
             }
             else
             {
-                if (Top > -5 && Top < 5 && !(PtInRect(ref Rects, Cursor.Position)))
+                if (Top > -5 && Top < 5 && !(Win32.PtInRect(ref Rects, Cursor.Position)))
                 {
                     Top = 2 - Height;
                 }

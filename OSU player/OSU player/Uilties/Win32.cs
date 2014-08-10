@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -60,6 +61,41 @@ namespace OSUplayer.Uilties
         public static extern UInt32 GlobalAddAtom(String lpString);
         [DllImport("kernel32.dll")]
         public static extern UInt32 GlobalDeleteAtom(UInt32 nAtom);
+        #endregion
+        #region 窗体API
+        [DllImport("gdi32.dll")]
+        private static extern int CreateRoundRectRgn(int x1, int y1, int x2, int y2, int x3, int y3);
+        [DllImport("user32.dll")]
+        private static extern int SetWindowRgn(IntPtr hwnd, int hRgn, Boolean bRedraw);
+        [DllImport("gdi32.dll", EntryPoint = "DeleteObject", CharSet = CharSet.Ansi)]
+        private static extern int DeleteObject(int hObject);
+        [DllImport("user32.dll")]
+        private static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        [DllImport("user32.dll")]
+        private static extern bool ReleaseCapture();
+        // ReSharper disable InconsistentNaming
+        private const int WM_NCLBUTTONDOWN = 0x00A1;
+        private const int HTCAPTION = 2;
+        // ReSharper restore InconsistentNaming
+        [DllImport("User32.dll")]
+        public static extern bool PtInRect(ref Rectangle r, Point p);
+        /// <summary>
+        /// 设置窗体的圆角矩形
+        /// </summary>
+        /// <param name="form">需要设置的窗体</param>
+        /// <param name="rgnRadius">圆角矩形的半径</param>
+        public static void SetFormRoundRectRgn(Form form, int rgnRadius)
+        {
+            var hRgn = 0;
+            hRgn = CreateRoundRectRgn(0, 0, form.Width + 1, form.Height + 1, rgnRadius, rgnRadius);
+            SetWindowRgn(form.Handle, hRgn, true);
+            DeleteObject(hRgn);
+        }
+        public static void MoveWindow(Form form)
+        {
+            ReleaseCapture();
+            SendMessage(form.Handle, WM_NCLBUTTONDOWN, HTCAPTION, 0);
+        }
         #endregion
     }
     public class HotkeyHelper : IMessageFilter

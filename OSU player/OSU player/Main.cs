@@ -123,7 +123,7 @@ namespace OSUplayer
                 Main_Time_Trackbar.Enabled = true;
                 Main_Play.Text = LanguageManager.Get("Main_Pause_Text");
                 Main_Stop.Enabled = true;
-                Main_Time_Trackbar.Maximum = (int)Core.Durnation * 1000;
+                Main_Time_Trackbar.MaxValue = (int)Core.Durnation * 1000;
             }
         }
 
@@ -171,9 +171,9 @@ namespace OSUplayer
         {
             Main_QQ_Hint_Label.Text += Settings.Default.QQuin;
             Main_Option_Sync_QQ.IsChecked = Settings.Default.SyncQQ;
-            Main_Volume_TrackBar.Value = 100 - (int)(Settings.Default.Allvolume * Main_Volume_TrackBar.Maximum);
-            Main_Volume_Fx_TrackBar.Value = (int)(Settings.Default.Fxvolume * Main_Volume_Fx_TrackBar.Maximum);
-            Main_Volume_Music_TrackBar.Value = (int)(Settings.Default.Musicvolume * Main_Volume_Music_TrackBar.Maximum);
+            Main_Volume_TrackBar.Value = 100 - (int)(Settings.Default.Allvolume * Main_Volume_TrackBar.MaxValue);
+            Main_Volume_Fx_TrackBar.Value = (int)(Settings.Default.Fxvolume * Main_Volume_Fx_TrackBar.MaxValue);
+            Main_Volume_Music_TrackBar.Value = (int)(Settings.Default.Musicvolume * Main_Volume_Music_TrackBar.MaxValue);
             Main_Option_Play_Fx.IsChecked = Settings.Default.PlayFx;
             Main_Option_Play_SB.IsChecked = Settings.Default.PlaySB;
             Main_Option_Play_Video.IsChecked = Settings.Default.PlayVideo;
@@ -240,7 +240,7 @@ namespace OSUplayer
             Core.SetBG();
             if (Core.Isplaying)
             {
-                Main_Time_Trackbar.Maximum = (int)Core.Durnation * 1000;
+                Main_Time_Trackbar.MaxValue = (int)Core.Durnation * 1000;
                 Main_Time_Trackbar.Enabled = true;
                 UpdateTimer.Enabled = true;
                 Main_Play.Text = LanguageManager.Get("Main_Pause_Text");
@@ -283,7 +283,7 @@ namespace OSUplayer
 
         private void UpdateTimer_Tick(object sender, EventArgs e)
         {
-            Main_Time_Trackbar.Value = (int)Core.Position * 1000;
+            if (!seeking) Main_Time_Trackbar.Value = (int)Core.Position * 1000;
             Main_Time_Display.Text = String.Format("{0}:{1:D2} / {2}:{3:D2}", (int)Core.Position / 60,
                 (int)Core.Position % 60, (int)Core.Durnation / 60,
                 (int)Core.Durnation % 60);
@@ -594,19 +594,20 @@ namespace OSUplayer
             Main_CurrentList.Text = LanguageManager.Get("Main_CurrentList_Text") + Core.CurrentListName;
         }
 
-        private void Main_Volume_Fx_TrackBar_Scroll(object sender, ScrollEventArgs e)
+
+        private void Main_Volume_Fx_TrackBar_ValueChanged(object sender, EventArgs e)
         {
-            Core.SetVolume(3, Main_Volume_Fx_TrackBar.Value / (float)Main_Volume_Fx_TrackBar.Maximum);
+            Core.SetVolume(3, Main_Volume_Fx_TrackBar.Value / (float)Main_Volume_Fx_TrackBar.MaxValue);
         }
 
-        private void Main_Volume_Music_TrackBar_Scroll(object sender, ScrollEventArgs e)
+        private void Main_Volume_Music_TrackBar_ValueChanged(object sender, EventArgs e)
         {
-            Core.SetVolume(2, Main_Volume_Music_TrackBar.Value / (float)Main_Volume_Music_TrackBar.Maximum);
+            Core.SetVolume(2, Main_Volume_Music_TrackBar.Value / (float)Main_Volume_Music_TrackBar.MaxValue);
         }
 
-        private void Main_Volume_TrackBar_Scroll(object sender, ScrollEventArgs e)
+        private void Main_Volume_TrackBar_ValueChanged(object sender, EventArgs e)
         {
-            Core.SetVolume(1, 1.0f - Main_Volume_TrackBar.Value / (float)Main_Volume_TrackBar.Maximum);
+            Core.SetVolume(1, Main_Volume_TrackBar.Value / (float)Main_Volume_TrackBar.MaxValue);
         }
 
         #endregion
@@ -713,10 +714,23 @@ namespace OSUplayer
             NextTimer.Enabled = false;
             NextTimer.Enabled = true;
         }
-
-        private void Main_Time_Trackbar_Scroll(object sender, ScrollEventArgs e)
+        private bool seeking = false;
+        private void Main_Time_Trackbar_MouseDown(object sender, MouseEventArgs e)
         {
-            Core.Seek((double)Main_Time_Trackbar.Value / 1000);
+            seeking = true;
+        }
+
+        private void Main_Time_Trackbar_ValueChanged(object sender, EventArgs e)
+        {
+            if (seeking)
+            {
+                Core.Seek((double)Main_Time_Trackbar.Value / 1000);
+            }
+        }
+
+        private void Main_Time_Trackbar_MouseUp(object sender, MouseEventArgs e)
+        {
+            seeking = false;
         }
 
         private void Main_Search_Box_KeyPress(object sender, KeyPressEventArgs e)
@@ -806,6 +820,11 @@ namespace OSUplayer
         private void Main_PlayList_RightClick_Copy_Current_Name_Click(object sender, EventArgs e)
         {
             Clipboard.SetDataObject(Core.TmpSet.ToString());
+        }
+
+        private void Main_Time_Trackbar_MouseClick(object sender, MouseEventArgs e)
+        {
+            Core.Seek((double)Main_Time_Trackbar.Value / 1000);
         }
     }
 }
