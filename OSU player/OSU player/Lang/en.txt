@@ -1,2 +1,129 @@
 ﻿Language_name=English
 LanguageText=Language
+
+##Main_Menu
+Main_File_Menu_Text=File(&F)
+Main_File_Run_OSU_Text=Run OSU!
+Main_File_Set_OSUPath_Text=Specify OSU path manually
+Main_File_Import_OSU_Text=Sync with OSU database
+Main_File_Import_Scores_Text=Import Scores.db
+Main_File_Re_Import_Scores_Text=Re-import Scores.db
+Main_File_Open_Folder_Text=Open song folder
+Main_File_Open_MapFile_Text=Open beatmap file
+Main_File_Open_SBFile_Text=Open storyboard file
+Main_File_Export_MP3_Text=Export sound
+Main_File_Export_Background_Text=Export background
+Main_File_Exit_Text=Exit
+Main_Tool_Menu_Text=Tools(&T)
+Main_Tool_Search_Dulplate_Text=Scan repeated songs
+Main_Tool_Export_Playlist_Text=Export current playlist into HTML
+Main_Tool_Export_Playlist_MP3_Text=Export current playlist sound
+Main_Option_Menu_Text=Options(&O)
+Main_Option_Play_Fx_Text=Hitsound
+Main_Option_Play_Video_Text=Background Video
+Main_Option_PlayMode_Text=Play mode
+Main_Option_PlayMode_Normal_Text=Normally
+Main_Option_PlayMode_Repeat_Text=Repeatly
+Main_Option_PlayMode_Random_Text=Randomly
+Main_Option_Sync_QQ_Text=QQ Status Sync
+Main_Option_Select_QQ_Text=Select QQ
+Main_Option_Play_SB_Text=StoryBoard
+Main_Option_Show_Popup_Text=System tray PopUp
+Main_About_Text=About(&A)
+Main_QQ_Hint_Label_Text=Current Sync QQ:
+
+##Main_Header
+Main_Music_Hint_Label_Text=Music
+Main_Fx_Hint_Label_Text=Sound
+Main_Mini_Switcher_Text=↓
+Main_Collections_Text=Switch Collections
+Main_CurrentList_Text=Current Playlist:
+
+##Main_Control
+Main_Play_Text=Play
+Main_Pause_Text=Pause
+Main_Stop_Text=Stop
+Main_PlayNext_Text=→
+Main_Jump_OSU_Text=O
+Main_Volume_Hint_Label_Text=Volume
+
+##Main_Difflist
+Main_PageView_Page1_Text=Info
+Main_ListDetail_Key_Text=Key
+Main_ListDetail_Value_Text=Value
+Main_PageView_Page2_Text=Result
+Main_PageView_Page3_Text=Difficulty
+
+##Main_RightClick
+Main_PlayList_RightClick_Copy_Current_Name_Text=Copy current song name
+Main_PlayList_RightClick_Delete_One_Text=Delete
+Main_PlayList_RightClick_Export_MP3_Text=Export current MP3
+Main_PlayList_RightClick_Open_In_OSU_Text=Open in OSU
+
+##Tips
+Core_Init_Text=Initializing...
+Core_Error_Osupath_Text=Auto detect osu! path fail! Please specify it manually!
+Core_Osupath_Tip_Text=Choose the folder which contains osu!.exe
+Core_Init_Finish_Text=Initialize completed. Found {0} Songs
+Core_Missing_Song_Text=Music file missing
+Core_Missing_MP3_Text=Sound file missing
+BG_Loss_Tip_Text=Background image missing
+Core_Current_Playing_Text=Playing 
+Save_Complete=Save success!
+Comfirm_Exit_Text=Are you sure to exit?
+
+##QQ
+QQ_Push_Fail_Text=QQ Sync Fail！
+SetQQ_GetQQ_Text=Type QQNumber
+SetQQ_OK_Text=OK
+SetQQ_MainView_Nickname_Text=Nickname
+SetQQ_MainView_ID_Text=ID
+SetQQ_ClearQQ_Text=Clear QQNumber
+SetQQ_NoQQ_Text=Please enter QQNumber!
+SetQQ_NoInput_Text=Please enter QQNumber!
+SetQQ_Error_Text=Detect current online QQ Failed!
+SetQQ_AutoQQ_Text=Auto Detect
+
+##About
+About_Profile_Hint_Text=(Click for osu! userpage)
+
+##ChooseColl
+Refresh_Complete_Text=Refresh Success!
+Current_Count_Text=Number of songs in the current playlist:
+ChooseColl_Hint_Label_Text=Double click your Collections
+ChooseColl_PlayListCurrentCount_Text=Number of songs in the current playlist:
+
+##Update
+Update_Error_Text=Update profile error!
+Update_Normal_Text=New Version: {0} released!~\nNew feature or change:\n{1}
+Update_Downloading_Text=Downloading updates…
+Update_Backgrounddownload_Text=Updates would be download in the background.
+Update_Restart_Text=The program would restart to finish update.
+
+##DelDulp
+DelDulp_DeleteSelected_Text=Delect selected items
+DelDulp_Cancel_Text=Cancel
+DelDulp_StartSearch_Text=Start Search
+DelDulp_AutoSelect_Text=Auto Select
+DelDulp_ClearSelected_Text=Unselect all
+Scan_Folder_Text=Scaning songs folder: {0}/{1}
+Get_Song_Info_Text=Gathering songs information: {0}/{1}
+Scan_Duplicate_Text=Searching repeated beatmaps: {0}/{1}
+Scan_Zero_Text=Repeated beatmap does not exist!
+Scan_Complete_Text=Scan completed. Found {0} repeated songs.
+Delete_All_Text={0} items are selected, Continue?
+Delete_Comfirm_Text=It will delete {0} songs. Continue?
+Delete_Complete_Text=Delected {0} repeated songs.
+
+##TrayIcon
+TrayIcon_Aritst_Text=Current Aritst:
+TrayIcon_Title_Text=Current Title:
+TrayIcon_Diff_Text=Current Difficulty:
+TrayIcon_Play_Pause_Text=Play/Pause
+TrayIcon_PlayNext_Text=Play Next
+TrayIcon_Exit_Text=Exit
+
+##General
+OSUplayer=OSUplayer
+Error_Text=Error
+Tip_Text=Tips
