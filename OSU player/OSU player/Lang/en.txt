@@ -73,7 +73,7 @@ Save_Complete=Save success!
 Comfirm_Exit_Text=Are you sure to exit?
 
 ##QQ
-QQ_Push_Fail_Text=QQ Sync Fail！
+QQ_Push_Fail_Text=QQ Sync Fail!
 SetQQ_GetQQ_Text=Type QQNumber
 SetQQ_OK_Text=OK
 SetQQ_MainView_Nickname_Text=Nickname

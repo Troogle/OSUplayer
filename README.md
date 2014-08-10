@@ -13,9 +13,9 @@ Written in C# with .Net Freamwork 3.5
 
 The last 2 can be found under osu! install folder.
 ## Build Instructions
-* Create your own version of `PrivateConfig.cs` containing Bass liscense.
+* Create your own version of `PrivateConfig.cs` containing [Bass liscense](http://bass.radio42.com/bass_register.html).
 * Be sure every dependences have been installed on your computer(or can be referenced)
-
+(gTrackBar is already contained and you can get Telerik_WinForm [Here](http://down.51cto.com/data/752582))
 ##LICENSE
 This code is licensed under GPLv3
 
