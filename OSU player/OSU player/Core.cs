@@ -584,8 +584,8 @@ namespace OSUplayer
         public static IEnumerable<ListViewDataItem> Getscore(Font font)
         {
             var ret = new ListViewDataItem[255];
-            int cur = 0;
-            for (int i = 0; i < TmpSet.count; i++)
+            var cur = 0;
+            for (var i = 0; i < TmpSet.count; i++)
             {
                 if (Scores.ContainsKey(TmpSet.Diffs[i].GetHash()))
                 {

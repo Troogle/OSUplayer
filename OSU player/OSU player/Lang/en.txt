@@ -1,5 +1,4 @@
 ﻿Language_name=English
-LanguageText=Language
 
 ##Main_Menu
 Main_File_Menu_Text=File(&F)
@@ -30,11 +29,12 @@ Main_Option_Select_QQ_Text=Select QQ
 Main_Option_Play_SB_Text=StoryBoard
 Main_Option_Show_Popup_Text=System tray PopUp
 Main_About_Text=About(&A)
+Main_LanguageSelect_Text=Language
 Main_QQ_Hint_Label_Text=Current Sync QQ:
 
 ##Main_Header
 Main_Music_Hint_Label_Text=Music
-Main_Fx_Hint_Label_Text=Sound
+Main_Fx_Hint_Label_Text=Fx
 Main_Mini_Switcher_Text=↓
 Main_Collections_Text=Switch Collections
 Main_CurrentList_Text=Current Playlist:
@@ -45,7 +45,7 @@ Main_Pause_Text=Pause
 Main_Stop_Text=Stop
 Main_PlayNext_Text=→
 Main_Jump_OSU_Text=O
-Main_Volume_Hint_Label_Text=Volume
+Main_Volume_Hint_Label_Text=Vol
 
 ##Main_Difflist
 Main_PageView_Page1_Text=Info

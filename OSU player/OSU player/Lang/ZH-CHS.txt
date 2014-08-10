@@ -1,5 +1,4 @@
 ﻿Language_name=简体中文
-LanguageText=语言
 
 ##Main_Menu
 Main_File_Menu_Text=文件(&F)
@@ -30,6 +29,7 @@ Main_Option_Select_QQ_Text=选择QQ
 Main_Option_Play_SB_Text=SB开关
 Main_Option_Show_Popup_Text=显示气泡
 Main_About_Text=关于(&A)
+Main_LanguageSelect_Text=语言
 Main_QQ_Hint_Label_Text=当前同步QQ:
 
 ##Main_Header

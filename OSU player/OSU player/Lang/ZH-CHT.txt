@@ -1,5 +1,4 @@
 ﻿Language_name=繁體中文
-LanguageText=語言
 
 ##Main_Menu
 Main_File_Menu_Text=文件(&F)
@@ -30,6 +29,7 @@ Main_Option_Select_QQ_Text=選擇QQ
 Main_Option_Play_SB_Text=StoryBoard
 Main_Option_Show_Popup_Text=通知區域氣泡
 Main_About_Text=關於(&A)
+Main_LanguageSelect_Text=語言
 Main_QQ_Hint_Label_Text=目前同步的QQ帳號:
 
 ##Main_Header

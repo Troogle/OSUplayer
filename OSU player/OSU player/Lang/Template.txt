@@ -1,5 +1,4 @@
 Language_name=
-LanguageText=
 
 ##Main_Menu
 Main_File_Menu_Text=
@@ -30,6 +29,7 @@ Main_Option_Select_QQ_Text=
 Main_Option_Play_SB_Text=
 Main_Option_Show_Popup_Text=
 Main_About_Text=
+Main_LanguageSelect_Text=
 Main_QQ_Hint_Label_Text=
 
 ##Main_Header

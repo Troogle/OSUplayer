@@ -61,9 +61,8 @@ namespace OSUplayer
             this.Main_Panel = new System.Windows.Forms.Panel();
             this.Main_CurrentList = new System.Windows.Forms.Label();
             this.Main_Search_Box = new Telerik.WinControls.UI.RadTextBox();
-            this.Main_PlayList = new OSUplayer.DBListView();
-            this.Main_PlayList_Name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Main_PlayList_RightClick_Menu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.Main_PlayList_RightClick_Copy_Current_Name = new System.Windows.Forms.ToolStripMenuItem();
             this.Main_PlayList_RightClick_Delete_One = new System.Windows.Forms.ToolStripMenuItem();
             this.Main_PlayList_RightClick_Export_MP3 = new System.Windows.Forms.ToolStripMenuItem();
             this.Main_PlayList_RightClick_Open_In_OSU = new System.Windows.Forms.ToolStripMenuItem();
@@ -98,7 +97,8 @@ namespace OSUplayer
             this.SearchTimer = new System.Windows.Forms.Timer(this.components);
             this.Main_MenuStrip = new Telerik.WinControls.UI.RadMenu();
             this.Main_LanguageSelect = new Telerik.WinControls.UI.RadMenuItem();
-            this.Main_PlayList_RightClick_Copy_Current_Name = new System.Windows.Forms.ToolStripMenuItem();
+            this.Main_PlayList = new OSUplayer.DBListView();
+            this.Main_PlayList_Name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Main_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Main_Search_Box)).BeginInit();
             this.Main_PlayList_RightClick_Menu.SuspendLayout();
@@ -461,41 +461,13 @@ namespace OSUplayer
             // Main_Search_Box
             // 
             this.Main_Search_Box.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Main_Search_Box.Location = new System.Drawing.Point(625, 3);
+            this.Main_Search_Box.Location = new System.Drawing.Point(644, 3);
             this.Main_Search_Box.Name = "Main_Search_Box";
             this.Main_Search_Box.NullText = "Enter Keywords";
-            this.Main_Search_Box.Size = new System.Drawing.Size(250, 24);
+            this.Main_Search_Box.Size = new System.Drawing.Size(231, 24);
             this.Main_Search_Box.TabIndex = 35;
             this.Main_Search_Box.TabStop = false;
             this.Main_Search_Box.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Main_Search_Box_KeyPress);
-            // 
-            // Main_PlayList
-            // 
-            this.Main_PlayList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Main_PlayList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.Main_PlayList_Name});
-            this.Main_PlayList.ContextMenuStrip = this.Main_PlayList_RightClick_Menu;
-            this.Main_PlayList.FullRowSelect = true;
-            this.Main_PlayList.GridLines = true;
-            this.Main_PlayList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.Main_PlayList.HideSelection = false;
-            this.Main_PlayList.Location = new System.Drawing.Point(532, 55);
-            this.Main_PlayList.MultiSelect = false;
-            this.Main_PlayList.Name = "Main_PlayList";
-            this.Main_PlayList.Size = new System.Drawing.Size(344, 593);
-            this.Main_PlayList.TabIndex = 24;
-            this.Main_PlayList.UseCompatibleStateImageBehavior = false;
-            this.Main_PlayList.View = System.Windows.Forms.View.Details;
-            this.Main_PlayList.VirtualMode = true;
-            this.Main_PlayList.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.Main_PlayList_RetrieveVirtualItem);
-            this.Main_PlayList.SelectedIndexChanged += new System.EventHandler(this.Main_PlayList_SelectedIndexChanged);
-            this.Main_PlayList.DoubleClick += new System.EventHandler(this.Main_PlayList_DoubleClick);
-            // 
-            // Main_PlayList_Name
-            // 
-            this.Main_PlayList_Name.Text = "";
-            this.Main_PlayList_Name.Width = 500;
             // 
             // Main_PlayList_RightClick_Menu
             // 
@@ -505,8 +477,15 @@ namespace OSUplayer
             this.Main_PlayList_RightClick_Export_MP3,
             this.Main_PlayList_RightClick_Open_In_OSU});
             this.Main_PlayList_RightClick_Menu.Name = "RightClick";
-            this.Main_PlayList_RightClick_Menu.Size = new System.Drawing.Size(199, 128);
+            this.Main_PlayList_RightClick_Menu.Size = new System.Drawing.Size(199, 100);
             this.Main_PlayList_RightClick_Menu.Opening += new System.ComponentModel.CancelEventHandler(this.Main_PlayList_RightClick_Menu_Opening);
+            // 
+            // Main_PlayList_RightClick_Copy_Current_Name
+            // 
+            this.Main_PlayList_RightClick_Copy_Current_Name.Name = "Main_PlayList_RightClick_Copy_Current_Name";
+            this.Main_PlayList_RightClick_Copy_Current_Name.Size = new System.Drawing.Size(198, 24);
+            this.Main_PlayList_RightClick_Copy_Current_Name.Text = "复制当前歌曲名称";
+            this.Main_PlayList_RightClick_Copy_Current_Name.Click += new System.EventHandler(this.Main_PlayList_RightClick_Copy_Current_Name_Click);
             // 
             // Main_PlayList_RightClick_Delete_One
             // 
@@ -729,7 +708,7 @@ namespace OSUplayer
             this.Main_Collections.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Main_Collections.Location = new System.Drawing.Point(532, 3);
             this.Main_Collections.Name = "Main_Collections";
-            this.Main_Collections.Size = new System.Drawing.Size(87, 27);
+            this.Main_Collections.Size = new System.Drawing.Size(106, 27);
             this.Main_Collections.TabIndex = 32;
             this.Main_Collections.Text = "切换收藏";
             this.Main_Collections.Click += new System.EventHandler(this.Main_Collections_Click);
@@ -756,7 +735,7 @@ namespace OSUplayer
             this.Main_PageView_Page1.Controls.Add(this.Main_ListDetail);
             this.Main_PageView_Page1.Location = new System.Drawing.Point(10, 10);
             this.Main_PageView_Page1.Name = "Main_PageView_Page1";
-            this.Main_PageView_Page1.Size = new System.Drawing.Size(511, 171);
+            this.Main_PageView_Page1.Size = new System.Drawing.Size(511, 175);
             this.Main_PageView_Page1.Text = "Map信息";
             // 
             // Main_ListDetail
@@ -772,7 +751,7 @@ namespace OSUplayer
             this.Main_ListDetail.Location = new System.Drawing.Point(0, 0);
             this.Main_ListDetail.MultiSelect = false;
             this.Main_ListDetail.Name = "Main_ListDetail";
-            this.Main_ListDetail.Size = new System.Drawing.Size(511, 169);
+            this.Main_ListDetail.Size = new System.Drawing.Size(511, 173);
             this.Main_ListDetail.TabIndex = 40;
             this.Main_ListDetail.UseCompatibleStateImageBehavior = false;
             this.Main_ListDetail.View = System.Windows.Forms.View.Details;
@@ -883,12 +862,33 @@ namespace OSUplayer
             this.Main_LanguageSelect.Text = "语言(&L)";
             this.Main_LanguageSelect.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             // 
-            // Main_PlayList_RightClick_Copy_Current_Name
+            // Main_PlayList
             // 
-            this.Main_PlayList_RightClick_Copy_Current_Name.Name = "Main_PlayList_RightClick_Copy_Current_Name";
-            this.Main_PlayList_RightClick_Copy_Current_Name.Size = new System.Drawing.Size(198, 24);
-            this.Main_PlayList_RightClick_Copy_Current_Name.Text = "复制当前歌曲名称";
-            this.Main_PlayList_RightClick_Copy_Current_Name.Click += new System.EventHandler(this.Main_PlayList_RightClick_Copy_Current_Name_Click);
+            this.Main_PlayList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Main_PlayList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.Main_PlayList_Name});
+            this.Main_PlayList.ContextMenuStrip = this.Main_PlayList_RightClick_Menu;
+            this.Main_PlayList.FullRowSelect = true;
+            this.Main_PlayList.GridLines = true;
+            this.Main_PlayList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.Main_PlayList.HideSelection = false;
+            this.Main_PlayList.Location = new System.Drawing.Point(532, 55);
+            this.Main_PlayList.MultiSelect = false;
+            this.Main_PlayList.Name = "Main_PlayList";
+            this.Main_PlayList.Size = new System.Drawing.Size(344, 593);
+            this.Main_PlayList.TabIndex = 24;
+            this.Main_PlayList.UseCompatibleStateImageBehavior = false;
+            this.Main_PlayList.View = System.Windows.Forms.View.Details;
+            this.Main_PlayList.VirtualMode = true;
+            this.Main_PlayList.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.Main_PlayList_RetrieveVirtualItem);
+            this.Main_PlayList.SelectedIndexChanged += new System.EventHandler(this.Main_PlayList_SelectedIndexChanged);
+            this.Main_PlayList.DoubleClick += new System.EventHandler(this.Main_PlayList_DoubleClick);
+            // 
+            // Main_PlayList_Name
+            // 
+            this.Main_PlayList_Name.Text = "";
+            this.Main_PlayList_Name.Width = 500;
             // 
             // Main
             // 
