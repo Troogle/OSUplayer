@@ -74,13 +74,14 @@ namespace OSUplayer
             {
                 Visible = true;
                 WindowState = FormWindowState.Normal;
+                this.Show();
             }
         }
 
         private void AskForExit(object sender, FormClosingEventArgs e)
         {
             //Core.PauseOrResume();
-            Core.Stop();
+            Stop();
             if (RadMessageBox.Show(LanguageManager.Get("Comfirm_Exit_Text"), LanguageManager.Get("Tip_Text"), MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 Core.MainIsVisible = false;
@@ -372,7 +373,7 @@ namespace OSUplayer
 
         private void Main_Jump_OSU_Click(object sender, EventArgs e)
         {
-            Core.Stop();
+            Stop();
             using (var outStream = new FileStream("tmp.osr", FileMode.Create))
             {
                 using (var wr = new BinaryWriter(outStream))
