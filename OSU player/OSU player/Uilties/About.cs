@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows.Forms;
-using Telerik.WinControls.UI;
 namespace OSUplayer.Uilties
 {
-    public partial class About : RadForm
+    public partial class About : Form
     {
         public About()
         {

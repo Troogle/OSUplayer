@@ -31,7 +31,6 @@
             this.About_PictureBox = new System.Windows.Forms.PictureBox();
             this.About_Content = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.About_PictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // About_Program_Link
@@ -59,8 +58,8 @@
             // 
             // About_PictureBox
             // 
-            this.About_PictureBox.Image = global::OSUplayer.Properties.Resources.Troogle;
-            this.About_PictureBox.InitialImage = global::OSUplayer.Properties.Resources.Troogle;
+            this.About_PictureBox.Image = ((System.Drawing.Image)(resources.GetObject("About_PictureBox.Image")));
+            this.About_PictureBox.InitialImage = ((System.Drawing.Image)(resources.GetObject("About_PictureBox.InitialImage")));
             this.About_PictureBox.Location = new System.Drawing.Point(12, 12);
             this.About_PictureBox.Name = "About_PictureBox";
             this.About_PictureBox.Size = new System.Drawing.Size(200, 200);
@@ -83,6 +82,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ClientSize = new System.Drawing.Size(528, 253);
             this.Controls.Add(this.About_Content);
             this.Controls.Add(this.About_Profile_Hint);
@@ -90,15 +90,12 @@
             this.Controls.Add(this.About_PictureBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "About";
-            // 
-            // 
-            // 
-            this.RootElement.ApplyShapeToControl = true;
             this.Text = "About";
             this.Load += new System.EventHandler(this.About_Load);
             ((System.ComponentModel.ISupportInitialize)(this.About_PictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
