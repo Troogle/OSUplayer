@@ -5,7 +5,6 @@ using System.Net;
 using System.Reflection;
 using System.Windows.Forms;
 using System.Xml;
-using Telerik.WinControls;
 using Ionic.Zip;
 
 namespace OSUplayer.Uilties
@@ -30,8 +29,8 @@ namespace OSUplayer.Uilties
                 }
                 if (newver.CompareTo(Core.Version) > 0)
                 {
-                    var res = RadMessageBox.Show(String.Format(LanguageManager.Get("Update_Normal_Text"), newver, text), LanguageManager.Get("Tip_Text"),
-                        MessageBoxButtons.OKCancel, RadMessageIcon.Info);
+                    var res = MessageBox.Show(String.Format(LanguageManager.Get("Update_Normal_Text"), newver, text), LanguageManager.Get("Tip_Text"),
+                        MessageBoxButtons.OKCancel,MessageBoxIcon.Information);
                     if (res == DialogResult.OK)
                     {
                         if (full == "1")
@@ -40,7 +39,7 @@ namespace OSUplayer.Uilties
                             return;
                         }
                         NotifySystem.Showtip(1000, LanguageManager.Get("Tip_Text"), LanguageManager.Get("Update_Downloading_Text"));
-                        RadMessageBox.Show(LanguageManager.Get("Update_Backgrounddownload_Text"), LanguageManager.Get("Tip_Text"), MessageBoxButtons.OK, RadMessageIcon.Info);
+                        MessageBox.Show(LanguageManager.Get("Update_Backgrounddownload_Text"), LanguageManager.Get("Tip_Text"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                         Update();
                     }
                 }
@@ -60,7 +59,7 @@ namespace OSUplayer.Uilties
             }
             catch (Exception)
             {
-                RadMessageBox.Show(LanguageManager.Get("Update_Error_Text"), LanguageManager.Get("Error_Text"), MessageBoxButtons.OK, RadMessageIcon.Error);
+                MessageBox.Show(LanguageManager.Get("Update_Error_Text"), LanguageManager.Get("Error_Text"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private static void Update()
@@ -91,7 +90,7 @@ namespace OSUplayer.Uilties
             }
             File.Move("OSUplayer.exe", filename);
             File.Delete("OSUplayer.zip");
-            RadMessageBox.Show(LanguageManager.Get("Update_Restart_Text"), LanguageManager.Get("Tip_Text"), MessageBoxButtons.OK, RadMessageIcon.Info);
+            MessageBox.Show(LanguageManager.Get("Update_Restart_Text"), LanguageManager.Get("Tip_Text"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             var proc = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().Location));
             var p = new Process { StartInfo = { FileName = filename } };
             p.Start();

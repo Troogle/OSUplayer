@@ -28,12 +28,9 @@
             this.SetQQ_MainView = new System.Windows.Forms.ListView();
             this.SetQQ_MainView_ID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SetQQ_MainView_Nickname = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.SetQQ_GetQQ = new Telerik.WinControls.UI.RadButton();
-            this.SetQQ_OK = new Telerik.WinControls.UI.RadButton();
+            this.SetQQ_GetQQ = new System.Windows.Forms.Button();
+            this.SetQQ_OK = new System.Windows.Forms.Button();
             this.SetQQ_Manual = new System.Windows.Forms.TextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.SetQQ_GetQQ)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SetQQ_OK)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // SetQQ_MainView
@@ -104,20 +101,16 @@
             // 
             // 
             // 
-            this.RootElement.ApplyShapeToControl = true;
             this.Text = "QQ";
             this.Load += new System.EventHandler(this.Form2_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.SetQQ_GetQQ)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SetQQ_OK)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
 		}
         #endregion
         private System.Windows.Forms.ListView SetQQ_MainView;
-		private Telerik.WinControls.UI.RadButton SetQQ_GetQQ;
-		private Telerik.WinControls.UI.RadButton SetQQ_OK;
+        private System.Windows.Forms.Button SetQQ_GetQQ;
+        private System.Windows.Forms.Button SetQQ_OK;
 		private System.Windows.Forms.ColumnHeader SetQQ_MainView_Nickname;
         private System.Windows.Forms.ColumnHeader SetQQ_MainView_ID;
         private System.Windows.Forms.TextBox SetQQ_Manual;

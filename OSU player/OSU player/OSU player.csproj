@@ -108,7 +108,6 @@
     <Reference Include="System.Xml" />
     <Reference Include="Telerik.WinControls, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
     <Reference Include="Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
-    <Reference Include="TelerikCommon, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DBListView.cs">
@@ -251,7 +250,6 @@
     <None Include="Res\B.png" />
     <None Include="Res\C.png" />
     <None Include="Res\D.png" />
-    <EmbeddedResource Include="Res\Light.tssp" />
     <None Include="Res\S.png" />
     <None Include="Res\SH.png" />
     <None Include="Res\X.png" />

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Telerik.WinControls.UI;
+using System.Windows.Forms;
+
 namespace OSUplayer.Uilties
 {
-    public partial class ChooseColl : RadForm
+    public partial class ChooseColl : Form
     {
         public ChooseColl()
         {

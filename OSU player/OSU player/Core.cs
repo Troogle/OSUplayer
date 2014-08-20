@@ -11,7 +11,6 @@ using OSUplayer.Graphic;
 using OSUplayer.OsuFiles;
 using OSUplayer.Properties;
 using OSUplayer.Uilties;
-using Telerik.WinControls;
 using Telerik.WinControls.UI;
 
 namespace OSUplayer
@@ -175,7 +174,7 @@ namespace OSUplayer
             }
             catch (Exception)
             {
-                RadMessageBox.Show(LanguageManager.Get("Core_Error_Osupath_Text"), LanguageManager.Get("Error_Text"), MessageBoxButtons.OK, RadMessageIcon.Error);
+                MessageBox.Show(LanguageManager.Get("Core_Error_Osupath_Text"), LanguageManager.Get("Error_Text"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 while (!Setpath())
                 {
                 }
@@ -204,12 +203,12 @@ namespace OSUplayer
                         Settings.Default.OSUpath = dialog.SelectedPath;
                         return true;
                     }
-                    RadMessageBox.Show(LanguageManager.Get("Core_Osupath_Tip_Text"), LanguageManager.Get("Error_Text"), MessageBoxButtons.OK, RadMessageIcon.Error);
+                    MessageBox.Show(LanguageManager.Get("Core_Osupath_Tip_Text"), LanguageManager.Get("Error_Text"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception)
             {
-                RadMessageBox.Show(LanguageManager.Get("Core_Osupath_Tip_Text"), LanguageManager.Get("Error_Text"), MessageBoxButtons.OK, RadMessageIcon.Error);
+                MessageBox.Show(LanguageManager.Get("Core_Osupath_Tip_Text"), LanguageManager.Get("Error_Text"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return false;
         }

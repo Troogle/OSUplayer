@@ -6,12 +6,10 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using OSUplayer.Properties;
-using Telerik.WinControls;
-using Telerik.WinControls.UI;
 using OSUplayer.OsuFiles;
 namespace OSUplayer.Uilties
 {
-    public partial class DelDulp : RadForm
+    public partial class DelDulp : Form
     {
         public DelDulp()
         {
@@ -103,7 +101,7 @@ namespace OSUplayer.Uilties
         private void BackgroundWorker1ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             DelDulp_ProgressBar.Maximum = _all;
-            DelDulp_ProgressBar.Value1 = _ok;
+            DelDulp_ProgressBar.Value = _ok;
             DelDulp_Status_Label.Text = String.Format(LanguageManager.Get("Scan_Folder_Text"), _ok, _all);
         }
         private void BackgroundWorker1RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -113,7 +111,7 @@ namespace OSUplayer.Uilties
                 while (i < tmpbms.Count && tmpbms[i].Location == tmpbms[i - 1].Location) { tmpbms.RemoveAt(i); }
             }
             DelDulp_ProgressBar.Maximum = tmpbms.Count;
-            DelDulp_ProgressBar.Value1 = 0;
+            DelDulp_ProgressBar.Value = 0;
             this.BackgroundWorker2.RunWorkerAsync(0);
         }
         private void DelDulp_StartSearch_Click(object sender, EventArgs e)
@@ -139,12 +137,12 @@ namespace OSUplayer.Uilties
         }
         private void BackgroundWorker2ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            DelDulp_ProgressBar.Value1++;
-            DelDulp_Status_Label.Text = String.Format(LanguageManager.Get("Get_Song_Info_Text"), DelDulp_ProgressBar.Value1, tmpbms.Count);
+            DelDulp_ProgressBar.Value++;
+            DelDulp_Status_Label.Text = String.Format(LanguageManager.Get("Get_Song_Info_Text"), DelDulp_ProgressBar.Value, tmpbms.Count);
         }
         private void BackgroundWorker2RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            DelDulp_ProgressBar.Value1 = 0;
+            DelDulp_ProgressBar.Value = 0;
             this.BackgroundWorker3.RunWorkerAsync(0);
         }
         private void BackgroundWorker3DoWork(object sender, DoWorkEventArgs e)
@@ -156,12 +154,12 @@ namespace OSUplayer.Uilties
         }
         private void BackgroundWorker3ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            DelDulp_ProgressBar.Value1++;
-            DelDulp_Status_Label.Text = String.Format(LanguageManager.Get("Scan_Duplicate_Text"), DelDulp_ProgressBar.Value1, tmpbms.Count);
+            DelDulp_ProgressBar.Value++;
+            DelDulp_Status_Label.Text = String.Format(LanguageManager.Get("Scan_Duplicate_Text"), DelDulp_ProgressBar.Value, tmpbms.Count);
         }
         private void BackgroundWorker3RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (dul.Count == 0) { RadMessageBox.Show(LanguageManager.Get("Scan_Zero_Text")); this.Dispose(); }
+            if (dul.Count == 0) { MessageBox.Show(LanguageManager.Get("Scan_Zero_Text")); this.Dispose(); }
             else
             {
                 NotifySystem.Showtip(1000, "OSUplayer", string.Format(LanguageManager.Get("Scan_Complete_Text"), dul.Count));
@@ -174,7 +172,7 @@ namespace OSUplayer.Uilties
         {
             if (DelDulp_MainView.CheckedItems.Count == 0)
             {
-                RadMessageBox.Show(LanguageManager.Get("Scan_Zero_Text"));
+                MessageBox.Show(LanguageManager.Get("Scan_Zero_Text"));
                 return;
             }
             int count = 0;
@@ -190,10 +188,10 @@ namespace OSUplayer.Uilties
             }
             if (count != 0)
             {
-                if (RadMessageBox.Show(string.Format(LanguageManager.Get("Delete_All_Text"), count), LanguageManager.Get("Tip_Text"), MessageBoxButtons.YesNo) != DialogResult.Yes) { return; }
+                if (MessageBox.Show(string.Format(LanguageManager.Get("Delete_All_Text"), count), LanguageManager.Get("Tip_Text"), MessageBoxButtons.YesNo) != DialogResult.Yes) { return; }
             }
             if (
-                RadMessageBox.Show(string.Format(LanguageManager.Get("Delete_Comfirm_Text"), DelDulp_MainView.CheckedItems.Count),
+                MessageBox.Show(string.Format(LanguageManager.Get("Delete_Comfirm_Text"), DelDulp_MainView.CheckedItems.Count),
                     LanguageManager.Get("Tip_Text"), MessageBoxButtons.YesNo) != DialogResult.Yes) return;
             var filedelete = (from ListViewItem item in DelDulp_MainView.CheckedItems select item.Text).ToList();
             Win32.Delete(filedelete);

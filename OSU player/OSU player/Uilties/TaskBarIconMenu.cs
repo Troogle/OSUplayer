@@ -102,7 +102,7 @@ namespace OSUplayer.Uilties
             TrayIcon_Exit.Click += delegate
             {
                 if (
-                    RadMessageBox.Show(LanguageManager.Get("Comfirm_Exit_Text"), LanguageManager.Get("Tip_Text"),
+                    MessageBox.Show(LanguageManager.Get("Comfirm_Exit_Text"), LanguageManager.Get("Tip_Text"),
                         MessageBoxButtons.YesNo) != DialogResult.Yes) return;
                 Core.MainIsVisible = false;
                 Core.Exit();

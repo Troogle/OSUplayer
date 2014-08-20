@@ -30,7 +30,6 @@
             this.ChooseColl_CollectionContent_List = new System.Windows.Forms.ListBox();
             this.ChooseColl_Hint_Label = new System.Windows.Forms.Label();
             this.ChooseColl_PlayListCurrentCount = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // ChooseColl_CollectionTitle_List
@@ -85,10 +84,8 @@
             // 
             // 
             // 
-            this.RootElement.ApplyShapeToControl = true;
             this.Text = "ChooseColl";
             this.Load += new System.EventHandler(this.ChooseColl_Load);
-            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

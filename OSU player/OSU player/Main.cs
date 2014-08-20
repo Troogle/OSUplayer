@@ -12,8 +12,6 @@ using Meebey.SmartIrc4net;
 using OSUplayer.OsuFiles;
 using OSUplayer.Properties;
 using OSUplayer.Uilties;
-using Telerik.WinControls;
-using Telerik.WinControls.UI;
 
 namespace OSUplayer
 {
@@ -90,7 +88,7 @@ namespace OSUplayer
         {
             //Core.PauseOrResume();
             Stop();
-            if (RadMessageBox.Show(LanguageManager.Get("Comfirm_Exit_Text"), LanguageManager.Get("Tip_Text"), MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show(LanguageManager.Get("Comfirm_Exit_Text"), LanguageManager.Get("Tip_Text"), MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 Core.MainIsVisible = false;
                 Core.Exit();

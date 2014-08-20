@@ -4,12 +4,10 @@ using System.ComponentModel;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using OSUplayer.Properties;
-using Telerik.WinControls;
-using Telerik.WinControls.UI;
 
 namespace OSUplayer.Uilties
 {
-    public partial class SetQQ : RadForm
+    public partial class SetQQ : Form
     {
         private readonly BackgroundWorker refreash = new BackgroundWorker();
         private QQ qq = new QQ();
@@ -38,7 +36,7 @@ namespace OSUplayer.Uilties
                 {
                     if (SetQQ_MainView.SelectedItems.Count == 0)
                     {
-                        RadMessageBox.Show(LanguageManager.Get("SetQQ_NoQQ_Text"), LanguageManager.Get("Tip_Text"));
+                        MessageBox.Show(LanguageManager.Get("SetQQ_NoQQ_Text"), LanguageManager.Get("Tip_Text"));
                     }
                     else
                     {
@@ -53,7 +51,7 @@ namespace OSUplayer.Uilties
                 var isNumeric = new Regex(@"^\d+$");
                 if ((!isNumeric.IsMatch(SetQQ_Manual.Text)) || (SetQQ_Manual.Text.Trim() == ""))
                 {
-                    RadMessageBox.Show(LanguageManager.Get("SetQQ_NoInput_Text"), LanguageManager.Get("Tip_Text"));
+                    MessageBox.Show(LanguageManager.Get("SetQQ_NoInput_Text"), LanguageManager.Get("Tip_Text"));
                 }
                 else
                 {
@@ -84,7 +82,7 @@ namespace OSUplayer.Uilties
             }
             catch (Exception)
             {
-                RadMessageBox.Show(LanguageManager.Get("SetQQ_Error_Text"), LanguageManager.Get("Error_Text"));
+                MessageBox.Show(LanguageManager.Get("SetQQ_Error_Text"), LanguageManager.Get("Error_Text"));
             }
         }
 

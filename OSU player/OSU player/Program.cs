@@ -7,7 +7,6 @@ using System.Net;
 using System.IO;
 using System.Diagnostics;
 using OSUplayer.Uilties;
-using Telerik.WinControls;
 namespace OSUplayer
 {
     static class Program
@@ -40,8 +39,6 @@ namespace OSUplayer
                 var filename = Assembly.GetExecutingAssembly().Location;
                 if (File.Exists(filename + ".detele")) File.Delete(filename + ".delete");
                 Un4seen.Bass.BassNet.Registration(PrivateConfig.BassEmail, PrivateConfig.BassReg);
-                ThemeResolutionService.LoadPackageResource("OSUplayer.Res.Light.tssp");
-                ThemeResolutionService.ApplicationThemeName = "Light";
                 LanguageManager.InitLanguage(System.Globalization.CultureInfo.CurrentCulture.Name);
                 /*var mainwindow = new Main();
                  mainwindow.Show();
