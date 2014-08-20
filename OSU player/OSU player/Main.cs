@@ -1,18 +1,14 @@
-﻿using System;
+﻿using OSUplayer.OsuFiles;
+using OSUplayer.Properties;
+using OSUplayer.Uilties;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading;
 using System.Windows.Forms;
-using BrightIdeasSoftware;
-using OSUplayer.OsuFiles;
-using OSUplayer.Properties;
-using OSUplayer.Uilties;
 
 namespace OSUplayer
 {
@@ -82,7 +78,7 @@ namespace OSUplayer
             {
                 Visible = true;
                 WindowState = FormWindowState.Normal;
-                this.Show();
+                Show();
             }
         }
 
@@ -297,7 +293,7 @@ namespace OSUplayer
 
         private void Main_Shown(object sender, EventArgs e)
         {
-            this.CenterToScreen();
+            CenterToScreen();
             Core.Init(Main_Main_Display.Handle, Main_Main_Display.Size);
             SetForm();
             RefreshList();
@@ -569,9 +565,9 @@ namespace OSUplayer
             //Visible = false;
             using (var dialog = new ChooseColl())
             {
-                var center = this.Location;
-                center.X = center.X + this.Width / 2 - dialog.Width / 2;
-                center.Y = center.Y + this.Height / 2 - dialog.Height / 2;
+                var center = Location;
+                center.X = center.X + Width / 2 - dialog.Width / 2;
+                center.Y = center.Y + Height / 2 - dialog.Height / 2;
                 dialog.StartPosition = FormStartPosition.Manual;
                 dialog.Location = center;
                 dialog.ShowDialog();

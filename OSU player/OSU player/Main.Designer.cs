@@ -454,9 +454,9 @@ namespace OSUplayer
             this.Main_Tab_Control_Panel.Controls.Add(this.Main_PageView_Page1);
             this.Main_Tab_Control_Panel.Controls.Add(this.Main_PageView_Page3);
             this.Main_Tab_Control_Panel.Controls.Add(this.Main_PageView_Page2);
-            this.Main_Tab_Control_Panel.Location = new System.Drawing.Point(1, 618);
+            this.Main_Tab_Control_Panel.Location = new System.Drawing.Point(7, 618);
             this.Main_Tab_Control_Panel.Name = "Main_Tab_Control_Panel";
-            this.Main_Tab_Control_Panel.Size = new System.Drawing.Size(531, 36);
+            this.Main_Tab_Control_Panel.Size = new System.Drawing.Size(525, 36);
             this.Main_Tab_Control_Panel.TabIndex = 40;
             // 
             // Main_TabPanel
@@ -464,9 +464,9 @@ namespace OSUplayer
             this.Main_TabPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Main_TabPanel.Controls.Add(this.Main_TabControl);
-            this.Main_TabPanel.Location = new System.Drawing.Point(0, 428);
+            this.Main_TabPanel.Location = new System.Drawing.Point(7, 428);
             this.Main_TabPanel.Name = "Main_TabPanel";
-            this.Main_TabPanel.Size = new System.Drawing.Size(532, 191);
+            this.Main_TabPanel.Size = new System.Drawing.Size(525, 191);
             this.Main_TabPanel.TabIndex = 36;
             // 
             // Main_TabControl
@@ -481,7 +481,7 @@ namespace OSUplayer
             this.Main_TabControl.Location = new System.Drawing.Point(0, 0);
             this.Main_TabControl.Name = "Main_TabControl";
             this.Main_TabControl.SelectedIndex = 0;
-            this.Main_TabControl.Size = new System.Drawing.Size(532, 220);
+            this.Main_TabControl.Size = new System.Drawing.Size(525, 220);
             this.Main_TabControl.TabIndex = 0;
             // 
             // Main_TabPage1
@@ -577,7 +577,7 @@ namespace OSUplayer
             this.Main_TabPage3.Controls.Add(this.Main_DiffList);
             this.Main_TabPage3.Location = new System.Drawing.Point(4, 4);
             this.Main_TabPage3.Name = "Main_TabPage3";
-            this.Main_TabPage3.Size = new System.Drawing.Size(524, 191);
+            this.Main_TabPage3.Size = new System.Drawing.Size(517, 191);
             this.Main_TabPage3.TabIndex = 2;
             this.Main_TabPage3.Text = "tabPage3";
             this.Main_TabPage3.UseVisualStyleBackColor = true;
@@ -592,7 +592,7 @@ namespace OSUplayer
             this.Main_DiffList.ItemHeight = 15;
             this.Main_DiffList.Location = new System.Drawing.Point(0, 0);
             this.Main_DiffList.Name = "Main_DiffList";
-            this.Main_DiffList.Size = new System.Drawing.Size(520, 180);
+            this.Main_DiffList.Size = new System.Drawing.Size(513, 180);
             this.Main_DiffList.TabIndex = 25;
             this.Main_DiffList.SelectedIndexChanged += new System.EventHandler(this.Main_DiffList_SelectedIndexChanged);
             this.Main_DiffList.DoubleClick += new System.EventHandler(this.Main_DiffList_DoubleClick);

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-
+// ReSharper disable All
 namespace OSUplayer.Uilties
 {
     [Flags]
@@ -24,9 +24,9 @@ namespace OSUplayer.Uilties
         private const ushort FOF_ALLOWUNDO = 0x40;
         private const ushort FOF_WANTNUKEWARNING = 0x4000;
         [DllImport("shell32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        private static extern int SHFileOperation([In, Out] _SHFILEOPSTRUCT str);
+        private static extern int SHFileOperation([In, Out] Shfileopstruct str);
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-        private class _SHFILEOPSTRUCT
+        private class Shfileopstruct
         {
             public IntPtr hwnd;
             public UInt32 wFunc;
@@ -39,10 +39,8 @@ namespace OSUplayer.Uilties
         }
         public static int Delete(List<string> path)
         {
-            _SHFILEOPSTRUCT pm = new _SHFILEOPSTRUCT();
-            pm.wFunc = FO_DELETE;
-            pm.pFrom = path[0];
-            for (int i = 1; i < path.Count; i++)
+            var pm = new Shfileopstruct {wFunc = FO_DELETE, pFrom = path[0]};
+            for (var i = 1; i < path.Count; i++)
             {
                 pm.pFrom += '\0' + path[i];
             }

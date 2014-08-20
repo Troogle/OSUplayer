@@ -8,7 +8,7 @@ namespace OSUplayer.OsuFiles
     public class Beatmap : IComparable<Beatmap>
     {
         private string _osb;
-        private string[] Rawdata = new string[(int)OSUfile.OSUfilecount];
+        private readonly string[] Rawdata = new string[(int)OSUfile.OSUfilecount];
         //diff-wide storyboard
         [NonSerialized]
         public StoryBoard.StoryBoard SB;
@@ -214,6 +214,36 @@ namespace OSUplayer.OsuFiles
             }
             return ObjectFlag.ColourHax;
         }
+
+        private static void SetAdditionalObject(ref string row, ref HitObject NHit, out string tmpop, string picknext)
+        {
+            tmpop = picknext;
+            if (tmpop != "")
+            {
+                if (tmpop.Length > 3)
+                {
+                    NHit.sample = new CSample((int)Char.GetNumericValue(tmpop[0]), (int)Char.GetNumericValue(tmpop[4]));
+                    NHit.A_sample = new CSample((int)Char.GetNumericValue(tmpop[2]), (int)Char.GetNumericValue(tmpop[4]));
+                    if (tmpop.Length < 7)
+                    {
+                        tmpop = tmpop + ":0:";
+                    }
+                    NHit.S_Volume = (int)Char.GetNumericValue(tmpop[6]);
+                }
+                else
+                {
+                    NHit.sample = new CSample((int)Char.GetNumericValue(tmpop[0]), (int)Char.GetNumericValue(tmpop[2]));
+                    NHit.A_sample = new CSample(0, 0);
+                    NHit.S_Volume = 0;
+                }
+            }
+            else
+            {
+                NHit.sample = new CSample(0, 0);
+                NHit.A_sample = new CSample(0, 0);
+                NHit.S_Volume = 0;
+            }
+        }
         private static HitObject Setobject(string row)
         {
             var NHit = new HitObject();
@@ -226,62 +256,12 @@ namespace OSUplayer.OsuFiles
             {
                 case ObjectFlag.Normal:
                     NHit.allhitsound = Convert.ToInt32(Picknext(ref row));
-                    tmpop = Picknext(ref row);
-                    if (tmpop != "")
-                    {
-                        if (tmpop.Length > 3)
-                        {
-                            NHit.sample = new CSample
-                                ((int)Char.GetNumericValue(tmpop[0]), (int)Char.GetNumericValue(tmpop[4]));
-                            NHit.A_sample = new CSample((int)Char.GetNumericValue(tmpop[2]),
-                                (int)Char.GetNumericValue(tmpop[4]));
-                            if (tmpop.Length < 7) { tmpop = tmpop + ":0:"; }
-                            NHit.S_Volume = (int)Char.GetNumericValue(tmpop[6]);
-                        }
-                        else
-                        {
-                            NHit.sample = new CSample((int)Char.GetNumericValue(tmpop[0]),
-                                (int)Char.GetNumericValue(tmpop[2]));
-                            NHit.A_sample = new CSample(0, 0);
-                            NHit.S_Volume = 0;
-                        }
-                    }
-                    else
-                    {
-                        NHit.sample = new CSample(0, 0);
-                        NHit.A_sample = new CSample(0, 0);
-                        NHit.S_Volume = 0;
-                    }
+                    SetAdditionalObject(ref row, ref NHit, out tmpop, Picknext(ref row));
                     break;
                 case ObjectFlag.Spinner:
                     NHit.allhitsound = Convert.ToInt32(Picknext(ref row));
                     NHit.EndTime = Convert.ToInt32(Picknext(ref row));
-                    tmpop = Picknext(ref row);
-                    if (tmpop != "")
-                    {
-                        if (tmpop.Length > 3)
-                        {
-                            NHit.sample = new CSample((int)Char.GetNumericValue(tmpop[0]),
-                                (int)Char.GetNumericValue(tmpop[4]));
-                            NHit.A_sample = new CSample((int)Char.GetNumericValue(tmpop[2]),
-                                (int)Char.GetNumericValue(tmpop[4]));
-                            if (tmpop.Length < 7) { tmpop = tmpop + ":0:"; }
-                            NHit.S_Volume = (int)Char.GetNumericValue(tmpop[6]);
-                        }
-                        else
-                        {
-                            NHit.sample = new CSample((int)Char.GetNumericValue(tmpop[0]),
-                                (int)Char.GetNumericValue(tmpop[2]));
-                            NHit.A_sample = new CSample(0, 0);
-                            NHit.S_Volume = 0;
-                        }
-                    }
-                    else
-                    {
-                        NHit.sample = new CSample(0, 0);
-                        NHit.A_sample = new CSample(0, 0);
-                        NHit.S_Volume = 0;
-                    }
+                    SetAdditionalObject(ref row, ref NHit, out tmpop, Picknext(ref row));
                     break;
                 case ObjectFlag.Slider:
                     NHit.allhitsound = Convert.ToInt32(Picknext(ref row));
@@ -328,32 +308,7 @@ namespace OSUplayer.OsuFiles
                             NHit.samples[i] = new CSample(0, 0);
                         }
                     }
-                    tmpop = Picknext(ref row);
-                    if (tmpop != "")
-                    {
-                        if (tmpop.Length > 3)
-                        {
-                            NHit.sample = new CSample((int)Char.GetNumericValue(tmpop[0]),
-                                (int)Char.GetNumericValue(tmpop[4]));
-                            NHit.A_sample = new CSample((int)Char.GetNumericValue(tmpop[2]),
-                                (int)Char.GetNumericValue(tmpop[4]));
-                            if (tmpop.Length < 7) { tmpop = tmpop + ":0:"; }
-                            NHit.S_Volume = (int)Char.GetNumericValue(tmpop[6]);
-                        }
-                        else
-                        {
-                            NHit.sample = new CSample((int)Char.GetNumericValue(tmpop[0]),
-                                (int)Char.GetNumericValue(tmpop[2]));
-                            NHit.A_sample = new CSample(0, 0);
-                            NHit.S_Volume = 0;
-                        }
-                    }
-                    else
-                    {
-                        NHit.sample = new CSample(0, 0);
-                        NHit.A_sample = new CSample(0, 0);
-                        NHit.S_Volume = 0;
-                    }
+                    SetAdditionalObject(ref row, ref NHit, out tmpop, Picknext(ref row));
                     //HitSound,(SampleSet&Group|SampleSet&Group),(All SampleSet&Addition)
                     //SampleSet&Addition 只有sample没有setcount
                     //All SampleSet&Addition 啥都有
@@ -491,7 +446,7 @@ namespace OSUplayer.OsuFiles
             catch (SystemException e)
             {
                 Console.WriteLine(e.StackTrace);
-                throw (new FormatException("Failed to read .osu file" + this.Path, e));
+                throw (new FormatException("Failed to read .osu file" + Path, e));
             }
         }
         public void Getsb()
@@ -514,22 +469,29 @@ namespace OSUplayer.OsuFiles
         }
         public int CompareTo(Beatmap other)
         {
-            if (this.Mode < other.Mode) { return -1; }
-            if (this.Mode > other.Mode) { return 1; }
-            if (this.Totalhitcount == other.Totalhitcount) { return 0; }
-            if (this.Totalhitcount > other.Totalhitcount) { return -1; } else { return 1; }
+            if (Mode < other.Mode) { return -1; }
+            if (Mode > other.Mode) { return 1; }
+            if (Totalhitcount == other.Totalhitcount) { return 0; }
+            if (Totalhitcount > other.Totalhitcount) { return -1; } else { return 1; }
         }
         /// <summary>
         /// 判断相等
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public bool Equals(Beatmap obj)
+        public override bool Equals(Object obj)
         {
-            if ((obj.BeatmapID == BeatmapID) && (BeatmapID != 0))
+            var map = (Beatmap)obj;
+            if ((map.BeatmapID == BeatmapID) && (BeatmapID != 0))
             { return true; }
-            return this.ToString().Equals(obj.ToString()) && this.Creator.Equals(obj.Creator);
+            return ToString().Equals(obj.ToString()) && Creator.Equals(map.Creator);
         }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
         public override string ToString() { return Version; }
         public string NameToString()
         {

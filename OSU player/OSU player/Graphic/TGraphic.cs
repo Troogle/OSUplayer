@@ -1,126 +1,144 @@
 ﻿using System;
-using System.IO;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using OSUplayer.OsuFiles.StoryBoard;
 using Device = Microsoft.Xna.Framework.Graphics.GraphicsDevice;
-using Color = Microsoft.Xna.Framework.Graphics.Color;
+
 namespace OSUplayer.Graphic
 {
     /// <summary>
-    /// MDX静态图像基类
+    ///     MDX静态图像基类
     /// </summary>
-    class StaticGraphic
+    internal class StaticGraphic
     {
         //protected Texture2D texture;
-        protected Texture2D[] texturearray;
-        protected int currentFrameIndex; //当前材质行索引
-        protected int frameCount;  //材质行总数
+        protected byte Alpha;
+        protected Color Color;
+        protected int CurrentFrameIndex; //当前材质行索引
+        protected int FrameCount; //材质行总数
+        protected float Layer;
         //protected Matrix scaleMatrix, transformMatrix, rotateMatrix;
 
-        protected Vector2 origin;                                         //坐标轴位置
-        protected Vector2 position;                                       //显示位置
-        protected float rotate;                                               //旋转角度
-        protected Vector2 scale;                                                 //缩放比例
-        protected float layer;
-        protected Color color;
-        protected byte alpha;
+        protected Vector2 Origin; //坐标轴位置
+
         /// <summary>
-        /// 0x0=none,1=H,2=V,4=A
+        ///     0x0=none,1=H,2=V,4=A
         /// </summary>
-        public byte parameter;
+        public byte Parameter;
+
+        protected Vector2 Position; //显示位置
+        protected float Rotate; //旋转角度
+        protected Vector2 Scale; //缩放比例
+        protected Texture2D[] Texturearray;
+
         //protected Rectangle rectangle;
 
 
         public StaticGraphic(Device graphicDevice, string source, Vector2 position,
-                                          float rotate, float scale, Color color, byte alpha, byte parameter)
+            float rotate, float scale, Color color, byte alpha, byte parameter)
         {
-            this.texturearray = new Texture2D[] { Texture2D.FromFile(graphicDevice, source) };
-            this.origin = new Vector2(0, 0);
-            this.position = position;
-            this.rotate = rotate;
-            this.scale = new Vector2(scale, scale);
-            this.layer = 0;
-            this.color = color;
-            this.alpha = alpha;
-            this.parameter = parameter;
-            this.currentFrameIndex = 0;
+            Texturearray = new[] {Texture2D.FromFile(graphicDevice, source)};
+            Origin = new Vector2(0, 0);
+            Position = position;
+            Rotate = rotate;
+            Scale = new Vector2(scale, scale);
+            Layer = 0;
+            Color = color;
+            Alpha = alpha;
+            Parameter = parameter;
+            CurrentFrameIndex = 0;
         }
-        protected StaticGraphic() { }
+
+        protected StaticGraphic()
+        {
+        }
 
         /// <summary>
-        /// 绘制图像
+        ///     绘制图像
         /// </summary>
-        public virtual void Draw(SpriteBatch sprite)
+        public void Draw(SpriteBatch sprite)
         {
             var tmp = new SpriteEffects();
-            if ((this.parameter & 1) == 1) { tmp = SpriteEffects.FlipHorizontally; }
-            if ((this.parameter & 2) == 2) { tmp = tmp | SpriteEffects.FlipVertically; }
-            this.color = new Color(color.R, color.G, color.B, this.alpha);
-            sprite.Draw(this.texturearray[currentFrameIndex], this.position, null, this.color, this.rotate, this.origin, this.scale, tmp, this.layer);
+            if ((Parameter & 1) == 1)
+            {
+                tmp = SpriteEffects.FlipHorizontally;
+            }
+            if ((Parameter & 2) == 2)
+            {
+                tmp = tmp | SpriteEffects.FlipVertically;
+            }
+            Color = new Color(Color.R, Color.G, Color.B, Alpha);
+            sprite.Draw(Texturearray[CurrentFrameIndex], Position, null, Color, Rotate, Origin, Scale, tmp, Layer);
         }
     }
 
 
     /// <summary>
-    /// MDX带有动作列表的图像基类
+    ///     MDX带有动作列表的图像基类
     /// </summary>
-    class TGraphic : StaticGraphic
+    internal class TGraphic : StaticGraphic
     {
-        private int mSPerFrame; // 帧动画的速率
-        private int msLastFrame; //上次记录的时间
-        private ElementLoopType Loop;
-        private TSpriteAction xAction;
-        private TSpriteAction yAction;
-        private TSpriteAction scaleXAction;
-        private TSpriteAction scaleYAction;
-        private TSpriteAction rotateAction;
-        private TSpriteAction alphaAction;
-        private TSpriteAction colorAction;
-        private TSpriteAction parameterAction;
-        private ElementOrigin Origin;
+        private readonly ElementLoopType _loop;
+        private readonly int _mSPerFrame; // 帧动画的速率
+        private readonly ElementOrigin _origin;
+        private TSpriteAction _alphaAction;
+        private TSpriteAction _colorAction;
+        private int _msLastFrame; //上次记录的时间
+        private TSpriteAction _parameterAction;
+        private TSpriteAction _rotateAction;
+        private TSpriteAction _scaleXAction;
+        private TSpriteAction _scaleYAction;
+        private TSpriteAction _xAction;
+        private TSpriteAction _yAction;
 
-        public TGraphic(Device graphicDevice, SBelement Element, Texture2D[] File)
-            : base()
+        public TGraphic(SBelement element, Texture2D[] file)
         {
-            switch (Element.Type)
+            switch (element.Type)
             {
                 case ElementType.Sprite:
-                    {
-                        this.texturearray = File;
-                        this.frameCount = 1;
-                        this.currentFrameIndex = 0;
-                        this.msLastFrame = 0;
-                        this.mSPerFrame = 16;
-                        this.position = new Vector2(Element.X0, Element.Y0);
-                        this.origin = Getorigin(this.texturearray[0], Element.Origin);
-                        break;
-                    }
+                {
+                    Texturearray = file;
+                    FrameCount = 1;
+                    CurrentFrameIndex = 0;
+                    _msLastFrame = 0;
+                    _mSPerFrame = 16;
+                    Position = new Vector2(element.X0, element.Y0);
+                    Origin = Getorigin(Texturearray[0], element.Origin);
+                    break;
+                }
                 case ElementType.Animation:
-                    {
-                        this.texturearray = File;
-                        this.frameCount = Element.FrameCount;
-                        this.mSPerFrame = Element.Framedelay;
-                        this.Loop = Element.Looptype;
-                        this.currentFrameIndex = 0;
-                        this.msLastFrame = 0;
-                        this.position = new Vector2(Element.X0, Element.Y0);
-                        //this.texture = texturearray[0];
-                        this.origin = Getorigin(this.texturearray[0], Element.Origin);
-                        break;
-                    }
+                {
+                    Texturearray = file;
+                    FrameCount = element.FrameCount;
+                    _mSPerFrame = element.Framedelay;
+                    _loop = element.Looptype;
+                    CurrentFrameIndex = 0;
+                    _msLastFrame = 0;
+                    Position = new Vector2(element.X0, element.Y0);
+                    //this.texture = texturearray[0];
+                    Origin = Getorigin(Texturearray[0], element.Origin);
+                    break;
+                }
                 default:
                     throw (new FormatException("Failed to resolve .osb file"));
             }
-            this.Origin = Element.Origin;
-            this.color = Color.White;
-            this.alpha = 0;
-            this.parameter = 0;
-            this.rotate = 0f;
-            if (Element.Layers == ElementLayer.Background) { this.layer = 0.9f - Element.Z * 0.000001f; } else { this.layer = 0.5f - Element.Z * 0.000001f; }
-            this.scale = new Vector2(1f, 1f);
+            _origin = element.Origin;
+            Color = Color.White;
+            Alpha = 0;
+            Parameter = 0;
+            Rotate = 0f;
+            if (element.Layers == ElementLayer.Background)
+            {
+                Layer = 0.9f - element.Z*0.000001f;
+            }
+            else
+            {
+                Layer = 0.5f - element.Z*0.000001f;
+            }
+            Scale = new Vector2(1f, 1f);
             //  this.InitSpriteAction();
         }
+
         /*   /// <summary>
            /// 创建一个多帧TGraphic实例
            /// </summary>
@@ -159,159 +177,181 @@ namespace OSUplayer.Graphic
                this.mSPerFrame = 16;
                this.InitSpriteAction();
            }*/
-        private static Vector2 Getorigin(Texture2D texture, ElementOrigin Origin)
+
+        private static Vector2 Getorigin(Texture2D texture, ElementOrigin origin)
         {
-            var id = (int)Origin;
-            var x = (float)(id % 3) / 2 * texture.Width;
-            var y = (float)(id - id % 3) / 6 * texture.Height;
+            var id = (int) origin;
+            float x = (float) (id%3)/2*texture.Width;
+            float y = (float) (id - id%3)/6*texture.Height;
             return new Vector2(x, y);
         }
 
         /// <summary>
-        /// 更新图像
+        ///     更新图像
         /// </summary>
         public virtual void Update(int currentTime)
         {
             //处理动作更新
             //
-            if (this.alphaAction.Enable)
+            if (_alphaAction.Enable)
             {
-                this.alphaAction.Update(currentTime);
-                this.alpha = (byte)alphaAction.CurrentValue;//默认就是0,ok~
+                _alphaAction.Update(currentTime);
+                Alpha = (byte) _alphaAction.CurrentValue; //默认就是0,ok~
             }
-            if (this.colorAction.Enable)
+            if (_colorAction.Enable)
             {
-                this.colorAction.Update(currentTime);
-                int colorv = (int)colorAction.CurrentValue;
-                if (this.colorAction.isActive)
+                _colorAction.Update(currentTime);
+                var colorv = (int) _colorAction.CurrentValue;
+                if (_colorAction.IsActive)
                 {
-                    this.color = new Color((byte)(colorv >> 0x10), (byte)(colorv >> 8), (byte)colorv);
+                    Color = new Color((byte) (colorv >> 0x10), (byte) (colorv >> 8), (byte) colorv);
                 }
             }
-            if (this.xAction.Enable)
+            if (_xAction.Enable)
             {
-                this.xAction.Update(currentTime);
-                if (this.xAction.isActive) { this.position.X = this.xAction.CurrentValue; }
+                _xAction.Update(currentTime);
+                if (_xAction.IsActive)
+                {
+                    Position.X = _xAction.CurrentValue;
+                }
             }
-            if (this.yAction.Enable)
+            if (_yAction.Enable)
             {
-                this.yAction.Update(currentTime);
-                if (this.yAction.isActive) { this.position.Y = this.yAction.CurrentValue; }
+                _yAction.Update(currentTime);
+                if (_yAction.IsActive)
+                {
+                    Position.Y = _yAction.CurrentValue;
+                }
             }
-            if (this.scaleXAction.Enable)
+            if (_scaleXAction.Enable)
             {
-                this.scaleXAction.Update(currentTime);
-                if (this.scaleXAction.isActive) { this.scale.X = this.scaleXAction.CurrentValue; }
+                _scaleXAction.Update(currentTime);
+                if (_scaleXAction.IsActive)
+                {
+                    Scale.X = _scaleXAction.CurrentValue;
+                }
             }
-            if (this.scaleYAction.Enable)
+            if (_scaleYAction.Enable)
             {
-                this.scaleYAction.Update(currentTime);
-                if (this.scaleYAction.isActive) { this.scale.Y = this.scaleYAction.CurrentValue; }
+                _scaleYAction.Update(currentTime);
+                if (_scaleYAction.IsActive)
+                {
+                    Scale.Y = _scaleYAction.CurrentValue;
+                }
             }
-            if (this.rotateAction.Enable)
+            if (_rotateAction.Enable)
             {
-                this.rotateAction.Update(currentTime);
-                this.rotate = this.rotateAction.CurrentValue;//默认就是0,ok~
+                _rotateAction.Update(currentTime);
+                Rotate = _rotateAction.CurrentValue; //默认就是0,ok~
             }
-            if (this.parameterAction.Enable)
+            if (_parameterAction.Enable)
             {
-                this.parameterAction.Update(currentTime);
-                this.parameter = (byte)this.parameterAction.CurrentValue;//默认就是0,ok~
+                _parameterAction.Update(currentTime);
+                Parameter = (byte) _parameterAction.CurrentValue; //默认就是0,ok~
             }
 
             // 处理帧更新
             //
-            if (this.frameCount <= 1) return;
-            if (currentTime - this.msLastFrame < this.mSPerFrame) return;
-            this.msLastFrame = currentTime;
-            this.currentFrameIndex++;
-            if (this.currentFrameIndex == this.frameCount)
+            if (FrameCount <= 1) return;
+            if (currentTime - _msLastFrame < _mSPerFrame) return;
+            _msLastFrame = currentTime;
+            CurrentFrameIndex++;
+            if (CurrentFrameIndex == FrameCount)
             {
-                if (this.Loop == ElementLoopType.LoopForever)
+                if (_loop == ElementLoopType.LoopForever)
                 {
-                    this.currentFrameIndex = 0;
+                    CurrentFrameIndex = 0;
                 }
                 else
                 {
-                    this.currentFrameIndex = this.frameCount - 1;
+                    CurrentFrameIndex = FrameCount - 1;
                 }
             }
             //this.texture = texturearray[currentFrameIndex];
-            this.origin = Getorigin(this.texturearray[currentFrameIndex], this.Origin);
+            Origin = Getorigin(Texturearray[CurrentFrameIndex], _origin);
         }
 
-
         #region 设置动作
+
         /// <summary>
-        /// 初始化精灵动作
+        ///     初始化精灵动作
         /// </summary>
         private void InitSpriteAction()
         {
-            this.alphaAction = new TSpriteAction();
-            this.xAction = new TSpriteAction();
-            this.yAction = new TSpriteAction();
-            this.scaleXAction = new TSpriteAction();
-            this.scaleYAction = new TSpriteAction();
-            this.rotateAction = new TSpriteAction();
-            this.colorAction = new TSpriteAction();
-            this.parameterAction = new TSpriteAction();
+            _alphaAction = new TSpriteAction();
+            _xAction = new TSpriteAction();
+            _yAction = new TSpriteAction();
+            _scaleXAction = new TSpriteAction();
+            _scaleYAction = new TSpriteAction();
+            _rotateAction = new TSpriteAction();
+            _colorAction = new TSpriteAction();
+            _parameterAction = new TSpriteAction();
         }
+
         /// <summary>
-        /// 设置Alpha动作
+        ///     设置Alpha动作
         /// </summary>
         public void SetAlphaAction(TSpriteAction pAlphaAction)
         {
-            this.alphaAction = pAlphaAction;
+            _alphaAction = pAlphaAction;
         }
+
         /// <summary>
-        /// 设置X轴动作
+        ///     设置X轴动作
         /// </summary>
         public void SetXAction(TSpriteAction pXAction)
         {
-            this.xAction = pXAction;
+            _xAction = pXAction;
         }
+
         /// <summary>
-        /// 设置Y轴动作
+        ///     设置Y轴动作
         /// </summary>
         public void SetYAction(TSpriteAction pYAction)
         {
-            this.yAction = pYAction;
+            _yAction = pYAction;
         }
+
         /// <summary>
-        /// 设置ScaleX动作
+        ///     设置ScaleX动作
         /// </summary>
         public void SetScaleXAction(TSpriteAction pScaleAction)
         {
-            this.scaleXAction = pScaleAction;
+            _scaleXAction = pScaleAction;
         }
+
         /// <summary>
-        /// 设置ScaleY动作
+        ///     设置ScaleY动作
         /// </summary>
         public void SetScaleYAction(TSpriteAction pScaleAction)
         {
-            this.scaleYAction = pScaleAction;
+            _scaleYAction = pScaleAction;
         }
+
         /// <summary>
-        /// 设置Rotate动作
+        ///     设置Rotate动作
         /// </summary>
         public void SetRotateAction(TSpriteAction pRotateAction)
         {
-            this.rotateAction = pRotateAction;
+            _rotateAction = pRotateAction;
         }
+
         /// <summary>
-        /// 设置Color动作
+        ///     设置Color动作
         /// </summary>
         public void SetColorAction(TSpriteAction pColorAction)
         {
-            this.colorAction = pColorAction;
+            _colorAction = pColorAction;
         }
+
         /// <summary>
-        /// 设置Parameter动作
+        ///     设置Parameter动作
         /// </summary>
         public void SetParameterAction(TSpriteAction pParameterAction)
         {
-            this.parameterAction = pParameterAction;
+            _parameterAction = pParameterAction;
         }
+
         #endregion
     }
 }

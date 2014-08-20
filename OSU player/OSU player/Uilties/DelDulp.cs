@@ -16,9 +16,9 @@ namespace OSUplayer.Uilties
             InitializeComponent();
             LanguageManager.ApplyLanguage(this);
         }
-        private List<Beatmap> tmpbms = new List<Beatmap>();
-        private Dictionary<string, List<int>> dul = new Dictionary<string, List<int>>();
-        private int _ok = 0;
+        private readonly List<Beatmap> _allBeatmap = new List<Beatmap>();
+        private readonly Dictionary<string, List<int>> _dulpdict = new Dictionary<string, List<int>>();
+        private int _ok;
         private int _all = 1;
         private void Scanforset(string path)
         {
@@ -28,15 +28,15 @@ namespace OSUplayer.Uilties
                 foreach (var osufile in osufiles)
                 {
                     var tmp = new Beatmap(osufile, path);
-                    tmpbms.Add(tmp);
+                    _allBeatmap.Add(tmp);
                 }
-                this.BackgroundWorker1.ReportProgress(0);
+                BackgroundWorker1.ReportProgress(0);
             }
             else
             {
-                string[] tmpfolder = Directory.GetDirectories(path);
+                var tmpfolder = Directory.GetDirectories(path);
                 _all += tmpfolder.Length;
-                this.BackgroundWorker1.ReportProgress(0);
+                BackgroundWorker1.ReportProgress(0);
                 foreach (string subfolder in tmpfolder)
                 {
                     Scanforset(subfolder);
@@ -46,43 +46,40 @@ namespace OSUplayer.Uilties
         }
         private void Gethashs()
         {
-            for (int i = 0; i < tmpbms.Count; i++)
+            for (int i = 0; i < _allBeatmap.Count; i++)
             {
-                tmpbms[i].GetHash();
-                this.BackgroundWorker2.ReportProgress(i);
+                _allBeatmap[i].GetHash();
+                BackgroundWorker2.ReportProgress(i);
             }
         }
         private void Scanfordul(int index)
         {
-            this.BackgroundWorker3.ReportProgress(0);
-            string hash = tmpbms[index].GetHash();
-            var tmp = new List<int>();
-            tmp.Add(index);
-            for (int i = index + 1; i < tmpbms.Count; i++)
+            BackgroundWorker3.ReportProgress(0);
+            var hash = _allBeatmap[index].GetHash();
+            var tmp = new List<int> {index};
+            for (var i = index + 1; i < _allBeatmap.Count; i++)
             {
-                if (hash == tmpbms[i].GetHash())
+                if (hash == _allBeatmap[i].GetHash())
                 {
                     tmp.Add(i);
                 }
             }
-            if (tmp.Count != 1)
+            if (tmp.Count == 1) return;
+            if (!_dulpdict.ContainsKey(hash)) { _dulpdict.Add(hash, tmp); }
+            else
             {
-                if (!dul.ContainsKey(hash)) { dul.Add(hash, tmp); }
-                else
-                {
-                    dul[hash].AddRange(tmp);
-                }
+                _dulpdict[hash].AddRange(tmp);
             }
         }
         private void Adddul()
         {
-            int now = 0;
-            foreach (var md5 in dul.Keys)
+            var now = 0;
+            foreach (var md5 in _dulpdict.Keys)
             {
-                Color nowcolor = (now % 2 == 0) ? Color.White : Color.WhiteSmoke;
-                foreach (var mapcount in dul[md5])
+                var nowcolor = (now % 2 == 0) ? Color.White : Color.WhiteSmoke;
+                foreach (var mapcount in _dulpdict[md5])
                 {
-                    var tmp = new ListViewItem(tmpbms[mapcount].Location) { BackColor = nowcolor };
+                    var tmp = new ListViewItem(_allBeatmap[mapcount].Location) { BackColor = nowcolor };
                     tmp.SubItems.Add(md5);
                     DelDulp_MainView.Items.Add(tmp);
                 }
@@ -106,13 +103,13 @@ namespace OSUplayer.Uilties
         }
         private void BackgroundWorker1RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            for (int i = 1; i < tmpbms.Count; i++)
+            for (var i = 1; i < _allBeatmap.Count; i++)
             {
-                while (i < tmpbms.Count && tmpbms[i].Location == tmpbms[i - 1].Location) { tmpbms.RemoveAt(i); }
+                while (i < _allBeatmap.Count && _allBeatmap[i].Location == _allBeatmap[i - 1].Location) { _allBeatmap.RemoveAt(i); }
             }
-            DelDulp_ProgressBar.Maximum = tmpbms.Count;
+            DelDulp_ProgressBar.Maximum = _allBeatmap.Count;
             DelDulp_ProgressBar.Value = 0;
-            this.BackgroundWorker2.RunWorkerAsync(0);
+            BackgroundWorker2.RunWorkerAsync(0);
         }
         private void DelDulp_StartSearch_Click(object sender, EventArgs e)
         {
@@ -122,7 +119,7 @@ namespace OSUplayer.Uilties
             {
                 if (Directory.Exists(Path.Combine(Settings.Default.OSUpath, "Songs")))
                 {
-                    this.BackgroundWorker1.RunWorkerAsync(Path.Combine(Settings.Default.OSUpath, "Songs"));
+                    BackgroundWorker1.RunWorkerAsync(Path.Combine(Settings.Default.OSUpath, "Songs"));
                 }
             }
             catch (SystemException ex)
@@ -138,16 +135,16 @@ namespace OSUplayer.Uilties
         private void BackgroundWorker2ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             DelDulp_ProgressBar.Value++;
-            DelDulp_Status_Label.Text = String.Format(LanguageManager.Get("Get_Song_Info_Text"), DelDulp_ProgressBar.Value, tmpbms.Count);
+            DelDulp_Status_Label.Text = String.Format(LanguageManager.Get("Get_Song_Info_Text"), DelDulp_ProgressBar.Value, _allBeatmap.Count);
         }
         private void BackgroundWorker2RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             DelDulp_ProgressBar.Value = 0;
-            this.BackgroundWorker3.RunWorkerAsync(0);
+            BackgroundWorker3.RunWorkerAsync(0);
         }
         private void BackgroundWorker3DoWork(object sender, DoWorkEventArgs e)
         {
-            for (int i = 0; i < tmpbms.Count; i++)
+            for (var i = 0; i < _allBeatmap.Count; i++)
             {
                 Scanfordul(i);
             }
@@ -155,15 +152,15 @@ namespace OSUplayer.Uilties
         private void BackgroundWorker3ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             DelDulp_ProgressBar.Value++;
-            DelDulp_Status_Label.Text = String.Format(LanguageManager.Get("Scan_Duplicate_Text"), DelDulp_ProgressBar.Value, tmpbms.Count);
+            DelDulp_Status_Label.Text = String.Format(LanguageManager.Get("Scan_Duplicate_Text"), DelDulp_ProgressBar.Value, _allBeatmap.Count);
         }
         private void BackgroundWorker3RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (dul.Count == 0) { MessageBox.Show(LanguageManager.Get("Scan_Zero_Text")); this.Dispose(); }
+            if (_dulpdict.Count == 0) { MessageBox.Show(LanguageManager.Get("Scan_Zero_Text")); Dispose(); }
             else
             {
-                NotifySystem.Showtip(1000, "OSUplayer", string.Format(LanguageManager.Get("Scan_Complete_Text"), dul.Count));
-                DelDulp_Status_Label.Text = string.Format(LanguageManager.Get("Scan_Complete_Text"), dul.Count);
+                NotifySystem.Showtip(1000, "OSUplayer", string.Format(LanguageManager.Get("Scan_Complete_Text"), _dulpdict.Count));
+                DelDulp_Status_Label.Text = string.Format(LanguageManager.Get("Scan_Complete_Text"), _dulpdict.Count);
                 Adddul();
             }
             DelDulp_Cancel.Enabled = true;
@@ -175,16 +172,16 @@ namespace OSUplayer.Uilties
                 MessageBox.Show(LanguageManager.Get("Scan_Zero_Text"));
                 return;
             }
-            int count = 0;
-            for (int i = 0; i < DelDulp_MainView.Items.Count; i++)
+            var count = 0;
+            for (var i = 0; i < DelDulp_MainView.Items.Count; i++)
             {
-                string md5 = DelDulp_MainView.Items[i].SubItems[1].Text;
-                int con = 0;
+                var md5 = DelDulp_MainView.Items[i].SubItems[1].Text;
+                var con = 0;
                 while (i + con < DelDulp_MainView.Items.Count
                     && DelDulp_MainView.Items[i + con].Checked
-                    && con < dul[md5].Count) { con++; }
-                if (con == dul[md5].Count) { count++; }
-                i += dul[md5].Count - 1;
+                    && con < _dulpdict[md5].Count) { con++; }
+                if (con == _dulpdict[md5].Count) { count++; }
+                i += _dulpdict[md5].Count - 1;
             }
             if (count != 0)
             {
@@ -196,7 +193,7 @@ namespace OSUplayer.Uilties
             var filedelete = (from ListViewItem item in DelDulp_MainView.CheckedItems select item.Text).ToList();
             Win32.Delete(filedelete);
             NotifySystem.Showtip(1000, LanguageManager.Get("OSUplayer"), string.Format(LanguageManager.Get("Delete_Complete_Text"), DelDulp_MainView.CheckedItems.Count));
-            this.Dispose();
+            Dispose();
         }
         private void DelDulp_MainView_SizeChanged(object sender, EventArgs e)
         {
@@ -211,7 +208,7 @@ namespace OSUplayer.Uilties
             {
                 tmp.Checked = false;
             }
-            for (int i = 0; i < DelDulp_MainView.Items.Count - 1; i++)
+            for (var i = 0; i < DelDulp_MainView.Items.Count - 1; i++)
             {
                 if (DelDulp_MainView.Items[i].BackColor == DelDulp_MainView.Items[i + 1].BackColor)
                 {
@@ -225,7 +222,7 @@ namespace OSUplayer.Uilties
         }
         private void DelDulp_Cancel_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+            Dispose();
         }
         private void DelDulp_MainView_SelectedIndexChanged(object sender, EventArgs e)
         {

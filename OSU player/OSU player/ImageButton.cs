@@ -9,40 +9,40 @@ namespace OSUplayer
         public ImageButton()
         {
             InitializeComponent();
-            this.DoubleBuffered = true;
+            DoubleBuffered = true;
         }
-        [CategoryAttribute("外观"), DescriptionAttribute("EnterImage")]
+        [Category("外观"), Description("EnterImage")]
         public Image EnterImage { get; set; }
-        [CategoryAttribute("外观"), DescriptionAttribute("ClickImage")]
+        [Category("外观"), Description("ClickImage")]
         public Image ClickImage { get; set; }
-        [CategoryAttribute("外观"), DescriptionAttribute("BaseImage")]
+        [Category("外观"), Description("BaseImage")]
         public Image BaseImage { get; set; }
         protected override void OnMouseMove(MouseEventArgs e)
         {
-            if (Cursor.Position.X > Parent.Location.X + this.Location.X + this.Width * 0.1
-                && Cursor.Position.Y > Parent.Location.Y + this.Height * 0.15
-                && Cursor.Position.X < Parent.Location.X + this.Location.X + this.Width * 0.9
-                && Cursor.Position.Y < Parent.Location.Y + this.Height * 0.85)
+            if (Cursor.Position.X > Parent.Location.X + Location.X + Width * 0.1
+                && Cursor.Position.Y > Parent.Location.Y + Height * 0.15
+                && Cursor.Position.X < Parent.Location.X + Location.X + Width * 0.9
+                && Cursor.Position.Y < Parent.Location.Y + Height * 0.85)
             {
 
-                this.BackgroundImage = EnterImage;
+                BackgroundImage = EnterImage;
                 base.OnMouseMove(e);
             }
             else
             {
-                this.BackgroundImage = BaseImage;
+                BackgroundImage = BaseImage;
             }
 
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
-            if (Cursor.Position.X > Parent.Location.X + this.Location.X + this.Width * 0.1
-     && Cursor.Position.Y > Parent.Location.Y + this.Height * 0.15
-     && Cursor.Position.X < Parent.Location.X + this.Location.X + this.Width * 0.9
-     && Cursor.Position.Y < Parent.Location.Y + this.Height * 0.85)
+            if (Cursor.Position.X > Parent.Location.X + Location.X + Width * 0.1
+     && Cursor.Position.Y > Parent.Location.Y + Height * 0.15
+     && Cursor.Position.X < Parent.Location.X + Location.X + Width * 0.9
+     && Cursor.Position.Y < Parent.Location.Y + Height * 0.85)
             {
-                this.BackgroundImage = ClickImage;
+                BackgroundImage = ClickImage;
                 base.OnMouseDown(e);
             }
         }
@@ -50,10 +50,10 @@ namespace OSUplayer
         {
             if (Parent != null)
             {
-                if (Cursor.Position.X > Parent.Location.X + this.Location.X + this.Width * 0.1
-        && Cursor.Position.Y > Parent.Location.Y + this.Height * 0.15
-        && Cursor.Position.X < Parent.Location.X + this.Location.X + this.Width * 0.9
-        && Cursor.Position.Y < Parent.Location.Y + this.Height * 0.85)
+                if (Cursor.Position.X > Parent.Location.X + Location.X + Width * 0.1
+        && Cursor.Position.Y > Parent.Location.Y + Height * 0.15
+        && Cursor.Position.X < Parent.Location.X + Location.X + Width * 0.9
+        && Cursor.Position.Y < Parent.Location.Y + Height * 0.85)
                 {
 
                     base.OnMouseClick(e);
@@ -63,13 +63,13 @@ namespace OSUplayer
         protected override void OnMouseUp(MouseEventArgs e)
         {
 
-                this.BackgroundImage = EnterImage;
+                BackgroundImage = EnterImage;
             
             base.OnMouseUp(e);
         }
         protected override void OnMouseLeave(EventArgs e)
         {
-            this.BackgroundImage = BaseImage;
+            BackgroundImage = BaseImage;
             base.OnMouseLeave(e);
         }
 

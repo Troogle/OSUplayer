@@ -182,7 +182,7 @@ namespace OSUplayer
 
         private void TrackVolume_ValueChanged(object sender, EventArgs e)
         {
-            Core.SetVolume(1, (float)Mini_Volume_TrackBar.Value / (float)Mini_Volume_TrackBar.MaxValue);
+            Core.SetVolume(1, Mini_Volume_TrackBar.Value / (float)Mini_Volume_TrackBar.MaxValue);
         }
 
         private void TrackSeek_ValueChanged(object sender, EventArgs e)
@@ -208,7 +208,7 @@ namespace OSUplayer
         private string tempB;
         private string Title;
         private string Artist;
-        private Brush brush = Brushes.White;
+        private readonly Brush brush = Brushes.White;
         private SizeF s;
         private Graphics g;
         private void GUITimer_Tick(object sender, EventArgs e)

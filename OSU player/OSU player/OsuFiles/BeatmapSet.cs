@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Windows.Forms;
 namespace OSUplayer.OsuFiles
 {
@@ -105,6 +104,14 @@ namespace OSUplayer.OsuFiles
         public static bool operator !=(CSample a, CSample b)
         {
             return !(a == b);
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+        public override bool Equals(object obj)
+        {
+            return (CSample)obj == this;
         }
     }
     public enum Modes
@@ -251,17 +258,17 @@ namespace OSUplayer.OsuFiles
             {
                 tmp.Add(Checksample(first, Enum.GetName(typeof(TSample), sample.sample) + "-hitnormal", last));
             }
-            soundtype = (int)(soundtype / 2);
+            soundtype = soundtype / 2;
             if (soundtype % 2 == 1)
             {
                 tmp.Add(Checksample(first, Enum.GetName(typeof(TSample), sample.sample) + "-hitwhistle", last));
             }
-            soundtype = (int)(soundtype / 2);
+            soundtype = soundtype / 2;
             if (soundtype % 2 == 1)
             {
                 tmp.Add(Checksample(first, Enum.GetName(typeof(TSample), sample.sample) + "-hitfinish", last));
             }
-            soundtype = (int)(soundtype / 2);
+            soundtype = soundtype / 2;
             if (soundtype % 2 == 1)
             {
                 tmp.Add(Checksample(first, Enum.GetName(typeof(TSample), sample.sample) + "-hitclap", last));

@@ -1,42 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Threading;
-using Microsoft.Xna.Framework.Graphics;
+﻿using System.Drawing.Imaging;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using OSUplayer.OsuFiles;
 using OSUplayer.OsuFiles.StoryBoard;
 using OSUplayer.Properties;
 using OSUplayer.Uilties;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using Color = Microsoft.Xna.Framework.Graphics.Color;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 namespace OSUplayer.Graphic
 {
     struct Fxlist
     {
-        public int time;
-        public List<int> play;
-        public float volume;
+        public int Time;
+        public List<int> Play;
+        public float Volume;
         public Fxlist(int time, List<int> play, float volume)
         {
-            this.time = time;
-            this.play = play;
-            this.volume = volume;
+            Time = time;
+            Play = play;
+            Volume = volume;
         }
     }
     class Player : IDisposable
     {
-        private BassAudio uniAudio;
-        List<Fxlist> fxlist = new List<Fxlist>();
+        readonly BassAudio uniAudio;
+        readonly List<Fxlist> fxlist = new List<Fxlist>();
         const int MaxFxplayer = 128;
-        BassAudio[] fxplayer;
-        string[] fxname = new string[MaxFxplayer];
+        readonly BassAudio[] fxplayer;
+        readonly string[] fxname = new string[MaxFxplayer];
         bool _cannext = true;
         public bool Willnext = false;
-        bool _videoExist = false;
-        bool _sbExist = false;
-        int _fxpos = 0;
+        bool _videoExist;
+        bool _sbExist;
+        int _fxpos;
         static float Allvolume { get { return Settings.Default.Allvolume; } }
         static float Musicvolume { get { return Settings.Default.Musicvolume; } }
         static float Fxvolume { get { return Settings.Default.Fxvolume; } }
@@ -50,7 +50,7 @@ namespace OSUplayer.Graphic
         /// </summary>
         Rectangle _showRect;
 
-        GraphicsDevice device = null;
+        readonly GraphicsDevice device;
         VideoDecoder _decoder;
         Texture2D _videoTexture;
         Texture2D _bgTexture;
@@ -62,10 +62,10 @@ namespace OSUplayer.Graphic
         float _bgScale;
         float _sbScale;
         Matrix SBtramsform;
-        List<TGraphic> SBelements = new List<TGraphic>();
-        SpriteBatch AlphaSprite;
-        SpriteBatch AdditiveSprite;
-        bool _deviceislost = false;
+        readonly List<TGraphic> SBelements = new List<TGraphic>();
+        readonly SpriteBatch AlphaSprite;
+        readonly SpriteBatch AdditiveSprite;
+        bool _deviceislost;
         public Player(IntPtr shandle, Size ssize)
         {
             uniAudio = new BassAudio();
@@ -94,7 +94,7 @@ namespace OSUplayer.Graphic
             }
             using (var s = new MemoryStream())
             {
-                Resources.defaultBG.Save(s, System.Drawing.Imaging.ImageFormat.Png);
+                Resources.defaultBG.Save(s, ImageFormat.Png);
                 s.Seek(0, SeekOrigin.Begin);
                 _bgTexture = Texture2D.FromFile(device, s);
             }
@@ -148,7 +148,7 @@ namespace OSUplayer.Graphic
             var black = new Bitmap(Resources.BlackBase, _decoder.width, _decoder.height);
             using (var s = new MemoryStream())
             {
-                black.Save(s, System.Drawing.Imaging.ImageFormat.Png);
+                black.Save(s, ImageFormat.Png);
                 s.Seek(0, SeekOrigin.Begin);
                 _black = Texture2D.FromFile(device, s);
             }
@@ -168,7 +168,7 @@ namespace OSUplayer.Graphic
             {
                 using (var s = new MemoryStream())
                 {
-                    Resources.defaultBG.Save(s, System.Drawing.Imaging.ImageFormat.Png);
+                    Resources.defaultBG.Save(s, ImageFormat.Png);
                     s.Seek(0, SeekOrigin.Begin);
                     _bgTexture = Texture2D.FromFile(device, s);
                 }
@@ -189,7 +189,7 @@ namespace OSUplayer.Graphic
             foreach (var element in SBelements)
             {
                 element.Update((int)(Position * 1000));
-                element.Draw((element.parameter & 4) == 4 ? AdditiveSprite : AlphaSprite);
+                element.Draw((element.Parameter & 4) == 4 ? AdditiveSprite : AlphaSprite);
             }
         }
 
@@ -248,7 +248,7 @@ namespace OSUplayer.Graphic
                             }
                             break;
                     }
-                    var element = new TGraphic(device, sbelement, tmpTexture);
+                    var element = new TGraphic(sbelement, tmpTexture);
                     element.SetAlphaAction(new TSpriteAction(sbelement.F));
                     element.SetScaleXAction(new TSpriteAction(sbelement.SX));
                     element.SetScaleYAction(new TSpriteAction(sbelement.SY));
@@ -307,7 +307,7 @@ namespace OSUplayer.Graphic
                 fxplayer[j].Dispose();
             }
         }
-        private List<int> Setplayer(ref int player, List<string> filenames)
+        private List<int> Setplayer(ref int player, IEnumerable<string> filenames)
         {
             var ret = new List<int>();
             bool f = true;
@@ -414,31 +414,21 @@ namespace OSUplayer.Graphic
                 }
                 current++;
             }
-            fxlist.Sort((a, b) => a.time.CompareTo(b.time));
+            fxlist.Sort((a, b) => a.Time.CompareTo(b.Time));
             fxlist.Add(new Fxlist(Int32.MaxValue, new List<int>(), 0));
         }
         private void PlayFx(int pos)
         {
             if (!Playfx) { return; }
-            for (int j = 0; j < fxlist[pos].play.Count; j++)
+            foreach (int sample in fxlist[pos].Play)
             {
-                fxplayer[fxlist[pos].play[j]].Play(Allvolume * Fxvolume * fxlist[pos].volume);
+                fxplayer[sample].Play(Allvolume * Fxvolume * fxlist[pos].Volume);
             }
         }
-        public void SetVolume(int set, float volume)
+
+        public void UpdateVolume()
         {
-            switch (set)
-            {
-                case 1:
-                    if (uniAudio != null) { uniAudio.Volume = Allvolume * Musicvolume; }
-                    break;
-                case 2:
-                    if (uniAudio != null) { uniAudio.Volume = Allvolume * Musicvolume; }
-                    break;
-                case 3:
-                default:
-                    break;
-            }
+            if (uniAudio != null) { uniAudio.Volume = Allvolume * Musicvolume; }   
         }
         public void Stop()
         {
@@ -482,7 +472,7 @@ namespace OSUplayer.Graphic
             _fxpos = 0;
             if (Playfx)
             {
-                while (fxlist[_fxpos].time <= uniAudio.Position * 1000 && _fxpos < fxlist.Count)
+                while (fxlist[_fxpos].Time <= uniAudio.Position * 1000 && _fxpos < fxlist.Count)
                 {
                     _fxpos++;
                 }
@@ -498,9 +488,9 @@ namespace OSUplayer.Graphic
             }
             if (_fxpos < fxlist.Count)
             {
-                while (fxlist[_fxpos].time <= uniAudio.Position * 1000)
+                while (fxlist[_fxpos].Time <= uniAudio.Position * 1000)
                 {
-                    while ((fxlist[_fxpos + 1].time <= uniAudio.Position * 1000)) { _fxpos++; }
+                    while ((fxlist[_fxpos + 1].Time <= uniAudio.Position * 1000)) { _fxpos++; }
                     PlayFx(_fxpos);
                     _fxpos++;
                 }

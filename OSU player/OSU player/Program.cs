@@ -1,12 +1,10 @@
-﻿using System;
+﻿using OSUplayer.Uilties;
+using System;
+using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using System.Net;
-using System.IO;
-using System.Diagnostics;
-using OSUplayer.Uilties;
 namespace OSUplayer
 {
     static class Program
@@ -32,7 +30,7 @@ namespace OSUplayer
                 _mutex = new Mutex(true, Application.ProductName, out ret);
                 if (!ret)
                 {
-                    MessageBox.Show("The Program is already running!", "Tips", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(@"The Program is already running!", @"Tips", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Application.ExitThread();
                     return;
                 }
@@ -54,18 +52,18 @@ namespace OSUplayer
             catch (Exception ex)
             {
                 GetExceptionMsg(ex);
-                NotifySystem.Showtip(1000, "发生了一些令人悲伤的事情><", "错误已上报，程序将试图继续运行", System.Windows.Forms.ToolTipIcon.Error);
+                NotifySystem.Showtip(1000, "发生了一些令人悲伤的事情><", "错误已上报，程序将试图继续运行", ToolTipIcon.Error);
             }
         }
         static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
             GetExceptionMsg(e.Exception);
-            NotifySystem.Showtip(1000, "发生了一些令人悲伤的事情><", "错误已上报，程序将试图继续运行", System.Windows.Forms.ToolTipIcon.Error);
+            NotifySystem.Showtip(1000, "发生了一些令人悲伤的事情><", "错误已上报，程序将试图继续运行", ToolTipIcon.Error);
         }
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             GetExceptionMsg(e.ExceptionObject as Exception);
-            NotifySystem.Showtip(1000, "发生了一些令人悲伤的事情><", "错误已上报，程序将试图继续运行", System.Windows.Forms.ToolTipIcon.Error);
+            NotifySystem.Showtip(1000, "发生了一些令人悲伤的事情><", "错误已上报，程序将试图继续运行", ToolTipIcon.Error);
         }
 
         /// <summary>

@@ -10,7 +10,7 @@ namespace OSUplayer.Uilties
     public partial class SetQQ : Form
     {
         private readonly BackgroundWorker refreash = new BackgroundWorker();
-        private QQ qq = new QQ();
+        private readonly QQ qq = new QQ();
         private List<QQInfo> QQInfos = new List<QQInfo>();
 
         public SetQQ()
@@ -72,8 +72,8 @@ namespace OSUplayer.Uilties
                 ListViewItem tmpl;
                 foreach (var t in QQInfos)
                 {
-                    tmpl = new ListViewItem(t.uin);
-                    tmpl.SubItems.Add(t.nick);
+                    tmpl = new ListViewItem(t.Uin);
+                    tmpl.SubItems.Add(t.Nick);
                     SetQQ_MainView.Items.Add(tmpl);
                 }
                 tmpl = new ListViewItem(LanguageManager.Get("SetQQ_ClearQQ_Text"));

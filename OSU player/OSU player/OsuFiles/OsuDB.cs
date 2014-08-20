@@ -1,20 +1,19 @@
-﻿using System;
+﻿using OSUplayer.Properties;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using OSUplayer.Properties;
 
 namespace OSUplayer.OsuFiles
 {
     public class ScoreRecord
     {
-        public int version;
-        public int mod;
+        public int Version;
+        public int Modint;
         public string DiffHash;
         public string DiffName;
         public string ReplayHash;
-        public bool isPerfect;
+        public bool IsPerfect;
         public int Hit100;
         public int Hit200;
         public int Hit300;
@@ -27,151 +26,6 @@ namespace OSUplayer.OsuFiles
         public int Score;
         public DateTime Time;
         public int Totalhit;
-
-        public Image Rank
-        {
-            get
-            {
-                switch (Mode)
-                {
-                    case Modes.Osu:
-                        if (Acc == 1)
-                        {
-                            if (Mod.Contains("HD") || Mod.Contains("FL"))
-                            {
-                                return Resources.XH;
-                            }
-                            return Resources.X;
-                        }
-                        if ((Hit300) / (double)Totalhit > 0.9 && Hit50 / (double)Totalhit < 0.01 && Miss == 0)
-                        {
-                            if (Mod.Contains("HD") || Mod.Contains("FL"))
-                            {
-                                return Resources.SH;
-                            }
-                            return Resources.S;
-                        }
-                        if (((Hit300) / (double)Totalhit > 0.9) || ((Hit300) / (double)Totalhit > 0.8 && Miss == 0))
-                        {
-                            return Resources.A;
-                        }
-                        if (((Hit300) / (double)Totalhit > 0.8) || ((Hit300) / (double)Totalhit > 0.7 && Miss == 0))
-                        {
-                            return Resources.B;
-                        }
-                        if ((Hit300) / (double)Totalhit > 0.6)
-                        {
-                            return Resources.C;
-                        }
-                        return Resources.D;
-                    case Modes.Taiko:
-                        if (Acc == 1)
-                        {
-                            if (Mod.Contains("HD") || Mod.Contains("FL"))
-                            {
-                                return Resources.XH;
-                            }
-                            return Resources.X;
-                        }
-                        if ((Hit300) / (double)Totalhit > 0.9 && Hit50 / (double)Totalhit < 0.01 && Miss == 0)
-                        {
-                            if (Mod.Contains("HD") || Mod.Contains("FL"))
-                            {
-                                return Resources.SH;
-                            }
-                            return Resources.S;
-                        }
-                        if (((Hit300) / (double)Totalhit > 0.9) || ((Hit300) / (double)Totalhit > 0.8 && Miss == 0))
-                        {
-                            return Resources.A;
-                        }
-                        if (((Hit300) / (double)Totalhit > 0.8) || ((Hit300) / (double)Totalhit > 0.7 && Miss == 0))
-                        {
-                            return Resources.B;
-                        }
-                        if ((Hit300) / (double)Totalhit > 0.6)
-                        {
-                            return Resources.C;
-                        }
-                        return Resources.D;
-                    case Modes.CTB:
-                        if (Acc == 1)
-                        {
-                            if (Mod.Contains("HD") || Mod.Contains("FL"))
-                            {
-                                return Resources.XH;
-                            }
-                            return Resources.X;
-                        }
-                        if (Acc >= 0.9801)
-                        {
-                            if (Mod.Contains("HD") || Mod.Contains("FL"))
-                            {
-                                return Resources.SH;
-                            }
-                            return Resources.S;
-                        }
-                        if (Acc >= 0.9401)
-                        {
-                            return Resources.A;
-                        }
-                        if (Acc >= 0.9001)
-                        {
-                            return Resources.B;
-                        }
-                        if (Acc >= 0.8501)
-                        {
-                            return Resources.C;
-                        }
-                        return Resources.D;
-                    case Modes.Mania:
-                        if (Acc == 1)
-                        {
-                            if (Mod.Contains("HD") || Mod.Contains("FL"))
-                            {
-                                return Resources.XH;
-                            }
-                            return Resources.X;
-                        }
-                        if (Acc > 0.95)
-                        {
-                            if (Mod.Contains("HD") || Mod.Contains("FL"))
-                            {
-                                return Resources.SH;
-                            }
-                            return Resources.S;
-                        }
-                        if (Acc > 0.90)
-                        {
-                            return Resources.A;
-                        }
-                        if (Acc > 0.80)
-                        {
-                            return Resources.B;
-                        }
-                        if (Acc > 0.70)
-                        {
-                            return Resources.C;
-                        }
-                        return Resources.D;
-                    default:
-                        return Resources.D;
-                }
-            }
-        }
-
-        public String Details
-        {
-            get
-            {
-                return String.Format(
-                    "Player:{0},Date:{1},Score: {2},Diff:{3},Mods:{4},Mode:{5},300:{6},100:{7},50:{8},Miss:{9},Maxcombo:{10}",
-                    Player, Time, Score, DiffName,
-                    Mod, Mode,
-                    Hit300, Hit100, Hit50, Miss, MaxCombo);
-            }
-        }
-
         public double Acc
         {
             get
@@ -195,25 +49,89 @@ namespace OSUplayer.OsuFiles
                 }
             }
         }
-
         public string Mod
         {
             get
             {
-                if (mod == 0)
+                if (Modint == 0)
                 {
                     return "None";
                 }
                 var cmod = "";
                 for (int i = 0; i < (int)Mods.LastMod; i++)
                 {
-                    if ((mod & 1) == 1)
+                    if ((Modint & 1) == 1)
                     {
                         cmod += " " + Enum.GetName(typeof(Mods), i);
                     }
-                    mod = mod >> 1;
+                    Modint = Modint >> 1;
                 }
                 return cmod;
+            }
+        }
+        private Image RankExtracted(bool sContition, bool aContition, bool bContition, bool cContition)
+        {
+            if (Acc == 1)
+            {
+                if (Mod.Contains("HD") || Mod.Contains("FL"))
+                {
+                    return Resources.XH;
+                }
+                return Resources.X;
+            }
+            if (sContition)
+            {
+                if (Mod.Contains("HD") || Mod.Contains("FL"))
+                {
+                    return Resources.SH;
+                }
+                return Resources.S;
+            }
+            if (aContition)
+            {
+                return Resources.A;
+            }
+            if (bContition)
+            {
+                return Resources.B;
+            }
+            if (cContition)
+            {
+                return Resources.C;
+            }
+            return Resources.D;
+        }
+        public Image Rank
+        {
+            get
+            {
+                switch (Mode)
+                {
+                    case Modes.Osu:
+                    case Modes.Taiko:
+                        return RankExtracted(
+                            ((Hit300) / (double)Totalhit > 0.9 && Hit50 / (double)Totalhit < 0.01 && Miss == 0),
+                            (((Hit300) / (double)Totalhit > 0.9) || ((Hit300) / (double)Totalhit > 0.8 && Miss == 0)),
+                            (((Hit300) / (double)Totalhit > 0.8) || ((Hit300) / (double)Totalhit > 0.7 && Miss == 0)),
+                            ((Hit300) / (double)Totalhit > 0.6));
+                    case Modes.CTB:
+                        return RankExtracted(Acc >= 0.9801, Acc >= 0.9401, Acc >= 0.9001, Acc >= 0.8501);
+                    case Modes.Mania:
+                        return RankExtracted(Acc > 0.95, Acc > 0.90, Acc > 0.80, Acc > 0.70);
+                    default:
+                        return Resources.D;
+                }
+            }
+        }
+        public String Details
+        {
+            get
+            {
+                return String.Format(
+                    "Player:{0},Date:{1},Score: {2},Diff:{3},Mods:{4},Mode:{5},300:{6},100:{7},50:{8},Miss:{9},Maxcombo:{10}",
+                    Player, Time, Score, DiffName,
+                    Mod, Mode,
+                    Hit300, Hit100, Hit50, Miss, MaxCombo);
             }
         }
     }
@@ -246,10 +164,10 @@ namespace OSUplayer.OsuFiles
 
         private char[] ReadChars()//method_1
         {
-            var count = this.ReadInt32();
+            var count = ReadInt32();
             if (count > 0)
             {
-                return this.ReadChars(count);
+                return ReadChars(count);
             }
             return count < 0 ? null : new char[0];
         }
@@ -258,39 +176,39 @@ namespace OSUplayer.OsuFiles
             switch (ReadByte())
             {
                 case 1:
-                    return this.ReadBoolean();
+                    return ReadBoolean();
                 case 2:
-                    return this.ReadByte();
+                    return ReadByte();
                 case 3:
-                    return this.ReadUInt16();
+                    return ReadUInt16();
                 case 4:
-                    return this.ReadUInt32();
+                    return ReadUInt32();
                 case 5:
-                    return this.ReadUInt64();
+                    return ReadUInt64();
                 case 6:
-                    return this.ReadSByte();
+                    return ReadSByte();
                 case 7:
-                    return this.ReadInt16();
+                    return ReadInt16();
                 case 8:
-                    return this.ReadInt32();
+                    return ReadInt32();
                 case 9:
-                    return this.ReadInt64();
+                    return ReadInt64();
                 case 10:
-                    return this.ReadChar();
+                    return ReadChar();
                 case 11:
                     return base.ReadString();
                 case 12:
-                    return this.ReadSingle();
+                    return ReadSingle();
                 case 13:
-                    return this.ReadDouble();
+                    return ReadDouble();
                 case 14:
-                    return this.ReadDecimal();
+                    return ReadDecimal();
                 case 15:
-                    return this.ReadDateTime();
+                    return ReadDateTime();
                 case 0x10:
-                    return this.ReadBytes();
+                    return ReadBytes();
                 case 0x11:
-                    return this.ReadChars();
+                    return ReadChars();
                 case 0x12:
                     return Deserializer.Deserialize(BaseStream);
             }
@@ -329,7 +247,7 @@ namespace OSUplayer.OsuFiles
                         var tscore = new ScoreRecord
                         {
                             Mode = (Modes)reader.ReadByte(),
-                            version = reader.ReadInt32(),
+                            Version = reader.ReadInt32(),
                             DiffHash = reader.ReadString(),
                             Player = reader.ReadString(),
                             ReplayHash = reader.ReadString(),
@@ -341,15 +259,15 @@ namespace OSUplayer.OsuFiles
                             Miss = reader.ReadUInt16(),
                             Score = reader.ReadInt32(),
                             MaxCombo = reader.ReadUInt16(),
-                            isPerfect = reader.ReadBoolean(),
-                            mod = reader.ReadInt32()
+                            IsPerfect = reader.ReadBoolean(),
+                            Modint = reader.ReadInt32()
                         };
-                        var tmp = reader.ReadString();//??? 均为空
+                        reader.ReadString();//??? 均为空
                         // Debug.Assert(tmp == "");
                         tscore.Time = reader.ReadDateTime();
-                        var tmp1 = reader.ReadBytes();//??? 均为null
+                        reader.ReadBytes();//??? 均为null
                         //  Debug.Assert(tmp1 == null);
-                        if (tscore.version >= 20140721)
+                        if (tscore.Version >= 20140721)
                         {
                             reader.ReadInt64();//Online ID
                         }
@@ -376,15 +294,13 @@ namespace OSUplayer.OsuFiles
                 reader.ReadInt32();
                 reader.ReadByte();
                 reader.ReadString(); //player
-                string stashs;
-                int stash;
                 int mapcount = reader.ReadInt32();
                 var tmpbm = new Beatmap();
                 var tmpset = new BeatmapSet();
                 for (int i = 0; i < mapcount; i++)
                 {
                     tmpbm.ArtistRomanized = reader.ReadString();
-                    stashs = reader.ReadString();
+                    string stashs = reader.ReadString();
                     if (stashs != "")
                     {
                         tmpbm.Artist = stashs;
@@ -438,7 +354,7 @@ namespace OSUplayer.OsuFiles
                     reader.ReadInt32(); //playtime
                     reader.ReadInt32(); //totaltime
                     reader.ReadInt32(); //preview
-                    stash = reader.ReadInt32(); //timting points 数
+                    int stash = reader.ReadInt32();
                     for (int j = 0; j < stash; j++)
                     {
                         reader.ReadDouble(); //bpm

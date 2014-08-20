@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -9,7 +7,7 @@ namespace OSUplayer
 {
     class Language
     {
-        private Dictionary<string, string> content = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> content = new Dictionary<string, string>();
         public string Get(string name)
         {
             return content.ContainsKey(name) ? content[name] : "";

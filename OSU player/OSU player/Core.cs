@@ -383,7 +383,7 @@ namespace OSUplayer
                     Settings.Default.Fxvolume = volume;
                     break;
             }
-            _player.SetVolume(set, volume);
+            _player.UpdateVolume();
         }
 
         public static void RefreashSet()

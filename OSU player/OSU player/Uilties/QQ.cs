@@ -48,10 +48,10 @@ namespace OSUplayer.Uilties
                 GetQQList.Add(new QQInfo(qq.Substring(12, qq.Length - 17)));
             }
         }
+
         /// <summary>
         ///     推送消息给指定ID
         /// </summary>
-        /// <param name="id">QQ号</param>
         /// <param name="str">推送的内容</param>
         public static void Send2QQ(string str)
         {
