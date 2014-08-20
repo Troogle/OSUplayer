@@ -82,6 +82,12 @@
     <Reference Include="gTrackBar">
       <HintPath>Res\gTrackBar.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\..\dlls\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Id3Lib">
+      <HintPath>..\..\dlls\Id3Lib.dll</HintPath>
+    </Reference>
     <Reference Include="Ionic.Zip.Reduced, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\dlls\Ionic.Zip.Reduced.dll</HintPath>
@@ -93,6 +99,9 @@
     <Reference Include="Microsoft.Xna.Framework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\dlls\Microsoft.Xna.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Mp3Lib">
+      <HintPath>..\..\dlls\Mp3Lib.dll</HintPath>
     </Reference>
     <Reference Include="ObjectListView">
       <HintPath>Res\ObjectListView.dll</HintPath>

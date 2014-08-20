@@ -2,6 +2,9 @@
 using System.IO;
 using System;
 using System.Security.Cryptography;
+using System.Text;
+using Mp3Lib;
+
 namespace OSUplayer.OsuFiles
 {
     [Serializable]
@@ -515,11 +518,27 @@ namespace OSUplayer.OsuFiles
             Hash = strHashData.ToLower();
             return Hash;
         }
-
+        private static string GetSafeFilename(string filename)
+        {
+            return string.Join("_", filename.Split(System.IO.Path.GetInvalidFileNameChars()));
+        }
         public void SaveAudio(string toLocation)
         {
             var ext = System.IO.Path.GetExtension(Rawdata[(int)OSUfile.AudioFilename]);
-            File.Copy(Audio, System.IO.Path.Combine(toLocation, Title + ext), true);
+            var toName = System.IO.Path.Combine(toLocation, GetSafeFilename(Title + ext));
+            if (File.Exists(toName)) toName = System.IO.Path.Combine(toLocation, GetSafeFilename(Title + "[" + Version + "]" + ext));
+            File.Copy(Audio, toName, true);
+            try
+            {
+                var file = new Mp3File(toName);
+                file.TagHandler.Artist = Artist;
+                file.TagHandler.Title = Title;
+                file.Update();
+            }
+            catch (Exception)
+            {
+                File.Copy(Audio, toName, true);
+            }
         }
     }
 }

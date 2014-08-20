@@ -79,6 +79,7 @@ Core_Missing_MP3_Text=
 BG_Loss_Tip_Text=
 Core_Current_Playing_Text=
 Save_Complete=
+Saving=
 Comfirm_Exit_Text=
 
 ##QQ

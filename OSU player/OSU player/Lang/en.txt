@@ -79,6 +79,7 @@ Core_Missing_MP3_Text=Sound file missing
 BG_Loss_Tip_Text=Background image missing
 Core_Current_Playing_Text=Playing 
 Save_Complete=Save success!
+Saving=Saving Files...
 Comfirm_Exit_Text=Are you sure to exit?
 
 ##QQ

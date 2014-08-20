@@ -79,6 +79,7 @@ Core_Missing_MP3_Text=音频文件你都删！><
 BG_Loss_Tip_Text=没事删什么BG TAT
 Core_Current_Playing_Text=正在播放
 Save_Complete=保存成功！
+Saving=正在保存...
 Comfirm_Exit_Text=确认退出？
 
 ##QQ

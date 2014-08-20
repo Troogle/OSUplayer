@@ -70,6 +70,7 @@ Core_Missing_MP3_Text=缺少音訊文件
 BG_Loss_Tip_Text=缺少背景圖片
 Core_Current_Playing_Text=正在播放
 Save_Complete=保存成功！
+Saving=正在保存...
 Comfirm_Exit_Text=您確認要關閉本程式？
 
 ##QQ
