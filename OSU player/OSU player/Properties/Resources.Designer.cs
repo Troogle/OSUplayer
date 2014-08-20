@@ -131,6 +131,30 @@ namespace OSUplayer.Properties {
         }
         
         /// <summary>
+        ///   查找类似  &lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
+        ///&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+        ///&lt;head&gt;
+        ///&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=gb2312&quot; /&gt;
+        ///&lt;title&gt;OSUPlayer&lt;/title&gt;
+        ///&lt;style type=&quot;text/css&quot;&gt;
+        ///.container {
+        ///	width: 80%;
+        ///	max-width: 1260px;
+        ///	min-width: 780px;
+        ///	margin: 0 auto; 
+        ///	filter:alpha(opacity=95); 
+        ///	-moz-opacity:0.95;         
+        ///	opacity:0.95;              
+        ///	color: #FFF;
+        ///	background-color: # [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string HtmlBase {
+            get {
+                return ResourceManager.GetString("HtmlBase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         /// </summary>
         internal static System.Drawing.Icon icon {

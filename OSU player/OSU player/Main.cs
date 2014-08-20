@@ -1,4 +1,5 @@
-﻿using OSUplayer.OsuFiles;
+﻿using System.Reflection;
+using OSUplayer.OsuFiles;
 using OSUplayer.Properties;
 using OSUplayer.Uilties;
 using System;
@@ -786,7 +787,38 @@ namespace OSUplayer
 
         private void Main_Tool_Export_Playlist_Click(object sender, EventArgs e)
         {
-
+            if (Core.PlayList.Count==0) return;
+            var dialog = new SaveFileDialog
+            {
+                CheckFileExists = false,
+                CreatePrompt = false,
+                AddExtension = true,
+                OverwritePrompt = true,
+                FileName = "Export",
+                DefaultExt = "html",
+                Filter = @"Html (*.html,*.htm)|*.html;*.htm",
+                InitialDirectory = Assembly.GetExecutingAssembly().Location
+            };
+            if (DialogResult.OK != dialog.ShowDialog()) return;
+            using (var Stream = new StreamWriter(dialog.FileName,false,Encoding.UTF8))
+            {
+                Stream.Write(Resources.HtmlBase);
+                for (var i = 0; i < Core.PlayList.Count; i++)
+                {
+                    var song = Core.Allsets[Core.PlayList[i]];
+                    Stream.WriteLine("<tr>");
+                    Stream.WriteLine("<td class='nobg'><span class='alt'>{0}</span></td>",i+1);
+                    Stream.WriteLine("<td class='nobg'><span class='alt'><a href='https://osu.ppy.sh/s/{0}' target='_new'>{1}</a></span></td>",song.setid,song.ToString());
+                    Stream.WriteLine("<td class='nobg'><span class='alt'>{0}</span></td>",song.setid);
+                    Stream.WriteLine("<td class='nobg'><span class='alt'><a href='http://bloodcat.com/osu/m/{0}' target='_new'>Download</a></span></td>",song.setid);
+                    Stream.WriteLine("<td class='nobg'><span class='alt'><a href='http://loli.al/s/{0}' target='_new'>Download</a></span></td>", song.setid);
+                    Stream.WriteLine("<td class='nobg'><span class='alt'><a href='http://osu.mengsky.net/d.php?id={0}' target='_new'>Download</a></span></td>", song.setid);
+                    Stream.WriteLine("</tr>");
+                }
+                Stream.WriteLine("</table>");
+                Stream.WriteLine("</div></body></html>");
+            }
+            Process.Start(dialog.FileName);
         }
 
         private void Main_Tool_Export_Playlist_MP3_Click(object sender, EventArgs e)

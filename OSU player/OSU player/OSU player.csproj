@@ -299,6 +299,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Lang\Template.txt" />
+    <None Include="Res\HtmlBase.txt" />
     <EmbeddedResource Include="Lang\zh-CHS.txt" />
     <EmbeddedResource Include="Lang\zh-CHT.txt" />
   </ItemGroup>
