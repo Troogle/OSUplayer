@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Net;
 using System.Reflection;
-using System.Windows.Forms;
 using OSUplayer.Properties;
 
 namespace OSUplayer.Uilties
@@ -9,52 +10,44 @@ namespace OSUplayer.Uilties
     /// <summary>
     ///     获取的QQ信息
     /// </summary>
-    public struct QQInfo
+    public class QQInfo
     {
-        public string nick;
-        public string uin;
-
-        public QQInfo(string uin, string nick)
+        public string Nick { get; private set; }
+        public string Uin { get; private set; }
+        static string FindBetween(string source, string begin, string after)
         {
-            this.uin = uin;
-            this.nick = nick;
+            var firstIndex = source.IndexOf(begin, StringComparison.Ordinal) + begin.Length;
+            return source.Substring(
+                firstIndex, source.IndexOf(after, firstIndex, StringComparison.Ordinal) - firstIndex
+            );
+        }
+        public QQInfo(string uin)
+        {
+            Uin = uin;
+            var request = WebRequest.Create("http://r.qzone.qq.com/cgi-bin/user/cgi_personal_card?uin=" + uin);
+            var data = request.GetResponse().GetResponseStream();
+            if (data == null) return;
+            using (var sr = new StreamReader(data))
+            {
+                var html = sr.ReadToEnd();
+                Nick = FindBetween(html, @"""nickname"":""", @"""");
+            }
         }
     }
 
     public class QQ
     {
-        private readonly WebBrowser web = new WebBrowser();
-
         /// <summary>
         ///     获取目前登陆QQ列表
         /// </summary>
         public List<QQInfo> GetQQList = new List<QQInfo>();
-        //提前加载浏览器，给浏览器加载的时间
         public QQ()
         {
-            const string url = "http://xui.ptlogin2.qq.com/cgi-bin/qlogin";
-            web.Url = new Uri(url);
-            web.DocumentCompleted += web_DocumentCompleted;
-        }
-
-        private void web_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-            var doc = web.Document;
-            var uinList = doc.GetElementById("list_uin");
-            if (uinList != null)
+            foreach (var qq in Directory.GetFiles(@"\\.\Pipe\", "QQ_*_pipe", SearchOption.AllDirectories))
             {
-                for (int i = 0; i <= uinList.Children.Count - 1; i++)
-                {
-                    string str = uinList.Children[i].InnerText.Trim();
-                    var NInfo =
-                        new QQInfo(
-                            str.Substring(str.LastIndexOf("(") + 1, str.LastIndexOf(")") - str.LastIndexOf("(") - 1),
-                            str.Substring(0, str.LastIndexOf("(") - 1));
-                    GetQQList.Add(NInfo);
-                }
+                GetQQList.Add(new QQInfo(qq.Substring(12, qq.Length - 17)));
             }
         }
-
         /// <summary>
         ///     推送消息给指定ID
         /// </summary>

@@ -10,7 +10,6 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
-using Meebey.SmartIrc4net;
 using OSUplayer.OsuFiles;
 using OSUplayer.Properties;
 using OSUplayer.Uilties;

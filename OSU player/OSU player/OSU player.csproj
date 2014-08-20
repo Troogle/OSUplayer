@@ -82,30 +82,26 @@
     <Reference Include="gTrackBar">
       <HintPath>Res\gTrackBar.dll</HintPath>
     </Reference>
-    <Reference Include="Ionic.Zip.Reduced">
-      <HintPath>..\..\ipch\Ionic.Zip.Reduced.dll</HintPath>
+    <Reference Include="Ionic.Zip.Reduced, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\dlls\Ionic.Zip.Reduced.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\ipch\log4net.dll</HintPath>
+      <HintPath>..\..\dlls\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Meebey.SmartIrc4net, Version=0.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Xna.Framework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\ipch\Meebey.SmartIrc4net.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Xna.Framework">
-      <HintPath>..\..\ipch\Microsoft.Xna.Framework.dll</HintPath>
+      <HintPath>..\..\dlls\Microsoft.Xna.Framework.dll</HintPath>
     </Reference>
     <Reference Include="ObjectListView">
       <HintPath>Res\ObjectListView.dll</HintPath>
     </Reference>
     <Reference Include="StarkSoftProxy, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\ipch\StarkSoftProxy.dll</HintPath>
+      <HintPath>..\..\dlls\StarkSoftProxy.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
