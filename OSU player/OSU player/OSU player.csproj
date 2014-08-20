@@ -117,6 +117,12 @@
     <Compile Include="DBListView.Designer.cs">
       <DependentUpon>DBListView.cs</DependentUpon>
     </Compile>
+    <Compile Include="HintTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="HintTextBox.Designer.cs">
+      <DependentUpon>HintTextBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Language.cs" />
     <Compile Include="Mini.cs">
       <SubType>Form</SubType>
@@ -130,6 +136,12 @@
     </Compile>
     <Compile Include="ImageButton.Designer.cs">
       <DependentUpon>ImageButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NoFocusButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NoFocusButton.Designer.cs">
+      <DependentUpon>NoFocusButton.cs</DependentUpon>
     </Compile>
     <Compile Include="OsuFiles\Deserializer.cs" />
     <Compile Include="OsuFiles\StoryBoard\SBenum.cs" />

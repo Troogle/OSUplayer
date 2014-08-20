@@ -69,13 +69,16 @@ namespace OSUplayer.Uilties
         private static extern int SetWindowRgn(IntPtr hwnd, int hRgn, Boolean bRedraw);
         [DllImport("gdi32.dll", EntryPoint = "DeleteObject", CharSet = CharSet.Ansi)]
         private static extern int DeleteObject(int hObject);
-        [DllImport("user32.dll")]
-        private static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
+        private static extern IntPtr SendMessage(IntPtr hWnd, UInt32 Msg, IntPtr wParam, string lParam);
+        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
+        private static extern IntPtr SendMessage(IntPtr hWnd, UInt32 Msg, IntPtr wParam, IntPtr lParam);
         [DllImport("user32.dll")]
         private static extern bool ReleaseCapture();
         // ReSharper disable InconsistentNaming
         private const int WM_NCLBUTTONDOWN = 0x00A1;
         private const int HTCAPTION = 2;
+        private const uint EM_SETCUEBANNER = 0x1501;
         // ReSharper restore InconsistentNaming
         [DllImport("User32.dll")]
         public static extern bool PtInRect(ref Rectangle r, Point p);
@@ -94,7 +97,12 @@ namespace OSUplayer.Uilties
         public static void MoveWindow(Form form)
         {
             ReleaseCapture();
-            SendMessage(form.Handle, WM_NCLBUTTONDOWN, HTCAPTION, 0);
+            SendMessage(form.Handle, WM_NCLBUTTONDOWN, (IntPtr)HTCAPTION, IntPtr.Zero);
+        }
+
+        public static void UpdateTextBoxHint(TextBox box,string text)
+        {
+            SendMessage(box.Handle, EM_SETCUEBANNER, (IntPtr)1, text);
         }
         #endregion
     }

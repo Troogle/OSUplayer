@@ -35,7 +35,7 @@ namespace OSUplayer
         private static string _current;
         public static string Current
         {
-            private get
+            get
             {
                 return _current;
             }

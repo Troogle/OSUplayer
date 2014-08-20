@@ -17,7 +17,7 @@ using Telerik.WinControls.UI;
 
 namespace OSUplayer
 {
-    public partial class Main : RadForm
+    public partial class Main : Form
     {
         private enum NextMode
         {
@@ -45,13 +45,21 @@ namespace OSUplayer
         {
             foreach (string lang in LanguageManager.LanguageList)
             {
-                var item = new RadMenuItem { Text = lang };
-                item.Click += delegate
+                var item = new ToolStripMenuItem(lang);
+                item.Click += (sender, e) =>
                 {
-                    LanguageManager.Current = item.Text;
+                    var menu = (ToolStripMenuItem)sender;
+                    if (menu.Checked) return;
+                    foreach (var child in ((ToolStripMenuItem)menu.OwnerItem).DropDownItems)
+                    {
+                        ((ToolStripMenuItem)child).Checked = false;
+                    }
+                    menu.Checked = true;
+                    LanguageManager.Current = menu.Text;
                     UpdateFormLanguage();
                 };
-                Main_LanguageSelect.Items.Add(item);
+                if (lang == LanguageManager.Current) item.Checked = true;
+                Main_LanguageSelect.DropDownItems.Add(item);
             }
             UpdateFormLanguage();
         }
@@ -170,15 +178,15 @@ namespace OSUplayer
         private void SetForm()
         {
             Main_QQ_Hint_Label.Text += Settings.Default.QQuin;
-            Main_Option_Sync_QQ.IsChecked = Settings.Default.SyncQQ;
+            Main_Option_Sync_QQ.Checked = Settings.Default.SyncQQ;
             Main_Volume_TrackBar.Value = 100 - (int)(Settings.Default.Allvolume * Main_Volume_TrackBar.MaxValue);
             Main_Volume_Fx_TrackBar.Value = (int)(Settings.Default.Fxvolume * Main_Volume_Fx_TrackBar.MaxValue);
             Main_Volume_Music_TrackBar.Value = (int)(Settings.Default.Musicvolume * Main_Volume_Music_TrackBar.MaxValue);
-            Main_Option_Play_Fx.IsChecked = Settings.Default.PlayFx;
-            Main_Option_Play_SB.IsChecked = Settings.Default.PlaySB;
-            Main_Option_Play_Video.IsChecked = Settings.Default.PlayVideo;
-            Main_Option_Show_Popup.IsChecked = Settings.Default.ShowPopup;
-            ((RadMenuItem)Main_Option_PlayMode.Items[Settings.Default.NextMode - 1]).IsChecked =
+            Main_Option_Play_Fx.Checked = Settings.Default.PlayFx;
+            Main_Option_Play_SB.Checked = Settings.Default.PlaySB;
+            Main_Option_Play_Video.Checked = Settings.Default.PlayVideo;
+            Main_Option_Show_Popup.Checked = Settings.Default.ShowPopup;
+            ((ToolStripMenuItem)Main_Option_PlayMode.DropDownItems[Settings.Default.NextMode - 1]).Checked =
                 true;
         }
 
@@ -256,7 +264,7 @@ namespace OSUplayer
             Visible = true;
         }
 
-        private void Main_PageView_SelectedPageChanged(object sender, EventArgs e)
+        /*private void Main_PageView_SelectedPageChanged(object sender, EventArgs e)
         {
             if (Main_PageView.SelectedPage == Main_PageView_Page2)
             {
@@ -272,18 +280,18 @@ namespace OSUplayer
                 }
                 Setscore();
             }
-        }
+        }*/
 
         private void Main_Option_Select_QQ_Click(object sender, EventArgs e)
         {
             Core.SetQQ();
             Main_QQ_Hint_Label.Text = LanguageManager.Get("Main_QQ_Hint_Label_Text") + Settings.Default.QQuin;
-            Main_Option_Sync_QQ.IsChecked = Settings.Default.SyncQQ;
+            Main_Option_Sync_QQ.Checked = Settings.Default.SyncQQ;
         }
 
         private void UpdateTimer_Tick(object sender, EventArgs e)
         {
-            if (!seeking) Main_Time_Trackbar.Value = (int)Core.Position * 1000;
+            if (!_seeking) Main_Time_Trackbar.Value = (int)Core.Position * 1000;
             Main_Time_Display.Text = String.Format("{0}:{1:D2} / {2}:{3:D2}", (int)Core.Position / 60,
                 (int)Core.Position % 60, (int)Core.Durnation / 60,
                 (int)Core.Durnation % 60);
@@ -413,13 +421,13 @@ namespace OSUplayer
 
         private void Main_Option_PlayMode_Click(object sender, EventArgs e)
         {
-            var menu = (RadMenuItem)sender;
-            if (menu.IsChecked) return;
-            foreach (RadElement child in menu.Parent.Children)
+            var menu = (ToolStripMenuItem)sender;
+            if (menu.Checked) return;
+            foreach (var child in ((ToolStripMenuItem)menu.OwnerItem).DropDownItems)
             {
-                ((RadMenuItem)child).IsChecked = false;
+                ((ToolStripMenuItem)child).Checked = false;
             }
-            menu.IsChecked = true;
+            menu.Checked = true;
             Settings.Default.NextMode = (int)(NextMode)Enum.Parse(typeof(NextMode), menu.Name);
         }
 
@@ -536,12 +544,12 @@ namespace OSUplayer
 
         private void Main_Option_Play_Fx_Click(object sender, EventArgs e)
         {
-            Settings.Default.PlayFx = Main_Option_Play_Fx.IsChecked;
+            Settings.Default.PlayFx = Main_Option_Play_Fx.Checked;
         }
 
         private void Main_Option_Play_Video_Click(object sender, EventArgs e)
         {
-            Settings.Default.PlayVideo = Main_Option_Play_Video.IsChecked;
+            Settings.Default.PlayVideo = Main_Option_Play_Video.Checked;
         }
 
         private void Main_Option_Sync_QQ_Click(object sender, EventArgs e)
@@ -550,17 +558,17 @@ namespace OSUplayer
             {
                 NotifySystem.ClearText();
             }
-            Settings.Default.SyncQQ = Main_Option_Sync_QQ.IsChecked;
+            Settings.Default.SyncQQ = Main_Option_Sync_QQ.Checked;
         }
 
         private void Main_Option_Play_SB_Click(object sender, EventArgs e)
         {
-            Settings.Default.PlaySB = Main_Option_Play_SB.IsChecked;
+            Settings.Default.PlaySB = Main_Option_Play_SB.Checked;
         }
 
         private void Main_Option_Show_Popup_Click(object sender, EventArgs e)
         {
-            Settings.Default.ShowPopup = Main_Option_Show_Popup.IsChecked;
+            Settings.Default.ShowPopup = Main_Option_Show_Popup.Checked;
         }
 
         #endregion
@@ -714,15 +722,15 @@ namespace OSUplayer
             NextTimer.Enabled = false;
             NextTimer.Enabled = true;
         }
-        private bool seeking = false;
+        private bool _seeking = false;
         private void Main_Time_Trackbar_MouseDown(object sender, MouseEventArgs e)
         {
-            seeking = true;
+            _seeking = true;
         }
 
         private void Main_Time_Trackbar_ValueChanged(object sender, EventArgs e)
         {
-            if (seeking)
+            if (_seeking)
             {
                 Core.Seek((double)Main_Time_Trackbar.Value / 1000);
             }
@@ -730,7 +738,7 @@ namespace OSUplayer
 
         private void Main_Time_Trackbar_MouseUp(object sender, MouseEventArgs e)
         {
-            seeking = false;
+            _seeking = false;
         }
 
         private void Main_Search_Box_KeyPress(object sender, KeyPressEventArgs e)
@@ -825,6 +833,18 @@ namespace OSUplayer
         private void Main_Time_Trackbar_MouseClick(object sender, MouseEventArgs e)
         {
             Core.Seek((double)Main_Time_Trackbar.Value / 1000);
+        }
+
+        private void Main_PageView_Page_Click(object sender, EventArgs e)
+        {
+            var control= (Button)sender;
+            if (control.BackColor == Color.DodgerBlue) return;
+            foreach (Button child in Main_Tab_Control_Panel.Controls)
+            {
+                child.BackColor = SystemColors.ButtonFace;
+            }
+            control.BackColor = Color.DodgerBlue;
+            Main_TabControl.SelectTab(control.Name.Replace("Main_PageView_Page", "Main_TabPage"));
         }
     }
 }

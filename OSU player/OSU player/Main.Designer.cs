@@ -32,52 +32,58 @@ namespace OSUplayer
             gTrackBar.ColorLinearGradient colorLinearGradient1 = new gTrackBar.ColorLinearGradient();
             gTrackBar.ColorLinearGradient colorLinearGradient2 = new gTrackBar.ColorLinearGradient();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
-            this.Main_File_Menu = new Telerik.WinControls.UI.RadMenuItem();
-            this.Main_File_Run_OSU = new Telerik.WinControls.UI.RadMenuItem();
-            this.Main_File_Set_OSUPath = new Telerik.WinControls.UI.RadMenuItem();
-            this.Main_File_Separator1 = new Telerik.WinControls.UI.RadMenuSeparatorItem();
-            this.Main_File_Import_OSU = new Telerik.WinControls.UI.RadMenuItem();
-            this.Main_File_Import_Scores = new Telerik.WinControls.UI.RadMenuItem();
-            this.Main_File_Separator2 = new Telerik.WinControls.UI.RadMenuSeparatorItem();
-            this.Main_File_Open_Folder = new Telerik.WinControls.UI.RadMenuItem();
-            this.Main_File_Open_MapFile = new Telerik.WinControls.UI.RadMenuItem();
-            this.Main_File_Open_SBFile = new Telerik.WinControls.UI.RadMenuItem();
-            this.Main_File_SeparatorItem3 = new Telerik.WinControls.UI.RadMenuSeparatorItem();
-            this.Main_File_Export_MP3 = new Telerik.WinControls.UI.RadMenuItem();
-            this.Main_File_Export_Background = new Telerik.WinControls.UI.RadMenuItem();
-            this.Main_File_Separator4 = new Telerik.WinControls.UI.RadMenuSeparatorItem();
-            this.Main_File_Exit = new Telerik.WinControls.UI.RadMenuItem();
-            this.Main_Tool_Menu = new Telerik.WinControls.UI.RadMenuItem();
-            this.Main_Tool_Search_Dulplate = new Telerik.WinControls.UI.RadMenuItem();
-            this.Main_Tool_Export_Playlist = new Telerik.WinControls.UI.RadMenuItem();
-            this.Main_Tool_Export_Playlist_MP3 = new Telerik.WinControls.UI.RadMenuItem();
-            this.Main_Option_Menu = new Telerik.WinControls.UI.RadMenuItem();
-            this.Main_Option_Play_Fx = new Telerik.WinControls.UI.RadMenuItem();
-            this.Main_Option_Play_Video = new Telerik.WinControls.UI.RadMenuItem();
-            this.Main_Option_PlayMode = new Telerik.WinControls.UI.RadMenuItem();
-            this.Main_Option_PlayMode_Normal = new Telerik.WinControls.UI.RadMenuItem();
-            this.Main_Option_PlayMode_Repeat = new Telerik.WinControls.UI.RadMenuItem();
-            this.Main_Option_PlayMode_Random = new Telerik.WinControls.UI.RadMenuItem();
-            this.Main_Option_Select_QQ = new Telerik.WinControls.UI.RadMenuItem();
-            this.Main_Option_Sync_QQ = new Telerik.WinControls.UI.RadMenuItem();
-            this.Main_Option_Play_SB = new Telerik.WinControls.UI.RadMenuItem();
-            this.Main_Option_Show_Popup = new Telerik.WinControls.UI.RadMenuItem();
-            this.Main_About = new Telerik.WinControls.UI.RadMenuItem();
+            this.Main_File_Menu = new System.Windows.Forms.ToolStripMenuItem();
+            this.Main_File_Run_OSU = new System.Windows.Forms.ToolStripMenuItem();
+            this.Main_File_Set_OSUPath = new System.Windows.Forms.ToolStripMenuItem();
+            this.Main_File_Separator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.Main_File_Import_OSU = new System.Windows.Forms.ToolStripMenuItem();
+            this.Main_File_Import_Scores = new System.Windows.Forms.ToolStripMenuItem();
+            this.Main_File_Separator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.Main_File_Open_Folder = new System.Windows.Forms.ToolStripMenuItem();
+            this.Main_File_Open_MapFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.Main_File_Open_SBFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.Main_File_SeparatorItem3 = new System.Windows.Forms.ToolStripSeparator();
+            this.Main_File_Export_MP3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.Main_File_Export_Background = new System.Windows.Forms.ToolStripMenuItem();
+            this.Main_File_Separator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.Main_File_Exit = new System.Windows.Forms.ToolStripMenuItem();
+            this.Main_Tool_Menu = new System.Windows.Forms.ToolStripMenuItem();
+            this.Main_Tool_Search_Dulplate = new System.Windows.Forms.ToolStripMenuItem();
+            this.Main_Tool_Export_Playlist = new System.Windows.Forms.ToolStripMenuItem();
+            this.Main_Tool_Export_Playlist_MP3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.Main_Option_Menu = new System.Windows.Forms.ToolStripMenuItem();
+            this.Main_Option_Play_Fx = new System.Windows.Forms.ToolStripMenuItem();
+            this.Main_Option_Play_Video = new System.Windows.Forms.ToolStripMenuItem();
+            this.Main_Option_PlayMode = new System.Windows.Forms.ToolStripMenuItem();
+            this.Main_Option_PlayMode_Normal = new System.Windows.Forms.ToolStripMenuItem();
+            this.Main_Option_PlayMode_Repeat = new System.Windows.Forms.ToolStripMenuItem();
+            this.Main_Option_PlayMode_Random = new System.Windows.Forms.ToolStripMenuItem();
+            this.Main_Option_Select_QQ = new System.Windows.Forms.ToolStripMenuItem();
+            this.Main_Option_Sync_QQ = new System.Windows.Forms.ToolStripMenuItem();
+            this.Main_Option_Play_SB = new System.Windows.Forms.ToolStripMenuItem();
+            this.Main_Option_Show_Popup = new System.Windows.Forms.ToolStripMenuItem();
+            this.Main_About = new System.Windows.Forms.ToolStripMenuItem();
             this.Main_Panel = new System.Windows.Forms.Panel();
+            this.Main_Tab_Control_Panel = new System.Windows.Forms.Panel();
+            this.Main_TabPanel = new System.Windows.Forms.Panel();
+            this.Main_TabControl = new System.Windows.Forms.TabControl();
+            this.Main_TabPage1 = new System.Windows.Forms.TabPage();
+            this.Main_ListDetail = new System.Windows.Forms.ListView();
+            this.Main_ListDetail_Key = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Main_ListDetail_Value = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Main_TabPage2 = new System.Windows.Forms.TabPage();
+            this.Main_ScoreBox = new Telerik.WinControls.UI.RadListView();
+            this.Main_TabPage3 = new System.Windows.Forms.TabPage();
+            this.Main_DiffList = new System.Windows.Forms.ListBox();
             this.Main_CurrentList = new System.Windows.Forms.Label();
-            this.Main_Search_Box = new Telerik.WinControls.UI.RadTextBox();
-            this.Main_PlayList = new OSUplayer.DBListView();
-            this.Main_PlayList_Name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Main_PlayList_RightClick_Menu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.Main_PlayList_RightClick_Copy_Current_Name = new System.Windows.Forms.ToolStripMenuItem();
             this.Main_PlayList_RightClick_Delete_One = new System.Windows.Forms.ToolStripMenuItem();
             this.Main_PlayList_RightClick_Export_MP3 = new System.Windows.Forms.ToolStripMenuItem();
             this.Main_PlayList_RightClick_Open_In_OSU = new System.Windows.Forms.ToolStripMenuItem();
             this.Main_Core_Panel = new System.Windows.Forms.Panel();
-            this.Main_Jump_OSU = new Telerik.WinControls.UI.RadButton();
             this.Main_Volume_TrackBar = new gTrackBar.gTrackBar();
             this.Main_Time_Trackbar = new gTrackBar.gTrackBar();
-            this.Main_Mini_Switcher = new Telerik.WinControls.UI.RadButton();
             this.Main_Time_Display = new System.Windows.Forms.Label();
             this.Main_Volume_Music_TrackBar = new gTrackBar.gTrackBar();
             this.Main_Main_Display = new System.Windows.Forms.Panel();
@@ -85,51 +91,42 @@ namespace OSUplayer
             this.Main_Fx_Hint_Label = new System.Windows.Forms.Label();
             this.Main_Music_Hint_Label = new System.Windows.Forms.Label();
             this.Main_Volume_Hint_Label = new System.Windows.Forms.Label();
-            this.Main_PlayNext = new Telerik.WinControls.UI.RadButton();
-            this.Main_Stop = new Telerik.WinControls.UI.RadButton();
-            this.Main_Play = new Telerik.WinControls.UI.RadButton();
-            this.Main_Collections = new Telerik.WinControls.UI.RadButton();
-            this.Main_PageView = new Telerik.WinControls.UI.RadPageView();
-            this.Main_PageView_Page1 = new Telerik.WinControls.UI.RadPageViewPage();
-            this.Main_ListDetail = new System.Windows.Forms.ListView();
-            this.Main_ListDetail_Key = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Main_ListDetail_Value = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Main_PageView_Page2 = new Telerik.WinControls.UI.RadPageViewPage();
-            this.Main_ScoreBox = new Telerik.WinControls.UI.RadListView();
-            this.Main_PageView_Page3 = new Telerik.WinControls.UI.RadPageViewPage();
-            this.Main_DiffList = new System.Windows.Forms.ListBox();
-            this.Main_QQ_Hint_Label = new System.Windows.Forms.Label();
             this.UpdateTimer = new System.Windows.Forms.Timer(this.components);
             this.NextTimer = new System.Windows.Forms.Timer(this.components);
             this.SearchTimer = new System.Windows.Forms.Timer(this.components);
-            this.Main_MenuStrip = new Telerik.WinControls.UI.RadMenu();
-            this.Main_LanguageSelect = new Telerik.WinControls.UI.RadMenuItem();
+            this.Main_MenuStrip = new System.Windows.Forms.MenuStrip();
+            this.Main_LanguageSelect = new System.Windows.Forms.ToolStripMenuItem();
+            this.Main_QQ_Hint_Label = new System.Windows.Forms.Label();
+            this.Main_PageView_Page1 = new OSUplayer.NoFocusButton();
+            this.Main_PageView_Page3 = new OSUplayer.NoFocusButton();
+            this.Main_PageView_Page2 = new OSUplayer.NoFocusButton();
+            this.Main_Search_Box = new OSUplayer.HintTextBox();
+            this.Main_PlayList = new OSUplayer.DBListView();
+            this.Main_PlayList_Name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Main_Jump_OSU = new OSUplayer.NoFocusButton();
+            this.Main_Mini_Switcher = new OSUplayer.NoFocusButton();
+            this.Main_PlayNext = new OSUplayer.NoFocusButton();
+            this.Main_Stop = new OSUplayer.NoFocusButton();
+            this.Main_Play = new OSUplayer.NoFocusButton();
+            this.Main_Collections = new OSUplayer.NoFocusButton();
             this.Main_Panel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Main_Search_Box)).BeginInit();
+            this.Main_Tab_Control_Panel.SuspendLayout();
+            this.Main_TabPanel.SuspendLayout();
+            this.Main_TabControl.SuspendLayout();
+            this.Main_TabPage1.SuspendLayout();
+            this.Main_TabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Main_ScoreBox)).BeginInit();
+            this.Main_TabPage3.SuspendLayout();
             this.Main_PlayList_RightClick_Menu.SuspendLayout();
             this.Main_Core_Panel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Main_Jump_OSU)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Main_Mini_Switcher)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Main_PlayNext)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Main_Stop)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Main_Play)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Main_Collections)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Main_PageView)).BeginInit();
-            this.Main_PageView.SuspendLayout();
-            this.Main_PageView_Page1.SuspendLayout();
-            this.Main_PageView_Page2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Main_ScoreBox)).BeginInit();
-            this.Main_PageView_Page3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Main_MenuStrip)).BeginInit();
             this.Main_MenuStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // Main_File_Menu
             // 
             this.Main_File_Menu.AccessibleDescription = "文件";
             this.Main_File_Menu.AccessibleName = "文件";
-            this.Main_File_Menu.Items.AddRange(new Telerik.WinControls.RadItem[] {
+            this.Main_File_Menu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Main_File_Run_OSU,
             this.Main_File_Set_OSUPath,
             this.Main_File_Separator1,
@@ -145,16 +142,16 @@ namespace OSUplayer
             this.Main_File_Separator4,
             this.Main_File_Exit});
             this.Main_File_Menu.Name = "Main_File_Menu";
+            this.Main_File_Menu.Size = new System.Drawing.Size(69, 24);
             this.Main_File_Menu.Text = "文件(&F)";
-            this.Main_File_Menu.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             // 
             // Main_File_Run_OSU
             // 
             this.Main_File_Run_OSU.AccessibleDescription = "运行OSU!";
             this.Main_File_Run_OSU.AccessibleName = "运行OSU!";
             this.Main_File_Run_OSU.Name = "Main_File_Run_OSU";
+            this.Main_File_Run_OSU.Size = new System.Drawing.Size(200, 24);
             this.Main_File_Run_OSU.Text = "运行OSU!";
-            this.Main_File_Run_OSU.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.Main_File_Run_OSU.Click += new System.EventHandler(this.Main_File_Run_OSU_Click);
             // 
             // Main_File_Set_OSUPath
@@ -162,22 +159,22 @@ namespace OSUplayer
             this.Main_File_Set_OSUPath.AccessibleDescription = "手动指定OSU目录";
             this.Main_File_Set_OSUPath.AccessibleName = "手动指定OSU目录";
             this.Main_File_Set_OSUPath.Name = "Main_File_Set_OSUPath";
+            this.Main_File_Set_OSUPath.Size = new System.Drawing.Size(200, 24);
             this.Main_File_Set_OSUPath.Text = "手动指定OSU目录";
-            this.Main_File_Set_OSUPath.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.Main_File_Set_OSUPath.Click += new System.EventHandler(this.Main_File_Set_OSUPath_Click);
             // 
             // Main_File_Separator1
             // 
             this.Main_File_Separator1.Name = "Main_File_Separator1";
-            this.Main_File_Separator1.Visibility = Telerik.WinControls.ElementVisibility.Visible;
+            this.Main_File_Separator1.Size = new System.Drawing.Size(197, 6);
             // 
             // Main_File_Import_OSU
             // 
             this.Main_File_Import_OSU.AccessibleDescription = "重新初始化";
             this.Main_File_Import_OSU.AccessibleName = "重新初始化";
             this.Main_File_Import_OSU.Name = "Main_File_Import_OSU";
+            this.Main_File_Import_OSU.Size = new System.Drawing.Size(200, 24);
             this.Main_File_Import_OSU.Text = "与OSU数据库同步";
-            this.Main_File_Import_OSU.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.Main_File_Import_OSU.Click += new System.EventHandler(this.Main_File_Import_OSU_Click);
             // 
             // Main_File_Import_Scores
@@ -185,22 +182,22 @@ namespace OSUplayer
             this.Main_File_Import_Scores.AccessibleDescription = "重新导入scores.db";
             this.Main_File_Import_Scores.AccessibleName = "重新导入scores.db";
             this.Main_File_Import_Scores.Name = "Main_File_Import_Scores";
+            this.Main_File_Import_Scores.Size = new System.Drawing.Size(200, 24);
             this.Main_File_Import_Scores.Text = "导入scores.db";
-            this.Main_File_Import_Scores.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.Main_File_Import_Scores.Click += new System.EventHandler(this.Main_File_Import_Scores_Click);
             // 
             // Main_File_Separator2
             // 
             this.Main_File_Separator2.Name = "Main_File_Separator2";
-            this.Main_File_Separator2.Visibility = Telerik.WinControls.ElementVisibility.Visible;
+            this.Main_File_Separator2.Size = new System.Drawing.Size(197, 6);
             // 
             // Main_File_Open_Folder
             // 
             this.Main_File_Open_Folder.AccessibleDescription = "打开曲目文件夹";
             this.Main_File_Open_Folder.AccessibleName = "打开曲目文件夹";
             this.Main_File_Open_Folder.Name = "Main_File_Open_Folder";
+            this.Main_File_Open_Folder.Size = new System.Drawing.Size(200, 24);
             this.Main_File_Open_Folder.Text = "打开曲目文件夹";
-            this.Main_File_Open_Folder.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.Main_File_Open_Folder.Click += new System.EventHandler(this.Main_File_Open_Folder_Click);
             // 
             // Main_File_Open_MapFile
@@ -208,8 +205,8 @@ namespace OSUplayer
             this.Main_File_Open_MapFile.AccessibleDescription = "打开铺面文件";
             this.Main_File_Open_MapFile.AccessibleName = "打开铺面文件";
             this.Main_File_Open_MapFile.Name = "Main_File_Open_MapFile";
+            this.Main_File_Open_MapFile.Size = new System.Drawing.Size(200, 24);
             this.Main_File_Open_MapFile.Text = "打开铺面文件";
-            this.Main_File_Open_MapFile.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.Main_File_Open_MapFile.Click += new System.EventHandler(this.Main_File_Open_MapFile_Click);
             // 
             // Main_File_Open_SBFile
@@ -217,8 +214,8 @@ namespace OSUplayer
             this.Main_File_Open_SBFile.AccessibleDescription = "打开SB文件";
             this.Main_File_Open_SBFile.AccessibleName = "打开SB文件";
             this.Main_File_Open_SBFile.Name = "Main_File_Open_SBFile";
+            this.Main_File_Open_SBFile.Size = new System.Drawing.Size(200, 24);
             this.Main_File_Open_SBFile.Text = "打开SB文件";
-            this.Main_File_Open_SBFile.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.Main_File_Open_SBFile.Click += new System.EventHandler(this.Main_File_Open_SBFile_Click);
             // 
             // Main_File_SeparatorItem3
@@ -226,16 +223,15 @@ namespace OSUplayer
             this.Main_File_SeparatorItem3.AccessibleDescription = "radMenuSeparatorItem1";
             this.Main_File_SeparatorItem3.AccessibleName = "radMenuSeparatorItem1";
             this.Main_File_SeparatorItem3.Name = "Main_File_SeparatorItem3";
-            this.Main_File_SeparatorItem3.Text = "radMenuSeparatorItem1";
-            this.Main_File_SeparatorItem3.Visibility = Telerik.WinControls.ElementVisibility.Visible;
+            this.Main_File_SeparatorItem3.Size = new System.Drawing.Size(197, 6);
             // 
             // Main_File_Export_MP3
             // 
             this.Main_File_Export_MP3.AccessibleDescription = "导出音频文件";
             this.Main_File_Export_MP3.AccessibleName = "导出音频文件";
             this.Main_File_Export_MP3.Name = "Main_File_Export_MP3";
+            this.Main_File_Export_MP3.Size = new System.Drawing.Size(200, 24);
             this.Main_File_Export_MP3.Text = "导出音频文件";
-            this.Main_File_Export_MP3.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.Main_File_Export_MP3.Click += new System.EventHandler(this.Main_File_Export_MP3_Click);
             // 
             // Main_File_Export_Background
@@ -243,43 +239,43 @@ namespace OSUplayer
             this.Main_File_Export_Background.AccessibleDescription = "导出BG";
             this.Main_File_Export_Background.AccessibleName = "导出BG";
             this.Main_File_Export_Background.Name = "Main_File_Export_Background";
+            this.Main_File_Export_Background.Size = new System.Drawing.Size(200, 24);
             this.Main_File_Export_Background.Text = "导出BG";
-            this.Main_File_Export_Background.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.Main_File_Export_Background.Click += new System.EventHandler(this.Main_File_Export_Background_Click);
             // 
             // Main_File_Separator4
             // 
             this.Main_File_Separator4.Name = "Main_File_Separator4";
-            this.Main_File_Separator4.Visibility = Telerik.WinControls.ElementVisibility.Visible;
+            this.Main_File_Separator4.Size = new System.Drawing.Size(197, 6);
             // 
             // Main_File_Exit
             // 
             this.Main_File_Exit.AccessibleDescription = "退出";
             this.Main_File_Exit.AccessibleName = "退出";
             this.Main_File_Exit.Name = "Main_File_Exit";
+            this.Main_File_Exit.Size = new System.Drawing.Size(200, 24);
             this.Main_File_Exit.Text = "退出";
-            this.Main_File_Exit.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.Main_File_Exit.Click += new System.EventHandler(this.Main_File_Exit_Click);
             // 
             // Main_Tool_Menu
             // 
             this.Main_Tool_Menu.AccessibleDescription = "工具";
             this.Main_Tool_Menu.AccessibleName = "工具";
-            this.Main_Tool_Menu.Items.AddRange(new Telerik.WinControls.RadItem[] {
+            this.Main_Tool_Menu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Main_Tool_Search_Dulplate,
             this.Main_Tool_Export_Playlist,
             this.Main_Tool_Export_Playlist_MP3});
             this.Main_Tool_Menu.Name = "Main_Tool_Menu";
+            this.Main_Tool_Menu.Size = new System.Drawing.Size(70, 24);
             this.Main_Tool_Menu.Text = "工具(&T)";
-            this.Main_Tool_Menu.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             // 
             // Main_Tool_Search_Dulplate
             // 
             this.Main_Tool_Search_Dulplate.AccessibleDescription = "重复歌曲扫描";
             this.Main_Tool_Search_Dulplate.AccessibleName = "重复歌曲扫描";
             this.Main_Tool_Search_Dulplate.Name = "Main_Tool_Search_Dulplate";
+            this.Main_Tool_Search_Dulplate.Size = new System.Drawing.Size(241, 24);
             this.Main_Tool_Search_Dulplate.Text = "重复歌曲扫描";
-            this.Main_Tool_Search_Dulplate.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.Main_Tool_Search_Dulplate.Click += new System.EventHandler(this.Main_Tool_Search_Dulplate_Click);
             // 
             // Main_Tool_Export_Playlist
@@ -287,8 +283,8 @@ namespace OSUplayer
             this.Main_Tool_Export_Playlist.AccessibleDescription = "导出当前播放列表(html)";
             this.Main_Tool_Export_Playlist.AccessibleName = "导出当前播放列表(html)";
             this.Main_Tool_Export_Playlist.Name = "Main_Tool_Export_Playlist";
+            this.Main_Tool_Export_Playlist.Size = new System.Drawing.Size(241, 24);
             this.Main_Tool_Export_Playlist.Text = "导出当前播放列表(html)";
-            this.Main_Tool_Export_Playlist.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.Main_Tool_Export_Playlist.Click += new System.EventHandler(this.Main_Tool_Export_Playlist_Click);
             // 
             // Main_Tool_Export_Playlist_MP3
@@ -296,15 +292,15 @@ namespace OSUplayer
             this.Main_Tool_Export_Playlist_MP3.AccessibleDescription = "导出当前播放列表音频";
             this.Main_Tool_Export_Playlist_MP3.AccessibleName = "导出当前播放列表音频";
             this.Main_Tool_Export_Playlist_MP3.Name = "Main_Tool_Export_Playlist_MP3";
+            this.Main_Tool_Export_Playlist_MP3.Size = new System.Drawing.Size(241, 24);
             this.Main_Tool_Export_Playlist_MP3.Text = "导出当前播放列表音频";
-            this.Main_Tool_Export_Playlist_MP3.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.Main_Tool_Export_Playlist_MP3.Click += new System.EventHandler(this.Main_Tool_Export_Playlist_MP3_Click);
             // 
             // Main_Option_Menu
             // 
             this.Main_Option_Menu.AccessibleDescription = "选项";
             this.Main_Option_Menu.AccessibleName = "选项";
-            this.Main_Option_Menu.Items.AddRange(new Telerik.WinControls.RadItem[] {
+            this.Main_Option_Menu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Main_Option_Play_Fx,
             this.Main_Option_Play_Video,
             this.Main_Option_PlayMode,
@@ -313,52 +309,52 @@ namespace OSUplayer
             this.Main_Option_Play_SB,
             this.Main_Option_Show_Popup});
             this.Main_Option_Menu.Name = "Main_Option_Menu";
+            this.Main_Option_Menu.Size = new System.Drawing.Size(73, 24);
             this.Main_Option_Menu.Text = "选项(&O)";
-            this.Main_Option_Menu.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             // 
             // Main_Option_Play_Fx
             // 
             this.Main_Option_Play_Fx.AccessibleDescription = "音效开关";
             this.Main_Option_Play_Fx.AccessibleName = "音效开关";
+            this.Main_Option_Play_Fx.Checked = true;
             this.Main_Option_Play_Fx.CheckOnClick = true;
-            this.Main_Option_Play_Fx.IsChecked = true;
+            this.Main_Option_Play_Fx.CheckState = System.Windows.Forms.CheckState.Checked;
             this.Main_Option_Play_Fx.Name = "Main_Option_Play_Fx";
+            this.Main_Option_Play_Fx.Size = new System.Drawing.Size(175, 24);
             this.Main_Option_Play_Fx.Text = "音效开关";
-            this.Main_Option_Play_Fx.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
-            this.Main_Option_Play_Fx.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.Main_Option_Play_Fx.Click += new System.EventHandler(this.Main_Option_Play_Fx_Click);
             // 
             // Main_Option_Play_Video
             // 
             this.Main_Option_Play_Video.AccessibleDescription = "视频开关";
             this.Main_Option_Play_Video.AccessibleName = "视频开关";
+            this.Main_Option_Play_Video.Checked = true;
             this.Main_Option_Play_Video.CheckOnClick = true;
-            this.Main_Option_Play_Video.IsChecked = true;
+            this.Main_Option_Play_Video.CheckState = System.Windows.Forms.CheckState.Checked;
             this.Main_Option_Play_Video.Name = "Main_Option_Play_Video";
+            this.Main_Option_Play_Video.Size = new System.Drawing.Size(175, 24);
             this.Main_Option_Play_Video.Text = "视频开关";
-            this.Main_Option_Play_Video.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
-            this.Main_Option_Play_Video.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.Main_Option_Play_Video.Click += new System.EventHandler(this.Main_Option_Play_Video_Click);
             // 
             // Main_Option_PlayMode
             // 
             this.Main_Option_PlayMode.AccessibleDescription = "播放模式";
             this.Main_Option_PlayMode.AccessibleName = "播放模式";
-            this.Main_Option_PlayMode.Items.AddRange(new Telerik.WinControls.RadItem[] {
+            this.Main_Option_PlayMode.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Main_Option_PlayMode_Normal,
             this.Main_Option_PlayMode_Repeat,
             this.Main_Option_PlayMode_Random});
             this.Main_Option_PlayMode.Name = "Main_Option_PlayMode";
+            this.Main_Option_PlayMode.Size = new System.Drawing.Size(175, 24);
             this.Main_Option_PlayMode.Text = "播放模式";
-            this.Main_Option_PlayMode.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             // 
             // Main_Option_PlayMode_Normal
             // 
             this.Main_Option_PlayMode_Normal.AccessibleDescription = "顺序播放";
             this.Main_Option_PlayMode_Normal.AccessibleName = "顺序播放";
             this.Main_Option_PlayMode_Normal.Name = "Main_Option_PlayMode_Normal";
+            this.Main_Option_PlayMode_Normal.Size = new System.Drawing.Size(138, 24);
             this.Main_Option_PlayMode_Normal.Text = "顺序播放";
-            this.Main_Option_PlayMode_Normal.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.Main_Option_PlayMode_Normal.Click += new System.EventHandler(this.Main_Option_PlayMode_Click);
             // 
             // Main_Option_PlayMode_Repeat
@@ -366,8 +362,8 @@ namespace OSUplayer
             this.Main_Option_PlayMode_Repeat.AccessibleDescription = "单曲循环";
             this.Main_Option_PlayMode_Repeat.AccessibleName = "单曲循环";
             this.Main_Option_PlayMode_Repeat.Name = "Main_Option_PlayMode_Repeat";
+            this.Main_Option_PlayMode_Repeat.Size = new System.Drawing.Size(138, 24);
             this.Main_Option_PlayMode_Repeat.Text = "单曲循环";
-            this.Main_Option_PlayMode_Repeat.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.Main_Option_PlayMode_Repeat.Click += new System.EventHandler(this.Main_Option_PlayMode_Click);
             // 
             // Main_Option_PlayMode_Random
@@ -375,8 +371,8 @@ namespace OSUplayer
             this.Main_Option_PlayMode_Random.AccessibleDescription = "随机播放";
             this.Main_Option_PlayMode_Random.AccessibleName = "随机播放";
             this.Main_Option_PlayMode_Random.Name = "Main_Option_PlayMode_Random";
+            this.Main_Option_PlayMode_Random.Size = new System.Drawing.Size(138, 24);
             this.Main_Option_PlayMode_Random.Text = "随机播放";
-            this.Main_Option_PlayMode_Random.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.Main_Option_PlayMode_Random.Click += new System.EventHandler(this.Main_Option_PlayMode_Click);
             // 
             // Main_Option_Select_QQ
@@ -384,20 +380,20 @@ namespace OSUplayer
             this.Main_Option_Select_QQ.AccessibleDescription = "选择QQ";
             this.Main_Option_Select_QQ.AccessibleName = "选择QQ";
             this.Main_Option_Select_QQ.Name = "Main_Option_Select_QQ";
+            this.Main_Option_Select_QQ.Size = new System.Drawing.Size(175, 24);
             this.Main_Option_Select_QQ.Text = "选择QQ";
-            this.Main_Option_Select_QQ.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.Main_Option_Select_QQ.Click += new System.EventHandler(this.Main_Option_Select_QQ_Click);
             // 
             // Main_Option_Sync_QQ
             // 
             this.Main_Option_Sync_QQ.AccessibleDescription = "QQ状态同步";
             this.Main_Option_Sync_QQ.AccessibleName = "QQ状态同步";
+            this.Main_Option_Sync_QQ.Checked = true;
             this.Main_Option_Sync_QQ.CheckOnClick = true;
-            this.Main_Option_Sync_QQ.IsChecked = true;
+            this.Main_Option_Sync_QQ.CheckState = System.Windows.Forms.CheckState.Checked;
             this.Main_Option_Sync_QQ.Name = "Main_Option_Sync_QQ";
+            this.Main_Option_Sync_QQ.Size = new System.Drawing.Size(175, 24);
             this.Main_Option_Sync_QQ.Text = "QQ状态同步";
-            this.Main_Option_Sync_QQ.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
-            this.Main_Option_Sync_QQ.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.Main_Option_Sync_QQ.Click += new System.EventHandler(this.Main_Option_Sync_QQ_Click);
             // 
             // Main_Option_Play_SB
@@ -406,20 +402,20 @@ namespace OSUplayer
             this.Main_Option_Play_SB.AccessibleName = "SB开关";
             this.Main_Option_Play_SB.CheckOnClick = true;
             this.Main_Option_Play_SB.Name = "Main_Option_Play_SB";
+            this.Main_Option_Play_SB.Size = new System.Drawing.Size(175, 24);
             this.Main_Option_Play_SB.Text = "SB开关";
-            this.Main_Option_Play_SB.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.Main_Option_Play_SB.Click += new System.EventHandler(this.Main_Option_Play_SB_Click);
             // 
             // Main_Option_Show_Popup
             // 
             this.Main_Option_Show_Popup.AccessibleDescription = "显示气泡";
             this.Main_Option_Show_Popup.AccessibleName = "显示气泡";
+            this.Main_Option_Show_Popup.Checked = true;
             this.Main_Option_Show_Popup.CheckOnClick = true;
-            this.Main_Option_Show_Popup.IsChecked = true;
+            this.Main_Option_Show_Popup.CheckState = System.Windows.Forms.CheckState.Checked;
             this.Main_Option_Show_Popup.Name = "Main_Option_Show_Popup";
+            this.Main_Option_Show_Popup.Size = new System.Drawing.Size(175, 24);
             this.Main_Option_Show_Popup.Text = "显示气泡";
-            this.Main_Option_Show_Popup.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
-            this.Main_Option_Show_Popup.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.Main_Option_Show_Popup.Click += new System.EventHandler(this.Main_Option_Show_Popup_Click);
             // 
             // Main_About
@@ -427,8 +423,8 @@ namespace OSUplayer
             this.Main_About.AccessibleDescription = "关于";
             this.Main_About.AccessibleName = "关于";
             this.Main_About.Name = "Main_About";
+            this.Main_About.Size = new System.Drawing.Size(72, 24);
             this.Main_About.Text = "关于(&A)";
-            this.Main_About.Visibility = Telerik.WinControls.ElementVisibility.Visible;
             this.Main_About.Click += new System.EventHandler(this.Main_About_Click);
             // 
             // Main_Panel
@@ -436,12 +432,13 @@ namespace OSUplayer
             this.Main_Panel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.Main_Panel.Controls.Add(this.Main_Tab_Control_Panel);
+            this.Main_Panel.Controls.Add(this.Main_TabPanel);
             this.Main_Panel.Controls.Add(this.Main_CurrentList);
             this.Main_Panel.Controls.Add(this.Main_Search_Box);
             this.Main_Panel.Controls.Add(this.Main_PlayList);
             this.Main_Panel.Controls.Add(this.Main_Core_Panel);
             this.Main_Panel.Controls.Add(this.Main_Collections);
-            this.Main_Panel.Controls.Add(this.Main_PageView);
             this.Main_Panel.Location = new System.Drawing.Point(0, 29);
             this.Main_Panel.Margin = new System.Windows.Forms.Padding(0);
             this.Main_Panel.MinimumSize = new System.Drawing.Size(882, 654);
@@ -449,54 +446,145 @@ namespace OSUplayer
             this.Main_Panel.Size = new System.Drawing.Size(882, 654);
             this.Main_Panel.TabIndex = 21;
             // 
+            // Main_Tab_Control_Panel
+            // 
+            this.Main_Tab_Control_Panel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.Main_Tab_Control_Panel.Controls.Add(this.Main_PageView_Page1);
+            this.Main_Tab_Control_Panel.Controls.Add(this.Main_PageView_Page3);
+            this.Main_Tab_Control_Panel.Controls.Add(this.Main_PageView_Page2);
+            this.Main_Tab_Control_Panel.Location = new System.Drawing.Point(1, 618);
+            this.Main_Tab_Control_Panel.Name = "Main_Tab_Control_Panel";
+            this.Main_Tab_Control_Panel.Size = new System.Drawing.Size(531, 36);
+            this.Main_Tab_Control_Panel.TabIndex = 40;
+            // 
+            // Main_TabPanel
+            // 
+            this.Main_TabPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Main_TabPanel.Controls.Add(this.Main_TabControl);
+            this.Main_TabPanel.Location = new System.Drawing.Point(0, 428);
+            this.Main_TabPanel.Name = "Main_TabPanel";
+            this.Main_TabPanel.Size = new System.Drawing.Size(532, 191);
+            this.Main_TabPanel.TabIndex = 36;
+            // 
+            // Main_TabControl
+            // 
+            this.Main_TabControl.Alignment = System.Windows.Forms.TabAlignment.Bottom;
+            this.Main_TabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Main_TabControl.Controls.Add(this.Main_TabPage1);
+            this.Main_TabControl.Controls.Add(this.Main_TabPage2);
+            this.Main_TabControl.Controls.Add(this.Main_TabPage3);
+            this.Main_TabControl.Location = new System.Drawing.Point(0, 0);
+            this.Main_TabControl.Name = "Main_TabControl";
+            this.Main_TabControl.SelectedIndex = 0;
+            this.Main_TabControl.Size = new System.Drawing.Size(532, 220);
+            this.Main_TabControl.TabIndex = 0;
+            // 
+            // Main_TabPage1
+            // 
+            this.Main_TabPage1.Controls.Add(this.Main_ListDetail);
+            this.Main_TabPage1.Location = new System.Drawing.Point(4, 4);
+            this.Main_TabPage1.Name = "Main_TabPage1";
+            this.Main_TabPage1.Size = new System.Drawing.Size(524, 191);
+            this.Main_TabPage1.TabIndex = 0;
+            this.Main_TabPage1.Text = "tabPage1";
+            this.Main_TabPage1.UseVisualStyleBackColor = true;
+            // 
+            // Main_ListDetail
+            // 
+            this.Main_ListDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Main_ListDetail.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.Main_ListDetail_Key,
+            this.Main_ListDetail_Value});
+            this.Main_ListDetail.FullRowSelect = true;
+            this.Main_ListDetail.GridLines = true;
+            this.Main_ListDetail.Location = new System.Drawing.Point(-3, -3);
+            this.Main_ListDetail.MultiSelect = false;
+            this.Main_ListDetail.Name = "Main_ListDetail";
+            this.Main_ListDetail.Size = new System.Drawing.Size(530, 190);
+            this.Main_ListDetail.TabIndex = 40;
+            this.Main_ListDetail.UseCompatibleStateImageBehavior = false;
+            this.Main_ListDetail.View = System.Windows.Forms.View.Details;
+            // 
+            // Main_ListDetail_Key
+            // 
+            this.Main_ListDetail_Key.Name = "Main_ListDetail_Key";
+            this.Main_ListDetail_Key.Text = "Key";
+            this.Main_ListDetail_Key.Width = 120;
+            // 
+            // Main_ListDetail_Value
+            // 
+            this.Main_ListDetail_Value.Name = "Main_ListDetail_Value";
+            this.Main_ListDetail_Value.Text = "Value";
+            this.Main_ListDetail_Value.Width = 300;
+            // 
+            // Main_TabPage2
+            // 
+            this.Main_TabPage2.Controls.Add(this.Main_ScoreBox);
+            this.Main_TabPage2.Location = new System.Drawing.Point(4, 4);
+            this.Main_TabPage2.Name = "Main_TabPage2";
+            this.Main_TabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.Main_TabPage2.Size = new System.Drawing.Size(524, 191);
+            this.Main_TabPage2.TabIndex = 1;
+            this.Main_TabPage2.Text = "tabPage2";
+            this.Main_TabPage2.UseVisualStyleBackColor = true;
+            // 
+            // Main_ScoreBox
+            // 
+            this.Main_ScoreBox.AllowColumnReorder = false;
+            this.Main_ScoreBox.AllowColumnResize = false;
+            this.Main_ScoreBox.AllowEdit = false;
+            this.Main_ScoreBox.AllowRemove = false;
+            this.Main_ScoreBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Main_ScoreBox.AutoScroll = true;
+            this.Main_ScoreBox.ItemSize = new System.Drawing.Size(200, 60);
+            this.Main_ScoreBox.Location = new System.Drawing.Point(0, 0);
+            this.Main_ScoreBox.Name = "Main_ScoreBox";
+            this.Main_ScoreBox.ShowColumnHeaders = false;
+            this.Main_ScoreBox.Size = new System.Drawing.Size(530, 190);
+            this.Main_ScoreBox.TabIndex = 26;
+            this.Main_ScoreBox.Text = "radListView1";
+            // 
+            // Main_TabPage3
+            // 
+            this.Main_TabPage3.Controls.Add(this.Main_DiffList);
+            this.Main_TabPage3.Location = new System.Drawing.Point(4, 4);
+            this.Main_TabPage3.Name = "Main_TabPage3";
+            this.Main_TabPage3.Size = new System.Drawing.Size(524, 191);
+            this.Main_TabPage3.TabIndex = 2;
+            this.Main_TabPage3.Text = "tabPage3";
+            this.Main_TabPage3.UseVisualStyleBackColor = true;
+            // 
+            // Main_DiffList
+            // 
+            this.Main_DiffList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Main_DiffList.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.Main_DiffList.FormattingEnabled = true;
+            this.Main_DiffList.ItemHeight = 15;
+            this.Main_DiffList.Location = new System.Drawing.Point(0, 0);
+            this.Main_DiffList.Name = "Main_DiffList";
+            this.Main_DiffList.Size = new System.Drawing.Size(530, 180);
+            this.Main_DiffList.TabIndex = 25;
+            this.Main_DiffList.SelectedIndexChanged += new System.EventHandler(this.Main_DiffList_SelectedIndexChanged);
+            this.Main_DiffList.DoubleClick += new System.EventHandler(this.Main_DiffList_DoubleClick);
+            // 
             // Main_CurrentList
             // 
             this.Main_CurrentList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Main_CurrentList.AutoSize = true;
             this.Main_CurrentList.Location = new System.Drawing.Point(535, 33);
             this.Main_CurrentList.Name = "Main_CurrentList";
-            this.Main_CurrentList.Size = new System.Drawing.Size(103, 19);
+            this.Main_CurrentList.Size = new System.Drawing.Size(115, 15);
             this.Main_CurrentList.TabIndex = 30;
             this.Main_CurrentList.Text = "当前列表: FULL";
-            // 
-            // Main_Search_Box
-            // 
-            this.Main_Search_Box.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Main_Search_Box.Location = new System.Drawing.Point(644, 3);
-            this.Main_Search_Box.Name = "Main_Search_Box";
-            this.Main_Search_Box.NullText = "Enter Keywords";
-            this.Main_Search_Box.Size = new System.Drawing.Size(231, 24);
-            this.Main_Search_Box.TabIndex = 35;
-            this.Main_Search_Box.TabStop = false;
-            this.Main_Search_Box.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Main_Search_Box_KeyPress);
-            // 
-            // Main_PlayList
-            // 
-            this.Main_PlayList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Main_PlayList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.Main_PlayList_Name});
-            this.Main_PlayList.ContextMenuStrip = this.Main_PlayList_RightClick_Menu;
-            this.Main_PlayList.FullRowSelect = true;
-            this.Main_PlayList.GridLines = true;
-            this.Main_PlayList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.Main_PlayList.HideSelection = false;
-            this.Main_PlayList.Location = new System.Drawing.Point(532, 55);
-            this.Main_PlayList.MultiSelect = false;
-            this.Main_PlayList.Name = "Main_PlayList";
-            this.Main_PlayList.Size = new System.Drawing.Size(344, 593);
-            this.Main_PlayList.TabIndex = 24;
-            this.Main_PlayList.UseCompatibleStateImageBehavior = false;
-            this.Main_PlayList.View = System.Windows.Forms.View.Details;
-            this.Main_PlayList.VirtualMode = true;
-            this.Main_PlayList.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.Main_PlayList_RetrieveVirtualItem);
-            this.Main_PlayList.SelectedIndexChanged += new System.EventHandler(this.Main_PlayList_SelectedIndexChanged);
-            this.Main_PlayList.DoubleClick += new System.EventHandler(this.Main_PlayList_DoubleClick);
-            // 
-            // Main_PlayList_Name
-            // 
-            this.Main_PlayList_Name.Text = "";
-            this.Main_PlayList_Name.Width = 500;
             // 
             // Main_PlayList_RightClick_Menu
             // 
@@ -561,16 +649,6 @@ namespace OSUplayer
             this.Main_Core_Panel.Name = "Main_Core_Panel";
             this.Main_Core_Panel.Size = new System.Drawing.Size(532, 429);
             this.Main_Core_Panel.TabIndex = 22;
-            // 
-            // Main_Jump_OSU
-            // 
-            this.Main_Jump_OSU.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Main_Jump_OSU.Location = new System.Drawing.Point(494, 396);
-            this.Main_Jump_OSU.Name = "Main_Jump_OSU";
-            this.Main_Jump_OSU.Size = new System.Drawing.Size(28, 22);
-            this.Main_Jump_OSU.TabIndex = 0;
-            this.Main_Jump_OSU.Text = "O";
-            this.Main_Jump_OSU.Click += new System.EventHandler(this.Main_Jump_OSU_Click);
             // 
             // Main_Volume_TrackBar
             // 
@@ -647,16 +725,6 @@ namespace OSUplayer
             this.Main_Time_Trackbar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Main_Time_Trackbar_MouseClick);
             this.Main_Time_Trackbar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Main_Time_Trackbar_MouseDown);
             this.Main_Time_Trackbar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Main_Time_Trackbar_MouseUp);
-            // 
-            // Main_Mini_Switcher
-            // 
-            this.Main_Mini_Switcher.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Main_Mini_Switcher.Location = new System.Drawing.Point(494, 3);
-            this.Main_Mini_Switcher.Name = "Main_Mini_Switcher";
-            this.Main_Mini_Switcher.Size = new System.Drawing.Size(30, 27);
-            this.Main_Mini_Switcher.TabIndex = 43;
-            this.Main_Mini_Switcher.Text = "↓";
-            this.Main_Mini_Switcher.Click += new System.EventHandler(this.Main_Mini_Switcher_Click);
             // 
             // Main_Time_Display
             // 
@@ -766,159 +834,6 @@ namespace OSUplayer
             this.Main_Volume_Hint_Label.TabIndex = 50;
             this.Main_Volume_Hint_Label.Text = "音量";
             // 
-            // Main_PlayNext
-            // 
-            this.Main_PlayNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.Main_PlayNext.Location = new System.Drawing.Point(132, 396);
-            this.Main_PlayNext.Name = "Main_PlayNext";
-            this.Main_PlayNext.Size = new System.Drawing.Size(43, 26);
-            this.Main_PlayNext.TabIndex = 48;
-            this.Main_PlayNext.Text = "→";
-            this.Main_PlayNext.Click += new System.EventHandler(this.Main_PlayNext_Click);
-            // 
-            // Main_Stop
-            // 
-            this.Main_Stop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.Main_Stop.Enabled = false;
-            this.Main_Stop.Location = new System.Drawing.Point(69, 396);
-            this.Main_Stop.Name = "Main_Stop";
-            this.Main_Stop.Size = new System.Drawing.Size(57, 26);
-            this.Main_Stop.TabIndex = 47;
-            this.Main_Stop.Text = "停止";
-            this.Main_Stop.Click += new System.EventHandler(this.Main_Stop_Click);
-            // 
-            // Main_Play
-            // 
-            this.Main_Play.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.Main_Play.Location = new System.Drawing.Point(7, 396);
-            this.Main_Play.Name = "Main_Play";
-            this.Main_Play.Size = new System.Drawing.Size(57, 26);
-            this.Main_Play.TabIndex = 46;
-            this.Main_Play.Text = "播放";
-            this.Main_Play.Click += new System.EventHandler(this.Main_Play_Click);
-            // 
-            // Main_Collections
-            // 
-            this.Main_Collections.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Main_Collections.Location = new System.Drawing.Point(532, 3);
-            this.Main_Collections.Name = "Main_Collections";
-            this.Main_Collections.Size = new System.Drawing.Size(106, 27);
-            this.Main_Collections.TabIndex = 32;
-            this.Main_Collections.Text = "切换收藏";
-            this.Main_Collections.Click += new System.EventHandler(this.Main_Collections_Click);
-            // 
-            // Main_PageView
-            // 
-            this.Main_PageView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Main_PageView.Controls.Add(this.Main_PageView_Page1);
-            this.Main_PageView.Controls.Add(this.Main_PageView_Page2);
-            this.Main_PageView.Controls.Add(this.Main_PageView_Page3);
-            this.Main_PageView.Location = new System.Drawing.Point(0, 426);
-            this.Main_PageView.Name = "Main_PageView";
-            this.Main_PageView.SelectedPage = this.Main_PageView_Page1;
-            this.Main_PageView.Size = new System.Drawing.Size(532, 223);
-            this.Main_PageView.TabIndex = 1;
-            this.Main_PageView.Text = "radPageView1";
-            this.Main_PageView.SelectedPageChanged += new System.EventHandler(this.Main_PageView_SelectedPageChanged);
-            ((Telerik.WinControls.UI.RadPageViewStripElement)(this.Main_PageView.GetChildAt(0))).StripButtons = Telerik.WinControls.UI.StripViewButtons.None;
-            ((Telerik.WinControls.UI.RadPageViewStripElement)(this.Main_PageView.GetChildAt(0))).StripAlignment = Telerik.WinControls.UI.StripViewAlignment.Bottom;
-            // 
-            // Main_PageView_Page1
-            // 
-            this.Main_PageView_Page1.Controls.Add(this.Main_ListDetail);
-            this.Main_PageView_Page1.Location = new System.Drawing.Point(10, 10);
-            this.Main_PageView_Page1.Name = "Main_PageView_Page1";
-            this.Main_PageView_Page1.Size = new System.Drawing.Size(511, 171);
-            this.Main_PageView_Page1.Text = "Map信息";
-            // 
-            // Main_ListDetail
-            // 
-            this.Main_ListDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Main_ListDetail.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.Main_ListDetail_Key,
-            this.Main_ListDetail_Value});
-            this.Main_ListDetail.FullRowSelect = true;
-            this.Main_ListDetail.GridLines = true;
-            this.Main_ListDetail.Location = new System.Drawing.Point(0, 0);
-            this.Main_ListDetail.MultiSelect = false;
-            this.Main_ListDetail.Name = "Main_ListDetail";
-            this.Main_ListDetail.Size = new System.Drawing.Size(511, 169);
-            this.Main_ListDetail.TabIndex = 40;
-            this.Main_ListDetail.UseCompatibleStateImageBehavior = false;
-            this.Main_ListDetail.View = System.Windows.Forms.View.Details;
-            // 
-            // Main_ListDetail_Key
-            // 
-            this.Main_ListDetail_Key.Name = "Main_ListDetail_Key";
-            this.Main_ListDetail_Key.Text = "Key";
-            this.Main_ListDetail_Key.Width = 120;
-            // 
-            // Main_ListDetail_Value
-            // 
-            this.Main_ListDetail_Value.Name = "Main_ListDetail_Value";
-            this.Main_ListDetail_Value.Text = "Value";
-            this.Main_ListDetail_Value.Width = 300;
-            // 
-            // Main_PageView_Page2
-            // 
-            this.Main_PageView_Page2.Controls.Add(this.Main_ScoreBox);
-            this.Main_PageView_Page2.Location = new System.Drawing.Point(10, 10);
-            this.Main_PageView_Page2.Name = "Main_PageView_Page2";
-            this.Main_PageView_Page2.Size = new System.Drawing.Size(511, 171);
-            this.Main_PageView_Page2.Text = "成绩信息";
-            // 
-            // Main_ScoreBox
-            // 
-            this.Main_ScoreBox.AllowColumnReorder = false;
-            this.Main_ScoreBox.AllowColumnResize = false;
-            this.Main_ScoreBox.AllowEdit = false;
-            this.Main_ScoreBox.AllowRemove = false;
-            this.Main_ScoreBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Main_ScoreBox.AutoScroll = true;
-            this.Main_ScoreBox.ItemSize = new System.Drawing.Size(200, 60);
-            this.Main_ScoreBox.Location = new System.Drawing.Point(0, 0);
-            this.Main_ScoreBox.Name = "Main_ScoreBox";
-            this.Main_ScoreBox.ShowColumnHeaders = false;
-            this.Main_ScoreBox.Size = new System.Drawing.Size(511, 169);
-            this.Main_ScoreBox.TabIndex = 26;
-            this.Main_ScoreBox.Text = "radListView1";
-            // 
-            // Main_PageView_Page3
-            // 
-            this.Main_PageView_Page3.Controls.Add(this.Main_DiffList);
-            this.Main_PageView_Page3.Location = new System.Drawing.Point(10, 10);
-            this.Main_PageView_Page3.Name = "Main_PageView_Page3";
-            this.Main_PageView_Page3.Size = new System.Drawing.Size(511, 171);
-            this.Main_PageView_Page3.Text = "Diff信息";
-            // 
-            // Main_DiffList
-            // 
-            this.Main_DiffList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Main_DiffList.FormattingEnabled = true;
-            this.Main_DiffList.ItemHeight = 15;
-            this.Main_DiffList.Location = new System.Drawing.Point(0, 0);
-            this.Main_DiffList.Name = "Main_DiffList";
-            this.Main_DiffList.Size = new System.Drawing.Size(511, 169);
-            this.Main_DiffList.TabIndex = 25;
-            this.Main_DiffList.SelectedIndexChanged += new System.EventHandler(this.Main_DiffList_SelectedIndexChanged);
-            this.Main_DiffList.DoubleClick += new System.EventHandler(this.Main_DiffList_DoubleClick);
-            // 
-            // Main_QQ_Hint_Label
-            // 
-            this.Main_QQ_Hint_Label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Main_QQ_Hint_Label.AutoSize = true;
-            this.Main_QQ_Hint_Label.Location = new System.Drawing.Point(438, 0);
-            this.Main_QQ_Hint_Label.Name = "Main_QQ_Hint_Label";
-            this.Main_QQ_Hint_Label.Size = new System.Drawing.Size(90, 19);
-            this.Main_QQ_Hint_Label.TabIndex = 30;
-            this.Main_QQ_Hint_Label.Text = "当前同步QQ:";
-            // 
             // UpdateTimer
             // 
             this.UpdateTimer.Tick += new System.EventHandler(this.UpdateTimer_Tick);
@@ -935,8 +850,8 @@ namespace OSUplayer
             // 
             // Main_MenuStrip
             // 
-            this.Main_MenuStrip.Controls.Add(this.Main_QQ_Hint_Label);
-            this.Main_MenuStrip.Items.AddRange(new Telerik.WinControls.RadItem[] {
+            this.Main_MenuStrip.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.Main_MenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Main_File_Menu,
             this.Main_Tool_Menu,
             this.Main_Option_Menu,
@@ -944,6 +859,7 @@ namespace OSUplayer
             this.Main_LanguageSelect});
             this.Main_MenuStrip.Location = new System.Drawing.Point(4, 4);
             this.Main_MenuStrip.Name = "Main_MenuStrip";
+            this.Main_MenuStrip.Padding = new System.Windows.Forms.Padding(0);
             this.Main_MenuStrip.Size = new System.Drawing.Size(874, 24);
             this.Main_MenuStrip.TabIndex = 2;
             this.Main_MenuStrip.Text = "MenuStrip1";
@@ -953,8 +869,199 @@ namespace OSUplayer
             this.Main_LanguageSelect.AccessibleDescription = "语言(&L)";
             this.Main_LanguageSelect.AccessibleName = "语言(&L)";
             this.Main_LanguageSelect.Name = "Main_LanguageSelect";
+            this.Main_LanguageSelect.Size = new System.Drawing.Size(69, 24);
             this.Main_LanguageSelect.Text = "语言(&L)";
-            this.Main_LanguageSelect.Visibility = Telerik.WinControls.ElementVisibility.Visible;
+            // 
+            // Main_QQ_Hint_Label
+            // 
+            this.Main_QQ_Hint_Label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Main_QQ_Hint_Label.AutoSize = true;
+            this.Main_QQ_Hint_Label.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Main_QQ_Hint_Label.Location = new System.Drawing.Point(398, 6);
+            this.Main_QQ_Hint_Label.Name = "Main_QQ_Hint_Label";
+            this.Main_QQ_Hint_Label.Size = new System.Drawing.Size(97, 20);
+            this.Main_QQ_Hint_Label.TabIndex = 30;
+            this.Main_QQ_Hint_Label.Text = "当前同步QQ:";
+            // 
+            // Main_PageView_Page1
+            // 
+            this.Main_PageView_Page1.BackColor = System.Drawing.Color.DodgerBlue;
+            this.Main_PageView_Page1.FlatAppearance.BorderSize = 0;
+            this.Main_PageView_Page1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DodgerBlue;
+            this.Main_PageView_Page1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSteelBlue;
+            this.Main_PageView_Page1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Main_PageView_Page1.Location = new System.Drawing.Point(0, 0);
+            this.Main_PageView_Page1.Name = "Main_PageView_Page1";
+            this.Main_PageView_Page1.Size = new System.Drawing.Size(78, 32);
+            this.Main_PageView_Page1.TabIndex = 37;
+            this.Main_PageView_Page1.Text = "Map信息";
+            this.Main_PageView_Page1.UseVisualStyleBackColor = false;
+            this.Main_PageView_Page1.Click += new System.EventHandler(this.Main_PageView_Page_Click);
+            // 
+            // Main_PageView_Page3
+            // 
+            this.Main_PageView_Page3.FlatAppearance.BorderSize = 0;
+            this.Main_PageView_Page3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DodgerBlue;
+            this.Main_PageView_Page3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSteelBlue;
+            this.Main_PageView_Page3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Main_PageView_Page3.Location = new System.Drawing.Point(156, 0);
+            this.Main_PageView_Page3.Name = "Main_PageView_Page3";
+            this.Main_PageView_Page3.Size = new System.Drawing.Size(78, 32);
+            this.Main_PageView_Page3.TabIndex = 39;
+            this.Main_PageView_Page3.Text = "Diff信息";
+            this.Main_PageView_Page3.UseVisualStyleBackColor = true;
+            this.Main_PageView_Page3.Click += new System.EventHandler(this.Main_PageView_Page_Click);
+            // 
+            // Main_PageView_Page2
+            // 
+            this.Main_PageView_Page2.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.Main_PageView_Page2.FlatAppearance.BorderSize = 0;
+            this.Main_PageView_Page2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DodgerBlue;
+            this.Main_PageView_Page2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSteelBlue;
+            this.Main_PageView_Page2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Main_PageView_Page2.Location = new System.Drawing.Point(78, 0);
+            this.Main_PageView_Page2.Name = "Main_PageView_Page2";
+            this.Main_PageView_Page2.Size = new System.Drawing.Size(78, 32);
+            this.Main_PageView_Page2.TabIndex = 38;
+            this.Main_PageView_Page2.Text = "成绩信息";
+            this.Main_PageView_Page2.UseVisualStyleBackColor = false;
+            this.Main_PageView_Page2.Click += new System.EventHandler(this.Main_PageView_Page_Click);
+            // 
+            // Main_Search_Box
+            // 
+            this.Main_Search_Box.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Main_Search_Box.Hint = "Enter Keywords";
+            this.Main_Search_Box.Location = new System.Drawing.Point(644, 3);
+            this.Main_Search_Box.Name = "Main_Search_Box";
+            this.Main_Search_Box.Size = new System.Drawing.Size(231, 25);
+            this.Main_Search_Box.TabIndex = 35;
+            this.Main_Search_Box.TabStop = false;
+            this.Main_Search_Box.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Main_Search_Box_KeyPress);
+            // 
+            // Main_PlayList
+            // 
+            this.Main_PlayList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Main_PlayList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.Main_PlayList_Name});
+            this.Main_PlayList.ContextMenuStrip = this.Main_PlayList_RightClick_Menu;
+            this.Main_PlayList.FullRowSelect = true;
+            this.Main_PlayList.GridLines = true;
+            this.Main_PlayList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.Main_PlayList.HideSelection = false;
+            this.Main_PlayList.Location = new System.Drawing.Point(532, 55);
+            this.Main_PlayList.MultiSelect = false;
+            this.Main_PlayList.Name = "Main_PlayList";
+            this.Main_PlayList.Size = new System.Drawing.Size(344, 593);
+            this.Main_PlayList.TabIndex = 24;
+            this.Main_PlayList.UseCompatibleStateImageBehavior = false;
+            this.Main_PlayList.View = System.Windows.Forms.View.Details;
+            this.Main_PlayList.VirtualMode = true;
+            this.Main_PlayList.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.Main_PlayList_RetrieveVirtualItem);
+            this.Main_PlayList.SelectedIndexChanged += new System.EventHandler(this.Main_PlayList_SelectedIndexChanged);
+            this.Main_PlayList.DoubleClick += new System.EventHandler(this.Main_PlayList_DoubleClick);
+            // 
+            // Main_PlayList_Name
+            // 
+            this.Main_PlayList_Name.Text = "";
+            this.Main_PlayList_Name.Width = 500;
+            // 
+            // Main_Jump_OSU
+            // 
+            this.Main_Jump_OSU.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Main_Jump_OSU.BackColor = System.Drawing.Color.LightGray;
+            this.Main_Jump_OSU.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
+            this.Main_Jump_OSU.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepSkyBlue;
+            this.Main_Jump_OSU.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSkyBlue;
+            this.Main_Jump_OSU.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Main_Jump_OSU.Location = new System.Drawing.Point(490, 394);
+            this.Main_Jump_OSU.Name = "Main_Jump_OSU";
+            this.Main_Jump_OSU.Size = new System.Drawing.Size(32, 30);
+            this.Main_Jump_OSU.TabIndex = 0;
+            this.Main_Jump_OSU.Text = "O";
+            this.Main_Jump_OSU.UseVisualStyleBackColor = false;
+            this.Main_Jump_OSU.Click += new System.EventHandler(this.Main_Jump_OSU_Click);
+            // 
+            // Main_Mini_Switcher
+            // 
+            this.Main_Mini_Switcher.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Main_Mini_Switcher.BackColor = System.Drawing.Color.LightGray;
+            this.Main_Mini_Switcher.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
+            this.Main_Mini_Switcher.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepSkyBlue;
+            this.Main_Mini_Switcher.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSkyBlue;
+            this.Main_Mini_Switcher.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Main_Mini_Switcher.Location = new System.Drawing.Point(494, 3);
+            this.Main_Mini_Switcher.Name = "Main_Mini_Switcher";
+            this.Main_Mini_Switcher.Size = new System.Drawing.Size(30, 27);
+            this.Main_Mini_Switcher.TabIndex = 43;
+            this.Main_Mini_Switcher.Text = "↓";
+            this.Main_Mini_Switcher.UseVisualStyleBackColor = false;
+            this.Main_Mini_Switcher.Click += new System.EventHandler(this.Main_Mini_Switcher_Click);
+            // 
+            // Main_PlayNext
+            // 
+            this.Main_PlayNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.Main_PlayNext.BackColor = System.Drawing.Color.LightGray;
+            this.Main_PlayNext.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
+            this.Main_PlayNext.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepSkyBlue;
+            this.Main_PlayNext.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSkyBlue;
+            this.Main_PlayNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Main_PlayNext.Location = new System.Drawing.Point(132, 396);
+            this.Main_PlayNext.Name = "Main_PlayNext";
+            this.Main_PlayNext.Size = new System.Drawing.Size(43, 26);
+            this.Main_PlayNext.TabIndex = 48;
+            this.Main_PlayNext.Text = "→";
+            this.Main_PlayNext.UseVisualStyleBackColor = false;
+            this.Main_PlayNext.Click += new System.EventHandler(this.Main_PlayNext_Click);
+            // 
+            // Main_Stop
+            // 
+            this.Main_Stop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.Main_Stop.BackColor = System.Drawing.Color.LightGray;
+            this.Main_Stop.Enabled = false;
+            this.Main_Stop.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
+            this.Main_Stop.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepSkyBlue;
+            this.Main_Stop.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSkyBlue;
+            this.Main_Stop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Main_Stop.Location = new System.Drawing.Point(69, 396);
+            this.Main_Stop.Name = "Main_Stop";
+            this.Main_Stop.Size = new System.Drawing.Size(57, 26);
+            this.Main_Stop.TabIndex = 47;
+            this.Main_Stop.Text = "停止";
+            this.Main_Stop.UseVisualStyleBackColor = false;
+            this.Main_Stop.Click += new System.EventHandler(this.Main_Stop_Click);
+            // 
+            // Main_Play
+            // 
+            this.Main_Play.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.Main_Play.BackColor = System.Drawing.Color.LightGray;
+            this.Main_Play.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
+            this.Main_Play.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepSkyBlue;
+            this.Main_Play.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSkyBlue;
+            this.Main_Play.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Main_Play.Location = new System.Drawing.Point(7, 396);
+            this.Main_Play.Name = "Main_Play";
+            this.Main_Play.Size = new System.Drawing.Size(57, 26);
+            this.Main_Play.TabIndex = 46;
+            this.Main_Play.Text = "播放";
+            this.Main_Play.UseVisualStyleBackColor = false;
+            this.Main_Play.Click += new System.EventHandler(this.Main_Play_Click);
+            // 
+            // Main_Collections
+            // 
+            this.Main_Collections.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Main_Collections.BackColor = System.Drawing.Color.LightGray;
+            this.Main_Collections.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
+            this.Main_Collections.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepSkyBlue;
+            this.Main_Collections.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSkyBlue;
+            this.Main_Collections.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Main_Collections.Location = new System.Drawing.Point(532, 3);
+            this.Main_Collections.Name = "Main_Collections";
+            this.Main_Collections.Size = new System.Drawing.Size(106, 27);
+            this.Main_Collections.TabIndex = 32;
+            this.Main_Collections.Text = "切换收藏";
+            this.Main_Collections.UseVisualStyleBackColor = false;
+            this.Main_Collections.Click += new System.EventHandler(this.Main_Collections_Click);
             // 
             // Main
             // 
@@ -962,84 +1069,69 @@ namespace OSUplayer
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ClientSize = new System.Drawing.Size(882, 684);
             this.Controls.Add(this.Main_Panel);
+            this.Controls.Add(this.Main_QQ_Hint_Label);
             this.Controls.Add(this.Main_MenuStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.Main_MenuStrip;
             this.MinimumSize = new System.Drawing.Size(890, 714);
             this.Name = "Main";
             this.Padding = new System.Windows.Forms.Padding(4);
-            // 
-            // 
-            // 
-            this.RootElement.ApplyShapeToControl = true;
             this.Text = "OSUplayer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AskForExit);
             this.Shown += new System.EventHandler(this.Main_Shown);
             this.SizeChanged += new System.EventHandler(this.Main_SizeChanged);
             this.Main_Panel.ResumeLayout(false);
             this.Main_Panel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Main_Search_Box)).EndInit();
+            this.Main_Tab_Control_Panel.ResumeLayout(false);
+            this.Main_TabPanel.ResumeLayout(false);
+            this.Main_TabControl.ResumeLayout(false);
+            this.Main_TabPage1.ResumeLayout(false);
+            this.Main_TabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.Main_ScoreBox)).EndInit();
+            this.Main_TabPage3.ResumeLayout(false);
             this.Main_PlayList_RightClick_Menu.ResumeLayout(false);
             this.Main_Core_Panel.ResumeLayout(false);
             this.Main_Core_Panel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Main_Jump_OSU)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Main_Mini_Switcher)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Main_PlayNext)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Main_Stop)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Main_Play)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Main_Collections)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Main_PageView)).EndInit();
-            this.Main_PageView.ResumeLayout(false);
-            this.Main_PageView_Page1.ResumeLayout(false);
-            this.Main_PageView_Page2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.Main_ScoreBox)).EndInit();
-            this.Main_PageView_Page3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.Main_MenuStrip)).EndInit();
             this.Main_MenuStrip.ResumeLayout(false);
             this.Main_MenuStrip.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
         #endregion
-        private Telerik.WinControls.UI.RadMenuItem Main_File_Menu;
-        private Telerik.WinControls.UI.RadMenuItem Main_File_Run_OSU;
-        private Telerik.WinControls.UI.RadMenuItem Main_File_Set_OSUPath;
-        private Telerik.WinControls.UI.RadMenuSeparatorItem Main_File_Separator1;
-        private Telerik.WinControls.UI.RadMenuItem Main_File_Import_OSU;
-        private Telerik.WinControls.UI.RadMenuItem Main_File_Import_Scores;
-        private Telerik.WinControls.UI.RadMenuSeparatorItem Main_File_Separator2;
-        private Telerik.WinControls.UI.RadMenuItem Main_File_Open_Folder;
-        private Telerik.WinControls.UI.RadMenuItem Main_File_Open_MapFile;
-        private Telerik.WinControls.UI.RadMenuItem Main_File_Open_SBFile;
-        private Telerik.WinControls.UI.RadMenuItem Main_Tool_Menu;
-        private Telerik.WinControls.UI.RadMenuItem Main_Option_Menu;
-        private Telerik.WinControls.UI.RadMenuItem Main_About;
-        private Telerik.WinControls.UI.RadMenuItem Main_Tool_Search_Dulplate;
-        private Telerik.WinControls.UI.RadMenuItem Main_Option_Play_Fx;
-        private Telerik.WinControls.UI.RadMenuSeparatorItem Main_File_Separator4;
-        private Telerik.WinControls.UI.RadMenuItem Main_File_Exit;
-        private Telerik.WinControls.UI.RadMenuItem Main_Option_Play_Video;
-        private Telerik.WinControls.UI.RadMenuItem Main_Option_Sync_QQ;
-        private Telerik.WinControls.UI.RadMenuItem Main_Option_Play_SB;
+        private System.Windows.Forms.ToolStripMenuItem Main_File_Menu;
+        private System.Windows.Forms.ToolStripMenuItem Main_File_Run_OSU;
+        private System.Windows.Forms.ToolStripMenuItem Main_File_Set_OSUPath;
+        private System.Windows.Forms.ToolStripSeparator Main_File_Separator1;
+        private System.Windows.Forms.ToolStripMenuItem Main_File_Import_OSU;
+        private System.Windows.Forms.ToolStripMenuItem Main_File_Import_Scores;
+        private System.Windows.Forms.ToolStripSeparator Main_File_Separator2;
+        private System.Windows.Forms.ToolStripMenuItem Main_File_Open_Folder;
+        private System.Windows.Forms.ToolStripMenuItem Main_File_Open_MapFile;
+        private System.Windows.Forms.ToolStripMenuItem Main_File_Open_SBFile;
+        private System.Windows.Forms.ToolStripMenuItem Main_Tool_Menu;
+        private System.Windows.Forms.ToolStripMenuItem Main_Option_Menu;
+        private System.Windows.Forms.ToolStripMenuItem Main_About;
+        private System.Windows.Forms.ToolStripMenuItem Main_Tool_Search_Dulplate;
+        private System.Windows.Forms.ToolStripMenuItem Main_Option_Play_Fx;
+        private System.Windows.Forms.ToolStripSeparator Main_File_Separator4;
+        private System.Windows.Forms.ToolStripMenuItem Main_File_Exit;
+        private System.Windows.Forms.ToolStripMenuItem Main_Option_Play_Video;
+        private System.Windows.Forms.ToolStripMenuItem Main_Option_Sync_QQ;
+        private System.Windows.Forms.ToolStripMenuItem Main_Option_Play_SB;
         private System.Windows.Forms.Panel Main_Panel;
-        private Telerik.WinControls.UI.RadTextBox Main_Search_Box;
+        private HintTextBox Main_Search_Box;
         private System.Windows.Forms.ListView Main_ListDetail;
         private System.Windows.Forms.ColumnHeader Main_ListDetail_Key;
         private System.Windows.Forms.ColumnHeader Main_ListDetail_Value;
         private DBListView Main_PlayList;
         private System.Windows.Forms.ColumnHeader Main_PlayList_Name;
         private System.Windows.Forms.ListBox Main_DiffList;
-        private Telerik.WinControls.UI.RadButton Main_Collections;
-        private System.Windows.Forms.Label Main_QQ_Hint_Label;
-        private Telerik.WinControls.UI.RadMenuItem Main_Tool_Export_Playlist;
-        private Telerik.WinControls.UI.RadPageView Main_PageView;
-        private Telerik.WinControls.UI.RadPageViewPage Main_PageView_Page1;
-        private Telerik.WinControls.UI.RadPageViewPage Main_PageView_Page2;
-        private Telerik.WinControls.UI.RadMenuItem Main_Option_Select_QQ;
+        private NoFocusButton Main_Collections;
+        private System.Windows.Forms.ToolStripMenuItem Main_Tool_Export_Playlist;
+        private System.Windows.Forms.ToolStripMenuItem Main_Option_Select_QQ;
         private System.Windows.Forms.Panel Main_Core_Panel;
-        private Telerik.WinControls.UI.RadPageViewPage Main_PageView_Page3;
-        private Telerik.WinControls.UI.RadButton Main_Mini_Switcher;
+        private NoFocusButton Main_Mini_Switcher;
         private System.Windows.Forms.Label Main_Time_Display;
         private gTrackBar.gTrackBar Main_Volume_Music_TrackBar;
         private System.Windows.Forms.Panel Main_Main_Display;
@@ -1047,33 +1139,43 @@ namespace OSUplayer
         private System.Windows.Forms.Label Main_Fx_Hint_Label;
         private System.Windows.Forms.Label Main_Music_Hint_Label;
         private System.Windows.Forms.Label Main_Volume_Hint_Label;
-        private Telerik.WinControls.UI.RadButton Main_PlayNext;
-        private Telerik.WinControls.UI.RadButton Main_Stop;
-        private Telerik.WinControls.UI.RadButton Main_Play;
+        private NoFocusButton Main_PlayNext;
+        private NoFocusButton Main_Stop;
+        private NoFocusButton Main_Play;
         private Telerik.WinControls.UI.RadListView Main_ScoreBox;
         private System.Windows.Forms.Timer UpdateTimer;
         private gTrackBar.gTrackBar Main_Time_Trackbar;
         private gTrackBar.gTrackBar Main_Volume_TrackBar;
-        private Telerik.WinControls.UI.RadMenuItem Main_File_Export_Background;
+        private System.Windows.Forms.ToolStripMenuItem Main_File_Export_Background;
         private System.Windows.Forms.Timer NextTimer;
         private System.Windows.Forms.Timer SearchTimer;
-        private Telerik.WinControls.UI.RadMenuSeparatorItem Main_File_SeparatorItem3;
-        private Telerik.WinControls.UI.RadMenuItem Main_File_Export_MP3;
+        private System.Windows.Forms.ToolStripSeparator Main_File_SeparatorItem3;
+        private System.Windows.Forms.ToolStripMenuItem Main_File_Export_MP3;
         private System.Windows.Forms.ContextMenuStrip Main_PlayList_RightClick_Menu;
         private System.Windows.Forms.ToolStripMenuItem Main_PlayList_RightClick_Delete_One;
-        private Telerik.WinControls.UI.RadButton Main_Jump_OSU;
-        private Telerik.WinControls.UI.RadMenuItem Main_Option_Show_Popup;
-        private Telerik.WinControls.UI.RadMenuItem Main_Option_PlayMode;
-        private Telerik.WinControls.UI.RadMenuItem Main_Option_PlayMode_Normal;
-        private Telerik.WinControls.UI.RadMenuItem Main_Option_PlayMode_Repeat;
-        private Telerik.WinControls.UI.RadMenuItem Main_Option_PlayMode_Random;
-        private Telerik.WinControls.UI.RadMenu Main_MenuStrip;
-        private Telerik.WinControls.UI.RadMenuItem Main_LanguageSelect;
+        private NoFocusButton Main_Jump_OSU;
+        private System.Windows.Forms.ToolStripMenuItem Main_Option_Show_Popup;
+        private System.Windows.Forms.ToolStripMenuItem Main_Option_PlayMode;
+        private System.Windows.Forms.ToolStripMenuItem Main_Option_PlayMode_Normal;
+        private System.Windows.Forms.ToolStripMenuItem Main_Option_PlayMode_Repeat;
+        private System.Windows.Forms.ToolStripMenuItem Main_Option_PlayMode_Random;
+        private System.Windows.Forms.MenuStrip Main_MenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem Main_LanguageSelect;
+        private System.Windows.Forms.Label Main_QQ_Hint_Label;
         private System.Windows.Forms.Label Main_CurrentList;
-        private Telerik.WinControls.UI.RadMenuItem Main_Tool_Export_Playlist_MP3;
+        private System.Windows.Forms.ToolStripMenuItem Main_Tool_Export_Playlist_MP3;
         private System.Windows.Forms.ToolStripMenuItem Main_PlayList_RightClick_Export_MP3;
         private System.Windows.Forms.ToolStripMenuItem Main_PlayList_RightClick_Open_In_OSU;
         private System.Windows.Forms.ToolStripMenuItem Main_PlayList_RightClick_Copy_Current_Name;
+        private System.Windows.Forms.Panel Main_TabPanel;
+        private System.Windows.Forms.TabControl Main_TabControl;
+        private System.Windows.Forms.TabPage Main_TabPage1;
+        private System.Windows.Forms.TabPage Main_TabPage2;
+        private System.Windows.Forms.TabPage Main_TabPage3;
+        private NoFocusButton Main_PageView_Page1;
+        private NoFocusButton Main_PageView_Page3;
+        private NoFocusButton Main_PageView_Page2;
+        private System.Windows.Forms.Panel Main_Tab_Control_Panel;
 
 
     }
