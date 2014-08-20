@@ -4,10 +4,12 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using BrightIdeasSoftware;
 using Meebey.SmartIrc4net;
 using OSUplayer.OsuFiles;
 using OSUplayer.Properties;
@@ -34,6 +36,7 @@ namespace OSUplayer
         public Main()
         {
             InitializeComponent();
+            Main_ScoreBox_Rank.ImageGetter = row => ((ScoreRecord)row).Rank;
             Initlang();
         }
 
@@ -164,11 +167,8 @@ namespace OSUplayer
 
         private void Setscore()
         {
-            Main_ScoreBox.Items.Clear();
-            foreach (var item in Core.Getscore(Main_ScoreBox.Font).Where(item => item != null))
-            {
-                Main_ScoreBox.Items.Add(item);
-            }
+            Main_ScoreBox.ClearObjects();
+            Main_ScoreBox.SetObjects(Core.Getscore());
         }
 
         #endregion
@@ -234,7 +234,7 @@ namespace OSUplayer
             _nextKey = _hotkeyHelper.RegisterHotkey(Keys.Right, KeyModifiers.Alt);
             _hotkeyHelper.OnHotkey += OnHotkey;
             Main_PlayList.SelectedIndices.Clear();
-            int currentset = Core.PlayList.IndexOf(Core.currentset, 0);
+            int currentset = Core.PlayList.IndexOf(Core.Currentset, 0);
             if (currentset == -1)
             {
                 currentset = 0;
@@ -261,24 +261,6 @@ namespace OSUplayer
             }
             Visible = true;
         }
-
-        /*private void Main_PageView_SelectedPageChanged(object sender, EventArgs e)
-        {
-            if (Main_PageView.SelectedPage == Main_PageView_Page2)
-            {
-                if (!Core.Scoresearched)
-                {
-                    string scorepath = Path.Combine(Settings.Default.OSUpath, "scores.db");
-                    if (File.Exists(scorepath))
-                    {
-                        OsuDB.ReadScore(scorepath);
-                        Core.Scoresearched = true;
-                        Main_File_Import_Scores.Text = LanguageManager.Get("Main_File_Re_Import_Scores_Text");
-                    }
-                }
-                Setscore();
-            }
-        }*/
 
         private void Main_Option_Select_QQ_Click(object sender, EventArgs e)
         {
@@ -511,7 +493,7 @@ namespace OSUplayer
                 FileName = Core.CurrentBeatmap.Title,
                 DefaultExt = new FileInfo(Core.CurrentBeatmap.Audio).Extension,
                 Filter = @"All files (*.*)|*.*",
-               // InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+                // InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
             };
             if (DialogResult.OK == dialog.ShowDialog())
             {
@@ -662,8 +644,8 @@ namespace OSUplayer
                 }
                 if (!Main_Stop.Enabled)
                 {
-                    Core.currentset = Core.PlayList[Core.tmpset];
-                    Core.currentmap = Core.tmpmap;
+                    Core.Currentset = Core.PlayList[Core.Tmpset];
+                    Core.Currentmap = Core.Tmpmap;
                     SetDetail();
                 }
                 else if (Core.Isplaying)
@@ -792,12 +774,12 @@ namespace OSUplayer
             {
                 var item = new ListViewItem(Core.Allsets[Core.PlayList[e.ItemIndex]].ToString())
                 {
-                    ForeColor = e.ItemIndex == Core.currentset ? Color.White : Color.Black,
-                    Font = e.ItemIndex == Core.currentset ? new Font("宋体", 9, FontStyle.Bold) : new Font("宋体", 9),
+                    ForeColor = e.ItemIndex == Core.Currentset ? Color.White : Color.Black,
+                    Font = e.ItemIndex == Core.Currentset ? new Font("宋体", 9, FontStyle.Bold) : new Font("宋体", 9),
                     BackColor =
                         e.ItemIndex % 2 == 0
-                            ? (e.ItemIndex == Core.currentset ? Color.LightSkyBlue : Color.White)
-                            : (e.ItemIndex == Core.currentset ? Color.DeepSkyBlue : Color.WhiteSmoke)
+                            ? (e.ItemIndex == Core.Currentset ? Color.LightSkyBlue : Color.White)
+                            : (e.ItemIndex == Core.Currentset ? Color.DeepSkyBlue : Color.WhiteSmoke)
                 };
                 e.Item = item;
             }
@@ -835,7 +817,7 @@ namespace OSUplayer
 
         private void Main_PageView_Page_Click(object sender, EventArgs e)
         {
-            var control= (Button)sender;
+            var control = (Button)sender;
             if (control.BackColor == Color.DodgerBlue) return;
             foreach (Button child in Main_Tab_Control_Panel.Controls)
             {
@@ -843,6 +825,11 @@ namespace OSUplayer
             }
             control.BackColor = Color.DodgerBlue;
             Main_TabControl.SelectTab(control.Name.Replace("Main_PageView_Page", "Main_TabPage"));
+            if (!Core.Scoresearched)
+            {
+                Main_File_Import_Scores.PerformClick();
+            }
+            if (control.Name == "Main_PageView_Page2") Setscore();
         }
     }
 }

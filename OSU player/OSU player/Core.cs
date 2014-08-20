@@ -11,7 +11,6 @@ using OSUplayer.Graphic;
 using OSUplayer.OsuFiles;
 using OSUplayer.Properties;
 using OSUplayer.Uilties;
-using Telerik.WinControls.UI;
 
 namespace OSUplayer
 {
@@ -50,39 +49,39 @@ namespace OSUplayer
         /// <summary>
         ///     是否已经载入过本地成绩
         /// </summary>
-        public static bool Scoresearched = false;
+        public static bool Scoresearched;
 
         /// <summary>
         ///     Set有变化，需要保存
         /// </summary>
-        private static bool _needsave = false;
+        private static bool _needsave;
 
         /// <summary>
         ///     目前正在播放的Set程序内部编号
         /// </summary>
-        public static int currentset = 0;
+        public static int Currentset;
 
         /// <summary>
         ///     目前正在播放的Map在Set中的编号
         /// </summary>
-        public static int currentmap = 0;
+        public static int Currentmap;
 
         /// <summary>
         ///     目前选中的Set在播放列表中的编号
         /// </summary>
-        public static int tmpset = 0;
+        public static int Tmpset;
 
         /// <summary>
         ///     目前选中的Map在Set中的编号
         /// </summary>
-        public static int tmpmap = 0;
+        public static int Tmpmap;
 
         /// <summary>
         ///     目前正在播放的Set
         /// </summary>
         public static BeatmapSet CurrentSet
         {
-            get { return Allsets[currentset]; }
+            get { return Allsets[Currentset]; }
         }
 
         /// <summary>
@@ -90,7 +89,7 @@ namespace OSUplayer
         /// </summary>
         public static Beatmap CurrentBeatmap
         {
-            get { return CurrentSet.Diffs[currentmap]; }
+            get { return CurrentSet.Diffs[Currentmap]; }
         }
 
         /// <summary>
@@ -98,7 +97,7 @@ namespace OSUplayer
         /// </summary>
         public static BeatmapSet TmpSet
         {
-            get { return Allsets[PlayList[tmpset]]; }
+            get { return Allsets[PlayList[Tmpset]]; }
         }
 
         /// <summary>
@@ -106,14 +105,14 @@ namespace OSUplayer
         /// </summary>
         public static Beatmap TmpBeatmap
         {
-            get { return TmpSet.Diffs[tmpmap]; }
+            get { return TmpSet.Diffs[Tmpmap]; }
         }
 
 
         #endregion
         private static Thread _renderThread;
         private static Player _player;
-        public static bool MainIsVisible = false;
+        public static bool MainIsVisible;
 
         public static string Version
         {
@@ -163,22 +162,18 @@ namespace OSUplayer
         private static void Getpath()
         {
             if (Settings.Default.OSUpath != "" && File.Exists(Settings.Default.OSUpath + "\\osu!.exe")) return;
-            var str = "";
             try
             {
                 var rk = Registry.ClassesRoot.OpenSubKey("osu!\\shell\\open\\command");
                 if (rk == null) throw new Exception("OSU not installed(?");
-                str = rk.GetValue("").ToString();
+                var str = rk.GetValue("").ToString();
                 str = str.Substring(1, str.LastIndexOf(@"\", StringComparison.Ordinal));
                 Settings.Default.OSUpath = str;
             }
             catch (Exception)
             {
                 MessageBox.Show(LanguageManager.Get("Core_Error_Osupath_Text"), LanguageManager.Get("Error_Text"), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                while (!Setpath())
-                {
-                }
-                ;
+                while (!Setpath()){}
             }
         }
 
@@ -299,10 +294,10 @@ namespace OSUplayer
                 NotifySystem.Showtip(1000, LanguageManager.Get("OSUplayer"), string.Format(LanguageManager.Get("Core_Init_Finish_Text"), Allsets.Count));
                 _needsave = true;
             }
-            currentset = 0;
-            currentmap = 0;
-            tmpset = 0;
-            tmpmap = 0;
+            Currentset = 0;
+            Currentmap = 0;
+            Tmpset = 0;
+            Tmpmap = 0;
         }
 
         #endregion
@@ -336,11 +331,11 @@ namespace OSUplayer
 
         public static bool SetSet(int vaule, bool p = false)
         {
-            tmpset = vaule;
+            Tmpset = vaule;
             if (!TmpSet.Check())
             {
                 NotifySystem.Showtip(1000, LanguageManager.Get("OSUplayer"), LanguageManager.Get("Core_Missing_Song_Text"));
-                Remove(tmpset);
+                Remove(Tmpset);
                 return true;
             }
             if (!TmpSet.Detailed)
@@ -349,14 +344,14 @@ namespace OSUplayer
             }
             if (p)
             {
-                currentset = PlayList[tmpset];
+                Currentset = PlayList[Tmpset];
             }
             return false;
         }
 
         public static bool SetMap(int vaule, bool p = false)
         {
-            tmpmap = vaule;
+            Tmpmap = vaule;
             if (!TmpBeatmap.Detailed)
             {
                 TmpBeatmap.GetDetail();
@@ -364,12 +359,12 @@ namespace OSUplayer
             if (!File.Exists(TmpBeatmap.Audio))
             {
                 NotifySystem.Showtip(1000, LanguageManager.Get("OSUplayer"), LanguageManager.Get("Core_Missing_Song_Text"));
-                Remove(tmpset);
+                Remove(Tmpset);
                 return true;
             }
             if (p)
             {
-                currentmap = tmpmap;
+                Currentmap = Tmpmap;
             }
             return false;
         }
@@ -455,10 +450,10 @@ namespace OSUplayer
         public static int GetNext()
         {
             int next;
-            var now = PlayList.IndexOf(currentset, 0);
-            if (currentset == -1)
+            var now = PlayList.IndexOf(Currentset, 0);
+            if (Currentset == -1)
             {
-                currentset = 0;
+                Currentset = 0;
             }
             switch (Settings.Default.NextMode)
             {
@@ -475,8 +470,8 @@ namespace OSUplayer
                     next = 0;
                     break;
             }
-            currentset = PlayList[next];
-            currentmap = 0;
+            Currentset = PlayList[next];
+            Currentmap = 0;
             return next;
         }
 
@@ -580,35 +575,22 @@ namespace OSUplayer
             MainIsVisible = true;
         }
 
-        public static IEnumerable<ListViewDataItem> Getscore(Font font)
+        public static IEnumerable<ScoreRecord> Getscore()
         {
-            var ret = new ListViewDataItem[255];
-            var cur = 0;
+            var ret = new List<ScoreRecord>();
             for (var i = 0; i < TmpSet.count; i++)
             {
-                if (Scores.ContainsKey(TmpSet.Diffs[i].GetHash()))
+                if (!Scores.ContainsKey(TmpSet.Diffs[i].GetHash())) continue;
+                foreach (var item in Scores[TmpSet.Diffs[i].GetHash()])
                 {
-                    foreach (var tmp in Scores[TmpSet.Diffs[i].GetHash()])
-                    {
-                        ret[cur] = new ListViewDataItem
-                        {
-                            Image = Getrank(tmp),
-                            Text = String.Format(
-                                "<html>Player:{0},Date:{1},Score: {2}<br>Diff:{3},Mods:{4},Mode:{5}<br>300:{6},100:{7},50:{8},Miss:{9},Maxcombo:{10}</html>",
-                                tmp.Player, tmp.Time, tmp.Score, TmpSet.Diffs[i].Version,
-                                tmp.Mod, tmp.Mode,
-                                tmp.Hit300, tmp.Hit100, tmp.Hit50, tmp.Miss, tmp.MaxCombo),
-                            Font = font
-                        };
-                        ;
-                        cur++;
-                    }
+                    item.DiffName = TmpSet.Diffs[i].Version;
                 }
+                ret.AddRange(Scores[TmpSet.Diffs[i].GetHash()]);
             }
             return ret;
         }
 
-        public static void AddRangeSet(IEnumerable<int> sets)
+        private static void AddRangeSet(IEnumerable<int> sets)
         {
             foreach (var set in sets)
             {
@@ -616,7 +598,7 @@ namespace OSUplayer
             }
         }
 
-        public static void AddSet(int setno)
+        private static void AddSet(int setno)
         {
             if (!PlayList.Contains(setno))
             {
@@ -627,139 +609,6 @@ namespace OSUplayer
         public static void SetBG()
         {
             _player.InitBG();
-        }
-
-        #endregion
-
-        #region 通用转换区
-
-        private static Image Getrank(ScoreRecord s)
-        {
-            switch (s.Mode)
-            {
-                case Modes.Osu:
-                    if (s.Acc == 1)
-                    {
-                        if (s.Mod.Contains("HD") || s.Mod.Contains("FL"))
-                        {
-                            return Resources.XH;
-                        }
-                        return Resources.X;
-                    }
-                    if ((s.Hit300) / (double)s.Totalhit > 0.9 && s.Hit50 / (double)s.Totalhit < 0.01 && s.Miss == 0)
-                    {
-                        if (s.Mod.Contains("HD") || s.Mod.Contains("FL"))
-                        {
-                            return Resources.SH;
-                        }
-                        return Resources.S;
-                    }
-                    if (((s.Hit300) / (double)s.Totalhit > 0.9) || ((s.Hit300) / (double)s.Totalhit > 0.8 && s.Miss == 0))
-                    {
-                        return Resources.A;
-                    }
-                    if (((s.Hit300) / (double)s.Totalhit > 0.8) || ((s.Hit300) / (double)s.Totalhit > 0.7 && s.Miss == 0))
-                    {
-                        return Resources.B;
-                    }
-                    if ((s.Hit300) / (double)s.Totalhit > 0.6)
-                    {
-                        return Resources.C;
-                    }
-                    return Resources.D;
-                case Modes.Taiko:
-                    if (s.Acc == 1)
-                    {
-                        if (s.Mod.Contains("HD") || s.Mod.Contains("FL"))
-                        {
-                            return Resources.XH;
-                        }
-                        return Resources.X;
-                    }
-                    if ((s.Hit300) / (double)s.Totalhit > 0.9 && s.Hit50 / (double)s.Totalhit < 0.01 && s.Miss == 0)
-                    {
-                        if (s.Mod.Contains("HD") || s.Mod.Contains("FL"))
-                        {
-                            return Resources.SH;
-                        }
-                        return Resources.S;
-                    }
-                    if (((s.Hit300) / (double)s.Totalhit > 0.9) || ((s.Hit300) / (double)s.Totalhit > 0.8 && s.Miss == 0))
-                    {
-                        return Resources.A;
-                    }
-                    if (((s.Hit300) / (double)s.Totalhit > 0.8) || ((s.Hit300) / (double)s.Totalhit > 0.7 && s.Miss == 0))
-                    {
-                        return Resources.B;
-                    }
-                    if ((s.Hit300) / (double)s.Totalhit > 0.6)
-                    {
-                        return Resources.C;
-                    }
-                    return Resources.D;
-                case Modes.CTB:
-                    if (s.Acc == 1)
-                    {
-                        if (s.Mod.Contains("HD") || s.Mod.Contains("FL"))
-                        {
-                            return Resources.XH;
-                        }
-                        return Resources.X;
-                    }
-                    if (s.Acc >= 0.9801)
-                    {
-                        if (s.Mod.Contains("HD") || s.Mod.Contains("FL"))
-                        {
-                            return Resources.SH;
-                        }
-                        return Resources.S;
-                    }
-                    if (s.Acc >= 0.9401)
-                    {
-                        return Resources.A;
-                    }
-                    if (s.Acc >= 0.9001)
-                    {
-                        return Resources.B;
-                    }
-                    if (s.Acc >= 0.8501)
-                    {
-                        return Resources.C;
-                    }
-                    return Resources.D;
-                case Modes.Mania:
-                    if (s.Acc == 1)
-                    {
-                        if (s.Mod.Contains("HD") || s.Mod.Contains("FL"))
-                        {
-                            return Resources.XH;
-                        }
-                        return Resources.X;
-                    }
-                    if (s.Acc > 0.95)
-                    {
-                        if (s.Mod.Contains("HD") || s.Mod.Contains("FL"))
-                        {
-                            return Resources.SH;
-                        }
-                        return Resources.S;
-                    }
-                    if (s.Acc > 0.90)
-                    {
-                        return Resources.A;
-                    }
-                    if (s.Acc > 0.80)
-                    {
-                        return Resources.B;
-                    }
-                    if (s.Acc > 0.70)
-                    {
-                        return Resources.C;
-                    }
-                    return Resources.D;
-                default:
-                    return Resources.D;
-            }
         }
 
         #endregion

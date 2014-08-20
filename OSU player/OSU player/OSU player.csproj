@@ -96,6 +96,9 @@
     <Reference Include="Microsoft.Xna.Framework">
       <HintPath>..\..\ipch\Microsoft.Xna.Framework.dll</HintPath>
     </Reference>
+    <Reference Include="ObjectListView">
+      <HintPath>Res\ObjectListView.dll</HintPath>
+    </Reference>
     <Reference Include="StarkSoftProxy, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\ipch\StarkSoftProxy.dll</HintPath>
@@ -106,8 +109,6 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="Telerik.WinControls, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
-    <Reference Include="Telerik.WinControls.UI, Version=2013.1.321.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DBListView.cs">

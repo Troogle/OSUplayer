@@ -1,13 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using OSUplayer.Properties;
 
 namespace OSUplayer.OsuFiles
 {
-    public struct ScoreRecord
+    public class ScoreRecord
     {
-        public double Acc;
+        public int version;
+        public int mod;
+        public string DiffHash;
+        public string DiffName;
+        public string ReplayHash;
+        public bool isPerfect;
         public int Hit100;
         public int Hit200;
         public int Hit300;
@@ -15,12 +22,200 @@ namespace OSUplayer.OsuFiles
         public int Hit50;
         public int MaxCombo;
         public int Miss;
-        public string Mod;
         public Modes Mode;
         public string Player;
         public int Score;
         public DateTime Time;
         public int Totalhit;
+
+        public Image Rank
+        {
+            get
+            {
+                switch (Mode)
+                {
+                    case Modes.Osu:
+                        if (Acc == 1)
+                        {
+                            if (Mod.Contains("HD") || Mod.Contains("FL"))
+                            {
+                                return Resources.XH;
+                            }
+                            return Resources.X;
+                        }
+                        if ((Hit300) / (double)Totalhit > 0.9 && Hit50 / (double)Totalhit < 0.01 && Miss == 0)
+                        {
+                            if (Mod.Contains("HD") || Mod.Contains("FL"))
+                            {
+                                return Resources.SH;
+                            }
+                            return Resources.S;
+                        }
+                        if (((Hit300) / (double)Totalhit > 0.9) || ((Hit300) / (double)Totalhit > 0.8 && Miss == 0))
+                        {
+                            return Resources.A;
+                        }
+                        if (((Hit300) / (double)Totalhit > 0.8) || ((Hit300) / (double)Totalhit > 0.7 && Miss == 0))
+                        {
+                            return Resources.B;
+                        }
+                        if ((Hit300) / (double)Totalhit > 0.6)
+                        {
+                            return Resources.C;
+                        }
+                        return Resources.D;
+                    case Modes.Taiko:
+                        if (Acc == 1)
+                        {
+                            if (Mod.Contains("HD") || Mod.Contains("FL"))
+                            {
+                                return Resources.XH;
+                            }
+                            return Resources.X;
+                        }
+                        if ((Hit300) / (double)Totalhit > 0.9 && Hit50 / (double)Totalhit < 0.01 && Miss == 0)
+                        {
+                            if (Mod.Contains("HD") || Mod.Contains("FL"))
+                            {
+                                return Resources.SH;
+                            }
+                            return Resources.S;
+                        }
+                        if (((Hit300) / (double)Totalhit > 0.9) || ((Hit300) / (double)Totalhit > 0.8 && Miss == 0))
+                        {
+                            return Resources.A;
+                        }
+                        if (((Hit300) / (double)Totalhit > 0.8) || ((Hit300) / (double)Totalhit > 0.7 && Miss == 0))
+                        {
+                            return Resources.B;
+                        }
+                        if ((Hit300) / (double)Totalhit > 0.6)
+                        {
+                            return Resources.C;
+                        }
+                        return Resources.D;
+                    case Modes.CTB:
+                        if (Acc == 1)
+                        {
+                            if (Mod.Contains("HD") || Mod.Contains("FL"))
+                            {
+                                return Resources.XH;
+                            }
+                            return Resources.X;
+                        }
+                        if (Acc >= 0.9801)
+                        {
+                            if (Mod.Contains("HD") || Mod.Contains("FL"))
+                            {
+                                return Resources.SH;
+                            }
+                            return Resources.S;
+                        }
+                        if (Acc >= 0.9401)
+                        {
+                            return Resources.A;
+                        }
+                        if (Acc >= 0.9001)
+                        {
+                            return Resources.B;
+                        }
+                        if (Acc >= 0.8501)
+                        {
+                            return Resources.C;
+                        }
+                        return Resources.D;
+                    case Modes.Mania:
+                        if (Acc == 1)
+                        {
+                            if (Mod.Contains("HD") || Mod.Contains("FL"))
+                            {
+                                return Resources.XH;
+                            }
+                            return Resources.X;
+                        }
+                        if (Acc > 0.95)
+                        {
+                            if (Mod.Contains("HD") || Mod.Contains("FL"))
+                            {
+                                return Resources.SH;
+                            }
+                            return Resources.S;
+                        }
+                        if (Acc > 0.90)
+                        {
+                            return Resources.A;
+                        }
+                        if (Acc > 0.80)
+                        {
+                            return Resources.B;
+                        }
+                        if (Acc > 0.70)
+                        {
+                            return Resources.C;
+                        }
+                        return Resources.D;
+                    default:
+                        return Resources.D;
+                }
+            }
+        }
+
+        public String Details
+        {
+            get
+            {
+                return String.Format(
+                    "Player:{0},Date:{1},Score: {2},Diff:{3},Mods:{4},Mode:{5},300:{6},100:{7},50:{8},Miss:{9},Maxcombo:{10}",
+                    Player, Time, Score, DiffName,
+                    Mod, Mode,
+                    Hit300, Hit100, Hit50, Miss, MaxCombo);
+            }
+        }
+
+        public double Acc
+        {
+            get
+            {
+                switch (Mode)
+                {
+                    case Modes.Osu:
+                        return (Hit300 * 6 + Hit100 * 2 + Hit50)
+                               / (double)((Hit300 + Hit100 + Hit50 + Miss) * 6);
+                    case Modes.Taiko:
+                        return (Hit300 * 2 + Hit100)
+                               / (double)((Hit300 + Hit100 + Miss) * 2);
+                    case Modes.CTB:
+                        return (Hit300 + Hit100 + Hit50)
+                               / (double)(Hit300 + Hit100 + Hit50 + Hit200 + Miss);
+                    case Modes.Mania:
+                        return (Hit300 * 6 + Hit320 * 6 + Hit200 * 4 + Hit100 * 2 + Hit50)
+                               / (double)((Hit300 + Hit320 + Hit200 + Hit100 + Hit50 + Miss) * 6);
+                    default:
+                        return 0;
+                }
+            }
+        }
+
+        public string Mod
+        {
+            get
+            {
+                if (mod == 0)
+                {
+                    return "None";
+                }
+                var cmod = "";
+                for (int i = 0; i < (int)Mods.LastMod; i++)
+                {
+                    if ((mod & 1) == 1)
+                    {
+                        cmod += " " + Enum.GetName(typeof(Mods), i);
+                    }
+                    mod = mod >> 1;
+                }
+                return cmod;
+            }
+        }
     }
 
     public class BinaryReader : System.IO.BinaryReader
@@ -131,34 +326,37 @@ namespace OSUplayer.OsuFiles
                     var nscore = new List<ScoreRecord>();
                     for (int j = 0; j < scorecount; j++)
                     {
-                        var tscore = new ScoreRecord();
-                        tscore.Mode = (Modes)reader.ReadByte();
-                        var version=reader.ReadInt32(); //version
-                        reader.ReadString(); //diff md5
-                        tscore.Player = reader.ReadString();
-                        reader.ReadString(); //replay md5
-                        tscore.Hit300 = reader.ReadUInt16();
-                        tscore.Hit100 = reader.ReadUInt16();
-                        tscore.Hit50 = reader.ReadUInt16();
-                        tscore.Hit320 = reader.ReadUInt16();
-                        tscore.Hit200 = reader.ReadUInt16();
-                        tscore.Miss = reader.ReadUInt16();
-                        tscore.Score = reader.ReadInt32();
-                        tscore.MaxCombo = reader.ReadUInt16();
-                        reader.ReadBoolean(); //isperfect
-                        tscore.Mod = Modconverter(reader.ReadInt32());
-                        reader.ReadString();//??? 应该是Online ID
-                        tscore.Time = reader.ReadDateTime();
-                        reader.ReadBytes();//??? 应该是血条曲线
-                        if (version >= 20140721)
+                        var tscore = new ScoreRecord
                         {
-                            reader.ReadInt64();
+                            Mode = (Modes)reader.ReadByte(),
+                            version = reader.ReadInt32(),
+                            DiffHash = reader.ReadString(),
+                            Player = reader.ReadString(),
+                            ReplayHash = reader.ReadString(),
+                            Hit300 = reader.ReadUInt16(),
+                            Hit100 = reader.ReadUInt16(),
+                            Hit50 = reader.ReadUInt16(),
+                            Hit320 = reader.ReadUInt16(),
+                            Hit200 = reader.ReadUInt16(),
+                            Miss = reader.ReadUInt16(),
+                            Score = reader.ReadInt32(),
+                            MaxCombo = reader.ReadUInt16(),
+                            isPerfect = reader.ReadBoolean(),
+                            mod = reader.ReadInt32()
+                        };
+                        var tmp = reader.ReadString();//??? 均为空
+                        // Debug.Assert(tmp == "");
+                        tscore.Time = reader.ReadDateTime();
+                        var tmp1 = reader.ReadBytes();//??? 均为null
+                        //  Debug.Assert(tmp1 == null);
+                        if (tscore.version >= 20140721)
+                        {
+                            reader.ReadInt64();//Online ID
                         }
                         else
                         {
                             reader.ReadInt32();
                         }
-                        tscore.Acc = Getacc(tscore);
                         tscore.Totalhit = tscore.Hit300 + tscore.Hit100 + tscore.Hit50 + tscore.Miss;
                         nscore.Add(tscore);
                     }
@@ -328,46 +526,6 @@ namespace OSUplayer.OsuFiles
                     Core.Collections.Add(title, nset);
                 }
             }
-        }
-        private static double Getacc(ScoreRecord s)
-        {
-            switch (s.Mode)
-            {
-                case Modes.Osu:
-                    return (s.Hit300 * 6 + s.Hit100 * 2 + s.Hit50)
-                           / (double)((s.Hit300 + s.Hit100 + s.Hit50 + s.Miss) * 6);
-                case Modes.Taiko:
-                    return (s.Hit300 * 2 + s.Hit100)
-                           / (double)((s.Hit300 + s.Hit100 + s.Miss) * 2);
-                case Modes.CTB:
-                    return (s.Hit300 + s.Hit100 + s.Hit50)
-                           / (double)(s.Hit300 + s.Hit100 + s.Hit50 + s.Hit200 + s.Miss);
-                case Modes.Mania:
-                    return (s.Hit300 * 6 + s.Hit320 * 6 + s.Hit200 * 4 + s.Hit100 * 2 + s.Hit50)
-                           / (double)((s.Hit300 + s.Hit320 + s.Hit200 + s.Hit100 + s.Hit50 + s.Miss) * 6);
-                default:
-                    return 0;
-            }
-        }
-        private static string Modconverter(long mod)
-        {
-            string cmod = "";
-            if (mod == 0)
-            {
-                cmod = "None";
-            }
-            else
-            {
-                for (int i = 0; i < (int)Mods.LastMod; i++)
-                {
-                    if ((mod & 1) == 1)
-                    {
-                        cmod += " " + Enum.GetName(typeof(Mods), i);
-                    }
-                    mod = mod >> 1;
-                }
-            }
-            return cmod;
         }
     }
 }

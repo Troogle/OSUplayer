@@ -1,7 +1,6 @@
 using System.Drawing;
 using System.Windows.Forms;
 using System;
-using Telerik.WinControls;
 
 namespace OSUplayer.Uilties
 {

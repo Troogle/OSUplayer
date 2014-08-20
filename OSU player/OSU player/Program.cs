@@ -74,7 +74,7 @@ namespace OSUplayer
         /// <param name="ex">异常对象</param>
         static void GetExceptionMsg(Exception ex)
         {
-#if (DEBUG)
+/*
             try
             {
                 WebRequest request;
@@ -91,7 +91,7 @@ namespace OSUplayer
             {
                 return;
             }
-#endif
+*/
             var sb = new StringBuilder();
             if (ex == null) return;
             sb.AppendLine("【异常类型】：" + ex.GetType().Name);
