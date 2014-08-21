@@ -508,5 +508,10 @@ namespace OSUplayer.Graphic
                 }
             }
         }
+        public void SetSpeed(bool nc, int speed)
+        {
+            if (nc) uniAudio.setFreq(speed / (float)100);
+            else uniAudio.setTempo(speed - 100);
+        }
     }
 }

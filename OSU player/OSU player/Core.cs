@@ -173,7 +173,7 @@ namespace OSUplayer
             catch (Exception)
             {
                 MessageBox.Show(LanguageManager.Get("Core_Error_Osupath_Text"), LanguageManager.Get("Error_Text"), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                while (!Setpath()){}
+                while (!Setpath()) { }
             }
         }
 
@@ -610,6 +610,10 @@ namespace OSUplayer
             _player.InitBG();
         }
 
+        public static void SetPlayerSpeed(bool nc, int speed)
+        {
+            if (_player != null) _player.SetSpeed(nc, speed);
+        }
         #endregion
     }
 }

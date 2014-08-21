@@ -25,6 +25,7 @@ namespace OSUplayer.OsuFiles
         private int _channel;
         private bool _isPaused;
         private bool _isopened;
+        private float _freq;
         private BASSTimer _timer = new BASSTimer();
 
         public static void Init()
@@ -37,6 +38,17 @@ namespace OSUplayer.OsuFiles
             //set { UpdateTimer = value; }
         }
 
+        public void setFreq(float factor)
+        {
+            Bass.BASS_ChannelSetAttribute(_channel, BASSAttribute.BASS_ATTRIB_TEMPO, 1.0f);
+            Bass.BASS_ChannelSetAttribute(_channel, BASSAttribute.BASS_ATTRIB_FREQ, _freq * factor);
+        }
+
+        public void setTempo(float factor)
+        {
+            Bass.BASS_ChannelSetAttribute(_channel, BASSAttribute.BASS_ATTRIB_FREQ, _freq);
+            Bass.BASS_ChannelSetAttribute(_channel, BASSAttribute.BASS_ATTRIB_TEMPO, factor);
+        }
         public double Durnation
         {
             get { return Bass.BASS_ChannelBytes2Seconds(_channel, Bass.BASS_ChannelGetLength(_channel)); }
@@ -110,13 +122,16 @@ namespace OSUplayer.OsuFiles
         {
             _timer = new BASSTimer(Interval);
             Bass.BASS_StreamFree(_channel);
-            _channel = Bass.BASS_StreamCreateFile(path, 0, 0, BASSFlag.BASS_SAMPLE_FLOAT | BASSFlag.BASS_STREAM_PRESCAN);
+            _channel = Bass.BASS_StreamCreateFile(path, 0, 0, BASSFlag.BASS_SAMPLE_FLOAT | BASSFlag.BASS_STREAM_PRESCAN | BASSFlag.BASS_STREAM_DECODE);
+            _channel = Un4seen.Bass.AddOn.Fx.BassFx.BASS_FX_TempoCreate(_channel, 0);
             _isopened = true;
+
             if (_channel == 0)
             {
                 //throw (new FormatException(Bass.BASS_ErrorGetCode().ToString()));
                 _isopened = false;
             }
+            Bass.BASS_ChannelGetAttribute(_channel, BASSAttribute.BASS_ATTRIB_FREQ, ref _freq);
         }
 
         public void Dispose()

@@ -131,6 +131,7 @@ namespace OSUplayer
                 Main_Play.Text = LanguageManager.Get("Main_Pause_Text");
                 Main_Stop.Enabled = true;
                 Main_Time_Trackbar.MaxValue = (int)Core.Durnation * 1000;
+                Core.SetPlayerSpeed(Main_NC_Control.Checked, Main_Speed_Control.Value);
             }
         }
 
@@ -173,8 +174,8 @@ namespace OSUplayer
 
         private void SetForm()
         {
-            Main_Volume_TrackBar.Value = Settings.Default.Allvolume ;
-            Main_Volume_Fx_TrackBar.Value = Settings.Default.Fxvolume ;
+            Main_Volume_TrackBar.Value = Settings.Default.Allvolume;
+            Main_Volume_Fx_TrackBar.Value = Settings.Default.Fxvolume;
             Main_Volume_Music_TrackBar.Value = Settings.Default.Musicvolume;
             ((ToolStripMenuItem)Main_Option_PlayMode.DropDownItems[Settings.Default.NextMode - 1]).Checked =
                 true;
@@ -863,7 +864,7 @@ namespace OSUplayer
                     Main_NC_Control.Enabled = false;
                     Main_NC_Control.Checked = true;
                     Main_Speed_Control.Enabled = false;
-                    Main_Speed_Control.Value = 50;
+                    Main_Speed_Control.Value = 75;
                     break;
                 case 2:
                     //Normal
@@ -873,16 +874,16 @@ namespace OSUplayer
                     Main_Speed_Control.Value = 100;
                     break;
                 case 3:
-                    //DT
+                    //NC
                     Main_NC_Control.Enabled = false;
-                    Main_NC_Control.Checked = false;
+                    Main_NC_Control.Checked = true;
                     Main_Speed_Control.Enabled = false;
                     Main_Speed_Control.Value = 150;
                     break;
                 case 4:
-                    //NC
+                    //DT
                     Main_NC_Control.Enabled = false;
-                    Main_NC_Control.Checked = true;
+                    Main_NC_Control.Checked = false;
                     Main_Speed_Control.Enabled = false;
                     Main_Speed_Control.Value = 150;
                     break;
@@ -891,32 +892,17 @@ namespace OSUplayer
                     Main_NC_Control.Enabled = true;
                     Main_Speed_Control.Enabled = true;
                     break;
-            }
+            } Core.SetPlayerSpeed(Main_NC_Control.Checked, Main_Speed_Control.Value);
         }
 
         private void Main_NC_Control_CheckedChanged(object sender, EventArgs e)
         {
-
+            Core.SetPlayerSpeed(Main_NC_Control.Checked, Main_Speed_Control.Value);
         }
 
         private void Main_Speed_Control_ValueChanged(object sender, EventArgs e)
         {
-
-        }
-
-        private void Main_Option_Play_Fx_Box_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Main_Option_Play_Video_Box_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Main_Option_Play_SB_Box_Click(object sender, EventArgs e)
-        {
-
+            Core.SetPlayerSpeed(Main_NC_Control.Checked, Main_Speed_Control.Value);
         }
     }
 }

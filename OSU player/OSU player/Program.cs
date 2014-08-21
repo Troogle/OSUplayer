@@ -37,6 +37,7 @@ namespace OSUplayer
                 var filename = Assembly.GetExecutingAssembly().Location;
                 if (File.Exists(filename + ".detele")) File.Delete(filename + ".delete");
                 Un4seen.Bass.BassNet.Registration(PrivateConfig.BassEmail, PrivateConfig.BassReg);
+                Un4seen.Bass.AddOn.Fx.BassFx.LoadMe();
                 LanguageManager.InitLanguage(System.Globalization.CultureInfo.CurrentCulture.Name);
                 /*var mainwindow = new Main();
                  mainwindow.Show();
