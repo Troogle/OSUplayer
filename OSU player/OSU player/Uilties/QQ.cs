@@ -43,10 +43,17 @@ namespace OSUplayer.Uilties
         public List<QQInfo> GetQQList = new List<QQInfo>();
         public QQ()
         {
-            foreach (var qq in Directory.GetFiles(@"\\.\Pipe\", "QQ_*_pipe", SearchOption.AllDirectories))
+            try
             {
-                GetQQList.Add(new QQInfo(qq.Substring(12, qq.Length - 17)));
+                foreach (var qq in Directory.GetFiles(@"\\.\Pipe\", "QQ_*_pipe", SearchOption.AllDirectories))
+                {
+                    GetQQList.Add(new QQInfo(qq.Substring(12, qq.Length - 17)));
+                }
             }
+            catch
+            {
+            }
+
         }
 
         /// <summary>
@@ -57,7 +64,7 @@ namespace OSUplayer.Uilties
         {
             try
             {
-                if (!Settings.Default.SyncQQ)
+                if (!Settings.Default.SyncQQ || Settings.Default.QQuin == "")
                 {
                     return;
                 }

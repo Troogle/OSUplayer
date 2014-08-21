@@ -7,6 +7,7 @@ Written in C# with .Net Freamwork 3.5
 [gTrackBar](http://www.codeproject.com/Articles/35104/gTrackBar-A-Custom-TrackBar-UserControl-VB-NET),
 [ObjectListView](http://www.codeproject.com/Articles/16009/A-Much-Easier-to-Use-ListView),
 [SmartIrc4net](https://github.com/meebey/SmartIrc4net/),
+[C# ID3 Library](http://sourceforge.net/projects/csid3lib/),
 
 [Microsoft Xna Framework 1.0 Refresh](http://www.microsoft.com/en-us/download/details.aspx?id=2431),
 [FFmpeg](http://ffmpeg.org/).
