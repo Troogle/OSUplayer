@@ -50,7 +50,8 @@ namespace OSUplayer.Graphic
         /// </summary>
         Rectangle _showRect;
 
-        readonly GraphicsDevice device;
+        GraphicsDevice device;
+        IntPtr _handle;
         VideoDecoder _decoder;
         Texture2D _videoTexture;
         Texture2D _bgTexture;
@@ -63,8 +64,8 @@ namespace OSUplayer.Graphic
         float _sbScale;
         Matrix SBtramsform;
         readonly List<TGraphic> SBelements = new List<TGraphic>();
-        readonly SpriteBatch AlphaSprite;
-        readonly SpriteBatch AdditiveSprite;
+        SpriteBatch AlphaSprite;
+        SpriteBatch AdditiveSprite;
         bool _deviceislost;
         public Player(IntPtr shandle, Size ssize)
         {
@@ -84,7 +85,8 @@ namespace OSUplayer.Graphic
                 BackBufferHeight = Math.Max(_showRect.Height, 1),
                 BackBufferWidth = Math.Max(_showRect.Width, 1)
             };
-            device = new GraphicsDevice(GraphicsAdapter.DefaultAdapter, DeviceType.Hardware, shandle, CreateOptions.MixedVertexProcessing, presentParams);
+            _handle = shandle;
+            device = new GraphicsDevice(GraphicsAdapter.DefaultAdapter, DeviceType.Hardware, _handle, CreateOptions.MixedVertexProcessing, presentParams);
             AlphaSprite = new SpriteBatch(device);
             AdditiveSprite = new SpriteBatch(device);
             fxplayer = new BassAudio[MaxFxplayer];
@@ -124,16 +126,25 @@ namespace OSUplayer.Graphic
                     _deviceislost = false;
                     return true;
                 case GraphicsDeviceStatus.NotReset:
-                    //AlphaSprite.Dispose();
-                   // AdditiveSprite.Dispose();
-                    //_bgTexture.Dispose();
-                    //if (_black!=null) _black.Dispose();
-                    //if (_videoTexture != null) _videoTexture.Dispose();
-                    //Thread.Sleep(10000);
-                    //TODO:Fix Invalid Method Call
-                    device.Reset();
-                    //AlphaSprite = new SpriteBatch(device);
-                    //AdditiveSprite = new SpriteBatch(device);
+                    AlphaSprite.Dispose();
+                    AdditiveSprite.Dispose();
+                    _bgTexture.Dispose();
+                    if (_black != null) _black.Dispose();
+                    if (_videoTexture != null) _videoTexture.Dispose();
+                    device.Dispose();
+                    var presentParams = new PresentationParameters
+{
+    IsFullScreen = false,
+    SwapEffect = SwapEffect.Discard,
+    BackBufferHeight = Math.Max(_showRect.Height, 1),
+    BackBufferWidth = Math.Max(_showRect.Width, 1)
+};
+                    device = new GraphicsDevice(GraphicsAdapter.DefaultAdapter, DeviceType.Hardware, _handle, CreateOptions.MixedVertexProcessing, presentParams);
+                    AlphaSprite = new SpriteBatch(device);
+                    AdditiveSprite = new SpriteBatch(device);
+                    InitBG();
+                    if (Map.HaveVideo && Playvideo && File.Exists(Map.Video)) { Initvideo(); }
+                    //TODO:Init SB
                     _deviceislost = false;
                     return true;
                 default:
@@ -266,7 +277,8 @@ namespace OSUplayer.Graphic
         private void RenderVideo(SpriteBatch sprite)
         {
             if (Position - (double)Map.VideoOffset / 1000 < 0) { return; }
-            _videoTexture.SetData(_decoder.GetFrame(Convert.ToInt32(Position * 1000 - Map.VideoOffset)));
+            var videoframe = _decoder.GetFrame(Convert.ToInt32(Position * 1000 - Map.VideoOffset));
+            if (videoframe != null) _videoTexture.SetData(videoframe);
             sprite.Draw(_black, _showRect, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 1f);
             sprite.Draw(_videoTexture, _screenCenter, null, Color.White, 0f, _videoCenter, _videoScale, SpriteEffects.None, 1f);
         }
@@ -428,7 +440,7 @@ namespace OSUplayer.Graphic
 
         public void UpdateVolume()
         {
-            if (uniAudio != null) { uniAudio.Volume = Allvolume * Musicvolume; }   
+            if (uniAudio != null) { uniAudio.Volume = Allvolume * Musicvolume; }
         }
         public void Stop()
         {
