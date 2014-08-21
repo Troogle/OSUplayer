@@ -116,6 +116,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BindableToolStripMenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="BindableToolStripMenuItem.Designer.cs">
+      <DependentUpon>BindableToolStripMenuItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="DBListView.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -225,12 +225,10 @@ namespace OSUplayer
             {
                 Settings.Default.QQuin = "0";
                 Settings.Default.SyncQQ = false;
-                Settings.Default.SyncQQ = false;
             }
             else
             {
                 Settings.Default.QQuin = Settings.Default.QQuin;
-                Settings.Default.SyncQQ = true;
                 Settings.Default.SyncQQ = true;
             }
         }
@@ -370,7 +368,7 @@ namespace OSUplayer
             return false;
         }
 
-        public static void SetVolume(int set, float volume)
+        public static void SetVolume(int set, int volume)
         {
             switch (set)
             {

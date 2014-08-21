@@ -37,9 +37,9 @@ namespace OSUplayer.Graphic
         bool _videoExist;
         bool _sbExist;
         int _fxpos;
-        static float Allvolume { get { return Settings.Default.Allvolume; } }
-        static float Musicvolume { get { return Settings.Default.Musicvolume; } }
-        static float Fxvolume { get { return Settings.Default.Fxvolume; } }
+        static float Allvolume { get { return Settings.Default.Allvolume / (float)100; } }
+        static float Musicvolume { get { return Settings.Default.Musicvolume / (float)100; } }
+        static float Fxvolume { get { return Settings.Default.Fxvolume / (float)100; } }
         static bool Playvideo { get { return Settings.Default.PlayVideo; } }
         static bool Playfx { get { return Settings.Default.PlayFx; } }
         static bool Playsb { get { return Settings.Default.PlaySB; } }
@@ -402,7 +402,7 @@ namespace OSUplayer.Graphic
                         //TODO:滑条tick
                         if (tmpH.sample != olddefault) { tmpSample = tmpH.sample; }
                         double deltatime = (600.0 * tmpH.length / bpm / Map.SliderMultiplier);
-                        if (tmpH.S_Volume != 0) { volumeH = tmpH.S_Volume / 100; }
+                        if (tmpH.S_Volume != 0) { volumeH = tmpH.S_Volume / (float)100.0; }
                         for (int j = 0; j <= tmpH.repeatcount; j++)
                         {
                             fxlist.Add(

@@ -182,7 +182,7 @@ namespace OSUplayer
 
         private void TrackVolume_ValueChanged(object sender, EventArgs e)
         {
-            Core.SetVolume(1, Mini_Volume_TrackBar.Value / (float)Mini_Volume_TrackBar.MaxValue);
+            Core.SetVolume(1, Mini_Volume_TrackBar.Value);
         }
 
         private void TrackSeek_ValueChanged(object sender, EventArgs e)

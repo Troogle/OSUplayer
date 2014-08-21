@@ -34,6 +34,7 @@ namespace OSUplayer
         {
             InitializeComponent();
             Main_ScoreBox_Rank.ImageGetter = row => ((ScoreRecord)row).Rank;
+            Main_Sytle_Setting.SelectedIndex = 2;
             Initlang();
         }
 
@@ -172,15 +173,9 @@ namespace OSUplayer
 
         private void SetForm()
         {
-            Main_QQ_Hint_Label.Text += Settings.Default.QQuin;
-            Main_Option_Sync_QQ.Checked = Settings.Default.SyncQQ;
-            Main_Volume_TrackBar.Value = 100 - (int)(Settings.Default.Allvolume * Main_Volume_TrackBar.MaxValue);
-            Main_Volume_Fx_TrackBar.Value = (int)(Settings.Default.Fxvolume * Main_Volume_Fx_TrackBar.MaxValue);
-            Main_Volume_Music_TrackBar.Value = (int)(Settings.Default.Musicvolume * Main_Volume_Music_TrackBar.MaxValue);
-            Main_Option_Play_Fx.Checked = Settings.Default.PlayFx;
-            Main_Option_Play_SB.Checked = Settings.Default.PlaySB;
-            Main_Option_Play_Video.Checked = Settings.Default.PlayVideo;
-            Main_Option_Show_Popup.Checked = Settings.Default.ShowPopup;
+            Main_Volume_TrackBar.Value = Settings.Default.Allvolume ;
+            Main_Volume_Fx_TrackBar.Value = Settings.Default.Fxvolume ;
+            Main_Volume_Music_TrackBar.Value = Settings.Default.Musicvolume;
             ((ToolStripMenuItem)Main_Option_PlayMode.DropDownItems[Settings.Default.NextMode - 1]).Checked =
                 true;
         }
@@ -519,15 +514,6 @@ namespace OSUplayer
 
         #region 选项
 
-        private void Main_Option_Play_Fx_Click(object sender, EventArgs e)
-        {
-            Settings.Default.PlayFx = Main_Option_Play_Fx.Checked;
-        }
-
-        private void Main_Option_Play_Video_Click(object sender, EventArgs e)
-        {
-            Settings.Default.PlayVideo = Main_Option_Play_Video.Checked;
-        }
 
         private void Main_Option_Sync_QQ_Click(object sender, EventArgs e)
         {
@@ -535,19 +521,7 @@ namespace OSUplayer
             {
                 NotifySystem.ClearText();
             }
-            Settings.Default.SyncQQ = Main_Option_Sync_QQ.Checked;
         }
-
-        private void Main_Option_Play_SB_Click(object sender, EventArgs e)
-        {
-            Settings.Default.PlaySB = Main_Option_Play_SB.Checked;
-        }
-
-        private void Main_Option_Show_Popup_Click(object sender, EventArgs e)
-        {
-            Settings.Default.ShowPopup = Main_Option_Show_Popup.Checked;
-        }
-
         #endregion
 
         private void Main_About_Click(object sender, EventArgs e)
@@ -582,17 +556,17 @@ namespace OSUplayer
 
         private void Main_Volume_Fx_TrackBar_ValueChanged(object sender, EventArgs e)
         {
-            Core.SetVolume(3, Main_Volume_Fx_TrackBar.Value / (float)Main_Volume_Fx_TrackBar.MaxValue);
+            Core.SetVolume(3, Main_Volume_Fx_TrackBar.Value);
         }
 
         private void Main_Volume_Music_TrackBar_ValueChanged(object sender, EventArgs e)
         {
-            Core.SetVolume(2, Main_Volume_Music_TrackBar.Value / (float)Main_Volume_Music_TrackBar.MaxValue);
+            Core.SetVolume(2, Main_Volume_Music_TrackBar.Value);
         }
 
         private void Main_Volume_TrackBar_ValueChanged(object sender, EventArgs e)
         {
-            Core.SetVolume(1, Main_Volume_TrackBar.Value / (float)Main_Volume_TrackBar.MaxValue);
+            Core.SetVolume(1, Main_Volume_TrackBar.Value);
         }
 
         #endregion
@@ -872,6 +846,77 @@ namespace OSUplayer
                 Main_File_Import_Scores.PerformClick();
             }
             if (control.Name == "Main_PageView_Page2") Setscore();
+        }
+        private void Main_Sytle_Setting_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (Main_Sytle_Setting.SelectedIndex)
+            {
+                case 0:
+                    //HT
+                    Main_NC_Control.Enabled = false;
+                    Main_NC_Control.Checked = false;
+                    Main_Speed_Control.Enabled = false;
+                    Main_Speed_Control.Value = 50;
+                    break;
+                case 1:
+                    //DC
+                    Main_NC_Control.Enabled = false;
+                    Main_NC_Control.Checked = true;
+                    Main_Speed_Control.Enabled = false;
+                    Main_Speed_Control.Value = 50;
+                    break;
+                case 2:
+                    //Normal
+                    Main_NC_Control.Enabled = false;
+                    Main_NC_Control.Checked = false;
+                    Main_Speed_Control.Enabled = false;
+                    Main_Speed_Control.Value = 100;
+                    break;
+                case 3:
+                    //DT
+                    Main_NC_Control.Enabled = false;
+                    Main_NC_Control.Checked = false;
+                    Main_Speed_Control.Enabled = false;
+                    Main_Speed_Control.Value = 150;
+                    break;
+                case 4:
+                    //NC
+                    Main_NC_Control.Enabled = false;
+                    Main_NC_Control.Checked = true;
+                    Main_Speed_Control.Enabled = false;
+                    Main_Speed_Control.Value = 150;
+                    break;
+                case 5:
+                    //Custom
+                    Main_NC_Control.Enabled = true;
+                    Main_Speed_Control.Enabled = true;
+                    break;
+            }
+        }
+
+        private void Main_NC_Control_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Main_Speed_Control_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Main_Option_Play_Fx_Box_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Main_Option_Play_Video_Box_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Main_Option_Play_SB_Box_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
