@@ -149,7 +149,6 @@ namespace OSUplayer
             _player = new Player(shandle, ssize);
             NotifySystem.Showtip(1000, LanguageManager.Get("OSUplayer"), LanguageManager.Get("Core_Init_Text"));
             Getpath();
-            LoadPreference();
             new Thread(Selfupdate.check_update).Start();
             Initset();
             _renderThread = new Thread(Render);
@@ -253,7 +252,7 @@ namespace OSUplayer
         /// <summary>
         ///     载入设置
         /// </summary>
-        private static void LoadPreference()
+        public static void LoadPreference()
         {
             if (!Settings.Default.Upgraded)
             {
@@ -562,7 +561,7 @@ namespace OSUplayer
                 if (MainIsVisible)
                 {
                     _player.Render();
-                }
+                } else Thread.Sleep(100);
             }
         }
 

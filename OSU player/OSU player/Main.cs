@@ -33,6 +33,7 @@ namespace OSUplayer
         public Main()
         {
             InitializeComponent();
+            Core.LoadPreference();
             Main_ScoreBox_Rank.ImageGetter = row => ((ScoreRecord)row).Rank;
             Main_Sytle_Setting.SelectedIndex = 2;
             Initlang();
