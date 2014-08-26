@@ -1006,7 +1006,7 @@ namespace OSUplayer
             this.Main_PageView_Page4.Name = "Main_PageView_Page4";
             this.Main_PageView_Page4.Size = new System.Drawing.Size(78, 32);
             this.Main_PageView_Page4.TabIndex = 40;
-            this.Main_PageView_Page4.Text = "播放选项";
+            this.Main_PageView_Page4.Text = "特殊选项";
             this.Main_PageView_Page4.UseVisualStyleBackColor = false;
             this.Main_PageView_Page4.Click += new System.EventHandler(this.Main_PageView_Page_Click);
             // 

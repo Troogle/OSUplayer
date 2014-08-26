@@ -433,6 +433,14 @@ namespace OSUplayer
         /// <returns>下一首Set的Playlist编号</returns>
         public static int GetNext()
         {
+            if (_historyPointer != PlayHistory.Count - 1)
+            {
+                _historyPointer++;
+                var nextsong = PlayList.IndexOf(PlayHistory[_historyPointer]);
+                if (nextsong != -1) return nextsong;
+                PlayHistory.RemoveRange(_historyPointer, PlayHistory.Count - _historyPointer);
+                _historyPointer--;
+            }
             int next;
             var now = CurrentSetIndex;
             if (CurrentSetIndex == -1)
@@ -456,7 +464,72 @@ namespace OSUplayer
             }
             CurrentSet = Allsets[PlayList[next]];
             CurrentBeatmap = CurrentSet.GetBeatmaps()[0];
+            SetHistory();
             return next;
+        }
+
+        public static void SetHistory(bool front = false,bool back=false,bool init=false)
+        {
+            if (init)
+            {
+                if (PlayHistory.Count==0)
+                {
+                    PlayHistory.Add(CurrentSet.GetHash());
+                    _historyPointer = 0;
+                }
+
+            }else if (front)
+            {
+                if (_historyPointer == -1) _historyPointer = 0;
+                PlayHistory.Insert(0, CurrentSet.GetHash());
+            }
+            else
+            {
+                _historyPointer++;
+                if (back)
+                {                  
+                    PlayHistory.RemoveRange(_historyPointer, PlayHistory.Count - _historyPointer);
+                }
+                PlayHistory.Add(CurrentSet.GetHash());
+            }
+        }
+        private static readonly List<string> PlayHistory = new List<string>();
+        private static int _historyPointer = -1;
+        public static int GetPrev()
+        {
+            if (_historyPointer > 0)
+            {
+                _historyPointer--;
+                var prevsong = PlayList.IndexOf(PlayHistory[_historyPointer]);
+                if (prevsong != -1) return prevsong;
+                PlayHistory.RemoveRange(0, _historyPointer + 1);
+                _historyPointer = 0;
+            }            
+            int prev;
+            var now = CurrentSetIndex;
+            if (CurrentSetIndex == -1)
+            {
+                now = 0;
+            }
+            switch (Settings.Default.NextMode)
+            {
+                case 1:
+                    prev = (now - 1) % PlayList.Count;
+                    break;
+                case 2:
+                    prev = now;
+                    break;
+                case 3:
+                    prev = new Random().Next() % PlayList.Count;
+                    break;
+                default:
+                    prev = 0;
+                    break;
+            }
+            CurrentSet = Allsets[PlayList[prev]];
+            CurrentBeatmap = CurrentSet.GetBeatmaps()[0];
+            SetHistory(true);
+            return prev;
         }
 
         public static void Search(string k)
@@ -540,7 +613,8 @@ namespace OSUplayer
                 if (MainIsVisible)
                 {
                     _player.Render();
-                } else Thread.Sleep(100);
+                }
+                else Thread.Sleep(100);
             }
         }
 

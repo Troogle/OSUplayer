@@ -66,7 +66,7 @@ namespace OSUplayer
 
         private void imageButton1_Click(object sender, EventArgs e)
         {
-            if (!Mini_Stop.Enabled) { Play(); }
+            if (!Mini_Stop.Enabled) { Play(); Core.SetHistory(init:true); }
             else
             {
                 if (!Core.Isplaying)

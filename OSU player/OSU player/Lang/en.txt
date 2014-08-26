@@ -44,6 +44,7 @@ Main_Play_Text=Play
 Main_Pause_Text=Pause
 Main_Stop_Text=Stop
 Main_PlayNext_Text=→
+Main_PlayPrev_Text=←
 Main_Jump_OSU_Text=O
 Main_Volume_Hint_Label_Text=Vol
 
@@ -62,6 +63,11 @@ Main_ListDetail_VideoPath=VideoPath
 Main_ListDetail_FileVersion=OSUFileVersion
 Main_PageView_Page2_Text=Result
 Main_PageView_Page3_Text=Difficulty
+Main_PageView_Page4_Text=Special
+Main_Sytle_Label_Text=Presets
+Main_Option_Play_Fx_Box_Text=Hitsound
+Main_Option_Play_Video_Box_Text=Background Video
+Main_Option_Play_SB_Box_Text=StoryBoard
 
 ##Main_RightClick
 Main_PlayList_RightClick_Copy_Current_Name_Text=Copy current song name
@@ -131,6 +137,7 @@ TrayIcon_Title_Text=Current Title:
 TrayIcon_Diff_Text=Current Difficulty:
 TrayIcon_Play_Pause_Text=Play/Pause
 TrayIcon_PlayNext_Text=Play Next
+TrayIcon_PlayPrev_Text=Play Previous
 TrayIcon_Exit_Text=Exit
 
 ##General

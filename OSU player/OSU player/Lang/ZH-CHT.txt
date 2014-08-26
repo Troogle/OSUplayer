@@ -44,6 +44,7 @@ Main_Play_Text=播放
 Main_Pause_Text=暫停
 Main_Stop_Text=停止
 Main_PlayNext_Text=→
+Main_PlayPrev_Text=←
 Main_Jump_OSU_Text=O
 Main_Volume_Hint_Label_Text=音量
 
@@ -51,8 +52,22 @@ Main_Volume_Hint_Label_Text=音量
 Main_PageView_Page1_Text=譜面信息
 Main_ListDetail_Key_Text=Key
 Main_ListDetail_Value_Text=Value
+Main_ListDetail_Title=
+Main_ListDetail_Artist=
+Main_ListDetail_Mapper=
+Main_ListDetail_Source=
+Main_ListDetail_Mode=
+Main_ListDetail_WAVPath=
+Main_ListDetail_BGPath=
+Main_ListDetail_VideoPath=
+Main_ListDetail_FileVersion=
 Main_PageView_Page2_Text=成績信息
 Main_PageView_Page3_Text=難度
+Main_PageView_Page4_Text=
+Main_Sytle_Label_Text=
+Main_Option_Play_Fx_Box_Text=打擊音效
+Main_Option_Play_Video_Box_Text=背景影片
+Main_Option_Play_SB_Box_Text=StoryBoard
 
 ##Main_RightClick
 Main_PlayList_RightClick_Copy_Current_Name_Text=複製當前歌曲名稱
@@ -122,6 +137,7 @@ TrayIcon_Title_Text=標題:
 TrayIcon_Diff_Text=難度:
 TrayIcon_Play_Pause_Text=播放/暫停
 TrayIcon_PlayNext_Text=下一首
+TrayIcon_PlayPrev_Text=上一首
 TrayIcon_Exit_Text=退出
 
 ##General

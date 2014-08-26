@@ -24,6 +24,8 @@ namespace OSUplayer
         }
 
         private HotkeyHelper _hotkeyHelper;
+        private int _prevKey;
+        private int _prevKey1;
         private int _nextKey;
         private int _nextKey1;
         private int _playKey;
@@ -164,6 +166,20 @@ namespace OSUplayer
                 Play();
             }
         }
+        private void PlayPrev(bool play = true)
+        {
+            if (Core.PlayList.Count == 0) return;
+            var prevSongId = Core.GetPrev();
+            Main_PlayList.SelectedIndices.Clear();
+            Main_PlayList.SelectedIndices.Add(prevSongId);
+            Main_PlayList.EnsureVisible(prevSongId);
+            Main_PlayList.Focus();
+            SetDetail();
+            if (play)
+            {
+                Play();
+            }
+        }
 
         private void Setscore()
         {
@@ -227,6 +243,7 @@ namespace OSUplayer
             }
             NotifySystem.RegisterClick(TaskbarIconClickHandler);
             _playKey = _hotkeyHelper.RegisterHotkey(Keys.F5, KeyModifiers.Alt);
+            _prevKey = _hotkeyHelper.RegisterHotkey(Keys.Left, KeyModifiers.Alt);
             _nextKey = _hotkeyHelper.RegisterHotkey(Keys.Right, KeyModifiers.Alt);
             _hotkeyHelper.OnHotkey += OnHotkey;
             Main_PlayList.SelectedIndices.Clear();
@@ -305,6 +322,8 @@ namespace OSUplayer
             _playKey = _hotkeyHelper.RegisterHotkey(Keys.F5, KeyModifiers.Alt);
             _playKey1 = _hotkeyHelper.RegisterHotkey(Keys.Play, KeyModifiers.None);
             _playKey2 = _hotkeyHelper.RegisterHotkey(Keys.Pause, KeyModifiers.None);
+            _prevKey = _hotkeyHelper.RegisterHotkey(Keys.Left, KeyModifiers.Alt);
+            _prevKey1 = _hotkeyHelper.RegisterHotkey(Keys.MediaPreviousTrack, KeyModifiers.None);
             _nextKey = _hotkeyHelper.RegisterHotkey(Keys.Right, KeyModifiers.Alt);
             _nextKey1 = _hotkeyHelper.RegisterHotkey(Keys.MediaNextTrack, KeyModifiers.None);
             _hotkeyHelper.OnHotkey += OnHotkey;
@@ -321,6 +340,10 @@ namespace OSUplayer
             else if (hotkeyID == _nextKey || hotkeyID == _nextKey1)
             {
                 Main_PlayNext.PerformClick();
+            }
+            else if (hotkeyID == _prevKey || hotkeyID == _prevKey1)
+            {
+                Main_PlayPrev.PerformClick();
             }
         }
 
@@ -648,6 +671,7 @@ namespace OSUplayer
                 Stop();
                 SetDetail();
                 Play();
+                Core.SetHistory(back:true);
             }
         }
 
@@ -663,6 +687,7 @@ namespace OSUplayer
                 Stop();
                 SetDetail();
                 Play();
+                Core.SetHistory(back: true);
             }
         }
 
@@ -720,6 +745,7 @@ namespace OSUplayer
             if (!Main_Stop.Enabled)
             {
                 Play();
+                Core.SetHistory(init: true);
             }
             else
             {
@@ -910,7 +936,8 @@ namespace OSUplayer
 
         private void Main_PlayPrev_Click(object sender, EventArgs e)
         {
-
+            Stop();
+            PlayPrev();
         }
     }
 }

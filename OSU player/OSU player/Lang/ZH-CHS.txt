@@ -44,6 +44,7 @@ Main_Play_Text=播放
 Main_Pause_Text=暂停
 Main_Stop_Text=停止
 Main_PlayNext_Text=→
+Main_PlayPrev_Text=←
 Main_Jump_OSU_Text=O
 Main_Volume_Hint_Label_Text=音量
 
@@ -62,6 +63,11 @@ Main_ListDetail_VideoPath=视频文件名称
 Main_ListDetail_FileVersion=OSU文件版本
 Main_PageView_Page2_Text=成绩信息
 Main_PageView_Page3_Text=Diff信息
+Main_PageView_Page4_Text=特殊选项
+Main_Sytle_Label_Text=播放预置
+Main_Option_Play_Fx_Box_Text=音效开关
+Main_Option_Play_Video_Box_Text=视频开关
+Main_Option_Play_SB_Box_Text=SB开关
 
 ##Main_RightClick
 Main_PlayList_RightClick_Copy_Current_Name_Text=复制当前歌曲名称
@@ -131,6 +137,7 @@ TrayIcon_Title_Text=标题:
 TrayIcon_Diff_Text=难度名:
 TrayIcon_Play_Pause_Text=播放/暂停
 TrayIcon_PlayNext_Text=下一首
+TrayIcon_PlayPrev_Text=上一首
 TrayIcon_Exit_Text=退出
 
 ##General

@@ -44,6 +44,7 @@ Main_Play_Text=
 Main_Pause_Text=
 Main_Stop_Text=
 Main_PlayNext_Text=
+Main_PlayPrev_Text=
 Main_Jump_OSU_Text=
 Main_Volume_Hint_Label_Text=
 
@@ -62,6 +63,11 @@ Main_ListDetail_VideoPath=
 Main_ListDetail_FileVersion=
 Main_PageView_Page2_Text=
 Main_PageView_Page3_Text=
+Main_PageView_Page4_Text=
+Main_Sytle_Label_Text=
+Main_Option_Play_Fx_Box_Text=
+Main_Option_Play_Video_Box_Text=
+Main_Option_Play_SB_Box_Text=
 
 ##Main_RightClick
 Main_PlayList_RightClick_Copy_Current_Name_Text=
@@ -131,6 +137,7 @@ TrayIcon_Title_Text=
 TrayIcon_Diff_Text=
 TrayIcon_Play_Pause_Text=
 TrayIcon_PlayNext_Text=
+TrayIcon_PlayPrev_Text=
 TrayIcon_Exit_Text=
 
 ##General
