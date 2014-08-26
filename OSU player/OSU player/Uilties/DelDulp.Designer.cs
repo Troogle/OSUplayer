@@ -40,7 +40,9 @@
             this.DelDulp_StatusStrip = new System.Windows.Forms.StatusStrip();
             this.DelDulp_ProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.DelDulp_Status_Label = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.DelDulp_StatusStrip.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // DelDulp_MainView
@@ -58,10 +60,12 @@
             this.DelDulp_MainView.GridLines = true;
             this.DelDulp_MainView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.DelDulp_MainView.HideSelection = false;
-            this.DelDulp_MainView.Location = new System.Drawing.Point(12, 12);
+            this.DelDulp_MainView.Location = new System.Drawing.Point(0, 0);
+            this.DelDulp_MainView.Margin = new System.Windows.Forms.Padding(0);
             this.DelDulp_MainView.Name = "DelDulp_MainView";
+            this.tableLayoutPanel1.SetRowSpan(this.DelDulp_MainView, 5);
             this.DelDulp_MainView.ShowGroups = false;
-            this.DelDulp_MainView.Size = new System.Drawing.Size(433, 313);
+            this.DelDulp_MainView.Size = new System.Drawing.Size(407, 318);
             this.DelDulp_MainView.TabIndex = 0;
             this.DelDulp_MainView.UseCompatibleStateImageBehavior = false;
             this.DelDulp_MainView.View = System.Windows.Forms.View.Details;
@@ -80,11 +84,12 @@
             // 
             // DelDulp_DeleteSelected
             // 
-            this.DelDulp_DeleteSelected.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.DelDulp_DeleteSelected.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.DelDulp_DeleteSelected.AutoSize = true;
             this.DelDulp_DeleteSelected.Enabled = false;
-            this.DelDulp_DeleteSelected.Location = new System.Drawing.Point(451, 206);
+            this.DelDulp_DeleteSelected.Location = new System.Drawing.Point(456, 208);
             this.DelDulp_DeleteSelected.Name = "DelDulp_DeleteSelected";
-            this.DelDulp_DeleteSelected.Size = new System.Drawing.Size(75, 26);
+            this.DelDulp_DeleteSelected.Size = new System.Drawing.Size(77, 25);
             this.DelDulp_DeleteSelected.TabIndex = 1;
             this.DelDulp_DeleteSelected.Text = "删除选中";
             this.DelDulp_DeleteSelected.UseVisualStyleBackColor = false;
@@ -92,20 +97,22 @@
             // 
             // DelDulp_Cancel
             // 
-            this.DelDulp_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.DelDulp_Cancel.Location = new System.Drawing.Point(451, 267);
+            this.DelDulp_Cancel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.DelDulp_Cancel.AutoSize = true;
+            this.DelDulp_Cancel.Location = new System.Drawing.Point(457, 272);
             this.DelDulp_Cancel.Name = "DelDulp_Cancel";
-            this.DelDulp_Cancel.Size = new System.Drawing.Size(75, 27);
+            this.DelDulp_Cancel.Size = new System.Drawing.Size(75, 25);
             this.DelDulp_Cancel.TabIndex = 2;
             this.DelDulp_Cancel.Text = "取消";
             this.DelDulp_Cancel.Click += new System.EventHandler(this.DelDulp_Cancel_Click);
             // 
             // DelDulp_StartSearch
             // 
-            this.DelDulp_StartSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.DelDulp_StartSearch.Location = new System.Drawing.Point(451, 39);
+            this.DelDulp_StartSearch.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.DelDulp_StartSearch.AutoSize = true;
+            this.DelDulp_StartSearch.Location = new System.Drawing.Point(456, 19);
             this.DelDulp_StartSearch.Name = "DelDulp_StartSearch";
-            this.DelDulp_StartSearch.Size = new System.Drawing.Size(75, 31);
+            this.DelDulp_StartSearch.Size = new System.Drawing.Size(77, 25);
             this.DelDulp_StartSearch.TabIndex = 3;
             this.DelDulp_StartSearch.Text = "开始查找";
             this.DelDulp_StartSearch.Click += new System.EventHandler(this.DelDulp_StartSearch_Click);
@@ -133,22 +140,24 @@
             // 
             // DelDulp_AutoSelect
             // 
-            this.DelDulp_AutoSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.DelDulp_AutoSelect.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.DelDulp_AutoSelect.AutoSize = true;
             this.DelDulp_AutoSelect.Enabled = false;
-            this.DelDulp_AutoSelect.Location = new System.Drawing.Point(451, 99);
+            this.DelDulp_AutoSelect.Location = new System.Drawing.Point(456, 82);
             this.DelDulp_AutoSelect.Name = "DelDulp_AutoSelect";
-            this.DelDulp_AutoSelect.Size = new System.Drawing.Size(75, 26);
+            this.DelDulp_AutoSelect.Size = new System.Drawing.Size(77, 25);
             this.DelDulp_AutoSelect.TabIndex = 5;
             this.DelDulp_AutoSelect.Text = "自动选择";
             this.DelDulp_AutoSelect.Click += new System.EventHandler(this.DelDulp_AutoSelect_Click);
             // 
             // DelDulp_ClearSelected
             // 
-            this.DelDulp_ClearSelected.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.DelDulp_ClearSelected.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.DelDulp_ClearSelected.AutoSize = true;
             this.DelDulp_ClearSelected.Enabled = false;
-            this.DelDulp_ClearSelected.Location = new System.Drawing.Point(451, 151);
+            this.DelDulp_ClearSelected.Location = new System.Drawing.Point(456, 145);
             this.DelDulp_ClearSelected.Name = "DelDulp_ClearSelected";
-            this.DelDulp_ClearSelected.Size = new System.Drawing.Size(75, 26);
+            this.DelDulp_ClearSelected.Size = new System.Drawing.Size(77, 25);
             this.DelDulp_ClearSelected.TabIndex = 6;
             this.DelDulp_ClearSelected.Text = "清除选中";
             this.DelDulp_ClearSelected.Click += new System.EventHandler(this.DelDulp_ClearSelected_Click);
@@ -158,9 +167,9 @@
             this.DelDulp_StatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.DelDulp_ProgressBar,
             this.DelDulp_Status_Label});
-            this.DelDulp_StatusStrip.Location = new System.Drawing.Point(0, 332);
+            this.DelDulp_StatusStrip.Location = new System.Drawing.Point(0, 318);
             this.DelDulp_StatusStrip.Name = "DelDulp_StatusStrip";
-            this.DelDulp_StatusStrip.Size = new System.Drawing.Size(538, 25);
+            this.DelDulp_StatusStrip.Size = new System.Drawing.Size(582, 25);
             this.DelDulp_StatusStrip.TabIndex = 7;
             this.DelDulp_StatusStrip.Text = "statusStrip1";
             // 
@@ -174,25 +183,45 @@
             this.DelDulp_Status_Label.Name = "DelDulp_Status_Label";
             this.DelDulp_Status_Label.Size = new System.Drawing.Size(0, 20);
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel1.Controls.Add(this.DelDulp_AutoSelect, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.DelDulp_Cancel, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.DelDulp_ClearSelected, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.DelDulp_DeleteSelected, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.DelDulp_MainView, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.DelDulp_StartSearch, 1, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 5;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(582, 318);
+            this.tableLayoutPanel1.TabIndex = 8;
+            // 
             // DelDulp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(538, 357);
+            this.ClientSize = new System.Drawing.Size(582, 343);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.DelDulp_StatusStrip);
-            this.Controls.Add(this.DelDulp_ClearSelected);
-            this.Controls.Add(this.DelDulp_AutoSelect);
-            this.Controls.Add(this.DelDulp_StartSearch);
-            this.Controls.Add(this.DelDulp_Cancel);
-            this.Controls.Add(this.DelDulp_DeleteSelected);
-            this.Controls.Add(this.DelDulp_MainView);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(546, 387);
+            this.MinimumSize = new System.Drawing.Size(600, 390);
             this.Name = "DelDulp";
             this.Text = "DelDulp";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DelDulp_FormClosing);
             this.DelDulp_StatusStrip.ResumeLayout(false);
             this.DelDulp_StatusStrip.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -212,5 +241,6 @@
         private System.Windows.Forms.StatusStrip DelDulp_StatusStrip;
         private System.Windows.Forms.ToolStripProgressBar DelDulp_ProgressBar;
         private System.Windows.Forms.ToolStripStatusLabel DelDulp_Status_Label;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

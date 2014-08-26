@@ -313,6 +313,7 @@
     <None Include="Res\Troogle.png" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Lang\ja.txt" />
     <Content Include="Lang\Template.txt" />
     <None Include="Res\HtmlBase.txt" />
     <EmbeddedResource Include="Lang\zh-CHS.txt" />

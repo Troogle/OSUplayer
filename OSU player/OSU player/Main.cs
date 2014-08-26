@@ -905,5 +905,10 @@ namespace OSUplayer
         {
             Core.SetPlayerSpeed(Main_NC_Control.Checked, Main_Speed_Control.Value);
         }
+
+        private void Main_PlayPrev_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

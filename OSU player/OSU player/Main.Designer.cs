@@ -59,7 +59,6 @@ namespace OSUplayer
             this.Main_Option_Select_QQ = new System.Windows.Forms.ToolStripMenuItem();
             this.Main_About = new System.Windows.Forms.ToolStripMenuItem();
             this.Main_Panel = new System.Windows.Forms.Panel();
-            this.Main_Tab_Control_Panel = new System.Windows.Forms.Panel();
             this.Main_TabPanel = new System.Windows.Forms.Panel();
             this.Main_TabControl = new System.Windows.Forms.TabControl();
             this.Main_TabPage1 = new System.Windows.Forms.TabPage();
@@ -101,15 +100,16 @@ namespace OSUplayer
             this.SearchTimer = new System.Windows.Forms.Timer(this.components);
             this.Main_MenuStrip = new System.Windows.Forms.MenuStrip();
             this.Main_LanguageSelect = new System.Windows.Forms.ToolStripMenuItem();
-            this.Main_QQ_Hint_Label = new System.Windows.Forms.Label();
+            this.Main_QQ_Hint_Label = new System.Windows.Forms.ToolStripLabel();
+            this.Main_Tab_Control_Panel = new System.Windows.Forms.TableLayoutPanel();
             this.Main_PageView_Page4 = new OSUplayer.NoFocusButton();
             this.Main_PageView_Page1 = new OSUplayer.NoFocusButton();
-            this.Main_PageView_Page3 = new OSUplayer.NoFocusButton();
             this.Main_PageView_Page2 = new OSUplayer.NoFocusButton();
+            this.Main_PageView_Page3 = new OSUplayer.NoFocusButton();
             this.Main_Search_Box = new OSUplayer.HintTextBox();
             this.Main_PlayList = new OSUplayer.DBListView();
             this.Main_PlayList_Name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.noFocusButton1 = new OSUplayer.NoFocusButton();
+            this.Main_PlayPrev = new OSUplayer.NoFocusButton();
             this.Main_Jump_OSU = new OSUplayer.NoFocusButton();
             this.Main_Mini_Switcher = new OSUplayer.NoFocusButton();
             this.Main_PlayNext = new OSUplayer.NoFocusButton();
@@ -122,7 +122,6 @@ namespace OSUplayer
             this.Main_Option_Play_SB = new OSUplayer.BindableToolStripMenuItem();
             this.Main_Option_Show_Popup = new OSUplayer.BindableToolStripMenuItem();
             this.Main_Panel.SuspendLayout();
-            this.Main_Tab_Control_Panel.SuspendLayout();
             this.Main_TabPanel.SuspendLayout();
             this.Main_TabControl.SuspendLayout();
             this.Main_TabPage1.SuspendLayout();
@@ -133,6 +132,7 @@ namespace OSUplayer
             this.Main_PlayList_RightClick_Menu.SuspendLayout();
             this.Main_Core_Panel.SuspendLayout();
             this.Main_MenuStrip.SuspendLayout();
+            this.Main_Tab_Control_Panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // Main_File_Menu
@@ -384,9 +384,6 @@ namespace OSUplayer
             // 
             // Main_Panel
             // 
-            this.Main_Panel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.Main_Panel.Controls.Add(this.Main_Tab_Control_Panel);
             this.Main_Panel.Controls.Add(this.Main_TabPanel);
             this.Main_Panel.Controls.Add(this.Main_CurrentList);
@@ -394,33 +391,22 @@ namespace OSUplayer
             this.Main_Panel.Controls.Add(this.Main_PlayList);
             this.Main_Panel.Controls.Add(this.Main_Core_Panel);
             this.Main_Panel.Controls.Add(this.Main_Collections);
-            this.Main_Panel.Location = new System.Drawing.Point(0, 29);
+            this.Main_Panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Main_Panel.Location = new System.Drawing.Point(4, 28);
             this.Main_Panel.Margin = new System.Windows.Forms.Padding(0);
-            this.Main_Panel.MinimumSize = new System.Drawing.Size(882, 654);
+            this.Main_Panel.MinimumSize = new System.Drawing.Size(875, 654);
             this.Main_Panel.Name = "Main_Panel";
-            this.Main_Panel.Size = new System.Drawing.Size(882, 654);
+            this.Main_Panel.Size = new System.Drawing.Size(875, 654);
             this.Main_Panel.TabIndex = 21;
-            // 
-            // Main_Tab_Control_Panel
-            // 
-            this.Main_Tab_Control_Panel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.Main_Tab_Control_Panel.Controls.Add(this.Main_PageView_Page4);
-            this.Main_Tab_Control_Panel.Controls.Add(this.Main_PageView_Page1);
-            this.Main_Tab_Control_Panel.Controls.Add(this.Main_PageView_Page3);
-            this.Main_Tab_Control_Panel.Controls.Add(this.Main_PageView_Page2);
-            this.Main_Tab_Control_Panel.Location = new System.Drawing.Point(7, 618);
-            this.Main_Tab_Control_Panel.Name = "Main_Tab_Control_Panel";
-            this.Main_Tab_Control_Panel.Size = new System.Drawing.Size(525, 36);
-            this.Main_Tab_Control_Panel.TabIndex = 40;
             // 
             // Main_TabPanel
             // 
             this.Main_TabPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Main_TabPanel.Controls.Add(this.Main_TabControl);
-            this.Main_TabPanel.Location = new System.Drawing.Point(7, 428);
+            this.Main_TabPanel.Location = new System.Drawing.Point(7, 430);
             this.Main_TabPanel.Name = "Main_TabPanel";
-            this.Main_TabPanel.Size = new System.Drawing.Size(525, 191);
+            this.Main_TabPanel.Size = new System.Drawing.Size(518, 191);
             this.Main_TabPanel.TabIndex = 36;
             // 
             // Main_TabControl
@@ -436,7 +422,7 @@ namespace OSUplayer
             this.Main_TabControl.Location = new System.Drawing.Point(0, 0);
             this.Main_TabControl.Name = "Main_TabControl";
             this.Main_TabControl.SelectedIndex = 0;
-            this.Main_TabControl.Size = new System.Drawing.Size(525, 220);
+            this.Main_TabControl.Size = new System.Drawing.Size(518, 220);
             this.Main_TabControl.TabIndex = 0;
             // 
             // Main_TabPage1
@@ -444,7 +430,7 @@ namespace OSUplayer
             this.Main_TabPage1.Controls.Add(this.Main_ListDetail);
             this.Main_TabPage1.Location = new System.Drawing.Point(4, 4);
             this.Main_TabPage1.Name = "Main_TabPage1";
-            this.Main_TabPage1.Size = new System.Drawing.Size(517, 191);
+            this.Main_TabPage1.Size = new System.Drawing.Size(510, 191);
             this.Main_TabPage1.TabIndex = 0;
             this.Main_TabPage1.Text = "tabPage1";
             this.Main_TabPage1.UseVisualStyleBackColor = true;
@@ -462,7 +448,7 @@ namespace OSUplayer
             this.Main_ListDetail.Location = new System.Drawing.Point(-3, -3);
             this.Main_ListDetail.MultiSelect = false;
             this.Main_ListDetail.Name = "Main_ListDetail";
-            this.Main_ListDetail.Size = new System.Drawing.Size(523, 190);
+            this.Main_ListDetail.Size = new System.Drawing.Size(516, 190);
             this.Main_ListDetail.TabIndex = 40;
             this.Main_ListDetail.UseCompatibleStateImageBehavior = false;
             this.Main_ListDetail.View = System.Windows.Forms.View.Details;
@@ -485,7 +471,7 @@ namespace OSUplayer
             this.Main_TabPage2.Location = new System.Drawing.Point(4, 4);
             this.Main_TabPage2.Name = "Main_TabPage2";
             this.Main_TabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.Main_TabPage2.Size = new System.Drawing.Size(517, 191);
+            this.Main_TabPage2.Size = new System.Drawing.Size(510, 191);
             this.Main_TabPage2.TabIndex = 1;
             this.Main_TabPage2.Text = "tabPage2";
             this.Main_TabPage2.UseVisualStyleBackColor = true;
@@ -509,7 +495,7 @@ namespace OSUplayer
             this.Main_ScoreBox.OwnerDraw = true;
             this.Main_ScoreBox.RowHeight = 60;
             this.Main_ScoreBox.ShowGroups = false;
-            this.Main_ScoreBox.Size = new System.Drawing.Size(513, 190);
+            this.Main_ScoreBox.Size = new System.Drawing.Size(506, 190);
             this.Main_ScoreBox.TabIndex = 26;
             this.Main_ScoreBox.UseCompatibleStateImageBehavior = false;
             this.Main_ScoreBox.View = System.Windows.Forms.View.Details;
@@ -532,7 +518,7 @@ namespace OSUplayer
             this.Main_TabPage3.Controls.Add(this.Main_DiffList);
             this.Main_TabPage3.Location = new System.Drawing.Point(4, 4);
             this.Main_TabPage3.Name = "Main_TabPage3";
-            this.Main_TabPage3.Size = new System.Drawing.Size(517, 191);
+            this.Main_TabPage3.Size = new System.Drawing.Size(510, 191);
             this.Main_TabPage3.TabIndex = 2;
             this.Main_TabPage3.Text = "tabPage3";
             this.Main_TabPage3.UseVisualStyleBackColor = true;
@@ -547,7 +533,7 @@ namespace OSUplayer
             this.Main_DiffList.ItemHeight = 15;
             this.Main_DiffList.Location = new System.Drawing.Point(0, 0);
             this.Main_DiffList.Name = "Main_DiffList";
-            this.Main_DiffList.Size = new System.Drawing.Size(513, 180);
+            this.Main_DiffList.Size = new System.Drawing.Size(506, 180);
             this.Main_DiffList.TabIndex = 25;
             this.Main_DiffList.SelectedIndexChanged += new System.EventHandler(this.Main_DiffList_SelectedIndexChanged);
             this.Main_DiffList.DoubleClick += new System.EventHandler(this.Main_DiffList_DoubleClick);
@@ -563,7 +549,7 @@ namespace OSUplayer
             this.Main_TabPage4.Controls.Add(this.Main_NC_Control);
             this.Main_TabPage4.Location = new System.Drawing.Point(4, 4);
             this.Main_TabPage4.Name = "Main_TabPage4";
-            this.Main_TabPage4.Size = new System.Drawing.Size(517, 191);
+            this.Main_TabPage4.Size = new System.Drawing.Size(510, 191);
             this.Main_TabPage4.TabIndex = 3;
             this.Main_TabPage4.Text = "tabPage1";
             this.Main_TabPage4.UseVisualStyleBackColor = true;
@@ -631,7 +617,7 @@ namespace OSUplayer
             this.Main_Speed_Control.MaxValue = 300;
             this.Main_Speed_Control.MinValue = 25;
             this.Main_Speed_Control.Name = "Main_Speed_Control";
-            this.Main_Speed_Control.Size = new System.Drawing.Size(244, 23);
+            this.Main_Speed_Control.Size = new System.Drawing.Size(237, 23);
             colorLinearGradient1.ColorA = System.Drawing.Color.LightGray;
             colorLinearGradient1.ColorB = System.Drawing.Color.LightGray;
             this.Main_Speed_Control.SliderColorHigh = colorLinearGradient1;
@@ -644,8 +630,8 @@ namespace OSUplayer
             this.Main_Speed_Control.TabIndex = 3;
             this.Main_Speed_Control.TickThickness = 1F;
             this.Main_Speed_Control.UpDownShow = false;
-            this.Main_Speed_Control.Value = 100;
-            this.Main_Speed_Control.ValueAdjusted = 1F;
+            this.Main_Speed_Control.Value = 25;
+            this.Main_Speed_Control.ValueAdjusted = 0.25F;
             this.Main_Speed_Control.ValueBox = gTrackBar.gTrackBar.eValueBox.Right;
             this.Main_Speed_Control.ValueBoxBackColor = System.Drawing.Color.WhiteSmoke;
             this.Main_Speed_Control.ValueBoxBorder = System.Drawing.SystemColors.ButtonFace;
@@ -699,7 +685,7 @@ namespace OSUplayer
             // 
             this.Main_CurrentList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Main_CurrentList.AutoSize = true;
-            this.Main_CurrentList.Location = new System.Drawing.Point(535, 33);
+            this.Main_CurrentList.Location = new System.Drawing.Point(528, 33);
             this.Main_CurrentList.Name = "Main_CurrentList";
             this.Main_CurrentList.Size = new System.Drawing.Size(115, 15);
             this.Main_CurrentList.TabIndex = 30;
@@ -749,7 +735,7 @@ namespace OSUplayer
             this.Main_Core_Panel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Main_Core_Panel.Controls.Add(this.noFocusButton1);
+            this.Main_Core_Panel.Controls.Add(this.Main_PlayPrev);
             this.Main_Core_Panel.Controls.Add(this.Main_Jump_OSU);
             this.Main_Core_Panel.Controls.Add(this.Main_Volume_TrackBar);
             this.Main_Core_Panel.Controls.Add(this.Main_Time_Trackbar);
@@ -767,7 +753,7 @@ namespace OSUplayer
             this.Main_Core_Panel.Location = new System.Drawing.Point(0, 0);
             this.Main_Core_Panel.Margin = new System.Windows.Forms.Padding(0);
             this.Main_Core_Panel.Name = "Main_Core_Panel";
-            this.Main_Core_Panel.Size = new System.Drawing.Size(532, 429);
+            this.Main_Core_Panel.Size = new System.Drawing.Size(525, 431);
             this.Main_Core_Panel.TabIndex = 22;
             // 
             // Main_Volume_TrackBar
@@ -781,11 +767,11 @@ namespace OSUplayer
             this.Main_Volume_TrackBar.FloatValue = false;
             this.Main_Volume_TrackBar.JumpToMouse = true;
             this.Main_Volume_TrackBar.Label = null;
-            this.Main_Volume_TrackBar.Location = new System.Drawing.Point(494, 32);
+            this.Main_Volume_TrackBar.Location = new System.Drawing.Point(491, 32);
             this.Main_Volume_TrackBar.MaxValue = 100;
             this.Main_Volume_TrackBar.Name = "Main_Volume_TrackBar";
             this.Main_Volume_TrackBar.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.Main_Volume_TrackBar.Size = new System.Drawing.Size(28, 339);
+            this.Main_Volume_TrackBar.Size = new System.Drawing.Size(30, 343);
             this.Main_Volume_TrackBar.SliderColorHigh = colorLinearGradient1;
             this.Main_Volume_TrackBar.SliderColorLow = colorLinearGradient2;
             this.Main_Volume_TrackBar.SliderShape = gTrackBar.gTrackBar.eShape.ArrowRight;
@@ -813,7 +799,7 @@ namespace OSUplayer
             this.Main_Time_Trackbar.FloatValue = false;
             this.Main_Time_Trackbar.JumpToMouse = true;
             this.Main_Time_Trackbar.Label = null;
-            this.Main_Time_Trackbar.Location = new System.Drawing.Point(230, 401);
+            this.Main_Time_Trackbar.Location = new System.Drawing.Point(230, 405);
             this.Main_Time_Trackbar.Name = "Main_Time_Trackbar";
             this.Main_Time_Trackbar.Size = new System.Drawing.Size(257, 17);
             this.Main_Time_Trackbar.SliderColorHigh = colorLinearGradient1;
@@ -857,7 +843,7 @@ namespace OSUplayer
             this.Main_Volume_Music_TrackBar.Location = new System.Drawing.Point(162, 7);
             this.Main_Volume_Music_TrackBar.MaxValue = 100;
             this.Main_Volume_Music_TrackBar.Name = "Main_Volume_Music_TrackBar";
-            this.Main_Volume_Music_TrackBar.Size = new System.Drawing.Size(120, 17);
+            this.Main_Volume_Music_TrackBar.Size = new System.Drawing.Size(113, 17);
             this.Main_Volume_Music_TrackBar.SliderColorHigh = colorLinearGradient1;
             this.Main_Volume_Music_TrackBar.SliderColorLow = colorLinearGradient2;
             this.Main_Volume_Music_TrackBar.SliderShape = gTrackBar.gTrackBar.eShape.ArrowDown;
@@ -894,7 +880,7 @@ namespace OSUplayer
             this.Main_Volume_Fx_TrackBar.FloatValue = false;
             this.Main_Volume_Fx_TrackBar.JumpToMouse = true;
             this.Main_Volume_Fx_TrackBar.Label = null;
-            this.Main_Volume_Fx_TrackBar.Location = new System.Drawing.Point(331, 7);
+            this.Main_Volume_Fx_TrackBar.Location = new System.Drawing.Point(324, 7);
             this.Main_Volume_Fx_TrackBar.MaxValue = 100;
             this.Main_Volume_Fx_TrackBar.Name = "Main_Volume_Fx_TrackBar";
             this.Main_Volume_Fx_TrackBar.Size = new System.Drawing.Size(156, 17);
@@ -916,7 +902,7 @@ namespace OSUplayer
             // 
             this.Main_Fx_Hint_Label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Main_Fx_Hint_Label.AutoSize = true;
-            this.Main_Fx_Hint_Label.Location = new System.Drawing.Point(288, 6);
+            this.Main_Fx_Hint_Label.Location = new System.Drawing.Point(281, 6);
             this.Main_Fx_Hint_Label.Name = "Main_Fx_Hint_Label";
             this.Main_Fx_Hint_Label.Size = new System.Drawing.Size(37, 15);
             this.Main_Fx_Hint_Label.TabIndex = 52;
@@ -935,7 +921,7 @@ namespace OSUplayer
             // 
             this.Main_Volume_Hint_Label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Main_Volume_Hint_Label.AutoSize = true;
-            this.Main_Volume_Hint_Label.Location = new System.Drawing.Point(489, 374);
+            this.Main_Volume_Hint_Label.Location = new System.Drawing.Point(487, 378);
             this.Main_Volume_Hint_Label.Name = "Main_Volume_Hint_Label";
             this.Main_Volume_Hint_Label.Size = new System.Drawing.Size(37, 15);
             this.Main_Volume_Hint_Label.TabIndex = 50;
@@ -963,7 +949,8 @@ namespace OSUplayer
             this.Main_Tool_Menu,
             this.Main_Option_Menu,
             this.Main_About,
-            this.Main_LanguageSelect});
+            this.Main_LanguageSelect,
+            this.Main_QQ_Hint_Label});
             this.Main_MenuStrip.Location = new System.Drawing.Point(4, 4);
             this.Main_MenuStrip.Name = "Main_MenuStrip";
             this.Main_MenuStrip.Padding = new System.Windows.Forms.Padding(0);
@@ -981,37 +968,58 @@ namespace OSUplayer
             // 
             // Main_QQ_Hint_Label
             // 
-            this.Main_QQ_Hint_Label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Main_QQ_Hint_Label.AutoSize = true;
-            this.Main_QQ_Hint_Label.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Main_QQ_Hint_Label.Location = new System.Drawing.Point(398, 6);
+            this.Main_QQ_Hint_Label.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.Main_QQ_Hint_Label.Name = "Main_QQ_Hint_Label";
-            this.Main_QQ_Hint_Label.Size = new System.Drawing.Size(97, 20);
-            this.Main_QQ_Hint_Label.TabIndex = 30;
+            this.Main_QQ_Hint_Label.Size = new System.Drawing.Size(97, 21);
             this.Main_QQ_Hint_Label.Text = "当前同步QQ:";
+            // 
+            // Main_Tab_Control_Panel
+            // 
+            this.Main_Tab_Control_Panel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.Main_Tab_Control_Panel.AutoSize = true;
+            this.Main_Tab_Control_Panel.ColumnCount = 4;
+            this.Main_Tab_Control_Panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.Main_Tab_Control_Panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.Main_Tab_Control_Panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.Main_Tab_Control_Panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.Main_Tab_Control_Panel.Controls.Add(this.Main_PageView_Page4, 3, 0);
+            this.Main_Tab_Control_Panel.Controls.Add(this.Main_PageView_Page1, 0, 0);
+            this.Main_Tab_Control_Panel.Controls.Add(this.Main_PageView_Page2, 1, 0);
+            this.Main_Tab_Control_Panel.Controls.Add(this.Main_PageView_Page3, 2, 0);
+            this.Main_Tab_Control_Panel.Location = new System.Drawing.Point(7, 620);
+            this.Main_Tab_Control_Panel.Name = "Main_Tab_Control_Panel";
+            this.Main_Tab_Control_Panel.RowCount = 1;
+            this.Main_Tab_Control_Panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.Main_Tab_Control_Panel.Size = new System.Drawing.Size(313, 32);
+            this.Main_Tab_Control_Panel.TabIndex = 41;
             // 
             // Main_PageView_Page4
             // 
+            this.Main_PageView_Page4.AutoSize = true;
+            this.Main_PageView_Page4.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.Main_PageView_Page4.FlatAppearance.BorderSize = 0;
             this.Main_PageView_Page4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DodgerBlue;
             this.Main_PageView_Page4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSteelBlue;
             this.Main_PageView_Page4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Main_PageView_Page4.Location = new System.Drawing.Point(234, 0);
+            this.Main_PageView_Page4.Location = new System.Drawing.Point(235, 0);
+            this.Main_PageView_Page4.Margin = new System.Windows.Forms.Padding(0);
             this.Main_PageView_Page4.Name = "Main_PageView_Page4";
             this.Main_PageView_Page4.Size = new System.Drawing.Size(78, 32);
             this.Main_PageView_Page4.TabIndex = 40;
             this.Main_PageView_Page4.Text = "播放选项";
-            this.Main_PageView_Page4.UseVisualStyleBackColor = true;
+            this.Main_PageView_Page4.UseVisualStyleBackColor = false;
             this.Main_PageView_Page4.Click += new System.EventHandler(this.Main_PageView_Page_Click);
             // 
             // Main_PageView_Page1
             // 
+            this.Main_PageView_Page1.AutoSize = true;
             this.Main_PageView_Page1.BackColor = System.Drawing.Color.DodgerBlue;
             this.Main_PageView_Page1.FlatAppearance.BorderSize = 0;
             this.Main_PageView_Page1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DodgerBlue;
             this.Main_PageView_Page1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSteelBlue;
             this.Main_PageView_Page1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Main_PageView_Page1.Location = new System.Drawing.Point(0, 0);
+            this.Main_PageView_Page1.Margin = new System.Windows.Forms.Padding(0);
             this.Main_PageView_Page1.Name = "Main_PageView_Page1";
             this.Main_PageView_Page1.Size = new System.Drawing.Size(78, 32);
             this.Main_PageView_Page1.TabIndex = 37;
@@ -1019,28 +1027,16 @@ namespace OSUplayer
             this.Main_PageView_Page1.UseVisualStyleBackColor = false;
             this.Main_PageView_Page1.Click += new System.EventHandler(this.Main_PageView_Page_Click);
             // 
-            // Main_PageView_Page3
-            // 
-            this.Main_PageView_Page3.FlatAppearance.BorderSize = 0;
-            this.Main_PageView_Page3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DodgerBlue;
-            this.Main_PageView_Page3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSteelBlue;
-            this.Main_PageView_Page3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Main_PageView_Page3.Location = new System.Drawing.Point(156, 0);
-            this.Main_PageView_Page3.Name = "Main_PageView_Page3";
-            this.Main_PageView_Page3.Size = new System.Drawing.Size(78, 32);
-            this.Main_PageView_Page3.TabIndex = 39;
-            this.Main_PageView_Page3.Text = "Diff信息";
-            this.Main_PageView_Page3.UseVisualStyleBackColor = true;
-            this.Main_PageView_Page3.Click += new System.EventHandler(this.Main_PageView_Page_Click);
-            // 
             // Main_PageView_Page2
             // 
+            this.Main_PageView_Page2.AutoSize = true;
             this.Main_PageView_Page2.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.Main_PageView_Page2.FlatAppearance.BorderSize = 0;
             this.Main_PageView_Page2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DodgerBlue;
             this.Main_PageView_Page2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSteelBlue;
             this.Main_PageView_Page2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Main_PageView_Page2.Location = new System.Drawing.Point(78, 0);
+            this.Main_PageView_Page2.Margin = new System.Windows.Forms.Padding(0);
             this.Main_PageView_Page2.Name = "Main_PageView_Page2";
             this.Main_PageView_Page2.Size = new System.Drawing.Size(78, 32);
             this.Main_PageView_Page2.TabIndex = 38;
@@ -1048,13 +1044,30 @@ namespace OSUplayer
             this.Main_PageView_Page2.UseVisualStyleBackColor = false;
             this.Main_PageView_Page2.Click += new System.EventHandler(this.Main_PageView_Page_Click);
             // 
+            // Main_PageView_Page3
+            // 
+            this.Main_PageView_Page3.AutoSize = true;
+            this.Main_PageView_Page3.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.Main_PageView_Page3.FlatAppearance.BorderSize = 0;
+            this.Main_PageView_Page3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DodgerBlue;
+            this.Main_PageView_Page3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSteelBlue;
+            this.Main_PageView_Page3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Main_PageView_Page3.Location = new System.Drawing.Point(156, 0);
+            this.Main_PageView_Page3.Margin = new System.Windows.Forms.Padding(0);
+            this.Main_PageView_Page3.Name = "Main_PageView_Page3";
+            this.Main_PageView_Page3.Size = new System.Drawing.Size(79, 32);
+            this.Main_PageView_Page3.TabIndex = 39;
+            this.Main_PageView_Page3.Text = "Diff信息";
+            this.Main_PageView_Page3.UseVisualStyleBackColor = false;
+            this.Main_PageView_Page3.Click += new System.EventHandler(this.Main_PageView_Page_Click);
+            // 
             // Main_Search_Box
             // 
             this.Main_Search_Box.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Main_Search_Box.Hint = "Enter Keywords";
-            this.Main_Search_Box.Location = new System.Drawing.Point(644, 3);
+            this.Main_Search_Box.Location = new System.Drawing.Point(637, 3);
             this.Main_Search_Box.Name = "Main_Search_Box";
-            this.Main_Search_Box.Size = new System.Drawing.Size(231, 25);
+            this.Main_Search_Box.Size = new System.Drawing.Size(232, 25);
             this.Main_Search_Box.TabIndex = 35;
             this.Main_Search_Box.TabStop = false;
             this.Main_Search_Box.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Main_Search_Box_KeyPress);
@@ -1070,10 +1083,10 @@ namespace OSUplayer
             this.Main_PlayList.GridLines = true;
             this.Main_PlayList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.Main_PlayList.HideSelection = false;
-            this.Main_PlayList.Location = new System.Drawing.Point(532, 55);
+            this.Main_PlayList.Location = new System.Drawing.Point(525, 55);
             this.Main_PlayList.MultiSelect = false;
             this.Main_PlayList.Name = "Main_PlayList";
-            this.Main_PlayList.Size = new System.Drawing.Size(344, 593);
+            this.Main_PlayList.Size = new System.Drawing.Size(344, 595);
             this.Main_PlayList.TabIndex = 24;
             this.Main_PlayList.UseCompatibleStateImageBehavior = false;
             this.Main_PlayList.View = System.Windows.Forms.View.Details;
@@ -1087,20 +1100,21 @@ namespace OSUplayer
             this.Main_PlayList_Name.Text = "";
             this.Main_PlayList_Name.Width = 500;
             // 
-            // noFocusButton1
+            // Main_PlayPrev
             // 
-            this.noFocusButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.noFocusButton1.BackColor = System.Drawing.Color.LightGray;
-            this.noFocusButton1.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
-            this.noFocusButton1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepSkyBlue;
-            this.noFocusButton1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSkyBlue;
-            this.noFocusButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.noFocusButton1.Location = new System.Drawing.Point(132, 396);
-            this.noFocusButton1.Name = "noFocusButton1";
-            this.noFocusButton1.Size = new System.Drawing.Size(43, 26);
-            this.noFocusButton1.TabIndex = 56;
-            this.noFocusButton1.Text = "←";
-            this.noFocusButton1.UseVisualStyleBackColor = false;
+            this.Main_PlayPrev.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.Main_PlayPrev.BackColor = System.Drawing.Color.LightGray;
+            this.Main_PlayPrev.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
+            this.Main_PlayPrev.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepSkyBlue;
+            this.Main_PlayPrev.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSkyBlue;
+            this.Main_PlayPrev.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Main_PlayPrev.Location = new System.Drawing.Point(132, 400);
+            this.Main_PlayPrev.Name = "Main_PlayPrev";
+            this.Main_PlayPrev.Size = new System.Drawing.Size(43, 26);
+            this.Main_PlayPrev.TabIndex = 56;
+            this.Main_PlayPrev.Text = "←";
+            this.Main_PlayPrev.UseVisualStyleBackColor = false;
+            this.Main_PlayPrev.Click += new System.EventHandler(this.Main_PlayPrev_Click);
             // 
             // Main_Jump_OSU
             // 
@@ -1110,7 +1124,7 @@ namespace OSUplayer
             this.Main_Jump_OSU.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepSkyBlue;
             this.Main_Jump_OSU.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSkyBlue;
             this.Main_Jump_OSU.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Main_Jump_OSU.Location = new System.Drawing.Point(492, 396);
+            this.Main_Jump_OSU.Location = new System.Drawing.Point(491, 398);
             this.Main_Jump_OSU.Name = "Main_Jump_OSU";
             this.Main_Jump_OSU.Size = new System.Drawing.Size(32, 26);
             this.Main_Jump_OSU.TabIndex = 0;
@@ -1126,7 +1140,7 @@ namespace OSUplayer
             this.Main_Mini_Switcher.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepSkyBlue;
             this.Main_Mini_Switcher.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSkyBlue;
             this.Main_Mini_Switcher.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Main_Mini_Switcher.Location = new System.Drawing.Point(494, 3);
+            this.Main_Mini_Switcher.Location = new System.Drawing.Point(491, 3);
             this.Main_Mini_Switcher.Name = "Main_Mini_Switcher";
             this.Main_Mini_Switcher.Size = new System.Drawing.Size(30, 27);
             this.Main_Mini_Switcher.TabIndex = 43;
@@ -1142,7 +1156,7 @@ namespace OSUplayer
             this.Main_PlayNext.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepSkyBlue;
             this.Main_PlayNext.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSkyBlue;
             this.Main_PlayNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Main_PlayNext.Location = new System.Drawing.Point(181, 396);
+            this.Main_PlayNext.Location = new System.Drawing.Point(181, 400);
             this.Main_PlayNext.Name = "Main_PlayNext";
             this.Main_PlayNext.Size = new System.Drawing.Size(43, 26);
             this.Main_PlayNext.TabIndex = 48;
@@ -1159,7 +1173,7 @@ namespace OSUplayer
             this.Main_Stop.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepSkyBlue;
             this.Main_Stop.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSkyBlue;
             this.Main_Stop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Main_Stop.Location = new System.Drawing.Point(69, 396);
+            this.Main_Stop.Location = new System.Drawing.Point(69, 400);
             this.Main_Stop.Name = "Main_Stop";
             this.Main_Stop.Size = new System.Drawing.Size(57, 26);
             this.Main_Stop.TabIndex = 47;
@@ -1175,7 +1189,7 @@ namespace OSUplayer
             this.Main_Play.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepSkyBlue;
             this.Main_Play.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSkyBlue;
             this.Main_Play.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Main_Play.Location = new System.Drawing.Point(7, 396);
+            this.Main_Play.Location = new System.Drawing.Point(7, 400);
             this.Main_Play.Name = "Main_Play";
             this.Main_Play.Size = new System.Drawing.Size(57, 26);
             this.Main_Play.TabIndex = 46;
@@ -1191,7 +1205,7 @@ namespace OSUplayer
             this.Main_Collections.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepSkyBlue;
             this.Main_Collections.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSkyBlue;
             this.Main_Collections.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Main_Collections.Location = new System.Drawing.Point(532, 3);
+            this.Main_Collections.Location = new System.Drawing.Point(525, 3);
             this.Main_Collections.Name = "Main_Collections";
             this.Main_Collections.Size = new System.Drawing.Size(106, 27);
             this.Main_Collections.TabIndex = 32;
@@ -1265,7 +1279,6 @@ namespace OSUplayer
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ClientSize = new System.Drawing.Size(882, 684);
             this.Controls.Add(this.Main_Panel);
-            this.Controls.Add(this.Main_QQ_Hint_Label);
             this.Controls.Add(this.Main_MenuStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.Main_MenuStrip;
@@ -1278,7 +1291,6 @@ namespace OSUplayer
             this.SizeChanged += new System.EventHandler(this.Main_SizeChanged);
             this.Main_Panel.ResumeLayout(false);
             this.Main_Panel.PerformLayout();
-            this.Main_Tab_Control_Panel.ResumeLayout(false);
             this.Main_TabPanel.ResumeLayout(false);
             this.Main_TabControl.ResumeLayout(false);
             this.Main_TabPage1.ResumeLayout(false);
@@ -1292,6 +1304,8 @@ namespace OSUplayer
             this.Main_Core_Panel.PerformLayout();
             this.Main_MenuStrip.ResumeLayout(false);
             this.Main_MenuStrip.PerformLayout();
+            this.Main_Tab_Control_Panel.ResumeLayout(false);
+            this.Main_Tab_Control_Panel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1359,7 +1373,6 @@ namespace OSUplayer
         private System.Windows.Forms.ToolStripMenuItem Main_Option_PlayMode_Random;
         private System.Windows.Forms.MenuStrip Main_MenuStrip;
         private System.Windows.Forms.ToolStripMenuItem Main_LanguageSelect;
-        private System.Windows.Forms.Label Main_QQ_Hint_Label;
         private System.Windows.Forms.Label Main_CurrentList;
         private System.Windows.Forms.ToolStripMenuItem Main_Tool_Export_Playlist_MP3;
         private System.Windows.Forms.ToolStripMenuItem Main_PlayList_RightClick_Export_MP3;
@@ -1373,7 +1386,6 @@ namespace OSUplayer
         private NoFocusButton Main_PageView_Page1;
         private NoFocusButton Main_PageView_Page3;
         private NoFocusButton Main_PageView_Page2;
-        private System.Windows.Forms.Panel Main_Tab_Control_Panel;
         private BrightIdeasSoftware.OLVColumn Main_ScoreBox_Details;
         private BrightIdeasSoftware.OLVColumn Main_ScoreBox_Rank;
         private NoFocusButton Main_PageView_Page4;
@@ -1385,7 +1397,9 @@ namespace OSUplayer
         private System.Windows.Forms.CheckBox Main_Option_Play_Fx_Box;
         private gTrackBar.gTrackBar Main_Speed_Control;
         private System.Windows.Forms.Label Main_Sytle_Label;
-        private NoFocusButton noFocusButton1;
+        private NoFocusButton Main_PlayPrev;
+        private System.Windows.Forms.ToolStripLabel Main_QQ_Hint_Label;
+        private System.Windows.Forms.TableLayoutPanel Main_Tab_Control_Panel;
 
 
     }

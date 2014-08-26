@@ -41,6 +41,7 @@ namespace OSUplayer.Uilties
                 ChooseColl_CollectionTitle_List.Items.Add(key);
             }
             if (ChooseColl_CollectionTitle_List.Items.Count != 0) { ChooseColl_CollectionTitle_List.SelectedIndex = 0; }
+            this.Width = TextRenderer.MeasureText(ChooseColl_Hint_Label.Text,ChooseColl_Hint_Label.Font).Width + TextRenderer.MeasureText(ChooseColl_PlayListCurrentCount.Text,ChooseColl_PlayListCurrentCount.Font).Width+80;
         }
     }
 }
