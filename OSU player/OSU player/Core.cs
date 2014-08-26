@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
@@ -11,6 +12,7 @@ using OSUplayer.Graphic;
 using OSUplayer.OsuFiles;
 using OSUplayer.Properties;
 using OSUplayer.Uilties;
+using System.Linq;
 
 namespace OSUplayer
 {
@@ -21,19 +23,19 @@ namespace OSUplayer
         /// <summary>
         ///     程序中的所有set
         /// </summary>
-        public static List<BeatmapSet> Allsets = new List<BeatmapSet>();
+        public static Dictionary<string, BeatmapSet> Allsets = new Dictionary<string, BeatmapSet>();
 
         public static string CurrentListName = "Full";
 
         /// <summary>
         ///     本地Collection，Key是Collection名字,Value是Set的程序内部编号的List
         /// </summary>
-        public static Dictionary<string, List<int>> Collections = new Dictionary<string, List<int>>();
+        public static Dictionary<string, List<string>> Collections = new Dictionary<string, List<string>>();
 
         /// <summary>
         ///     播放列表，和显示的一一对应，int中是Set的程序内部编号
         /// </summary>
-        public static List<int> PlayList
+        public static List<string> PlayList
         {
             get { return Collections[CurrentListName]; }
         }
@@ -57,56 +59,35 @@ namespace OSUplayer
         private static bool _needsave;
 
         /// <summary>
-        ///     目前正在播放的Set程序内部编号
+        ///     目前正在播放的Set播放列表编号(或者是-1)
         /// </summary>
-        public static int Currentset;
-
-        /// <summary>
-        ///     目前正在播放的Map在Set中的编号
-        /// </summary>
-        public static int Currentmap;
-
-        /// <summary>
-        ///     目前选中的Set在播放列表中的编号
-        /// </summary>
-        public static int Tmpset;
-
-        /// <summary>
-        ///     目前选中的Map在Set中的编号
-        /// </summary>
-        public static int Tmpmap;
+        public static int CurrentSetIndex
+        {
+            get
+            {
+                return CurrentSet == null ? -1 : PlayList.IndexOf(CurrentSet.GetHash());
+            }
+        }
 
         /// <summary>
         ///     目前正在播放的Set
         /// </summary>
-        public static BeatmapSet CurrentSet
-        {
-            get { return Allsets[Currentset]; }
-        }
+        public static BeatmapSet CurrentSet { get; private set; }
 
         /// <summary>
         ///     目前正在播放的Map
         /// </summary>
-        public static Beatmap CurrentBeatmap
-        {
-            get { return CurrentSet.Diffs[Currentmap]; }
-        }
+        public static Beatmap CurrentBeatmap { get; private set; }
 
         /// <summary>
         ///     目前选中的Set
         /// </summary>
-        public static BeatmapSet TmpSet
-        {
-            get { return Allsets[PlayList[Tmpset]]; }
-        }
+        public static BeatmapSet TmpSet { get; private set; }
 
         /// <summary>
         ///     目前选中的Map
         /// </summary>
-        public static Beatmap TmpBeatmap
-        {
-            get { return TmpSet.Diffs[Tmpmap]; }
-        }
+        public static Beatmap TmpBeatmap { get; private set; }
 
 
         #endregion
@@ -238,13 +219,7 @@ namespace OSUplayer
         private static void Initplaylist()
         {
             Collections.Clear();
-            var fullList = new List<int>();
-            for (var i = 0; i < Allsets.Count; i++)
-            {
-                fullList.Add(i);
-                //allsets[i].GetDetail();
-            }
-            Collections.Add("Full", fullList);
+            Collections.Add("Full", Allsets.Select(d => d.Value.GetHash()).ToList());
             var collectpath = Path.Combine(Settings.Default.OSUpath, "collection.db");
             if (File.Exists(collectpath)) { OsuDB.ReadCollect(collectpath); }
         }
@@ -292,10 +267,10 @@ namespace OSUplayer
                 NotifySystem.Showtip(1000, LanguageManager.Get("OSUplayer"), string.Format(LanguageManager.Get("Core_Init_Finish_Text"), Allsets.Count));
                 _needsave = true;
             }
-            Currentset = 0;
-            Currentmap = 0;
-            Tmpset = 0;
-            Tmpmap = 0;
+            CurrentSet = Allsets[PlayList[0]];
+            CurrentBeatmap = CurrentSet.GetBeatmaps()[0];
+            TmpSet = CurrentSet;
+            TmpBeatmap = CurrentBeatmap;
         }
 
         #endregion
@@ -320,20 +295,31 @@ namespace OSUplayer
             get { return _player.Willnext; }
         }
 
-        public static void Remove(int index)
+        public static void Remove(string key)
         {
             // Core.allsets.RemoveAt(PlayList[index]);
+            PlayList.Remove(key);
+            _needsave = true;
+        }
+
+        public static void Remove(int index)
+        {
             PlayList.RemoveAt(index);
             _needsave = true;
         }
 
-        public static bool SetSet(int vaule, bool p = false)
+        public static void Tmp2Current(bool set)
         {
-            Tmpset = vaule;
+            if (set) CurrentSet = TmpSet;
+            else CurrentBeatmap = TmpBeatmap;
+        }
+        public static bool SetSet(int value, bool p = false)
+        {
+            TmpSet = Allsets[PlayList[value]];
             if (!TmpSet.Check())
             {
                 NotifySystem.Showtip(1000, LanguageManager.Get("OSUplayer"), LanguageManager.Get("Core_Missing_Song_Text"));
-                Remove(Tmpset);
+                Remove(TmpSet.GetHash());
                 return true;
             }
             if (!TmpSet.Detailed)
@@ -342,14 +328,14 @@ namespace OSUplayer
             }
             if (p)
             {
-                Currentset = PlayList[Tmpset];
+                Tmp2Current(true);
             }
             return false;
         }
 
-        public static bool SetMap(int vaule, bool p = false)
+        public static bool SetMap(int value, bool p = false)
         {
-            Tmpmap = vaule;
+            TmpBeatmap = TmpSet.GetBeatmaps()[value];
             if (!TmpBeatmap.Detailed)
             {
                 TmpBeatmap.GetDetail();
@@ -357,12 +343,12 @@ namespace OSUplayer
             if (!File.Exists(TmpBeatmap.Audio))
             {
                 NotifySystem.Showtip(1000, LanguageManager.Get("OSUplayer"), LanguageManager.Get("Core_Missing_Song_Text"));
-                Remove(Tmpset);
+                Remove(TmpSet.GetHash());
                 return true;
             }
             if (p)
             {
-                Currentmap = Tmpmap;
+                Tmp2Current(false);
             }
             return false;
         }
@@ -448,10 +434,10 @@ namespace OSUplayer
         public static int GetNext()
         {
             int next;
-            var now = PlayList.IndexOf(Currentset, 0);
-            if (Currentset == -1)
+            var now = CurrentSetIndex;
+            if (CurrentSetIndex == -1)
             {
-                Currentset = 0;
+                now = 0;
             }
             switch (Settings.Default.NextMode)
             {
@@ -468,14 +454,14 @@ namespace OSUplayer
                     next = 0;
                     break;
             }
-            Currentset = PlayList[next];
-            Currentmap = 0;
+            CurrentSet = Allsets[PlayList[next]];
+            CurrentBeatmap = CurrentSet.GetBeatmaps()[0];
             return next;
         }
 
         public static void Search(string k)
         {
-            var searchedMaps = new List<int>();
+            var searchedMaps = new List<string>();
             var keyword = k.Trim().ToLower();
             if (keyword.Length == 0)
             {
@@ -484,14 +470,7 @@ namespace OSUplayer
             }
             else
             {
-                //PlayList.Clear();
-                for (var i = 0; i < Allsets.Count; i++)
-                {
-                    if (Allsets[i].tags.ToLower().Contains(keyword))
-                    {
-                        searchedMaps.Add(i);
-                    }
-                }
+                searchedMaps.AddRange(from beatmapSet in Allsets where beatmapSet.Value.tags.ToLower().Contains(keyword) select beatmapSet.Key);
                 if (searchedMaps.Count == 0)
                 {
                     PlayList.Clear();
@@ -499,7 +478,7 @@ namespace OSUplayer
                 else
                 {
                     PlayList.Clear();
-                    AddRangeSet(searchedMaps);
+                    PlayList.AddRange(searchedMaps.Distinct());
                 }
             }
         }
@@ -576,34 +555,16 @@ namespace OSUplayer
         public static IEnumerable<ScoreRecord> Getscore()
         {
             var ret = new List<ScoreRecord>();
-            for (var i = 0; i < TmpSet.count; i++)
+            foreach (var beatmap in TmpSet.Diffs.Where(beatmap => Scores.ContainsKey(beatmap.Key)))
             {
-                if (!Scores.ContainsKey(TmpSet.Diffs[i].GetHash())) continue;
-                foreach (var item in Scores[TmpSet.Diffs[i].GetHash()])
+                foreach (var item in Scores[beatmap.Key])
                 {
-                    item.DiffName = TmpSet.Diffs[i].Version;
+                    item.DiffName = beatmap.Value.Version;
                 }
-                ret.AddRange(Scores[TmpSet.Diffs[i].GetHash()]);
+                ret.AddRange(Scores[beatmap.Key]);
             }
             return ret;
         }
-
-        private static void AddRangeSet(IEnumerable<int> sets)
-        {
-            foreach (var set in sets)
-            {
-                AddSet(set);
-            }
-        }
-
-        private static void AddSet(int setno)
-        {
-            if (!PlayList.Contains(setno))
-            {
-                PlayList.Add(setno);
-            }
-        }
-
         public static void SetBG()
         {
             _player.InitBG();

@@ -19,7 +19,7 @@ namespace OSUplayer.Uilties
                 using (var fs = new FileStream("list.db", FileMode.Open))
                 {
                     var formatter = new BinaryFormatter();
-                    Core.Allsets = (List<BeatmapSet>)formatter.Deserialize(fs);
+                    Core.Allsets = (Dictionary<string, BeatmapSet>)formatter.Deserialize(fs);
                 }
                 return true;
             }

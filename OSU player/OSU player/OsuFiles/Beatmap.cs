@@ -489,7 +489,6 @@ namespace OSUplayer.OsuFiles
             { return true; }
             return ToString().Equals(obj.ToString()) && Creator.Equals(map.Creator);
         }
-
         public override int GetHashCode()
         {
             return base.GetHashCode();
@@ -498,7 +497,6 @@ namespace OSUplayer.OsuFiles
         public override string ToString() { return Version; }
         public string NameToString()
         {
-            //return (Name.Substring(0, Name.LastIndexOf('.')));
             return (String.Format("{0} - {1} ({2}) [{3}]", Artist, Title, Version, Creator));
         }
         public string GetHash()

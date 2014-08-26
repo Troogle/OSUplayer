@@ -407,7 +407,7 @@ namespace OSUplayer.OsuFiles
                         }
                         else
                         {
-                            Core.Allsets.Add(tmpset);
+                            Core.Allsets.Add(tmpset.GetHash(), tmpset);
                             tmpset = new BeatmapSet();
                             tmpset.Add(tmpbm);
                         }
@@ -427,15 +427,15 @@ namespace OSUplayer.OsuFiles
                 {
                     string title = reader.ReadString();
                     int itemcount = reader.ReadInt32();
-                    var nset = new List<int>();
+                    var nset = new List<string>();
                     for (int j = 0; j < itemcount; j++)
                     {
                         string md5 = reader.ReadString();
-                        for (int k = 0; k < Core.Allsets.Count; k++)
+                        foreach (var beatmapSet in Core.Allsets)
                         {
-                            if (Core.Allsets[k].md5.Contains(md5) && (!nset.Contains(k)))
+                            if (beatmapSet.Value.Diffs.ContainsKey(md5) && (!nset.Contains(beatmapSet.Key)))
                             {
-                                nset.Add(k);
+                                nset.Add(beatmapSet.Key);
                             }
                         }
                     }

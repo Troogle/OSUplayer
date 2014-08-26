@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Windows.Forms;
 namespace OSUplayer.OsuFiles
 {
@@ -195,10 +196,9 @@ namespace OSUplayer.OsuFiles
         public int count; //number of diffs
         private string name;
         public int setid;
-        public List<string> md5 = new List<string>();
         [NonSerialized()]
         public bool Detailed = false;
-        public List<Beatmap> Diffs;
+        public Dictionary<String,Beatmap> Diffs;
         public string tags;
         private static string Checksample(string pre, string mid, string end)
         {
@@ -219,7 +219,7 @@ namespace OSUplayer.OsuFiles
         /// <param name="sample">需要处理的sample类型</param>
         /// <param name="soundtype">需要处理的音效</param>
         /// <returns>当前需要播放音效的List string </returns>
-        public List<string> Getsamplename(CSample sample, int soundtype)
+        public IEnumerable<string> Getsamplename(CSample sample, int soundtype)
         {
             var tmp = new List<string>();
             if (sample.sample == 0) { return tmp; }
@@ -289,14 +289,13 @@ namespace OSUplayer.OsuFiles
                 tags += " " + tmpbm.Source;
             }
             count++;
-            Diffs.Add(tmpbm);
-            md5.Add(tmpbm.GetHash());
+            Diffs.Add(tmpbm.GetHash(),tmpbm);
             tags += " " + tmpbm.Version;
         }
         public BeatmapSet()
         {
             count = 0;
-            Diffs = new List<Beatmap>();
+            Diffs = new Dictionary<string, Beatmap>();
         }
         public void GetDetail()
         {
@@ -306,18 +305,42 @@ namespace OSUplayer.OsuFiles
             {
                 OsbPath = osbfiles[0].FullName;
             }
-            foreach (var bm in Diffs)
+            foreach (var bm in Diffs.Values)
             {
                 bm.Setsb(OsbPath);
             }
-            Diffs.Sort();
             Detailed = true;
         }
         public bool Check()
         {
             return Directory.Exists(location);
         }
+        private string Hash { get; set; }
+        public string GetHash()
+        {
+            if (Hash != null) { return Hash; }
+            var strHashData = "";
+            using (var md5Hash = MD5.Create())
+            {
+                var md5String = string.Join("", Diffs.Keys.ToArray());
+                var arrHashValue = md5Hash.ComputeHash(System.Text.Encoding.ASCII.GetBytes(md5String));
+                strHashData = BitConverter.ToString(arrHashValue);
+                strHashData = strHashData.Replace("-", "");
 
+            }
+            Hash = strHashData.ToLower();
+            return Hash;
+        }
+
+        private List<Beatmap> _difflist=new List<Beatmap>();
+
+        public List<Beatmap> GetBeatmaps()
+        {
+            if (_difflist.Count == Diffs.Keys.Count) return _difflist;
+            _difflist = Diffs.Values.ToList();
+            _difflist.Sort();
+            return _difflist;
+        } 
         public override string ToString()
         {
             return name;
@@ -334,7 +357,7 @@ namespace OSUplayer.OsuFiles
 
         public void SaveAudios(string toLocation)
         {
-            foreach (var map in Diffs.Distinct(new MapAudioComparer()))
+            foreach (var map in Diffs.Values.Distinct(new MapAudioComparer()))
             {
                 map.SaveAudio(toLocation);
             }

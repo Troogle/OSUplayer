@@ -182,7 +182,7 @@ namespace OSUplayer
                 true;
         }
 
-        private void RefreshList(int select = 0)
+        private void RefreshList(int select = -1)
         {
             //Main_PlayList.Items.Clear();
             Main_DiffList.Items.Clear();
@@ -191,22 +191,24 @@ namespace OSUplayer
             Main_PlayList.VirtualListSize = Core.PlayList.Count;
             Main_PlayList.SelectedIndices.Clear();
             Main_PlayList.Refresh();
-            if (Core.PlayList.Count != 0) Main_PlayList.SelectedIndices.Add(select);
-            /* new Thread(delegate()
+            if (select != -1)
             {
-                foreach (int t in Core.PlayList)
+                if (Core.PlayList.Count != 0) Main_PlayList.SelectedIndices.Add(select);
+            }
+            else
+            {
+
+                int currentset = Core.CurrentSetIndex;
+                if (currentset == -1)
                 {
-                    Main_PlayList.Invoke((MethodInvoker)(() =>
-                        Main_PlayList.Items.Add(Core.Allsets[t].ToString())));
+                    currentset = 0;
                 }
-                if (Main_PlayList.Items.Count != 0)
-                {
-                    Main_PlayList.Invoke((MethodInvoker)(() => Main_PlayList.Items[@select].Selected = true));
-                }
-                //PlayList.Enabled = true;
-                //DiffList.Enabled = true;
-            }).Start();*/
+                Main_PlayList.SelectedIndices.Add(currentset);
+                Main_PlayList.EnsureVisible(currentset);
+            }            
+            Main_PlayList.Focus();
         }
+
 
         private void Main_VisibleChanged(object sender, EventArgs e)
         {
@@ -228,13 +230,12 @@ namespace OSUplayer
             _nextKey = _hotkeyHelper.RegisterHotkey(Keys.Right, KeyModifiers.Alt);
             _hotkeyHelper.OnHotkey += OnHotkey;
             Main_PlayList.SelectedIndices.Clear();
-            int currentset = Core.PlayList.IndexOf(Core.Currentset, 0);
+            int currentset = Core.CurrentSetIndex;
             if (currentset == -1)
             {
                 currentset = 0;
             }
             Main_PlayList.SelectedIndices.Add(currentset);
-            //Main_PlayList.Items[currentset].Selected = true;
             Main_PlayList.EnsureVisible(currentset);
             Main_PlayList.Focus();
             Core.SetBG();
@@ -345,7 +346,7 @@ namespace OSUplayer
 
         private void Main_PlayList_RightClick_Delete_One_Click(object sender, EventArgs e)
         {
-            int index = Main_PlayList.SelectedIndices[0];
+            var index = Main_PlayList.SelectedIndices[0];
             Core.Remove(index);
             if (Main_PlayList.SelectedIndices.Count != 0)
             {
@@ -589,7 +590,7 @@ namespace OSUplayer
             }
             else
             {
-                foreach (var s in Core.TmpSet.Diffs)
+                foreach (var s in Core.TmpSet.GetBeatmaps())
                 {
                     Main_DiffList.Items.Add(s.Version);
                 }
@@ -617,8 +618,8 @@ namespace OSUplayer
                 }
                 if (!Main_Stop.Enabled)
                 {
-                    Core.Currentset = Core.PlayList[Core.Tmpset];
-                    Core.Currentmap = Core.Tmpmap;
+                    Core.Tmp2Current(true);
+                    Core.Tmp2Current(false);
                     SetDetail();
                 }
                 else if (Core.Isplaying)
@@ -745,14 +746,15 @@ namespace OSUplayer
 
             if (e.ItemIndex < Core.PlayList.Count)
             {
-                var item = new ListViewItem(Core.Allsets[Core.PlayList[e.ItemIndex]].ToString())
+                var setitem = Core.PlayList[e.ItemIndex];
+                var item = new ListViewItem(Core.Allsets[setitem].ToString())
                 {
-                    ForeColor = e.ItemIndex == Core.Currentset ? Color.White : Color.Black,
-                    Font = e.ItemIndex == Core.Currentset ? new Font("宋体", 9, FontStyle.Bold) : new Font("宋体", 9),
+                    ForeColor = e.ItemIndex == Core.CurrentSetIndex ? Color.White : Color.Black,
+                    Font = e.ItemIndex == Core.CurrentSetIndex ? new Font("宋体", 9, FontStyle.Bold) : new Font("宋体", 9),
                     BackColor =
                         e.ItemIndex % 2 == 0
-                            ? (e.ItemIndex == Core.Currentset ? Color.LightSkyBlue : Color.White)
-                            : (e.ItemIndex == Core.Currentset ? Color.DeepSkyBlue : Color.WhiteSmoke)
+                            ? (e.ItemIndex == Core.CurrentSetIndex ? Color.LightSkyBlue : Color.White)
+                            : (e.ItemIndex == Core.CurrentSetIndex ? Color.DeepSkyBlue : Color.WhiteSmoke)
                 };
                 e.Item = item;
             }
