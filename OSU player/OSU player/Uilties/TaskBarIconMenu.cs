@@ -109,8 +109,7 @@ namespace OSUplayer.Uilties
                         MessageBoxButtons.YesNo) != DialogResult.Yes) return;
                 Core.MainIsVisible = false;
                 Core.Exit();
-                Application.ExitThread();
-                Application.Exit();
+                Environment.Exit(0);
             };
             TrayIcon_Menu.ResumeLayout(false);
         }

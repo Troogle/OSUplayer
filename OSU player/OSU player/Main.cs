@@ -38,6 +38,7 @@ namespace OSUplayer
             Core.LoadPreference();
             Main_ScoreBox_Rank.ImageGetter = row => ((ScoreRecord)row).Rank;
             Main_Sytle_Setting.SelectedIndex = 2;
+            Main_Sort_Setting.SelectedIndex = 0;
             Initlang();
         }
 
@@ -221,7 +222,7 @@ namespace OSUplayer
                 }
                 Main_PlayList.SelectedIndices.Add(currentset);
                 Main_PlayList.EnsureVisible(currentset);
-            }            
+            }
             Main_PlayList.Focus();
         }
 
@@ -671,7 +672,7 @@ namespace OSUplayer
                 Stop();
                 SetDetail();
                 Play();
-                Core.SetHistory(back:true);
+                Core.SetHistory(back: true);
             }
         }
 
@@ -938,6 +939,29 @@ namespace OSUplayer
         {
             Stop();
             PlayPrev();
+        }
+
+        private void Main_Sort_Setting_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (Core.PlayList == null) return;
+            switch (Main_Sort_Setting.SelectedIndex)
+            {
+                case 0:
+                    Core.PlayList.Sort(
+                        ((a, b) =>
+                            (System.String.Compare(Core.Allsets[a].GetBeatmaps()[0].ArtistRomanized,
+                                Core.Allsets[b].GetBeatmaps()[0].ArtistRomanized,
+                                System.StringComparison.OrdinalIgnoreCase))));
+                    Main_PlayList.Refresh();
+                    break;
+                case 1:
+                    Core.PlayList.Sort(
+                        ((a, b) =>
+                            (System.String.Compare(Core.Allsets[a].GetBeatmaps()[0].TitleRomanized,
+                                Core.Allsets[b].GetBeatmaps()[0].TitleRomanized,
+                                System.StringComparison.OrdinalIgnoreCase))));
+                    break;
+            }
         }
     }
 }

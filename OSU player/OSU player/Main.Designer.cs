@@ -52,13 +52,23 @@ namespace OSUplayer
             this.Main_Tool_Export_Playlist = new System.Windows.Forms.ToolStripMenuItem();
             this.Main_Tool_Export_Playlist_MP3 = new System.Windows.Forms.ToolStripMenuItem();
             this.Main_Option_Menu = new System.Windows.Forms.ToolStripMenuItem();
+            this.Main_Option_Play_Fx = new OSUplayer.BindableToolStripMenuItem();
+            this.Main_Option_Play_Video = new OSUplayer.BindableToolStripMenuItem();
             this.Main_Option_PlayMode = new System.Windows.Forms.ToolStripMenuItem();
             this.Main_Option_PlayMode_Normal = new System.Windows.Forms.ToolStripMenuItem();
             this.Main_Option_PlayMode_Repeat = new System.Windows.Forms.ToolStripMenuItem();
             this.Main_Option_PlayMode_Random = new System.Windows.Forms.ToolStripMenuItem();
             this.Main_Option_Select_QQ = new System.Windows.Forms.ToolStripMenuItem();
+            this.Main_Option_Sync_QQ = new OSUplayer.BindableToolStripMenuItem();
+            this.Main_Option_Play_SB = new OSUplayer.BindableToolStripMenuItem();
+            this.Main_Option_Show_Popup = new OSUplayer.BindableToolStripMenuItem();
             this.Main_About = new System.Windows.Forms.ToolStripMenuItem();
             this.Main_Panel = new System.Windows.Forms.Panel();
+            this.Main_Tab_Control_Panel = new System.Windows.Forms.TableLayoutPanel();
+            this.Main_PageView_Page4 = new OSUplayer.NoFocusButton();
+            this.Main_PageView_Page1 = new OSUplayer.NoFocusButton();
+            this.Main_PageView_Page2 = new OSUplayer.NoFocusButton();
+            this.Main_PageView_Page3 = new OSUplayer.NoFocusButton();
             this.Main_TabPanel = new System.Windows.Forms.Panel();
             this.Main_TabControl = new System.Windows.Forms.TabControl();
             this.Main_TabPage1 = new System.Windows.Forms.TabPage();
@@ -80,14 +90,20 @@ namespace OSUplayer
             this.Main_Sytle_Setting = new System.Windows.Forms.ComboBox();
             this.Main_NC_Control = new System.Windows.Forms.CheckBox();
             this.Main_CurrentList = new System.Windows.Forms.Label();
+            this.Main_Search_Box = new OSUplayer.HintTextBox();
+            this.Main_PlayList = new OSUplayer.DBListView();
+            this.Main_PlayList_Name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Main_PlayList_RightClick_Menu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.Main_PlayList_RightClick_Copy_Current_Name = new System.Windows.Forms.ToolStripMenuItem();
             this.Main_PlayList_RightClick_Delete_One = new System.Windows.Forms.ToolStripMenuItem();
             this.Main_PlayList_RightClick_Export_MP3 = new System.Windows.Forms.ToolStripMenuItem();
             this.Main_PlayList_RightClick_Open_In_OSU = new System.Windows.Forms.ToolStripMenuItem();
             this.Main_Core_Panel = new System.Windows.Forms.Panel();
+            this.Main_PlayPrev = new OSUplayer.NoFocusButton();
+            this.Main_Jump_OSU = new OSUplayer.NoFocusButton();
             this.Main_Volume_TrackBar = new gTrackBar.gTrackBar();
             this.Main_Time_Trackbar = new gTrackBar.gTrackBar();
+            this.Main_Mini_Switcher = new OSUplayer.NoFocusButton();
             this.Main_Time_Display = new System.Windows.Forms.Label();
             this.Main_Volume_Music_TrackBar = new gTrackBar.gTrackBar();
             this.Main_Main_Display = new System.Windows.Forms.Panel();
@@ -95,33 +111,20 @@ namespace OSUplayer
             this.Main_Fx_Hint_Label = new System.Windows.Forms.Label();
             this.Main_Music_Hint_Label = new System.Windows.Forms.Label();
             this.Main_Volume_Hint_Label = new System.Windows.Forms.Label();
+            this.Main_PlayNext = new OSUplayer.NoFocusButton();
+            this.Main_Stop = new OSUplayer.NoFocusButton();
+            this.Main_Play = new OSUplayer.NoFocusButton();
+            this.Main_Collections = new OSUplayer.NoFocusButton();
             this.UpdateTimer = new System.Windows.Forms.Timer(this.components);
             this.NextTimer = new System.Windows.Forms.Timer(this.components);
             this.SearchTimer = new System.Windows.Forms.Timer(this.components);
             this.Main_MenuStrip = new System.Windows.Forms.MenuStrip();
             this.Main_LanguageSelect = new System.Windows.Forms.ToolStripMenuItem();
             this.Main_QQ_Hint_Label = new System.Windows.Forms.ToolStripLabel();
-            this.Main_Tab_Control_Panel = new System.Windows.Forms.TableLayoutPanel();
-            this.Main_PageView_Page4 = new OSUplayer.NoFocusButton();
-            this.Main_PageView_Page1 = new OSUplayer.NoFocusButton();
-            this.Main_PageView_Page2 = new OSUplayer.NoFocusButton();
-            this.Main_PageView_Page3 = new OSUplayer.NoFocusButton();
-            this.Main_Search_Box = new OSUplayer.HintTextBox();
-            this.Main_PlayList = new OSUplayer.DBListView();
-            this.Main_PlayList_Name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Main_PlayPrev = new OSUplayer.NoFocusButton();
-            this.Main_Jump_OSU = new OSUplayer.NoFocusButton();
-            this.Main_Mini_Switcher = new OSUplayer.NoFocusButton();
-            this.Main_PlayNext = new OSUplayer.NoFocusButton();
-            this.Main_Stop = new OSUplayer.NoFocusButton();
-            this.Main_Play = new OSUplayer.NoFocusButton();
-            this.Main_Collections = new OSUplayer.NoFocusButton();
-            this.Main_Option_Play_Fx = new OSUplayer.BindableToolStripMenuItem();
-            this.Main_Option_Play_Video = new OSUplayer.BindableToolStripMenuItem();
-            this.Main_Option_Sync_QQ = new OSUplayer.BindableToolStripMenuItem();
-            this.Main_Option_Play_SB = new OSUplayer.BindableToolStripMenuItem();
-            this.Main_Option_Show_Popup = new OSUplayer.BindableToolStripMenuItem();
+            this.Main_Sort_Label = new System.Windows.Forms.Label();
+            this.Main_Sort_Setting = new System.Windows.Forms.ComboBox();
             this.Main_Panel.SuspendLayout();
+            this.Main_Tab_Control_Panel.SuspendLayout();
             this.Main_TabPanel.SuspendLayout();
             this.Main_TabControl.SuspendLayout();
             this.Main_TabPage1.SuspendLayout();
@@ -132,7 +135,6 @@ namespace OSUplayer
             this.Main_PlayList_RightClick_Menu.SuspendLayout();
             this.Main_Core_Panel.SuspendLayout();
             this.Main_MenuStrip.SuspendLayout();
-            this.Main_Tab_Control_Panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // Main_File_Menu
@@ -325,6 +327,30 @@ namespace OSUplayer
             this.Main_Option_Menu.Size = new System.Drawing.Size(73, 24);
             this.Main_Option_Menu.Text = "选项(&O)";
             // 
+            // Main_Option_Play_Fx
+            // 
+            this.Main_Option_Play_Fx.AccessibleDescription = "音效开关";
+            this.Main_Option_Play_Fx.AccessibleName = "音效开关";
+            this.Main_Option_Play_Fx.Checked = global::OSUplayer.Properties.Settings.Default.PlayFx;
+            this.Main_Option_Play_Fx.CheckOnClick = true;
+            this.Main_Option_Play_Fx.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.Main_Option_Play_Fx.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::OSUplayer.Properties.Settings.Default, "PlayFx", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.Main_Option_Play_Fx.Name = "Main_Option_Play_Fx";
+            this.Main_Option_Play_Fx.Size = new System.Drawing.Size(162, 24);
+            this.Main_Option_Play_Fx.Text = "音效开关";
+            // 
+            // Main_Option_Play_Video
+            // 
+            this.Main_Option_Play_Video.AccessibleDescription = "视频开关";
+            this.Main_Option_Play_Video.AccessibleName = "视频开关";
+            this.Main_Option_Play_Video.Checked = global::OSUplayer.Properties.Settings.Default.PlayVideo;
+            this.Main_Option_Play_Video.CheckOnClick = true;
+            this.Main_Option_Play_Video.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.Main_Option_Play_Video.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::OSUplayer.Properties.Settings.Default, "PlayVideo", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.Main_Option_Play_Video.Name = "Main_Option_Play_Video";
+            this.Main_Option_Play_Video.Size = new System.Drawing.Size(162, 24);
+            this.Main_Option_Play_Video.Text = "视频开关";
+            // 
             // Main_Option_PlayMode
             // 
             this.Main_Option_PlayMode.AccessibleDescription = "播放模式";
@@ -373,6 +399,42 @@ namespace OSUplayer
             this.Main_Option_Select_QQ.Text = "选择QQ";
             this.Main_Option_Select_QQ.Click += new System.EventHandler(this.Main_Option_Select_QQ_Click);
             // 
+            // Main_Option_Sync_QQ
+            // 
+            this.Main_Option_Sync_QQ.AccessibleDescription = "QQ状态同步";
+            this.Main_Option_Sync_QQ.AccessibleName = "QQ状态同步";
+            this.Main_Option_Sync_QQ.Checked = global::OSUplayer.Properties.Settings.Default.SyncQQ;
+            this.Main_Option_Sync_QQ.CheckOnClick = true;
+            this.Main_Option_Sync_QQ.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.Main_Option_Sync_QQ.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::OSUplayer.Properties.Settings.Default, "SyncQQ", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.Main_Option_Sync_QQ.Name = "Main_Option_Sync_QQ";
+            this.Main_Option_Sync_QQ.Size = new System.Drawing.Size(162, 24);
+            this.Main_Option_Sync_QQ.Text = "QQ状态同步";
+            this.Main_Option_Sync_QQ.Click += new System.EventHandler(this.Main_Option_Sync_QQ_Click);
+            // 
+            // Main_Option_Play_SB
+            // 
+            this.Main_Option_Play_SB.AccessibleDescription = "SB开关";
+            this.Main_Option_Play_SB.AccessibleName = "SB开关";
+            this.Main_Option_Play_SB.Checked = global::OSUplayer.Properties.Settings.Default.PlaySB;
+            this.Main_Option_Play_SB.CheckOnClick = true;
+            this.Main_Option_Play_SB.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::OSUplayer.Properties.Settings.Default, "PlaySB", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.Main_Option_Play_SB.Name = "Main_Option_Play_SB";
+            this.Main_Option_Play_SB.Size = new System.Drawing.Size(162, 24);
+            this.Main_Option_Play_SB.Text = "SB开关";
+            // 
+            // Main_Option_Show_Popup
+            // 
+            this.Main_Option_Show_Popup.AccessibleDescription = "显示气泡";
+            this.Main_Option_Show_Popup.AccessibleName = "显示气泡";
+            this.Main_Option_Show_Popup.Checked = global::OSUplayer.Properties.Settings.Default.ShowPopup;
+            this.Main_Option_Show_Popup.CheckOnClick = true;
+            this.Main_Option_Show_Popup.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.Main_Option_Show_Popup.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::OSUplayer.Properties.Settings.Default, "ShowPopup", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.Main_Option_Show_Popup.Name = "Main_Option_Show_Popup";
+            this.Main_Option_Show_Popup.Size = new System.Drawing.Size(162, 24);
+            this.Main_Option_Show_Popup.Text = "显示气泡";
+            // 
             // Main_About
             // 
             this.Main_About.AccessibleDescription = "关于";
@@ -398,6 +460,94 @@ namespace OSUplayer
             this.Main_Panel.Name = "Main_Panel";
             this.Main_Panel.Size = new System.Drawing.Size(875, 654);
             this.Main_Panel.TabIndex = 21;
+            // 
+            // Main_Tab_Control_Panel
+            // 
+            this.Main_Tab_Control_Panel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.Main_Tab_Control_Panel.AutoSize = true;
+            this.Main_Tab_Control_Panel.ColumnCount = 4;
+            this.Main_Tab_Control_Panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.Main_Tab_Control_Panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.Main_Tab_Control_Panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.Main_Tab_Control_Panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.Main_Tab_Control_Panel.Controls.Add(this.Main_PageView_Page4, 3, 0);
+            this.Main_Tab_Control_Panel.Controls.Add(this.Main_PageView_Page1, 0, 0);
+            this.Main_Tab_Control_Panel.Controls.Add(this.Main_PageView_Page2, 1, 0);
+            this.Main_Tab_Control_Panel.Controls.Add(this.Main_PageView_Page3, 2, 0);
+            this.Main_Tab_Control_Panel.Location = new System.Drawing.Point(7, 620);
+            this.Main_Tab_Control_Panel.Name = "Main_Tab_Control_Panel";
+            this.Main_Tab_Control_Panel.RowCount = 1;
+            this.Main_Tab_Control_Panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.Main_Tab_Control_Panel.Size = new System.Drawing.Size(313, 32);
+            this.Main_Tab_Control_Panel.TabIndex = 41;
+            // 
+            // Main_PageView_Page4
+            // 
+            this.Main_PageView_Page4.AutoSize = true;
+            this.Main_PageView_Page4.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.Main_PageView_Page4.FlatAppearance.BorderSize = 0;
+            this.Main_PageView_Page4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DodgerBlue;
+            this.Main_PageView_Page4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSteelBlue;
+            this.Main_PageView_Page4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Main_PageView_Page4.Location = new System.Drawing.Point(235, 0);
+            this.Main_PageView_Page4.Margin = new System.Windows.Forms.Padding(0);
+            this.Main_PageView_Page4.Name = "Main_PageView_Page4";
+            this.Main_PageView_Page4.Size = new System.Drawing.Size(78, 32);
+            this.Main_PageView_Page4.TabIndex = 40;
+            this.Main_PageView_Page4.Text = "特殊选项";
+            this.Main_PageView_Page4.UseVisualStyleBackColor = false;
+            this.Main_PageView_Page4.Click += new System.EventHandler(this.Main_PageView_Page_Click);
+            // 
+            // Main_PageView_Page1
+            // 
+            this.Main_PageView_Page1.AutoSize = true;
+            this.Main_PageView_Page1.BackColor = System.Drawing.Color.DodgerBlue;
+            this.Main_PageView_Page1.FlatAppearance.BorderSize = 0;
+            this.Main_PageView_Page1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DodgerBlue;
+            this.Main_PageView_Page1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSteelBlue;
+            this.Main_PageView_Page1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Main_PageView_Page1.Location = new System.Drawing.Point(0, 0);
+            this.Main_PageView_Page1.Margin = new System.Windows.Forms.Padding(0);
+            this.Main_PageView_Page1.Name = "Main_PageView_Page1";
+            this.Main_PageView_Page1.Size = new System.Drawing.Size(78, 32);
+            this.Main_PageView_Page1.TabIndex = 37;
+            this.Main_PageView_Page1.Text = "Map信息";
+            this.Main_PageView_Page1.UseVisualStyleBackColor = false;
+            this.Main_PageView_Page1.Click += new System.EventHandler(this.Main_PageView_Page_Click);
+            // 
+            // Main_PageView_Page2
+            // 
+            this.Main_PageView_Page2.AutoSize = true;
+            this.Main_PageView_Page2.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.Main_PageView_Page2.FlatAppearance.BorderSize = 0;
+            this.Main_PageView_Page2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DodgerBlue;
+            this.Main_PageView_Page2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSteelBlue;
+            this.Main_PageView_Page2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Main_PageView_Page2.Location = new System.Drawing.Point(78, 0);
+            this.Main_PageView_Page2.Margin = new System.Windows.Forms.Padding(0);
+            this.Main_PageView_Page2.Name = "Main_PageView_Page2";
+            this.Main_PageView_Page2.Size = new System.Drawing.Size(78, 32);
+            this.Main_PageView_Page2.TabIndex = 38;
+            this.Main_PageView_Page2.Text = "成绩信息";
+            this.Main_PageView_Page2.UseVisualStyleBackColor = false;
+            this.Main_PageView_Page2.Click += new System.EventHandler(this.Main_PageView_Page_Click);
+            // 
+            // Main_PageView_Page3
+            // 
+            this.Main_PageView_Page3.AutoSize = true;
+            this.Main_PageView_Page3.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.Main_PageView_Page3.FlatAppearance.BorderSize = 0;
+            this.Main_PageView_Page3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DodgerBlue;
+            this.Main_PageView_Page3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSteelBlue;
+            this.Main_PageView_Page3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Main_PageView_Page3.Location = new System.Drawing.Point(156, 0);
+            this.Main_PageView_Page3.Margin = new System.Windows.Forms.Padding(0);
+            this.Main_PageView_Page3.Name = "Main_PageView_Page3";
+            this.Main_PageView_Page3.Size = new System.Drawing.Size(79, 32);
+            this.Main_PageView_Page3.TabIndex = 39;
+            this.Main_PageView_Page3.Text = "Diff信息";
+            this.Main_PageView_Page3.UseVisualStyleBackColor = false;
+            this.Main_PageView_Page3.Click += new System.EventHandler(this.Main_PageView_Page_Click);
             // 
             // Main_TabPanel
             // 
@@ -540,6 +690,8 @@ namespace OSUplayer
             // 
             // Main_TabPage4
             // 
+            this.Main_TabPage4.Controls.Add(this.Main_Sort_Setting);
+            this.Main_TabPage4.Controls.Add(this.Main_Sort_Label);
             this.Main_TabPage4.Controls.Add(this.Main_Option_Play_SB_Box);
             this.Main_TabPage4.Controls.Add(this.Main_Option_Play_Video_Box);
             this.Main_TabPage4.Controls.Add(this.Main_Option_Play_Fx_Box);
@@ -691,6 +843,45 @@ namespace OSUplayer
             this.Main_CurrentList.TabIndex = 30;
             this.Main_CurrentList.Text = "当前列表: FULL";
             // 
+            // Main_Search_Box
+            // 
+            this.Main_Search_Box.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Main_Search_Box.Hint = "Enter Keywords";
+            this.Main_Search_Box.Location = new System.Drawing.Point(637, 3);
+            this.Main_Search_Box.Name = "Main_Search_Box";
+            this.Main_Search_Box.Size = new System.Drawing.Size(232, 25);
+            this.Main_Search_Box.TabIndex = 35;
+            this.Main_Search_Box.TabStop = false;
+            this.Main_Search_Box.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Main_Search_Box_KeyPress);
+            // 
+            // Main_PlayList
+            // 
+            this.Main_PlayList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Main_PlayList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.Main_PlayList_Name});
+            this.Main_PlayList.ContextMenuStrip = this.Main_PlayList_RightClick_Menu;
+            this.Main_PlayList.FullRowSelect = true;
+            this.Main_PlayList.GridLines = true;
+            this.Main_PlayList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.Main_PlayList.HideSelection = false;
+            this.Main_PlayList.Location = new System.Drawing.Point(525, 55);
+            this.Main_PlayList.MultiSelect = false;
+            this.Main_PlayList.Name = "Main_PlayList";
+            this.Main_PlayList.Size = new System.Drawing.Size(344, 595);
+            this.Main_PlayList.TabIndex = 24;
+            this.Main_PlayList.UseCompatibleStateImageBehavior = false;
+            this.Main_PlayList.View = System.Windows.Forms.View.Details;
+            this.Main_PlayList.VirtualMode = true;
+            this.Main_PlayList.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.Main_PlayList_RetrieveVirtualItem);
+            this.Main_PlayList.SelectedIndexChanged += new System.EventHandler(this.Main_PlayList_SelectedIndexChanged);
+            this.Main_PlayList.DoubleClick += new System.EventHandler(this.Main_PlayList_DoubleClick);
+            // 
+            // Main_PlayList_Name
+            // 
+            this.Main_PlayList_Name.Text = "";
+            this.Main_PlayList_Name.Width = 500;
+            // 
             // Main_PlayList_RightClick_Menu
             // 
             this.Main_PlayList_RightClick_Menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -756,6 +947,38 @@ namespace OSUplayer
             this.Main_Core_Panel.Size = new System.Drawing.Size(525, 431);
             this.Main_Core_Panel.TabIndex = 22;
             // 
+            // Main_PlayPrev
+            // 
+            this.Main_PlayPrev.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.Main_PlayPrev.BackColor = System.Drawing.Color.LightGray;
+            this.Main_PlayPrev.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
+            this.Main_PlayPrev.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepSkyBlue;
+            this.Main_PlayPrev.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSkyBlue;
+            this.Main_PlayPrev.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Main_PlayPrev.Location = new System.Drawing.Point(132, 400);
+            this.Main_PlayPrev.Name = "Main_PlayPrev";
+            this.Main_PlayPrev.Size = new System.Drawing.Size(43, 26);
+            this.Main_PlayPrev.TabIndex = 56;
+            this.Main_PlayPrev.Text = "←";
+            this.Main_PlayPrev.UseVisualStyleBackColor = false;
+            this.Main_PlayPrev.Click += new System.EventHandler(this.Main_PlayPrev_Click);
+            // 
+            // Main_Jump_OSU
+            // 
+            this.Main_Jump_OSU.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Main_Jump_OSU.BackColor = System.Drawing.Color.LightGray;
+            this.Main_Jump_OSU.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
+            this.Main_Jump_OSU.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepSkyBlue;
+            this.Main_Jump_OSU.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSkyBlue;
+            this.Main_Jump_OSU.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Main_Jump_OSU.Location = new System.Drawing.Point(491, 398);
+            this.Main_Jump_OSU.Name = "Main_Jump_OSU";
+            this.Main_Jump_OSU.Size = new System.Drawing.Size(32, 26);
+            this.Main_Jump_OSU.TabIndex = 0;
+            this.Main_Jump_OSU.Text = "O";
+            this.Main_Jump_OSU.UseVisualStyleBackColor = false;
+            this.Main_Jump_OSU.Click += new System.EventHandler(this.Main_Jump_OSU_Click);
+            // 
             // Main_Volume_TrackBar
             // 
             this.Main_Volume_TrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -818,6 +1041,22 @@ namespace OSUplayer
             this.Main_Time_Trackbar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Main_Time_Trackbar_MouseClick);
             this.Main_Time_Trackbar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Main_Time_Trackbar_MouseDown);
             this.Main_Time_Trackbar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Main_Time_Trackbar_MouseUp);
+            // 
+            // Main_Mini_Switcher
+            // 
+            this.Main_Mini_Switcher.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Main_Mini_Switcher.BackColor = System.Drawing.Color.LightGray;
+            this.Main_Mini_Switcher.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
+            this.Main_Mini_Switcher.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepSkyBlue;
+            this.Main_Mini_Switcher.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSkyBlue;
+            this.Main_Mini_Switcher.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Main_Mini_Switcher.Location = new System.Drawing.Point(491, 3);
+            this.Main_Mini_Switcher.Name = "Main_Mini_Switcher";
+            this.Main_Mini_Switcher.Size = new System.Drawing.Size(30, 27);
+            this.Main_Mini_Switcher.TabIndex = 43;
+            this.Main_Mini_Switcher.Text = "↓";
+            this.Main_Mini_Switcher.UseVisualStyleBackColor = false;
+            this.Main_Mini_Switcher.Click += new System.EventHandler(this.Main_Mini_Switcher_Click);
             // 
             // Main_Time_Display
             // 
@@ -927,227 +1166,6 @@ namespace OSUplayer
             this.Main_Volume_Hint_Label.TabIndex = 50;
             this.Main_Volume_Hint_Label.Text = "音量";
             // 
-            // UpdateTimer
-            // 
-            this.UpdateTimer.Tick += new System.EventHandler(this.UpdateTimer_Tick);
-            // 
-            // NextTimer
-            // 
-            this.NextTimer.Interval = 200;
-            this.NextTimer.Tick += new System.EventHandler(this.NextTimer_Tick);
-            // 
-            // SearchTimer
-            // 
-            this.SearchTimer.Interval = 500;
-            this.SearchTimer.Tick += new System.EventHandler(this.SearchTimer_Tick);
-            // 
-            // Main_MenuStrip
-            // 
-            this.Main_MenuStrip.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.Main_MenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.Main_File_Menu,
-            this.Main_Tool_Menu,
-            this.Main_Option_Menu,
-            this.Main_About,
-            this.Main_LanguageSelect,
-            this.Main_QQ_Hint_Label});
-            this.Main_MenuStrip.Location = new System.Drawing.Point(4, 4);
-            this.Main_MenuStrip.Name = "Main_MenuStrip";
-            this.Main_MenuStrip.Padding = new System.Windows.Forms.Padding(0);
-            this.Main_MenuStrip.Size = new System.Drawing.Size(874, 24);
-            this.Main_MenuStrip.TabIndex = 2;
-            this.Main_MenuStrip.Text = "MenuStrip1";
-            // 
-            // Main_LanguageSelect
-            // 
-            this.Main_LanguageSelect.AccessibleDescription = "语言(&L)";
-            this.Main_LanguageSelect.AccessibleName = "语言(&L)";
-            this.Main_LanguageSelect.Name = "Main_LanguageSelect";
-            this.Main_LanguageSelect.Size = new System.Drawing.Size(69, 24);
-            this.Main_LanguageSelect.Text = "语言(&L)";
-            // 
-            // Main_QQ_Hint_Label
-            // 
-            this.Main_QQ_Hint_Label.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.Main_QQ_Hint_Label.Name = "Main_QQ_Hint_Label";
-            this.Main_QQ_Hint_Label.Size = new System.Drawing.Size(97, 21);
-            this.Main_QQ_Hint_Label.Text = "当前同步QQ:";
-            // 
-            // Main_Tab_Control_Panel
-            // 
-            this.Main_Tab_Control_Panel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.Main_Tab_Control_Panel.AutoSize = true;
-            this.Main_Tab_Control_Panel.ColumnCount = 4;
-            this.Main_Tab_Control_Panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.Main_Tab_Control_Panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.Main_Tab_Control_Panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.Main_Tab_Control_Panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.Main_Tab_Control_Panel.Controls.Add(this.Main_PageView_Page4, 3, 0);
-            this.Main_Tab_Control_Panel.Controls.Add(this.Main_PageView_Page1, 0, 0);
-            this.Main_Tab_Control_Panel.Controls.Add(this.Main_PageView_Page2, 1, 0);
-            this.Main_Tab_Control_Panel.Controls.Add(this.Main_PageView_Page3, 2, 0);
-            this.Main_Tab_Control_Panel.Location = new System.Drawing.Point(7, 620);
-            this.Main_Tab_Control_Panel.Name = "Main_Tab_Control_Panel";
-            this.Main_Tab_Control_Panel.RowCount = 1;
-            this.Main_Tab_Control_Panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.Main_Tab_Control_Panel.Size = new System.Drawing.Size(313, 32);
-            this.Main_Tab_Control_Panel.TabIndex = 41;
-            // 
-            // Main_PageView_Page4
-            // 
-            this.Main_PageView_Page4.AutoSize = true;
-            this.Main_PageView_Page4.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.Main_PageView_Page4.FlatAppearance.BorderSize = 0;
-            this.Main_PageView_Page4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DodgerBlue;
-            this.Main_PageView_Page4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSteelBlue;
-            this.Main_PageView_Page4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Main_PageView_Page4.Location = new System.Drawing.Point(235, 0);
-            this.Main_PageView_Page4.Margin = new System.Windows.Forms.Padding(0);
-            this.Main_PageView_Page4.Name = "Main_PageView_Page4";
-            this.Main_PageView_Page4.Size = new System.Drawing.Size(78, 32);
-            this.Main_PageView_Page4.TabIndex = 40;
-            this.Main_PageView_Page4.Text = "特殊选项";
-            this.Main_PageView_Page4.UseVisualStyleBackColor = false;
-            this.Main_PageView_Page4.Click += new System.EventHandler(this.Main_PageView_Page_Click);
-            // 
-            // Main_PageView_Page1
-            // 
-            this.Main_PageView_Page1.AutoSize = true;
-            this.Main_PageView_Page1.BackColor = System.Drawing.Color.DodgerBlue;
-            this.Main_PageView_Page1.FlatAppearance.BorderSize = 0;
-            this.Main_PageView_Page1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DodgerBlue;
-            this.Main_PageView_Page1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSteelBlue;
-            this.Main_PageView_Page1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Main_PageView_Page1.Location = new System.Drawing.Point(0, 0);
-            this.Main_PageView_Page1.Margin = new System.Windows.Forms.Padding(0);
-            this.Main_PageView_Page1.Name = "Main_PageView_Page1";
-            this.Main_PageView_Page1.Size = new System.Drawing.Size(78, 32);
-            this.Main_PageView_Page1.TabIndex = 37;
-            this.Main_PageView_Page1.Text = "Map信息";
-            this.Main_PageView_Page1.UseVisualStyleBackColor = false;
-            this.Main_PageView_Page1.Click += new System.EventHandler(this.Main_PageView_Page_Click);
-            // 
-            // Main_PageView_Page2
-            // 
-            this.Main_PageView_Page2.AutoSize = true;
-            this.Main_PageView_Page2.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.Main_PageView_Page2.FlatAppearance.BorderSize = 0;
-            this.Main_PageView_Page2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DodgerBlue;
-            this.Main_PageView_Page2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSteelBlue;
-            this.Main_PageView_Page2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Main_PageView_Page2.Location = new System.Drawing.Point(78, 0);
-            this.Main_PageView_Page2.Margin = new System.Windows.Forms.Padding(0);
-            this.Main_PageView_Page2.Name = "Main_PageView_Page2";
-            this.Main_PageView_Page2.Size = new System.Drawing.Size(78, 32);
-            this.Main_PageView_Page2.TabIndex = 38;
-            this.Main_PageView_Page2.Text = "成绩信息";
-            this.Main_PageView_Page2.UseVisualStyleBackColor = false;
-            this.Main_PageView_Page2.Click += new System.EventHandler(this.Main_PageView_Page_Click);
-            // 
-            // Main_PageView_Page3
-            // 
-            this.Main_PageView_Page3.AutoSize = true;
-            this.Main_PageView_Page3.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.Main_PageView_Page3.FlatAppearance.BorderSize = 0;
-            this.Main_PageView_Page3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DodgerBlue;
-            this.Main_PageView_Page3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSteelBlue;
-            this.Main_PageView_Page3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Main_PageView_Page3.Location = new System.Drawing.Point(156, 0);
-            this.Main_PageView_Page3.Margin = new System.Windows.Forms.Padding(0);
-            this.Main_PageView_Page3.Name = "Main_PageView_Page3";
-            this.Main_PageView_Page3.Size = new System.Drawing.Size(79, 32);
-            this.Main_PageView_Page3.TabIndex = 39;
-            this.Main_PageView_Page3.Text = "Diff信息";
-            this.Main_PageView_Page3.UseVisualStyleBackColor = false;
-            this.Main_PageView_Page3.Click += new System.EventHandler(this.Main_PageView_Page_Click);
-            // 
-            // Main_Search_Box
-            // 
-            this.Main_Search_Box.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Main_Search_Box.Hint = "Enter Keywords";
-            this.Main_Search_Box.Location = new System.Drawing.Point(637, 3);
-            this.Main_Search_Box.Name = "Main_Search_Box";
-            this.Main_Search_Box.Size = new System.Drawing.Size(232, 25);
-            this.Main_Search_Box.TabIndex = 35;
-            this.Main_Search_Box.TabStop = false;
-            this.Main_Search_Box.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Main_Search_Box_KeyPress);
-            // 
-            // Main_PlayList
-            // 
-            this.Main_PlayList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Main_PlayList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.Main_PlayList_Name});
-            this.Main_PlayList.ContextMenuStrip = this.Main_PlayList_RightClick_Menu;
-            this.Main_PlayList.FullRowSelect = true;
-            this.Main_PlayList.GridLines = true;
-            this.Main_PlayList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.Main_PlayList.HideSelection = false;
-            this.Main_PlayList.Location = new System.Drawing.Point(525, 55);
-            this.Main_PlayList.MultiSelect = false;
-            this.Main_PlayList.Name = "Main_PlayList";
-            this.Main_PlayList.Size = new System.Drawing.Size(344, 595);
-            this.Main_PlayList.TabIndex = 24;
-            this.Main_PlayList.UseCompatibleStateImageBehavior = false;
-            this.Main_PlayList.View = System.Windows.Forms.View.Details;
-            this.Main_PlayList.VirtualMode = true;
-            this.Main_PlayList.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.Main_PlayList_RetrieveVirtualItem);
-            this.Main_PlayList.SelectedIndexChanged += new System.EventHandler(this.Main_PlayList_SelectedIndexChanged);
-            this.Main_PlayList.DoubleClick += new System.EventHandler(this.Main_PlayList_DoubleClick);
-            // 
-            // Main_PlayList_Name
-            // 
-            this.Main_PlayList_Name.Text = "";
-            this.Main_PlayList_Name.Width = 500;
-            // 
-            // Main_PlayPrev
-            // 
-            this.Main_PlayPrev.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.Main_PlayPrev.BackColor = System.Drawing.Color.LightGray;
-            this.Main_PlayPrev.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
-            this.Main_PlayPrev.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepSkyBlue;
-            this.Main_PlayPrev.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSkyBlue;
-            this.Main_PlayPrev.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Main_PlayPrev.Location = new System.Drawing.Point(132, 400);
-            this.Main_PlayPrev.Name = "Main_PlayPrev";
-            this.Main_PlayPrev.Size = new System.Drawing.Size(43, 26);
-            this.Main_PlayPrev.TabIndex = 56;
-            this.Main_PlayPrev.Text = "←";
-            this.Main_PlayPrev.UseVisualStyleBackColor = false;
-            this.Main_PlayPrev.Click += new System.EventHandler(this.Main_PlayPrev_Click);
-            // 
-            // Main_Jump_OSU
-            // 
-            this.Main_Jump_OSU.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Main_Jump_OSU.BackColor = System.Drawing.Color.LightGray;
-            this.Main_Jump_OSU.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
-            this.Main_Jump_OSU.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepSkyBlue;
-            this.Main_Jump_OSU.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSkyBlue;
-            this.Main_Jump_OSU.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Main_Jump_OSU.Location = new System.Drawing.Point(491, 398);
-            this.Main_Jump_OSU.Name = "Main_Jump_OSU";
-            this.Main_Jump_OSU.Size = new System.Drawing.Size(32, 26);
-            this.Main_Jump_OSU.TabIndex = 0;
-            this.Main_Jump_OSU.Text = "O";
-            this.Main_Jump_OSU.UseVisualStyleBackColor = false;
-            this.Main_Jump_OSU.Click += new System.EventHandler(this.Main_Jump_OSU_Click);
-            // 
-            // Main_Mini_Switcher
-            // 
-            this.Main_Mini_Switcher.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Main_Mini_Switcher.BackColor = System.Drawing.Color.LightGray;
-            this.Main_Mini_Switcher.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
-            this.Main_Mini_Switcher.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepSkyBlue;
-            this.Main_Mini_Switcher.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSkyBlue;
-            this.Main_Mini_Switcher.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Main_Mini_Switcher.Location = new System.Drawing.Point(491, 3);
-            this.Main_Mini_Switcher.Name = "Main_Mini_Switcher";
-            this.Main_Mini_Switcher.Size = new System.Drawing.Size(30, 27);
-            this.Main_Mini_Switcher.TabIndex = 43;
-            this.Main_Mini_Switcher.Text = "↓";
-            this.Main_Mini_Switcher.UseVisualStyleBackColor = false;
-            this.Main_Mini_Switcher.Click += new System.EventHandler(this.Main_Mini_Switcher_Click);
-            // 
             // Main_PlayNext
             // 
             this.Main_PlayNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -1213,65 +1231,75 @@ namespace OSUplayer
             this.Main_Collections.UseVisualStyleBackColor = false;
             this.Main_Collections.Click += new System.EventHandler(this.Main_Collections_Click);
             // 
-            // Main_Option_Play_Fx
+            // UpdateTimer
             // 
-            this.Main_Option_Play_Fx.AccessibleDescription = "音效开关";
-            this.Main_Option_Play_Fx.AccessibleName = "音效开关";
-            this.Main_Option_Play_Fx.Checked = global::OSUplayer.Properties.Settings.Default.PlayFx;
-            this.Main_Option_Play_Fx.CheckOnClick = true;
-            this.Main_Option_Play_Fx.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.Main_Option_Play_Fx.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::OSUplayer.Properties.Settings.Default, "PlayFx", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.Main_Option_Play_Fx.Name = "Main_Option_Play_Fx";
-            this.Main_Option_Play_Fx.Size = new System.Drawing.Size(162, 24);
-            this.Main_Option_Play_Fx.Text = "音效开关";
+            this.UpdateTimer.Tick += new System.EventHandler(this.UpdateTimer_Tick);
             // 
-            // Main_Option_Play_Video
+            // NextTimer
             // 
-            this.Main_Option_Play_Video.AccessibleDescription = "视频开关";
-            this.Main_Option_Play_Video.AccessibleName = "视频开关";
-            this.Main_Option_Play_Video.Checked = global::OSUplayer.Properties.Settings.Default.PlayVideo;
-            this.Main_Option_Play_Video.CheckOnClick = true;
-            this.Main_Option_Play_Video.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.Main_Option_Play_Video.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::OSUplayer.Properties.Settings.Default, "PlayVideo", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.Main_Option_Play_Video.Name = "Main_Option_Play_Video";
-            this.Main_Option_Play_Video.Size = new System.Drawing.Size(162, 24);
-            this.Main_Option_Play_Video.Text = "视频开关";
+            this.NextTimer.Interval = 200;
+            this.NextTimer.Tick += new System.EventHandler(this.NextTimer_Tick);
             // 
-            // Main_Option_Sync_QQ
+            // SearchTimer
             // 
-            this.Main_Option_Sync_QQ.AccessibleDescription = "QQ状态同步";
-            this.Main_Option_Sync_QQ.AccessibleName = "QQ状态同步";
-            this.Main_Option_Sync_QQ.Checked = global::OSUplayer.Properties.Settings.Default.SyncQQ;
-            this.Main_Option_Sync_QQ.CheckOnClick = true;
-            this.Main_Option_Sync_QQ.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.Main_Option_Sync_QQ.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::OSUplayer.Properties.Settings.Default, "SyncQQ", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.Main_Option_Sync_QQ.Name = "Main_Option_Sync_QQ";
-            this.Main_Option_Sync_QQ.Size = new System.Drawing.Size(162, 24);
-            this.Main_Option_Sync_QQ.Text = "QQ状态同步";
-            this.Main_Option_Sync_QQ.Click += new System.EventHandler(this.Main_Option_Sync_QQ_Click);
+            this.SearchTimer.Interval = 500;
+            this.SearchTimer.Tick += new System.EventHandler(this.SearchTimer_Tick);
             // 
-            // Main_Option_Play_SB
+            // Main_MenuStrip
             // 
-            this.Main_Option_Play_SB.AccessibleDescription = "SB开关";
-            this.Main_Option_Play_SB.AccessibleName = "SB开关";
-            this.Main_Option_Play_SB.Checked = global::OSUplayer.Properties.Settings.Default.PlaySB;
-            this.Main_Option_Play_SB.CheckOnClick = true;
-            this.Main_Option_Play_SB.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::OSUplayer.Properties.Settings.Default, "PlaySB", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.Main_Option_Play_SB.Name = "Main_Option_Play_SB";
-            this.Main_Option_Play_SB.Size = new System.Drawing.Size(162, 24);
-            this.Main_Option_Play_SB.Text = "SB开关";
+            this.Main_MenuStrip.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.Main_MenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Main_File_Menu,
+            this.Main_Tool_Menu,
+            this.Main_Option_Menu,
+            this.Main_About,
+            this.Main_LanguageSelect,
+            this.Main_QQ_Hint_Label});
+            this.Main_MenuStrip.Location = new System.Drawing.Point(4, 4);
+            this.Main_MenuStrip.Name = "Main_MenuStrip";
+            this.Main_MenuStrip.Padding = new System.Windows.Forms.Padding(0);
+            this.Main_MenuStrip.Size = new System.Drawing.Size(874, 24);
+            this.Main_MenuStrip.TabIndex = 2;
+            this.Main_MenuStrip.Text = "MenuStrip1";
             // 
-            // Main_Option_Show_Popup
+            // Main_LanguageSelect
             // 
-            this.Main_Option_Show_Popup.AccessibleDescription = "显示气泡";
-            this.Main_Option_Show_Popup.AccessibleName = "显示气泡";
-            this.Main_Option_Show_Popup.Checked = global::OSUplayer.Properties.Settings.Default.ShowPopup;
-            this.Main_Option_Show_Popup.CheckOnClick = true;
-            this.Main_Option_Show_Popup.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.Main_Option_Show_Popup.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::OSUplayer.Properties.Settings.Default, "ShowPopup", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.Main_Option_Show_Popup.Name = "Main_Option_Show_Popup";
-            this.Main_Option_Show_Popup.Size = new System.Drawing.Size(162, 24);
-            this.Main_Option_Show_Popup.Text = "显示气泡";
+            this.Main_LanguageSelect.AccessibleDescription = "语言(&L)";
+            this.Main_LanguageSelect.AccessibleName = "语言(&L)";
+            this.Main_LanguageSelect.Name = "Main_LanguageSelect";
+            this.Main_LanguageSelect.Size = new System.Drawing.Size(69, 24);
+            this.Main_LanguageSelect.Text = "语言(&L)";
+            // 
+            // Main_QQ_Hint_Label
+            // 
+            this.Main_QQ_Hint_Label.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.Main_QQ_Hint_Label.Name = "Main_QQ_Hint_Label";
+            this.Main_QQ_Hint_Label.Size = new System.Drawing.Size(97, 21);
+            this.Main_QQ_Hint_Label.Text = "当前同步QQ:";
+            // 
+            // Main_Sort_Label
+            // 
+            this.Main_Sort_Label.AutoSize = true;
+            this.Main_Sort_Label.Location = new System.Drawing.Point(7, 111);
+            this.Main_Sort_Label.Name = "Main_Sort_Label";
+            this.Main_Sort_Label.Size = new System.Drawing.Size(67, 15);
+            this.Main_Sort_Label.TabIndex = 7;
+            this.Main_Sort_Label.Text = "排序方式";
+            // 
+            // Main_Sort_Setting
+            // 
+            this.Main_Sort_Setting.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.Main_Sort_Setting.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Main_Sort_Setting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Main_Sort_Setting.FormattingEnabled = true;
+            this.Main_Sort_Setting.Items.AddRange(new object[] {
+            "Artist",
+            "Title"});
+            this.Main_Sort_Setting.Location = new System.Drawing.Point(80, 108);
+            this.Main_Sort_Setting.Name = "Main_Sort_Setting";
+            this.Main_Sort_Setting.Size = new System.Drawing.Size(121, 23);
+            this.Main_Sort_Setting.TabIndex = 8;
+            this.Main_Sort_Setting.SelectedIndexChanged += new System.EventHandler(this.Main_Sort_Setting_SelectedIndexChanged);
             // 
             // Main
             // 
@@ -1291,6 +1319,8 @@ namespace OSUplayer
             this.SizeChanged += new System.EventHandler(this.Main_SizeChanged);
             this.Main_Panel.ResumeLayout(false);
             this.Main_Panel.PerformLayout();
+            this.Main_Tab_Control_Panel.ResumeLayout(false);
+            this.Main_Tab_Control_Panel.PerformLayout();
             this.Main_TabPanel.ResumeLayout(false);
             this.Main_TabControl.ResumeLayout(false);
             this.Main_TabPage1.ResumeLayout(false);
@@ -1304,8 +1334,6 @@ namespace OSUplayer
             this.Main_Core_Panel.PerformLayout();
             this.Main_MenuStrip.ResumeLayout(false);
             this.Main_MenuStrip.PerformLayout();
-            this.Main_Tab_Control_Panel.ResumeLayout(false);
-            this.Main_Tab_Control_Panel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1400,6 +1428,8 @@ namespace OSUplayer
         private NoFocusButton Main_PlayPrev;
         private System.Windows.Forms.ToolStripLabel Main_QQ_Hint_Label;
         private System.Windows.Forms.TableLayoutPanel Main_Tab_Control_Panel;
+        private System.Windows.Forms.ComboBox Main_Sort_Setting;
+        private System.Windows.Forms.Label Main_Sort_Label;
 
 
     }

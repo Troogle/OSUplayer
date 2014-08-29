@@ -37,7 +37,9 @@ namespace OSUplayer
         /// </summary>
         public static List<string> PlayList
         {
-            get { return Collections[CurrentListName]; }
+            get {
+                return Collections.ContainsKey(CurrentListName) ? Collections[CurrentListName] : null;
+            }
         }
 
 
