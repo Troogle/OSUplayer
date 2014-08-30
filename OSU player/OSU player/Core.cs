@@ -237,7 +237,7 @@ namespace OSUplayer
             {
                 Settings.Default.Upgrade();
                 Settings.Default.Save();
-                if (File.Exists("list.db")) File.Delete("list.db");
+                //if (File.Exists("list.db")) File.Delete("list.db");
             }
             if (Settings.Default.QQuin == "0")
             {
