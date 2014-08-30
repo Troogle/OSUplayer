@@ -37,7 +37,8 @@ namespace OSUplayer
         /// </summary>
         public static List<string> PlayList
         {
-            get {
+            get
+            {
                 return Collections.ContainsKey(CurrentListName) ? Collections[CurrentListName] : null;
             }
         }
@@ -222,6 +223,7 @@ namespace OSUplayer
         {
             Collections.Clear();
             Collections.Add("Full", Allsets.Select(d => d.Value.GetHash()).ToList());
+            PlayList.Sort(((a, b) => (Allsets[a].ArtistCompare(Allsets[b]))));
             var collectpath = Path.Combine(Settings.Default.OSUpath, "collection.db");
             if (File.Exists(collectpath)) { OsuDB.ReadCollect(collectpath); }
         }
@@ -470,17 +472,18 @@ namespace OSUplayer
             return next;
         }
 
-        public static void SetHistory(bool front = false,bool back=false,bool init=false)
+        public static void SetHistory(bool front = false, bool back = false, bool init = false)
         {
             if (init)
             {
-                if (PlayHistory.Count==0)
+                if (PlayHistory.Count == 0)
                 {
                     PlayHistory.Add(CurrentSet.GetHash());
                     _historyPointer = 0;
                 }
 
-            }else if (front)
+            }
+            else if (front)
             {
                 if (_historyPointer == -1) _historyPointer = 0;
                 PlayHistory.Insert(0, CurrentSet.GetHash());
@@ -489,7 +492,7 @@ namespace OSUplayer
             {
                 _historyPointer++;
                 if (back)
-                {                  
+                {
                     PlayHistory.RemoveRange(_historyPointer, PlayHistory.Count - _historyPointer);
                 }
                 PlayHistory.Add(CurrentSet.GetHash());
@@ -506,7 +509,7 @@ namespace OSUplayer
                 if (prevsong != -1) return prevsong;
                 PlayHistory.RemoveRange(0, _historyPointer + 1);
                 _historyPointer = 0;
-            }            
+            }
             int prev;
             var now = CurrentSetIndex;
             if (CurrentSetIndex == -1)
@@ -558,54 +561,92 @@ namespace OSUplayer
             }
         }
 
-        public static ListViewItem[] Getdetail()
+        public static ListViewItem Getdetail(int index)
         {
-            var detail = new ListViewItem[16];
-            detail[0] = new ListViewItem(LanguageManager.Get("Main_ListDetail_Title"));
-            detail[0].SubItems.Add(TmpBeatmap.Title);
-            detail[1] = new ListViewItem(LanguageManager.Get("Main_ListDetail_Artist"));
-            detail[1].SubItems.Add(TmpBeatmap.Artist);
-            detail[2] = new ListViewItem(LanguageManager.Get("Main_ListDetail_Mapper"));
-            detail[2].SubItems.Add(TmpBeatmap.Creator);
-            detail[3] = new ListViewItem(LanguageManager.Get("Main_ListDetail_Source"));
-            detail[3].SubItems.Add(TmpBeatmap.Source);
-            detail[4] = new ListViewItem(LanguageManager.Get("Main_ListDetail_Mode"));
-            detail[4].SubItems.Add(Enum.GetName(typeof(Modes), TmpBeatmap.Mode));
-            detail[5] = new ListViewItem("SetID");
-            detail[5].SubItems.Add(TmpBeatmap.BeatmapsetID.ToString());
-            detail[6] = new ListViewItem("ID");
-            detail[6].SubItems.Add(TmpBeatmap.BeatmapID.ToString());
-            detail[7] = new ListViewItem(LanguageManager.Get("Main_ListDetail_WAVPath"));
-            detail[7].SubItems.Add(TmpBeatmap.Audio);
-            if (!File.Exists(TmpBeatmap.Audio))
+            ListViewItem ret;
+            switch (index)
             {
-                detail[7].ForeColor = Color.Red;
+                case 0:
+                    ret = new ListViewItem(LanguageManager.Get("Main_ListDetail_Title"));
+                    ret.SubItems.Add(TmpBeatmap.Title);
+                    break;
+                case 1:
+                    ret = new ListViewItem(LanguageManager.Get("Main_ListDetail_Artist"));
+                    ret.SubItems.Add(TmpBeatmap.Artist);
+                    break;
+                case 2:
+                    ret = new ListViewItem(LanguageManager.Get("Main_ListDetail_Mapper"));
+                    ret.SubItems.Add(TmpBeatmap.Creator);
+                    break;
+                case 3:
+                    ret = new ListViewItem(LanguageManager.Get("Main_ListDetail_Source"));
+                    ret.SubItems.Add(TmpBeatmap.Source);
+                    break;
+                case 4:
+                    ret = new ListViewItem(LanguageManager.Get("Main_ListDetail_Mode"));
+                    ret.SubItems.Add(Enum.GetName(typeof(Modes), TmpBeatmap.Mode));
+                    break;
+                case 5:
+                    ret = new ListViewItem("SetID");
+                    ret.SubItems.Add(TmpBeatmap.BeatmapsetID.ToString());
+                    break;
+                case 6:
+                    ret = new ListViewItem("ID");
+                    ret.SubItems.Add(TmpBeatmap.BeatmapID.ToString());
+                    break;
+                case 7:
+                    ret = new ListViewItem(LanguageManager.Get("Main_ListDetail_WAVPath"));
+                    ret.SubItems.Add(TmpBeatmap.Audio);
+                    if (!File.Exists(TmpBeatmap.Audio))
+                    {
+                        ret.ForeColor = Color.Red;
+                    }
+                    break;
+                case 8:
+                    ret = new ListViewItem(LanguageManager.Get("Main_ListDetail_BGPath"));
+                    ret.SubItems.Add(TmpBeatmap.Background);
+                    if (!File.Exists(TmpBeatmap.Background))
+                    {
+                        ret.ForeColor = Color.Red;
+                    }
+                    break;
+                case 9:
+                    ret = new ListViewItem(LanguageManager.Get("Main_ListDetail_VideoPath"));
+                    ret.SubItems.Add(TmpBeatmap.Video);
+                    if (!String.IsNullOrEmpty(TmpBeatmap.Video) && !File.Exists(TmpBeatmap.Video))
+                    {
+                        ret.ForeColor = Color.Red;
+                    }
+                    break;
+                case 10:
+                    ret = new ListViewItem(LanguageManager.Get("Main_ListDetail_FileVersion"));
+                    ret.SubItems.Add(TmpBeatmap.FileVersion);
+                    break;
+                case 11:
+                    ret = new ListViewItem("HP");
+                    ret.SubItems.Add(TmpBeatmap.HPDrainRate.ToString());
+                    break;
+                case 12:
+                    ret = new ListViewItem("CS");
+                    ret.SubItems.Add(TmpBeatmap.CircleSize.ToString());
+                    break;
+                case 13:
+                    ret = new ListViewItem("OD");
+                    ret.SubItems.Add(TmpBeatmap.OverallDifficulty.ToString());
+                    break;
+                case 14:
+                    ret = new ListViewItem("AR");
+                    ret.SubItems.Add(TmpBeatmap.ApproachRate.ToString());
+                    break;
+                case 15:
+                    ret = new ListViewItem("MD5");
+                    ret.SubItems.Add(TmpBeatmap.GetHash());
+                    break;
+                default:
+                    ret = new ListViewItem();
+                    break;
             }
-            detail[8] = new ListViewItem(LanguageManager.Get("Main_ListDetail_BGPath"));
-            detail[8].SubItems.Add(TmpBeatmap.Background);
-            if (!File.Exists(TmpBeatmap.Background))
-            {
-                detail[8].ForeColor = Color.Red;
-            }
-            detail[9] = new ListViewItem(LanguageManager.Get("Main_ListDetail_VideoPath"));
-            detail[9].SubItems.Add(TmpBeatmap.Video);
-            if (!String.IsNullOrEmpty(TmpBeatmap.Video) && !File.Exists(TmpBeatmap.Video))
-            {
-                detail[9].ForeColor = Color.Red;
-            }
-            detail[10] = new ListViewItem(LanguageManager.Get("Main_ListDetail_FileVersion"));
-            detail[10].SubItems.Add(TmpBeatmap.FileVersion);
-            detail[11] = new ListViewItem("HP");
-            detail[11].SubItems.Add(TmpBeatmap.HPDrainRate.ToString());
-            detail[12] = new ListViewItem("CS");
-            detail[12].SubItems.Add(TmpBeatmap.CircleSize.ToString());
-            detail[13] = new ListViewItem("OD");
-            detail[13].SubItems.Add(TmpBeatmap.OverallDifficulty.ToString());
-            detail[14] = new ListViewItem("AR");
-            detail[14].SubItems.Add(TmpBeatmap.ApproachRate.ToString());
-            detail[15] = new ListViewItem("MD5");
-            detail[15].SubItems.Add(TmpBeatmap.GetHash());
-            return detail;
+            return ret;
         }
 
         private static void Render(object sender)

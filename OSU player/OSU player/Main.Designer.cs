@@ -82,6 +82,8 @@ namespace OSUplayer
             this.Main_TabPage3 = new System.Windows.Forms.TabPage();
             this.Main_DiffList = new System.Windows.Forms.ListBox();
             this.Main_TabPage4 = new System.Windows.Forms.TabPage();
+            this.Main_Sort_Setting = new System.Windows.Forms.ComboBox();
+            this.Main_Sort_Label = new System.Windows.Forms.Label();
             this.Main_Option_Play_SB_Box = new System.Windows.Forms.CheckBox();
             this.Main_Option_Play_Video_Box = new System.Windows.Forms.CheckBox();
             this.Main_Option_Play_Fx_Box = new System.Windows.Forms.CheckBox();
@@ -121,8 +123,6 @@ namespace OSUplayer
             this.Main_MenuStrip = new System.Windows.Forms.MenuStrip();
             this.Main_LanguageSelect = new System.Windows.Forms.ToolStripMenuItem();
             this.Main_QQ_Hint_Label = new System.Windows.Forms.ToolStripLabel();
-            this.Main_Sort_Label = new System.Windows.Forms.Label();
-            this.Main_Sort_Setting = new System.Windows.Forms.ComboBox();
             this.Main_Panel.SuspendLayout();
             this.Main_Tab_Control_Panel.SuspendLayout();
             this.Main_TabPanel.SuspendLayout();
@@ -602,6 +602,8 @@ namespace OSUplayer
             this.Main_ListDetail.TabIndex = 40;
             this.Main_ListDetail.UseCompatibleStateImageBehavior = false;
             this.Main_ListDetail.View = System.Windows.Forms.View.Details;
+            this.Main_ListDetail.VirtualMode = true;
+            this.Main_ListDetail.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.Main_ListDetail_RetrieveVirtualItem);
             // 
             // Main_ListDetail_Key
             // 
@@ -705,6 +707,30 @@ namespace OSUplayer
             this.Main_TabPage4.TabIndex = 3;
             this.Main_TabPage4.Text = "tabPage1";
             this.Main_TabPage4.UseVisualStyleBackColor = true;
+            // 
+            // Main_Sort_Setting
+            // 
+            this.Main_Sort_Setting.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.Main_Sort_Setting.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Main_Sort_Setting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Main_Sort_Setting.FormattingEnabled = true;
+            this.Main_Sort_Setting.Items.AddRange(new object[] {
+            "Artist",
+            "Title"});
+            this.Main_Sort_Setting.Location = new System.Drawing.Point(80, 108);
+            this.Main_Sort_Setting.Name = "Main_Sort_Setting";
+            this.Main_Sort_Setting.Size = new System.Drawing.Size(121, 23);
+            this.Main_Sort_Setting.TabIndex = 8;
+            this.Main_Sort_Setting.SelectedIndexChanged += new System.EventHandler(this.Main_Sort_Setting_SelectedIndexChanged);
+            // 
+            // Main_Sort_Label
+            // 
+            this.Main_Sort_Label.AutoSize = true;
+            this.Main_Sort_Label.Location = new System.Drawing.Point(7, 111);
+            this.Main_Sort_Label.Name = "Main_Sort_Label";
+            this.Main_Sort_Label.Size = new System.Drawing.Size(67, 15);
+            this.Main_Sort_Label.TabIndex = 7;
+            this.Main_Sort_Label.Text = "排序方式";
             // 
             // Main_Option_Play_SB_Box
             // 
@@ -1276,30 +1302,6 @@ namespace OSUplayer
             this.Main_QQ_Hint_Label.Name = "Main_QQ_Hint_Label";
             this.Main_QQ_Hint_Label.Size = new System.Drawing.Size(97, 21);
             this.Main_QQ_Hint_Label.Text = "当前同步QQ:";
-            // 
-            // Main_Sort_Label
-            // 
-            this.Main_Sort_Label.AutoSize = true;
-            this.Main_Sort_Label.Location = new System.Drawing.Point(7, 111);
-            this.Main_Sort_Label.Name = "Main_Sort_Label";
-            this.Main_Sort_Label.Size = new System.Drawing.Size(67, 15);
-            this.Main_Sort_Label.TabIndex = 7;
-            this.Main_Sort_Label.Text = "排序方式";
-            // 
-            // Main_Sort_Setting
-            // 
-            this.Main_Sort_Setting.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.Main_Sort_Setting.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.Main_Sort_Setting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Main_Sort_Setting.FormattingEnabled = true;
-            this.Main_Sort_Setting.Items.AddRange(new object[] {
-            "Artist",
-            "Title"});
-            this.Main_Sort_Setting.Location = new System.Drawing.Point(80, 108);
-            this.Main_Sort_Setting.Name = "Main_Sort_Setting";
-            this.Main_Sort_Setting.Size = new System.Drawing.Size(121, 23);
-            this.Main_Sort_Setting.TabIndex = 8;
-            this.Main_Sort_Setting.SelectedIndexChanged += new System.EventHandler(this.Main_Sort_Setting_SelectedIndexChanged);
             // 
             // Main
             // 

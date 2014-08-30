@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -198,7 +199,7 @@ namespace OSUplayer.OsuFiles
         public int setid;
         [NonSerialized()]
         public bool Detailed = false;
-        public Dictionary<String,Beatmap> Diffs;
+        public Dictionary<String, Beatmap> Diffs;
         public string tags;
         private static string Checksample(string pre, string mid, string end)
         {
@@ -289,7 +290,7 @@ namespace OSUplayer.OsuFiles
                 tags += " " + tmpbm.Source;
             }
             count++;
-            Diffs.Add(tmpbm.GetHash(),tmpbm);
+            Diffs.Add(tmpbm.GetHash(), tmpbm);
             tags += " " + tmpbm.Version;
         }
         public BeatmapSet()
@@ -332,7 +333,7 @@ namespace OSUplayer.OsuFiles
             return Hash;
         }
 
-        private List<Beatmap> _difflist=new List<Beatmap>();
+        private List<Beatmap> _difflist = new List<Beatmap>();
 
         public List<Beatmap> GetBeatmaps()
         {
@@ -340,7 +341,7 @@ namespace OSUplayer.OsuFiles
             _difflist = Diffs.Values.ToList();
             _difflist.Sort();
             return _difflist;
-        } 
+        }
         public override string ToString()
         {
             return name;
@@ -361,6 +362,39 @@ namespace OSUplayer.OsuFiles
             {
                 map.SaveAudio(toLocation);
             }
+        }
+
+        public int ArtistCompare(BeatmapSet obj)
+        {
+            if (obj == null) return 1;
+            if (obj.GetBeatmaps().Count == 0) return 1;
+            if (_difflist.Count == 0) return -1;
+            if (obj.GetBeatmaps()[0].ArtistRomanized == "") return 1;
+            var comp = String.Compare(_difflist[0].ArtistRomanized, obj.GetBeatmaps()[0].ArtistRomanized,
+                StringComparison.CurrentCultureIgnoreCase);
+            if (comp == 0)
+            {
+                var tcomp = String.Compare(_difflist[0].TitleRomanized, obj.GetBeatmaps()[0].TitleRomanized,
+                StringComparison.CurrentCultureIgnoreCase);
+                return tcomp;
+            }
+            return comp;
+        }
+        public int TitleCompare(BeatmapSet obj)
+        {
+            if (obj == null) return 1;
+            if (obj.GetBeatmaps().Count == 0) return 1;
+            if (_difflist.Count == 0) return -1;
+            if (obj.GetBeatmaps()[0].TitleRomanized == "") return 1;
+            var comp = String.Compare(_difflist[0].TitleRomanized, obj.GetBeatmaps()[0].TitleRomanized,
+                StringComparison.CurrentCultureIgnoreCase);
+            if (comp == 0)
+            {
+                var acomp = String.Compare(_difflist[0].ArtistRomanized, obj.GetBeatmaps()[0].ArtistRomanized,
+                StringComparison.CurrentCultureIgnoreCase);
+                return acomp;
+            }
+            return comp;
         }
     }
     public class MapAudioComparer : IEqualityComparer<Beatmap>

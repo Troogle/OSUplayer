@@ -109,8 +109,8 @@ namespace OSUplayer
 
         private void SetDetail()
         {
-            Main_ListDetail.Items.Clear();
-            Main_ListDetail.Items.AddRange(Core.Getdetail());
+            Main_ListDetail.VirtualListSize = 16;
+            Main_ListDetail.Refresh();
             Core.SetBG();
         }
 
@@ -648,8 +648,8 @@ namespace OSUplayer
                 }
                 else if (Core.Isplaying)
                 {
-                    Main_ListDetail.Items.Clear();
-                    Main_ListDetail.Items.AddRange(Core.Getdetail());
+                    Main_ListDetail.VirtualListSize = 16;
+                    Main_ListDetail.Refresh();
                 }
                 else
                 {
@@ -806,23 +806,23 @@ namespace OSUplayer
                 InitialDirectory = Directory.GetCurrentDirectory()
             };
             if (DialogResult.OK != dialog.ShowDialog()) return;
-            using (var Stream = new StreamWriter(dialog.FileName, false, Encoding.UTF8))
+            using (var stream = new StreamWriter(dialog.FileName, false, Encoding.UTF8))
             {
-                Stream.Write(Resources.HtmlBase);
+                stream.Write(Resources.HtmlBase);
                 for (var i = 0; i < Core.PlayList.Count; i++)
                 {
                     var song = Core.Allsets[Core.PlayList[i]];
-                    Stream.WriteLine("<tr>");
-                    Stream.WriteLine("<td class='nobg'><span class='alt'>{0}</span></td>", i + 1);
-                    Stream.WriteLine("<td class='nobg'><span class='alt'><a href='https://osu.ppy.sh/s/{0}' target='_new'>{1}</a></span></td>", song.setid, song.ToString());
-                    Stream.WriteLine("<td class='nobg'><span class='alt'>{0}</span></td>", song.setid);
-                    Stream.WriteLine("<td class='nobg'><span class='alt'><a href='http://bloodcat.com/osu/m/{0}' target='_new'>Download</a></span></td>", song.setid);
-                    Stream.WriteLine("<td class='nobg'><span class='alt'><a href='http://loli.al/s/{0}' target='_new'>Download</a></span></td>", song.setid);
-                    Stream.WriteLine("<td class='nobg'><span class='alt'><a href='http://osu.mengsky.net/d.php?id={0}' target='_new'>Download</a></span></td>", song.setid);
-                    Stream.WriteLine("</tr>");
+                    stream.WriteLine("<tr>");
+                    stream.WriteLine("<td class='nobg'><span class='alt'>{0}</span></td>", i + 1);
+                    stream.WriteLine("<td class='nobg'><span class='alt'><a href='https://osu.ppy.sh/s/{0}' target='_new'>{1}</a></span></td>", song.setid, song.ToString());
+                    stream.WriteLine("<td class='nobg'><span class='alt'>{0}</span></td>", song.setid);
+                    stream.WriteLine("<td class='nobg'><span class='alt'><a href='http://bloodcat.com/osu/m/{0}' target='_new'>Download</a></span></td>", song.setid);
+                    stream.WriteLine("<td class='nobg'><span class='alt'><a href='http://loli.al/s/{0}' target='_new'>Download</a></span></td>", song.setid);
+                    stream.WriteLine("<td class='nobg'><span class='alt'><a href='http://osu.mengsky.net/d.php?id={0}' target='_new'>Download</a></span></td>", song.setid);
+                    stream.WriteLine("</tr>");
                 }
-                Stream.WriteLine("</table>");
-                Stream.WriteLine("</div></body></html>");
+                stream.WriteLine("</table>");
+                stream.WriteLine("</div></body></html>");
             }
             Process.Start(dialog.FileName);
         }
@@ -949,19 +949,21 @@ namespace OSUplayer
                 case 0:
                     Core.PlayList.Sort(
                         ((a, b) =>
-                            (System.String.Compare(Core.Allsets[a].GetBeatmaps()[0].ArtistRomanized,
-                                Core.Allsets[b].GetBeatmaps()[0].ArtistRomanized,
-                                System.StringComparison.OrdinalIgnoreCase))));
-                    Main_PlayList.Refresh();
+                            (Core.Allsets[a].ArtistCompare(Core.Allsets[b]))));
+                    RefreshList();
                     break;
                 case 1:
                     Core.PlayList.Sort(
                         ((a, b) =>
-                            (System.String.Compare(Core.Allsets[a].GetBeatmaps()[0].TitleRomanized,
-                                Core.Allsets[b].GetBeatmaps()[0].TitleRomanized,
-                                System.StringComparison.OrdinalIgnoreCase))));
+                            (Core.Allsets[a].TitleCompare(Core.Allsets[b]))));
+                    RefreshList();
                     break;
             }
+        }
+
+        private void Main_ListDetail_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
+        {
+            e.Item = Core.Getdetail(e.ItemIndex);
         }
     }
 }
