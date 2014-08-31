@@ -144,19 +144,29 @@ namespace OSUplayer
         /// </summary>
         private static void Getpath()
         {
-            if (Settings.Default.OSUpath != "" && File.Exists(Settings.Default.OSUpath + "\\osu!.exe")) return;
-            try
+            if (Settings.Default.OSUpath == "" || !File.Exists(Settings.Default.OSUpath + "\\osu!.exe"))
             {
-                var rk = Registry.ClassesRoot.OpenSubKey("osu!\\shell\\open\\command");
-                if (rk == null) throw new Exception("OSU not installed(?");
-                var str = rk.GetValue("").ToString();
-                str = str.Substring(1, str.LastIndexOf(@"\", StringComparison.Ordinal));
-                Settings.Default.OSUpath = str;
+                try
+                {
+                    var rk = Registry.ClassesRoot.OpenSubKey("osu!\\shell\\open\\command");
+                    if (rk == null) throw new Exception("OSU not installed(?");
+                    var str = rk.GetValue("").ToString();
+                    str = str.Substring(1, str.LastIndexOf(@"\", StringComparison.Ordinal));
+                    Settings.Default.OSUpath = str;
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show(LanguageManager.Get("Core_Error_Osupath_Text"), LanguageManager.Get("Error_Text"),
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    while (!Setpath())
+                    {
+                    }
+                }
             }
-            catch (Exception)
+            if (!File.Exists("bass_fx.dll"))
             {
-                MessageBox.Show(LanguageManager.Get("Core_Error_Osupath_Text"), LanguageManager.Get("Error_Text"), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                while (!Setpath()) { }
+                File.Copy(Settings.Default.OSUpath + "\\bass_fx.dll", "bass_fx.dll");
+                Un4seen.Bass.AddOn.Fx.BassFx.LoadMe();
             }
         }
 

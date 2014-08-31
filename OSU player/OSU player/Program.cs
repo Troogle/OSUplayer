@@ -36,6 +36,11 @@ namespace OSUplayer
                 }
                 var filename = Assembly.GetExecutingAssembly().Location;
                 if (File.Exists(filename + ".detele")) File.Delete(filename + ".delete");
+                if (!File.Exists("bass_fx.dll"))
+                    if (File.Exists(Properties.Settings.Default.OSUpath + "\\bass_fx.dll"))
+                        File.Copy(Properties.Settings.Default.OSUpath + "\\bass_fx.dll", "bass_fx.dll");
+                    else
+                        MessageBox.Show(@"如果不能播放，请重新下载完整包！\nPlease re-download the full pack if it can't play!", @"Tips", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Un4seen.Bass.BassNet.Registration(PrivateConfig.BassEmail, PrivateConfig.BassReg);
                 Un4seen.Bass.AddOn.Fx.BassFx.LoadMe();
                 LanguageManager.InitLanguage(System.Globalization.CultureInfo.CurrentCulture.Name);
@@ -73,24 +78,24 @@ namespace OSUplayer
         /// <param name="ex">异常对象</param>
         static void GetExceptionMsg(Exception ex)
         {
-/*
-            try
-            {
-                WebRequest request;
-                if (ex != null)
-                {
-                    int start = ex.StackTrace.IndexOf("OSUplayer");
-                    request = WebRequest.Create("http://wenwo.at/counter.php?error=" + ex.GetType().Name + ex.Message + " " + ex.StackTrace.Substring(start, 300 > ex.StackTrace.Length - start - 1 ? ex.StackTrace.Length - start - 1 : 300));
-                    request.Credentials = CredentialCache.DefaultCredentials;
-                    request.Timeout = 2000;
-                    request.GetResponse();
-                }
-            }
-            catch
-            {
-                return;
-            }
-*/
+            /*
+                        try
+                        {
+                            WebRequest request;
+                            if (ex != null)
+                            {
+                                int start = ex.StackTrace.IndexOf("OSUplayer");
+                                request = WebRequest.Create("http://wenwo.at/counter.php?error=" + ex.GetType().Name + ex.Message + " " + ex.StackTrace.Substring(start, 300 > ex.StackTrace.Length - start - 1 ? ex.StackTrace.Length - start - 1 : 300));
+                                request.Credentials = CredentialCache.DefaultCredentials;
+                                request.Timeout = 2000;
+                                request.GetResponse();
+                            }
+                        }
+                        catch
+                        {
+                            return;
+                        }
+            */
             var sb = new StringBuilder();
             if (ex == null) return;
             sb.AppendLine("【异常类型】：" + ex.GetType().Name);
