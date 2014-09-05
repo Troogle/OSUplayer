@@ -503,6 +503,7 @@ namespace OSUplayer
 
         private void Main_File_Export_MP3_Click(object sender, EventArgs e)
         {
+            var ext = new FileInfo(Core.CurrentBeatmap.Audio).Extension;
             var dialog = new SaveFileDialog
             {
                 CheckFileExists = false,
@@ -510,13 +511,15 @@ namespace OSUplayer
                 AddExtension = true,
                 OverwritePrompt = true,
                 FileName = Core.CurrentBeatmap.Title,
-                DefaultExt = new FileInfo(Core.CurrentBeatmap.Audio).Extension,
+                DefaultExt = ext,
                 Filter = @"All files (*.*)|*.*",
                 // InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
             };
             if (DialogResult.OK == dialog.ShowDialog())
             {
-                File.Copy(Core.CurrentBeatmap.Audio, dialog.FileName, true);
+                var tofile = dialog.FileName;
+                if (tofile.Substring(tofile.LastIndexOf(".")) != ext) tofile += ext;
+                File.Copy(Core.CurrentBeatmap.Audio, tofile, true);
             }
         }
 

@@ -290,7 +290,12 @@ namespace OSUplayer.OsuFiles
                 tags += " " + tmpbm.Source;
             }
             count++;
-            Diffs.Add(tmpbm.GetHash(), tmpbm);
+            if (!Diffs.ContainsKey(tmpbm.GetHash())) Diffs.Add(tmpbm.GetHash(), tmpbm);
+            else
+            {
+                Diffs[tmpbm.GetHash()] = tmpbm;
+                count--;
+            }
             tags += " " + tmpbm.Version;
         }
         public BeatmapSet()
