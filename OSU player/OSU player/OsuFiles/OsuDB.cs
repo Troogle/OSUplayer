@@ -407,7 +407,11 @@ namespace OSUplayer.OsuFiles
                         }
                         else
                         {
-                            Core.Allsets.Add(tmpset.GetHash(), tmpset);
+                            if (!Core.Allsets.ContainsKey(tmpset.GetHash())) Core.Allsets.Add(tmpset.GetHash(), tmpset);
+                            else
+                            {
+                                Core.Allsets[tmpset.GetHash()]= tmpset;
+                            }                      
                             tmpset = new BeatmapSet();
                             tmpset.Add(tmpbm);
                         }
