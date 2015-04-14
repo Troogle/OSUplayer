@@ -336,7 +336,7 @@ namespace OSUplayer
             this.Main_Option_Play_Fx.CheckState = System.Windows.Forms.CheckState.Checked;
             this.Main_Option_Play_Fx.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::OSUplayer.Properties.Settings.Default, "PlayFx", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.Main_Option_Play_Fx.Name = "Main_Option_Play_Fx";
-            this.Main_Option_Play_Fx.Size = new System.Drawing.Size(162, 24);
+            this.Main_Option_Play_Fx.Size = new System.Drawing.Size(162, 26);
             this.Main_Option_Play_Fx.Text = "音效开关";
             // 
             // Main_Option_Play_Video
@@ -348,7 +348,7 @@ namespace OSUplayer
             this.Main_Option_Play_Video.CheckState = System.Windows.Forms.CheckState.Checked;
             this.Main_Option_Play_Video.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::OSUplayer.Properties.Settings.Default, "PlayVideo", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.Main_Option_Play_Video.Name = "Main_Option_Play_Video";
-            this.Main_Option_Play_Video.Size = new System.Drawing.Size(162, 24);
+            this.Main_Option_Play_Video.Size = new System.Drawing.Size(162, 26);
             this.Main_Option_Play_Video.Text = "视频开关";
             // 
             // Main_Option_PlayMode
@@ -360,7 +360,7 @@ namespace OSUplayer
             this.Main_Option_PlayMode_Repeat,
             this.Main_Option_PlayMode_Random});
             this.Main_Option_PlayMode.Name = "Main_Option_PlayMode";
-            this.Main_Option_PlayMode.Size = new System.Drawing.Size(162, 24);
+            this.Main_Option_PlayMode.Size = new System.Drawing.Size(162, 26);
             this.Main_Option_PlayMode.Text = "播放模式";
             // 
             // Main_Option_PlayMode_Normal
@@ -395,7 +395,7 @@ namespace OSUplayer
             this.Main_Option_Select_QQ.AccessibleDescription = "选择QQ";
             this.Main_Option_Select_QQ.AccessibleName = "选择QQ";
             this.Main_Option_Select_QQ.Name = "Main_Option_Select_QQ";
-            this.Main_Option_Select_QQ.Size = new System.Drawing.Size(162, 24);
+            this.Main_Option_Select_QQ.Size = new System.Drawing.Size(162, 26);
             this.Main_Option_Select_QQ.Text = "选择QQ";
             this.Main_Option_Select_QQ.Click += new System.EventHandler(this.Main_Option_Select_QQ_Click);
             // 
@@ -408,7 +408,7 @@ namespace OSUplayer
             this.Main_Option_Sync_QQ.CheckState = System.Windows.Forms.CheckState.Checked;
             this.Main_Option_Sync_QQ.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::OSUplayer.Properties.Settings.Default, "SyncQQ", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.Main_Option_Sync_QQ.Name = "Main_Option_Sync_QQ";
-            this.Main_Option_Sync_QQ.Size = new System.Drawing.Size(162, 24);
+            this.Main_Option_Sync_QQ.Size = new System.Drawing.Size(162, 26);
             this.Main_Option_Sync_QQ.Text = "QQ状态同步";
             this.Main_Option_Sync_QQ.Click += new System.EventHandler(this.Main_Option_Sync_QQ_Click);
             // 
@@ -420,7 +420,7 @@ namespace OSUplayer
             this.Main_Option_Play_SB.CheckOnClick = true;
             this.Main_Option_Play_SB.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::OSUplayer.Properties.Settings.Default, "PlaySB", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.Main_Option_Play_SB.Name = "Main_Option_Play_SB";
-            this.Main_Option_Play_SB.Size = new System.Drawing.Size(162, 24);
+            this.Main_Option_Play_SB.Size = new System.Drawing.Size(162, 26);
             this.Main_Option_Play_SB.Text = "SB开关";
             // 
             // Main_Option_Show_Popup
@@ -432,7 +432,7 @@ namespace OSUplayer
             this.Main_Option_Show_Popup.CheckState = System.Windows.Forms.CheckState.Checked;
             this.Main_Option_Show_Popup.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::OSUplayer.Properties.Settings.Default, "ShowPopup", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.Main_Option_Show_Popup.Name = "Main_Option_Show_Popup";
-            this.Main_Option_Show_Popup.Size = new System.Drawing.Size(162, 24);
+            this.Main_Option_Show_Popup.Size = new System.Drawing.Size(162, 26);
             this.Main_Option_Show_Popup.Text = "显示气泡";
             // 
             // Main_About
@@ -910,6 +910,7 @@ namespace OSUplayer
             // 
             // Main_PlayList_RightClick_Menu
             // 
+            this.Main_PlayList_RightClick_Menu.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.Main_PlayList_RightClick_Menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Main_PlayList_RightClick_Copy_Current_Name,
             this.Main_PlayList_RightClick_Delete_One,
@@ -1274,6 +1275,7 @@ namespace OSUplayer
             // Main_MenuStrip
             // 
             this.Main_MenuStrip.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.Main_MenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.Main_MenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Main_File_Menu,
             this.Main_Tool_Menu,

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System;
 using System.Security.Cryptography;
@@ -17,7 +18,17 @@ namespace OSUplayer.OsuFiles
         public StoryBoard.StoryBoard SB;
         public int Totalhitcount { get; set; }
         public int Offset { get; set; }
-        public string Location { get; set; }
+        private string _location;
+        public string Location
+        {
+            get { return _location; } 
+            set
+            {
+                var raw = System.IO.Path.Combine(Properties.Settings.Default.OSUpath, value);
+                _location = !Directory.Exists(raw) ? System.IO.Path.Combine(Properties.Settings.Default.OSUpath + "Songs\\", value) : raw;
+            }
+        }
+
         public string Name { get; set; }
         public string Path { get; private set; }
         public bool HaveSB { get; private set; }

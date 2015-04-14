@@ -39,7 +39,7 @@ namespace OSUplayer
         {
             get
             {
-                return Collections.ContainsKey(CurrentListName) ? Collections[CurrentListName] : null;
+                return Collections.ContainsKey(CurrentListName) ? Collections[CurrentListName] : new List<string>();
             }
         }
 
@@ -267,7 +267,7 @@ namespace OSUplayer
         /// </summary>
         private static void Initset()
         {
-            if (DBSupporter.LoadList())
+            if (DBSupporter.LoadList() && (Allsets != null))
             {
                 Initplaylist();
             }

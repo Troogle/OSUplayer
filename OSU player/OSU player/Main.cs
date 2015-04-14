@@ -216,12 +216,11 @@ namespace OSUplayer
             {
 
                 int currentset = Core.CurrentSetIndex;
-                if (currentset == -1)
+                if (currentset != -1)
                 {
-                    currentset = 0;
-                }
-                Main_PlayList.SelectedIndices.Add(currentset);
-                Main_PlayList.EnsureVisible(currentset);
+                    Main_PlayList.SelectedIndices.Add(currentset);
+                    Main_PlayList.EnsureVisible(currentset);
+                }     
             }
             Main_PlayList.Focus();
         }
