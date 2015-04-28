@@ -290,10 +290,11 @@ namespace OSUplayer.OsuFiles
                 tags += " " + tmpbm.Source;
             }
             count++;
-            if (!Diffs.ContainsKey(tmpbm.GetHash())) Diffs.Add(tmpbm.GetHash(), tmpbm);
+            var bmHash = tmpbm.GetHash();
+            if (!Diffs.ContainsKey(bmHash)) Diffs.Add(bmHash, tmpbm);
             else
             {
-                Diffs[tmpbm.GetHash()] = tmpbm;
+                Diffs[bmHash] = tmpbm;
                 count--;
             }
             tags += " " + tmpbm.Version;

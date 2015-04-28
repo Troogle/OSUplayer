@@ -92,19 +92,27 @@ namespace OSUplayer
         private void AskForExit(object sender, FormClosingEventArgs e)
         {
             //Core.PauseOrResume();
-            Stop();
-            if (MessageBox.Show(LanguageManager.Get("Comfirm_Exit_Text"), LanguageManager.Get("Tip_Text"), MessageBoxButtons.YesNo) == DialogResult.Yes)
+            try
             {
-                Core.MainIsVisible = false;
-                Core.Exit();
-                _hotkeyHelper.UnregisterHotkeys();
-                Dispose();
+                Stop();
+                if (MessageBox.Show(LanguageManager.Get("Comfirm_Exit_Text"), LanguageManager.Get("Tip_Text"), MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    Core.MainIsVisible = false;
+                    Core.Exit();
+                    _hotkeyHelper.UnregisterHotkeys();
+                    Dispose();
+                }
+                else
+                {
+                    e.Cancel = true;
+                    //Core.PauseOrResume();
+                }
             }
-            else
+            catch (Exception)
             {
-                e.Cancel = true;
-                //Core.PauseOrResume();
-            }
+                Environment.Exit(0);
+            } 
+
         }
 
         private void SetDetail()

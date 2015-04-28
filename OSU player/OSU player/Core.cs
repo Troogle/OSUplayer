@@ -334,6 +334,9 @@ namespace OSUplayer
             {
                 NotifySystem.Showtip(1000, LanguageManager.Get("OSUplayer"), LanguageManager.Get("Core_Missing_Song_Text"));
                 Remove(TmpSet.GetHash());
+#if THROW
+                throw new Exception("Set net found, text is " + TmpSet.location);
+#endif
                 return true;
             }
             if (!TmpSet.Detailed)
@@ -358,6 +361,9 @@ namespace OSUplayer
             {
                 NotifySystem.Showtip(1000, LanguageManager.Get("OSUplayer"), LanguageManager.Get("Core_Missing_Song_Text"));
                 Remove(TmpSet.GetHash());
+#if THROW
+                throw new Exception("Song net found, text is " + TmpBeatmap.Audio);
+#endif
                 return true;
             }
             if (p)

@@ -21,7 +21,7 @@ namespace OSUplayer.OsuFiles
         private string _location;
         public string Location
         {
-            get { return _location; } 
+            get { return _location; }
             set
             {
                 var raw = System.IO.Path.Combine(Properties.Settings.Default.OSUpath, value);
@@ -513,7 +513,8 @@ namespace OSUplayer.OsuFiles
         public string GetHash()
         {
             if (Hash != null) { return Hash; }
-            if (Path == "" || !File.Exists(Path)) { return ""; }
+            if (String.IsNullOrEmpty(Path)) { Path = System.IO.Path.Combine(Location, Name); }
+            if (!File.Exists(Path)) { Hash = ""; }      
             string strHashData = "";
             using (var md5Hash = MD5.Create())
             {

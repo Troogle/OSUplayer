@@ -58,18 +58,18 @@ namespace OSUplayer
             catch (Exception ex)
             {
                 GetExceptionMsg(ex);
-                NotifySystem.Showtip(1000, "发生了一些令人悲伤的事情><", "错误已上报，程序将试图继续运行", ToolTipIcon.Error);
+                NotifySystem.Showtip(1000, "发生了一些令人悲伤的事情><", "程序将试图继续运行", ToolTipIcon.Error);
             }
         }
         static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
             GetExceptionMsg(e.Exception);
-            NotifySystem.Showtip(1000, "发生了一些令人悲伤的事情><", "错误已上报，程序将试图继续运行", ToolTipIcon.Error);
+            NotifySystem.Showtip(1000, "发生了一些令人悲伤的事情><", "程序将试图继续运行", ToolTipIcon.Error);
         }
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             GetExceptionMsg(e.ExceptionObject as Exception);
-            NotifySystem.Showtip(1000, "发生了一些令人悲伤的事情><", "错误已上报，程序将试图继续运行", ToolTipIcon.Error);
+            NotifySystem.Showtip(1000, "发生了一些令人悲伤的事情><", "程序将试图继续运行", ToolTipIcon.Error);
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace OSUplayer
             sb.AppendLine("【异常类型】：" + ex.GetType().Name);
             sb.AppendLine("【异常信息】：" + ex.Message);
             sb.AppendLine("【堆栈调用】：" + ex.StackTrace);
-            using (var writer = File.CreateText("Errlog.txt"))
+            using (var writer = File.AppendText("Errlog.txt"))
             {
                 writer.WriteLine(sb.ToString());
             }
