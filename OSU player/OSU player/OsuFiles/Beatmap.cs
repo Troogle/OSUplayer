@@ -24,7 +24,7 @@ namespace OSUplayer.OsuFiles
             set
             {
                 var raw = System.IO.Path.Combine(Properties.Settings.Default.OSUpath, value);
-                _location = !Directory.Exists(raw) ? System.IO.Path.Combine(System.IO.Path.Combine(Properties.Settings.Default.OSUpath,"Songs"), value) : raw;
+                _location = !Directory.Exists(raw) ? System.IO.Path.Combine(System.IO.Path.Combine(Properties.Settings.Default.OSUpath, "Songs"), value) : raw;
             }
         }
 
@@ -296,7 +296,7 @@ namespace OSUplayer.OsuFiles
         {
             var ntiming = new Timing
             {
-                offset = (int) (Convert.ToDouble(Picknext(ref row))),
+                offset = (int)(Convert.ToDouble(Picknext(ref row))),
                 bpm = Convert.ToDouble(Picknext(ref row))
             };
             var tmpop = Picknext(ref row);
@@ -304,7 +304,7 @@ namespace OSUplayer.OsuFiles
             tmpop = Picknext(ref row);
             ntiming.sample = tmpop == "" ? new CSample((int)TSample.Normal, 0) : new CSample(Convert.ToInt32(tmpop), Convert.ToInt32(Picknext(ref row)));
             tmpop = Picknext(ref row);
-            ntiming.volume = tmpop == "" ? 1.0f : Convert.ToSingle(tmpop)/100;
+            ntiming.volume = tmpop == "" ? 1.0f : Convert.ToSingle(tmpop) / 100;
             tmpop = Picknext(ref row);
             ntiming.type = tmpop == "" ? 1 : Convert.ToInt32(tmpop);
             tmpop = Picknext(ref row);
@@ -319,7 +319,7 @@ namespace OSUplayer.OsuFiles
             }
             return ntiming;
         }
-        private enum OsuFileScanStatus
+        private enum FileSection
         {
             VersionUnknown,
             General,
@@ -330,7 +330,8 @@ namespace OSUplayer.OsuFiles
             Events,
             TimingPoints,
             Colours,
-            HitObjects
+            HitObjects,
+            DontCare
         }
         public void Setsb(string osbF)
         {
@@ -346,7 +347,7 @@ namespace OSUplayer.OsuFiles
                 Detailed = true;
                 return;
             }
-            var position = OsuFileScanStatus.VersionUnknown;
+            var position = FileSection.VersionUnknown;
             try
             {
                 using (var reader = new StreamReader(Path))
@@ -360,22 +361,23 @@ namespace OSUplayer.OsuFiles
                         if (row.StartsWith("//") || row.Length == 0) { continue; }
                         if (row.StartsWith("["))
                         {
-                            position = (OsuFileScanStatus)Enum.Parse(typeof(OsuFileScanStatus), (row.Substring(1, row.Length - 2)),true);
+                            try { position = (FileSection)Enum.Parse(typeof(FileSection), (row.Substring(1, row.Length - 2)), true);}
+                            catch (ArgumentException) { position=FileSection.DontCare;}
                             continue;
                         }
                         switch (position)
                         {
-                            case OsuFileScanStatus.VersionUnknown:
+                            case FileSection.VersionUnknown:
                                 _rawdata[(int)OSUfile.FileVersion] = row.Substring(17);
                                 break;
-                            case OsuFileScanStatus.General:
-                            case OsuFileScanStatus.Metadata:
-                            case OsuFileScanStatus.Difficulty:
+                            case FileSection.General:
+                            case FileSection.Metadata:
+                            case FileSection.Difficulty:
                                 var s = row.Split(new[] { ':' }, 2);
                                 try { _rawdata[(int)(OSUfile)Enum.Parse(typeof(OSUfile), (s[0].Trim()))] = s[1].Trim(); }
-                                catch { }
+                                catch (ArgumentException) { }
                                 break;
-                            case OsuFileScanStatus.Events:
+                            case FileSection.Events:
                                 if (row.StartsWith("0,0,"))
                                 {
                                     var str = row.Substring(5, row.Length - 6);
@@ -395,10 +397,10 @@ namespace OSUplayer.OsuFiles
                                 else if (row.StartsWith("3,") || row.StartsWith("2,")) { }
                                 else { HaveSB = true; }
                                 break;
-                            case OsuFileScanStatus.TimingPoints:
+                            case FileSection.TimingPoints:
                                 Timingpoints.Add(Settiming(row));
                                 break;
-                            case OsuFileScanStatus.HitObjects:
+                            case FileSection.HitObjects:
                                 HitObjects.Add(Setobject(row));
                                 break;
                         }
@@ -464,7 +466,7 @@ namespace OSUplayer.OsuFiles
         {
             if (Hash != null) { return Hash; }
             if (IsNullOrEmpty(Path)) { Path = System.IO.Path.Combine(Location, Name); }
-            if (!File.Exists(Path)) { Hash = ""; }      
+            if (!File.Exists(Path)) { Hash = ""; }
             string strHashData;
             using (var md5Hash = MD5.Create())
             {

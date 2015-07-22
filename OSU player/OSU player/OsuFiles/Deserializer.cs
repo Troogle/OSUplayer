@@ -9,7 +9,7 @@ namespace OSUplayer.OsuFiles
     {
         private static BinaryFormatter _formatter;
 
-        public static Object Deserialize(Stream stream)
+        public static object Deserialize(Stream stream)
         {
             if (_formatter == null)
             {

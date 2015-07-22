@@ -203,15 +203,15 @@ namespace OSUplayer.OsuFiles
         public string tags;
         private static string Checksample(string pre, string mid, string end)
         {
-            if (File.Exists(String.Format("{0}{1}{2}.wav", pre, mid, end)))
+            if (File.Exists($"{pre}{mid}{end}.wav"))
             {
-                return String.Format("{0}{1}{2}.wav", pre, mid, end);
+                return $"{pre}{mid}{end}.wav";
             }
-            if (File.Exists(String.Format("{0}{1}{2}.mp3", pre, mid, end)))
+            if (File.Exists($"{pre}{mid}{end}.mp3"))
             {
-                return String.Format("{0}{1}{2}.mp3", pre, mid, end);
+                return $"{pre}{mid}{end}.mp3";
             }
-            return String.Format(@"{0}\Default\{1}.wav", Application.StartupPath, mid);
+            return $@"{Application.StartupPath}\Default\{mid}.wav";
             // return "";
         }
         /// <summary>

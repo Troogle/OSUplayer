@@ -144,7 +144,7 @@ namespace OSUplayer
         /// </summary>
         private static void Getpath()
         {
-            if (Settings.Default.OSUpath == "" || !File.Exists(Settings.Default.OSUpath + "\\osu!.exe"))
+            if (Settings.Default.OSUpath == "" || !File.Exists(Path.Combine(Settings.Default.OSUpath, "osu!.exe")))
             {
                 try
                 {
@@ -165,7 +165,7 @@ namespace OSUplayer
             }
             if (!File.Exists("bass_fx.dll"))
             {
-                File.Copy(Settings.Default.OSUpath + "\\bass_fx.dll", "bass_fx.dll");
+                File.Copy(Path.Combine(Settings.Default.OSUpath, "bass_fx.dll"), "bass_fx.dll");
                 Un4seen.Bass.AddOn.Fx.BassFx.LoadMe();
             }
         }
@@ -186,7 +186,7 @@ namespace OSUplayer
             {
                 if (DialogResult.OK == dialog.ShowDialog())
                 {
-                    if (File.Exists(dialog.SelectedPath + "\\osu!.exe"))
+                    if (File.Exists(Path.Combine(dialog.SelectedPath, "osu!.exe")))
                     {
                         Settings.Default.OSUpath = dialog.SelectedPath;
                         return true;
@@ -289,25 +289,13 @@ namespace OSUplayer
 
         #endregion
 
-        public static double Durnation
-        {
-            get { return _player.Durnation; }
-        }
+        public static double Durnation => _player.Durnation;
 
-        public static double Position
-        {
-            get { return _player.Position; }
-        }
+        public static double Position => _player.Position;
 
-        public static bool Isplaying
-        {
-            get { return _player.Isplaying; }
-        }
+        public static bool Isplaying => _player.Isplaying;
 
-        public static bool Willnext
-        {
-            get { return _player.Willnext; }
-        }
+        public static bool Willnext => _player.Willnext;
 
         public static void Remove(string key)
         {

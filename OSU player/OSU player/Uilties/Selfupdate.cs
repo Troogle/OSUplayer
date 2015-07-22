@@ -29,7 +29,7 @@ namespace OSUplayer.Uilties
                 }
                 if (newver.CompareTo(Core.Version) > 0)
                 {
-                    var res = MessageBox.Show(String.Format(LanguageManager.Get("Update_Normal_Text"), newver, text), LanguageManager.Get("Tip_Text"),
+                    var res = MessageBox.Show(string.Format(LanguageManager.Get("Update_Normal_Text"), newver, text), LanguageManager.Get("Tip_Text"),
                         MessageBoxButtons.OKCancel,MessageBoxIcon.Information);
                     if (res == DialogResult.OK)
                     {

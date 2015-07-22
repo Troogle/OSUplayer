@@ -37,8 +37,8 @@ namespace OSUplayer
                 var filename = Assembly.GetExecutingAssembly().Location;
                 if (File.Exists(filename + ".detele")) File.Delete(filename + ".delete");
                 if (!File.Exists("bass_fx.dll"))
-                    if (File.Exists(Properties.Settings.Default.OSUpath + "\\bass_fx.dll"))
-                        File.Copy(Properties.Settings.Default.OSUpath + "\\bass_fx.dll", "bass_fx.dll");
+                    if (File.Exists(Path.Combine(Properties.Settings.Default.OSUpath, "bass_fx.dll")))
+                        File.Copy(Path.Combine(Properties.Settings.Default.OSUpath, "bass_fx.dll"), "bass_fx.dll");
                     else
                         MessageBox.Show(@"如果不能播放，请重新下载完整包！\nPlease re-download the full pack if it can't play!", @"Tips", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Un4seen.Bass.BassNet.Registration(PrivateConfig.BassEmail, PrivateConfig.BassReg);
@@ -106,6 +106,6 @@ namespace OSUplayer
                 writer.WriteLine(sb.ToString());
             }
         }
-            #endregion
+        #endregion
     }
 }
