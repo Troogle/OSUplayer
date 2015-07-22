@@ -71,14 +71,14 @@ namespace OSUplayer.Uilties
                 using (var outstream = File.Create("OSUplayer.zip"))
                 {
                     byte[] buffer = new byte[1024];
-                    int l;
+                    int count;
                     do
                     {
-                        l = instream.Read(buffer, 0, buffer.Length);
-                        if (l > 0)
-                            outstream.Write(buffer, 0, l);
+                        count = instream.Read(buffer, 0, buffer.Length);
+                        if (count > 0)
+                            outstream.Write(buffer, 0, count);
                     }
-                    while (l > 0);
+                    while (count > 0);
                 }
             }
             string filename = Assembly.GetExecutingAssembly().Location;
@@ -90,6 +90,7 @@ namespace OSUplayer.Uilties
             }
             File.Move("OSUplayer.exe", filename);
             File.Delete("OSUplayer.zip");
+            File.Delete("list.db");
             MessageBox.Show(LanguageManager.Get("Update_Restart_Text"), LanguageManager.Get("Tip_Text"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             var proc = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().Location));
             var p = new Process { StartInfo = { FileName = filename } };

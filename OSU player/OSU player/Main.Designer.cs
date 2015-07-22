@@ -165,7 +165,7 @@ namespace OSUplayer
             this.Main_File_Run_OSU.AccessibleDescription = "运行OSU!";
             this.Main_File_Run_OSU.AccessibleName = "运行OSU!";
             this.Main_File_Run_OSU.Name = "Main_File_Run_OSU";
-            this.Main_File_Run_OSU.Size = new System.Drawing.Size(200, 24);
+            this.Main_File_Run_OSU.Size = new System.Drawing.Size(206, 26);
             this.Main_File_Run_OSU.Text = "运行OSU!";
             this.Main_File_Run_OSU.Click += new System.EventHandler(this.Main_File_Run_OSU_Click);
             // 
@@ -174,21 +174,21 @@ namespace OSUplayer
             this.Main_File_Set_OSUPath.AccessibleDescription = "手动指定OSU目录";
             this.Main_File_Set_OSUPath.AccessibleName = "手动指定OSU目录";
             this.Main_File_Set_OSUPath.Name = "Main_File_Set_OSUPath";
-            this.Main_File_Set_OSUPath.Size = new System.Drawing.Size(200, 24);
+            this.Main_File_Set_OSUPath.Size = new System.Drawing.Size(206, 26);
             this.Main_File_Set_OSUPath.Text = "手动指定OSU目录";
             this.Main_File_Set_OSUPath.Click += new System.EventHandler(this.Main_File_Set_OSUPath_Click);
             // 
             // Main_File_Separator1
             // 
             this.Main_File_Separator1.Name = "Main_File_Separator1";
-            this.Main_File_Separator1.Size = new System.Drawing.Size(197, 6);
+            this.Main_File_Separator1.Size = new System.Drawing.Size(203, 6);
             // 
             // Main_File_Import_OSU
             // 
             this.Main_File_Import_OSU.AccessibleDescription = "重新初始化";
             this.Main_File_Import_OSU.AccessibleName = "重新初始化";
             this.Main_File_Import_OSU.Name = "Main_File_Import_OSU";
-            this.Main_File_Import_OSU.Size = new System.Drawing.Size(200, 24);
+            this.Main_File_Import_OSU.Size = new System.Drawing.Size(206, 26);
             this.Main_File_Import_OSU.Text = "与OSU数据库同步";
             this.Main_File_Import_OSU.Click += new System.EventHandler(this.Main_File_Import_OSU_Click);
             // 
@@ -197,21 +197,21 @@ namespace OSUplayer
             this.Main_File_Import_Scores.AccessibleDescription = "重新导入scores.db";
             this.Main_File_Import_Scores.AccessibleName = "重新导入scores.db";
             this.Main_File_Import_Scores.Name = "Main_File_Import_Scores";
-            this.Main_File_Import_Scores.Size = new System.Drawing.Size(200, 24);
+            this.Main_File_Import_Scores.Size = new System.Drawing.Size(206, 26);
             this.Main_File_Import_Scores.Text = "导入scores.db";
             this.Main_File_Import_Scores.Click += new System.EventHandler(this.Main_File_Import_Scores_Click);
             // 
             // Main_File_Separator2
             // 
             this.Main_File_Separator2.Name = "Main_File_Separator2";
-            this.Main_File_Separator2.Size = new System.Drawing.Size(197, 6);
+            this.Main_File_Separator2.Size = new System.Drawing.Size(203, 6);
             // 
             // Main_File_Open_Folder
             // 
             this.Main_File_Open_Folder.AccessibleDescription = "打开曲目文件夹";
             this.Main_File_Open_Folder.AccessibleName = "打开曲目文件夹";
             this.Main_File_Open_Folder.Name = "Main_File_Open_Folder";
-            this.Main_File_Open_Folder.Size = new System.Drawing.Size(200, 24);
+            this.Main_File_Open_Folder.Size = new System.Drawing.Size(206, 26);
             this.Main_File_Open_Folder.Text = "打开曲目文件夹";
             this.Main_File_Open_Folder.Click += new System.EventHandler(this.Main_File_Open_Folder_Click);
             // 
@@ -220,7 +220,7 @@ namespace OSUplayer
             this.Main_File_Open_MapFile.AccessibleDescription = "打开铺面文件";
             this.Main_File_Open_MapFile.AccessibleName = "打开铺面文件";
             this.Main_File_Open_MapFile.Name = "Main_File_Open_MapFile";
-            this.Main_File_Open_MapFile.Size = new System.Drawing.Size(200, 24);
+            this.Main_File_Open_MapFile.Size = new System.Drawing.Size(206, 26);
             this.Main_File_Open_MapFile.Text = "打开铺面文件";
             this.Main_File_Open_MapFile.Click += new System.EventHandler(this.Main_File_Open_MapFile_Click);
             // 
@@ -229,7 +229,7 @@ namespace OSUplayer
             this.Main_File_Open_SBFile.AccessibleDescription = "打开SB文件";
             this.Main_File_Open_SBFile.AccessibleName = "打开SB文件";
             this.Main_File_Open_SBFile.Name = "Main_File_Open_SBFile";
-            this.Main_File_Open_SBFile.Size = new System.Drawing.Size(200, 24);
+            this.Main_File_Open_SBFile.Size = new System.Drawing.Size(206, 26);
             this.Main_File_Open_SBFile.Text = "打开SB文件";
             this.Main_File_Open_SBFile.Click += new System.EventHandler(this.Main_File_Open_SBFile_Click);
             // 
@@ -238,14 +238,14 @@ namespace OSUplayer
             this.Main_File_SeparatorItem3.AccessibleDescription = "radMenuSeparatorItem1";
             this.Main_File_SeparatorItem3.AccessibleName = "radMenuSeparatorItem1";
             this.Main_File_SeparatorItem3.Name = "Main_File_SeparatorItem3";
-            this.Main_File_SeparatorItem3.Size = new System.Drawing.Size(197, 6);
+            this.Main_File_SeparatorItem3.Size = new System.Drawing.Size(203, 6);
             // 
             // Main_File_Export_MP3
             // 
             this.Main_File_Export_MP3.AccessibleDescription = "导出音频文件";
             this.Main_File_Export_MP3.AccessibleName = "导出音频文件";
             this.Main_File_Export_MP3.Name = "Main_File_Export_MP3";
-            this.Main_File_Export_MP3.Size = new System.Drawing.Size(200, 24);
+            this.Main_File_Export_MP3.Size = new System.Drawing.Size(206, 26);
             this.Main_File_Export_MP3.Text = "导出音频文件";
             this.Main_File_Export_MP3.Click += new System.EventHandler(this.Main_File_Export_MP3_Click);
             // 
@@ -254,21 +254,21 @@ namespace OSUplayer
             this.Main_File_Export_Background.AccessibleDescription = "导出BG";
             this.Main_File_Export_Background.AccessibleName = "导出BG";
             this.Main_File_Export_Background.Name = "Main_File_Export_Background";
-            this.Main_File_Export_Background.Size = new System.Drawing.Size(200, 24);
+            this.Main_File_Export_Background.Size = new System.Drawing.Size(206, 26);
             this.Main_File_Export_Background.Text = "导出BG";
             this.Main_File_Export_Background.Click += new System.EventHandler(this.Main_File_Export_Background_Click);
             // 
             // Main_File_Separator4
             // 
             this.Main_File_Separator4.Name = "Main_File_Separator4";
-            this.Main_File_Separator4.Size = new System.Drawing.Size(197, 6);
+            this.Main_File_Separator4.Size = new System.Drawing.Size(203, 6);
             // 
             // Main_File_Exit
             // 
             this.Main_File_Exit.AccessibleDescription = "退出";
             this.Main_File_Exit.AccessibleName = "退出";
             this.Main_File_Exit.Name = "Main_File_Exit";
-            this.Main_File_Exit.Size = new System.Drawing.Size(200, 24);
+            this.Main_File_Exit.Size = new System.Drawing.Size(206, 26);
             this.Main_File_Exit.Text = "退出";
             this.Main_File_Exit.Click += new System.EventHandler(this.Main_File_Exit_Click);
             // 
@@ -289,7 +289,7 @@ namespace OSUplayer
             this.Main_Tool_Search_Dulplate.AccessibleDescription = "重复歌曲扫描";
             this.Main_Tool_Search_Dulplate.AccessibleName = "重复歌曲扫描";
             this.Main_Tool_Search_Dulplate.Name = "Main_Tool_Search_Dulplate";
-            this.Main_Tool_Search_Dulplate.Size = new System.Drawing.Size(241, 24);
+            this.Main_Tool_Search_Dulplate.Size = new System.Drawing.Size(247, 26);
             this.Main_Tool_Search_Dulplate.Text = "重复歌曲扫描";
             this.Main_Tool_Search_Dulplate.Click += new System.EventHandler(this.Main_Tool_Search_Dulplate_Click);
             // 
@@ -298,7 +298,7 @@ namespace OSUplayer
             this.Main_Tool_Export_Playlist.AccessibleDescription = "导出当前播放列表(html)";
             this.Main_Tool_Export_Playlist.AccessibleName = "导出当前播放列表(html)";
             this.Main_Tool_Export_Playlist.Name = "Main_Tool_Export_Playlist";
-            this.Main_Tool_Export_Playlist.Size = new System.Drawing.Size(241, 24);
+            this.Main_Tool_Export_Playlist.Size = new System.Drawing.Size(247, 26);
             this.Main_Tool_Export_Playlist.Text = "导出当前播放列表(html)";
             this.Main_Tool_Export_Playlist.Click += new System.EventHandler(this.Main_Tool_Export_Playlist_Click);
             // 
@@ -307,7 +307,7 @@ namespace OSUplayer
             this.Main_Tool_Export_Playlist_MP3.AccessibleDescription = "导出当前播放列表音频";
             this.Main_Tool_Export_Playlist_MP3.AccessibleName = "导出当前播放列表音频";
             this.Main_Tool_Export_Playlist_MP3.Name = "Main_Tool_Export_Playlist_MP3";
-            this.Main_Tool_Export_Playlist_MP3.Size = new System.Drawing.Size(241, 24);
+            this.Main_Tool_Export_Playlist_MP3.Size = new System.Drawing.Size(247, 26);
             this.Main_Tool_Export_Playlist_MP3.Text = "导出当前播放列表音频";
             this.Main_Tool_Export_Playlist_MP3.Click += new System.EventHandler(this.Main_Tool_Export_Playlist_MP3_Click);
             // 
@@ -336,7 +336,7 @@ namespace OSUplayer
             this.Main_Option_Play_Fx.CheckState = System.Windows.Forms.CheckState.Checked;
             this.Main_Option_Play_Fx.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::OSUplayer.Properties.Settings.Default, "PlayFx", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.Main_Option_Play_Fx.Name = "Main_Option_Play_Fx";
-            this.Main_Option_Play_Fx.Size = new System.Drawing.Size(162, 26);
+            this.Main_Option_Play_Fx.Size = new System.Drawing.Size(168, 26);
             this.Main_Option_Play_Fx.Text = "音效开关";
             // 
             // Main_Option_Play_Video
@@ -348,7 +348,7 @@ namespace OSUplayer
             this.Main_Option_Play_Video.CheckState = System.Windows.Forms.CheckState.Checked;
             this.Main_Option_Play_Video.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::OSUplayer.Properties.Settings.Default, "PlayVideo", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.Main_Option_Play_Video.Name = "Main_Option_Play_Video";
-            this.Main_Option_Play_Video.Size = new System.Drawing.Size(162, 26);
+            this.Main_Option_Play_Video.Size = new System.Drawing.Size(168, 26);
             this.Main_Option_Play_Video.Text = "视频开关";
             // 
             // Main_Option_PlayMode
@@ -360,7 +360,7 @@ namespace OSUplayer
             this.Main_Option_PlayMode_Repeat,
             this.Main_Option_PlayMode_Random});
             this.Main_Option_PlayMode.Name = "Main_Option_PlayMode";
-            this.Main_Option_PlayMode.Size = new System.Drawing.Size(162, 26);
+            this.Main_Option_PlayMode.Size = new System.Drawing.Size(168, 26);
             this.Main_Option_PlayMode.Text = "播放模式";
             // 
             // Main_Option_PlayMode_Normal
@@ -368,7 +368,7 @@ namespace OSUplayer
             this.Main_Option_PlayMode_Normal.AccessibleDescription = "顺序播放";
             this.Main_Option_PlayMode_Normal.AccessibleName = "顺序播放";
             this.Main_Option_PlayMode_Normal.Name = "Main_Option_PlayMode_Normal";
-            this.Main_Option_PlayMode_Normal.Size = new System.Drawing.Size(138, 24);
+            this.Main_Option_PlayMode_Normal.Size = new System.Drawing.Size(144, 26);
             this.Main_Option_PlayMode_Normal.Text = "顺序播放";
             this.Main_Option_PlayMode_Normal.Click += new System.EventHandler(this.Main_Option_PlayMode_Click);
             // 
@@ -377,7 +377,7 @@ namespace OSUplayer
             this.Main_Option_PlayMode_Repeat.AccessibleDescription = "单曲循环";
             this.Main_Option_PlayMode_Repeat.AccessibleName = "单曲循环";
             this.Main_Option_PlayMode_Repeat.Name = "Main_Option_PlayMode_Repeat";
-            this.Main_Option_PlayMode_Repeat.Size = new System.Drawing.Size(138, 24);
+            this.Main_Option_PlayMode_Repeat.Size = new System.Drawing.Size(144, 26);
             this.Main_Option_PlayMode_Repeat.Text = "单曲循环";
             this.Main_Option_PlayMode_Repeat.Click += new System.EventHandler(this.Main_Option_PlayMode_Click);
             // 
@@ -386,7 +386,7 @@ namespace OSUplayer
             this.Main_Option_PlayMode_Random.AccessibleDescription = "随机播放";
             this.Main_Option_PlayMode_Random.AccessibleName = "随机播放";
             this.Main_Option_PlayMode_Random.Name = "Main_Option_PlayMode_Random";
-            this.Main_Option_PlayMode_Random.Size = new System.Drawing.Size(138, 24);
+            this.Main_Option_PlayMode_Random.Size = new System.Drawing.Size(144, 26);
             this.Main_Option_PlayMode_Random.Text = "随机播放";
             this.Main_Option_PlayMode_Random.Click += new System.EventHandler(this.Main_Option_PlayMode_Click);
             // 
@@ -395,7 +395,7 @@ namespace OSUplayer
             this.Main_Option_Select_QQ.AccessibleDescription = "选择QQ";
             this.Main_Option_Select_QQ.AccessibleName = "选择QQ";
             this.Main_Option_Select_QQ.Name = "Main_Option_Select_QQ";
-            this.Main_Option_Select_QQ.Size = new System.Drawing.Size(162, 26);
+            this.Main_Option_Select_QQ.Size = new System.Drawing.Size(168, 26);
             this.Main_Option_Select_QQ.Text = "选择QQ";
             this.Main_Option_Select_QQ.Click += new System.EventHandler(this.Main_Option_Select_QQ_Click);
             // 
@@ -408,7 +408,7 @@ namespace OSUplayer
             this.Main_Option_Sync_QQ.CheckState = System.Windows.Forms.CheckState.Checked;
             this.Main_Option_Sync_QQ.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::OSUplayer.Properties.Settings.Default, "SyncQQ", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.Main_Option_Sync_QQ.Name = "Main_Option_Sync_QQ";
-            this.Main_Option_Sync_QQ.Size = new System.Drawing.Size(162, 26);
+            this.Main_Option_Sync_QQ.Size = new System.Drawing.Size(168, 26);
             this.Main_Option_Sync_QQ.Text = "QQ状态同步";
             this.Main_Option_Sync_QQ.Click += new System.EventHandler(this.Main_Option_Sync_QQ_Click);
             // 
@@ -420,7 +420,7 @@ namespace OSUplayer
             this.Main_Option_Play_SB.CheckOnClick = true;
             this.Main_Option_Play_SB.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::OSUplayer.Properties.Settings.Default, "PlaySB", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.Main_Option_Play_SB.Name = "Main_Option_Play_SB";
-            this.Main_Option_Play_SB.Size = new System.Drawing.Size(162, 26);
+            this.Main_Option_Play_SB.Size = new System.Drawing.Size(168, 26);
             this.Main_Option_Play_SB.Text = "SB开关";
             // 
             // Main_Option_Show_Popup
@@ -432,7 +432,7 @@ namespace OSUplayer
             this.Main_Option_Show_Popup.CheckState = System.Windows.Forms.CheckState.Checked;
             this.Main_Option_Show_Popup.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::OSUplayer.Properties.Settings.Default, "ShowPopup", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.Main_Option_Show_Popup.Name = "Main_Option_Show_Popup";
-            this.Main_Option_Show_Popup.Size = new System.Drawing.Size(162, 26);
+            this.Main_Option_Show_Popup.Size = new System.Drawing.Size(168, 26);
             this.Main_Option_Show_Popup.Text = "显示气泡";
             // 
             // Main_About
@@ -917,34 +917,34 @@ namespace OSUplayer
             this.Main_PlayList_RightClick_Export_MP3,
             this.Main_PlayList_RightClick_Open_In_OSU});
             this.Main_PlayList_RightClick_Menu.Name = "RightClick";
-            this.Main_PlayList_RightClick_Menu.Size = new System.Drawing.Size(199, 100);
+            this.Main_PlayList_RightClick_Menu.Size = new System.Drawing.Size(205, 108);
             this.Main_PlayList_RightClick_Menu.Opening += new System.ComponentModel.CancelEventHandler(this.Main_PlayList_RightClick_Menu_Opening);
             // 
             // Main_PlayList_RightClick_Copy_Current_Name
             // 
             this.Main_PlayList_RightClick_Copy_Current_Name.Name = "Main_PlayList_RightClick_Copy_Current_Name";
-            this.Main_PlayList_RightClick_Copy_Current_Name.Size = new System.Drawing.Size(198, 24);
+            this.Main_PlayList_RightClick_Copy_Current_Name.Size = new System.Drawing.Size(204, 26);
             this.Main_PlayList_RightClick_Copy_Current_Name.Text = "复制当前歌曲名称";
             this.Main_PlayList_RightClick_Copy_Current_Name.Click += new System.EventHandler(this.Main_PlayList_RightClick_Copy_Current_Name_Click);
             // 
             // Main_PlayList_RightClick_Delete_One
             // 
             this.Main_PlayList_RightClick_Delete_One.Name = "Main_PlayList_RightClick_Delete_One";
-            this.Main_PlayList_RightClick_Delete_One.Size = new System.Drawing.Size(198, 24);
+            this.Main_PlayList_RightClick_Delete_One.Size = new System.Drawing.Size(204, 26);
             this.Main_PlayList_RightClick_Delete_One.Text = "删除单首";
             this.Main_PlayList_RightClick_Delete_One.Click += new System.EventHandler(this.Main_PlayList_RightClick_Delete_One_Click);
             // 
             // Main_PlayList_RightClick_Export_MP3
             // 
             this.Main_PlayList_RightClick_Export_MP3.Name = "Main_PlayList_RightClick_Export_MP3";
-            this.Main_PlayList_RightClick_Export_MP3.Size = new System.Drawing.Size(198, 24);
+            this.Main_PlayList_RightClick_Export_MP3.Size = new System.Drawing.Size(204, 26);
             this.Main_PlayList_RightClick_Export_MP3.Text = "导出当前MP3";
             this.Main_PlayList_RightClick_Export_MP3.Click += new System.EventHandler(this.Main_File_Export_MP3_Click);
             // 
             // Main_PlayList_RightClick_Open_In_OSU
             // 
             this.Main_PlayList_RightClick_Open_In_OSU.Name = "Main_PlayList_RightClick_Open_In_OSU";
-            this.Main_PlayList_RightClick_Open_In_OSU.Size = new System.Drawing.Size(198, 24);
+            this.Main_PlayList_RightClick_Open_In_OSU.Size = new System.Drawing.Size(204, 26);
             this.Main_PlayList_RightClick_Open_In_OSU.Text = "在OSU中打开";
             this.Main_PlayList_RightClick_Open_In_OSU.Click += new System.EventHandler(this.Main_Jump_OSU_Click);
             // 

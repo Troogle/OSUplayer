@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Configuration;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
-using System;
 using System.Security.Cryptography;
-using System.Text;
 using Mp3Lib;
+using static System.String;
 
 namespace OSUplayer.OsuFiles
 {
@@ -12,7 +11,7 @@ namespace OSUplayer.OsuFiles
     public class Beatmap : IComparable<Beatmap>
     {
         private string _osb;
-        private readonly string[] Rawdata = new string[(int)OSUfile.OSUfilecount];
+        private readonly string[] _rawdata = new string[(int)OSUfile.OSUfilecount];
         //diff-wide storyboard
         [NonSerialized]
         public StoryBoard.StoryBoard SB;
@@ -25,7 +24,7 @@ namespace OSUplayer.OsuFiles
             set
             {
                 var raw = System.IO.Path.Combine(Properties.Settings.Default.OSUpath, value);
-                _location = !Directory.Exists(raw) ? System.IO.Path.Combine(Properties.Settings.Default.OSUpath + "Songs\\", value) : raw;
+                _location = !Directory.Exists(raw) ? System.IO.Path.Combine(System.IO.Path.Combine(Properties.Settings.Default.OSUpath,"Songs"), value) : raw;
             }
         }
 
@@ -44,161 +43,119 @@ namespace OSUplayer.OsuFiles
         public List<HitObject> HitObjects;
         public string Hash { get; set; }
         #region map属性的获取接口
-        public string FileVersion { get { return Rawdata[(int)OSUfile.FileVersion]; } }
+        public string FileVersion => _rawdata[(int)OSUfile.FileVersion];
+
         public string Audio
         {
-            get { return System.IO.Path.Combine(Location, Rawdata[(int)OSUfile.AudioFilename]); }
-            set { Rawdata[(int)OSUfile.AudioFilename] = value; }
+            get { return System.IO.Path.Combine(Location, _rawdata[(int)OSUfile.AudioFilename]); }
+            set { _rawdata[(int)OSUfile.AudioFilename] = value; }
         }
-        public int Previewtime
-        {
-            get
-            {
-                return Rawdata[(int)OSUfile.PreviewTime] != null ? Convert.ToInt32(Rawdata[(int)OSUfile.PreviewTime]) : 0;
-            }
-        }
-        public string SampleSet
-        {
-            get
-            {
-                return Rawdata[(int)OSUfile.SampleSet] ?? "Normal";
-            }
-        }
+        public int Previewtime => _rawdata[(int)OSUfile.PreviewTime] != null ? Convert.ToInt32(_rawdata[(int)OSUfile.PreviewTime]) : 0;
+
+        public string SampleSet => _rawdata[(int)OSUfile.SampleSet] ?? "Normal";
+
         public Modes Mode
         {
             get
             {
-                if (Rawdata[(int)OSUfile.Mode] != null)
+                if (_rawdata[(int)OSUfile.Mode] != null)
                 {
-                    return (Modes)Enum.Parse(typeof(Modes), Rawdata[(int)OSUfile.Mode]);
+                    return (Modes)Enum.Parse(typeof(Modes), _rawdata[(int)OSUfile.Mode]);
                 }
-                else
-                {
-                    return Modes.Osu;
-                }
+                return Modes.Osu;
             }
             set
             {
-                Rawdata[(int)OSUfile.Mode] = value.ToString();
+                _rawdata[(int)OSUfile.Mode] = value.ToString();
             }
         }
         public string Artist
         {
             get
             {
-                return Rawdata[(int)OSUfile.ArtistUnicode] ?? (Rawdata[(int)OSUfile.Artist]);
+                return _rawdata[(int)OSUfile.ArtistUnicode] ?? (_rawdata[(int)OSUfile.Artist]);
             }
             set
-            { Rawdata[(int)OSUfile.ArtistUnicode] = value; }
+            { _rawdata[(int)OSUfile.ArtistUnicode] = value; }
         }
         public string ArtistRomanized
         {
             get
             {
-                return Rawdata[(int)OSUfile.Artist] ?? "<unknown artist>";
+                return _rawdata[(int)OSUfile.Artist] ?? "<unknown artist>";
             }
             set
             {
-                Rawdata[(int)OSUfile.Artist] = value;
+                _rawdata[(int)OSUfile.Artist] = value;
             }
         }
         public string Title
         {
             get
             {
-                return Rawdata[(int)OSUfile.TitleUnicode] ?? (TitleRomanized);
+                return _rawdata[(int)OSUfile.TitleUnicode] ?? (TitleRomanized);
             }
             set
             {
-                Rawdata[(int)OSUfile.TitleUnicode] = value;
+                _rawdata[(int)OSUfile.TitleUnicode] = value;
             }
         }
         public string TitleRomanized
         {
             get
             {
-                return Rawdata[(int)OSUfile.Title] ?? "<unknown title>";
+                return _rawdata[(int)OSUfile.Title] ?? "<unknown title>";
             }
             set
             {
-                Rawdata[(int)OSUfile.Title] = value;
+                _rawdata[(int)OSUfile.Title] = value;
             }
         }
-        public string Creator { get { return Rawdata[(int)OSUfile.Creator]; } set { Rawdata[(int)OSUfile.Creator] = value; } }
-        public string Tags { get { return Rawdata[(int)OSUfile.Tags]; } set { Rawdata[(int)OSUfile.Tags] = value; } }
-        public string Version { get { return Rawdata[(int)OSUfile.Version]; } set { Rawdata[(int)OSUfile.Version] = value; } }
+        public string Creator { get { return _rawdata[(int)OSUfile.Creator]; } set { _rawdata[(int)OSUfile.Creator] = value; } }
+        public string Tags { get { return _rawdata[(int)OSUfile.Tags]; } set { _rawdata[(int)OSUfile.Tags] = value; } }
+        public string Version { get { return _rawdata[(int)OSUfile.Version]; } set { _rawdata[(int)OSUfile.Version] = value; } }
         public string Source
         {
             get
             {
-                return Rawdata[(int)OSUfile.Source] ?? "<unknown source>";
+                return _rawdata[(int)OSUfile.Source] ?? "<unknown source>";
             }
-            set { Rawdata[(int)OSUfile.Source] = value; }
+            set { _rawdata[(int)OSUfile.Source] = value; }
         }
         public int BeatmapID
         {
             get
             {
-                return Rawdata[(int)OSUfile.BeatmapID] != null ? Convert.ToInt32(Rawdata[(int)OSUfile.BeatmapID]) : 0;
+                return _rawdata[(int)OSUfile.BeatmapID] != null ? Convert.ToInt32(_rawdata[(int)OSUfile.BeatmapID]) : 0;
             }
-            set { Rawdata[(int)OSUfile.BeatmapID] = value.ToString(); }
+            set { _rawdata[(int)OSUfile.BeatmapID] = value.ToString(); }
         }
         public int BeatmapsetID
         {
             get
             {
-                return Rawdata[(int)OSUfile.BeatmapSetID] != null
-                    ? Convert.ToInt32(Rawdata[(int)OSUfile.BeatmapSetID])
+                return _rawdata[(int)OSUfile.BeatmapSetID] != null
+                    ? Convert.ToInt32(_rawdata[(int)OSUfile.BeatmapSetID])
                     : -1;
             }
-            set { Rawdata[(int)OSUfile.BeatmapSetID] = value.ToString(); }
+            set { _rawdata[(int)OSUfile.BeatmapSetID] = value.ToString(); }
         }
-        public double HPDrainRate
-        {
-            get
-            {
-                return Rawdata[(int)OSUfile.HPDrainRate] != null ? Convert.ToDouble(Rawdata[(int)OSUfile.HPDrainRate]) : 5;
-            }
-        }
-        public double CircleSize
-        {
-            get
-            {
-                return Rawdata[(int)OSUfile.CircleSize] != null ? Convert.ToDouble(Rawdata[(int)OSUfile.CircleSize]) : 5;
-            }
-        }
-        public double OverallDifficulty
-        {
-            get
-            {
-                return Rawdata[(int)OSUfile.OverallDifficulty] != null ? Convert.ToDouble(Rawdata[(int)OSUfile.OverallDifficulty]) : 5;
-            }
-        }
-        public double ApproachRate
-        {
-            get
-            {
-                return Rawdata[(int)OSUfile.ApproachRate] != null ? Convert.ToDouble(Rawdata[(int)OSUfile.ApproachRate]) : OverallDifficulty;
-            }
-        }
-        public double SliderMultiplier
-        {
-            get
-            {
-                return Rawdata[(int)OSUfile.SliderMultiplier] != null ? Convert.ToDouble(Rawdata[(int)OSUfile.SliderMultiplier]) : 1;
-            }
-        }
-        public double SliderTickRate
-        {
-            get
-            {
-                return Rawdata[(int)OSUfile.SliderTickRate] != null ? Convert.ToDouble(Rawdata[(int)OSUfile.SliderTickRate]) : 1;
-            }
-        }
+        public double HPDrainRate => _rawdata[(int)OSUfile.HPDrainRate] != null ? Convert.ToDouble(_rawdata[(int)OSUfile.HPDrainRate]) : 5;
+
+        public double CircleSize => _rawdata[(int)OSUfile.CircleSize] != null ? Convert.ToDouble(_rawdata[(int)OSUfile.CircleSize]) : 5;
+
+        public double OverallDifficulty => _rawdata[(int)OSUfile.OverallDifficulty] != null ? Convert.ToDouble(_rawdata[(int)OSUfile.OverallDifficulty]) : 5;
+
+        public double ApproachRate => _rawdata[(int)OSUfile.ApproachRate] != null ? Convert.ToDouble(_rawdata[(int)OSUfile.ApproachRate]) : OverallDifficulty;
+
+        public double SliderMultiplier => _rawdata[(int)OSUfile.SliderMultiplier] != null ? Convert.ToDouble(_rawdata[(int)OSUfile.SliderMultiplier]) : 1;
+
+        public double SliderTickRate => _rawdata[(int)OSUfile.SliderTickRate] != null ? Convert.ToDouble(_rawdata[(int)OSUfile.SliderTickRate]) : 1;
+
         #endregion
         private static string Picknext(ref string str)
         {
-            string ret = "";
+            string ret;
             if (!str.Contains(","))
             {
                 ret = str;
@@ -229,100 +186,98 @@ namespace OSUplayer.OsuFiles
             return ObjectFlag.ColourHax;
         }
 
-        private static void SetAdditionalObject(ref string row, ref HitObject NHit, out string tmpop, string picknext)
+        private static void SetAdditionalObject(ref HitObject nHit, out string tmpop, string picknext)
         {
             tmpop = picknext;
             if (tmpop != "")
             {
                 if (tmpop.Length > 3)
                 {
-                    NHit.sample = new CSample((int)Char.GetNumericValue(tmpop[0]), (int)Char.GetNumericValue(tmpop[4]));
-                    NHit.A_sample = new CSample((int)Char.GetNumericValue(tmpop[2]), (int)Char.GetNumericValue(tmpop[4]));
+                    nHit.sample = new CSample((int)Char.GetNumericValue(tmpop[0]), (int)Char.GetNumericValue(tmpop[4]));
+                    nHit.A_sample = new CSample((int)Char.GetNumericValue(tmpop[2]), (int)Char.GetNumericValue(tmpop[4]));
                     if (tmpop.Length < 7)
                     {
                         tmpop = tmpop + ":0:";
                     }
-                    NHit.S_Volume = (int)Char.GetNumericValue(tmpop[6]);
+                    nHit.S_Volume = (int)Char.GetNumericValue(tmpop[6]);
                 }
                 else
                 {
-                    NHit.sample = new CSample((int)Char.GetNumericValue(tmpop[0]), (int)Char.GetNumericValue(tmpop[2]));
-                    NHit.A_sample = new CSample(0, 0);
-                    NHit.S_Volume = 0;
+                    nHit.sample = new CSample((int)Char.GetNumericValue(tmpop[0]), (int)Char.GetNumericValue(tmpop[2]));
+                    nHit.A_sample = new CSample(0, 0);
+                    nHit.S_Volume = 0;
                 }
             }
             else
             {
-                NHit.sample = new CSample(0, 0);
-                NHit.A_sample = new CSample(0, 0);
-                NHit.S_Volume = 0;
+                nHit.sample = new CSample(0, 0);
+                nHit.A_sample = new CSample(0, 0);
+                nHit.S_Volume = 0;
             }
         }
         private static HitObject Setobject(string row)
         {
-            var NHit = new HitObject();
-            string tmpop = "";
-            NHit.x = Convert.ToInt32(Picknext(ref row));
-            NHit.y = Convert.ToInt32(Picknext(ref row));
-            NHit.starttime = Convert.ToInt32(Picknext(ref row));
-            NHit.type = Check(Picknext(ref row));
-            switch (NHit.type)
+            var nHit = new HitObject();
+            string tmpop;
+            nHit.x = Convert.ToInt32(Picknext(ref row));
+            nHit.y = Convert.ToInt32(Picknext(ref row));
+            nHit.starttime = Convert.ToInt32(Picknext(ref row));
+            nHit.type = Check(Picknext(ref row));
+            switch (nHit.type)
             {
                 case ObjectFlag.Normal:
-                    NHit.allhitsound = Convert.ToInt32(Picknext(ref row));
-                    SetAdditionalObject(ref row, ref NHit, out tmpop, Picknext(ref row));
+                    nHit.allhitsound = Convert.ToInt32(Picknext(ref row));
+                    SetAdditionalObject(ref nHit, out tmpop, Picknext(ref row));
                     break;
                 case ObjectFlag.Spinner:
-                    NHit.allhitsound = Convert.ToInt32(Picknext(ref row));
-                    NHit.EndTime = Convert.ToInt32(Picknext(ref row));
-                    SetAdditionalObject(ref row, ref NHit, out tmpop, Picknext(ref row));
+                    nHit.allhitsound = Convert.ToInt32(Picknext(ref row));
+                    nHit.EndTime = Convert.ToInt32(Picknext(ref row));
+                    SetAdditionalObject(ref nHit, out tmpop, Picknext(ref row));
                     break;
                 case ObjectFlag.Slider:
-                    NHit.allhitsound = Convert.ToInt32(Picknext(ref row));
-                    tmpop = Picknext(ref row);
+                    nHit.allhitsound = Convert.ToInt32(Picknext(ref row));
+                    Picknext(ref row);
                     //ignore all anthor
                     tmpop = Picknext(ref row);
-                    if (tmpop != "") { NHit.repeatcount = Convert.ToInt32(tmpop); }
-                    else { NHit.repeatcount = 1; }
+                    nHit.repeatcount = tmpop != "" ? Convert.ToInt32(tmpop) : 1;
                     tmpop = Picknext(ref row);
-                    if (tmpop != "") { NHit.length = Convert.ToDouble(tmpop); }
-                    else { NHit.length = 0; }
+                    nHit.length = tmpop != "" ? Convert.ToDouble(tmpop) : 0;
                     tmpop = Picknext(ref row);
-                    NHit.Hitsounds = new int[NHit.repeatcount + 1];
-                    NHit.samples = new CSample[NHit.repeatcount + 1];
-                    string[] split = tmpop.Split(new char[] { '|' });
+                    nHit.Hitsounds = new int[nHit.repeatcount + 1];
+                    nHit.samples = new CSample[nHit.repeatcount + 1];
+                    var split = tmpop.Split('|');
                     if (split.Length != 1)
                     {
-                        for (int i = 0; i <= NHit.repeatcount; i++)
+                        for (var i = 0; i <= nHit.repeatcount; i++)
                         {
-                            NHit.Hitsounds[i] = Convert.ToInt32(split[i]);
+                            nHit.Hitsounds[i] = Convert.ToInt32(split[i]);
                         }
                     }
                     else
                     {
-                        for (int i = 0; i <= NHit.repeatcount; i++)
+                        for (var i = 0; i <= nHit.repeatcount; i++)
                         {
-                            NHit.Hitsounds[i] = 1;
+                            nHit.Hitsounds[i] = 1;
                         }
                     }
                     tmpop = Picknext(ref row);
-                    split = tmpop.Split(new char[] { '|' });
+                    split = tmpop.Split('|');
                     if (split.Length != 1)
                     {
-                        for (int i = 0; i <= NHit.repeatcount; i++)
+                        for (var i = 0; i <= nHit.repeatcount; i++)
                         {
-                            NHit.samples[i] = new CSample(Convert.ToInt32(split[i][0]),
+                            nHit.samples[i] = new CSample(Convert.ToInt32(split[i][0]),
                                 Convert.ToInt32(split[i][2]));
                         }
                     }
                     else
                     {
-                        for (int i = 0; i <= NHit.repeatcount; i++)
+                        for (var i = 0; i <= nHit.repeatcount; i++)
                         {
-                            NHit.samples[i] = new CSample(0, 0);
+                            nHit.samples[i] = new CSample(0, 0);
                         }
                     }
-                    SetAdditionalObject(ref row, ref NHit, out tmpop, Picknext(ref row));
+                    SetAdditionalObject(ref nHit, out tmpop, Picknext(ref row));
                     //HitSound,(SampleSet&Group|SampleSet&Group),(All SampleSet&Addition)
                     //SampleSet&Addition 只有sample没有setcount
                     //All SampleSet&Addition 啥都有
@@ -335,51 +290,47 @@ namespace OSUplayer.OsuFiles
                     //this is for mania
                     break;
             }
-            return NHit;
+            return nHit;
         }
         private static Timing Settiming(string row)
         {
-            var Ntiming = new Timing();
-            string tmpop = "";
-            Ntiming.offset = (int)(Convert.ToDouble(Picknext(ref row)));
-            Ntiming.bpm = Convert.ToDouble(Picknext(ref row));
-            tmpop = Picknext(ref row);
-            if (tmpop == "") { Ntiming.meter = 4; }
-            else { Ntiming.meter = Convert.ToInt32(tmpop); }
-            tmpop = Picknext(ref row);
-            if (tmpop == "") { Ntiming.sample = new CSample((int)TSample.Normal, 0); }
-            else { Ntiming.sample = new CSample(Convert.ToInt32(tmpop), Convert.ToInt32(Picknext(ref row))); }
-            tmpop = Picknext(ref row);
-            if (tmpop == "") { Ntiming.volume = 1.0f; }
-            else { Ntiming.volume = Convert.ToSingle(tmpop) / 100; }
-            tmpop = Picknext(ref row);
-            if (tmpop == "") { Ntiming.type = 1; }
-            else { Ntiming.type = Convert.ToInt32(tmpop); }
-            tmpop = Picknext(ref row);
-            if (tmpop == "") { Ntiming.kiai = 0; }
-            else { Ntiming.kiai = Convert.ToInt32(tmpop); }
-            if (Ntiming.type == 1)
+            var ntiming = new Timing
             {
-                Ntiming.bpm = 60000 / Ntiming.bpm;
+                offset = (int) (Convert.ToDouble(Picknext(ref row))),
+                bpm = Convert.ToDouble(Picknext(ref row))
+            };
+            var tmpop = Picknext(ref row);
+            ntiming.meter = tmpop == "" ? 4 : Convert.ToInt32(tmpop);
+            tmpop = Picknext(ref row);
+            ntiming.sample = tmpop == "" ? new CSample((int)TSample.Normal, 0) : new CSample(Convert.ToInt32(tmpop), Convert.ToInt32(Picknext(ref row)));
+            tmpop = Picknext(ref row);
+            ntiming.volume = tmpop == "" ? 1.0f : Convert.ToSingle(tmpop)/100;
+            tmpop = Picknext(ref row);
+            ntiming.type = tmpop == "" ? 1 : Convert.ToInt32(tmpop);
+            tmpop = Picknext(ref row);
+            ntiming.kiai = tmpop == "" ? 0 : Convert.ToInt32(tmpop);
+            if (ntiming.type == 1)
+            {
+                ntiming.bpm = 60000 / ntiming.bpm;
             }
             else
             {
-                Ntiming.bpm = -100 / Ntiming.bpm;
+                ntiming.bpm = -100 / ntiming.bpm;
             }
-            return Ntiming;
+            return ntiming;
         }
         private enum OsuFileScanStatus
         {
-            VERSION_UNKNOWN,
-            GENERAL,
-            EDITOR,
-            METADATA,
-            DIFFICULTY,
-            VARIABLES,
-            EVENTS,
-            TIMINGPOINTS,
-            COLOURS,
-            HITOBJECTS
+            VersionUnknown,
+            General,
+            Editor,
+            Metadata,
+            Difficulty,
+            Variables,
+            Events,
+            TimingPoints,
+            Colours,
+            HitObjects
         }
         public void Setsb(string osbF)
         {
@@ -395,40 +346,39 @@ namespace OSUplayer.OsuFiles
                 Detailed = true;
                 return;
             }
-            var position = OsuFileScanStatus.VERSION_UNKNOWN;
+            var position = OsuFileScanStatus.VersionUnknown;
             try
             {
                 using (var reader = new StreamReader(Path))
                 {
                     Timingpoints = new List<Timing>();
                     HitObjects = new List<HitObject>();
-                    string row;
                     while (!reader.EndOfStream)
                     {
-                        row = reader.ReadLine();
-                        if (row.Trim() == "") { continue; }
+                        var row = reader.ReadLine();
+                        if (row == null || row.Trim() == "") { continue; }
                         if (row.StartsWith("//") || row.Length == 0) { continue; }
                         if (row.StartsWith("["))
                         {
-                            position = (OsuFileScanStatus)Enum.Parse(typeof(OsuFileScanStatus), (row.Substring(1, row.Length - 2).ToUpper()));
+                            position = (OsuFileScanStatus)Enum.Parse(typeof(OsuFileScanStatus), (row.Substring(1, row.Length - 2)),true);
                             continue;
                         }
                         switch (position)
                         {
-                            case OsuFileScanStatus.VERSION_UNKNOWN:
-                                Rawdata[(int)OSUfile.FileVersion] = row.Substring(17);
+                            case OsuFileScanStatus.VersionUnknown:
+                                _rawdata[(int)OSUfile.FileVersion] = row.Substring(17);
                                 break;
-                            case OsuFileScanStatus.GENERAL:
-                            case OsuFileScanStatus.METADATA:
-                            case OsuFileScanStatus.DIFFICULTY:
-                                var s = row.Split(new char[] { ':' }, 2);
-                                try { Rawdata[(int)(OSUfile)Enum.Parse(typeof(OSUfile), (s[0].Trim()))] = s[1].Trim(); }
+                            case OsuFileScanStatus.General:
+                            case OsuFileScanStatus.Metadata:
+                            case OsuFileScanStatus.Difficulty:
+                                var s = row.Split(new[] { ':' }, 2);
+                                try { _rawdata[(int)(OSUfile)Enum.Parse(typeof(OSUfile), (s[0].Trim()))] = s[1].Trim(); }
                                 catch { }
                                 break;
-                            case OsuFileScanStatus.EVENTS:
+                            case OsuFileScanStatus.Events:
                                 if (row.StartsWith("0,0,"))
                                 {
-                                    string str = row.Substring(5, row.Length - 6);
+                                    var str = row.Substring(5, row.Length - 6);
                                     if (str.Contains("\""))
                                     {
                                         str = str.Substring(0, str.IndexOf("\""));
@@ -438,17 +388,17 @@ namespace OSUplayer.OsuFiles
                                 else if (row.StartsWith("1,") || row.StartsWith("Video"))
                                 {
                                     HaveVideo = true;
-                                    string[] vdata = row.Split(new char[] { ',' });
+                                    var vdata = row.Split(',');
                                     VideoOffset = Convert.ToInt32(vdata[1]);
                                     Video = System.IO.Path.Combine(Location, vdata[2].Substring(1, vdata[2].Length - 2));
                                 }
-                                else if (row.StartsWith("3,") || row.StartsWith("2,")) { break; }
+                                else if (row.StartsWith("3,") || row.StartsWith("2,")) { }
                                 else { HaveSB = true; }
                                 break;
-                            case OsuFileScanStatus.TIMINGPOINTS:
+                            case OsuFileScanStatus.TimingPoints:
                                 Timingpoints.Add(Settiming(row));
                                 break;
-                            case OsuFileScanStatus.HITOBJECTS:
+                            case OsuFileScanStatus.HitObjects:
                                 HitObjects.Add(Setobject(row));
                                 break;
                         }
@@ -493,7 +443,7 @@ namespace OSUplayer.OsuFiles
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public override bool Equals(Object obj)
+        public override bool Equals(object obj)
         {
             var map = (Beatmap)obj;
             if ((map.BeatmapID == BeatmapID) && (BeatmapID != 0))
@@ -508,14 +458,14 @@ namespace OSUplayer.OsuFiles
         public override string ToString() { return Version; }
         public string NameToString()
         {
-            return (String.Format("{0} - {1} ({2}) [{3}]", Artist, Title, Version, Creator));
+            return ($"{Artist} - {Title} ({Version}) [{Creator}]");
         }
         public string GetHash()
         {
             if (Hash != null) { return Hash; }
-            if (String.IsNullOrEmpty(Path)) { Path = System.IO.Path.Combine(Location, Name); }
+            if (IsNullOrEmpty(Path)) { Path = System.IO.Path.Combine(Location, Name); }
             if (!File.Exists(Path)) { Hash = ""; }      
-            string strHashData = "";
+            string strHashData;
             using (var md5Hash = MD5.Create())
             {
                 using (var fs = new FileStream(Path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
@@ -530,19 +480,24 @@ namespace OSUplayer.OsuFiles
         }
         private static string GetSafeFilename(string filename)
         {
-            return string.Join("_", filename.Split(System.IO.Path.GetInvalidFileNameChars()));
+            return Join("_", filename.Split(System.IO.Path.GetInvalidFileNameChars()));
         }
         public void SaveAudio(string toLocation)
         {
-            var ext = System.IO.Path.GetExtension(Rawdata[(int)OSUfile.AudioFilename]);
+            var ext = System.IO.Path.GetExtension(_rawdata[(int)OSUfile.AudioFilename]);
             var toName = System.IO.Path.Combine(toLocation, GetSafeFilename(Title + ext));
             if (File.Exists(toName)) toName = System.IO.Path.Combine(toLocation, GetSafeFilename(Title + "[" + Version + "]" + ext));
             File.Copy(Audio, toName, true);
             try
             {
-                var file = new Mp3File(toName);
-                file.TagHandler.Artist = Artist;
-                file.TagHandler.Title = Title;
+                var file = new Mp3File(toName)
+                {
+                    TagHandler =
+                    {
+                        Artist = Artist,
+                        Title = Title
+                    }
+                };
                 file.Update();
             }
             catch (Exception)
