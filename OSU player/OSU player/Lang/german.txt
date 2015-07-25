@@ -1,4 +1,4 @@
-Language_name=German
+ÔªøLanguage_name=German
 
 ##Main_Menu
 Main_File_Menu_Text=Datei(&F)
@@ -23,9 +23,9 @@ Main_Option_Play_Video_Text=Background Video
 Main_Option_PlayMode_Text=Play mode
 Main_Option_PlayMode_Normal_Text=Normalerweise
 Main_Option_PlayMode_Repeat_Text=Wiederholt
-Main_Option_PlayMode_Random_Text=Zuf?llig
+Main_Option_PlayMode_Random_Text=Zuf√§llig
 Main_Option_Sync_QQ_Text=QQ Status Sync
-Main_Option_Select_QQ_Text=Ausw?hlt QQ
+Main_Option_Select_QQ_Text=Ausw√§hlt QQ
 Main_Option_Play_SB_Text=StoryBoard
 Main_Option_Show_Popup_Text=System tray PopUp
 Main_About_Text=About(&A)
@@ -35,7 +35,7 @@ Main_QQ_Hint_Label_Text=Current Sync QQ:
 ##Main_Header
 Main_Music_Hint_Label_Text=Musik
 Main_Fx_Hint_Label_Text=Fx
-Main_Mini_Switcher_Text=°˝
+Main_Mini_Switcher_Text=‚Üì
 Main_Collections_Text=Switch Collections
 Main_CurrentList_Text=Current Playlist:
 
@@ -43,8 +43,8 @@ Main_CurrentList_Text=Current Playlist:
 Main_Play_Text=Spiel
 Main_Pause_Text=Pause
 Main_Stop_Text=Stopp
-Main_PlayNext_Text=°˙
-Main_PlayPrev_Text=°˚
+Main_PlayNext_Text=‚Üí
+Main_PlayPrev_Text=‚Üê
 Main_Jump_OSU_Text=O
 Main_Volume_Hint_Label_Text=Vol
 
@@ -53,7 +53,7 @@ Main_PageView_Page1_Text=Info
 Main_ListDetail_Key_Text=Key
 Main_ListDetail_Value_Text=Value
 Main_ListDetail_Title=Nach Title
-Main_ListDetail_Artist=Nach K®πnstler
+Main_ListDetail_Artist=Nach K√ºnstler
 Main_ListDetail_Mapper=Nach Ersteller
 Main_ListDetail_Source=Nach Source
 Main_ListDetail_Mode=Nach Modus
@@ -71,14 +71,14 @@ Main_Option_Play_SB_Box_Text=StoryBoard
 
 ##Main_RightClick
 Main_PlayList_RightClick_Copy_Current_Name_Text=Kopiert aktuelle song name
-Main_PlayList_RightClick_Delete_One_Text=L?schen
+Main_PlayList_RightClick_Delete_One_Text=L√∂schen
 Main_PlayList_RightClick_Export_MP3_Text=Exportiert aktuelle MP3
 Main_PlayList_RightClick_Open_In_OSU_Text=Open in OSU
 
 ##Tips
 Core_Init_Text=Initialisieren...
 Core_Error_Osupath_Text=Auto detect osu! path fail! Please specify it manually!
-Core_Osupath_Tip_Text=Ausw?hlt der Ordner, die osu!.exe erh?ltet
+Core_Osupath_Tip_Text=Ausw√§hlt der Ordner, die osu!.exe erh√§ltet
 Core_Init_Finish_Text=INitialisieren abgeschlossen. {0} Songs gefunden
 Core_Missing_Song_Text=Musik Datei fehlt
 Core_Missing_MP3_Text=Sound Datei fehlt
@@ -111,13 +111,13 @@ ChooseColl_PlayListCurrentCount_Text=Anzahl der Songs in der aktuellen Playlist:
 
 ##Update
 Update_Error_Text=Profil aktualisieren Fehler!
-Update_Normal_Text=Neue Version: {0} freigegebt!~\nNeue Funktionen oder ?nderungen:\n{1}
-Update_Downloading_Text=Herunterladen updates°≠
-Update_Backgrounddownload_Text=Updates w®πrde im Hintergrung heruntergeladen.
-Update_Restart_Text=Das Programm w®πrde neu starten, um die Aktualisierung zu beenden.
+Update_Normal_Text=Neue Version: {0} freigegebt!~\nNeue Funktionen oder √Ñnderungen:\n{1}
+Update_Downloading_Text=Herunterladen updates...
+Update_Backgrounddownload_Text=Updates w√ºrde im Hintergrung heruntergeladen.
+Update_Restart_Text=Das Programm w√ºrde neu starten, um die Aktualisierung zu beenden.
 
 ##DelDulp
-DelDulp_DeleteSelected_Text=L?schen die ausgew?hlte Datei
+DelDulp_DeleteSelected_Text=L√∂schen die ausgew√§hlte Datei
 DelDulp_Cancel_Text=Absagen
 DelDulp_StartSearch_Text=Starten Suchen
 DelDulp_AutoSelect_Text=Auto Select
@@ -127,17 +127,17 @@ Get_Song_Info_Text=Sammeln songs Information: {0}/{1}
 Scan_Duplicate_Text=Suchen wiederholte beatmaps: {0}/{1}
 Scan_Zero_Text=Wiederholte beatmap existiert nicht!
 Scan_Complete_Text=Scannen abgeschlossen. {0} wiederholte songs gefunden.
-Delete_All_Text={0} items werden ausgew?hlt, fortsetzen?
-Delete_Comfirm_Text=L?schen {0} songs. fortsetzen?
-Delete_Complete_Text={0} wiederholte songs l?scht.
+Delete_All_Text={0} items werden ausgew√§hlt, fortsetzen?
+Delete_Comfirm_Text=L√∂schen {0} songs. fortsetzen?
+Delete_Complete_Text={0} wiederholte songs l√∂scht.
 
 ##TrayIcon
-TrayIcon_Aritst_Text=Aktuelle K®πnstler:
+TrayIcon_Aritst_Text=Aktuelle K√ºnstler:
 TrayIcon_Title_Text=Aktuelle Titel:
 TrayIcon_Diff_Text=Aktuelle Schwierigkeit:
 TrayIcon_Play_Pause_Text=Play/Pause
 TrayIcon_PlayNext_Text=Play weiter
-TrayIcon_PlayPrev_Text=Play fr®πher
+TrayIcon_PlayPrev_Text=Play fr√ºher
 TrayIcon_Exit_Text=Beenden
 
 ##General
