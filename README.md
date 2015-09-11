@@ -1,8 +1,8 @@
 OSUplayer---A Music Player 4 All Osuers!
 ===========
-Written in C# with .Net Freamwork 3.5
+Written in C# with .Net Framework 3.5
 
-## Dependences
+## Dependencies
 [Bass&Bass.Net](http://www.un4seen.com/),
 [gTrackBar](http://www.codeproject.com/Articles/35104/gTrackBar-A-Custom-TrackBar-UserControl-VB-NET),
 [ObjectListView](http://www.codeproject.com/Articles/16009/A-Much-Easier-to-Use-ListView),
@@ -14,8 +14,8 @@ Written in C# with .Net Freamwork 3.5
 
 The last 2 can be found under osu! install folder.
 ## Build Instructions
-* Create your own version of `PrivateConfig.cs` containing [Bass liscense](http://bass.radio42.com/bass_register.html).
-* Be sure every dependences have been installed on your computer(or can be referenced)
+* Create your own version of `PrivateConfig.cs` containing [Bass license](http://bass.radio42.com/bass_register.html).
+* Be sure that every dependency has been installed on your computer (or can be referenced)
 (gTrackBar and ObjectListView are already contained)
 ##LICENSE
 This code is licensed under GPLv3
