@@ -171,6 +171,14 @@ namespace OSUplayer.OsuFiles
             }
             return count < 0 ? null : new char[0];
         }
+        public IDictionary<T, U> ReadDictionary<T, U>()
+        {
+            int count = ReadInt32();
+            if (count < 0) return null;
+            IDictionary<T, U> d = new Dictionary<T, U>();
+            for (int i = 0; i < count; i++) d[(T)ReadVar()] = (U)ReadVar();
+            return d;
+        }
         public object ReadVar()
         {
             switch (ReadByte())
@@ -283,18 +291,19 @@ namespace OSUplayer.OsuFiles
                 }
             }
         }
-        public static void ReadDb(string file)
+        public static void ReadDb(string file, string game_ver="latest")
         {
             using (var fs = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {
                 var reader = new BinaryReader(fs);
                 var version = reader.ReadInt32();  //version
                 reader.ReadInt32(); //folders
-                reader.ReadInt32();
-                reader.ReadInt32();
-                reader.ReadByte();
+                reader.ReadBoolean(); //lock cilent
+                reader.ReadDateTime(); //lock restore
                 reader.ReadString(); //player
                 int mapcount = reader.ReadInt32();
+                if (game_ver=="latest")
+                    reader.ReadInt32(); //why???
                 var tmpbm = new Beatmap();
                 var tmpset = new BeatmapSet();
                 for (int i = 0; i < mapcount; i++)
@@ -340,15 +349,7 @@ namespace OSUplayer.OsuFiles
                     {
                         for (int k = 0; k < 4; k++)
                         {
-                            var num = reader.ReadInt32();
-                            if (num >= 0)
-                            {
-                                for (int xxoo = 0; xxoo < num; xxoo++)
-                                {
-                                    reader.ReadVar();
-                                    reader.ReadVar();
-                                }
-                            }
+                            reader.ReadDictionary<int, double>();
                         }
                     }
                     reader.ReadInt32(); //playtime
@@ -395,6 +396,8 @@ namespace OSUplayer.OsuFiles
                     }
                     reader.ReadInt32();//LastEditTime
                     reader.ReadByte();//ManiaSpeed
+                    if (game_ver == "latest")
+                        reader.ReadInt32(); //why???
                     if (tmpset.count == 0)
                     {
                         tmpset.Add(tmpbm);
@@ -410,8 +413,8 @@ namespace OSUplayer.OsuFiles
                             if (!Core.Allsets.ContainsKey(tmpset.GetHash())) Core.Allsets.Add(tmpset.GetHash(), tmpset);
                             else
                             {
-                                Core.Allsets[tmpset.GetHash()]= tmpset;
-                            }                      
+                                Core.Allsets[tmpset.GetHash()] = tmpset;
+                            }
                             tmpset = new BeatmapSet();
                             tmpset.Add(tmpbm);
                         }

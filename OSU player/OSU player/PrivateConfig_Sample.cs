@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OSUplayer
+﻿namespace OSUplayer
 {
     static class PrivateConfig
     {

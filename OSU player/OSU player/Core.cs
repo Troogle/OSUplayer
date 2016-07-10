@@ -275,7 +275,16 @@ namespace OSUplayer
             {
                 if (File.Exists(Path.Combine(Settings.Default.OSUpath, "osu!.db")))
                 {
-                    OsuDB.ReadDb(Path.Combine(Settings.Default.OSUpath, "osu!.db"));
+                    try
+                    {
+                        OsuDB.ReadDb(Path.Combine(Settings.Default.OSUpath, "osu!.db"));
+                    }
+                    catch (Exception)
+                    {
+                        NotifySystem.Showtip(1000, LanguageManager.Get("OSUplayer"), "Fallback client detected, reloading...");
+                        OsuDB.ReadDb(Path.Combine(Settings.Default.OSUpath, "osu!.db"), "fallback");
+                    }
+
                 }
                 Initplaylist();
                 NotifySystem.Showtip(1000, LanguageManager.Get("OSUplayer"), string.Format(LanguageManager.Get("Core_Init_Finish_Text"), Allsets.Count));

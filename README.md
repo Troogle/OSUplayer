@@ -15,8 +15,8 @@ Written in C# with .Net Framework 3.5
 The last 2 can be found under osu! install folder.
 ## Build Instructions
 * Create your own version of `PrivateConfig.cs` containing [Bass license](http://bass.radio42.com/bass_register.html).
-* Be sure that every dependency has been installed on your computer (or can be referenced)
-(gTrackBar and ObjectListView are already contained)
+* Download [dlls.zip](https://drive.google.com/file/d/0BynON0JH3S_ALXJuSFJGUWRLRGc/view?usp=sharing), extract to any place and set reference to appropriate file
+
 ##LICENSE
 This code is licensed under GPLv3
 
