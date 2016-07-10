@@ -1,6 +1,6 @@
 ﻿<Xml>
-<Version>5.62</Version>
-<Text>Ver 5.62\n一个紧急bug fix\nVer 5.60\n支持DT/NC播放\n支持播放上一曲\n支持列表排序\n增加日语语言\n修正最小化时CPU占用率过高\nVer 5.50\n支持导出当前列表的MP3\n右击当前歌曲可以在osu中打开或者复制名称\n增加英文语言</Text>
+<Version>5.63</Version>
+<Text>Ver 5.63\n不知道还有没有人用2333\n修复了无法打开latest数据库的问题</Text>
 <Full>0</Full>
 <Link><![CDATA[http://pan.baidu.com/s/1sjygyoX]]></Link>
 </Xml>
